@@ -8,3 +8,4 @@ beautifulsoup4>=4.12
 lxml>=4.9
 scipy>=1.10
 urllib3>=2.0
+gunicorn>=21.0

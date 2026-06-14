@@ -4,7 +4,7 @@
  */
 
 // ── Demo Mode Detection ───────────────────────────────────────────
-const USE_DEMO = true; // Set false when backend is running
+const USE_DEMO = false; // Set true for offline standalone mode
 
 // ── Team Data ──────────────────────────────────────────────────────
 const TEAMS = {
