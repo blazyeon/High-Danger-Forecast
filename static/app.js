@@ -324,9 +324,9 @@ function updateLogos() {
     const hLogo = document.getElementById('homeLogo');
     const aLogo = document.getElementById('awayLogo');
 
-    if (home) { hLogo.src = `../Images/${home}.png`; hLogo.style.display = 'block'; hLogo.onerror = () => hLogo.style.display = 'none'; }
+    if (home) { hLogo.src = `/api/logos/${home}.png`; hLogo.style.display = 'block'; hLogo.onerror = () => hLogo.style.display = 'none'; }
     else hLogo.style.display = 'none';
-    if (away) { aLogo.src = `../Images/${away}.png`; aLogo.style.display = 'block'; aLogo.onerror = () => aLogo.style.display = 'none'; }
+    if (away) { aLogo.src = `/api/logos/${away}.png`; aLogo.style.display = 'block'; aLogo.onerror = () => aLogo.style.display = 'none'; }
     else aLogo.style.display = 'none';
 }
 
@@ -440,7 +440,7 @@ function renderResults(sim, homeAbbr, awayAbbr) {
     html += `<div class="result-banner">`;
     html += `<div class="result-team-block">
         <div class="result-badge home">HOME</div>
-        <img class="result-team-logo" src="../Images/${homeAbbr}.png" alt="${homeName}" onerror="this.style.display='none'">
+        <img class="result-team-logo" src="/api/logos/${homeAbbr}.png" alt="${homeName}" onerror="this.style.display='none'">
         <div class="result-team-name">${homeName}</div>
         <div class="result-team-abbr">${homeAbbr}</div>
     </div>`;
@@ -450,7 +450,7 @@ function renderResults(sim, homeAbbr, awayAbbr) {
     </div>`;
     html += `<div class="result-team-block">
         <div class="result-badge away">AWAY</div>
-        <img class="result-team-logo" src="../Images/${awayAbbr}.png" alt="${awayName}" onerror="this.style.display='none'">
+        <img class="result-team-logo" src="/api/logos/${awayAbbr}.png" alt="${awayName}" onerror="this.style.display='none'">
         <div class="result-team-name">${awayName}</div>
         <div class="result-team-abbr">${awayAbbr}</div>
     </div>`;
@@ -645,7 +645,7 @@ async function showGameDetail(gameId) {
         let html = `<div class="modal-header">
             <div class="modal-teams">
                 <div class="modal-team">
-                    <img src="../Images/${awayAbbr}.png" alt="${awayName}" onerror="this.style.display='none'">
+                    <img src="/api/logos/${awayAbbr}.png" alt="${awayName}" onerror="this.style.display='none'">
                     <div class="modal-team-name">${awayName}</div>
                     <div class="modal-team-abbr">${awayAbbr}</div>
                 </div>
@@ -654,7 +654,7 @@ async function showGameDetail(gameId) {
                     <div class="modal-status">${statusText}</div>
                 </div>
                 <div class="modal-team">
-                    <img src="../Images/${homeAbbr}.png" alt="${homeName}" onerror="this.style.display='none'">
+                    <img src="/api/logos/${homeAbbr}.png" alt="${homeName}" onerror="this.style.display='none'">
                     <div class="modal-team-name">${homeName}</div>
                     <div class="modal-team-abbr">${homeAbbr}</div>
                 </div>
