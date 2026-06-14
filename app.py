@@ -1,0 +1,490 @@
+"""
+NHL Game Predictor — Flask backend.
+Serves the dark-themed SPA frontend and provides REST API endpoints
+for team data, predictions, lookups, stats, and player props.
+"""
+from __future__ import annotations
+
+import logging
+from datetime import date as _date, timedelta
+from pathlib import Path
+from typing import Any, Dict, Optional
+
+import numpy as np
+import pandas as pd
+from flask import Flask, render_template, jsonify, request, send_from_directory
+
+from NHL.AppState import (
+    get_app_state, get_state_info, check_elo_data_availability,
+    get_team_elo, get_team_recent_form_rating,
+)
+from NHL.Config import (
+    DIVISIONS, TEAM_ABBR_MAPPING, NST_ABBR_TO_FULL, NHL_SEASON_START_MONTH,
+    DEFAULT_SIMULATIONS, DEFAULT_TREND_GAMES,
+)
+from NHL.MatchupUtils import (
+    build_team_options, build_teams_api_data,
+    score_combo_distribution, choose_non_tie_split,
+    build_skater_stats_df, merge_goalie_options,
+    detect_game_type,
+)
+from NHL.Simulation import simulate_matchup, get_goalie_table
+from NHL.Prediction import season_skater_rates_from_nst
+from NHL.ApiScrape import (
+    get_confirmed_or_predicted_lineup,
+    get_roster_goalies_for_override,
+    get_games_on_date, get_boxscore,
+)
+from NHL.Errors import safe_api_call
+from NHL.Utils import (
+    season_from_date, get_data_season_for_game,
+    sanitize_text, format_initial_last,
+)
+from NHL.OddsAPI import fetch_nhl_player_props_by_date, OddsAPIError
+from NST.Cache import get_nst_table_from_url
+from NHL.AdvancedStats import build_team_url, build_player_url, _season_options
+
+logger = logging.getLogger(__name__)
+
+# ── Flask app ──────────────────────────────────────────────────────────
+
+app = Flask(
+    __name__,
+    template_folder=str(Path(__file__).parent / "templates"),
+    static_folder=str(Path(__file__).parent / "static"),
+)
+
+_state_initialised = False
+
+
+@app.before_request
+def _ensure_state():
+    global _state_initialised
+    if not _state_initialised:
+        try:
+            get_app_state()
+        except Exception as e:
+            logger.error(f"State init error: {e}")
+        _state_initialised = True
+
+
+# ── JSON helper ─────────────────────────────────────────────────────────
+
+def _make_json_safe(obj: Any) -> Any:
+    """Recursively convert numpy/pandas types to JSON-safe Python types."""
+    if isinstance(obj, dict):
+        return {k: _make_json_safe(v) for k, v in obj.items()}
+    if isinstance(obj, (list, tuple)):
+        return [_make_json_safe(v) for v in obj]
+    if isinstance(obj, (np.integer,)):
+        return int(obj)
+    if isinstance(obj, (np.floating,)):
+        return float(obj)
+    if isinstance(obj, np.ndarray):
+        return obj.tolist()
+    if isinstance(obj, pd.DataFrame):
+        return obj.to_dict(orient="records")
+    if isinstance(obj, float) and (pd.isna(obj) if hasattr(pd, 'isna') else False):
+        return None
+    if isinstance(obj, bool):
+        return obj
+    return obj
+
+
+# ── Pages ──────────────────────────────────────────────────────────────
+
+@app.route("/")
+def index():
+    return render_template("index.html")
+
+
+# ── Logo serving ───────────────────────────────────────────────────────
+
+IMAGES_DIR = Path(__file__).parent / "Images"
+
+
+@app.route("/api/logos/<team>.png")
+def team_logo(team: str):
+    """Serve team logo PNG from the Images directory."""
+    abbr = TEAM_ABBR_MAPPING.get(team.upper(), team.upper())
+    filename = f"{abbr}.png"
+    logo_path = IMAGES_DIR / filename
+    if logo_path.exists():
+        return send_from_directory(str(IMAGES_DIR), filename)
+    fallback = IMAGES_DIR / f"{team.upper()}.png"
+    if fallback.exists():
+        return send_from_directory(str(IMAGES_DIR), f"{team.upper()}.png")
+    return "", 404
+
+
+# ── API: Teams ─────────────────────────────────────────────────────────
+
+@app.route("/api/teams")
+def api_teams():
+    """Return team list with divisions, abbreviations, and full names."""
+    data = build_teams_api_data()
+    return jsonify({"divisions": data})
+
+
+# ── API: Goalies ────────────────────────────────────────────────────────
+
+@app.route("/api/goalies/<team>/<date_str>")
+def api_goalies(team: str, date_str: str):
+    """Return roster goalies for a team on a given date."""
+    try:
+        abbr = TEAM_ABBR_MAPPING.get(team.upper(), team.upper())
+        result = get_roster_goalies_for_override(abbr, date_str)
+        if result is None:
+            result = []
+        return jsonify({"goalies": result})
+    except Exception as e:
+        logger.error(f"Error fetching goalies for {team}: {e}")
+        return jsonify({"error": str(e)}), 500
+
+
+# ── API: Predict ───────────────────────────────────────────────────────
+
+@app.route("/api/predict", methods=["POST"])
+def api_predict():
+    """
+    Run a full simulation for a matchup.
+
+    JSON body:
+    {
+        "home_team": "TOR",
+        "away_team": "MTL",
+        "date": "2025-01-15",
+        "simulations": 10000,
+        "trend_games": 25,
+        "nst_window": 14,
+        "season_type": 2,
+        "home_goalie": null,
+        "away_goalie": null
+    }
+    """
+    try:
+        data = request.get_json(force=True)
+        home_abbr = data.get("home_team", "").upper()
+        away_abbr = data.get("away_team", "").upper()
+
+        if not home_abbr or not away_abbr:
+            return jsonify({"error": "home_team and away_team are required"}), 400
+
+        home_raw = TEAM_ABBR_MAPPING.get(home_abbr, home_abbr)
+        away_raw = TEAM_ABBR_MAPPING.get(away_abbr, away_abbr)
+
+        date_str = data.get("date")
+        game_date = _date.fromisoformat(date_str) if date_str else _date.today()
+
+        stype = data.get("season_type", 2)
+        sims = data.get("simulations", DEFAULT_SIMULATIONS)
+        trend_games = data.get("trend_games", DEFAULT_TREND_GAMES)
+        nst_days_window = data.get("nst_window")
+        home_goalie = data.get("home_goalie") or None
+        away_goalie = data.get("away_goalie") or None
+
+        game_season, data_season, use_previous = get_data_season_for_game(
+            game_date, NHL_SEASON_START_MONTH
+        )
+
+        fd_str = td_str = ""
+        if nst_days_window:
+            data_season_year = int(data_season[:4])
+            season_end_date = _date(data_season_year + 1, 4, 30)
+            td_day = min(game_date - timedelta(days=1), _date.today(), season_end_date)
+            fd_day = td_day - timedelta(days=nst_days_window - 1)
+            fd_str = fd_day.isoformat()
+            td_str = td_day.isoformat()
+
+        # Get Elo ratings
+        try:
+            home_elo_base = get_team_elo(home_raw)
+            away_elo_base = get_team_elo(away_raw)
+            if nst_days_window:
+                home_elo = get_team_recent_form_rating(home_raw, days=nst_days_window)
+                away_elo = get_team_recent_form_rating(away_raw, days=nst_days_window)
+            else:
+                home_elo = home_elo_base
+                away_elo = away_elo_base
+        except Exception as e:
+            logger.warning(f"Failed to get Elo ratings: {e}")
+            home_elo = home_elo_base = 1500.0
+            away_elo = away_elo_base = 1500.0
+
+        # Get lineups
+        away_lineup_full = safe_api_call(
+            get_confirmed_or_predicted_lineup,
+            away_raw, game_date.isoformat(), None,
+            service_name="NHL Lineup API (Away)",
+            fallback={"forwards": [], "defense": [], "goalies": []},
+        )
+        home_lineup_full = safe_api_call(
+            get_confirmed_or_predicted_lineup,
+            home_raw, game_date.isoformat(), None,
+            service_name="NHL Lineup API (Home)",
+            fallback={"forwards": [], "defense": [], "goalies": []},
+        )
+
+        away_skaters = away_lineup_full.get("forwards", []) + away_lineup_full.get("defense", [])
+        home_skaters = home_lineup_full.get("forwards", []) + home_lineup_full.get("defense", [])
+
+        away_sk = [
+            {"Name": format_initial_last(sanitize_text(p.get("name", ""))),
+             "Position": sanitize_text(p.get("position", "")),
+             "Confirmed": p.get("confirmed", False)}
+            for p in away_skaters
+        ]
+        home_sk = [
+            {"Name": format_initial_last(sanitize_text(p.get("name", ""))),
+             "Position": sanitize_text(p.get("position", "")),
+             "Confirmed": p.get("confirmed", False)}
+            for p in home_skaters
+        ]
+        df_away_sk = pd.DataFrame(away_sk, columns=["Name", "Position", "Confirmed"])
+        df_home_sk = pd.DataFrame(home_sk, columns=["Name", "Position", "Confirmed"])
+
+        # NST skater rates
+        season_skill_cur = safe_api_call(
+            season_skater_rates_from_nst,
+            data_season, stype,
+            fd=fd_str, td=td_str,
+            service_name="NST Skater Rates",
+            fallback={},
+        )
+
+        # Run simulation
+        sim = simulate_matchup(
+            home_abbr=home_raw,
+            away_abbr=away_raw,
+            game_date=game_date,
+            stype=stype,
+            sims=sims,
+            trend_games=trend_games,
+            use_recent_window_days=nst_days_window,
+            season_skill_for_lineups=season_skill_cur if season_skill_cur else None,
+            home_lineup_df=df_home_sk if not df_home_sk.empty else None,
+            away_lineup_df=df_away_sk if not df_away_sk.empty else None,
+            selected_home_goalie=home_goalie,
+            selected_away_goalie=away_goalie,
+            home_elo_override=home_elo,
+            away_elo_override=away_elo,
+        )
+
+        result = _make_json_safe(sim)
+        result["home_lineup"] = home_lineup_full
+        result["away_lineup"] = away_lineup_full
+        result["home_elo_base"] = float(home_elo_base)
+        result["away_elo_base"] = float(away_elo_base)
+        result["home_elo_adj"] = float(home_elo)
+        result["away_elo_adj"] = float(away_elo)
+        result["data_season"] = data_season
+
+        return jsonify(result)
+
+    except Exception as e:
+        logger.error(f"Prediction error: {e}", exc_info=True)
+        return jsonify({"error": str(e)}), 500
+
+
+# ── API: State ─────────────────────────────────────────────────────────
+
+@app.route("/api/state")
+def api_state():
+    """Return application state info (Elo status, model status, etc.)."""
+    try:
+        state_info = get_state_info()
+        elo_check = check_elo_data_availability()
+        return jsonify({"state": state_info, "elo": elo_check})
+    except Exception as e:
+        logger.error(f"State API error: {e}")
+        return jsonify({"error": str(e)}), 500
+
+
+# ── API: Lookup ────────────────────────────────────────────────────────
+
+@app.route("/api/lookup")
+def api_lookup():
+    """
+    Search for games on a date.
+
+    Query params:
+        date (required): YYYY-MM-DD
+    """
+    from NHL.Lookup import (
+        get_team_full_name, display_abbr_for_game,
+    )
+
+    date_str = request.args.get("date")
+    if not date_str:
+        return jsonify({"error": "date parameter is required (YYYY-MM-DD)"}), 400
+
+    try:
+        game_date = _date.fromisoformat(date_str)
+        games = safe_api_call(
+            get_games_on_date, game_date,
+            service_name="NHL Schedule API", fallback=[],
+        )
+
+        result_games = []
+        if games:
+            for game in games:
+                home_abbr = display_abbr_for_game(
+                    game.get("homeTeam", {}).get("abbrev",
+                    game.get("homeTeam", {}).get("name", ""))
+                )
+                away_abbr = display_abbr_for_game(
+                    game.get("awayTeam", {}).get("abbrev",
+                    game.get("awayTeam", {}).get("name", ""))
+                )
+                result_games.append({
+                    "id": game.get("id"),
+                    "home": home_abbr,
+                    "away": away_abbr,
+                    "home_name": get_team_full_name(game.get("homeTeam", {})),
+                    "away_name": get_team_full_name(game.get("awayTeam", {})),
+                    "startTime": game.get("startTimeUTC", game.get("gameDate", "")),
+                    "state": game.get("gameState",
+                              game.get("status", {}).get("abstractGameState", "")),
+                })
+
+        return jsonify({"date": date_str, "games": result_games})
+    except Exception as e:
+        logger.error(f"Lookup error: {e}", exc_info=True)
+        return jsonify({"error": str(e)}), 500
+
+
+# ── API: Stats ─────────────────────────────────────────────────────────
+
+@app.route("/api/stats/teams")
+def api_stats_teams():
+    """Return NST team statistics."""
+    season = request.args.get("season", "")
+    stype = int(request.args.get("stype", "2"))
+    return _fetch_nst_stats("teams", season, stype)
+
+
+@app.route("/api/stats/skaters")
+def api_stats_skaters():
+    """Return NST skater statistics."""
+    season = request.args.get("season", "")
+    stype = int(request.args.get("stype", "2"))
+    return _fetch_nst_stats("skaters", season, stype)
+
+
+@app.route("/api/stats/goalies")
+def api_stats_goalies():
+    """Return NST goalie statistics."""
+    season = request.args.get("season", "")
+    stype = int(request.args.get("stype", "2"))
+    return _fetch_nst_stats("goalies", season, stype)
+
+
+def _fetch_nst_stats(table_type: str, season: str, stype: int):
+    """Fetch NST stats table and return as JSON."""
+    try:
+        url = build_team_url(season, stype) if table_type == "teams" else \
+               build_player_url(season, stype, pos="S" if table_type == "skaters" else "G")
+        df = get_nst_table_from_url(url)
+        if df is None or df.empty:
+            return jsonify({"error": f"No {table_type} data available"}), 404
+        data = df.to_dict(orient="records")
+        return jsonify({"type": table_type, "data": _make_json_safe(data)})
+    except Exception as e:
+        logger.error(f"Stats API error ({table_type}): {e}")
+        return jsonify({"error": str(e)}), 500
+
+
+# ── API: Player Props ─────────────────────────────────────────────────
+
+@app.route("/api/player-props/<date_str>")
+def api_player_props(date_str: str):
+    """Return player prop odds for a given date."""
+    try:
+        from NHL.PlayerLinePredictor import (
+            load_player_props_multi_day, calculate_hit_probability,
+            american_to_decimal, implied_probability, _shape_player_df,
+            _best_prices, DEFAULT_PLAYER_MARKETS,
+        )
+        from NHL.AppState import get_player_elo
+
+        game_date = _date.fromisoformat(date_str)
+        markets = request.args.getlist("markets")
+        if not markets:
+            markets = list(DEFAULT_PLAYER_MARKETS)
+
+        props = load_player_props_multi_day(tuple(markets), game_date)
+        if not props:
+            return jsonify({"date": date_str, "props": []})
+
+        result = _make_json_safe(list(props))
+        return jsonify({"date": date_str, "props": result})
+
+    except Exception as e:
+        logger.error(f"Player props error: {e}", exc_info=True)
+        return jsonify({"error": str(e)}), 500
+
+
+# ── API: Season Options ────────────────────────────────────────────────
+
+@app.route("/api/seasons")
+def api_seasons():
+    """Return available season options for stats."""
+    options = _season_options()
+    return jsonify({"seasons": [{"label": label, "key": key} for label, key in options]})
+
+
+# ── API: NST Cached JSON ────────────────────────────────────────────────
+
+NST_DATA_DIR = Path(__file__).parent / "static" / "data"
+
+
+def _load_nst_json(table_type: str) -> Optional[Dict[str, Any]]:
+    """Load cached NST JSON from disk."""
+    path = NST_DATA_DIR / f"nst_{table_type}_stats.json"
+    if not path.exists():
+        return None
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except Exception as e:
+        logger.error(f"Failed to load NST JSON {path}: {e}")
+        return None
+
+
+@app.route("/api/nst/teams")
+def api_nst_teams():
+    """Return cached NST team stats JSON."""
+    data = _load_nst_json("team")
+    if data is None:
+        return jsonify({"error": "NST team stats not available. Run update_nst_stats.py or wait for GitHub Actions."}), 404
+    return jsonify(data)
+
+
+@app.route("/api/nst/skaters")
+def api_nst_skaters():
+    """Return cached NST skater stats JSON."""
+    data = _load_nst_json("skater")
+    if data is None:
+        return jsonify({"error": "NST skater stats not available. Run update_nst_stats.py or wait for GitHub Actions."}), 404
+    return jsonify(data)
+
+
+@app.route("/api/nst/goalies")
+def api_nst_goalies():
+    """Return cached NST goalie stats JSON."""
+    data = _load_nst_json("goalie")
+    if data is None:
+        return jsonify({"error": "NST goalie stats not available. Run update_nst_stats.py or wait for GitHub Actions."}), 404
+    return jsonify(data)
+
+
+# ── Entry point ────────────────────────────────────────────────────────
+
+if __name__ == "__main__":
+    import argparse
+    parser = argparse.ArgumentParser(description="NHL Game Predictor")
+    parser.add_argument("--port", type=int, default=8501, help="Port to run on")
+    parser.add_argument("--host", type=str, default="0.0.0.0", help="Host to bind to")
+    parser.add_argument("--debug", action="store_true", help="Enable debug mode")
+    args = parser.parse_args()
+    app.run(host=args.host, port=args.port, debug=args.debug)

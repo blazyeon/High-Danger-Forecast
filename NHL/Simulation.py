@@ -1,0 +1,1337 @@
+"""
+Simulation and analytics module with:
+- PURE data-driven home/away advantage (no artificial floors)
+- Automatic injury impact calculation from player stats
+- Current season Elo integration (2025-2026 only) with SMART ML GUARD
+- Rest/travel fatigue and penalty differential
+- Goalie impact with optional GSAA-like adjustment
+- Correlated goal modeling (shared factor)
+- Score-effects approximation
+- Improved empty net model
+- Calibration hook
+- Expanded outputs: totals distribution, reg/OT/SO probs, confidence, component breakdown
+
+UPDATED: Home advantage purely from actual home/away records (no floors/ceilings).
+UPDATED: Rangers-style road warriors can have advantage over weak home teams.
+UPDATED: ML Guard Rail blends predictions instead of overriding.
+UPDATED: Reduced venue advantage scaling for more realistic predictions.
+UPDATED: Score effects applied AFTER ML adjustments to prevent double-counting.
+UPDATED: Added sanity checks for extreme predictions.
+FIXED: Team matching with proper NST mapping and reverse lookup.
+FIXED: Safe default handling when schedule data unavailable.
+FIXED: safe_division call with correct parameters.
+FIXED: Score effects logic to ensure application when ML model is missing.
+FIXED: Variable name error in goalie function (df_goalie -> goalie_df).
+"""
+from __future__ import annotations
+import math
+import time
+from collections import Counter
+from datetime import date as _date, datetime, timedelta
+from typing import Any, Dict, List, Optional, Tuple
+
+import numpy as np
+import pandas as pd
+import requests
+
+from NST.Cache import get_nst_table_from_url
+from NHL.Config import (
+    RATE_LIMIT_SLEEP_SECONDS,
+    RATE_LIMIT_JITTER_SECONDS,
+    SIMULATION_PARAMS,
+    LEAGUE_AVERAGES,
+    MODEL_WEIGHTS,
+    NHL_API_BASE,
+    REQUEST_HEADERS,
+    DEFAULT_TIMEOUT,
+    COLUMN_VARIATIONS,
+    GOALIE_PARAMS,
+    SPECIAL_TEAMS_PARAMS,
+    NST_ABBR_TO_FULL
+)
+from NHL.Errors import (
+    retry_on_failure,
+    safe_division,
+    SimulationError,
+    log_performance
+)
+from NHL.Utils import (
+    season_from_date,
+    prev_season_key,
+    normalize_name_key,
+    get_column_safe,
+    normalize_sv_column,
+    last_token_norm,
+)
+
+# Feature helpers and calibration
+from NHL.Features import (
+    compute_rest_travel_features,
+    fatigue_multiplier,
+    penalty_diff_per60,
+    shared_correlation_factor,
+    score_effect_scaler,
+    component_breakdown,
+)
+
+from Calibration import calibrate_prob  # Imported for calibration
+
+# Import persistent app state instead of creating new instances
+from NHL.AppState import get_app_state
+
+import logging
+logger = logging.getLogger(__name__)
+
+def _rate_limit_sleep():
+    jitter = float(np.random.uniform(0, RATE_LIMIT_JITTER_SECONDS)) if RATE_LIMIT_JITTER_SECONDS > 0 else 0.0
+    time.sleep(RATE_LIMIT_SLEEP_SECONDS + jitter)
+
+def _norm_team(s: str) -> str:
+    """
+    Normalize team name with NST mapping first, including reverse lookup.
+    Handles both abbreviations and full names.
+    """
+    s_upper = str(s).upper().strip()
+    
+    # First, try direct abbreviation lookup
+    if s_upper in NST_ABBR_TO_FULL:
+        s_upper = NST_ABBR_TO_FULL[s_upper].upper()
+    else:
+        # Try reverse lookup for full names
+        for abbr, full_name in NST_ABBR_TO_FULL.items():
+            if s_upper == full_name.upper():
+                s_upper = full_name.upper()
+                break
+    
+    # Return alphanumeric version
+    return "".join(ch for ch in s_upper if ch.isalnum())
+
+def _match_team(df: pd.DataFrame, abbr: str, team_col: str) -> pd.DataFrame:
+    """
+    Helper to find team rows with strict matching first, then fallback to contains.
+    Prevents picking up wrong teams or failing silently.
+    """
+    target = _norm_team(abbr)
+    norm_col = df[team_col].astype(str).map(_norm_team)
+
+    # 1. Exact match
+    subset = df[norm_col == target]
+    if not subset.empty:
+        return subset
+
+    # 2. Contains match (fallback)
+    subset = df[norm_col.str.contains(target, na=False, regex=False)]
+    if not subset.empty:
+        return subset
+    
+    # 3. Try matching original abbr directly (for edge cases)
+    target_orig = str(abbr).upper().strip()
+    for nst_abbr, nst_full in NST_ABBR_TO_FULL.items():
+        if target_orig in (nst_abbr, nst_full.upper()):
+            # Try matching with this variant
+            norm_target = "".join(ch for ch in nst_full.upper() if ch.isalnum())
+            subset = df[norm_col == norm_target]
+            if not subset.empty:
+                return subset
+    
+    return pd.DataFrame()
+
+def _parse_game_date(raw: Any) -> Optional[datetime]:
+    if not raw:
+        return None
+    try:
+        return datetime.fromisoformat(str(raw).replace("Z", "+00:00"))
+    except Exception:
+        try:
+            return datetime.fromisoformat(str(raw))
+        except Exception:
+            return None
+
+@retry_on_failure(max_attempts=3, backoff_base=0.75)
+def _safe_get_json(url: str) -> Optional[Dict[str, Any]]:
+    _rate_limit_sleep()
+    try:
+        r = requests.get(url, headers=REQUEST_HEADERS, timeout=DEFAULT_TIMEOUT)
+        r.raise_for_status()
+        return r.json()
+    except Exception as e:
+        logger.warning(f"Failed to fetch JSON from {url[:80]}: {e}")
+        return None
+
+def nst_team_url(season: str, stype: int, sit: str, rate: str = "n", fd: str = "", td: str = "") -> str:
+    return (
+        "https://www.naturalstattrick.com/teamtable.php?"
+        f"fromseason={season}&thruseason={season}&stype={stype}&sit={sit}&score=all&rate={rate}&"
+        f"team=all&loc=B&fd={fd}&td={td}"
+    )
+
+def nst_goalie_url(season: str, stype: int, sit: str = "all", fd: str = "", td: str = "", gpfilt: str = "none") -> str:
+    return (
+        "https://www.naturalstattrick.com/playerteams.php?"
+        f"fromseason={season}&thruseason={season}&stype={stype}&sit={sit}&score=all&stdoi=g&rate=n"
+        f"&team=ALL&pos=G&loc=B&toi=0&gpfilt={gpfilt}&fd={fd}&td={td}&tgp=410&lines=single&draftteam=ALL"
+    )
+
+def _fetch_nst_df(url: str) -> pd.DataFrame:
+    try:
+        _rate_limit_sleep()
+        df = get_nst_table_from_url(url)
+        if df is None or not isinstance(df, pd.DataFrame):
+            logger.warning(f"Invalid data type from NST: {type(df)}")
+            return pd.DataFrame()
+        return df
+    except Exception as e:
+        logger.error(f"Failed to fetch NST data: {e}")
+        return pd.DataFrame()
+
+def get_team_rates_all(season: str, stype: int, fd: str = "", td: str = "") -> pd.DataFrame:
+    url = nst_team_url(season, stype, sit="all", rate="n", fd=fd, td=td)
+    df = _fetch_nst_df(url)
+    if df.empty and not fd and not td:
+        logger.info(f"No data for season {season}, trying previous season")
+        prev = prev_season_key(season)
+        df = _fetch_nst_df(nst_team_url(prev, stype, sit="all", rate="n", fd=fd, td=td))
+    return df
+
+def get_team_rates_ev(season: str, stype: int, fd: str = "", td: str = "") -> pd.DataFrame:
+    url = nst_team_url(season, stype, sit="ev", rate="n", fd=fd, td=td)
+    df = _fetch_nst_df(url)
+    if df.empty and not fd and not td:
+        prev = prev_season_key(season)
+        df = _fetch_nst_df(nst_team_url(prev, stype, sit="ev", rate="n", fd=fd, td=td))
+    return df
+
+def get_team_rates_pp_per60(season: str, stype: int, fd: str = "", td: str = "") -> pd.DataFrame:
+    url = nst_team_url(season, stype, sit="pp", rate="y", fd=fd, td=td)
+    df = _fetch_nst_df(url)
+    if df.empty and not fd and not td:
+        prev = prev_season_key(season)
+        df = _fetch_nst_df(nst_team_url(prev, stype, sit="pp", rate="y", fd=fd, td=td))
+    return df
+
+def get_team_rates_pk_per60(season: str, stype: int, fd: str = "", td: str = "") -> pd.DataFrame:
+    url = nst_team_url(season, stype, sit="pk", rate="y", fd=fd, td=td)
+    df = _fetch_nst_df(url)
+    if df.empty and not fd and not td:
+        prev = prev_season_key(season)
+        df = _fetch_nst_df(nst_team_url(prev, stype, sit="pk", rate="y", fd=fd, td=td))
+    return df
+
+def get_goalie_table(season: str, stype: int, fd: str = "", td: str = "") -> pd.DataFrame:
+    gpfilt = "gpdate" if fd and td else "none"
+    url = nst_goalie_url(season, stype, sit="all", fd=fd, td=td, gpfilt=gpfilt)
+    df = _fetch_nst_df(url)
+    if not df.empty:
+        return normalize_sv_column(df)
+    if not fd and not td:
+        prev = prev_season_key(season)
+        for try_season, try_stype in [(season, 2), (prev, stype), (prev, 2)]:
+            if try_season == season and try_stype == stype:
+                continue
+            url = nst_goalie_url(try_season, try_stype, sit="all", fd="", td="", gpfilt="none")
+            df = _fetch_nst_df(url)
+            if not df.empty:
+                return normalize_sv_column(df)
+    logger.warning(f"No goalie data found for {season}, stype={stype}")
+    return pd.DataFrame()
+
+def _extract_pp_pk_rates(pp_df: pd.DataFrame, pk_df: pd.DataFrame, abbr: str) -> Tuple[float, float]:
+    pp_gf60 = 0.0
+    pk_ga60 = 0.0
+    
+    # 1. PP Extraction
+    if isinstance(pp_df, pd.DataFrame) and not pp_df.empty:
+        try:
+            team_col = get_column_safe(pp_df, COLUMN_VARIATIONS, "team")
+            if team_col:
+                subset = _match_team(pp_df, abbr, team_col)
+                if not subset.empty:
+                    r = subset.iloc[0]
+                    gf60_col = get_column_safe(pp_df, {"gf60": ["GF/60", "GF60", "GF per 60", "GF60.0"]}, "gf60")
+                    if gf60_col:
+                        pp_gf60 = float(r.get(gf60_col) or 0.0)
+        except Exception as e:
+            logger.debug(f"Could not extract PP rate for {abbr}: {e}")
+
+    # 2. PK Extraction
+    if isinstance(pk_df, pd.DataFrame) and not pk_df.empty:
+        try:
+            team_col = get_column_safe(pk_df, COLUMN_VARIATIONS, "team")
+            if team_col:
+                subset = _match_team(pk_df, abbr, team_col)
+                if not subset.empty:
+                    r = subset.iloc[0]
+                    ga60_col = get_column_safe(pk_df, {"ga60": ["GA/60", "GA60", "GA per 60", "GA60.0"]}, "ga60")
+                    if ga60_col:
+                        pk_ga60 = float(r.get(ga60_col) or 0.0)
+        except Exception as e:
+            logger.debug(f"Could not extract PK rate for {abbr}: {e}")
+            
+    return pp_gf60, pk_ga60
+
+def derive_all_pg_metrics(all_df: pd.DataFrame, abbr: str) -> Dict[str, float]:
+    defaults = {
+        "xGFpg": LEAGUE_AVERAGES["goals_per_game"],
+        "xGApG": LEAGUE_AVERAGES["goals_per_game"],
+        "GFpg": LEAGUE_AVERAGES["goals_per_game"],
+        "GApG": LEAGUE_AVERAGES["goals_per_game"],
+        "SFpg": LEAGUE_AVERAGES["shots_per_game"],
+        "SApg": LEAGUE_AVERAGES["shots_per_game"],
+        "SvPct": LEAGUE_AVERAGES["sv_pct"],
+        "FFpg": LEAGUE_AVERAGES["shots_per_game"],
+        "CFpg": LEAGUE_AVERAGES["shots_per_game"],
+        "xGF%": 50.0,
+        "SCF%": 50.0,
+        "HDCF%": 50.0,
+        "PDO": 100.0,
+    }
+    if not isinstance(all_df, pd.DataFrame) or all_df.empty:
+        return defaults
+    try:
+        team_col = get_column_safe(all_df, COLUMN_VARIATIONS, "team")
+        if not team_col:
+            return defaults
+        
+        # Use STRICT matching helper
+        subset = _match_team(all_df, abbr, team_col)
+            
+        if subset.empty:
+            logger.warning(
+                f"⚠️ MISSING STATS: Could not find '{abbr}' in NST dataframe. "
+                f"Available teams: {all_df[team_col].unique()[:5]}... "
+                "Check Config.NST_ABBR_TO_FULL mappings."
+            )
+            return defaults
+            
+        r = subset.iloc[0]
+        gp = max(1.0, float(r.get("GP") or 1.0))
+        xgf = float(r.get("xGF") or 0.0)
+        xga = float(r.get("xGA") or 0.0)
+        gf = float(r.get("GF") or 0.0)
+        ga = float(r.get("GA") or 0.0)
+        sf = float(r.get("SF") or 0.0)
+        sa = float(r.get("SA") or 0.0)
+        ff = float(r.get("FF") or 0.0)
+        cf = float(r.get("CF") or 0.0)
+        xgf_pct = float(r.get("xGF%") or 50.0)
+        scf_pct = float(r.get("SCF%") or 50.0)
+        hdcf_pct = float(r.get("HDCF%") or 50.0)
+        pdo = float(r.get("PDO") or 100.0)
+        sv_col = get_column_safe(all_df, COLUMN_VARIATIONS, "save_pct")
+        sv = float(r.get(sv_col)) if sv_col and pd.notna(r.get(sv_col)) else defaults["SvPct"]
+        return {
+            "xGFpg": safe_division(xgf, gp, defaults["xGFpg"]),
+            "xGApG": safe_division(xga, gp, defaults["xGApG"]),
+            "GFpg": safe_division(gf, gp, defaults["GFpg"]),
+            "GApG": safe_division(ga, gp, defaults["GApG"]),
+            "SFpg": safe_division(sf, gp, defaults["SFpg"]),
+            "SApg": safe_division(sa, gp, defaults["SApg"]),
+            "FFpg": safe_division(ff, gp, defaults["FFpg"]),
+            "CFpg": safe_division(cf, gp, defaults["CFpg"]),
+            "xGF%": xgf_pct,
+            "SCF%": scf_pct,
+            "HDCF%": hdcf_pct,
+            "PDO": pdo,
+            "SvPct": sv,
+        }
+    except Exception as e:
+        logger.error(f"Error deriving metrics for {abbr}: {e}")
+        return defaults
+
+def team_last_n_metrics(team_abbr: str, date_str: str, n: int = 6) -> Tuple[float, float, float]:
+    defaults = (
+        LEAGUE_AVERAGES["goals_per_game"],
+        LEAGUE_AVERAGES["goals_per_game"],
+        LEAGUE_AVERAGES["shots_per_game"]
+    )
+    try:
+        season = season_from_date(date_str)
+        sched_url = f"{NHL_API_BASE}/club-schedule-season/{team_abbr}/{season}"
+        sched = _safe_get_json(sched_url)
+        if not sched:
+            logger.warning(f"Schedule unavailable for {team_abbr}, using defaults")
+            return defaults
+        games = sched.get("games", [])
+        if not isinstance(games, list) or not games:
+            logger.warning(f"No games found for {team_abbr}, using defaults")
+            return defaults
+        target_date = datetime.fromisoformat(date_str).date()
+        before = []
+        for g in games:
+            gd_raw = g.get("gameDate") or g.get("startTimeUTC") or g.get("startTime")
+            gd = _parse_game_date(gd_raw)
+            if gd and gd.date() < target_date:
+                before.append((gd, g))
+        before.sort(key=lambda t: t[0], reverse=True)
+        chosen = before[:n]
+        if not chosen:
+            logger.warning(f"No historical games found for {team_abbr}, using defaults")
+            return defaults
+        gf = ga = sog = 0.0
+        cnt = 0
+        for _, g in chosen:
+            gid = g.get("id") or g.get("gameId") or g.get("gamePk")
+            if not gid:
+                continue
+            box = _safe_get_json(f"{NHL_API_BASE}/gamecenter/{gid}/boxscore")
+            if not box:
+                continue
+            home = (box.get("homeTeam") or {}).get("abbrev", "").upper()
+            if team_abbr.upper() == home:
+                gf += float((box.get("homeTeam") or {}).get("score", 0) or 0)
+                ga += float((box.get("awayTeam") or {}).get("score", 0) or 0)
+            else:
+                gf += float((box.get("awayTeam") or {}).get("score", 0) or 0)
+                ga += float((box.get("homeTeam") or {}).get("score", 0) or 0)
+            sog += LEAGUE_AVERAGES["shots_per_game"]
+            cnt += 1
+        if cnt == 0:
+            logger.warning(f"No valid boxscores found for {team_abbr}, using defaults")
+            return defaults
+        return (
+            safe_division(gf, cnt, defaults[0]),
+            safe_division(ga, cnt, defaults[1]),
+            safe_division(sog, cnt, defaults[2])
+        )
+    except Exception as e:
+        logger.error(f"Error getting recent metrics for {team_abbr}: {e}")
+        return defaults
+
+def team_last_n_goals_list(team_abbr: str, date_str: str, n: int = 8) -> List[int]:
+    try:
+        season = season_from_date(date_str)
+        sched_url = f"{NHL_API_BASE}/club-schedule-season/{team_abbr}/{season}"
+        sched = _safe_get_json(sched_url)
+        if not sched:
+            return []
+        games = sched.get("games", [])
+        if not isinstance(games, list):
+            return []
+        target_date = datetime.fromisoformat(date_str).date()
+        before = []
+        for g in games:
+            gd = _parse_game_date(g.get("gameDate") or g.get("startTimeUTC") or g.get("startTime"))
+            if gd and gd.date() < target_date:
+                before.append((gd, g))
+        before.sort(key=lambda t: t[0], reverse=True)
+        chosen = before[:n]
+        out: List[int] = []
+        for _, g in chosen:
+            gid = g.get("id") or g.get("gameId") or g.get("gamePk")
+            box = _safe_get_json(f"{NHL_API_BASE}/gamecenter/{gid}/boxscore")
+            if not box:
+                continue
+            home = (box.get("homeTeam") or {}).get("abbrev", "").upper()
+            if home == team_abbr.upper():
+                out.append(int((box.get("homeTeam") or {}).get("score", 0) or 0))
+            else:
+                out.append(int((box.get("awayTeam") or {}).get("score", 0) or 0))
+        return out
+    except Exception as e:
+        logger.error(f"Error getting goals list for {team_abbr}: {e}")
+        return []
+
+def estimate_gamma_shape_from_recent(goals: List[int]) -> Optional[float]:
+    if not goals or len(goals) < 3:
+        return None
+    try:
+        m = float(np.mean(goals))
+        v = float(np.var(goals, ddof=1))
+        if v <= m or m <= 0:
+            return None
+        k = safe_division(m * m, v - m, default=None)
+        if k is None or k <= 0 or not np.isfinite(k):
+            return None
+        return max(0.5, min(10.0, k))
+    except Exception as e:
+        logger.debug(f"Could not estimate gamma shape: {e}")
+        return None
+
+def apply_per_sim_shock(mu_home: float, mu_away: float, sims: int, sigma: float = None) -> Tuple[np.ndarray, np.ndarray]:
+    if sigma is None:
+        sigma = SIMULATION_PARAMS["shock_sigma"]
+    sims = int(max(0, sims or 0))
+    m = -0.5 * (sigma ** 2)
+    f_home = np.exp(np.random.normal(loc=m, scale=sigma, size=sims))
+    f_away = np.exp(np.random.normal(loc=m, scale=sigma, size=sims))
+    lam_h = np.clip(mu_home * f_home, SIMULATION_PARAMS["min_goals"], SIMULATION_PARAMS["max_goals"])
+    lam_a = np.clip(mu_away * f_away, SIMULATION_PARAMS["min_goals"], SIMULATION_PARAMS["max_goals"])
+    return lam_h, lam_a
+
+def resolve_no_ties_mode(final_home: np.ndarray, final_away: np.ndarray) -> Tuple[int, int]:
+    pairs = list(zip(final_away.tolist(), final_home.tolist()))
+    counts = Counter(pairs)
+    sorted_pairs = sorted(counts.items(), key=lambda x: -x[1])
+    for (a, h), _ in sorted_pairs:
+        if a != h:
+            return a, h
+    idx = np.random.choice(len(final_home))
+    return int(final_away[idx]), int(final_home[idx])
+
+def apply_empty_net_adjustments(final_home: np.ndarray, final_away: np.ndarray, mu_home: float, mu_away: float, p_base: float = None) -> Tuple[np.ndarray, np.ndarray]:
+    if p_base is None:
+        p_base = SIMULATION_PARAMS.get("empty_net_probability", 0.40)
+    fh = final_home.copy()
+    fa = final_away.copy()
+    diff = fh - fa
+    one_goal = np.where(np.abs(diff) == 1)[0]
+    if one_goal.size == 0:
+        return fh, fa
+    total_goals = fh + fa
+    idxs = one_goal[total_goals[one_goal] >= 3]
+    if idxs.size == 0:
+        return fh, fa
+    mu_gap = abs(mu_home - mu_away)
+    scale = max(0.6, 1.1 - 0.2 * mu_gap)
+    draws = np.random.random(size=idxs.size) < (p_base * scale)
+    for idx, got_en in zip(idxs, draws):
+        if not got_en:
+            continue
+        if fh[idx] > fa[idx]:
+            fh[idx] += 1
+        else:
+            fa[idx] += 1
+    return fh, fa
+
+def opp_goalie_sv_dsv_from_df(
+    goalie_df: pd.DataFrame,
+    team_abbr: str,
+    selected_goalie: Optional[str] = None
+) -> Tuple[float, float, float]:
+    sv_default = GOALIE_PARAMS["default_sv_pct"]
+    dsv_default = GOALIE_PARAMS["default_dsv_pct"]
+    gsaa_pg = 0.0
+    
+    # FIX: Use passed-in argument goalie_df
+    df = normalize_sv_column(goalie_df.copy())
+    team_col = get_column_safe(df, COLUMN_VARIATIONS, "team")
+    
+    if team_col:
+        # Use STRICT matching helper
+        subset = _match_team(df, team_abbr, team_col)
+        df = subset if not subset.empty else df
+
+    if df.empty:
+        return sv_default, dsv_default, gsaa_pg
+
+    if selected_goalie:
+        player_col = get_column_safe(df, COLUMN_VARIATIONS, "player")
+        if player_col:
+            df_sel = df.assign(
+                _player=df[player_col].astype(str),
+                _norm=lambda d: d["_player"].map(normalize_name_key),
+                _last=lambda d: d["_player"].map(last_token_norm)
+            )
+            target_norm = normalize_name_key(selected_goalie)
+            target_last = last_token_norm(selected_goalie)
+            subset = df_sel[df_sel["_norm"] == target_norm]
+            if subset.empty and target_last:
+                subset = df_sel[df_sel["_last"] == target_last]
+                if subset.empty:
+                    subset = df_sel[df_sel["_player"].str.contains(target_last, case=False, na=False)]
+            if not subset.empty:
+                df = subset
+
+    def tonum(s):
+        return pd.to_numeric(s, errors="coerce").fillna(0.0)
+    if "GS" not in df.columns: 
+        df.loc[:, "GS"] = 0
+    if "GP" not in df.columns: 
+        df.loc[:, "GP"] = 0
+    if "Sv%" not in df.columns: 
+        df.loc[:, "Sv%"] = np.nan
+    df = df.assign(
+        _gs=tonum(df["GS"]),
+        _gp=tonum(df["GP"]),
+        _sv=tonum(df["Sv%"]).fillna(0.0)
+    ).sort_values(by=["_gs", "_gp", "_sv"], ascending=[False, False, False])
+    r = df.iloc[0]
+    sv = float(r["_sv"]) if pd.notna(r["_sv"]) else sv_default
+    dsv = float(pd.to_numeric(r.get("dSV%", np.nan), errors="coerce")) if "dSV%" in df.columns else dsv_default
+    if not np.isfinite(dsv):
+        dsv = dsv_default
+
+    gsaa_pg = 0.0
+    if "GSAA" in df.columns and pd.notna(r.get("GSAA")):
+        try:
+            gsaa = float(pd.to_numeric(r.get("GSAA"), errors="coerce"))
+            gp = float(r.get("GP", 0.0) or 0.0)
+            if gp > 0:
+                gsaa_pg = float(gsaa / gp)
+        except Exception:
+            gsaa_pg = 0.0
+
+    return sv, dsv, gsaa_pg
+
+# TTL cache for schedule data (30 min)
+_schedule_cache: Dict[str, Tuple[float, Optional[Dict[str, Any]]]] = {}
+_SCHEDULE_CACHE_TTL = 1800  # seconds
+
+def _cached_schedule_json(team_abbr: str, season: str) -> Optional[Dict[str, Any]]:
+    """Cached NHL schedule fetch — caches for 30 min to avoid redundant API calls."""
+    key = f"{team_abbr}_{season}"
+    now = time.time()
+    if key in _schedule_cache:
+        ts, data = _schedule_cache[key]
+        if now - ts < _SCHEDULE_CACHE_TTL:
+            return data
+    url = f"{NHL_API_BASE}/club-schedule-season/{team_abbr}/{season}"
+    data = _safe_get_json(url)
+    _schedule_cache[key] = (now, data)
+    return data
+
+
+def get_team_home_away_record(team_abbr: str, season: str, as_of: Optional[_date] = None) -> Dict[str, float]:
+    """
+    Compute home and road win percentages from the schedule, up to `as_of` (default: today).
+
+    Returns neutral 50% if no data (let other factors decide), not artificial home bias.
+    Uses cached schedule data to avoid redundant API calls per team per day.
+    """
+    try:
+        if as_of is None:
+            as_of = _date.today()
+
+        sched = _cached_schedule_json(team_abbr.upper(), season)
+
+        # Return neutral if data is missing - no artificial bias
+        if not sched:
+            logger.warning(f"⚠️ Schedule unavailable for {team_abbr}. Using neutral 50%.")
+            return {'home_win_pct': 0.50, 'away_win_pct': 0.50}
+
+        games = sched.get("games", [])
+        if not games:
+            logger.warning(f"⚠️ No games in schedule for {team_abbr}. Using neutral 50%.")
+            return {'home_win_pct': 0.50, 'away_win_pct': 0.50}
+
+        home_wins = home_otl = home_games = 0
+        road_wins = road_otl = road_games = 0
+
+        for g in games:
+            gd = _parse_game_date(g.get("gameDate") or g.get("startTimeUTC") or g.get("startTime"))
+            if not gd or gd.date() > as_of:
+                continue
+
+            # Only completed games
+            state = str(g.get("gameState", "")).upper()
+            if state not in ("OFF", "FINAL", "OVER"):
+                continue
+
+            home = (g.get("homeTeam") or {}).get("abbrev", "").upper()
+            away = (g.get("awayTeam") or {}).get("abbrev", "").upper()
+            hs = (g.get("homeTeam") or {}).get("score")
+            as_ = (g.get("awayTeam") or {}).get("score")
+            if hs is None or as_ is None:
+                continue
+
+            was_ot = False
+            pd = (g.get("periodDescriptor") or {})
+            pt = str(pd.get("periodType", "")).upper()
+            if pt in ("OT", "SO"):
+                was_ot = True
+
+            if home == team_abbr.upper():
+                home_games += 1
+                if hs > as_:
+                    home_wins += 1
+                elif was_ot:
+                    home_otl += 1
+            elif away == team_abbr.upper():
+                road_games += 1
+                if as_ > hs:
+                    road_wins += 1
+                elif was_ot:
+                    road_otl += 1
+
+        def pct(w, otl, gp):
+            # Small sample size: blend with neutral 50%
+            if gp < 5:
+                if gp == 0:
+                    return 0.50
+                actual = (w + 0.5 * otl) / gp
+                # Blend: 50% actual, 50% neutral for small samples
+                return 0.5 * actual + 0.5 * 0.50
+            return (w + 0.5 * otl) / gp
+
+        home_pct = pct(home_wins, home_otl, home_games)
+        away_pct = pct(road_wins, road_otl, road_games)
+        
+        logger.debug(
+            f"Home/Away record for {team_abbr}: "
+            f"Home {home_pct:.3f} ({home_wins}W-{home_otl}OTL/{home_games}GP), "
+            f"Away {away_pct:.3f} ({road_wins}W-{road_otl}OTL/{road_games}GP)"
+        )
+        
+        return {
+            'home_win_pct': home_pct,
+            'away_win_pct': away_pct,
+        }
+    except Exception as e:
+        logger.warning(f"Could not fetch home/away record for {team_abbr}: {e}")
+        return {'home_win_pct': 0.50, 'away_win_pct': 0.50}
+
+def calculate_venue_advantage(
+    home_team: str,
+    away_team: str,
+    season: str,
+) -> float:
+    """
+    Calculate venue advantage based PURELY on actual home/away performance.
+    
+    NO ARTIFICIAL FLOORS OR CEILINGS.
+    
+    Examples:
+    - Leafs home (65% win) vs Bruins away (40% win) → +0.30 goals to Leafs
+    - Rangers away (60% win) vs Sharks home (35% win) → -0.30 goals (Rangers advantage!)
+    - Average home (52%) vs Average away (48%) → +0.05 goals
+    
+    The advantage goes to whoever has better record in their venue, period.
+    """
+    home_record = get_team_home_away_record(home_team, season)
+    away_record = get_team_home_away_record(away_team, season)
+    
+    home_pct = home_record['home_win_pct']
+    away_pct = away_record['away_win_pct']
+    
+    # Pure win% differential, scaled to goals
+    # A 10% win differential ≈ 0.12 goals (reduced from 0.20)
+    # A 25% win differential ≈ 0.30 goals (reduced from 0.50)
+    win_pct_diff = home_pct - away_pct
+    
+    # Scale factor: convert win% to expected goal differential
+    # Typical NHL spread: 10% win difference ≈ 0.12 goals (reduced from 0.20)
+    goals_per_pct_point = 1.2
+    
+    adjustment = win_pct_diff * goals_per_pct_point
+    
+    # ✅ NO FLOORS, NO CEILINGS - Pure data
+    # Only cap at extreme outliers (±1.0 goals) to prevent data errors
+    adjustment = max(-1.0, min(1.0, adjustment))
+    
+    # Log the breakdown
+    if adjustment > 0:
+        logger.info(
+            f"🏠 Venue advantage: {home_team} at home\n"
+            f"   {home_team} home record: {home_pct:.1%} | "
+            f"{away_team} away record: {away_pct:.1%}\n"
+            f"   Differential: {win_pct_diff:+.1%} → {adjustment:+.3f} goals to {home_team}"
+        )
+    elif adjustment < 0:
+        logger.info(
+            f"✈️  Road warrior advantage: {away_team} on the road\n"
+            f"   {away_team} away record: {away_pct:.1%} | "
+            f"{home_team} home record: {home_pct:.1%}\n"
+            f"   Differential: {win_pct_diff:+.1%} → {adjustment:+.3f} goals to {away_team}"
+        )
+    else:
+        logger.info(
+            f"⚖️  Neutral venue: {home_team} ({home_pct:.1%} home) vs "
+            f"{away_team} ({away_pct:.1%} away) → {adjustment:+.3f} goals"
+        )
+    
+    return adjustment
+
+def calculate_automatic_injury_impact(
+    team_abbr: str,
+    season: str,
+    player_stats_cache: Dict[str, Dict],
+    team_stats_cache: Dict[str, Dict]
+) -> Dict[str, float]:
+    """
+    Automatically calculate injury impact from player contribution %.
+    
+    Returns:
+        {
+            'offense_impact': float,  # Negative = loss
+            'n_injuries': int
+        }
+    """
+    try:
+        # Try to import injury function
+        from NHL.ApiScrape import get_team_injuries
+        injuries = get_team_injuries(team_abbr)
+    except Exception as e:
+        logger.debug(f"Could not get injuries for {team_abbr}: {e}")
+        injuries = {}
+    
+    if not injuries:
+        return {'offense_impact': 0.0, 'n_injuries': 0}
+    
+    team_totals = team_stats_cache.get(team_abbr.upper(), {})
+    team_goals = team_totals.get('total_goals', 280.0)  # League avg fallback
+    
+    total_offense_loss = 0.0
+    
+    for player_name_key, injury_status in injuries.items():
+        player_stats = player_stats_cache.get(player_name_key)
+        
+        if not player_stats:
+            continue
+        
+        points = player_stats.get('points', 0)
+        gp = player_stats.get('gp', 1)
+        
+        # Calculate contribution
+        if team_goals > 0:
+            contribution_pct = points / team_goals
+        else:
+            contribution_pct = 0.0
+        
+        # Convert to negative impact
+        offense_loss = -contribution_pct
+        
+        # Cap individual impact at -40%
+        offense_loss = max(-0.40, offense_loss)
+        
+        total_offense_loss += offense_loss
+        
+        logger.info(
+            f"💥 {player_stats.get('name', player_name_key)}: "
+            f"{points} pts / {team_goals:.0f} team goals = "
+            f"{contribution_pct*100:.1f}% → {offense_loss*100:+.1f}% offense"
+        )
+    
+    # Cap total at -80%
+    total_offense_loss = max(-0.80, total_offense_loss)
+    
+    if total_offense_loss < -0.05:
+        logger.warning(
+            f"⚠️  {team_abbr} injury impact: {total_offense_loss*100:.1f}% offense loss "
+            f"({len(injuries)} injuries)"
+        )
+    
+    return {
+        'offense_impact': total_offense_loss,
+        'n_injuries': len(injuries)
+    }
+
+def load_player_stats_for_injuries(season: str) -> Tuple[Dict[str, Dict], Dict[str, Dict]]:
+    """Load player stats once for injury calculations"""
+    player_cache = {}
+    team_cache = {}
+    
+    try:
+        url = (
+            f"https://www.naturalstattrick.com/playerteams.php?"
+            f"fromseason={season}&thruseason={season}&stype=2&sit=all&score=all&"
+            f"stdoi=std&rate=n&team=ALL&pos=S&loc=B&toi=0&gpfilt=none&fd=&td=&"
+            f"tgp=410&lines=single&draftteam=ALL"
+        )
+        
+        df = get_nst_table_from_url(url)
+        
+        if df is not None and not df.empty:
+            for _, row in df.iterrows():
+                name = str(row.get('Player', '')).strip()
+                team = str(row.get('Team', '')).strip().upper()
+                
+                if not name:
+                    continue
+                
+                key = normalize_name_key(name)
+                
+                gp = int(row.get('GP', 0)) if row.get('GP') else 0
+                goals = int(row.get('Goals', 0)) if row.get('Goals') else 0
+                assists = int(row.get('Total Assists', 0)) if row.get('Total Assists') else 0
+                points = int(row.get('Total Points', 0)) if row.get('Total Points') else 0
+                
+                player_cache[key] = {
+                    'name': name,
+                    'team': team,
+                    'gp': gp,
+                    'goals': goals,
+                    'assists': assists,
+                    'points': points
+                }
+                
+                # Aggregate team totals
+                if team not in team_cache:
+                    team_cache[team] = {'total_goals': 0, 'total_points': 0}
+                
+                team_cache[team]['total_goals'] += goals
+                team_cache[team]['total_points'] += points
+            
+            logger.info(f"Loaded injury stats: {len(player_cache)} players, {len(team_cache)} teams")
+    
+    except Exception as e:
+        logger.error(f"Failed to load player stats for injuries: {e}")
+    
+    return player_cache, team_cache
+
+def improved_winner_prediction(final_home, final_away, extra_features=None) -> float:
+    """
+    Calculate win probability from simulation results WITHOUT forcing extremes.
+    Returns realistic probabilities based on actual simulation outcomes.
+    """
+    try:
+        home_wins = np.sum(final_home > final_away)
+        total_games = len(final_home)
+        
+        raw_prob = home_wins / total_games
+        smoothed_prob = (home_wins + 1) / (total_games + 2)
+        
+        logger.debug(f"Win probability: {home_wins}/{total_games} = {smoothed_prob:.3f}")
+        
+        return float(smoothed_prob)
+        
+    except Exception as e:
+        logger.error(f"Error calculating win probability: {e}")
+        return 0.5
+
+@log_performance
+def simulate_matchup(
+    home_abbr: str,
+    away_abbr: str,
+    game_date: _date,
+    stype: int = 2,
+    sims: int = None,
+    trend_games: int = None,
+    use_recent_window_days: Optional[int] = None,
+    season_skill_for_lineups: Optional[Dict[str, Dict[str, float]]] = None,
+    home_lineup_df: Optional[pd.DataFrame] = None,
+    away_lineup_df: Optional[pd.DataFrame] = None,
+    selected_home_goalie: Optional[str] = None,
+    selected_away_goalie: Optional[str] = None,
+    home_elo_override: Optional[float] = None,
+    away_elo_override: Optional[float] = None,
+    apply_injury_impact: bool = True,  # NEW PARAMETER
+) -> Dict[str, Any]:
+    if not home_abbr or not away_abbr:
+        raise SimulationError("Team abbreviations cannot be empty")
+    if not isinstance(game_date, _date):
+        raise SimulationError(f"game_date must be date object, got {type(game_date)}")
+
+    if sims is None or sims <= 0:
+        try:
+            from NHL.Config import DEFAULT_SIMULATIONS
+            sims = int(max(1, DEFAULT_SIMULATIONS))
+        except Exception:
+            sims = 1000
+    if trend_games is None or trend_games <= 0:
+        try:
+            from NHL.Config import DEFAULT_TREND_GAMES
+            trend_games = int(max(1, DEFAULT_TREND_GAMES))
+        except Exception:
+            trend_games = 6
+
+    lineup_shoot_home = lineup_shoot_away = 0.0
+    try:
+        import NHL.Prediction as pred_mod
+    except Exception as e:
+        logger.debug(f"NHLPrediction unavailable: {e}")
+        pred_mod = None
+    if pred_mod and season_skill_for_lineups is not None:
+        if home_lineup_df is not None:
+            try:
+                lineup_shoot_home = pred_mod.lineup_shooting_factor(home_lineup_df, season_skill_for_lineups)
+            except Exception as e:
+                logger.debug(f"Could not compute home lineup factor: {e}")
+        else:
+            logger.info(f"No home lineup provided for {home_abbr}, assuming neutral lineup impact.")
+
+        if away_lineup_df is not None:
+            try:
+                lineup_shoot_away = pred_mod.lineup_shooting_factor(away_lineup_df, season_skill_for_lineups)
+            except Exception as e:
+                logger.debug(f"Could not compute away lineup factor: {e}")
+        else:
+            logger.info(f"No away lineup provided for {away_abbr}, assuming neutral lineup impact.")
+
+
+    season = season_from_date(game_date.isoformat())
+    fd_str = td_str = ""
+    if use_recent_window_days:
+        td_day = game_date - timedelta(days=1)
+        fd_day = td_day - timedelta(days=use_recent_window_days - 1)
+        fd_str, td_str = fd_day.isoformat(), td_day.isoformat()
+        logger.info(f"Using recent window: {fd_str} to {td_str}")
+
+    all_df = get_team_rates_all(season, stype, fd=fd_str, td=td_str)
+    ev_df = get_team_rates_ev(season, stype, fd=fd_str, td=td_str)
+    _rate_limit_sleep()
+    pp_df = get_team_rates_pp_per60(season, stype, fd=fd_str, td=td_str)
+    _rate_limit_sleep()
+    pk_df = get_team_rates_pk_per60(season, stype, fd=fd_str, td=td_str)
+    _rate_limit_sleep()
+    g_df = get_goalie_table(season, stype, fd=fd_str, td=td_str)
+
+    home_all = derive_all_pg_metrics(all_df, home_abbr)
+    away_all = derive_all_pg_metrics(all_df, away_abbr)
+    home_ev = derive_all_pg_metrics(ev_df, home_abbr)
+    away_ev = derive_all_pg_metrics(ev_df, away_abbr)
+
+    home_pp60, home_pk_ga60 = _extract_pp_pk_rates(pp_df, pk_df, home_abbr)
+    away_pp60, away_pk_ga60 = _extract_pp_pk_rates(pp_df, pk_df, away_abbr)
+    pen_diff_home = penalty_diff_per60(all_df, home_abbr)
+    pen_diff_away = penalty_diff_per60(all_df, away_abbr)
+    
+    pp_impact_mult = 0.045
+    max_pp_impact = SPECIAL_TEAMS_PARAMS.get("max_pp_goal_impact", 0.30)
+    
+    extra_pp_goals_home = pp_impact_mult * pen_diff_home
+    extra_pp_goals_away = pp_impact_mult * pen_diff_away
+    
+    extra_pp_goals_home = max(-max_pp_impact, min(max_pp_impact, extra_pp_goals_home))
+    extra_pp_goals_away = max(-max_pp_impact, min(max_pp_impact, extra_pp_goals_away))
+
+    home_opp_sv, home_opp_dsv, home_opp_gsaa_pg = opp_goalie_sv_dsv_from_df(
+        g_df, away_abbr, selected_goalie=selected_away_goalie
+    )
+    away_opp_sv, away_opp_dsv, away_opp_gsaa_pg = opp_goalie_sv_dsv_from_df(
+        g_df, home_abbr, selected_goalie=selected_home_goalie
+    )
+
+    home_rec_gf, home_rec_ga, _ = team_last_n_metrics(home_abbr, game_date.isoformat(), n=trend_games)
+    away_rec_gf, away_rec_ga, _ = team_last_n_metrics(away_abbr, game_date.isoformat(), n=trend_games)
+
+    feat_home = compute_rest_travel_features(home_abbr, away_abbr, game_date)
+    feat_away = compute_rest_travel_features(away_abbr, home_abbr, game_date)
+    rest_mult_home = fatigue_multiplier(feat_home)
+    rest_mult_away = fatigue_multiplier(feat_away)
+
+    if 'tz_diff' in feat_home:
+        tz_pen_home = -0.01 * abs(feat_home.get('tz_diff', 0))
+        rest_mult_home += tz_pen_home
+        if tz_pen_home < 0:
+            logger.info(f"✈️  {home_abbr} Timezone Penalty: {tz_pen_home:.3f} (diff: {feat_home['tz_diff']}h)")
+
+    if 'tz_diff' in feat_away:
+        tz_pen_away = -0.01 * abs(feat_away.get('tz_diff', 0))
+        rest_mult_away += tz_pen_away
+        if tz_pen_away < 0:
+            logger.info(f"✈️  {away_abbr} Timezone Penalty: {tz_pen_away:.3f} (diff: {feat_away['tz_diff']}h)")
+
+    # AUTOMATIC INJURY IMPACT CALCULATION
+    if apply_injury_impact:
+        player_stats_cache, team_stats_cache = load_player_stats_for_injuries(season)
+        
+        home_injury_data = calculate_automatic_injury_impact(
+            home_abbr, season, player_stats_cache, team_stats_cache
+        )
+        away_injury_data = calculate_automatic_injury_impact(
+            away_abbr, season, player_stats_cache, team_stats_cache
+        )
+        
+        injury_impact_home = home_injury_data['offense_impact']
+        injury_impact_away = away_injury_data['offense_impact']
+        
+        if injury_impact_home < -0.05 or injury_impact_away < -0.05:
+            logger.info(
+                f"💉 Injury adjustments:\n"
+                f"   {home_abbr}: {injury_impact_home*100:+.1f}% ({home_injury_data['n_injuries']} injuries)\n"
+                f"   {away_abbr}: {injury_impact_away*100:+.1f}% ({away_injury_data['n_injuries']} injuries)"
+            )
+    else:
+        injury_impact_home = 0.0
+        injury_impact_away = 0.0
+        logger.info("Injury impact disabled for this simulation")
+
+    def _compute_expected_goals(
+        offense_all: Dict[str, float],
+        defense_all: Dict[str, float],
+        pp_off_gf60: float,
+        pk_def_ga60: float,
+        opp_sv: float,
+        opp_dsv: float,
+        opp_gsaa_pg: float,
+        rec_gfpg: float,
+        rec_gapg_opp: float,
+        lineup_delta: float,
+        venue_adj: float,
+        advanced_stats: Dict[str, float],
+        extra_pp_goals: float,
+        rest_mult: float,
+        score_mult: float,
+        injury_impact: float
+    ) -> Tuple[float, Dict[str, float]]:
+        league_sv = LEAGUE_AVERAGES["sv_pct"]
+        base_xgf = (
+            MODEL_WEIGHTS["xg_for_weight"] * offense_all["xGFpg"] +
+            MODEL_WEIGHTS["gf_weight"] * offense_all["GFpg"]
+        )
+        xga_adj = MODEL_WEIGHTS["xga_weight"] * defense_all["xGApG"]
+        pp_minutes = LEAGUE_AVERAGES["powerplay_minutes"]
+        st_goals = MODEL_WEIGHTS["pp_pk_weight"] * (pp_off_gf60 + pk_def_ga60) * (pp_minutes / 60.0)
+        st_goals += extra_pp_goals
+
+        mu = max(0.3, base_xgf + xga_adj + st_goals)
+
+        if not math.isnan(opp_dsv) and abs(opp_dsv) < GOALIE_PARAMS["max_dsv_pct_impact"]:
+            goalie_adj_mult = (1.0 - MODEL_WEIGHTS["goalie_impact_weight"] * opp_dsv)
+        else:
+            goalie_adj_mult = (1.0 + MODEL_WEIGHTS["goalie_impact_weight"] * (league_sv - opp_sv))
+        goalie_adj_mult *= (1.0 - 0.02 * max(-1.0, min(1.0, opp_gsaa_pg)))
+        mu *= goalie_adj_mult
+
+        mu *= (1.0 + 0.10 * safe_division(advanced_stats.get("xGF%", 50.0) - 50.0, 50.0, 0.0))
+        mu *= (1.0 + 0.06 * safe_division(advanced_stats.get("SCF%", 50.0) - 50.0, 50.0, 0.0))
+        mu *= (1.0 + 0.04 * safe_division(advanced_stats.get("HDCF%", 50.0) - 50.0, 50.0, 0.0))
+        mu *= (1.0 + 0.01 * safe_division(advanced_stats.get("PDO", 100.0) - 100.0, 100.0, 0.0))
+        mu *= (1.0 + 0.09 * safe_division(
+            advanced_stats.get("EVGFpg", offense_all["GFpg"]) - offense_all["GFpg"],
+            max(1e-9, offense_all["GFpg"]),
+            0.0
+        ))
+        mu *= (1.0 + 0.09 * safe_division(
+            advanced_stats.get("EVxGFpg", offense_all["xGFpg"]) - offense_all["xGFpg"],
+            max(1e-9, offense_all["xGFpg"]),
+            0.0
+        ))
+        mu *= (1.0 + 0.04 * safe_division(
+            advanced_stats.get("FFpg", LEAGUE_AVERAGES["shots_per_game"]) - LEAGUE_AVERAGES["shots_per_game"],
+            max(1e-9, LEAGUE_AVERAGES["shots_per_game"]),
+            0.0
+        ))
+        mu *= (1.0 + 0.02 * safe_division(
+            advanced_stats.get("CFpg", LEAGUE_AVERAGES["shots_per_game"]) - LEAGUE_AVERAGES["shots_per_game"],
+            max(1e-9, LEAGUE_AVERAGES["shots_per_game"]),
+            0.0
+        ))
+
+        mu *= (1.0 + MODEL_WEIGHTS["recent_form_weight"] * (rec_gfpg - offense_all["GFpg"]))
+        mu *= (1.0 + MODEL_WEIGHTS["opponent_defense_weight"] * (rec_gapg_opp - defense_all["GApG"]))
+        mu *= (1.0 + MODEL_WEIGHTS["lineup_impact_weight"] * lineup_delta)
+        mu += venue_adj
+
+        mu *= rest_mult
+        mu *= score_mult
+        
+        # Apply injury impact (multiplicative)
+        mu *= (1.0 + injury_impact)
+
+        mu = float(max(0.4, min(8.0, mu)))
+
+        breakdown = component_breakdown(
+            base_xgf=round(base_xgf, 3),
+            xga_adj=round(xga_adj, 3),
+            pp_pk=round(st_goals, 3),
+            goalie_adj=round(goalie_adj_mult - 1.0, 4),
+            recent_adj=round(MODEL_WEIGHTS["recent_form_weight"] * (rec_gfpg - offense_all["GFpg"]), 4),
+            lineup_adj=round(MODEL_WEIGHTS["lineup_impact_weight"] * lineup_delta, 4),
+            rest_adj=round(rest_mult - 1.0, 4),
+            score_adj=round(score_mult - 1.0, 4),
+            final_mu=round(mu, 3)
+        )
+        return mu, breakdown
+
+    advanced_stats_home = {
+        "xGF%": home_all.get("xGF%", 50.0),
+        "SCF%": home_all.get("SCF%", 50.0),
+        "HDCF%": home_all.get("HDCF%", 50.0),
+        "PDO": home_all.get("PDO", 100.0),
+        "FFpg": home_all.get("FFpg", 25.0),
+        "CFpg": home_all.get("CFpg", 45.0),
+        "EVGFpg": home_ev.get("GFpg", home_all.get("GFpg", 3.0)),
+        "EVxGFpg": home_ev.get("xGFpg", home_all.get("xGFpg", 3.0)),
+    }
+    
+    advanced_stats_away = {
+        "xGF%": away_all.get("xGF%", 50.0),
+        "SCF%": away_all.get("SCF%", 50.0),
+        "HDCF%": away_all.get("HDCF%", 50.0),
+        "PDO": away_all.get("PDO", 100.0),
+        "FFpg": away_all.get("FFpg", 25.0),
+        "CFpg": away_all.get("CFpg", 45.0),
+        "EVGFpg": away_ev.get("GFpg", away_all.get("GFpg", 3.0)),
+        "EVxGFpg": away_ev.get("xGFpg", away_all.get("xGFpg", 3.0)),
+    }
+
+    # ✅ PURE DATA-DRIVEN VENUE ADVANTAGE (reduced scaling)
+    venue_advantage = calculate_venue_advantage(home_abbr, away_abbr, season)
+
+    # Calculate baseline WITHOUT score effects (will apply AFTER ML adjustments)
+    mu_home, br_home = _compute_expected_goals(
+        home_all, away_all, home_pp60, away_pk_ga60,
+        home_opp_sv, home_opp_dsv, home_opp_gsaa_pg,
+        home_rec_gf, away_rec_ga,
+        lineup_shoot_home - lineup_shoot_away,
+        venue_advantage,
+        advanced_stats_home, extra_pp_goals_home, rest_mult_home, 1.0,  # score_mult=1.0 (no score effects yet)
+        injury_impact_home
+    )
+    mu_away, br_away = _compute_expected_goals(
+        away_all, home_all, away_pp60, home_pk_ga60,
+        away_opp_sv, away_opp_dsv, away_opp_gsaa_pg,
+        away_rec_gf, home_rec_ga,
+        lineup_shoot_away - lineup_shoot_home,
+        0.0,
+        advanced_stats_away, extra_pp_goals_away, rest_mult_away, 1.0,  # score_mult=1.0 (no score effects yet)
+        injury_impact_away
+    )
+    
+    logger.info(f"Expected goals (baseline) - Home: {mu_home:.2f}, Away: {mu_away:.2f}")
+    logger.info(f"Using {season} season data (current season Elo only)")
+
+    try:
+        app_state = get_app_state()
+        team_elo_system = app_state['team_elo']
+        current_season = app_state.get('current_season', 'unknown')
+
+        home_elo = team_elo_system.get_team_rating(home_abbr)
+        away_elo = team_elo_system.get_team_rating(away_abbr)
+
+        # Compute Elo win probability (standard logistic)
+        elo_diff = home_elo - away_elo
+        elo_win_prob = 1.0 / (1.0 + 10.0 ** (-elo_diff / 400.0))
+
+        logger.info(
+            f"Elo ratings: {home_abbr}={home_elo:.0f}, {away_abbr}={away_elo:.0f} "
+            f"→ win prob={elo_win_prob:.3f}"
+        )
+    except Exception as e:
+        logger.warning(f"Could not load Elo ratings for ensemble: {e}")
+        elo_win_prob = None
+            mu_away *= score_mult_away
+            
+            logger.debug(
+                f"Score effects applied (no ML): Home {score_mult_home:.3f}, Away {score_mult_away:.3f}"
+            )
+            
+    except Exception as e:
+        logger.warning(f"Failed to apply Elo/ML adjustment: {e}")
+        logger.info("Using baseline expected goals without Elo/ML adjustment")
+
+    k_home = estimate_gamma_shape_from_recent(team_last_n_goals_list(home_abbr, game_date.isoformat(), n=8))
+    k_away = estimate_gamma_shape_from_recent(team_last_n_goals_list(away_abbr, game_date.isoformat(), n=8))
+
+    lam_h_base, lam_a_base = apply_per_sim_shock(mu_home, mu_away, sims=sims)
+
+    rho = SIMULATION_PARAMS.get("correlation_rho", 0.38)
+    shared = shared_correlation_factor(sims, rho=rho)
+    if shared.size == sims:
+        lam_h_base *= shared
+        lam_a_base *= shared
+
+    blow = np.random.random(size=sims)
+    boost_home = np.where(
+        blow < SIMULATION_PARAMS["blowout_probability"] / 2,
+        SIMULATION_PARAMS["blowout_boost"],
+        1.0
+    )
+    boost_away = np.where(
+        (blow >= SIMULATION_PARAMS["blowout_probability"] / 2) &
+        (blow < SIMULATION_PARAMS["blowout_probability"]),
+        SIMULATION_PARAMS["blowout_boost"],
+        1.0
+    )
+    lam_h = lam_h_base * boost_home
+    lam_a = lam_a_base * boost_away
+
+    if k_home is not None:
+        lam_h = np.random.gamma(shape=k_home, scale=lam_h / max(k_home, 1e-9), size=sims)
+    if k_away is not None:
+        lam_a = np.random.gamma(shape=k_away, scale=lam_a / max(k_away, 1e-9), size=sims)
+
+    home_goals = np.random.poisson(lam_h)
+    away_goals = np.random.poisson(lam_a)
+
+    final_home = home_goals.copy()
+    final_away = away_goals.copy()
+
+    final_home, final_away = apply_empty_net_adjustments(final_home, final_away, mu_home, mu_away)
+
+    disp_away_goals, disp_home_goals = resolve_no_ties_mode(final_home, final_away)
+
+    raw_prob = improved_winner_prediction(final_home, final_away)
+    sim_win_prob = max(0.05, min(0.95, raw_prob))
+
+    calibrated_winner_prob = calibrate_prob(sim_win_prob)
+    if abs(calibrated_winner_prob - sim_win_prob) > 0.001:
+        logger.debug(f"Calibrated win prob: {sim_win_prob:.3f} -> {calibrated_winner_prob:.3f}")
+        sim_win_prob = calibrated_winner_prob
+
+    # Ensemble: blend simulation win probability with Elo win probability
+    # This is the key accuracy improvement — Elo is well-calibrated over long
+    # horizons while the simulation captures current matchup specifics.
+    try:
+        if elo_win_prob is not None:
+            w_elo = MODEL_WEIGHTS["elo_winprob_weight"]
+            w_sim = MODEL_WEIGHTS["simulation_winprob_weight"]
+            winner_prob = w_elo * elo_win_prob + w_sim * sim_win_prob
+            winner_prob = max(0.05, min(0.95, winner_prob))
+            logger.info(
+                f"Ensemble win prob: Sim={sim_win_prob:.3f}, Elo={elo_win_prob:.3f} "
+                f"→ Blend={winner_prob:.3f}"
+            )
+        else:
+            winner_prob = sim_win_prob
+    except Exception:
+        winner_prob = sim_win_prob
+
+    mean_home = float(np.mean(final_home))
+    mean_away = float(np.mean(final_away))
+    median_home = int(np.median(final_home)) if len(final_home) > 0 else int(mu_home)
+    median_away = int(np.median(final_away)) if len(final_away) > 0 else int(mu_away)
+
+    totals = final_home + final_away
+    totals_hist = Counter(totals.tolist())
+    totals_dist = {int(k): int(v) for k, v in sorted(totals_hist.items())}
+
+    denom = float(max(1, sims))
+    
+    pre_final_home = home_goals.copy()
+    pre_final_away = away_goals.copy()
+    pre_ties = int(np.sum(pre_final_home == pre_final_away))
+    reg_games = int(sims - pre_ties)
+    ot_games = int(round(pre_ties * 0.6))
+    so_games = int(pre_ties - ot_games)
+
+    diff = final_home - final_away
+    vol = float(np.std(diff))
+    
+    data_quality_penalty = 0.0
+    if g_df.empty:
+        data_quality_penalty += 0.10
+    if all_df.empty:
+        data_quality_penalty += 0.20
+    
+    conf = float(max(0.0, min(1.0, 1.0 - 0.08 * vol - data_quality_penalty)))
+
+    breakdown = {"HOME": br_home, "AWAY": br_away}
+
+    result = {
+        "mu_home": float(mu_home),
+        "mu_away": float(mu_away),
+        "home_win_pct": round(100.0 * winner_prob, 1),
+        "away_win_pct": round(100.0 * (1 - winner_prob), 1),
+        "home_win_2plus_pct": round(100.0 * (int(np.sum((final_home - final_away) >= 2)) / denom), 1),
+        "away_win_2plus_pct": round(100.0 * (int(np.sum((final_away - final_home) >= 2)) / denom), 1),
+        "exp_home_goals": float(mean_home),
+        "exp_away_goals": float(mean_away),
+        "median_home_goals": median_home,
+        "median_away_goals": median_away,
+        "mode_home_goals": disp_home_goals,
+        "mode_away_goals": disp_away_goals,
+        "dist_home": final_home,
+        "dist_away": final_away,
+        "mode_pair": (disp_away_goals, disp_home_goals),
+        "display_pair": (disp_away_goals, disp_home_goals),
+        "exp_home_shots": float(0.6 * home_all["SFpg"] + 0.4 * away_all["SApg"]),
+        "exp_away_shots": float(0.6 * away_all["SFpg"] + 0.4 * home_all["SApg"]),
+        "totals_distribution": totals_dist,
+        "regulation_games_pct": round(100.0 * reg_games / denom, 1),
+        "ot_games_pct": round(100.0 * ot_games / denom, 1),
+        "so_games_pct": round(100.0 * so_games / denom, 1),
+        "confidence": round(conf, 3),
+        "breakdown": breakdown,
+    }
+
+    logger.info(
+        f"Simulation complete - Home: {result['exp_home_goals']:.2f}G "
+        f"({result['home_win_pct']:.1f}%), Away: {result['exp_away_goals']:.2f}G "
+        f"({result['away_win_pct']:.1f}%)"
+    )
+    return result
+
+__all__ = [
+    'simulate_matchup',
+    'get_team_rates_all',
+    'get_team_rates_ev',
+    'get_team_rates_pp_per60',
+    'get_team_rates_pk_per60',
+    'get_goalie_table',
+    'season_from_date',
+    'prev_season_key',
+    'team_last_n_metrics',
+    'team_last_n_goals_list',
+]

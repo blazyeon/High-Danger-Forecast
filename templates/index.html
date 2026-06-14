@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NHL Game Predictor</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+    <div class="bg-noise"></div>
+    <div class="bg-gradient"></div>
+
+    <header class="app-header">
+        <div class="header-inner">
+            <div class="header-left">
+                <div class="logo-mark">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                        <circle cx="16" cy="16" r="14" stroke="currentColor" stroke-width="2.5"/>
+                        <path d="M10 20L16 8L22 20" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M12 16H20" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+                    </svg>
+                </div>
+                <div class="logo-text">
+                    <h1>NHL Predictor</h1>
+                    <span class="tagline">Elo & ML-Powered Matchup Engine</span>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="status-pill" id="statusPill">
+                    <span class="status-dot ready"></span>
+                    <span class="status-label">Live</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <nav class="tab-nav">
+        <div class="tab-nav-inner">
+            <button class="tab-btn active" data-tab="predictor">
+                <span class="tab-icon">⚔️</span>
+                <span class="tab-label">Predictor</span>
+            </button>
+            <button class="tab-btn" data-tab="lookup">
+                <span class="tab-icon">📅</span>
+                <span class="tab-label">Schedule</span>
+            </button>
+            <button class="tab-btn" data-tab="stats">
+                <span class="tab-icon">📊</span>
+                <span class="tab-label">Analytics</span>
+            </button>
+            <button class="tab-btn" data-tab="props">
+                <span class="tab-icon">💰</span>
+                <span class="tab-label">Props</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="main-content">
+
+        <!-- PREDICTOR TAB -->
+        <section id="tab-predictor" class="tab-panel active">
+            <div class="predictor-grid">
+                <div class="card input-card">
+                    <div class="card-header">
+                        <h2 class="card-title">Matchup Setup</h2>
+                        <p class="card-subtitle">Configure teams and simulation parameters</p>
+                    </div>
+
+                    <div class="matchup-row">
+                        <div class="team-picker">
+                            <label class="picker-label">Home</label>
+                            <div class="team-select-wrap">
+                                <img id="homeLogo" class="team-logo-preview" src="" alt="" style="display:none">
+                                <select id="homeTeam" class="team-select">
+                                    <option value="">Select Team</option>
+                                </select>
+                            </div>
+                            <div class="goalie-row" id="homeGoalieRow" style="display:none">
+                                <label class="sub-label">Goalie</label>
+                                <select id="homeGoalie" class="goalie-select">
+                                    <option value="">Auto-select</option>
+                                </select>
+                            </div>
+                            <label class="b2b-toggle">
+                                <input type="checkbox" id="homeB2B">
+                                <span class="b2b-check"></span>
+                                <span class="b2b-label">Back-to-back</span>
+                            </label>
+                        </div>
+
+                        <div class="vs-divider">
+                            <div class="vs-ring">VS</div>
+                        </div>
+
+                        <div class="team-picker">
+                            <label class="picker-label">Away</label>
+                            <div class="team-select-wrap">
+                                <img id="awayLogo" class="team-logo-preview" src="" alt="" style="display:none">
+                                <select id="awayTeam" class="team-select">
+                                    <option value="">Select Team</option>
+                                </select>
+                            </div>
+                            <div class="goalie-row" id="awayGoalieRow" style="display:none">
+                                <label class="sub-label">Goalie</label>
+                                <select id="awayGoalie" class="goalie-select">
+                                    <option value="">Auto-select</option>
+                                </select>
+                            </div>
+                            <label class="b2b-toggle">
+                                <input type="checkbox" id="awayB2B">
+                                <span class="b2b-check"></span>
+                                <span class="b2b-label">Back-to-back</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="settings-section">
+                        <button class="settings-toggle" id="settingsToggle">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" class="toggle-chevron">
+                                <path d="M6 4L10 8L6 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span>Advanced Settings</span>
+                        </button>
+                        <div class="settings-body" id="settingsBody" style="display:none">
+                            <div class="settings-grid">
+                                <div class="field">
+                                    <label>Simulations</label>
+                                    <input type="number" id="sims" value="10000" min="1000" max="100000" step="1000" class="param-input">
+                                </div>
+                                <div class="field">
+                                    <label>Trend Window</label>
+                                    <input type="number" id="trendGames" value="25" min="5" max="82" class="param-input">
+                                    <span class="field-hint">Games for form calc</span>
+                                </div>
+                                <div class="field">
+                                    <label>NST Window (days)</label>
+                                    <input type="number" id="nstWindow" value="14" min="0" max="82" class="param-input">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button id="predictBtn" class="predict-btn" disabled>
+                        <span>Run Simulation</span>
+                        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" class="btn-arrow">
+                            <path d="M3 9H15M15 9L10 4M15 9L10 14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <div class="card results-card" id="resultsPanel">
+                    <div id="resultsContent">
+                        <div class="empty-state">
+                            <div class="empty-icon">📊</div>
+                            <h3 class="empty-title">Ready to Simulate</h3>
+                            <p class="empty-desc">Select both teams and run a prediction to see detailed matchup analysis, win probabilities, and projected scores.</p>
+                        </div>
+                    </div>
+                    <div id="simLog" class="sim-log" style="display:none"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SCHEDULE TAB -->
+        <section id="tab-lookup" class="tab-panel">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Game Schedule</h2>
+                    <p class="card-subtitle">Browse games by date</p>
+                </div>
+                <div class="lookup-row">
+                    <div class="field">
+                        <label>Date</label>
+                        <input type="date" id="lookupDate" class="param-input">
+                    </div>
+                    <button id="lookupBtn" class="action-btn">Search</button>
+                </div>
+                <div id="lookupResults" class="results-area"></div>
+            </div>
+        </section>
+
+        <!-- ANALYTICS TAB -->
+        <section id="tab-stats" class="tab-panel">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Advanced Statistics</h2>
+                    <p class="card-subtitle">Natural Stat Trick team and player data</p>
+                </div>
+                <div class="stats-row">
+                    <div class="field">
+                        <label>Type</label>
+                        <select id="statsType" class="team-select">
+                            <option value="teams">Teams</option>
+                            <option value="skaters">Skaters</option>
+                            <option value="goalies">Goalies</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label>Season</label>
+                        <select id="statsSeason" class="team-select"></select>
+                    </div>
+                    <button id="statsBtn" class="action-btn">Load</button>
+                </div>
+                <div id="statsResults" class="results-area"></div>
+            </div>
+        </section>
+
+        <!-- PROPS TAB -->
+        <section id="tab-props" class="tab-panel">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Player Props</h2>
+                    <p class="card-subtitle">Odds and lines from sportsbooks</p>
+                </div>
+                <div class="lookup-row">
+                    <div class="field">
+                        <label>Date</label>
+                        <input type="date" id="propsDate" class="param-input">
+                    </div>
+                    <button id="propsBtn" class="action-btn">Load Props</button>
+                </div>
+                <div id="propsResults" class="results-area"></div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="app-footer">
+        <span>NHL Game Predictor v2.1</span>
+        <span class="footer-meta">Data via NHL API & Natural Stat Trick</span>
+    </footer>
+
+    <!-- Game Detail Modal -->
+    <div class="modal-overlay" id="gameModal" style="display:none">
+        <div class="modal-content">
+            <button class="modal-close" id="modalClose">&times;</button>
+            <div id="modalBody"></div>
+        </div>
+    </div>
+
+    <script src="../static/app.js"></script>
+</body>
+</html>

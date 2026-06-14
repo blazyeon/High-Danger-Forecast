@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual environments
+venv/
+env/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Data files that are auto-generated or too large
+nst_cache/
+*.parquet
+
+# Old training DBs (keep elo_ratings.db and current season)
+training_data_*.db
+
+# Logs
+*.log

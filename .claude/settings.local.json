@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(\\(Get-ChildItem nst_cache -File | Measure-Object -Property Length -Sum\\).Sum / 1MB)",
+      "PowerShell(@\\(\\(Get-ChildItem NHL/__pycache__ -File | Measure-Object -Property Length -Sum\\).Sum, \\(Get-ChildItem EloMl/__pycache__ -File | Measure-Object -Property Length -Sum\\).Sum, \\(Get-ChildItem NST/__pycache__ -File | Measure-Object -Property Length -Sum\\).Sum\\) | ForEach-Object { $_ / 1KB })",
+      "PowerShell(New-Item *)",
+      "Bash(python *)",
+      "Bash(git init *)",
+      "Bash(git remote *)",
+      "Bash(git checkout *)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git config *)"
+    ]
+  }
+}

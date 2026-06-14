@@ -1,0 +1,119 @@
+[
+  {"team": "FLA", "player": "Sam Reinhart", "injured": true},
+  {"team": "FLA", "player": "Uvis Balinskis", "injured": true},
+  {"team": "FLA", "player": "Anthony-John Greer", "injured": true},
+  {"team": "FLA", "player": "Anton Lundell", "injured": true},
+  {"team": "FLA", "player": "Mackie Samoskevich", "injured": true},
+  {"team": "FLA", "player": "Aleksander Barkov", "injured": true},
+  {"team": "FLA", "player": "Jonah Gadjovich", "injured": true},
+  {"team": "FLA", "player": "Brad Marchand", "injured": true},
+  {"team": "FLA", "player": "Niko Mikkola", "injured": true},
+  {"team": "FLA", "player": "Carter Schwindt", "injured": true},
+
+  {"team": "CBJ", "player": "Brendan Smith", "injured": true},
+
+  {"team": "MTL", "player": "Kirby Dach", "injured": true},
+  {"team": "MTL", "player": "Patrik Laine", "injured": true},
+
+  {"team": "DAL", "player": "Roope Hintz", "injured": true},
+  {"team": "DAL", "player": "Radek Faksa", "injured": true},
+  {"team": "DAL", "player": "Mikko Rantanen", "injured": true},
+  {"team": "DAL", "player": "Tyler Seguin", "injured": true},
+
+  {"team": "NYI", "player": "Ryan Pulock", "injured": true},
+  {"team": "NYI", "player": "Tony DeAngelo", "injured": true},
+  {"team": "NYI", "player": "Pierre Engvall", "injured": true},
+  {"team": "NYI", "player": "Kyle Palmieri", "injured": true},
+  {"team": "NYI", "player": "Alexander Romanov", "injured": true},
+  {"team": "NYI", "player": "Semyon Varlamov", "injured": true},
+
+  {"team": "CHI", "player": "Matt Grzelcyk", "injured": true},
+  {"team": "CHI", "player": "Andrew Mangiapane", "injured": true},
+  {"team": "CHI", "player": "Oliver Moore", "injured": true},
+  {"team": "CHI", "player": "Ryan Ellis", "injured": true},
+  {"team": "CHI", "player": "Shea Weber", "injured": true},
+
+  {"team": "PHI", "player": "Nikita Grebenkin", "injured": true},
+  {"team": "PHI", "player": "Ty Murchison", "injured": true},
+  {"team": "PHI", "player": "Rodrigo Abols", "injured": true},
+  {"team": "PHI", "player": "Tyson Foerster", "injured": true},
+
+  {"team": "PIT", "player": "P. Kettles", "injured": true},
+  {"team": "PIT", "player": "Blake Lizotte", "injured": true},
+  {"team": "PIT", "player": "Evgeni Malkin", "injured": true},
+  {"team": "PIT", "player": "Filip Hallander", "injured": true},
+  {"team": "PIT", "player": "Caleb Jones", "injured": true},
+
+  {"team": "OTT", "player": "Thomas Chabot", "injured": true},
+  {"team": "OTT", "player": "Dennis Gilbert", "injured": true},
+  {"team": "OTT", "player": "Jake Sanderson", "injured": true},
+  {"team": "OTT", "player": "Lassi Thomson", "injured": true},
+  {"team": "OTT", "player": "Nick Jensen", "injured": true},
+
+  {"team": "SEA", "player": "Jared McCann", "injured": true},
+  {"team": "SEA", "player": "Mitchell McCormick", "injured": true},
+  {"team": "SEA", "player": "Jaden Schwartz", "injured": true},
+  {"team": "SEA", "player": "Ryan Winterton", "injured": true},
+
+  {"team": "TBL", "player": "Victor Hedman", "injured": true},
+  {"team": "TBL", "player": "Declan Carlile", "injured": true},
+  {"team": "TBL", "player": "Max Crozier", "injured": true},
+  {"team": "TBL", "player": "Dylan James", "injured": true},
+
+  {"team": "NJD", "player": "Arseny Gritsyuk", "injured": true},
+  {"team": "NJD", "player": "Brett Pesce", "injured": true},
+  {"team": "NJD", "player": "Zack MacEwen", "injured": true},
+  {"team": "NJD", "player": "Stefan Noesen", "injured": true},
+
+  {"team": "SJS", "player": "Ryan Reaves", "injured": true},
+  {"team": "SJS", "player": "Tyler Toffoli", "injured": true},
+  {"team": "SJS", "player": "Logan Couture", "injured": true},
+  {"team": "SJS", "player": "Ty Dellandrea", "injured": true},
+  {"team": "SJS", "player": "Carey Price", "injured": true},
+
+  {"team": "STL", "player": "Robert Thomas", "injured": true},
+  {"team": "STL", "player": "Tyler Tucker", "injured": true},
+  {"team": "STL", "player": "Torey Krug", "injured": true},
+
+  {"team": "COL", "player": "Nicolas Roy", "injured": true},
+
+  {"team": "WPG", "player": "Vladislav Namestnikov", "injured": true},
+  {"team": "WPG", "player": "Colin Miller", "injured": true},
+  {"team": "WPG", "player": "Nino Niederreiter", "injured": true},
+
+  {"team": "ANA", "player": "Jansen Harkins", "injured": true},
+  {"team": "ANA", "player": "Ryan Johnston", "injured": true},
+  {"team": "ANA", "player": "Petr Mrazek", "injured": true},
+
+  {"team": "CGY", "player": "Connor Zary", "injured": true},
+  {"team": "CGY", "player": "Henry Mews", "injured": true},
+  {"team": "CGY", "player": "Carter Potter", "injured": true},
+  {"team": "CGY", "player": "Jake Bean", "injured": true},
+  {"team": "CGY", "player": "Samuel Honzek", "injured": true},
+  {"team": "CGY", "player": "Jonathan Huberdeau", "injured": true},
+
+  {"team": "WSH", "player": "Ethen Frank", "injured": true},
+  {"team": "WSH", "player": "David Kampf", "injured": true},
+  {"team": "WSH", "player": "Egor Mateiko", "injured": true},
+
+  {"team": "UTA", "player": "Barrett Hayton", "injured": true},
+
+  {"team": "EDM", "player": "Trent Frederic", "injured": true},
+  {"team": "EDM", "player": "Colton Dach", "injured": true},
+  {"team": "EDM", "player": "Leon Draisaitl", "injured": true},
+  {"team": "EDM", "player": "Mattias Janmark", "injured": true},
+  {"team": "EDM", "player": "Curtis Lazar", "injured": true},
+
+  {"team": "VGK", "player": "Carter Hart", "injured": true},
+  {"team": "VGK", "player": "William Karlsson", "injured": true},
+  {"team": "VGK", "player": "Alex Pietrangelo", "injured": true},
+  {"team": "VGK", "player": "Jonas Rondbjerg", "injured": true},
+
+  {"team": "LAK", "player": "Kevin Fiala", "injured": true},
+  {"team": "LAK", "player": "Andrei Kuzmenko", "injured": true},
+
+  {"team": "VAN", "player": "Jonathan Lekkerimaki", "injured": true},
+  {"team": "VAN", "player": "Filip Chytil", "injured": true},
+  {"team": "VAN", "player": "Thatcher Demko", "injured": true},
+  {"team": "VAN", "player": "Derek Forbort", "injured": true}
+]
