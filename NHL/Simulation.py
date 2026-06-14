@@ -1181,15 +1181,6 @@ def simulate_matchup(
     except Exception as e:
         logger.warning(f"Could not load Elo ratings for ensemble: {e}")
         elo_win_prob = None
-            mu_away *= score_mult_away
-            
-            logger.debug(
-                f"Score effects applied (no ML): Home {score_mult_home:.3f}, Away {score_mult_away:.3f}"
-            )
-            
-    except Exception as e:
-        logger.warning(f"Failed to apply Elo/ML adjustment: {e}")
-        logger.info("Using baseline expected goals without Elo/ML adjustment")
 
     k_home = estimate_gamma_shape_from_recent(team_last_n_goals_list(home_abbr, game_date.isoformat(), n=8))
     k_away = estimate_gamma_shape_from_recent(team_last_n_goals_list(away_abbr, game_date.isoformat(), n=8))
