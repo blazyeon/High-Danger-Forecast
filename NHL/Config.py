@@ -144,6 +144,20 @@ REST_TRAVEL_PARAMS = {
     "max_multiplier": 1.05,
 }
 
+# ── Connection / Retry ──────────────────────────────────────────────
+MAX_RETRIES = 3
+RETRY_BACKOFF_BASE = 0.75
+CONNECTION_POOL_SIZE = 10
+CONNECTION_POOL_MAXSIZE = 20
+
+# ── Position Lists ──────────────────────────────────────────────────
+FORWARD_POSITIONS = ["C", "L", "R", "LW", "RW", "W"]
+DEFENSE_POSITIONS = ["D", "LD", "RD"]
+GOALIE_POSITIONS = ["G", "Goalie"]
+
+# ── Season Range ────────────────────────────────────────────────────
+EARLIEST_SEASON_YEAR = 2010
+
 # ── UI ──────────────────────────────────────────────────────────────
 UI_PARAMS = {
     "logo_width": 110,
