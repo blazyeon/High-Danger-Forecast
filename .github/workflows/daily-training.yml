@@ -32,8 +32,10 @@ jobs:
           python update_elo_ratings.py --current-season
 
       - name: Scrape NST advanced stats
+        continue-on-error: true
         run: |
-          python update_nst_stats.py --season 20242025 --sit s5v5 --out static/data
+          SEASON=$(python -c "from datetime import date; d=date.today(); y=d.year if d.month>=10 else d.year-1; print(f'{y}{y+1}')")
+          python update_nst_stats.py --season "$SEASON" --sit all --out static/data
 
       - name: Commit and push updates
         run: |

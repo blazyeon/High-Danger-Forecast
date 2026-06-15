@@ -710,9 +710,7 @@ def main() -> int:
     if nst_player_stats:
         populate_initial_player_elo(season_str, db, nst_player_stats, min_games=args.min_games)
     else:
-        logger.error("❌ Failed to load NST player data")
-        db.close()
-        return 1
+        logger.warning("⚠️  NST player data unavailable (Cloudflare blocked). Skipping player Elo init.")
 
     populate_team_elo_from_games(season_str, db)
 
