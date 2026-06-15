@@ -14,7 +14,7 @@ import functools
 import requests
 
 from NHL.Lookup import sanitize_text, format_initial_last
-from NST.Cache import get_nst_table_from_url
+from NST.Cache import get_nst_table_from_url  # noqa: F401  (deprecated, kept for back-compat)
 from NHL.Config import (
     PLAYER_PARAMS,
     GOALIE_PARAMS,

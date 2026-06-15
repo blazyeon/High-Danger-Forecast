@@ -1,13 +1,18 @@
 """
-NHL Advanced Stats utilities for building URLs, processing data,
-and configuring column displays from Natural Stat Trick.
+NHL Advanced Stats utilities — URL builders and column configuration.
+
+The actual data fetching has moved to ``NHL.PlayByPlay`` and
+``NHL.StatsFromPBP`` (NHL API PBP + computed stats). This module
+retains the URL builders for backwards compatibility with code that
+still constructs NST URLs; new code should not import them.
 """
 from __future__ import annotations
 import pandas as pd
 from typing import Dict, Any, List, Optional, Tuple
 import logging
 
-from NST.Cache import get_nst_table_from_url
+# NST.Cache is no longer imported here; URL builders below are kept
+# as a back-compat shim but the data path goes through StatsFromPBP.
 from NHL.Config import (
     EARLIEST_SEASON_YEAR,
     CURRENT_SEASON_YEAR,

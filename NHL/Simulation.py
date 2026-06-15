@@ -34,7 +34,8 @@ import numpy as np
 import pandas as pd
 import requests
 
-from NST.Cache import get_nst_table_from_url
+# NST.Cache no longer imported — get_player_and_goalie_names and the
+# injury stats function have been migrated to PBP-based equivalents.
 from NHL.Config import (
     RATE_LIMIT_SLEEP_SECONDS,
     RATE_LIMIT_JITTER_SECONDS,
@@ -791,58 +792,88 @@ def calculate_automatic_injury_impact(
         'n_injuries': len(injuries)
     }
 
-def load_player_stats_for_injuries(season: str) -> Tuple[Dict[str, Dict], Dict[str, Dict]]:
-    """Load player stats once for injury calculations"""
-    player_cache = {}
-    team_cache = {}
-    
+
+def _load_player_stats_for_injuries(season: str) -> Tuple[Dict[str, Dict], Dict[str, Dict]]:
+    """
+    Per-player and per-team stats used by the injury-impact code path.
+    Now backed by NHL API PBP (was NST HTML scrape). Returns the same
+    (player_cache, team_cache) shape the caller expects:
+
+        player_cache: {name_key: {name, team, gp, goals, assists, points}}
+        team_cache:   {team_abbr: {total_goals, total_points}}
+    """
+    player_cache: Dict[str, Dict] = {}
+    team_cache: Dict[str, Dict] = {}
     try:
-        url = (
-            f"https://www.naturalstattrick.com/playerteams.php?"
-            f"fromseason={season}&thruseason={season}&stype=2&sit=all&score=all&"
-            f"stdoi=std&rate=n&team=ALL&pos=S&loc=B&toi=0&gpfilt=none&fd=&td=&"
-            f"tgp=410&lines=single&draftteam=ALL"
-        )
-        
-        df = get_nst_table_from_url(url)
-        
-        if df is not None and not df.empty:
-            for _, row in df.iterrows():
-                name = str(row.get('Player', '')).strip()
-                team = str(row.get('Team', '')).strip().upper()
-                
-                if not name:
-                    continue
-                
-                key = normalize_name_key(name)
-                
-                gp = int(row.get('GP', 0)) if row.get('GP') else 0
-                goals = int(row.get('Goals', 0)) if row.get('Goals') else 0
-                assists = int(row.get('Total Assists', 0)) if row.get('Total Assists') else 0
-                points = int(row.get('Total Points', 0)) if row.get('Total Points') else 0
-                
-                player_cache[key] = {
-                    'name': name,
-                    'team': team,
-                    'gp': gp,
-                    'goals': goals,
-                    'assists': assists,
-                    'points': points
-                }
-                
-                # Aggregate team totals
-                if team not in team_cache:
-                    team_cache[team] = {'total_goals': 0, 'total_points': 0}
-                
-                team_cache[team]['total_goals'] += goals
-                team_cache[team]['total_points'] += points
-            
-            logger.info(f"Loaded injury stats: {len(player_cache)} players, {len(team_cache)} teams")
-    
+        start_year = int(str(season)[:4])
+    except (ValueError, TypeError):
+        logger.error(f"Invalid season format {season!r}")
+        return player_cache, team_cache
+
+    try:
+        from NHL.StatsFromPBP import compute_skater_rates, team_abbr_from_id
+        from NHL.PlayByPlay import load_shot_store
+        rates = compute_skater_rates(start_year, 2)
+        shots = load_shot_store(start_year, 2)
     except Exception as e:
-        logger.error(f"Failed to load player stats for injuries: {e}")
-    
+        logger.error(f"Failed to load PBP stats for injuries ({season}): {e}")
+        return player_cache, team_cache
+
+    if not rates:
+        logger.warning(f"No PBP skater rates for {season}")
+        return player_cache, team_cache
+
+    id_team: Dict[int, int] = {}
+    if not shots.empty and {"shooter_id", "team_id"}.issubset(shots.columns):
+        sub = shots.dropna(subset=["shooter_id", "team_id"])
+        for sid, grp in sub.groupby("shooter_id"):
+            try:
+                mode = grp["team_id"].mode()
+                id_team[int(sid)] = int(mode.iloc[0]) if not mode.empty else 0
+            except Exception:
+                continue
+
+    per_player: Dict[int, Dict[str, int]] = {}
+    if not shots.empty and "shooter_id" in shots.columns:
+        agg = shots.dropna(subset=["shooter_id"]).groupby("shooter_id").agg(
+            goals=("is_goal", "sum"),
+            gp=("game_id", "nunique"),
+        )
+        for sid, row in agg.iterrows():
+            try:
+                per_player[int(sid)] = {"goals": int(row["goals"]), "gp": int(row["gp"])}
+            except Exception:
+                pass
+
+    for name_key, d in rates.items():
+        try:
+            goals = int(d.get("goals", 0))
+            assists = int(d.get("assists", 0))
+            player_cache[name_key] = {
+                "name": d.get("name", ""),
+                "team": "",
+                "gp": int(d.get("gp", 0)),
+                "goals": goals,
+                "assists": assists,
+                "points": goals + assists,
+            }
+        except Exception as e:
+            logger.debug(f"Injury-stats row error: {e}")
+
+    for sid, stats in per_player.items():
+        abbr = team_abbr_from_id(id_team.get(sid, 0))
+        if not abbr:
+            continue
+        if abbr not in team_cache:
+            team_cache[abbr] = {"total_goals": 0, "total_points": 0}
+        team_cache[abbr]["total_goals"] += stats["goals"]
+        team_cache[abbr]["total_points"] += stats["goals"]  # pts ≈ goals proxy
+
+    logger.info(
+        f"Loaded injury stats: {len(player_cache)} players, {len(team_cache)} teams"
+    )
     return player_cache, team_cache
+
 
 def improved_winner_prediction(final_home, final_away, extra_features=None) -> float:
     """
@@ -989,7 +1020,7 @@ def simulate_matchup(
 
     # AUTOMATIC INJURY IMPACT CALCULATION
     if apply_injury_impact:
-        player_stats_cache, team_stats_cache = load_player_stats_for_injuries(season)
+        player_stats_cache, team_stats_cache = _load_player_stats_for_injuries(season)
         
         home_injury_data = calculate_automatic_injury_impact(
             home_abbr, season, player_stats_cache, team_stats_cache
