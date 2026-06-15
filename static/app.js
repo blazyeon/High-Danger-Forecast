@@ -286,6 +286,7 @@ function initSeasons() {
     if (!sel) return;
     sel.innerHTML = '';
     const seasons = [
+        { key: '20252026', label: '2025-26' },
         { key: '20242025', label: '2024-25' },
         { key: '20232024', label: '2023-24' },
         { key: '20222023', label: '2022-23' },
@@ -294,6 +295,7 @@ function initSeasons() {
         { key: '20192020', label: '2019-20' },
     ];
     seasons.forEach(s => sel.add(new Option(s.label, s.key)));
+    sel.value = '20252026';
 }
 
 function populateGoalies() {
