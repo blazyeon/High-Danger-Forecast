@@ -7,8 +7,6 @@ from .Config import *
 from .Errors import *
 from .Utils import *
 from .ApiScrape import *
-from .Simulation import *
-from .Prediction import *
 
 __version__ = "2.0.0"
 
@@ -42,14 +40,6 @@ __all__ = [
     'get_games_on_date',
     'get_boxscore',
     'get_confirmed_or_predicted_lineup',
-    
-    # Simulation
-    'simulate_matchup',
-    'get_goalie_table',
-    
-    # Prediction
-    'predict_player_stats',
-    'lineup_shooting_factor',
 
     # AppState
     'get_app_state',

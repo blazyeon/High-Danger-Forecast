@@ -46,11 +46,6 @@ from NHL.Utils import (
 
 logger = logging.getLogger(__name__)
 
-try:
-    import NHL.Simulation as sim_mod
-except Exception:
-    sim_mod = None
-
 # ===================== CACHE & DETERMINISTIC SEEDING =====================
 
 _PREDICTION_CACHE = {}

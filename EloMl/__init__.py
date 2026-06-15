@@ -8,7 +8,6 @@ from .Database import EloDatabase
 from .Features import EloFeatureEngine
 from .MLModel import EloMLPredictor, ModelConfig
 from .Updater import EloGameUpdater
-from .AutoImprove import AutoImprovementEngine
 
 __version__ = "1.0.0"
 
@@ -21,5 +20,4 @@ __all__ = [
     'EloMLPredictor',
     'ModelConfig',
     'EloGameUpdater',
-    'AutoImprovementEngine',
 ]

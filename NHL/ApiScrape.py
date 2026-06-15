@@ -21,7 +21,7 @@ from NHL.Config import (
 )
 from NHL.Utils import (
     normalize_name_key, format_initial_last, sanitize_text,
-    season_from_date
+    season_from_date, parse_minutes
 )
 
 logger = logging.getLogger(__name__)
@@ -432,20 +432,6 @@ def _get_last_game_roster(abbrev: str, date_str: str) -> Tuple[List[Dict[str, An
             name = _display_name(g)
             goalies.append({"name": name, "position": "G"})
 
-    def _parse_minutes(toi: Any) -> float:
-        """Parse time on ice string to minutes"""
-        try:
-            parts = str(toi).split(":")
-            if len(parts) == 2:
-                m, s = int(parts[0]), int(parts[1])
-                return m + s / 60.0
-            if len(parts) == 3:
-                h, m, s = int(parts[0]), int(parts[1]), int(parts[2])
-                return h * 60 + m + s / 60.0
-            return 0.0
-        except Exception:
-            return 0.0
-
     added = set()
     for key in ("forwards", "defense", "skaters"):
         arr = team_block.get(key) or []
@@ -455,7 +441,7 @@ def _get_last_game_roster(abbrev: str, date_str: str) -> Tuple[List[Dict[str, An
                 pos = _position_code(rec)
                 stats = rec.get("stats") or rec.get("skaterStats") or rec
                 toi_str = stats.get("toi") or rec.get("toi") or "0:00"
-                toi_min = _parse_minutes(toi_str)
+                toi_min = parse_minutes(toi_str)
                 
                 if pos != "G" and toi_min > 0:
                     k = (nm, pos)

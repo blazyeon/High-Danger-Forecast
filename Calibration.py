@@ -4,7 +4,6 @@ Probability calibration and online update scaffolding.
 """
 from __future__ import annotations
 
-from typing import List
 import numpy as np
 
 import logging
@@ -56,13 +55,3 @@ _GLOBAL_CALIBRATOR = Calibrator()
 def calibrate_prob(p_home: float) -> float:
     """Calibrate a single probability (safe no-op if calibrator not fitted)."""
     return _GLOBAL_CALIBRATOR.predict_one(p_home)
-
-def update_calibration(rolling_probs: List[float], rolling_outcomes: List[int]) -> None:
-    """Fit/update the calibrator with recent outcomes (e.g., daily cron/backtest)."""
-    try:
-        p = np.asarray(rolling_probs, dtype=float)
-        y = np.asarray(rolling_outcomes, dtype=int)
-        if len(p) >= 50:
-            _GLOBAL_CALIBRATOR.fit(p, y)
-    except Exception as e:
-        logger.debug(f"Calibration update failed: {e}")
