@@ -2,17 +2,24 @@
 Natural Stat Trick scraper with connection pooling, robust HTML parsing,
 in-memory caching with TTL, and URL builders.
 
-This is the single entry point for all NST data fetching.
-- get_nst_table_from_url(): Main fetcher with caching and multi-parser fallback
-- build_nst_team_url() / build_nst_player_url(): URL builders
-- test_nst_connection(): Health check
-- scrape_nst_player_table(): Alternative scraper using BeautifulSoup directly
+.. deprecated::
+    NST HTML scraping is fragile and has CORS issues. The data pipeline
+    has been migrated to the NHL API play-by-play feed (see
+    ``NHL.PlayByPlay``) plus MoneyPuck CSVs (see ``NHL.MoneyPuck``) for
+    validation. Stats aggregators live in ``NHL.StatsFromPBP`` and the
+    xG model is in ``NHL.xGModel``.
+
+    This file remains importable for backwards compatibility (the app's
+    startup and a few historical scripts may still reference it). The
+    functions log a deprecation warning on first call. They will be
+    removed in a future release.
 """
 from __future__ import annotations
 
 import logging
 import re
 import time
+import warnings
 from typing import Any, Dict, List, Optional, Tuple
 from io import StringIO
 from urllib.parse import urlencode, urlparse
@@ -21,6 +28,13 @@ import pandas as pd
 import requests
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
+
+# Emit a deprecation warning the first time this module is imported.
+warnings.warn(
+    "NST.Cache is deprecated; use NHL.PlayByPlay + NHL.StatsFromPBP instead.",
+    DeprecationWarning,
+    stacklevel=2,
+)
 
 logger = logging.getLogger(__name__)
 

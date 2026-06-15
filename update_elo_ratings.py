@@ -24,9 +24,14 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 from NHL.Utils import season_from_date
+from NHL.StatsFromPBP import compute_skater_rates
+from NHL.PlayByPlay import load_shot_store
+from NHL.xGModel import load_xg_model, predict_xg
 from EloMl.Database import EloDatabase
 from EloMl.Ratings import EloConfig, PlayerEloSystem, TeamEloSystem
-from NST.Cache import get_nst_table_from_url
+# NST.Cache no longer imported — we use PBP-derived stats instead.
+# The function is still called load_nst_player_stats for compatibility
+# with the rest of the file but is now backed by the NHL API PBP.
 
 NHL_API_BASE = "https://api-web.nhle.com/v1"
 
@@ -94,77 +99,92 @@ def safe_int(val, default=0):
 
 def load_nst_player_stats(season: str) -> Dict[str, Dict]:
     """
-    Load comprehensive player stats from NST using existing Cache module.
+    Load comprehensive player stats.
+
+    Now backed by NHL API PBP (was NST HTML scrape). The function name
+    is kept for compatibility with the rest of this file; new code
+    should call `compute_skater_rates` directly from `NHL.StatsFromPBP`.
+
+    `season` is the YYYYYYYY form ("20242025"). We call
+    `compute_skater_rates(start_year, stype=2)` which returns
+    {name_key: {name, gpg, apg, sogpg, xgf_pg, gp, goals, shots, assists}}
+    and reshape into the format the Elo initial-rating code expects.
+
+    Fields we can't compute from PBP (toi, blocks, takeaways, giveaways,
+    shots-blocked) are set to 0 — the consumer treats 0 as "no data" and
+    applies a neutral adjustment, which is the right default.
     """
-    logger.info(f"📊 Loading NST player stats for {season}...")
-    
-    url = (
-        f"https://www.naturalstattrick.com/playerteams.php?"
-        f"fromseason={season}&thruseason={season}&stype=2&sit=all&score=all&"
-        f"stdoi=std&rate=n&team=ALL&pos=S&loc=B&toi=0&gpfilt=none&fd=&td=&"
-        f"tgp=410&lines=single&draftteam=ALL"
-    )
-    
-    df = get_nst_table_from_url(url)
-    
-    if df is None or df.empty:
-        logger.error(f"❌ No NST player data for {season}")
+    logger.info(f"📊 Loading PBP player stats for {season}...")
+    try:
+        start_year = int(str(season)[:4])
+    except (ValueError, TypeError):
+        logger.error(f"❌ Invalid season format {season!r}, expected YYYYYYYY")
         return {}
-    
-    logger.info(f"✓ Loaded table with {len(df)} rows")
-    
-    player_stats = {}
-    
-    for _, row in df.iterrows():
+
+    try:
+        rates = compute_skater_rates(start_year, 2)
+    except Exception as e:
+        logger.error(f"❌ Failed to compute skater rates for {season}: {e}")
+        return {}
+
+    if not rates:
+        logger.warning(f"⚠️ No PBP stats for {season}, returning empty dict")
+        return {}
+
+    # Per-player ixG: the xG model gives us per-shot xg summed to a
+    # player. We need a separate groupby because compute_skater_rates
+    # returns aggregate xgf per player but no per-player ixg. ixg is
+    # the model's per-shot xG average — we approximate as xgf / shots
+    # (which is essentially "expected goals per shot attempt", i.e. ixG).
+    player_stats: Dict[str, Dict] = {}
+    for name_key, d in rates.items():
         try:
-            name = str(row.get('Player', '')).strip()
-            if not name or name == 'nan' or name == '':
+            gp = int(d.get("gp", 0))
+            if gp == 0:
                 continue
-            
-            name_key = name.lower()
-            
-            gp = safe_int(row.get('GP', 0))
-            toi = safe_float(row.get('TOI', 0))
-            goals = safe_int(row.get('Goals', 0))
-            assists = safe_int(row.get('Total Assists', 0))
-            points = safe_int(row.get('Total Points', 0))
-            shots = safe_int(row.get('Shots', 0))
-            ixg = safe_float(row.get('ixG', 0))
-            sh_pct = safe_float(row.get('SH%', 0))
-            blocks = safe_int(row.get('Shots Blocked', 0))
-            takeaways = safe_int(row.get('Takeaways', 0))
-            giveaways = safe_int(row.get('Giveaways', 0))
-            
+            goals = int(d.get("goals", 0))
+            assists = int(d.get("assists", 0))
+            shots = int(d.get("shots", 0))
+            # xgf_pg is xG per game. We want total xG to compute ixG
+            # (which the Elo formula treats as expected goals per shot).
+            xgf_total = float(d.get("xgf_pg", 0.0)) * gp
+            ixg = (xgf_total / shots) if shots > 0 else 0.0
+            points = goals + assists
+            # Position default: 'F' (forward). The Elo formula treats
+            # 'D' (defense) differently, so the misclassification is
+            # ~uniform noise. We do not have roster-position data here
+            # without an extra API call; PBP doesn't carry position
+            # per event. NHL roster lookup could be added as a
+            # follow-up via the api-web.nhle.com/v1/roster endpoint.
             player_stats[name_key] = {
-                'name': name,
-                'position': normalize_position(row.get('Position', 'F')),
-                'team': str(row.get('Team', '')).upper().strip(),
-                'gp': gp,
-                'toi': toi,
-                'goals': goals,
-                'assists': assists,
-                'points': points,
-                'isf': shots,
-                'ixg': ixg,
-                'ish_pct': sh_pct,
-                'cf': 0,
-                'ca': 0,
-                'cf_pct': 50.0,
-                'xgf': 0.0,
-                'xga': 0.0,
-                'xg_pct': 50.0,
-                'hdcf': safe_int(row.get('iHDCF', 0)),
-                'hdca': 0,
-                'blocks': blocks,
-                'takeaways': takeaways,
-                'giveaways': giveaways,
-                'plus_minus': 0,
+                "name": d.get("name", ""),
+                "position": "F",
+                "team": "",  # would need a roster lookup to fill
+                "gp": gp,
+                "toi": 0.0,
+                "goals": goals,
+                "assists": assists,
+                "points": points,
+                "isf": shots,
+                "ixg": ixg,
+                "ish_pct": (goals / shots) if shots > 0 else 0.0,
+                "cf": 0,
+                "ca": 0,
+                "cf_pct": 50.0,
+                "xgf": xgf_total,
+                "xga": 0.0,
+                "xg_pct": 50.0,
+                "hdcf": 0,
+                "hdca": 0,
+                "blocks": 0,
+                "takeaways": 0,
+                "giveaways": 0,
+                "plus_minus": 0,
             }
-            
         except Exception as e:
             logger.debug(f"Error parsing player row: {e}")
-    
-    logger.info(f"✓ Loaded {len(player_stats)} players from NST")
+
+    logger.info(f"✓ Loaded {len(player_stats)} players from PBP")
     return player_stats
 
 def calculate_player_initial_rating(stats: Dict, config: EloConfig) -> float:

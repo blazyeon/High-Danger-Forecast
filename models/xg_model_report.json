@@ -1,0 +1,108 @@
+{
+  "model_type": "LogisticRegression",
+  "feature_cols": [
+    "distance",
+    "angle",
+    "distance_x_angle",
+    "is_rebound",
+    "is_rush",
+    "home_skaters",
+    "away_skaters",
+    "skaters_diff",
+    "is_empty_net",
+    "is_home",
+    "period",
+    "time_seconds",
+    "shot_type_wrist",
+    "shot_type_slap",
+    "shot_type_snap",
+    "shot_type_backhand",
+    "shot_type_tip-in",
+    "shot_type_deflect",
+    "shot_type_wrap-around",
+    "shot_type_poke",
+    "shot_type_bat",
+    "shot_type_other"
+  ],
+  "n_train": 125297,
+  "n_val": 31325,
+  "train": {
+    "auc": 0.8001188037608631,
+    "brier": 0.04563982105033647,
+    "logloss": 0.17307620001581492,
+    "accuracy": 0.9484744247667541,
+    "goal_rate": 0.05152557523324581
+  },
+  "val": {
+    "auc": 0.7977542081656762,
+    "brier": 0.04566837324255708,
+    "logloss": 0.17366084277098487,
+    "accuracy": 0.9484756584197925,
+    "goal_rate": 0.0515243415802075
+  },
+  "mean_predicted_xg": 0.05124249877077613,
+  "total_predicted_goals": 1605.1712739945622,
+  "total_actual_goals": 1614,
+  "top_coefficients": [
+    {
+      "feature": "shot_type_other",
+      "coef": -1.0663986791447002
+    },
+    {
+      "feature": "distance",
+      "coef": -0.809680239647905
+    },
+    {
+      "feature": "shot_type_wrist",
+      "coef": 0.43473636380610914
+    },
+    {
+      "feature": "shot_type_snap",
+      "coef": 0.42258036622916734
+    },
+    {
+      "feature": "shot_type_slap",
+      "coef": 0.34251130040740096
+    },
+    {
+      "feature": "time_seconds",
+      "coef": 0.28011086716109773
+    },
+    {
+      "feature": "angle",
+      "coef": -0.23604512269202077
+    },
+    {
+      "feature": "distance_x_angle",
+      "coef": -0.22124549446599387
+    },
+    {
+      "feature": "period",
+      "coef": -0.1535565260751645
+    },
+    {
+      "feature": "shot_type_backhand",
+      "coef": 0.10803497343566985
+    },
+    {
+      "feature": "shot_type_poke",
+      "coef": 0.037182848350463996
+    },
+    {
+      "feature": "shot_type_tip-in",
+      "coef": 0.027223658213861312
+    },
+    {
+      "feature": "home_skaters",
+      "coef": -0.02479593872783892
+    },
+    {
+      "feature": "shot_type_bat",
+      "coef": 0.024403049236626097
+    },
+    {
+      "feature": "away_skaters",
+      "coef": -0.020196851361415778
+    }
+  ]
+}

@@ -1,4 +1,4 @@
-name: Daily Elo Training + NST Stats
+name: Daily Elo + PBP Stats Refresh
 
 on:
   schedule:
@@ -24,23 +24,24 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt 2>/dev/null || true
-          # Install common deps if no requirements.txt exists
-          pip install requests pandas numpy beautifulsoup4 lxml scipy
+          # Common deps used by NHL.PlayByPlay, NHL.xGModel, etc.
+          pip install requests pandas numpy beautifulsoup4 lxml scipy scikit-learn pyarrow
 
       - name: Run Elo updater
         run: |
           python update_elo_ratings.py --current-season
 
-      - name: Scrape NST advanced stats
+      - name: Refresh PBP + MoneyPuck stats
         continue-on-error: true
         run: |
-          SEASON=$(python -c "from datetime import date; d=date.today(); y=d.year if d.month>=10 else d.year-1; print(f'{y}{y+1}')")
-          python update_nst_stats.py --season "$SEASON" --sit all --out static/data
+          # Use the current season (Oct → next June) for the daily refresh.
+          SEASON_YEAR=$(python -c "from datetime import date; d=date.today(); y=d.year if d.month>=10 else d.year-1; print(y)")
+          python update_pbp_stats.py --season "$SEASON_YEAR" --stype 2 --out static/data
 
       - name: Commit and push updates
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add -A
-          git diff --quiet && git diff --staged --quiet || git commit -m "Auto-update Elo + NST stats $(date -u +%Y-%m-%d)"
+          git diff --quiet && git diff --staged --quiet || git commit -m "Auto-update Elo + PBP stats $(date -u +%Y-%m-%d)"
           git push

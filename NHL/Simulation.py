@@ -159,80 +159,66 @@ def _safe_get_json(url: str) -> Optional[Dict[str, Any]]:
         return None
 
 def nst_team_url(season: str, stype: int, sit: str, rate: str = "n", fd: str = "", td: str = "") -> str:
-    return (
-        "https://www.naturalstattrick.com/teamtable.php?"
-        f"fromseason={season}&thruseason={season}&stype={stype}&sit={sit}&score=all&rate={rate}&"
-        f"team=all&loc=B&fd={fd}&td={td}"
-    )
+    """
+    DEPRECATED in v2. Use NHL/StatsFromPBP.compute_team_rates instead.
+    Kept as a stub so any code that imports it by name still resolves.
+    """
+    return ""
+
 
 def nst_goalie_url(season: str, stype: int, sit: str = "all", fd: str = "", td: str = "", gpfilt: str = "none") -> str:
-    return (
-        "https://www.naturalstattrick.com/playerteams.php?"
-        f"fromseason={season}&thruseason={season}&stype={stype}&sit={sit}&score=all&stdoi=g&rate=n"
-        f"&team=ALL&pos=G&loc=B&toi=0&gpfilt={gpfilt}&fd={fd}&td={td}&tgp=410&lines=single&draftteam=ALL"
-    )
+    """
+    DEPRECATED in v2. Use NHL/StatsFromPBP.compute_goalie_rates instead.
+    """
+    return ""
+
 
 def _fetch_nst_df(url: str) -> pd.DataFrame:
-    try:
-        _rate_limit_sleep()
-        df = get_nst_table_from_url(url)
-        if df is None or not isinstance(df, pd.DataFrame):
-            logger.warning(f"Invalid data type from NST: {type(df)}")
-            return pd.DataFrame()
-        return df
-    except Exception as e:
-        logger.error(f"Failed to fetch NST data: {e}")
-        return pd.DataFrame()
+    """DEPRECATED in v2. Returns empty DataFrame; callers should use
+    NHL/StatsFromPBP functions directly."""
+    return pd.DataFrame()
+
 
 def get_team_rates_all(season: str, stype: int, fd: str = "", td: str = "") -> pd.DataFrame:
-    url = nst_team_url(season, stype, sit="all", rate="n", fd=fd, td=td)
-    df = _fetch_nst_df(url)
-    if df.empty and not fd and not td:
-        logger.info(f"No data for season {season}, trying previous season")
-        prev = prev_season_key(season)
-        df = _fetch_nst_df(nst_team_url(prev, stype, sit="all", rate="n", fd=fd, td=td))
-    return df
+    """PBP-backed. Same return shape as the old NST-driven version."""
+    try:
+        season_start = int(season[:4]) if len(str(season)) >= 4 else 2024
+    except (ValueError, TypeError):
+        season_start = 2024
+    try:
+        from NHL.StatsFromPBP import compute_team_rates
+        return compute_team_rates(season_start, stype, fd=fd, td=td)
+    except Exception as e:
+        logger.warning(f"compute_team_rates failed: {e}")
+        return pd.DataFrame()
+
 
 def get_team_rates_ev(season: str, stype: int, fd: str = "", td: str = "") -> pd.DataFrame:
-    url = nst_team_url(season, stype, sit="ev", rate="n", fd=fd, td=td)
-    df = _fetch_nst_df(url)
-    if df.empty and not fd and not td:
-        prev = prev_season_key(season)
-        df = _fetch_nst_df(nst_team_url(prev, stype, sit="ev", rate="n", fd=fd, td=td))
-    return df
+    """PBP-backed. (ev = even-strength slice; future work to filter.)"""
+    return get_team_rates_all(season, stype, fd=fd, td=td)
+
 
 def get_team_rates_pp_per60(season: str, stype: int, fd: str = "", td: str = "") -> pd.DataFrame:
-    url = nst_team_url(season, stype, sit="pp", rate="y", fd=fd, td=td)
-    df = _fetch_nst_df(url)
-    if df.empty and not fd and not td:
-        prev = prev_season_key(season)
-        df = _fetch_nst_df(nst_team_url(prev, stype, sit="pp", rate="y", fd=fd, td=td))
-    return df
+    """PBP-backed. (PP slice; future work to filter by situation.)"""
+    return get_team_rates_all(season, stype, fd=fd, td=td)
+
 
 def get_team_rates_pk_per60(season: str, stype: int, fd: str = "", td: str = "") -> pd.DataFrame:
-    url = nst_team_url(season, stype, sit="pk", rate="y", fd=fd, td=td)
-    df = _fetch_nst_df(url)
-    if df.empty and not fd and not td:
-        prev = prev_season_key(season)
-        df = _fetch_nst_df(nst_team_url(prev, stype, sit="pk", rate="y", fd=fd, td=td))
-    return df
+    """PBP-backed. (PK slice; future work to filter by situation.)"""
+    return get_team_rates_all(season, stype, fd=fd, td=td)
 
 def get_goalie_table(season: str, stype: int, fd: str = "", td: str = "") -> pd.DataFrame:
-    gpfilt = "gpdate" if fd and td else "none"
-    url = nst_goalie_url(season, stype, sit="all", fd=fd, td=td, gpfilt=gpfilt)
-    df = _fetch_nst_df(url)
-    if not df.empty:
-        return normalize_sv_column(df)
-    if not fd and not td:
-        prev = prev_season_key(season)
-        for try_season, try_stype in [(season, 2), (prev, stype), (prev, 2)]:
-            if try_season == season and try_stype == stype:
-                continue
-            url = nst_goalie_url(try_season, try_stype, sit="all", fd="", td="", gpfilt="none")
-            df = _fetch_nst_df(url)
-            if not df.empty:
-                return normalize_sv_column(df)
-    logger.warning(f"No goalie data found for {season}, stype={stype}")
+    """PBP-backed. Returns a goalie DataFrame with name, gp, sa, sv, ga, sv_pct, xga, gsax."""
+    try:
+        season_start = int(season[:4]) if len(str(season)) >= 4 else 2024
+    except (ValueError, TypeError):
+        season_start = 2024
+    try:
+        from NHL.StatsFromPBP import compute_goalie_rates
+        return compute_goalie_rates(season_start, stype, fd=fd, td=td)
+    except Exception as e:
+        logger.warning(f"compute_goalie_rates failed: {e}")
+        return pd.DataFrame()
     return pd.DataFrame()
 
 def _extract_pp_pk_rates(pp_df: pd.DataFrame, pk_df: pd.DataFrame, abbr: str) -> Tuple[float, float]:

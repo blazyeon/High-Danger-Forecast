@@ -15,7 +15,11 @@
       "Bash(gh auth *)",
       "WebFetch(domain:github.com)",
       "Bash(curl *)",
-      "Bash(git restore *)"
+      "Bash(git restore *)",
+      "WebSearch",
+      "WebFetch(domain:api-web.nhle.com)",
+      "WebFetch(domain:moneypuck.com)",
+      "WebFetch(domain:peter-tanner.com)"
     ]
   }
 }

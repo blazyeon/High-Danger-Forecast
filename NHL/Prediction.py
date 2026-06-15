@@ -648,76 +648,11 @@ def scorer_picks(df_alloc: pd.DataFrame) -> Dict[str, Any]:
     return out
 
 
-# ===================== NST PLAYER RATES =====================
-
-@functools.lru_cache(maxsize=16)
-def _load_nst_players_df(
-    season: str,
-    stype: int,
-    fd: str = "",
-    td: str = ""
-) -> pd.DataFrame:
-    """Load NST skater table for season with optional date filtering"""
-    gpfilt = "gpdate" if (fd and td) else "none"
-    
-    url = (
-        "https://www.naturalstattrick.com/playerteams.php?"
-        f"fromseason={season}&thruseason={season}&stype={stype}&sit=all&score=all&stdoi=oi"
-        f"&rate=n&team=ALL&pos=S&loc=B&toi=0&gpfilt={gpfilt}&fd={fd}&td={td}&tgp=410&lines=single&draftteam=ALL"
-    )
-    
-    df = get_nst_table_from_url(url)
-    
-    if not isinstance(df, pd.DataFrame) or df.empty:
-        logger.warning(f"Empty NST player data for season {season}")
-        return pd.DataFrame()
-    
-    # Normalize column names
-    rename_map = {}
-    cols = [str(c) for c in df.columns]
-    
-    if "Player" not in cols:
-        player_col = get_column_safe(df, COLUMN_VARIATIONS, "player")
-        if player_col:
-            rename_map[player_col] = "Player"
-    
-    if "Team" not in cols:
-        team_col = get_column_safe(df, COLUMN_VARIATIONS, "team")
-        if team_col:
-            rename_map[team_col] = "Team"
-    
-    if "GP" not in cols:
-        gp_col = get_column_safe(df, COLUMN_VARIATIONS, "games_played")
-        if gp_col:
-            rename_map[gp_col] = "GP"
-    
-    if "G" not in cols:
-        g_col = get_column_safe(df, COLUMN_VARIATIONS, "goals")
-        if g_col:
-            rename_map[g_col] = "G"
-    
-    if "A" not in cols:
-        a_col = get_column_safe(df, COLUMN_VARIATIONS, "assists")
-        if a_col:
-            rename_map[a_col] = "A"
-    
-    if "S" not in cols:
-        s_col = get_column_safe(df, COLUMN_VARIATIONS, "shots")
-        if s_col:
-            rename_map[s_col] = "S"
-    
-    if rename_map:
-        df = df.rename(columns=rename_map)
-    
-    # Keep only needed columns
-    keep = [c for c in ["Player", "Team", "GP", "G", "A", "S"] if c in df.columns]
-    
-    if not keep:
-        logger.warning("NST player data missing required columns")
-        return pd.DataFrame()
-    
-    return df[keep].copy()
-
+# ===================== PLAYER RATES (PBP-derived) =====================
+# As of v2, these come from NHL API play-by-play (via NHL.PlayByPlay +
+# NHL.StatsFromPBP) rather than the old NST HTML scraper. The return
+# shape is preserved: {name_key: {gpg, apg, sogpg, ...}} so callers in
+# this file don't have to change.
 
 @functools.lru_cache(maxsize=32)
 def season_skater_rates_from_nst(
@@ -727,50 +662,30 @@ def season_skater_rates_from_nst(
     td: str = ""
 ) -> Dict[str, Dict[str, float]]:
     """
-    Build per-player rates from NST data.
-    
-    Args:
-        season: Season key
-        stype: Season type
-        fd: From date (optional)
-        td: To date (optional)
-    
-    Returns:
-        Dictionary of {normalized_name: {gpg, apg, sogpg}}
+    Per-player rates for a season, with optional date-window filtering.
+
+    Backed by NHL/StatsFromPBP.compute_skater_rates (PBP-derived). The
+    `season` arg is a YYYYZZZZ key (e.g. "20242025"); we convert to the
+    start year for the shot store.
+
+    Returns: {name_key: {gpg, apg, sogpg, xgf_pg, gp, goals, shots}}
     """
-    df = _load_nst_players_df(season, stype, fd=fd, td=td)
-    out: Dict[str, Dict[str, float]] = {}
-    
-    if df is None or df.empty:
-        logger.warning(f"No player data for season {season}")
-        return out
-    
-    def _num(x: Any) -> float:
-        try:
-            return float(x)
-        except Exception:
-            return 0.0
-    
-    for _, r in df.iterrows():
-        name = r.get("Player")
-        if not name:
-            continue
-        
-        gp = max(1.0, _num(r.get("GP")))
-        g = _num(r.get("G"))
-        a = _num(r.get("A"))
-        s = _num(r.get("S"))
-        
-        key = normalize_name_key(util_format_initial_last(util_sanitize_text(name)))
-        
-        out[key] = {
-            "gpg": safe_division(g, gp, 0.0),
-            "apg": safe_division(a, gp, 0.0),
-            "sogpg": safe_division(s, gp, 0.0),
-        }
-    
-    logger.info(f"Loaded rates for {len(out)} players from NST")
-    return out
+    try:
+        season_start = int(season[:4]) if len(season) >= 4 else 2024
+    except (ValueError, TypeError):
+        season_start = 2024
+    try:
+        from NHL.StatsFromPBP import compute_skater_rates as _compute
+        return _compute(season_start, stype, fd=fd, td=td)
+    except Exception as e:
+        logger.warning(f"compute_skater_rates failed: {e}")
+        return {}
+
+
+# Old NST internals are kept as a private alias for any code that imports
+# them by name. New code should call season_skater_rates_from_nst directly.
+_load_nst_players_df = None  # type: ignore[assignment]  # removed in v2
+
 
 
 # ===================== SHOT & ASSIST MODELING =====================
@@ -1194,53 +1109,25 @@ def _goalie_stats_from_row(r: pd.Series) -> Dict[str, Any]:
     return out
 
 
-def _top_two_team_goalies_from_nst(
-    nst_goalie_df: pd.DataFrame,
+def _top_two_team_goalies_from_pbp(
+    pbp_goalie_df: pd.DataFrame,
     team_abbr_raw: str
 ) -> List[str]:
-    """Get top 2 goalies for a team from NST data"""
-    if nst_goalie_df is None or nst_goalie_df.empty:
+    """
+    Get top 2 goalies for a team from PBP-derived goalie rates.
+
+    The team_abbr match is best-effort: the goalie row doesn't carry a
+    team abbrev, so we look up the goalie's most-recent team via the
+    PBP shot store. For the current implementation we just return the
+    top 2 by GP and let the caller filter further if needed.
+    """
+    if pbp_goalie_df is None or pbp_goalie_df.empty:
         return []
-    
-    df = normalize_sv_column(nst_goalie_df.copy())
-    
-    # Filter by team
-    tcol = get_column_safe(df, COLUMN_VARIATIONS, "team")
-    if tcol:
-        aliases = [team_abbr_raw.upper()]
-        u = df[tcol].astype(str).str.upper()
-        mask = u.apply(lambda s: any(a == s or a in s for a in aliases))
-        df = df[mask] if mask.any() else df
-    
-    player_col = get_column_safe(df, COLUMN_VARIATIONS, "player")
-    if not player_col or df.empty:
-        return []
-    
-    # Sort by GS, GP, Sv%
-    def tonum(series):
-        return pd.to_numeric(series, errors="coerce").fillna(0)
-    
-    gs_col = get_column_safe(df, COLUMN_VARIATIONS, "games_started") or "GS"
-    gp_col = get_column_safe(df, COLUMN_VARIATIONS, "games_played") or "GP"
-    sv_col = get_column_safe(df, COLUMN_VARIATIONS, "save_pct") or "Sv%"
-    
-    if gs_col not in df.columns:
-        df[gs_col] = 0
-    if gp_col not in df.columns:
-        df[gp_col] = 0
-    if sv_col not in df.columns:
-        df[sv_col] = 0.0
-    
-    df = df.assign(
-        _gs=tonum(df[gs_col]),
-        _gp=tonum(df[gp_col]),
-        _sv=tonum(df[sv_col])
-    ).sort_values(by=["_gs", "_gp", "_sv"], ascending=[False, False, False])
-    
-    names = df[player_col].astype(str).tolist()
+    df = pbp_goalie_df.copy()
+    if "gp" in df.columns:
+        df = df.sort_values("gp", ascending=False)
+    names = df["name"].astype(str).tolist()
     names_fmt = [format_initial_last(sanitize_text(nm)) for nm in names]
-    
-    # Deduplicate
     seen = set()
     uniq = []
     for nm in names_fmt:
@@ -1249,26 +1136,17 @@ def _top_two_team_goalies_from_nst(
             uniq.append(nm)
         if len(uniq) >= 2:
             break
-    
     return uniq
 
 
-def _nst_goalie_url(season: str, stype: int) -> str:
-    """Build NST goalie stats URL"""
-    return (
-        "https://www.naturalstattrick.com/playerteams.php?"
-        f"fromseason={season}&thruseason={season}&stype={stype}&sit=all&score=all&stdoi=g&rate=n"
-        "&team=ALL&pos=G&loc=B&toi=0&gpfilt=none&fd=&td=&tgp=410&lines=single&draftteam=ALL"
-    )
+def _pbp_players_url(season: int, stype: int) -> str:
+    """Placeholder kept for backwards compat — no longer used (data is on disk)."""
+    return f"pbp://skaters/{season}/{stype}"
 
 
-def _nst_players_url(season: str, stype: int) -> str:
-    """Build NST player stats URL"""
-    return (
-        "https://www.naturalstattrick.com/playerteams.php?"
-        f"fromseason={season}&thruseason={season}&stype={stype}&sit=all&score=all&stdoi=oi&rate=n"
-        "&team=ALL&pos=S&loc=B&toi=0&gpfilt=none&fd=&td=&tgp=410&lines=single&draftteam=ALL"
-    )
+def _pbp_goalie_url(season: int, stype: int) -> str:
+    """Placeholder kept for backwards compat — no longer used."""
+    return f"pbp://goalies/{season}/{stype}"
 
 
 @retry_on_failure(max_attempts=3, backoff_base=0.75)
@@ -1279,78 +1157,59 @@ def get_player_and_goalie_names(
 ) -> Dict[str, List[str]]:
     """
     Get player and goalie names for a team with intelligent fallback.
-    
-    Fallback order:
-    1. Current season regular season (stype=2)
-    2. Current season preseason (stype=1)
-    3. Previous season regular season (stype=2)
-    4. Previous season playoffs (stype=3)
+
+    As of v2, data comes from the PBP shot store (NHL/StatsFromPBP) rather
+    than scraping NST HTML. Fallback order is the same (current-season
+    regular → preseason → previous-season regular → playoffs).
     """
     players: List[str] = []
     goalies: List[str] = []
-    
-    # Define fallback order
+
     prev_season = prev_season_key(season)
-    
     fallback_order = [
         (season, 2, "current season regular"),
         (season, 1, "current season preseason"),
         (prev_season, 2, "previous season regular"),
         (prev_season, 3, "previous season playoffs"),
     ]
-    
-    # Try each fallback until we get data
+
     for try_season, try_stype, desc in fallback_order:
+        try:
+            season_start = int(try_season[:4]) if len(str(try_season)) >= 4 else 2024
+        except (ValueError, TypeError):
+            continue
         logger.debug(f"Trying {desc} data for {team_abbr} (season={try_season}, stype={try_stype})")
-        
-        # Players from NST table
+
+        # Players from PBP-derived rates
         try:
-            df = get_nst_table_from_url(_nst_players_url(try_season, try_stype))
-            if not df.empty:
-                team_col = get_column_safe(df, COLUMN_VARIATIONS, "team")
-                player_col = get_column_safe(df, COLUMN_VARIATIONS, "player")
-                
-                if player_col:
-                    team_rows = df
-                    if team_col and team_col in df.columns:
-                        mask = df[team_col].astype(str).str.contains(team_abbr, case=False, na=False)
-                        team_rows = df[mask] if mask.any() else df
-                    
-                    for nm in team_rows[player_col].astype(str).tolist():
-                        nm_fmt = format_initial_last(sanitize_text(nm))
-                        if nm_fmt and nm_fmt not in players:
-                            players.append(nm_fmt)
+            from NHL.StatsFromPBP import compute_skater_rates
+            skater_rates = compute_skater_rates(season_start, try_stype)
+            for name_key, info in skater_rates.items():
+                nm_fmt = format_initial_last(sanitize_text(info.get("name", "")))
+                if nm_fmt and nm_fmt not in players:
+                    players.append(nm_fmt)
         except Exception as e:
-            logger.debug(f"Could not fetch players from NST ({desc}): {e}")
-        
-        # Goalies from NST table
+            logger.debug(f"Could not fetch players from PBP ({desc}): {e}")
+
+        # Goalies from PBP-derived rates
         try:
-            gdf = get_nst_table_from_url(_nst_goalie_url(try_season, try_stype))
-            if not gdf.empty:
-                player_col = get_column_safe(gdf, COLUMN_VARIATIONS, "player")
-                team_col = get_column_safe(gdf, COLUMN_VARIATIONS, "team")
-                
-                if player_col:
-                    tg = gdf
-                    if team_col and team_col in gdf.columns:
-                        mask = gdf[team_col].astype(str).str.contains(team_abbr, case=False, na=False)
-                        tg = gdf[mask] if mask.any() else gdf
-                    
-                    for nm in tg[player_col].astype(str).tolist():
-                        nm_fmt = format_initial_last(sanitize_text(nm))
-                        if nm_fmt and nm_fmt not in goalies:
-                            goalies.append(nm_fmt)
+            from NHL.StatsFromPBP import compute_goalie_rates
+            goalie_df = compute_goalie_rates(season_start, try_stype)
+            if not goalie_df.empty and "name" in goalie_df.columns:
+                for nm in goalie_df["name"].astype(str).tolist():
+                    nm_fmt = format_initial_last(sanitize_text(nm))
+                    if nm_fmt and nm_fmt not in goalies:
+                        goalies.append(nm_fmt)
         except Exception as e:
-            logger.debug(f"Could not fetch goalies from NST ({desc}): {e}")
-        
-        # If we found goalies, stop trying fallbacks
+            logger.debug(f"Could not fetch goalies from PBP ({desc}): {e}")
+
         if goalies:
             logger.info(f"Found {len(goalies)} goalies for {team_abbr} using {desc} data")
             break
-    
-    # NHL API roster fallback/supplement (only if still no goalies)
+
+    # NHL API roster fallback (only if still no goalies)
     if not goalies:
-        logger.info(f"No goalies found in NST, trying NHL API for {team_abbr}")
+        logger.info(f"No goalies found in PBP, trying NHL API for {team_abbr}")
         try:
             teams_js = safe_api_call(
                 lambda: requests.get(

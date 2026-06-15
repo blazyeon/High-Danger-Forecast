@@ -19,8 +19,9 @@ import difflib
 
 from NHL.OddsAPI import fetch_nhl_player_props_by_date, OddsAPIError
 from NHL.Utils import normalize_name_key
+from NHL.StatsFromPBP import compute_skater_rates
 from EloMl.Database import EloDatabase
-from NST.Cache import get_nst_table_from_url
+# NST import removed — see get_player_pbp_stats below for the new source.
 
 logger = logging.getLogger(__name__)
 
@@ -152,55 +153,49 @@ def get_player_elo_ratings(season: str) -> Dict[str, Dict]:
 
 @functools.lru_cache(maxsize=64)
 def get_player_nst_stats(season: str) -> Dict[str, Dict]:
-    """Get player stats from NST."""
+    """
+    Get player stats. Backed by NHL API PBP (was NST HTML scrape).
+
+    `season` is the YYYYYYYY form ("20242025"). The first 4 chars are
+    the start year; we call `compute_skater_rates(start_year, stype=2)`.
+    """
     try:
-        url = (
-            f"https://www.naturalstattrick.com/playerteams.php?"
-            f"fromseason={season}&thruseason={season}&stype=2&sit=all&score=all&"
-            f"stdoi=std&rate=n&team=ALL&pos=S&loc=B&toi=0&gpfilt=none&fd=&td=&"
-            f"tgp=410&lines=single&draftteam=ALL"
-        )
-
-        df = get_nst_table_from_url(url)
-
-        if df is None or df.empty:
-            return {}
-
-        stats = {}
-        for _, row in df.iterrows():
-            name = str(row.get('Player', '')).strip()
-            if not name:
-                continue
-
-            name_key = normalize_name_key(name)
-            gp = int(row.get('GP', 0)) if pd.notna(row.get('GP')) else 0
-
-            if gp == 0:
-                continue
-
-            # Extract stats
-            goals = int(row.get('Goals', 0)) if pd.notna(row.get('Goals')) else 0
-            assists = int(row.get('Total Assists', 0)) if pd.notna(row.get('Total Assists')) else 0
-            points = int(row.get('Total Points', 0)) if pd.notna(row.get('Total Points')) else 0
-            shots = int(row.get('Shots', 0)) if pd.notna(row.get('Shots')) else 0
-
-            stats[name_key] = {
-                'name': name,
-                'gp': gp,
-                'goals': goals,
-                'assists': assists,
-                'points': points,
-                'shots': shots,
-                'goals_pg': goals / gp,
-                'assists_pg': assists / gp,
-                'points_pg': points / gp,
-                'shots_pg': shots / gp,
-            }
-
-        return stats
-    except Exception as e:
-        logger.warning("Could not load NST stats: %s", e)
+        start_year = int(str(season)[:4])
+    except (ValueError, TypeError):
+        logger.warning("Invalid season format %r, expected YYYYYYYY", season)
         return {}
+    try:
+        rates = compute_skater_rates(start_year, 2)
+    except Exception as e:
+        logger.warning("Could not load PBP stats for %s: %s", season, e)
+        return {}
+
+    stats: Dict[str, Dict] = {}
+    for name_key, d in rates.items():
+        gp = d.get("gp", 0)
+        if gp == 0:
+            continue
+        goals = d.get("goals", 0)
+        assists = d.get("assists", 0)
+        shots = d.get("shots", 0)
+        stats[name_key] = {
+            "name": d.get("name", ""),
+            "gp": gp,
+            "goals": goals,
+            "assists": assists,
+            "points": goals + assists,
+            "shots": shots,
+            "goals_pg": goals / gp,
+            "assists_pg": assists / gp,
+            "points_pg": (goals + assists) / gp,
+            "shots_pg": shots / gp,
+        }
+    return stats
+
+
+# New canonical name; the old name stays as a thin alias so all
+# existing callers (app.py, etc.) keep working.
+get_player_pbp_stats = get_player_nst_stats
 
 
 def calculate_hit_probability(

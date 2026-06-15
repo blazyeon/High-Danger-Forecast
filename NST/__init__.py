@@ -1,17 +1,20 @@
 """
 NST — Natural Stat Trick data fetching and scraping.
 
-Primary interface:
-    get_nst_table_from_url  — Fetch and parse any NST table (cached, robust)
-    build_nst_team_url      — Build team stats URL
-    build_nst_player_url    — Build player stats URL
-    test_nst_connection      — Health check
-    clear_cache             — Clear the in-memory cache
-
-Backward-compatible aliases:
-    fetch_nst_table         — Alias for get_nst_table_from_url
-    get_table               — Alias for get_nst_table_from_url
+.. deprecated::
+    NST HTML scraping has been replaced by the NHL API play-by-play
+    pipeline (see ``NHL.PlayByPlay`` + ``NHL.StatsFromPBP``). This
+    package is kept as a thin re-export layer for backwards
+    compatibility — any code that still imports from ``NST`` will
+    continue to work but should migrate to the new pipeline.
 """
+import warnings
+warnings.warn(
+    "The NST package is deprecated; use NHL.PlayByPlay + NHL.StatsFromPBP instead.",
+    DeprecationWarning,
+    stacklevel=2,
+)
+
 from NST.Cache import (
     get_nst_table_from_url,
     scrape_nst_player_table,

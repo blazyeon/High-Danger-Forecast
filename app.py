@@ -42,8 +42,10 @@ from NHL.Utils import (
     sanitize_text, format_initial_last,
 )
 from NHL.OddsAPI import fetch_nhl_player_props_by_date, OddsAPIError
-from NST.Cache import get_nst_table_from_url
-from NHL.AdvancedStats import build_team_url, build_player_url, _season_options
+# NST.Cache no longer imported — stats are sourced from NHL API PBP via
+# NHL.StatsFromPBP. The endpoint shape is preserved.
+from NHL.AdvancedStats import _season_options  # noqa: F401  (kept for legacy imports)
+from NHL.StatsFromPBP import compute_team_rates, compute_skater_rates, compute_goalie_rates
 
 logger = logging.getLogger(__name__)
 
@@ -381,11 +383,53 @@ def api_stats_goalies():
 
 
 def _fetch_nst_stats(table_type: str, season: str, stype: int):
-    """Fetch NST stats table and return as JSON."""
+    """
+    Fetch stats table and return as JSON.
+
+    Endpoint shape is preserved from the NST-scrape era
+    ({type, data: [...]}) so the frontend doesn't need to change.
+    The data is now sourced from the NHL API PBP via StatsFromPBP.
+
+    `season` is the YYYYYYYY form ("20242025"). We translate to the
+    start year (2024) for the PBP store lookup.
+    """
     try:
-        url = build_team_url(season, stype) if table_type == "teams" else \
-               build_player_url(season, stype, pos="S" if table_type == "skaters" else "G")
-        df = get_nst_table_from_url(url)
+        try:
+            start_year = int(str(season)[:4])
+        except (ValueError, TypeError):
+            start_year = None
+
+        if table_type == "teams":
+            df = compute_team_rates(start_year, stype) if start_year else pd.DataFrame()
+        elif table_type == "skaters":
+            if not start_year:
+                df = pd.DataFrame()
+            else:
+                # Return as a records-shaped DataFrame so the existing
+                # to_dict() pipeline keeps working.
+                rates = compute_skater_rates(start_year, stype)
+                df = pd.DataFrame(
+                    [
+                        {
+                            "name": d.get("name", ""),
+                            "gp": d.get("gp", 0),
+                            "goals": d.get("goals", 0),
+                            "assists": d.get("assists", 0),
+                            "points": d.get("goals", 0) + d.get("assists", 0),
+                            "shots": d.get("shots", 0),
+                            "gpg": d.get("gpg", 0.0),
+                            "apg": d.get("apg", 0.0),
+                            "sogpg": d.get("sogpg", 0.0),
+                            "xgf_pg": d.get("xgf_pg", 0.0),
+                        }
+                        for d in rates.values()
+                    ]
+                )
+        elif table_type == "goalies":
+            df = compute_goalie_rates(start_year, stype) if start_year else pd.DataFrame()
+        else:
+            return jsonify({"error": f"Unknown table_type {table_type!r}"}), 400
+
         if df is None or df.empty:
             return jsonify({"error": f"No {table_type} data available"}), 404
         data = df.to_dict(orient="records")
