@@ -506,11 +506,18 @@ def goal_scorer_weights(
         else:
             line_w = PLAYER_PARAMS["line_weights"]["defense"].get(li, 0.45)
         
-        # Hot/cold streaks
-        hot = PLAYER_PARAMS["hot_streak_boost"] if lg >= 2 else (
-            PLAYER_PARAMS["hot_streak_boost"] * 0.6 if lg == 1 else 0.0
-        )
-        cold = PLAYER_PARAMS["cold_streak_penalty"] if (lg == 0 and gpg_recent == 0.0) else 0.0
+        # Hot/cold streaks — symmetric +12% / -12% treatment
+        hot = 0.0
+        if lg >= 2:
+            hot = PLAYER_PARAMS["hot_streak_boost"]
+        elif lg == 1:
+            hot = PLAYER_PARAMS["hot_streak_boost"] * 0.5
+
+        cold = 0.0
+        if lg == 0 and gpg_recent == 0.0:
+            cold = PLAYER_PARAMS["cold_streak_penalty"]
+        elif lg == 0 and gpg_recent > 0.0:
+            cold = PLAYER_PARAMS["cold_streak_penalty"] * 0.5
         
         # Early season blend with previous year
         prev_blend = (0.25 * gpg_prev) if early_season else 0.0
@@ -1269,38 +1276,63 @@ def get_player_and_goalie_names(
 
 # ===================== PREDICT PLAYER/GOALIE STATS =====================
 
+def _season_blend_weight(
+    games_played: Optional[int] = None,
+    base_prev_weight: float = 0.30,
+    min_prev_weight: float = 0.05,
+    season_length: int = 82,
+) -> float:
+    """
+    Return the weight to place on the current season.
+    Previous-season weight decays linearly from base_prev_weight down to
+    min_prev_weight as games_played approaches season_length.
+    """
+    if games_played is None or games_played <= 0:
+        return 1.0 - base_prev_weight
+    prev_weight = max(
+        min_prev_weight,
+        base_prev_weight * (1.0 - games_played / season_length)
+    )
+    return 1.0 - prev_weight
+
+
 def predict_player_stats(
     player_name: str,
     season_current: str,
     season_prev: str,
     stype: int = 2,
     weight_current: float = None,
-    recent_games_stats: Optional[dict] = None
+    recent_games_stats: Optional[dict] = None,
+    games_played: Optional[int] = None,
 ) -> Dict[str, Any]:
     """Predict player stats blending current and previous season"""
     if weight_current is None:
-        weight_current = MODEL_WEIGHTS["season_blend_current"]
-    
+        weight_current = _season_blend_weight(
+            games_played=games_played,
+            base_prev_weight=MODEL_WEIGHTS["season_blend_previous"],
+            min_prev_weight=0.05,
+        )
+
     cur_rates = season_skater_rates_from_nst(season_current, stype)
     prev_rates = season_skater_rates_from_nst(season_prev, stype)
-    
+
     key = normalize_name_key(format_initial_last(sanitize_text(player_name)))
-    
+
     cur = cur_rates.get(key, {"gpg": 0.0, "apg": 0.0, "sogpg": 0.0})
     prev = prev_rates.get(key, {"gpg": 0.0, "apg": 0.0, "sogpg": 0.0})
-    
+
     w = max(0.0, min(1.0, float(weight_current)))
-    
+
     pred_gpg = w * float(cur.get("gpg", 0.0)) + (1.0 - w) * float(prev.get("gpg", 0.0))
     pred_apg = w * float(cur.get("apg", 0.0)) + (1.0 - w) * float(prev.get("apg", 0.0))
     pred_sogpg = w * float(cur.get("sogpg", 0.0)) + (1.0 - w) * float(prev.get("sogpg", 0.0))
-    
+
     # Blend with recent form if available
     if recent_games_stats:
         pred_gpg = 0.7 * pred_gpg + 0.3 * recent_games_stats.get("gpg", pred_gpg)
         pred_apg = 0.7 * pred_apg + 0.3 * recent_games_stats.get("apg", pred_apg)
         pred_sogpg = 0.7 * pred_sogpg + 0.3 * recent_games_stats.get("sogpg", pred_sogpg)
-    
+
     return {
         "Name": format_initial_last(sanitize_text(player_name)),
         "Pred_gpg": round(pred_gpg, 3),

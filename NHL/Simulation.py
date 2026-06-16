@@ -6,7 +6,6 @@ Simulation and analytics module with:
 - Rest/travel fatigue and penalty differential
 - Goalie impact with optional GSAA-like adjustment
 - Correlated goal modeling (shared factor)
-- Score-effects approximation
 - Improved empty net model
 - Calibration hook
 - Expanded outputs: totals distribution, reg/OT/SO probs, confidence, component breakdown
@@ -15,12 +14,12 @@ UPDATED: Home advantage purely from actual home/away records (no floors/ceilings
 UPDATED: Rangers-style road warriors can have advantage over weak home teams.
 UPDATED: ML Guard Rail blends predictions instead of overriding.
 UPDATED: Reduced venue advantage scaling for more realistic predictions.
-UPDATED: Score effects applied AFTER ML adjustments to prevent double-counting.
+UPDATED: Score effects removed from pre-simulation expected goals (in-game state only).
 UPDATED: Added sanity checks for extreme predictions.
 FIXED: Team matching with proper NST mapping and reverse lookup.
 FIXED: Safe default handling when schedule data unavailable.
 FIXED: safe_division call with correct parameters.
-FIXED: Score effects logic to ensure application when ML model is missing.
+FIXED: Score effects no longer applied to pre-simulation mus.
 FIXED: Variable name error in goalie function (df_goalie -> goalie_df).
 """
 from __future__ import annotations
@@ -72,7 +71,6 @@ from NHL.Features import (
     fatigue_multiplier,
     penalty_diff_per60,
     shared_correlation_factor,
-    score_effect_scaler,
     component_breakdown,
 )
 
@@ -1590,14 +1588,15 @@ def simulate_matchup(
         h2h_physics_adj = max(-0.15, min(0.15, h2h_physics_adj))
         logger.info(f"📊 H2H physics nudge: {h2h_physics_adj:+.3f} goals to home ({h2h_pct:.1%} home H2H)")
 
-    # Calculate baseline WITHOUT score effects (will apply AFTER ML adjustments)
+    # Calculate baseline mus. Score effects are an in-game state effect and are
+    # intentionally NOT applied to pre-simulation expectations.
     mu_home, br_home = _compute_expected_goals(
         home_all, away_all, home_pp60, away_pk_ga60,
         home_opp_sv, home_opp_dsv, home_opp_gsaa_pg, home_opp_gsax60,
         home_rec_gf, away_rec_ga,
         lineup_shoot_home - lineup_shoot_away,
         venue_advantage + h2h_physics_adj,
-        advanced_stats_home, extra_pp_goals_home, rest_mult_home, 1.0,  # score_mult=1.0 (no score effects yet)
+        advanced_stats_home, extra_pp_goals_home, rest_mult_home, 1.0,  # no pre-sim score effects
         injury_impact_home
     )
     mu_away, br_away = _compute_expected_goals(
@@ -1606,7 +1605,7 @@ def simulate_matchup(
         away_rec_gf, home_rec_ga,
         lineup_shoot_away - lineup_shoot_home,
         0.0,
-        advanced_stats_away, extra_pp_goals_away, rest_mult_away, 1.0,  # score_mult=1.0 (no score effects yet)
+        advanced_stats_away, extra_pp_goals_away, rest_mult_away, 1.0,  # no pre-sim score effects
         injury_impact_away
     )
     
@@ -1681,10 +1680,12 @@ def simulate_matchup(
                 ml_prob = raw_ml_prob
 
             # Convert the (calibrated) probability into an expected-goal delta.
+            # Apply the same magnitude to both teams so the model does not inflate
+            # totals whenever it has conviction.
             prob_delta = ml_prob - 0.5
             goal_delta = prob_delta * 1.2
             ml_mu_home = max(0.5, mu_home + goal_delta)
-            ml_mu_away = max(0.5, mu_away - goal_delta * 0.5)
+            ml_mu_away = max(0.5, mu_away - goal_delta)
             logger.info(
                 f"ML adjustment: baseline {mu_home:.2f} v {mu_away:.2f} "
                 f"→ ML {ml_mu_home:.2f} v {ml_mu_away:.2f} (raw p={raw_ml_prob:.3f}, cal p={ml_prob:.3f})"
@@ -1694,20 +1695,17 @@ def simulate_matchup(
         logger.warning(f"ML adjustment failed, using physics baseline: {e}")
         ml_prob = None
 
-    # Apply score-effects AFTER all model adjustments to avoid double-counting.
-    score_mult_home = score_effect_scaler(mu_home, mu_away)
-    score_mult_away = score_effect_scaler(mu_away, mu_home)
-    mu_home *= score_mult_home
-    mu_away *= score_mult_away
+    # Score-effects are an in-game state effect, not a pre-game expectation.
+    # Do not apply them to pre-simulation mus; they would inflate totals based
+    # on projected goal differential rather than actual score state.
     mu_home = max(0.4, min(8.0, mu_home))
     mu_away = max(0.4, min(8.0, mu_away))
-    br_home["Score-effects adj (mult-1)"] = round(score_mult_home - 1.0, 4)
-    br_away["Score-effects adj (mult-1)"] = round(score_mult_away - 1.0, 4)
+    br_home["Score-effects adj (mult-1)"] = 0.0
+    br_away["Score-effects adj (mult-1)"] = 0.0
     br_home["Final mu"] = round(mu_home, 3)
     br_away["Final mu"] = round(mu_away, 3)
     logger.info(
-        f"Score-effects applied: home {score_mult_home:.3f} | away {score_mult_away:.3f} "
-        f"→ mu {mu_home:.2f} v {mu_away:.2f}"
+        f"Final pre-simulation mu: home {mu_home:.2f} | away {mu_away:.2f}"
     )
 
     k_home = estimate_gamma_shape_from_recent(team_last_n_goals_list(home_abbr, game_date.isoformat(), n=10))
