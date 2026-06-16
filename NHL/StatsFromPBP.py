@@ -34,6 +34,7 @@ Where stats come from:
 """
 from __future__ import annotations
 
+import json
 import logging
 import math
 from collections import defaultdict
@@ -119,6 +120,53 @@ def _is_high_danger(x: float, y: float) -> bool:
     dist = math.sqrt(dx * dx + dy * dy)
     angle = abs(math.degrees(math.atan2(dy, dx))) if dx > 0 else 90.0
     return dist < HD_DISTANCE_FT and angle < HD_ANGLE_DEG
+
+
+def _load_skater_rates_from_json(season_year: int, stype: int) -> Dict[str, Dict[str, float]]:
+    """
+    Fallback when the shot parquet is missing on the server.
+
+    Loads the pre-computed full-season skater rates exported by
+    update_pbp_stats.py. This avoids the live NHL API crawl that
+    times out on Render. Date-window filtering is not available in
+    this fallback; callers receive full-season rates.
+    """
+    json_path = Path("static/data/pbp_skater_stats.json")
+    if not json_path.exists():
+        return {}
+    try:
+        payload = json.loads(json_path.read_text(encoding="utf-8"))
+        if payload.get("stype") != stype:
+            return {}
+        expected_season = f"{season_year}{season_year + 1}"
+        if payload.get("season") != expected_season:
+            return {}
+        out: Dict[str, Dict[str, float]] = {}
+        for rec in payload.get("data", []):
+            name = rec.get("name", "")
+            if not name:
+                continue
+            key = normalize_name_key(name)
+            if not key:
+                continue
+            out[key] = {
+                "gp": int(rec.get("gp", 0)),
+                "goals": int(rec.get("goals", 0)),
+                "assists": int(rec.get("assists", 0)),
+                "shots": int(rec.get("shots", 0)),
+                "gpg": float(rec.get("gpg", 0.0)),
+                "apg": float(rec.get("apg", 0.0)),
+                "sogpg": float(rec.get("sogpg", 0.0)),
+                "xgf_pg": float(rec.get("xgf_pg", 0.0)),
+            }
+        logger.info(
+            f"Loaded {len(out)} skater rates from fallback JSON for "
+            f"{expected_season} stype={stype}"
+        )
+        return out
+    except Exception as e:
+        logger.warning(f"Failed to load skater rates fallback JSON: {e}")
+        return {}
 
 
 # ── Team rates ──────────────────────────────────────────────────────────
@@ -273,7 +321,16 @@ def compute_skater_rates(
     """
     shots = load_shot_store(season_year, stype)
     if shots.empty:
-        return {}
+        # On Render the PBP parquet may be missing on a cold start. Fall back
+        # to the pre-computed full-season JSON so we don't crawl the NHL API
+        # and hit the gunicorn timeout.
+        if fd or td:
+            logger.warning(
+                f"Shot store missing for {season_year}-{season_year + 1} "
+                f"and date window [{fd}, {td}] requested; using full-season "
+                f"fallback JSON (window filter will be ignored)."
+            )
+        return _load_skater_rates_from_json(season_year, stype)
     shots = _filter_by_date(shots, fd, td, season_year, stype)
 
     # Group by shooter_id (stable) but expose by shooter_name (what callers

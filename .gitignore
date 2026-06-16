@@ -22,8 +22,14 @@ Thumbs.db
 
 # Data files that are auto-generated or too large
 nst_cache/
-pbp_cache/          # entire pbp_cache tree is regenerated on demand
 *.parquet
+# Ship aggregated shot stores to Render so predictions don't rebuild from API.
+# Raw per-game PBP JSONs and schedule windows stay local-only.
+pbp_cache/raw/
+pbp_cache/schedule/
+pbp_cache/mp/
+!pbp_cache/shots/
+!pbp_cache/shots/*.parquet
 
 # Old training DBs (keep elo_ratings.db and current season)
 training_data_*.db
