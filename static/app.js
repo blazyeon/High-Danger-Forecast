@@ -565,10 +565,6 @@ async function safeFetchJson(url, opts={}) {
 }
 
 // ── Schedule Tab ─────────────────────────────────────────────────
-const FALLBACK_SCHEDULE = [
-    { id: 2025030411, homeAbbr: 'VGK', awayAbbr: 'CAR', homeName: 'Vegas Golden Knights', awayName: 'Carolina Hurricanes', state: 'LIVE', hScore: 2, aScore: 1, time: '8:00 PM ET', period: 'P2', clock: '14:32' },
-];
-
 async function runLookup() {
     const container = document.getElementById('lookupResults');
     const date = document.getElementById('lookupDate').value;
@@ -580,35 +576,13 @@ async function runLookup() {
     let apiWorked = false;
 
     try {
-        const resp = await fetch(`https://api-web.nhle.com/v1/schedule/${date}`);
-        if (resp.ok) {
-            const data = await resp.json();
-            if (Array.isArray(data.gameWeek)) {
-                const day = data.gameWeek.find(gw => gw.date === date);
-                games = day && Array.isArray(day.games) ? day.games : [];
-            } else if (Array.isArray(data.games)) {
-                games = data.games;
-            }
+        const data = await safeFetchJson(`/api/lookup?date=${encodeURIComponent(date)}`);
+        if (Array.isArray(data.games)) {
+            games = data.games;
             apiWorked = games.length > 0;
         }
     } catch (e) {
-        console.warn('NHL API schedule fetch failed (CORS/network):', e.message);
-    }
-
-    // Fallback to hardcoded data if API fails or returns nothing
-    if (!apiWorked) {
-        const today = new Date().toISOString().split('T')[0];
-        if (date === today || date === '2026-06-14') {
-            games = FALLBACK_SCHEDULE.map(g => ({
-                id: g.id,
-                gameState: g.state,
-                homeTeam: { abbrev: g.homeAbbr, name: { default: g.homeName }, score: g.hScore },
-                awayTeam: { abbrev: g.awayAbbr, name: { default: g.awayName }, score: g.aScore },
-                startTimeUTC: new Date().toISOString(),
-                periodDescriptor: { number: 2 },
-                clock: { timeRemaining: '14:32' }
-            }));
-        }
+        console.warn('Schedule backend fetch failed:', e.message);
     }
 
     if (!games.length) {
@@ -617,12 +591,9 @@ async function runLookup() {
     }
 
     let html = '';
-    if (!apiWorked) {
-        html += `<div class="cors-notice">⚠️ NHL API blocked by browser CORS in demo mode. Showing fallback data. Run with Flask backend for live data.</div>`;
-    }
 
     games.forEach(g => {
-        const state = g.gameState || 'FUT';
+        const state = (g.state || 'FUT').toString().toUpperCase();
         let stateLabel = 'Scheduled';
         let stateClass = ' upcoming';
         let scoreHtml = '';
@@ -630,24 +601,24 @@ async function runLookup() {
         if (state === 'LIVE' || state === 'CRIT') {
             stateLabel = '🔴 Live';
             stateClass = '';
-            const hScore = g.homeTeam?.score ?? '-';
-            const aScore = g.awayTeam?.score ?? '-';
+            const hScore = g.home_score ?? '-';
+            const aScore = g.away_score ?? '-';
             scoreHtml = `<div class="game-card-score">${aScore} – ${hScore}</div>`;
         } else if (state === 'OFF' || state === 'FINAL') {
             stateLabel = 'Final';
             stateClass = '';
-            const hScore = g.homeTeam?.score ?? '-';
-            const aScore = g.awayTeam?.score ?? '-';
+            const hScore = g.home_score ?? '-';
+            const aScore = g.away_score ?? '-';
             scoreHtml = `<div class="game-card-score">${aScore} – ${hScore}</div>`;
         }
 
-        const homeAbbr = g.homeTeam?.abbrev || 'TBD';
-        const awayAbbr = g.awayTeam?.abbrev || 'TBD';
-        const homeName = g.homeTeam?.name?.default || getTeamName(homeAbbr);
-        const awayName = g.awayTeam?.name?.default || getTeamName(awayAbbr);
-        const time = g.startTimeUTC ? new Date(g.startTimeUTC).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', timeZoneName: 'short'}) : '';
+        const homeAbbr = g.home || 'TBD';
+        const awayAbbr = g.away || 'TBD';
+        const homeName = g.home_name || getTeamName(homeAbbr);
+        const awayName = g.away_name || getTeamName(awayAbbr);
+        const time = g.startTime ? new Date(g.startTime).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', timeZoneName: 'short'}) : '';
 
-        html += `<div class="game-card" data-gameid="${g.id}">
+        html += `<div class="game-card" data-gameid="${g.id}" data-home="${homeAbbr}" data-away="${awayAbbr}">
             <div class="game-card-left">
                 <div class="game-card-teams">
                     <span class="team-name">${awayName}</span>
@@ -665,32 +636,30 @@ async function runLookup() {
     container.innerHTML = html;
 
     container.querySelectorAll('.game-card').forEach(card => {
-        card.addEventListener('click', () => showGameDetail(card.dataset.gameid));
+        card.addEventListener('click', () => showGameDetail(card.dataset.gameid, card.dataset.home, card.dataset.away));
     });
 }
 
-async function showGameDetail(gameId) {
+async function showGameDetail(gameId, homeAbbrFallback, awayAbbrFallback) {
     const modal = document.getElementById('gameModal');
     const body = document.getElementById('modalBody');
     modal.style.display = 'flex';
     body.innerHTML = '<div class="loading"><div class="spinner"></div><span>Loading game details...</span></div>';
 
     try {
-        const resp = await fetch(`https://api-web.nhle.com/v1/gamecenter/${gameId}/boxscore`);
-        if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
-        const data = await resp.json();
+        const data = await safeFetchJson(`/api/boxscore/${gameId}`);
 
-        const home = data.homeTeam || {};
-        const away = data.awayTeam || {};
-        const homeAbbr = home.abbrev || 'HOME';
-        const awayAbbr = away.abbrev || 'AWAY';
-        const homeName = home.name?.default || getTeamName(homeAbbr);
-        const awayName = away.name?.default || getTeamName(awayAbbr);
+        const home = data.home_team || {};
+        const away = data.away_team || {};
+        const homeAbbr = home.abbrev || homeAbbrFallback || 'HOME';
+        const awayAbbr = away.abbrev || awayAbbrFallback || 'AWAY';
+        const homeName = home.name || getTeamName(homeAbbr);
+        const awayName = away.name || getTeamName(awayAbbr);
         const hScore = home.score ?? 0;
         const aScore = away.score ?? 0;
-        const state = data.gameState || '';
-        const period = data.periodDescriptor?.number ? `P${data.periodDescriptor.number}` : '';
-        const clock = data.clock?.timeRemaining ? ` – ${data.clock.timeRemaining}` : '';
+        const state = (data.state || '').toString().toUpperCase();
+        const period = data.period ? `P${data.period}` : '';
+        const clock = data.clock ? ` – ${data.clock}` : '';
         const statusText = state === 'LIVE' || state === 'CRIT' ? `🔴 LIVE ${period}${clock}` : (state === 'OFF' || state === 'FINAL' ? 'FINAL' : 'UPCOMING');
 
         let html = `<div class="modal-header">
@@ -722,11 +691,11 @@ async function showGameDetail(gameId) {
         const statKeys = [
             { label: 'Shots on Goal', away: away.sog ?? '-', home: home.sog ?? '-' },
             { label: 'Hits', away: away.hits ?? '-', home: home.hits ?? '-' },
-            { label: 'Blocked Shots', away: away.blockedShots ?? '-', home: home.blockedShots ?? '-' },
+            { label: 'Blocked Shots', away: away.blocked_shots ?? '-', home: home.blocked_shots ?? '-' },
             { label: 'Giveaways', away: away.giveaways ?? '-', home: home.giveaways ?? '-' },
             { label: 'Takeaways', away: away.takeaways ?? '-', home: home.takeaways ?? '-' },
-            { label: 'Power Play', away: away.powerPlay ?? '-', home: home.powerPlay ?? '-' },
-            { label: 'Faceoff %', away: away.faceoffPct ?? '-', home: home.faceoffPct ?? '-' },
+            { label: 'Power Play', away: away.power_play ?? '-', home: home.power_play ?? '-' },
+            { label: 'Faceoff %', away: away.faceoff_pct ?? '-', home: home.faceoff_pct ?? '-' },
         ];
         statKeys.forEach(s => {
             html += `<div class="modal-stats-row">
@@ -738,8 +707,8 @@ async function showGameDetail(gameId) {
         html += `</div>`;
 
         // Rosters
-        const awayRoster = data.playerByGameStats?.awayTeam || [];
-        const homeRoster = data.playerByGameStats?.homeTeam || [];
+        const awayRoster = data.away_roster || [];
+        const homeRoster = data.home_roster || [];
 
         if (awayRoster.length || homeRoster.length) {
             html += `<div class="modal-section"><div class="modal-section-title">Rosters</div></div>`;
@@ -748,7 +717,7 @@ async function showGameDetail(gameId) {
             html += `<div class="modal-roster-col"><div class="modal-roster-header">${awayName}</div>`;
             awayRoster.forEach(p => {
                 const pos = p.position || '?';
-                const name = p.name?.default || 'Unknown';
+                const name = p.name || 'Unknown';
                 const stats = [];
                 if (typeof p.goals === 'number') stats.push(`G:${p.goals}`);
                 if (typeof p.assists === 'number') stats.push(`A:${p.assists}`);
@@ -761,7 +730,7 @@ async function showGameDetail(gameId) {
             html += `<div class="modal-roster-col"><div class="modal-roster-header">${homeName}</div>`;
             homeRoster.forEach(p => {
                 const pos = p.position || '?';
-                const name = p.name?.default || 'Unknown';
+                const name = p.name || 'Unknown';
                 const stats = [];
                 if (typeof p.goals === 'number') stats.push(`G:${p.goals}`);
                 if (typeof p.assists === 'number') stats.push(`A:${p.assists}`);
@@ -777,7 +746,7 @@ async function showGameDetail(gameId) {
         body.innerHTML = html;
     } catch (e) {
         console.error(e);
-        body.innerHTML = `<div class="error-box">NHL API boxscore unavailable in demo mode (CORS).<br><small>${e.message}</small></div>`;
+        body.innerHTML = `<div class="error-box">Could not load game details.<br><small>${e.message}</small></div>`;
     }
 }
 

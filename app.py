@@ -395,29 +395,30 @@ def api_lookup():
         return jsonify({"error": "date parameter is required (YYYY-MM-DD)"}), 400
 
     try:
-        game_date = _date.fromisoformat(date_str)
         games = safe_api_call(
-            get_games_on_date, game_date,
+            get_games_on_date, date_str,
             service_name="NHL Schedule API", fallback=[],
         )
 
         result_games = []
         if games:
             for game in games:
+                home_team = game.get("homeTeam") or {}
+                away_team = game.get("awayTeam") or {}
                 home_abbr = display_abbr_for_game(
-                    game.get("homeTeam", {}).get("abbrev",
-                    game.get("homeTeam", {}).get("name", ""))
+                    home_team.get("abbrev", home_team.get("name", ""))
                 )
                 away_abbr = display_abbr_for_game(
-                    game.get("awayTeam", {}).get("abbrev",
-                    game.get("awayTeam", {}).get("name", ""))
+                    away_team.get("abbrev", away_team.get("name", ""))
                 )
                 result_games.append({
                     "id": game.get("id"),
                     "home": home_abbr,
                     "away": away_abbr,
-                    "home_name": get_team_full_name(game.get("homeTeam", {})),
-                    "away_name": get_team_full_name(game.get("awayTeam", {})),
+                    "home_name": get_team_full_name(home_team),
+                    "away_name": get_team_full_name(away_team),
+                    "home_score": home_team.get("score"),
+                    "away_score": away_team.get("score"),
                     "startTime": game.get("startTimeUTC", game.get("gameDate", "")),
                     "state": game.get("gameState",
                               game.get("status", {}).get("abstractGameState", "")),
@@ -507,6 +508,77 @@ def _fetch_pbp_stats(table_type: str, season: str, stype: int):
         return jsonify({"type": table_type, "data": _make_json_safe(data)})
     except Exception as e:
         logger.error(f"Stats API error ({table_type}): {e}")
+        return jsonify({"error": str(e)}), 500
+
+
+# ── API: Boxscore ──────────────────────────────────────────────────────
+
+@app.route("/api/boxscore/<game_id>")
+def api_boxscore(game_id: str):
+    """Return a normalized boxscore for a given NHL game ID."""
+    try:
+        from NHL.ApiScrape import get_boxscore
+
+        box = safe_api_call(
+            get_boxscore, game_id,
+            service_name="NHL Boxscore API", fallback={},
+        )
+        if not box:
+            return jsonify({"error": "Boxscore unavailable"}), 404
+
+        home = box.get("homeTeam", {})
+        away = box.get("awayTeam", {})
+
+        def _norm_team_info(t):
+            if not isinstance(t, dict):
+                return {}
+            name_field = t.get("name") or {}
+            return {
+                "id": t.get("id"),
+                "abbrev": t.get("abbrev"),
+                "name": name_field.get("default") if isinstance(name_field, dict) else str(name_field),
+                "score": t.get("score"),
+                "sog": t.get("sog"),
+                "hits": t.get("hits"),
+                "blocked_shots": t.get("blockedShots", t.get("blocked_shots")),
+                "giveaways": t.get("giveaways"),
+                "takeaways": t.get("takeaways"),
+                "power_play": t.get("powerPlay", t.get("power_play")),
+                "faceoff_pct": t.get("faceoffPct", t.get("faceoff_pct")),
+            }
+
+        def _norm_roster(side):
+            raw = box.get("playerByGameStats", {}).get(side, []) if isinstance(box, dict) else []
+            out = []
+            for p in raw:
+                if not isinstance(p, dict):
+                    continue
+                nm = p.get("name") or {}
+                name = nm.get("default") if isinstance(nm, dict) else str(nm)
+                out.append({
+                    "name": name,
+                    "position": p.get("position", p.get("positionCode", "?")),
+                    "goals": p.get("goals"),
+                    "assists": p.get("assists"),
+                    "sog": p.get("sog"),
+                    "toi": p.get("toi"),
+                })
+            return out
+
+        period = box.get("periodDescriptor", {}) if isinstance(box, dict) else {}
+        clock = box.get("clock", {}) if isinstance(box, dict) else {}
+        return jsonify({
+            "game_id": game_id,
+            "state": box.get("gameState", box.get("status", {}).get("abstractGameState", "")),
+            "period": period.get("number"),
+            "clock": clock.get("timeRemaining"),
+            "home_team": _norm_team_info(home),
+            "away_team": _norm_team_info(away),
+            "home_roster": _norm_roster("homeTeam"),
+            "away_roster": _norm_roster("awayTeam"),
+        })
+    except Exception as e:
+        logger.error(f"Boxscore API error: {e}", exc_info=True)
         return jsonify({"error": str(e)}), 500
 
 
