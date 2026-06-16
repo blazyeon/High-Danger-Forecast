@@ -693,19 +693,19 @@ async function showGameDetail(gameId, homeAbbrFallback, awayAbbrFallback) {
             if (!o || isNaN(g)) return 0;
             return (g / o) * 100;
         }
-        function statCompare(label, awayVal, homeVal, awaySub, homeSub, awayNum, homeNum, isPct = false) {
+        function statCompare(label, awayVal, homeVal, awaySub, homeSub, awayNum, homeNum) {
             let a = parseFloat(awayNum);
             let h = parseFloat(homeNum);
             if (isNaN(a)) a = 0;
             if (isNaN(h)) h = 0;
+            const total = a + h;
             let awayWidth, homeWidth;
-            if (isPct) {
-                awayWidth = a;
-                homeWidth = h;
+            if (total === 0) {
+                awayWidth = 50;
+                homeWidth = 50;
             } else {
-                const max = Math.max(a, h, 1);
-                awayWidth = max > 0 ? (a / max) * 100 : 0;
-                homeWidth = max > 0 ? (h / max) * 100 : 0;
+                awayWidth = (a / total) * 100;
+                homeWidth = (h / total) * 100;
             }
             return `<div class="stat-compare">
                 <div class="stat-compare-values">
@@ -721,7 +721,6 @@ async function showGameDetail(gameId, homeAbbrFallback, awayAbbrFallback) {
                 </div>
                 <div class="stat-compare-bars">
                     <div class="stat-compare-bar-left" style="width:${awayWidth.toFixed(1)}%"></div>
-                    <div class="stat-compare-spacer"></div>
                     <div class="stat-compare-bar-right" style="width:${homeWidth.toFixed(1)}%"></div>
                 </div>
             </div>`;
@@ -739,8 +738,8 @@ async function showGameDetail(gameId, homeAbbrFallback, awayAbbrFallback) {
             </div>
         </div>`;
         html += statCompare('Shots On Goal', away.sog ?? '-', home.sog ?? '-', '', '', away.sog, home.sog);
-        html += statCompare('Face-off %', fmtPct(away.faceoff_pct), fmtPct(home.faceoff_pct), away.faceoff_record ?? '-', home.faceoff_record ?? '-', away.faceoff_pct, home.faceoff_pct, true);
-        html += statCompare('Power Play %', fmtPct(ppPct(away.power_play)), fmtPct(ppPct(home.power_play)), away.power_play ?? '-', home.power_play ?? '-', ppPct(away.power_play), ppPct(home.power_play), true);
+        html += statCompare('Face-off %', fmtPct(away.faceoff_pct), fmtPct(home.faceoff_pct), away.faceoff_record ?? '-', home.faceoff_record ?? '-', away.faceoff_pct, home.faceoff_pct);
+        html += statCompare('Power Play %', fmtPct(ppPct(away.power_play)), fmtPct(ppPct(home.power_play)), away.power_play ?? '-', home.power_play ?? '-', ppPct(away.power_play), ppPct(home.power_play));
         html += statCompare('Penalty Minutes', away.pim ?? '-', home.pim ?? '-', '', '', away.pim, home.pim);
         html += statCompare('Hits', away.hits ?? '-', home.hits ?? '-', '', '', away.hits, home.hits);
         html += statCompare('Blocked Shots', away.blocked_shots ?? '-', home.blocked_shots ?? '-', '', '', away.blocked_shots, home.blocked_shots);
