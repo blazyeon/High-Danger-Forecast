@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import json
 import logging
+import traceback
 from datetime import date as _date, timedelta
 from pathlib import Path
 from typing import Any, Dict, Optional
@@ -66,6 +67,14 @@ def _ensure_state():
         except Exception as e:
             logger.error(f"State init error: {e}")
         _state_initialised = True
+
+
+# ── Global error logging ────────────────────────────────────────────────
+
+@app.errorhandler(Exception)
+def _handle_exception(e):
+    logger.error(f"Unhandled exception: {e}\n{traceback.format_exc()}")
+    return jsonify({"error": "Internal server error"}), 500
 
 
 # ── JSON helper ─────────────────────────────────────────────────────────

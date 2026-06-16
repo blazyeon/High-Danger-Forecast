@@ -84,6 +84,13 @@ from NHL.AppState import get_app_state
 import logging
 logger = logging.getLogger(__name__)
 
+# ── In-process caches for expensive PBP computations ─────────────────
+_RATES_CACHE: Dict[str, Tuple[float, Any]] = {}
+_RATES_CACHE_TTL = 300  # seconds
+_INJURY_CACHE: Dict[str, Tuple[float, Tuple[Dict, Dict]]] = {}
+_INJURY_CACHE_TTL = 300  # seconds
+
+
 def _rate_limit_sleep():
     jitter = float(np.random.uniform(0, RATE_LIMIT_JITTER_SECONDS)) if RATE_LIMIT_JITTER_SECONDS > 0 else 0.0
     time.sleep(RATE_LIMIT_SLEEP_SECONDS + jitter)
@@ -200,9 +207,16 @@ def get_team_rates_all(season: str, stype: int, fd: str = "", td: str = "") -> p
         season_start = int(season[:4]) if len(str(season)) >= 4 else 2024
     except (ValueError, TypeError):
         season_start = 2024
+    key = f"all_{season_start}_{stype}_{fd}_{td}"
+    now = time.time()
+    cached = _RATES_CACHE.get(key)
+    if cached and (now - cached[0]) < _RATES_CACHE_TTL:
+        return cached[1].copy() if isinstance(cached[1], pd.DataFrame) else cached[1]
     try:
         from NHL.StatsFromPBP import compute_team_rates
-        return compute_team_rates(season_start, stype, fd=fd, td=td)
+        df = compute_team_rates(season_start, stype, fd=fd, td=td)
+        _RATES_CACHE[key] = (now, df.copy())
+        return df.copy()
     except Exception as e:
         logger.warning(f"compute_team_rates failed: {e}")
         return pd.DataFrame()
@@ -228,9 +242,16 @@ def get_goalie_table(season: str, stype: int, fd: str = "", td: str = "") -> pd.
         season_start = int(season[:4]) if len(str(season)) >= 4 else 2024
     except (ValueError, TypeError):
         season_start = 2024
+    key = f"goalie_{season_start}_{stype}_{fd}_{td}"
+    now = time.time()
+    cached = _RATES_CACHE.get(key)
+    if cached and (now - cached[0]) < _RATES_CACHE_TTL:
+        return cached[1].copy() if isinstance(cached[1], pd.DataFrame) else cached[1]
     try:
         from NHL.StatsFromPBP import compute_goalie_rates
-        return compute_goalie_rates(season_start, stype, fd=fd, td=td)
+        df = compute_goalie_rates(season_start, stype, fd=fd, td=td)
+        _RATES_CACHE[key] = (now, df.copy())
+        return df.copy()
     except Exception as e:
         logger.warning(f"compute_goalie_rates failed: {e}")
         return pd.DataFrame()
@@ -977,12 +998,17 @@ def calculate_automatic_injury_impact(
 def _load_player_stats_for_injuries(season: str) -> Tuple[Dict[str, Dict], Dict[str, Dict]]:
     """
     Per-player and per-team stats used by the injury-impact code path.
-    Now backed by NHL API PBP (was NST HTML scrape). Returns the same
-    (player_cache, team_cache) shape the caller expects:
+    Now backed by NHL API PBP (was NST HTML scrape). Cached per season.
 
+    Returns:
         player_cache: {name_key: {name, team, gp, goals, assists, points}}
         team_cache:   {team_abbr: {total_goals, total_points}}
     """
+    now = time.time()
+    cached = _INJURY_CACHE.get(season)
+    if cached and (now - cached[0]) < _INJURY_CACHE_TTL:
+        return cached[1]
+
     player_cache: Dict[str, Dict] = {}
     team_cache: Dict[str, Dict] = {}
     try:
@@ -1053,6 +1079,7 @@ def _load_player_stats_for_injuries(season: str) -> Tuple[Dict[str, Dict], Dict[
     logger.info(
         f"Loaded injury stats: {len(player_cache)} players, {len(team_cache)} teams"
     )
+    _INJURY_CACHE[season] = (time.time(), (dict(player_cache), dict(team_cache)))
     return player_cache, team_cache
 
 
