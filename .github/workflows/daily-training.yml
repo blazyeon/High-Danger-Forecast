@@ -2,8 +2,8 @@ name: Daily Elo + PBP Stats Refresh
 
 on:
   schedule:
-    # Runs at 05:00 UTC every day (midnight ET / 10pm PT)
-    - cron: '0 5 * * *'
+    # 8:07 AM UTC every day (≈ 4:07 AM Eastern Daylight Time)
+    - cron: '7 8 * * *'
   workflow_dispatch:  # Allows manual trigger from GitHub UI
 
 jobs:

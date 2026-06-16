@@ -2,8 +2,8 @@ name: Daily NHL Data Update
 
 on:
   schedule:
-    # 5:03 AM UTC every day (covers early morning US time)
-    - cron: '3 9 * * *'
+    # 8:07 AM UTC every day (≈ 4:07 AM Eastern Daylight Time)
+    - cron: '7 8 * * *'
   workflow_dispatch:  # Allows manual trigger from GitHub UI
 
 permissions:
