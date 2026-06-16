@@ -641,6 +641,15 @@ input[type="date"].param-input, input[type="date"].date-input {
     font-size: 10px; text-transform: uppercase; letter-spacing: 0.8px;
     position: sticky; top: 0; z-index: 10; white-space: nowrap;
 }
+.data-table th.sortable {
+    cursor: pointer;
+    user-select: none;
+    transition: color var(--transition-fast), background var(--transition-fast);
+}
+.data-table th.sortable:hover {
+    color: var(--accent-cyan);
+    background: rgba(0,224,255,0.06);
+}
 .data-table td { padding: 10px 16px; border-bottom: 1px solid var(--border-subtle); color: var(--text-primary); white-space: nowrap; }
 .data-table tr:hover td { background: rgba(255,255,255,0.03); }
 .data-table tr:nth-child(even) td { background: rgba(255,255,255,0.015); }

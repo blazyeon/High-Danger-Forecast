@@ -663,9 +663,10 @@ def season_skater_rates_from_nst(
     """
     Per-player rates for a season, with optional date-window filtering.
 
-    Backed by NHL/StatsFromPBP.compute_skater_rates (PBP-derived). The
-    `season` arg is a YYYYZZZZ key (e.g. "20242025"); we convert to the
-    start year for the shot store.
+    Backed by cached JSON skater rates (PBP-derived). The `season` arg is a
+    YYYYZZZZ key (e.g. "20242025"); we convert to the start year for the
+    shot store. Date-window filtering is ignored at runtime to avoid loading
+    the full PBP parquet on Render; use update_pbp_stats.py to rebuild caches.
 
     Returns: {name_key: {gpg, apg, sogpg, xgf_pg, gp, goals, shots}}
     """
@@ -674,10 +675,10 @@ def season_skater_rates_from_nst(
     except (ValueError, TypeError):
         season_start = 2024
     try:
-        from NHL.StatsFromPBP import compute_skater_rates as _compute
-        return _compute(season_start, stype, fd=fd, td=td)
+        from NHL.StatsFromPBP import load_skater_rates_from_json
+        return load_skater_rates_from_json(season_start, stype)
     except Exception as e:
-        logger.warning(f"compute_skater_rates failed: {e}")
+        logger.warning(f"load_skater_rates_from_json failed: {e}")
         return {}
 
 
@@ -1179,28 +1180,28 @@ def get_player_and_goalie_names(
             continue
         logger.debug(f"Trying {desc} data for {team_abbr} (season={try_season}, stype={try_stype})")
 
-        # Players from PBP-derived rates
+        # Players from cached JSON skater rates
         try:
-            from NHL.StatsFromPBP import compute_skater_rates
-            skater_rates = compute_skater_rates(season_start, try_stype)
+            from NHL.StatsFromPBP import load_skater_rates_from_json
+            skater_rates = load_skater_rates_from_json(season_start, try_stype)
             for name_key, info in skater_rates.items():
                 nm_fmt = format_initial_last(sanitize_text(info.get("name", "")))
                 if nm_fmt and nm_fmt not in players:
                     players.append(nm_fmt)
         except Exception as e:
-            logger.debug(f"Could not fetch players from PBP ({desc}): {e}")
+            logger.debug(f"Could not fetch players from cached JSON ({desc}): {e}")
 
-        # Goalies from PBP-derived rates
+        # Goalies from cached JSON goalie rates
         try:
-            from NHL.StatsFromPBP import compute_goalie_rates
-            goalie_df = compute_goalie_rates(season_start, try_stype)
+            from NHL.StatsFromPBP import load_goalie_rates_from_json
+            goalie_df = load_goalie_rates_from_json(season_start, try_stype)
             if not goalie_df.empty and "name" in goalie_df.columns:
                 for nm in goalie_df["name"].astype(str).tolist():
                     nm_fmt = format_initial_last(sanitize_text(nm))
                     if nm_fmt and nm_fmt not in goalies:
                         goalies.append(nm_fmt)
         except Exception as e:
-            logger.debug(f"Could not fetch goalies from PBP ({desc}): {e}")
+            logger.debug(f"Could not fetch goalies from cached JSON ({desc}): {e}")
 
         if goalies:
             logger.info(f"Found {len(goalies)} goalies for {team_abbr} using {desc} data")

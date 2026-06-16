@@ -202,7 +202,12 @@ def _fetch_nst_df(url: str) -> pd.DataFrame:
 
 
 def get_team_rates_all(season: str, stype: int, fd: str = "", td: str = "") -> pd.DataFrame:
-    """Return team rates. Prefer lightweight exported JSON; fall back to PBP."""
+    """Return team rates from the lightweight exported JSON cache only.
+
+    We intentionally do NOT fall back to compute_team_rates here because that
+    loads the full PBP parquet and can exceed Render's memory on a web request.
+    Run `python update_pbp_stats.py` to refresh the cache.
+    """
     try:
         season_start = int(season[:4]) if len(str(season)) >= 4 else 2024
     except (ValueError, TypeError):
@@ -213,24 +218,20 @@ def get_team_rates_all(season: str, stype: int, fd: str = "", td: str = "") -> p
     if cached and (now - cached[0]) < _RATES_CACHE_TTL:
         return cached[1].copy() if isinstance(cached[1], pd.DataFrame) else cached[1]
 
-    # Fast path: full-season JSON avoids loading the PBP parquet on every request.
-        try:
-            from NHL.StatsFromPBP import load_team_rates_from_json
-            df = load_team_rates_from_json(season_start, stype)
-            if not df.empty:
-                _RATES_CACHE[key] = (now, df.copy())
-                return df.copy()
-        except Exception as e:
-            logger.debug(f"JSON team rates failed, falling back to PBP: {e}")
-
     try:
-        from NHL.StatsFromPBP import compute_team_rates
-        df = compute_team_rates(season_start, stype, fd=fd, td=td)
-        _RATES_CACHE[key] = (now, df.copy())
-        return df.copy()
+        from NHL.StatsFromPBP import load_team_rates_from_json
+        df = load_team_rates_from_json(season_start, stype)
+        if not df.empty:
+            _RATES_CACHE[key] = (now, df.copy())
+            return df.copy()
     except Exception as e:
-        logger.warning(f"compute_team_rates failed: {e}")
-        return pd.DataFrame()
+        logger.debug(f"JSON team rates failed: {e}")
+
+    logger.warning(
+        f"Team rates cache missing for {season_start}-{season_start + 1}; "
+        "returning empty DataFrame. Run python update_pbp_stats.py to rebuild."
+    )
+    return pd.DataFrame()
 
 
 def get_team_rates_ev(season: str, stype: int, fd: str = "", td: str = "") -> pd.DataFrame:
@@ -249,7 +250,11 @@ def get_team_rates_pk_per60(season: str, stype: int, fd: str = "", td: str = "")
     return get_team_rates_all(season, stype, fd=fd, td=td)
 
 def get_goalie_table(season: str, stype: int, fd: str = "", td: str = "") -> pd.DataFrame:
-    """Return goalie rates. Prefer lightweight exported JSON; fall back to PBP."""
+    """Return goalie rates from the lightweight exported JSON cache only.
+
+    We intentionally do NOT fall back to compute_goalie_rates here because that
+    loads the full PBP parquet and can exceed Render's memory on a web request.
+    """
     try:
         season_start = int(season[:4]) if len(str(season)) >= 4 else 2024
     except (ValueError, TypeError):
@@ -267,16 +272,12 @@ def get_goalie_table(season: str, stype: int, fd: str = "", td: str = "") -> pd.
             _RATES_CACHE[key] = (now, df.copy())
             return df.copy()
     except Exception as e:
-        logger.debug(f"JSON goalie rates failed, falling back to PBP: {e}")
+        logger.debug(f"JSON goalie rates failed: {e}")
 
-    try:
-        from NHL.StatsFromPBP import compute_goalie_rates
-        df = compute_goalie_rates(season_start, stype, fd=fd, td=td)
-        _RATES_CACHE[key] = (now, df.copy())
-        return df.copy()
-    except Exception as e:
-        logger.warning(f"compute_goalie_rates failed: {e}")
-        return pd.DataFrame()
+    logger.warning(
+        f"Goalie rates cache missing for {season_start}-{season_start + 1}; "
+        "returning empty DataFrame. Run python update_pbp_stats.py to rebuild."
+    )
     return pd.DataFrame()
 
 def _extract_pp_pk_rates(pp_df: pd.DataFrame, pk_df: pd.DataFrame, abbr: str) -> Tuple[float, float]:
@@ -403,6 +404,10 @@ def derive_all_pg_metrics(all_df: pd.DataFrame, abbr: str) -> Dict[str, float]:
             except Exception:
                 sv = defaults["SvPct"]
 
+        ff_pct = _get(["FF%", "ff_pct"], 50.0)
+        if 0 < ff_pct <= 1.0:
+            ff_pct *= 100.0
+
         return {
             "xGFpg": safe_division(xgf, gp, defaults["xGFpg"]),
             "xGApG": safe_division(xga, gp, defaults["xGApG"]),
@@ -414,19 +419,32 @@ def derive_all_pg_metrics(all_df: pd.DataFrame, abbr: str) -> Dict[str, float]:
             "CFpg": safe_division(cf, gp, defaults["CFpg"]),
             "xGF%": xgf_pct,
             "SCF%": scf_pct,
+            "CF%": scf_pct,
+            "FF%": ff_pct,
             "HDCF%": hdcf_pct,
             "PDO": pdo,
             "SvPct": sv,
+            "gsax_per_game": _get(["gsax_per_game"], 0.0),
         }
     except Exception as e:
         logger.error(f"Error deriving metrics for {abbr}: {e}")
         return defaults
 
 
+def _team_id_from_abbr(abbr: str) -> Optional[int]:
+    """Inverse of the small NHL PBP team_id table."""
+    abbr_norm = abbr.upper()
+    for tid, a in TEAM_ID_TO_ABBR.items():
+        if a == abbr_norm:
+            return tid
+    return None
+
+
 def team_last_n_metrics(team_abbr: str, date_str: str, n: int = 6) -> Tuple[float, float, float]:
     """
-    Return season-wide per-game averages for goals-for, goals-against, and shots.
-    Uses PBP-derived team rates (no boxscore scraping).
+    Return actual last-N per-game averages for goals-for, goals-against, and shots-for.
+    Uses the PBP shot store and game dates so the "last N" is chronological.
+    Falls back to season-wide rates if PBP data is unavailable.
     """
     defaults = (
         LEAGUE_AVERAGES["goals_per_game"],
@@ -435,36 +453,99 @@ def team_last_n_metrics(team_abbr: str, date_str: str, n: int = 6) -> Tuple[floa
     )
     try:
         season = season_from_date(date_str)
-        df = get_team_rates_all(season, stype=2)
-        if df is None or df.empty:
-            return defaults
-        row = _match_team(df, team_abbr, "team")
-        if row.empty:
-            return defaults
-        r = row.iloc[0]
-        gf_pg = float(r.get("goals_per_game", defaults[0])) or defaults[0]
-        ga_pg = float(r.get("ga", 0) / max(r.get("gp", 1), 1)) or defaults[1]
-        sf_pg = float(r.get("shots_per_game", defaults[2])) or defaults[2]
-        return (gf_pg, ga_pg, sf_pg)
+        start_year = int(season[:4]) if len(str(season)) >= 4 else 2024
+        shots = load_shot_store(start_year, stype=2)
+        if shots.empty:
+            raise ValueError("Shot store empty")
+
+        team_id = _team_id_from_abbr(team_abbr)
+        if team_id is None:
+            raise ValueError(f"Unknown team {team_abbr}")
+
+        team_shots = shots[shots["team_id"] == team_id]
+        if team_shots.empty:
+            raise ValueError(f"No shots for team {team_abbr}")
+
+        # Build per-game totals
+        game_ids = team_shots["game_id"].unique()
+        dmap = game_date_map(start_year, stype=2)
+        rows = []
+        for gid in game_ids:
+            gid_shots = shots[shots["game_id"] == gid]
+            gf = int(gid_shots[(gid_shots["team_id"] == team_id) & (gid_shots["is_goal"] == 1)].shape[0])
+            sf = int(gid_shots[(gid_shots["team_id"] == team_id) & (gid_shots["is_shot"] == 1)].shape[0])
+            ga = int(gid_shots[(gid_shots["team_id"] != team_id) & (gid_shots["is_goal"] == 1)].shape[0])
+            gd = dmap.get(int(gid)) if dmap else None
+            rows.append({"game_id": gid, "gf": gf, "ga": ga, "sf": sf, "date": gd})
+
+        df = pd.DataFrame(rows)
+        df = df.dropna(subset=["date"]).sort_values("date").tail(n)
+        if df.empty:
+            raise ValueError("No dated games for last-N")
+
+        gf_pg = float(df["gf"].mean()) if not df["gf"].empty else defaults[0]
+        ga_pg = float(df["ga"].mean()) if not df["ga"].empty else defaults[1]
+        sf_pg = float(df["sf"].mean()) if not df["sf"].empty else defaults[2]
+        return (max(0.0, gf_pg), max(0.0, ga_pg), max(0.0, sf_pg))
     except Exception as e:
-        logger.error(f"Error getting season metrics for {team_abbr}: {e}")
-        return defaults
+        logger.debug(f"True last-N metrics failed for {team_abbr}: {e}, falling back to season rates")
+        try:
+            season = season_from_date(date_str)
+            df = get_team_rates_all(season, stype=2)
+            if df is None or df.empty:
+                return defaults
+            row = _match_team(df, team_abbr, "team")
+            if row.empty:
+                return defaults
+            r = row.iloc[0]
+            gf_pg = float(r.get("goals_per_game", defaults[0])) or defaults[0]
+            ga_pg = float(r.get("ga_per_game", defaults[1])) or defaults[1]
+            sf_pg = float(r.get("shots_per_game", defaults[2])) or defaults[2]
+            return (gf_pg, ga_pg, sf_pg)
+        except Exception as e2:
+            logger.error(f"Error getting season metrics for {team_abbr}: {e2}")
+            return defaults
 
 
 def team_last_n_goals_list(team_abbr: str, date_str: str, n: int = 8) -> List[int]:
-    """Return a synthetic last-N goals list from the team's season goals-per-game rate."""
+    """Return the actual last-N goals scored by a team from the PBP shot store."""
     try:
-        gf_pg, _, _ = team_last_n_metrics(team_abbr, date_str, n=1)
-        mean = max(0.5, gf_pg)
-        # Build a list of rounded Poisson-ish samples centred on the season rate.
-        out: List[int] = []
-        for _ in range(n):
-            lam = mean + (np.random.random() - 0.5) * 1.5
-            out.append(int(max(0, round(lam))))
-        return out
+        season = season_from_date(date_str)
+        start_year = int(season[:4]) if len(str(season)) >= 4 else 2024
+        shots = load_shot_store(start_year, stype=2)
+        if shots.empty:
+            raise ValueError("Shot store empty")
+
+        team_id = _team_id_from_abbr(team_abbr)
+        if team_id is None:
+            raise ValueError(f"Unknown team {team_abbr}")
+
+        team_shots = shots[shots["team_id"] == team_id]
+        if team_shots.empty:
+            raise ValueError(f"No shots for team {team_abbr}")
+
+        dmap = game_date_map(start_year, stype=2)
+        games = team_shots["game_id"].unique()
+        goals_per_game = []
+        dates = []
+        for gid in games:
+            gf = int(team_shots[(team_shots["game_id"] == gid) & (team_shots["is_goal"] == 1)].shape[0])
+            goals_per_game.append(gf)
+            dates.append(dmap.get(int(gid), ""))
+
+        df = pd.DataFrame({"gf": goals_per_game, "date": dates}).dropna(subset=["date"]).sort_values("date").tail(n)
+        if df.empty:
+            raise ValueError("No dated games")
+        return [int(g) for g in df["gf"].tolist()]
     except Exception as e:
-        logger.error(f"Error getting goals list for {team_abbr}: {e}")
-        return []
+        logger.debug(f"Actual last-N goals list failed for {team_abbr}: {e}, falling back to synthetic")
+        try:
+            gf_pg, _, _ = team_last_n_metrics(team_abbr, date_str, n=1)
+            mean = max(0.5, gf_pg)
+            return [int(max(0, round(mean + (np.random.random() - 0.5) * 1.5))) for _ in range(n)]
+        except Exception as e2:
+            logger.error(f"Error getting goals list for {team_abbr}: {e2}")
+            return []
 
 def _get_loaded_calibrator() -> Optional[Calibrator]:
     """Return the fitted Calibrator from app state, or None if unavailable."""
@@ -637,6 +718,13 @@ def _build_ml_features(
 
         # Head-to-head
         "h2h_home_pct": float(h2h_pct),
+
+        # Differential features available in both training and inference
+        "xgf_pct_diff": safe_division(home_all.get("xGF%", 50.0) - away_all.get("xGF%", 50.0), 50.0, 0.0),
+        "gf_pg_diff": home_all.get("GFpg", 3.0) - away_all.get("GFpg", 3.0),
+        "ga_pg_diff": away_all.get("GApG", 3.0) - home_all.get("GApG", 3.0),
+        "sf_pg_diff": home_all.get("SFpg", 30.0) - away_all.get("SFpg", 30.0),
+        "xga_pg_diff": home_all.get("xGApG", 3.0) - away_all.get("xGApG", 3.0),
     }
 
     return features
@@ -707,22 +795,23 @@ def opp_goalie_sv_dsv_from_df(
     goalie_df: pd.DataFrame,
     team_abbr: str,
     selected_goalie: Optional[str] = None
-) -> Tuple[float, float, float]:
+) -> Tuple[float, float, float, float]:
     sv_default = GOALIE_PARAMS["default_sv_pct"]
     dsv_default = GOALIE_PARAMS["default_dsv_pct"]
     gsaa_pg = 0.0
-    
+    gsax_per_60 = 0.0
+
     # FIX: Use passed-in argument goalie_df
     df = normalize_sv_column(goalie_df.copy())
     team_col = get_column_safe(df, COLUMN_VARIATIONS, "team")
-    
+
     if team_col:
         # Use STRICT matching helper
         subset = _match_team(df, team_abbr, team_col)
         df = subset if not subset.empty else df
 
     if df.empty:
-        return sv_default, dsv_default, gsaa_pg
+        return sv_default, dsv_default, gsaa_pg, gsax_per_60
 
     if selected_goalie:
         player_col = get_column_safe(df, COLUMN_VARIATIONS, "player")
@@ -744,11 +833,11 @@ def opp_goalie_sv_dsv_from_df(
 
     def tonum(s):
         return pd.to_numeric(s, errors="coerce").fillna(0.0)
-    if "GS" not in df.columns: 
+    if "GS" not in df.columns:
         df.loc[:, "GS"] = 0
-    if "GP" not in df.columns: 
+    if "GP" not in df.columns:
         df.loc[:, "GP"] = 0
-    if "Sv%" not in df.columns: 
+    if "Sv%" not in df.columns:
         df.loc[:, "Sv%"] = np.nan
     df = df.assign(
         _gs=tonum(df["GS"]),
@@ -771,7 +860,25 @@ def opp_goalie_sv_dsv_from_df(
         except Exception:
             gsaa_pg = 0.0
 
-    return sv, dsv, gsaa_pg
+    # GSAX per 60 from the PBP/xG model (stronger future-goalie signal than raw Sv%).
+    for gsax_col in ("gsax_per_60", "gsax_per60", "GSAX/60", "GSAX60"):
+        if gsax_col in df.columns and pd.notna(r.get(gsax_col)):
+            try:
+                gsax_per_60 = float(pd.to_numeric(r.get(gsax_col), errors="coerce"))
+                if np.isfinite(gsax_per_60):
+                    break
+            except Exception:
+                continue
+    if gsax_per_60 == 0.0 and "gsax" in df.columns and pd.notna(r.get("gsax")):
+        try:
+            gsax_total = float(pd.to_numeric(r.get("gsax"), errors="coerce"))
+            gp = float(r.get("GP", 0.0) or 0.0)
+            if gp > 0 and np.isfinite(gsax_total):
+                gsax_per_60 = gsax_total / gp
+        except Exception:
+            gsax_per_60 = 0.0
+
+    return sv, dsv, gsaa_pg, gsax_per_60
 
 # TTL cache for schedule data (30 min)
 _schedule_cache: Dict[str, Tuple[float, Optional[Dict[str, Any]]]] = {}
@@ -1039,9 +1146,9 @@ def _load_player_stats_for_injuries(season: str) -> Tuple[Dict[str, Dict], Dict[
         return player_cache, team_cache
 
     try:
-        from NHL.StatsFromPBP import compute_skater_rates, team_abbr_from_id
+        from NHL.StatsFromPBP import load_skater_rates_from_json, team_abbr_from_id
         from NHL.PlayByPlay import load_shot_store
-        rates = compute_skater_rates(start_year, 2)
+        rates = load_skater_rates_from_json(start_year, 2)
         shots = load_shot_store(start_year, 2)
     except Exception as e:
         logger.error(f"Failed to load PBP stats for injuries ({season}): {e}")
@@ -1220,10 +1327,10 @@ def simulate_matchup(
     extra_pp_goals_home = max(-max_pp_impact, min(max_pp_impact, extra_pp_goals_home))
     extra_pp_goals_away = max(-max_pp_impact, min(max_pp_impact, extra_pp_goals_away))
 
-    home_opp_sv, home_opp_dsv, home_opp_gsaa_pg = opp_goalie_sv_dsv_from_df(
+    home_opp_sv, home_opp_dsv, home_opp_gsaa_pg, home_opp_gsax60 = opp_goalie_sv_dsv_from_df(
         g_df, away_abbr, selected_goalie=selected_away_goalie
     )
-    away_opp_sv, away_opp_dsv, away_opp_gsaa_pg = opp_goalie_sv_dsv_from_df(
+    away_opp_sv, away_opp_dsv, away_opp_gsaa_pg, away_opp_gsax60 = opp_goalie_sv_dsv_from_df(
         g_df, home_abbr, selected_goalie=selected_home_goalie
     )
 
@@ -1280,6 +1387,7 @@ def simulate_matchup(
         opp_sv: float,
         opp_dsv: float,
         opp_gsaa_pg: float,
+        opp_gsax_per60: float,
         rec_gfpg: float,
         rec_gapg_opp: float,
         lineup_delta: float,
@@ -1302,17 +1410,31 @@ def simulate_matchup(
 
         mu = max(0.3, base_xgf + xga_adj + st_goals)
 
-        if not math.isnan(opp_dsv) and abs(opp_dsv) < GOALIE_PARAMS["max_dsv_pct_impact"]:
-            goalie_adj_mult = (1.0 - MODEL_WEIGHTS["goalie_impact_weight"] * opp_dsv)
+        # Goalie impact: prefer GSAX/60 (Goals Saved Above Expected per 60) from the xG model,
+        # fall back to dSV% / raw Sv% if GSAX is unavailable.
+        goalie_adj_mult = 1.0
+        if opp_gsax_per60 is not None and not math.isnan(opp_gsax_per60):
+            # Positive GSAX = goalie outperforming expected → harder to score against.
+            # Typical elite range ±0.5 GSAX/60; scale so 0.5 ≈ 5% goal impact.
+            gsax_clip = max(-1.0, min(1.0, opp_gsax_per60))
+            goalie_adj_mult *= (1.0 - 0.10 * gsax_clip)
+        elif not math.isnan(opp_dsv) and abs(opp_dsv) < GOALIE_PARAMS["max_dsv_pct_impact"]:
+            goalie_adj_mult *= (1.0 - MODEL_WEIGHTS["goalie_impact_weight"] * opp_dsv)
         else:
-            goalie_adj_mult = (1.0 + MODEL_WEIGHTS["goalie_impact_weight"] * (league_sv - opp_sv))
+            goalie_adj_mult *= (1.0 + MODEL_WEIGHTS["goalie_impact_weight"] * (league_sv - opp_sv))
+        # GSAA as a small secondary adjustment
         goalie_adj_mult *= (1.0 - 0.02 * max(-1.0, min(1.0, opp_gsaa_pg)))
         mu *= goalie_adj_mult
 
+        # Advanced stat adjustments (percentages are 0-100 scale, rates are per-game)
         mu *= (1.0 + 0.10 * safe_division(advanced_stats.get("xGF%", 50.0) - 50.0, 50.0, 0.0))
         mu *= (1.0 + 0.06 * safe_division(advanced_stats.get("SCF%", 50.0) - 50.0, 50.0, 0.0))
-        mu *= (1.0 + 0.04 * safe_division(advanced_stats.get("HDCF%", 50.0) - 50.0, 50.0, 0.0))
-        mu *= (1.0 + 0.01 * safe_division(advanced_stats.get("PDO", 100.0) - 100.0, 100.0, 0.0))
+        mu *= (1.0 + 0.05 * safe_division(advanced_stats.get("HDCF%", 50.0) - 50.0, 50.0, 0.0))
+        # PDO is mostly luck: light signal, regressive. A high PDO suggests some overperformance
+        # that may slightly mean-revert, so we nudge expected goals toward baseline.
+        pdo = advanced_stats.get("PDO", 100.0)
+        if pdo is not None and not math.isnan(pdo):
+            mu *= (1.0 + 0.015 * safe_division(pdo - 100.0, 100.0, 0.0))
         mu *= (1.0 + 0.09 * safe_division(
             advanced_stats.get("EVGFpg", offense_all["GFpg"]) - offense_all["GFpg"],
             max(1e-9, offense_all["GFpg"]),
@@ -1341,7 +1463,7 @@ def simulate_matchup(
 
         mu *= rest_mult
         mu *= score_mult
-        
+
         # Apply injury impact (multiplicative)
         mu *= (1.0 + injury_impact)
 
@@ -1363,23 +1485,29 @@ def simulate_matchup(
     advanced_stats_home = {
         "xGF%": home_all.get("xGF%", 50.0),
         "SCF%": home_all.get("SCF%", 50.0),
+        "CF%": home_all.get("CF%", 50.0),
+        "FF%": home_all.get("FF%", 50.0),
         "HDCF%": home_all.get("HDCF%", 50.0),
         "PDO": home_all.get("PDO", 100.0),
         "FFpg": home_all.get("FFpg", 25.0),
         "CFpg": home_all.get("CFpg", 45.0),
         "EVGFpg": home_ev.get("GFpg", home_all.get("GFpg", 3.0)),
         "EVxGFpg": home_ev.get("xGFpg", home_all.get("xGFpg", 3.0)),
+        "gsax_per_game": home_all.get("gsax_per_game", 0.0),
     }
-    
+
     advanced_stats_away = {
         "xGF%": away_all.get("xGF%", 50.0),
         "SCF%": away_all.get("SCF%", 50.0),
+        "CF%": away_all.get("CF%", 50.0),
+        "FF%": away_all.get("FF%", 50.0),
         "HDCF%": away_all.get("HDCF%", 50.0),
         "PDO": away_all.get("PDO", 100.0),
         "FFpg": away_all.get("FFpg", 25.0),
         "CFpg": away_all.get("CFpg", 45.0),
         "EVGFpg": away_ev.get("GFpg", away_all.get("GFpg", 3.0)),
         "EVxGFpg": away_ev.get("xGFpg", away_all.get("xGFpg", 3.0)),
+        "gsax_per_game": away_all.get("gsax_per_game", 0.0),
     }
 
     # ✅ PURE DATA-DRIVEN VENUE ADVANTAGE (reduced scaling)
@@ -1397,7 +1525,7 @@ def simulate_matchup(
     # Calculate baseline WITHOUT score effects (will apply AFTER ML adjustments)
     mu_home, br_home = _compute_expected_goals(
         home_all, away_all, home_pp60, away_pk_ga60,
-        home_opp_sv, home_opp_dsv, home_opp_gsaa_pg,
+        home_opp_sv, home_opp_dsv, home_opp_gsaa_pg, home_opp_gsax60,
         home_rec_gf, away_rec_ga,
         lineup_shoot_home - lineup_shoot_away,
         venue_advantage,
@@ -1406,7 +1534,7 @@ def simulate_matchup(
     )
     mu_away, br_away = _compute_expected_goals(
         away_all, home_all, away_pp60, home_pk_ga60,
-        away_opp_sv, away_opp_dsv, away_opp_gsaa_pg,
+        away_opp_sv, away_opp_dsv, away_opp_gsaa_pg, away_opp_gsax60,
         away_rec_gf, home_rec_ga,
         lineup_shoot_away - lineup_shoot_home,
         0.0,
@@ -1497,6 +1625,22 @@ def simulate_matchup(
     except Exception as e:
         logger.warning(f"ML adjustment failed, using physics baseline: {e}")
         ml_prob = None
+
+    # Apply score-effects AFTER all model adjustments to avoid double-counting.
+    score_mult_home = score_effect_scaler(mu_home, mu_away)
+    score_mult_away = score_effect_scaler(mu_away, mu_home)
+    mu_home *= score_mult_home
+    mu_away *= score_mult_away
+    mu_home = max(0.4, min(8.0, mu_home))
+    mu_away = max(0.4, min(8.0, mu_away))
+    br_home["Score-effects adj (mult-1)"] = round(score_mult_home - 1.0, 4)
+    br_away["Score-effects adj (mult-1)"] = round(score_mult_away - 1.0, 4)
+    br_home["Final mu"] = round(mu_home, 3)
+    br_away["Final mu"] = round(mu_away, 3)
+    logger.info(
+        f"Score-effects applied: home {score_mult_home:.3f} | away {score_mult_away:.3f} "
+        f"→ mu {mu_home:.2f} v {mu_away:.2f}"
+    )
 
     k_home = estimate_gamma_shape_from_recent(team_last_n_goals_list(home_abbr, game_date.isoformat(), n=8))
     k_away = estimate_gamma_shape_from_recent(team_last_n_goals_list(away_abbr, game_date.isoformat(), n=8))

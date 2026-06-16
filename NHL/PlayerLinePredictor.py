@@ -19,7 +19,7 @@ import difflib
 
 from NHL.OddsAPI import fetch_nhl_player_props_by_date, OddsAPIError
 from NHL.Utils import normalize_name_key
-from NHL.StatsFromPBP import compute_skater_rates
+from NHL.StatsFromPBP import load_skater_rates_from_json
 from EloMl.Database import EloDatabase
 # NST import removed — see get_player_pbp_stats below for the new source.
 
@@ -165,7 +165,7 @@ def get_player_nst_stats(season: str) -> Dict[str, Dict]:
         logger.warning("Invalid season format %r, expected YYYYYYYY", season)
         return {}
     try:
-        rates = compute_skater_rates(start_year, 2)
+        rates = load_skater_rates_from_json(start_year, 2)
     except Exception as e:
         logger.warning("Could not load PBP stats for %s: %s", season, e)
         return {}

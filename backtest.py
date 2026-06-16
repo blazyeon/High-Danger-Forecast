@@ -37,7 +37,7 @@ from EloMl.Database import EloDatabase
 from EloMl.Features import EloFeatureEngine
 from EloMl.MLModel import EloMLPredictor
 from EloMl.Ratings import EloConfig, PlayerEloSystem, TeamEloSystem
-from NHL.Config import CURRENT_SEASON_YEAR, EARLIEST_SEASON_YEAR
+from NHL.Config import CURRENT_SEASON_YEAR, EARLIEST_SEASON_YEAR, MODEL_WEIGHTS
 from NHL.Features import compute_rest_travel_features_fast
 from NHL.Utils import season_from_date
 
@@ -84,6 +84,23 @@ def parse_args() -> argparse.Namespace:
         type=int,
         default=50,
         help="Minimum games required to run backtest",
+    )
+    parser.add_argument(
+        "--use-oof",
+        action="store_true",
+        default=True,
+        help="Use walk-forward out-of-fold ML probabilities from models/calibration_data.json (fair backtest)",
+    )
+    parser.add_argument(
+        "--calibration",
+        type=str,
+        default="models/calibration_data.json",
+        help="Path to calibration/OOF predictions JSON",
+    )
+    parser.add_argument(
+        "--no-oof",
+        action="store_true",
+        help="Disable OOF and use the final trained model directly (may look ahead)",
     )
     return parser.parse_args()
 
@@ -203,6 +220,17 @@ def _recent_stats(
     }
 
 
+def _load_oof_predictions(path: str) -> Dict[str, float]:
+    """Load walk-forward out-of-fold ML probabilities by game_id."""
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            records = json.load(f)
+        return {str(r["game_id"]): float(r["pred_home_win"]) for r in records if "game_id" in r and "pred_home_win" in r}
+    except Exception as e:
+        logger.warning(f"Could not load OOF predictions from {path}: {e}")
+        return {}
+
+
 def _h2h_pct(home_team: str, away_team: str, completed_games: List[Dict[str, Any]]) -> float:
     h2h = [
         g
@@ -220,6 +248,32 @@ def _h2h_pct(home_team: str, away_team: str, completed_games: List[Dict[str, Any
     return wins / gp if gp else 0.5
 
 
+def _season_to_date_stats(
+    team: str, is_home: bool, completed_games: List[Dict[str, Any]]
+) -> Dict[str, float]:
+    relevant = [
+        g
+        for g in completed_games
+        if (is_home and g["home_team"] == team) or (not is_home and g["away_team"] == team)
+    ]
+    if not relevant:
+        return {"gf_pg": 3.0, "ga_pg": 3.0, "xgf_pg": 3.0, "xga_pg": 3.0, "sf_pg": 30.0, "sa_pg": 30.0}
+    gp = len(relevant)
+    gf = sum(g["home_score"] if is_home else g["away_score"] for g in relevant)
+    ga = sum(g["away_score"] if is_home else g["home_score"] for g in relevant)
+    xgf = sum(g["home_xgf"] if is_home else g["away_xgf"] for g in relevant)
+    xga = sum(g["home_xga"] if is_home else g["away_xga"] for g in relevant)
+    sf = sum(g["home_sf"] if is_home else g["away_sf"] for g in relevant)
+    return {
+        "gf_pg": gf / gp,
+        "ga_pg": ga / gp,
+        "xgf_pg": xgf / gp,
+        "xga_pg": xga / gp,
+        "sf_pg": sf / gp,
+        "sa_pg": 30.0,
+    }
+
+
 def _build_ml_features(
     game: Dict[str, Any],
     team_elo: TeamEloSystem,
@@ -234,6 +288,8 @@ def _build_ml_features(
     elo_features = feature_engine.extract_team_features(home_team, away_team)
     home_recent = _recent_stats(home_team, True, 10, completed)
     away_recent = _recent_stats(away_team, False, 10, completed)
+    home_std = _season_to_date_stats(home_team, True, completed)
+    away_std = _season_to_date_stats(away_team, False, completed)
     home_pct, away_pct = _venue_record(home_team, away_team, completed)
 
     try:
@@ -292,6 +348,15 @@ def _build_ml_features(
         "home_tz_diff": float(home_rest.get("tz_diff", 0.0)),
         "away_tz_diff": float(away_rest.get("tz_diff", 0.0)),
         "h2h_home_pct": h2h_pct,
+
+        "xgf_pct_diff": (
+            (home_std["xgf_pg"] / max(home_std["xgf_pg"] + home_std["xga_pg"], 0.1) -
+             away_std["xgf_pg"] / max(away_std["xgf_pg"] + away_std["xga_pg"], 0.1)) * 100.0
+        ) / 50.0,
+        "gf_pg_diff": home_std["gf_pg"] - away_std["gf_pg"],
+        "ga_pg_diff": away_std["ga_pg"] - home_std["ga_pg"],
+        "sf_pg_diff": home_std["sf_pg"] - away_std["sf_pg"],
+        "xga_pg_diff": home_std["xga_pg"] - away_std["xga_pg"],
     }
 
 
@@ -334,6 +399,73 @@ def _calibration_buckets(y_true: np.ndarray, probs: np.ndarray) -> List[Dict[str
     return buckets
 
 
+def _ensemble_prob(elo_p: float, sim_p: float, ml_p: Optional[float], weights: Dict[str, float]) -> float:
+    """Blend Elo, simulation, and ML probabilities."""
+    if ml_p is None:
+        return _clip(elo_p)
+    elo_w = weights.get("elo_winprob_weight", 0.30)
+    sim_w = weights.get("simulation_winprob_weight", 0.45)
+    ml_w = weights.get("ml_winprob_weight", 0.25)
+    total = elo_w + sim_w + ml_w
+    if total <= 0:
+        return _clip(elo_p)
+    return _clip((elo_w * elo_p + sim_w * sim_p + ml_w * ml_p) / total)
+
+
+def _grid_search_weights(
+    records: List[Dict[str, Any]],
+    y_true: np.ndarray,
+    steps: int = 21,
+) -> Dict[str, Any]:
+    """Grid-search ensemble weights (Elo/Sim/ML) using sim=Elo proxy in backtest.
+
+    Only games with an ML probability participate in the search so the result is
+    not swamped by Elo-only early-season games.
+    """
+    best_ll = float("inf")
+    best = dict(MODEL_WEIGHTS)
+    ml_mask = np.array([r["ml_prob"] is not None for r in records])
+    if np.sum(ml_mask) == 0:
+        return {"best": best, "best_logloss": best_ll, "history": []}
+    filtered_records = [r for r in records if r["ml_prob"] is not None]
+    y_true_f = y_true[ml_mask]
+    history: List[Dict[str, float]] = []
+
+    # Search 2-D simplex: vary Elo+Sim combined weight vs ML weight.
+    # Simulation is proxied by Elo here because running 10k sims per game is too
+    # expensive for a full-season backtest. The resulting "Elo+Sim" weight is
+    # split back into the two Config weights in a fixed ratio.
+    sim_share = 0.60  # of the combined Elo+Sim budget, simulation gets this share
+    for ml_w_int in range(steps):
+        ml_w = ml_w_int / (steps - 1)
+        combined = 1.0 - ml_w
+        elo_w = combined * (1.0 - sim_share)
+        sim_w = combined * sim_share
+        probs = np.array(
+            [
+                _ensemble_prob(
+                    r["elo_prob"],
+                    r["sim_prob"],
+                    r["ml_prob"],
+                    {
+                        "elo_winprob_weight": elo_w,
+                        "simulation_winprob_weight": sim_w,
+                        "ml_winprob_weight": ml_w,
+                    },
+                )
+                for r in filtered_records
+            ],
+            dtype=float,
+        )
+        ll = log_loss(y_true_f, np.clip(probs, 1e-6, 1 - 1e-6))
+        history.append({"elo": round(elo_w, 3), "sim": round(sim_w, 3), "ml": round(ml_w, 3), "logloss": round(ll, 5)})
+        if ll < best_ll:
+            best_ll = ll
+            best = {"elo_winprob_weight": elo_w, "simulation_winprob_weight": sim_w, "ml_winprob_weight": ml_w}
+
+    return {"best": best, "best_logloss": best_ll, "history": history}
+
+
 def run_backtest(args: argparse.Namespace) -> int:
     root = Path(__file__).parent
     db_map = _available_databases(root)
@@ -362,15 +494,23 @@ def run_backtest(args: argparse.Namespace) -> int:
     team_elo = TeamEloSystem(config)
     feature_engine = EloFeatureEngine(player_elo, team_elo, config)
 
+    use_oof = args.use_oof and not args.no_oof
+    oof_probs: Dict[str, float] = {}
+    if use_oof:
+        oof_probs = _load_oof_predictions(args.calibration)
+        if oof_probs:
+            logger.info(f"Loaded {len(oof_probs)} OOF ML probabilities from {args.calibration}")
+
     ml_model: Optional[EloMLPredictor] = None
-    model_path = Path(args.model)
-    if model_path.exists():
-        try:
-            ml_model = EloMLPredictor(model_id="main", config=config)
-            ml_model.load(str(model_path))
-            logger.info(f"Loaded ML model from {model_path}")
-        except Exception as e:
-            logger.warning(f"Could not load ML model: {e}")
+    if not use_oof:
+        model_path = Path(args.model)
+        if model_path.exists():
+            try:
+                ml_model = EloMLPredictor(model_id="main", config=config)
+                ml_model.load(str(model_path))
+                logger.info(f"Loaded ML model from {model_path}")
+            except Exception as e:
+                logger.warning(f"Could not load ML model: {e}")
 
     records = []
     completed: List[Dict[str, Any]] = []
@@ -386,7 +526,11 @@ def run_backtest(args: argparse.Namespace) -> int:
         elo_prob = _clip(1.0 / (1.0 + 10.0 ** (-(home_elo - away_elo) / 400.0)))
 
         ml_prob = None
-        if ml_model is not None and ml_model.is_trained:
+        if use_oof:
+            ml_prob = oof_probs.get(str(game["game_id"]))
+            if ml_prob is not None:
+                ml_prob = _clip(ml_prob)
+        elif ml_model is not None and ml_model.is_trained:
             try:
                 features = _build_ml_features(
                     game, team_elo, player_elo, feature_engine, completed
@@ -396,13 +540,6 @@ def run_backtest(args: argparse.Namespace) -> int:
                 logger.debug(f"ML prediction failed for {game['game_id']}: {e}")
 
         actual = 1.0 if game["home_score"] > game["away_score"] else 0.0
-
-        # Simple ensemble (same weights as Simulation.py)
-        ensemble_prob = elo_prob
-        if ml_prob is not None:
-            ensemble_prob = _clip(0.30 * elo_prob + 0.45 * elo_prob + 0.25 * ml_prob)
-            # Note: simulation weight would need simulate_matchup; we approximate here
-            ensemble_prob = _clip(0.55 * elo_prob + 0.45 * ml_prob)
 
         records.append(
             {
@@ -415,8 +552,8 @@ def run_backtest(args: argparse.Namespace) -> int:
                 "away_score": game["away_score"],
                 "actual_home_win": int(actual),
                 "elo_prob": round(elo_prob, 4),
+                "sim_prob": round(elo_prob, 4),  # backtest proxy; simulation too slow for full history
                 "ml_prob": round(ml_prob, 4) if ml_prob is not None else None,
-                "ensemble_prob": round(ensemble_prob, 4),
                 "home_elo": round(home_elo, 1),
                 "away_elo": round(away_elo, 1),
             }
@@ -463,26 +600,52 @@ def run_backtest(args: argparse.Namespace) -> int:
 
     y_true = np.array([r["actual_home_win"] for r in records], dtype=float)
     elo_probs = np.array([r["elo_prob"] for r in records], dtype=float)
-    ensemble_probs = np.array([r["ensemble_prob"] for r in records], dtype=float)
+
+    # Baseline ensemble using current Config weights (sim proxied by Elo)
+    baseline_probs = np.array(
+        [_ensemble_prob(r["elo_prob"], r["sim_prob"], r["ml_prob"], MODEL_WEIGHTS) for r in records],
+        dtype=float,
+    )
 
     results = {
         "n_games": len(records),
         "elo": _report("Elo", y_true, elo_probs),
-        "ensemble": _report("Elo+ML Ensemble", y_true, ensemble_probs),
+        "ensemble_baseline": _report("Elo+Sim+ML (Config)", y_true, baseline_probs),
         "elo_calibration": _calibration_buckets(y_true, elo_probs),
-        "ensemble_calibration": _calibration_buckets(y_true, ensemble_probs),
+        "ensemble_baseline_calibration": _calibration_buckets(y_true, baseline_probs),
         "seasons": sorted(db_map.keys()),
+        "baseline_weights": {
+            "elo_winprob_weight": MODEL_WEIGHTS["elo_winprob_weight"],
+            "simulation_winprob_weight": MODEL_WEIGHTS["simulation_winprob_weight"],
+            "ml_winprob_weight": MODEL_WEIGHTS["ml_winprob_weight"],
+        },
     }
 
-    if ml_model is not None:
-        ml_mask = np.array([r["ml_prob"] is not None for r in records])
-        if np.sum(ml_mask) > 0:
-            ml_probs = np.array(
-                [r["ml_prob"] for r in records if r["ml_prob"] is not None],
-                dtype=float,
-            )
-            results["ml"] = _report("ML", y_true[ml_mask], ml_probs)
-            results["ml_calibration"] = _calibration_buckets(y_true[ml_mask], ml_probs)
+    ml_mask = np.array([r["ml_prob"] is not None for r in records])
+    if np.sum(ml_mask) > 0:
+        ml_probs = np.array(
+            [r["ml_prob"] for r in records if r["ml_prob"] is not None],
+            dtype=float,
+        )
+        results["ml"] = _report("ML", y_true[ml_mask], ml_probs)
+        results["ml_calibration"] = _calibration_buckets(y_true[ml_mask], ml_probs)
+
+    # Optimize ensemble weights
+    logger.info("\n🔎 Optimizing ensemble weights...")
+    grid = _grid_search_weights(records, y_true)
+    opt_weights = grid["best"]
+    opt_probs = np.array(
+        [_ensemble_prob(r["elo_prob"], r["sim_prob"], r["ml_prob"], opt_weights) for r in records],
+        dtype=float,
+    )
+    results["ensemble_optimized"] = _report("Elo+Sim+ML (Optimized)", y_true, opt_probs)
+    results["ensemble_optimized_calibration"] = _calibration_buckets(y_true, opt_probs)
+    results["optimized_weights"] = {
+        "elo_winprob_weight": round(opt_weights["elo_winprob_weight"], 3),
+        "simulation_winprob_weight": round(opt_weights["simulation_winprob_weight"], 3),
+        "ml_winprob_weight": round(opt_weights["ml_winprob_weight"], 3),
+    }
+    results["weight_search_history"] = grid["history"]
 
     # Top teams by final Elo
     results["final_elo_rankings"] = [
@@ -495,13 +658,15 @@ def run_backtest(args: argparse.Namespace) -> int:
     logger.info("=" * 60)
     logger.info("BACKTEST RESULTS")
     logger.info("=" * 60)
-    for key in ("elo", "ml", "ensemble"):
+    for key in ("elo", "ml", "ensemble_baseline", "ensemble_optimized"):
         if key in results:
             r = results[key]
             logger.info(
                 f"{r['name']:20s}  Acc={r['accuracy']:.3f}  "
                 f"LogLoss={r['logloss']:.4f}  Brier={r['brier']:.4f}  AUC={r['auc']:.3f}"
             )
+    logger.info(f"\nBaseline weights:  {results['baseline_weights']}")
+    logger.info(f"Optimized weights: {results['optimized_weights']}")
     logger.info(f"\nDetailed results written to {args.output}")
     return 0
 

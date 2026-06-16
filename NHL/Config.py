@@ -100,9 +100,9 @@ MODEL_WEIGHTS = {
     "goalie_impact_weight": 0.75,
     "season_blend_current": 0.70,
     "season_blend_previous": 0.30,
-    "elo_winprob_weight": 0.30,      # weight for Elo win probability
-    "simulation_winprob_weight": 0.45, # weight for simulation win probability
-    "ml_winprob_weight": 0.25,       # weight for ML win probability
+    "elo_winprob_weight": 0.34,      # weight for Elo win probability
+    "simulation_winprob_weight": 0.51, # weight for simulation win probability
+    "ml_winprob_weight": 0.15,       # weight for ML win probability
 }
 
 # ── Player / Goalie / Special Teams ───────────────────────────────

@@ -30,8 +30,8 @@ from NHL.MatchupUtils import (
     build_skater_stats_df, merge_goalie_options,
     detect_game_type,
 )
-from NHL.Simulation import simulate_matchup, get_goalie_table
-from NHL.Prediction import season_skater_rates_from_nst
+from NHL.Simulation import simulate_matchup
+from NHL.StatsFromPBP import load_skater_rates_from_json
 from NHL.ApiScrape import (
     get_confirmed_or_predicted_lineup,
     get_roster_goalies_for_override,
@@ -43,13 +43,7 @@ from NHL.Utils import (
     sanitize_text, format_initial_last,
 )
 from NHL.OddsAPI import fetch_nhl_player_props_by_date, OddsAPIError
-from NHL.StatsFromPBP import (
-    compute_team_rates,
-    compute_skater_rates,
-    compute_goalie_rates,
-    load_skater_rates_from_json,
-    load_cached_stats,
-)
+from NHL.StatsFromPBP import load_skater_rates_from_json, load_cached_stats
 from NHL.PlayByPlay import count_pp_opportunities, count_faceoffs
 
 logger = logging.getLogger(__name__)
@@ -265,15 +259,11 @@ def api_predict():
         try:
             data_season_year = int(data_season[:4])
             season_skill_cur = load_skater_rates_from_json(data_season_year, stype)
+            if not season_skill_cur:
+                logger.warning(f"JSON skater rates empty for {data_season}")
         except Exception as e:
-            logger.warning(f"JSON skater rates failed, falling back to PBP: {e}")
-            season_skill_cur = safe_api_call(
-                season_skater_rates_from_nst,
-                data_season, stype,
-                fd=fd_str, td=td_str,
-                service_name="NST Skater Rates",
-                fallback={},
-            )
+            logger.warning(f"JSON skater rates failed: {e}")
+            season_skill_cur = {}
 
         # Run simulation
         sim = simulate_matchup(

@@ -44,6 +44,7 @@ from EloMl.MLModel import EloMLPredictor, ModelConfig
 from EloMl.Ratings import EloConfig, PlayerEloSystem, TeamEloSystem
 from Calibration import Calibrator
 from NHL.Config import CURRENT_SEASON_YEAR, EARLIEST_SEASON_YEAR, _season_options
+from NHL.Errors import safe_division
 from NHL.Features import compute_rest_travel_features_fast
 from NHL.Utils import season_from_date
 
@@ -219,6 +220,43 @@ def _venue_record(
     return _pct(home_team, home_games, True), _pct(away_team, away_games, False)
 
 
+def _season_to_date_stats(
+    team: str,
+    is_home: bool,
+    completed_games: List[Dict[str, Any]],
+) -> Dict[str, float]:
+    """Compute season-to-date per-game rates from already-processed games."""
+    relevant = [
+        g
+        for g in completed_games
+        if (is_home and g["home_team"] == team) or (not is_home and g["away_team"] == team)
+    ]
+    if not relevant:
+        return {
+            "gf_pg": 3.0,
+            "ga_pg": 3.0,
+            "xgf_pg": 3.0,
+            "xga_pg": 3.0,
+            "sf_pg": 30.0,
+            "sa_pg": 30.0,
+        }
+    gp = len(relevant)
+    gf = sum(g["home_score"] if is_home else g["away_score"] for g in relevant)
+    ga = sum(g["away_score"] if is_home else g["home_score"] for g in relevant)
+    xgf = sum(g["home_xgf"] if is_home else g["away_xgf"] for g in relevant)
+    xga = sum(g["home_xga"] if is_home else g["away_xga"] for g in relevant)
+    sf = sum(g["home_sf"] if is_home else g["away_sf"] for g in relevant)
+    sa = sum(g["away_sf"] if is_home else g["home_sf"] for g in relevant)
+    return {
+        "gf_pg": gf / gp,
+        "ga_pg": ga / gp,
+        "xgf_pg": xgf / gp,
+        "xga_pg": xga / gp,
+        "sf_pg": sf / gp,
+        "sa_pg": sa / gp,
+    }
+
+
 def _recent_stats(
     team: str,
     is_home: bool,
@@ -300,6 +338,10 @@ def extract_features_for_game(
     home_recent = _recent_stats(home_team, True, 10, completed_games)
     away_recent = _recent_stats(away_team, False, 10, completed_games)
 
+    # Season-to-date rates (match inference path's season-wide rates)
+    home_std = _season_to_date_stats(home_team, True, completed_games)
+    away_std = _season_to_date_stats(away_team, False, completed_games)
+
     # Venue record from prior games only
     home_pct, away_pct = _venue_record(home_team, away_team, game["season"], completed_games)
 
@@ -367,6 +409,18 @@ def extract_features_for_game(
 
         # Head-to-head
         "h2h_home_pct": h2h_pct,
+
+        # Season-to-date differential features (match inference path)
+        "xgf_pct_diff": safe_division(
+            (home_std["xgf_pg"] / max(home_std["xgf_pg"] + home_std["xga_pg"], 0.1) -
+             away_std["xgf_pg"] / max(away_std["xgf_pg"] + away_std["xga_pg"], 0.1)) * 100.0,
+            50.0,
+            0.0,
+        ),
+        "gf_pg_diff": home_std["gf_pg"] - away_std["gf_pg"],
+        "ga_pg_diff": away_std["ga_pg"] - home_std["ga_pg"],
+        "sf_pg_diff": home_std["sf_pg"] - away_std["sf_pg"],
+        "xga_pg_diff": home_std["xga_pg"] - away_std["xga_pg"],
     }
 
     return features

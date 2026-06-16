@@ -1235,7 +1235,7 @@ async function runStats() {
             { key: 'sh_pct', label: 'SH%', fmt: v => fmtPct(v) },
             { key: 'pdo', label: 'PDO', fmt: v => fmtNum(v, 1) },
         ];
-        html = _buildStatsTable(cols, sorted);
+        html = _buildStatsTable(cols, sorted, { sortable: true });
         notice = '📊 Team advanced metrics from PBP data (CF%, xGF%, HDCF%, PDO).';
     } else if (type === 'skaters') {
         const sorted = [...data].sort(
@@ -1252,7 +1252,7 @@ async function runStats() {
             { key: 'apg', label: 'A/GP', fmt: v => fmtNum(v, 2) },
             { key: 'xgf_pg', label: 'xGF/GP', fmt: v => fmtNum(v, 2) },
         ];
-        html = _buildStatsTable(cols, sorted);
+        html = _buildStatsTable(cols, sorted, { sortable: true });
         notice = '📊 Skater advanced metrics sorted by points.';
     } else if (type === 'goalies') {
         const sorted = [...data].sort(
@@ -1268,7 +1268,7 @@ async function runStats() {
             { key: 'gsax', label: 'GSAx', fmt: v => fmtNum(v, 1) },
             { key: 'gsax_per_60', label: 'GSAx/60', fmt: v => fmtNum(v, 2) },
         ];
-        html = _buildStatsTable(cols, sorted);
+        html = _buildStatsTable(cols, sorted, { sortable: true });
         notice = '📊 Goalie advanced stats sorted by Goals Saved Above Expected (GSAx).';
     }
 
@@ -1278,11 +1278,58 @@ async function runStats() {
     const updatedText = updatedAt ? `Last updated: ${updatedAt}` : 'Live computation';
     html += `<div class="cors-notice" style="margin-top:12px">${notice} ${sourceBadge} • ${updatedText}</div>`;
     container.innerHTML = html;
+    _attachStatsSortListeners();
 }
 
-function _buildStatsTable(cols, rows) {
+let _currentStatsRows = [];
+let _currentStatsCols = [];
+let _currentStatsSort = { key: null, dir: 'desc' };
+
+function _sortStatsBy(key) {
+    const prev = _currentStatsSort;
+    let dir = 'desc';
+    if (prev.key === key) {
+        dir = prev.dir === 'desc' ? 'asc' : 'desc';
+    }
+    _currentStatsSort = { key, dir };
+
+    const col = _currentStatsCols.find(c => c.key === key);
+    const sortable = col && col.key !== 'team' && col.key !== 'name';
+
+    let rows = [..._currentStatsRows];
+    if (sortable) {
+        rows.sort((a, b) => {
+            const av = parseFloat(a[key]);
+            const bv = parseFloat(b[key]);
+            const aNum = isNaN(av) ? -Infinity : av;
+            const bNum = isNaN(bv) ? -Infinity : bv;
+            const delta = bNum - aNum;
+            return dir === 'desc' ? delta : -delta;
+        });
+    }
+
+    const container = document.getElementById('statsResults');
+    const notice = container.querySelector('.cors-notice');
+    const tableHtml = _buildStatsTable(_currentStatsCols, rows, { sortable: true, activeKey: key, activeDir: dir });
+    container.querySelector('.table-wrap').outerHTML = tableHtml;
+    if (notice) container.appendChild(notice);
+}
+
+function _buildStatsTable(cols, rows, opts = {}) {
+    _currentStatsRows = rows;
+    _currentStatsCols = cols;
+    const { sortable = false, activeKey, activeDir } = opts;
     let html = '<div class="table-wrap"><table class="data-table"><thead><tr>';
-    cols.forEach(c => html += `<th>${c.label}</th>`);
+    cols.forEach(c => {
+        const canSort = c.key !== 'team' && c.key !== 'name';
+        if (sortable && canSort) {
+            const isActive = activeKey === c.key;
+            const arrow = isActive ? (activeDir === 'desc' ? ' ▼' : ' ▲') : ' ⇅';
+            html += `<th class="sortable" data-key="${c.key}" title="Click to sort">${c.label}${arrow}</th>`;
+        } else {
+            html += `<th>${c.label}</th>`;
+        }
+    });
     html += '</tr></thead><tbody>';
     rows.forEach(row => {
         html += '<tr>';
@@ -1294,6 +1341,14 @@ function _buildStatsTable(cols, rows) {
     });
     html += '</tbody></table></div>';
     return html;
+}
+
+function _attachStatsSortListeners() {
+    document.getElementById('statsResults')?.addEventListener('click', (e) => {
+        const th = e.target.closest('th.sortable');
+        if (!th) return;
+        _sortStatsBy(th.dataset.key);
+    });
 }
 
 async function runElo() {

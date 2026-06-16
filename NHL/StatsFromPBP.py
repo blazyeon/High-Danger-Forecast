@@ -496,6 +496,20 @@ def compute_team_rates(
     except Exception as e:
         logger.warning(f"xG enrichment failed: {e}")
 
+    # Convenience per-game columns for the simulation / ML layer
+    gp_safe = df["gp"].replace(0, 1)
+    df["ga_per_game"] = df["ga"] / gp_safe
+    df["cf_pg"] = df["cf"] / gp_safe
+    df["ff_pg"] = df["ff"] / gp_safe
+    df["sa_pg"] = df["sa"] / gp_safe
+    df["hdcf_pg"] = df["hdcf"] / gp_safe
+    df["hdca_pg"] = df["hdca"] / gp_safe
+    df["gsax_per_game"] = df["gsax"].fillna(0) / gp_safe
+    # PDO = (team shooting % + team save %) * 100. 100 is league-average "luck".
+    league_sv = LEAGUE_AVERAGES["sv_pct"]
+    league_sh = LEAGUE_AVERAGES["shooting_pct"]
+    df["pdo"] = (df["sv_pct"].fillna(league_sv) + df["sh_pct"].fillna(league_sh)) * 100.0
+
     return df
 
 
