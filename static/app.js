@@ -686,31 +686,102 @@ async function showGameDetail(gameId, homeAbbrFallback, awayAbbrFallback) {
             </div>
         </div>`;
 
-        // Team stats
-        html += `<div class="modal-section"><div class="modal-section-title">Team Stats</div>`;
-        html += `<div class="modal-stats-row">
-            <div class="modal-stat-col"><strong>${awayAbbr}</strong></div>
-            <div class="modal-stat-col center">Stat</div>
-            <div class="modal-stat-col right"><strong>${homeAbbr}</strong></div>
-        </div>`;
-        const statKeys = [
-            { label: 'Shots on Goal', away: away.sog ?? '-', home: home.sog ?? '-' },
-            { label: 'Hits', away: away.hits ?? '-', home: home.hits ?? '-' },
-            { label: 'Blocked Shots', away: away.blocked_shots ?? '-', home: home.blocked_shots ?? '-' },
-            { label: 'Giveaways', away: away.giveaways ?? '-', home: home.giveaways ?? '-' },
-            { label: 'Takeaways', away: away.takeaways ?? '-', home: home.takeaways ?? '-' },
-            { label: 'Penalty Minutes', away: away.pim ?? '-', home: home.pim ?? '-' },
-            { label: 'Power Play', away: away.power_play ?? '-', home: home.power_play ?? '-' },
-            { label: 'Faceoff %', away: fmtPct(away.faceoff_pct), home: fmtPct(home.faceoff_pct) },
-        ];
-        statKeys.forEach(s => {
-            html += `<div class="modal-stats-row">
-                <div class="modal-stat-col">${s.away}</div>
-                <div class="modal-stat-col center muted">${s.label}</div>
-                <div class="modal-stat-col right">${s.home}</div>
+        // Team stats comparison
+        function ppPct(pp) {
+            if (!pp || pp === '-') return null;
+            const [g, o] = String(pp).split('/').map(Number);
+            if (!o || isNaN(g)) return 0;
+            return (g / o) * 100;
+        }
+        function statCompare(label, awayVal, homeVal, awaySub, homeSub, awayNum, homeNum, isPct = false) {
+            let a = parseFloat(awayNum);
+            let h = parseFloat(homeNum);
+            if (isNaN(a)) a = 0;
+            if (isNaN(h)) h = 0;
+            let awayWidth, homeWidth;
+            if (isPct) {
+                awayWidth = a;
+                homeWidth = h;
+            } else {
+                const max = Math.max(a, h, 1);
+                awayWidth = max > 0 ? (a / max) * 100 : 0;
+                homeWidth = max > 0 ? (h / max) * 100 : 0;
+            }
+            return `<div class="stat-compare">
+                <div class="stat-compare-values">
+                    <div class="stat-compare-team left">
+                        <div class="stat-compare-num">${awayVal}</div>
+                        ${awaySub ? `<div class="stat-compare-sub">${awaySub}</div>` : ''}
+                    </div>
+                    <div class="stat-compare-label">${label}</div>
+                    <div class="stat-compare-team right">
+                        <div class="stat-compare-num">${homeVal}</div>
+                        ${homeSub ? `<div class="stat-compare-sub">${homeSub}</div>` : ''}
+                    </div>
+                </div>
+                <div class="stat-compare-bars">
+                    <div class="stat-compare-bar-left" style="width:${awayWidth.toFixed(1)}%"></div>
+                    <div class="stat-compare-spacer"></div>
+                    <div class="stat-compare-bar-right" style="width:${homeWidth.toFixed(1)}%"></div>
+                </div>
             </div>`;
-        });
+        }
+
+        html += `<div class="modal-section"><div class="modal-section-title">Game Stats</div>`;
+        html += `<div class="stat-compare-header">
+            <div class="stat-compare-header-team">
+                <img src="/api/logos/${awayAbbr}.png" alt="${awayName}" onerror="this.style.display='none'">
+                <span>${awayAbbr}</span>
+            </div>
+            <div class="stat-compare-header-team right">
+                <span>${homeAbbr}</span>
+                <img src="/api/logos/${homeAbbr}.png" alt="${homeName}" onerror="this.style.display='none'">
+            </div>
+        </div>`;
+        html += statCompare('Shots On Goal', away.sog ?? '-', home.sog ?? '-', '', '', away.sog, home.sog);
+        html += statCompare('Face-off %', fmtPct(away.faceoff_pct), fmtPct(home.faceoff_pct), away.faceoff_record ?? '-', home.faceoff_record ?? '-', away.faceoff_pct, home.faceoff_pct, true);
+        html += statCompare('Power Play %', fmtPct(ppPct(away.power_play)), fmtPct(ppPct(home.power_play)), away.power_play ?? '-', home.power_play ?? '-', ppPct(away.power_play), ppPct(home.power_play), true);
+        html += statCompare('Penalty Minutes', away.pim ?? '-', home.pim ?? '-', '', '', away.pim, home.pim);
+        html += statCompare('Hits', away.hits ?? '-', home.hits ?? '-', '', '', away.hits, home.hits);
+        html += statCompare('Blocked Shots', away.blocked_shots ?? '-', home.blocked_shots ?? '-', '', '', away.blocked_shots, home.blocked_shots);
+        html += statCompare('Giveaways', away.giveaways ?? '-', home.giveaways ?? '-', '', '', away.giveaways, home.giveaways);
+        html += statCompare('Takeaways', away.takeaways ?? '-', home.takeaways ?? '-', '', '', away.takeaways, home.takeaways);
         html += `</div>`;
+
+        // Goalies
+        const awayGoalies = data.away_goalies || [];
+        const homeGoalies = data.home_goalies || [];
+
+        if (awayGoalies.length || homeGoalies.length) {
+            html += `<div class="modal-section"><div class="modal-section-title">Goalies</div></div>`;
+            html += `<div class="modal-goalie-grid">`;
+
+            const renderGoalie = (g) => {
+                const stats = [];
+                if (g.saves !== null && g.saves !== undefined) stats.push(`${g.saves} saves`);
+                if (g.shots_against !== null && g.shots_against !== undefined) stats.push(`on ${g.shots_against} shots`);
+                if (g.goals_against !== null && g.goals_against !== undefined) stats.push(`${g.goals_against} GA`);
+                if (g.save_pct !== null && g.save_pct !== undefined) stats.push(`${(g.save_pct * 100).toFixed(1)}%`);
+                if (g.toi) stats.push(g.toi);
+                const starterBadge = g.starter ? `<span class="goalie-starter">Starter</span>` : '';
+                return `<div class="modal-goalie">
+                    <div class="modal-goalie-name">${g.name || 'Unknown'} ${starterBadge}</div>
+                    <div class="modal-goalie-stats">${stats.join(' • ')}</div>
+                </div>`;
+            };
+
+            html += `<div class="modal-roster-col"><div class="modal-roster-header">${awayName}</div>`;
+            if (awayGoalies.length) awayGoalies.forEach(g => { html += renderGoalie(g); });
+            else html += `<div class="modal-goalie-empty">No goalie data</div>`;
+            html += `</div>`;
+
+            html += `<div class="modal-roster-col"><div class="modal-roster-header">${homeName}</div>`;
+            if (homeGoalies.length) homeGoalies.forEach(g => { html += renderGoalie(g); });
+            else html += `<div class="modal-goalie-empty">No goalie data</div>`;
+            html += `</div>`;
+
+            html += `</div>`;
+        }
 
         // Rosters
         const awayRoster = data.away_roster || [];

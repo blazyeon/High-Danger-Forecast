@@ -540,15 +540,51 @@ def api_boxscore(game_id: str):
                 "score": t.get("score"),
             }
 
+        def _extract_summary_team_stats(side: str) -> Dict[str, Any]:
+            """Pull clean team-level stats from the boxscore summary when available."""
+            summary = box.get("summary", {}) if isinstance(box, dict) else {}
+            team_game_stats = summary.get("teamGameStats", [])
+            prefix = "home" if side == "homeTeam" else "away"
+            stats: Dict[str, Any] = {}
+            key_map = {
+                "sog": "sog",
+                "hits": "hits",
+                "blockedShots": "blocked_shots",
+                "giveaways": "giveaways",
+                "takeaways": "takeaways",
+                "penaltyMinutes": "pim",
+                "powerPlay": "power_play",
+                "faceoffWinningPctg": "faceoff_pct_raw",
+            }
+            for item in team_game_stats:
+                if not isinstance(item, dict):
+                    continue
+                cat = item.get("category", "")
+                key = key_map.get(cat)
+                if not key:
+                    continue
+                val = item.get(f"{prefix}Value")
+                if val is None:
+                    continue
+                stats[key] = val
+            return stats
+
         def _aggregate_team_stats(side: str) -> Dict[str, Any]:
-            """Sum player boxscore stats into team totals."""
+            """Sum player boxscore stats into team totals, preferring summary data."""
             raw_groups = box.get("playerByGameStats", {}).get(side, {}) if isinstance(box, dict) else {}
             if isinstance(raw_groups, dict):
-                raw = raw_groups.get("forwards", []) + raw_groups.get("defense", []) + raw_groups.get("goalies", [])
+                skaters = raw_groups.get("forwards", []) + raw_groups.get("defense", [])
+                goalies = raw_groups.get("goalies", [])
+                raw = skaters + goalies
             elif isinstance(raw_groups, list):
+                skaters = [p for p in raw_groups if str(p.get("positionCode", p.get("position", ""))).upper() != "G"]
+                goalies = [p for p in raw_groups if str(p.get("positionCode", p.get("position", ""))).upper() == "G"]
                 raw = raw_groups
             else:
-                raw = []
+                skaters, goalies, raw = [], [], []
+
+            summary_stats = _extract_summary_team_stats(side)
+
             totals: Dict[str, Any] = {
                 "sog": 0, "hits": 0, "blocked_shots": 0, "giveaways": 0,
                 "takeaways": 0, "pim": 0, "goals": 0, "assists": 0,
@@ -568,20 +604,59 @@ def api_boxscore(game_id: str):
                 totals["assists"] += int(p.get("assists", 0) or 0)
                 totals["power_play_goals"] += int(p.get("powerPlayGoals", 0) or 0)
                 fop = p.get("faceoffWinningPctg")
-                # faceoffWinningPctg is a decimal (0-1) per player; treat it as fraction of
-                # that player's taken faceoffs. Without raw attempts, approximate by averaging.
                 if fop is not None:
                     totals["faceoff_total"] += 1
                     totals["faceoff_wins"] += float(fop)
 
-            # Power-play opportunities are not in player stats; infer from summary penalties.
-            pp_opps = _infer_pp_opportunities(side)
-            totals["power_play_opps"] = pp_opps
-            if totals["faceoff_total"] > 0:
+            # Prefer summary stats for display categories.
+            for key in ("sog", "hits", "blocked_shots", "giveaways", "takeaways", "pim"):
+                if key in summary_stats:
+                    totals[key] = _to_int_safe(summary_stats[key])
+
+            # Power-play display string (e.g. "1/4") from summary if present.
+            pp_summary = summary_stats.get("power_play")
+            if isinstance(pp_summary, str) and "/" in pp_summary:
+                totals["power_play"] = pp_summary
+                try:
+                    made, attempted = pp_summary.split("/", 1)
+                    totals["power_play_goals"] = int(made)
+                    totals["power_play_opps"] = int(attempted)
+                except Exception:
+                    pass
+            else:
+                totals["power_play_opps"] = _infer_pp_opportunities(side)
+                totals["power_play"] = f"{totals['power_play_goals']}/{totals['power_play_opps']}"
+
+            # Faceoff percentage from summary is authoritative; convert to wins/total.
+            faceoff_raw = summary_stats.get("faceoff_pct_raw")
+            if faceoff_raw is not None:
+                try:
+                    pct = float(faceoff_raw)
+                    # The API may return 0-100 or 0-1.
+                    if pct <= 1:
+                        pct = pct * 100
+                    totals["faceoff_pct"] = round(pct, 1)
+                    # Approximate total faceoffs from aggregated player takes.
+                    total_takes = max(totals["faceoff_total"], 1)
+                    totals["faceoff_wins"] = round(pct / 100 * total_takes)
+                    totals["faceoff_total"] = total_takes
+                except Exception:
+                    totals["faceoff_pct"] = None
+            elif totals["faceoff_total"] > 0:
                 totals["faceoff_pct"] = round(100 * totals["faceoff_wins"] / totals["faceoff_total"], 1)
             else:
                 totals["faceoff_pct"] = None
+            totals["faceoff_record"] = (
+                f"{int(totals['faceoff_wins'])}/{int(totals['faceoff_total'])}"
+                if totals["faceoff_total"] > 0 else "-"
+            )
             return totals
+
+        def _to_int_safe(v: Any) -> int:
+            try:
+                return int(float(v))
+            except (TypeError, ValueError):
+                return 0
 
         def _infer_pp_opportunities(side: str) -> int:
             """Infer power-play opportunities from opponent penalties in the summary."""
@@ -596,22 +671,28 @@ def api_boxscore(game_id: str):
                     team = pen.get("teamAbbrev", {}).get("default", "")
                     if team and team != opp_abbrev:
                         continue
-                    # Count minor/major penalties that create a PP opportunity.
                     duration = pen.get("duration", 0)
                     if duration and pen.get("type") == "MIN":
                         opps += 1
             return opps
 
-        def _norm_roster(side):
+        def _get_raw_players(side):
             raw_groups = box.get("playerByGameStats", {}).get(side, {}) if isinstance(box, dict) else {}
             if isinstance(raw_groups, dict):
-                raw = raw_groups.get("forwards", []) + raw_groups.get("defense", []) + raw_groups.get("goalies", [])
+                return (
+                    raw_groups.get("forwards", []) + raw_groups.get("defense", []),
+                    raw_groups.get("goalies", []),
+                )
             elif isinstance(raw_groups, list):
-                raw = raw_groups
-            else:
-                raw = []
+                skaters = [p for p in raw_groups if str(p.get("positionCode", p.get("position", ""))).upper() != "G"]
+                goalies = [p for p in raw_groups if str(p.get("positionCode", p.get("position", ""))).upper() == "G"]
+                return skaters, goalies
+            return [], []
+
+        def _norm_skaters(side):
+            skaters, _ = _get_raw_players(side)
             out = []
-            for p in raw:
+            for p in skaters:
                 if not isinstance(p, dict):
                     continue
                 nm = p.get("name") or {}
@@ -631,6 +712,53 @@ def api_boxscore(game_id: str):
                 })
             return out
 
+        def _norm_goalies(side):
+            _, goalies = _get_raw_players(side)
+            out = []
+            for p in goalies:
+                if not isinstance(p, dict):
+                    continue
+                nm = p.get("name") or {}
+                name = nm.get("default") if isinstance(nm, dict) else str(nm)
+                saves = p.get("saves")
+                shots_against = p.get("shotsAgainst") or p.get("shotsAgainstByStrength")
+                goals_against = p.get("goalsAgainst")
+                save_pct = p.get("savePctg")
+                if save_pct is not None:
+                    try:
+                        save_pct = float(save_pct)
+                        if save_pct > 1:
+                            save_pct = save_pct / 100.0
+                    except Exception:
+                        save_pct = None
+                out.append({
+                    "name": name,
+                    "position": "G",
+                    "starter": False,
+                    "saves": saves,
+                    "shots_against": shots_against,
+                    "goals_against": goals_against,
+                    "save_pct": round(save_pct, 3) if save_pct is not None else None,
+                    "toi": p.get("toi"),
+                    "goals": p.get("goals"),
+                    "assists": p.get("assists"),
+                    "pim": p.get("pim"),
+                })
+            # Sort by time on ice descending so the starter is on top.
+            out.sort(key=lambda g: _toi_seconds(g.get("toi") or "0:00"), reverse=True)
+            if out:
+                out[0]["starter"] = True
+            return out
+
+        def _toi_seconds(toi: str) -> int:
+            if not toi or not isinstance(toi, str):
+                return 0
+            parts = toi.split(":")
+            try:
+                return int(parts[0]) * 60 + int(parts[1])
+            except Exception:
+                return 0
+
         period = box.get("periodDescriptor", {}) if isinstance(box, dict) else {}
         clock = box.get("clock", {}) if isinstance(box, dict) else {}
         outcome = box.get("gameOutcome", {}) if isinstance(box, dict) else {}
@@ -645,8 +773,10 @@ def api_boxscore(game_id: str):
             "last_period_type": outcome.get("lastPeriodType"),
             "home_team": {**_norm_team_info(home), **home_stats},
             "away_team": {**_norm_team_info(away), **away_stats},
-            "home_roster": _norm_roster("homeTeam"),
-            "away_roster": _norm_roster("awayTeam"),
+            "home_roster": _norm_skaters("homeTeam"),
+            "away_roster": _norm_skaters("awayTeam"),
+            "home_goalies": _norm_goalies("homeTeam"),
+            "away_goalies": _norm_goalies("awayTeam"),
         })
     except Exception as e:
         logger.error(f"Boxscore API error: {e}", exc_info=True)

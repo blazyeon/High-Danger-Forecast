@@ -766,18 +766,49 @@ input[type="date"].param-input, input[type="date"].date-input {
     font-size: 12px; font-weight: 800; color: var(--text-secondary);
     text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 12px;
 }
-.modal-stats-row {
-    display: flex; align-items: center; padding: 8px 14px;
-    border-bottom: 1px solid var(--border-subtle); font-size: 13px;
-}
-.modal-stats-row:first-of-type { border-top: 1px solid var(--border-subtle); background: var(--bg-base); }
-.modal-stat-col { flex: 1; font-weight: 700; }
-.modal-stat-col.center { text-align: center; font-weight: 800; }
-.modal-stat-col.right { text-align: right; }
-.modal-stat-col.muted { color: var(--text-muted); font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; }
 
-.modal-roster-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-@media (max-width: 640px) { .modal-roster-grid { grid-template-columns: 1fr; } }
+/* Stat comparison rows (game stats) */
+.stat-compare { padding: 14px 0; border-bottom: 1px solid var(--border-subtle); }
+.stat-compare:first-of-type { border-top: 1px solid var(--border-subtle); }
+.stat-compare-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 8px 0 14px; margin-bottom: 4px;
+    border-bottom: 1px solid var(--border-subtle);
+}
+.stat-compare-header-team { display: flex; align-items: center; gap: 10px; font-weight: 900; font-size: 14px; color: var(--text-primary); }
+.stat-compare-header-team img { width: 32px; height: 32px; object-fit: contain; background: var(--bg-base); border-radius: var(--radius-sm); padding: 3px; border: 1px solid var(--border-subtle); }
+.stat-compare-header-team.right { flex-direction: row-reverse; }
+.stat-compare-values {
+    display: flex; align-items: flex-end; justify-content: space-between; gap: 12px;
+    margin-bottom: 8px;
+}
+.stat-compare-team { min-width: 70px; }
+.stat-compare-team.left { text-align: left; }
+.stat-compare-team.right { text-align: right; }
+.stat-compare-num { font-size: 22px; font-weight: 900; color: var(--text-primary); line-height: 1.1; }
+.stat-compare-sub { font-size: 11px; color: var(--text-muted); font-weight: 700; margin-top: 2px; }
+.stat-compare-label {
+    flex: 1; text-align: center; font-size: 11px; font-weight: 800;
+    color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.6px;
+    align-self: center;
+}
+.stat-compare-bars {
+    display: flex; align-items: center; gap: 6px; height: 7px;
+}
+.stat-compare-bar-left {
+    height: 100%; border-radius: 4px;
+    background: linear-gradient(90deg, #ff3355, var(--accent-red));
+    transition: width 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.stat-compare-spacer { width: 2px; flex-shrink: 0; }
+.stat-compare-bar-right {
+    height: 100%; border-radius: 4px;
+    background: linear-gradient(90deg, #334155, #475569);
+    transition: width 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.modal-roster-grid, .modal-goalie-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+@media (max-width: 640px) { .modal-roster-grid, .modal-goalie-grid { grid-template-columns: 1fr; } }
 .modal-roster-col { background: var(--bg-base); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 14px; }
 .modal-roster-header {
     font-size: 13px; font-weight: 800; color: var(--accent-cyan);
@@ -791,6 +822,22 @@ input[type="date"].param-input, input[type="date"].date-input {
 .modal-player-pos { color: var(--text-muted); font-weight: 800; min-width: 24px; font-size: 10px; }
 .modal-player-name { flex: 1; font-weight: 600; }
 .modal-player-stats { color: var(--text-secondary); font-size: 11px; white-space: nowrap; font-weight: 700; }
+
+/* Goalie cards inside modal */
+.modal-goalie {
+    padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.03);
+}
+.modal-goalie-name {
+    font-size: 13px; font-weight: 800; color: var(--text-primary);
+    display: flex; align-items: center; gap: 8px; margin-bottom: 3px;
+}
+.goalie-starter {
+    font-size: 9px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.6px;
+    padding: 2px 7px; border-radius: 100px;
+    background: var(--accent-gold-dim); color: var(--accent-gold); border: 1px solid rgba(255,209,102,0.20);
+}
+.modal-goalie-stats { font-size: 12px; color: var(--text-secondary); font-weight: 700; }
+.modal-goalie-empty { font-size: 12px; color: var(--text-muted); padding: 8px 0; font-weight: 600; }
 
 .cors-notice {
     background: rgba(255, 209, 102, 0.06);
