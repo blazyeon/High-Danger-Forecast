@@ -243,6 +243,7 @@ function initTabs() {
             document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
             btn.classList.add('active');
             document.getElementById(`tab-${btn.dataset.tab}`).classList.add('active');
+            if (btn.dataset.tab === 'elo') runElo();
         });
     });
 }
@@ -363,6 +364,7 @@ function setupEventListeners() {
     document.getElementById('lookupBtn').addEventListener('click', runLookup);
     document.getElementById('statsBtn').addEventListener('click', runStats);
     document.getElementById('propsBtn').addEventListener('click', runProps);
+    document.getElementById('eloBtn').addEventListener('click', runElo);
 }
 
 // ── Simulation Log ────────────────────────────────────────────────
@@ -518,7 +520,7 @@ function renderResults(sim, homeAbbr, awayAbbr) {
         { label: 'Reg Home Win', value: (hPct * 0.7).toFixed(1) + '%' },
         { label: 'Reg Away Win', value: (aPct * 0.7).toFixed(1) + '%' },
         { label: 'OT %', value: (sim.ot_games_pct || 16).toFixed(1) + '%' },
-        { label: 'Most Likely', value: `${sim.mode_away_goals}-${sim.mode_home_goals}`, cls: 'gold' },
+        { label: 'Most Likely', value: `${sim.mode_home_goals}-${sim.mode_away_goals}`, cls: 'gold' },
     ];
     stats.forEach(s => {
         html += `<div class="stat-card"><div class="stat-value ${s.cls || ''}">${s.value}</div><div class="stat-label">${s.label}</div></div>`;
@@ -529,13 +531,14 @@ function renderResults(sim, homeAbbr, awayAbbr) {
     if (sim.totals_distribution) {
         html += `<hr class="section-divider"><div class="section-title">Total Goals Distribution</div><div class="ou-section">`;
         const totals = Object.entries(sim.totals_distribution)
-            .map(([k,v]) => ({total:parseInt(k), prob:v}))
+            .map(([k,v]) => ({total:parseInt(k), count:v}))
             .sort((a,b) => a.total - b.total);
-        const maxProb = Math.max(...totals.map(t => t.prob));
+        const totalSims = totals.reduce((sum, t) => sum + t.count, 0) || (sim.sims || 10000);
+        const maxPct = Math.max(...totals.map(t => t.count / totalSims));
         totals.forEach(t => {
-            const width = maxProb > 0 ? (t.prob / maxProb * 100) : 0;
-            const pct = (t.prob / 10000 * 100).toFixed(1);
-            html += `<div class="ou-row"><div class="ou-total">${t.total}</div><div class="ou-bar-track"><div class="ou-bar-fill" style="width:${width.toFixed(1)}%"></div></div><div class="ou-pct">${pct}%</div></div>`;
+            const pct = t.count / totalSims;
+            const width = maxPct > 0 ? (pct / maxPct * 100) : 0;
+            html += `<div class="ou-row"><div class="ou-total">${t.total}</div><div class="ou-bar-track"><div class="ou-bar-fill" style="width:${width.toFixed(1)}%"></div></div><div class="ou-pct">${(pct * 100).toFixed(1)}%</div></div>`;
         });
         html += `</div>`;
     }
@@ -962,6 +965,51 @@ async function runStats() {
 
     html += `<div class="cors-notice" style="margin-top:12px">${notice}</div>`;
     container.innerHTML = html;
+}
+
+async function runElo() {
+    const container = document.getElementById('eloResults');
+    container.innerHTML = '<div class="loading"><div class="spinner"></div><span>Loading Elo leaderboard...</span></div>';
+
+    try {
+        const data = await safeFetchJson('/api/elo-leaderboard');
+        const teams = data.teams || [];
+        if (!teams.length) {
+            container.innerHTML = '<div class="empty-state"><div class="empty-icon">🏆</div><h3 class="empty-title">No Elo Data</h3><p class="empty-desc">Team Elo ratings are not available yet. Run <code>python update_elo_ratings.py --current-season --reset</code> to populate them.</p></div>';
+            return;
+        }
+
+        const maxRating = Math.max(...teams.map(t => t.rating || 0));
+        const minRating = Math.min(...teams.map(t => t.rating || 0));
+        const range = Math.max(1, maxRating - minRating);
+
+        let html = '<div class="table-wrap"><table class="data-table"><thead><tr>';
+        html += '<th>#</th><th>Team</th><th>Rating</th><th>Games</th><th style="width:40%">Strength</th>';
+        html += '</tr></thead><tbody>';
+
+        teams.forEach((t, i) => {
+            const abbr = t.team_abbr;
+            const name = getTeamName(abbr);
+            const rating = t.rating || 0;
+            const gp = t.games_played || 0;
+            const width = ((rating - minRating) / range * 100).toFixed(1);
+            const rankClass = i < 3 ? 'gold' : '';
+            html += `<tr>
+                <td><strong class="${rankClass}">${i + 1}</strong></td>
+                <td><strong>${abbr}</strong> <span class="muted">${name}</span></td>
+                <td><strong class="${rankClass}">${Math.round(rating)}</strong></td>
+                <td>${gp}</td>
+                <td><div class="ou-bar-track" style="height:10px"><div class="ou-bar-fill" style="width:${width}%"></div></div></td>
+            </tr>`;
+        });
+
+        html += '</tbody></table></div>';
+        html += `<div class="cors-notice" style="margin-top:12px">🏆 Elo ratings for season ${data.season || 'current'}. League average is 1500; top teams are typically 1600+.</div>`;
+        container.innerHTML = html;
+    } catch (e) {
+        console.error('Elo leaderboard failed:', e);
+        container.innerHTML = `<div class="error-box">Could not load Elo leaderboard: ${e.message}</div>`;
+    }
 }
 
 async function runProps() {

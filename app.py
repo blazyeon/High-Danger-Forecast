@@ -321,6 +321,61 @@ def api_state():
         return jsonify({"error": str(e)}), 500
 
 
+# ── API: Elo Leaderboard ───────────────────────────────────────────────
+
+@app.route("/api/elo-leaderboard")
+def api_elo_leaderboard():
+    """Return the latest Elo ratings for all teams, highest first."""
+    try:
+        state = get_app_state()
+        current_season = state.get("current_season")
+        db = state.get("db")
+        if db is None or not hasattr(db, "conn"):
+            return jsonify({"error": "Database unavailable"}), 500
+
+        cursor = db.conn.cursor()
+        # Latest row per team for the current season, then sorted by rating.
+        cursor.execute(
+            """
+            SELECT team_abbr, rating, games_played, date
+            FROM (
+                SELECT team_abbr, rating, games_played, date,
+                       ROW_NUMBER() OVER (PARTITION BY team_abbr ORDER BY date DESC, rowid DESC) as rn
+                FROM team_elo
+                WHERE season = ?
+            )
+            WHERE rn = 1
+            ORDER BY rating DESC
+            """,
+            (current_season,),
+        )
+        rows = [dict(r) for r in cursor.fetchall()]
+
+        # If the current season has no ratings yet, fall back to the latest rows overall.
+        if not rows:
+            cursor.execute(
+                """
+                SELECT team_abbr, rating, games_played, date
+                FROM (
+                    SELECT team_abbr, rating, games_played, date,
+                           ROW_NUMBER() OVER (PARTITION BY team_abbr ORDER BY date DESC, rowid DESC) as rn
+                    FROM team_elo
+                )
+                WHERE rn = 1
+                ORDER BY rating DESC
+                """
+            )
+            rows = [dict(r) for r in cursor.fetchall()]
+
+        return jsonify({
+            "season": current_season,
+            "teams": _make_json_safe(rows),
+        })
+    except Exception as e:
+        logger.error(f"Elo leaderboard error: {e}", exc_info=True)
+        return jsonify({"error": str(e)}), 500
+
+
 # ── API: Lookup ────────────────────────────────────────────────────────
 
 @app.route("/api/lookup")

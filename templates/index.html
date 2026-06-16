@@ -54,6 +54,10 @@
                 <span class="tab-icon">💰</span>
                 <span class="tab-label">Props</span>
             </button>
+            <button class="tab-btn" data-tab="elo">
+                <span class="tab-icon">🏆</span>
+                <span class="tab-label">Elo</span>
+            </button>
         </div>
     </nav>
 
@@ -222,6 +226,20 @@
                     <button id="propsBtn" class="action-btn">Load Props</button>
                 </div>
                 <div id="propsResults" class="results-area"></div>
+            </div>
+        </section>
+
+        <!-- ELO LEADERBOARD TAB -->
+        <section id="tab-elo" class="tab-panel">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Elo Leaderboard</h2>
+                    <p class="card-subtitle">Highest-rated teams by current Elo rating</p>
+                </div>
+                <div class="lookup-row">
+                    <button id="eloBtn" class="action-btn">Refresh Leaderboard</button>
+                </div>
+                <div id="eloResults" class="results-area"></div>
             </div>
         </section>
 

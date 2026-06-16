@@ -669,15 +669,14 @@ def apply_per_sim_shock(mu_home: float, mu_away: float, sims: int, sigma: float 
     lam_a = np.clip(mu_away * f_away, SIMULATION_PARAMS["min_goals"], SIMULATION_PARAMS["max_goals"])
     return lam_h, lam_a
 
-def resolve_no_ties_mode(final_home: np.ndarray, final_away: np.ndarray) -> Tuple[int, int]:
-    pairs = list(zip(final_away.tolist(), final_home.tolist()))
+def resolve_score_mode(final_home: np.ndarray, final_away: np.ndarray) -> Tuple[int, int]:
+    """Return the most frequently occurring final score (home, away)."""
+    pairs = list(zip(final_home.tolist(), final_away.tolist()))
     counts = Counter(pairs)
-    sorted_pairs = sorted(counts.items(), key=lambda x: -x[1])
-    for (a, h), _ in sorted_pairs:
-        if a != h:
-            return a, h
-    idx = np.random.choice(len(final_home))
-    return int(final_away[idx]), int(final_home[idx])
+    if not counts:
+        return 0, 0
+    (h, a), _ = counts.most_common(1)[0]
+    return int(h), int(a)
 
 def apply_empty_net_adjustments(final_home: np.ndarray, final_away: np.ndarray, mu_home: float, mu_away: float, p_base: float = None) -> Tuple[np.ndarray, np.ndarray]:
     if p_base is None:
@@ -1538,7 +1537,7 @@ def simulate_matchup(
 
     final_home, final_away = apply_empty_net_adjustments(final_home, final_away, mu_home, mu_away)
 
-    disp_away_goals, disp_home_goals = resolve_no_ties_mode(final_home, final_away)
+    mode_home_goals, mode_away_goals = resolve_score_mode(final_home, final_away)
 
     raw_prob = improved_winner_prediction(final_home, final_away)
     sim_win_prob = max(0.05, min(0.95, raw_prob))
@@ -1612,12 +1611,13 @@ def simulate_matchup(
         "exp_away_goals": float(mean_away),
         "median_home_goals": median_home,
         "median_away_goals": median_away,
-        "mode_home_goals": disp_home_goals,
-        "mode_away_goals": disp_away_goals,
+        "mode_home_goals": mode_home_goals,
+        "mode_away_goals": mode_away_goals,
         "dist_home": final_home,
         "dist_away": final_away,
-        "mode_pair": (disp_away_goals, disp_home_goals),
-        "display_pair": (disp_away_goals, disp_home_goals),
+        "mode_pair": (mode_home_goals, mode_away_goals),
+        "display_pair": (mode_home_goals, mode_away_goals),
+        "sims": int(sims),
         "exp_home_shots": float(0.6 * home_all["SFpg"] + 0.4 * away_all["SApg"]),
         "exp_away_shots": float(0.6 * away_all["SFpg"] + 0.4 * home_all["SApg"]),
         "totals_distribution": totals_dist,
