@@ -428,9 +428,17 @@ def _get_last_game_roster(abbrev: str, date_str: str) -> Tuple[List[Dict[str, An
 
     gls = team_block.get("goalies") or []
     if isinstance(gls, list):
+        goalie_rows = []
         for g in gls:
             name = _display_name(g)
-            goalies.append({"name": name, "position": "G"})
+            stats = g.get("stats") or g.get("goalieStats") or g
+            toi_str = stats.get("toi") or g.get("toi") or "0:00"
+            toi_min = parse_minutes(toi_str)
+            goalie_rows.append({"name": name, "position": "G", "toi_min": float(toi_min)})
+        # Starter played more minutes; order by TOI descending so the first
+        # goalie is the most recent starter.
+        goalie_rows.sort(key=lambda x: x["toi_min"], reverse=True)
+        goalies.extend(goalie_rows)
 
     added = set()
     for key in ("forwards", "defense", "skaters"):
@@ -958,14 +966,33 @@ def _build_predicted_lineup(
 
 def get_roster_goalies_for_override(team_abbr: str, game_date: str) -> List[str]:
     """
-    Return up to two goaltenders from the team's roster for goalie override selection.
-    Prefers the current/season roster; falls back to last game's goalies.
+    Return up to two goaltenders for goalie override selection.
+
+    Prefers goalies from the team's most recent completed game, ordered by TOI
+    so the starter is listed first. Falls back to current/season roster if the
+    last game has no goalie data.
     """
-    season = season_from_date(game_date)
     names: List[str] = []
+
+    # 1) Most-recent-game goalies first (sorted by TOI, starter first)
     try:
-        _sk, gl = _get_team_roster_by_season_or_current(team_abbr, season)
-        if gl:
+        _sk_last, gl_last = _get_last_game_roster(team_abbr, game_date)
+        for g in gl_last:
+            nm = g.get("name")
+            if nm:
+                nm_fmt = format_initial_last(sanitize_text(nm))
+                if nm_fmt not in names:
+                    names.append(nm_fmt)
+            if len(names) >= 2:
+                break
+    except Exception as e:
+        logger.debug(f"Last-game goalies not found for {team_abbr}: {e}")
+
+    # 2) Fill in from current/season roster if needed
+    if len(names) < 2:
+        try:
+            season = season_from_date(game_date)
+            _sk, gl = _get_team_roster_by_season_or_current(team_abbr, season)
             for g in gl:
                 nm = g.get("name") if isinstance(g.get("name"), str) else _display_name(g)
                 if nm:
@@ -974,23 +1001,9 @@ def get_roster_goalies_for_override(team_abbr: str, game_date: str) -> List[str]
                         names.append(nm_fmt)
                 if len(names) >= 2:
                     break
-    except Exception as e:
-        logger.debug(f"Roster goalies not found for {team_abbr}: {e}")
-    
-    if len(names) < 2:
-        try:
-            _sk_last, gl_last = _get_last_game_roster(team_abbr, game_date)
-            for g in gl_last:
-                nm = g.get("name")
-                if nm:
-                    nm_fmt = format_initial_last(sanitize_text(nm))
-                    if nm_fmt not in names:
-                        names.append(nm_fmt)
-                if len(names) >= 2:
-                    break
         except Exception as e:
-            logger.debug(f"Fallback last-game goalies failed for {team_abbr}: {e}")
-    
+            logger.debug(f"Roster goalies not found for {team_abbr}: {e}")
+
     return names[:2]
 
 

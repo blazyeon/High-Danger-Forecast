@@ -586,22 +586,30 @@ async function populateGoalies() {
     const aSel = document.getElementById('awayGoalie');
     const dateStr = new Date().toISOString().split('T')[0];
 
-    hSel.innerHTML = '<option value="">Auto-select</option>';
-    aSel.innerHTML = '<option value="">Auto-select</option>';
+    hSel.innerHTML = '';
+    aSel.innerHTML = '';
     hRow.style.display = home ? 'block' : 'none';
     aRow.style.display = away ? 'block' : 'none';
     if (!home && !away) return;
 
+    const homeB2B = document.getElementById('homeB2B')?.checked || false;
+    const awayB2B = document.getElementById('awayB2B')?.checked || false;
+
     const fill = (sel, list) => {
         if (!list || !list.length) return false;
+        sel.innerHTML = '';
         list.forEach(g => sel.add(new Option(g, g)));
+        sel.selectedIndex = 0;
         return true;
     };
 
     if (home) {
         let live = [];
         if (!USE_DEMO) {
-            try { live = (await safeFetchJson(`/api/goalies/${home}/${dateStr}`)).goalies || []; }
+            try {
+                const params = away ? `?opponent=${away}&b2b=${homeB2B ? 1 : 0}` : '';
+                live = (await safeFetchJson(`/api/goalies/${home}/${dateStr}${params}`)).goalies || [];
+            }
             catch (e) { console.warn(`Goalie API failed for ${home}:`, e); }
         }
         if (!fill(hSel, live.length ? live : GOALIE_POOL[home])) hRow.style.display = 'none';
@@ -609,7 +617,10 @@ async function populateGoalies() {
     if (away) {
         let live = [];
         if (!USE_DEMO) {
-            try { live = (await safeFetchJson(`/api/goalies/${away}/${dateStr}`)).goalies || []; }
+            try {
+                const params = home ? `?opponent=${home}&b2b=${awayB2B ? 1 : 0}` : '';
+                live = (await safeFetchJson(`/api/goalies/${away}/${dateStr}${params}`)).goalies || [];
+            }
             catch (e) { console.warn(`Goalie API failed for ${away}:`, e); }
         }
         if (!fill(aSel, live.length ? live : GOALIE_POOL[away])) aRow.style.display = 'none';
@@ -637,6 +648,8 @@ function updatePredictBtn() {
 function setupEventListeners() {
     document.getElementById('homeTeam').addEventListener('change', () => { updateLogos(); updatePredictBtn(); populateGoalies(); });
     document.getElementById('awayTeam').addEventListener('change', () => { updateLogos(); updatePredictBtn(); populateGoalies(); });
+    document.getElementById('homeB2B')?.addEventListener('change', populateGoalies);
+    document.getElementById('awayB2B')?.addEventListener('change', populateGoalies);
     document.getElementById('predictBtn').addEventListener('click', runPrediction);
     document.getElementById('lookupBtn').addEventListener('click', runLookup);
     document.getElementById('statsBtn').addEventListener('click', runStats);
@@ -698,7 +711,9 @@ async function runPrediction() {
         await delay(150);
         logStep('PROB', `Base Elo win prob: ${(baseProb*100).toFixed(1)}% home / ${((1-baseProb)*100).toFixed(1)}% away`);
         await delay(100);
-        logStep('GOALIE', `Home goalie: ${homeGoalie || 'Auto-select'} | Away goalie: ${awayGoalie || 'Auto-select'}`);
+        const resolvedHomeGoalie = data?.home_goalie || homeGoalie || 'Auto-select';
+        const resolvedAwayGoalie = data?.away_goalie || awayGoalie || 'Auto-select';
+        logStep('GOALIE', `Home goalie: ${resolvedHomeGoalie} | Away goalie: ${resolvedAwayGoalie}`);
         await delay(100);
         if (homeB2B) logStep('B2B', `${home} flagged as back-to-back (~8% fatigue penalty)`);
         if (awayB2B) logStep('B2B', `${away} flagged as back-to-back (~8% fatigue penalty)`);

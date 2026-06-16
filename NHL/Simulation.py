@@ -81,6 +81,10 @@ from NHL.StatsFromPBP import TEAM_ID_TO_ABBR
 # Import persistent app state instead of creating new instances
 from NHL.AppState import get_app_state
 
+# Goalie selection from each team's most recent completed game
+from NHL.ApiScrape import get_roster_goalies_for_override
+from NHL.GoaliePrediction import predict_starting_goalie
+
 import logging
 logger = logging.getLogger(__name__)
 
@@ -1308,6 +1312,36 @@ def simulate_matchup(
     _rate_limit_sleep()
     g_df = get_goalie_table(season, stype, fd=fd_str, td=td_str)
 
+    # Rest/travel features are needed early for goalie prediction (b2b detection).
+    feat_home = compute_rest_travel_features_fast(home_abbr, away_abbr, game_date, [])
+    feat_away = compute_rest_travel_features_fast(away_abbr, home_abbr, game_date, [])
+    rest_mult_home = fatigue_multiplier(feat_home)
+    rest_mult_away = fatigue_multiplier(feat_away)
+
+    # Auto-select the predicted starting goalie for each team when the caller
+    # did not provide one. The predictor uses recent game TOI, rest, and
+    # opponent strength so backups are chosen vs weak opponents and starters vs
+    # strong ones.
+    try:
+        if not selected_home_goalie:
+            selected_home_goalie = predict_starting_goalie(
+                home_abbr, game_date.isoformat(),
+                opponent_abbr=away_abbr,
+                is_b2b=bool(feat_home.get("is_b2b")) if feat_home else False,
+            )
+            if selected_home_goalie:
+                logger.info(f"Predicted home goalie for {home_abbr}: {selected_home_goalie}")
+        if not selected_away_goalie:
+            selected_away_goalie = predict_starting_goalie(
+                away_abbr, game_date.isoformat(),
+                opponent_abbr=home_abbr,
+                is_b2b=bool(feat_away.get("is_b2b")) if feat_away else False,
+            )
+            if selected_away_goalie:
+                logger.info(f"Predicted away goalie for {away_abbr}: {selected_away_goalie}")
+    except Exception as e:
+        logger.debug(f"Auto goalie selection failed: {e}")
+
     home_all = derive_all_pg_metrics(all_df, home_abbr)
     away_all = derive_all_pg_metrics(all_df, away_abbr)
     home_ev = derive_all_pg_metrics(ev_df, home_abbr)
@@ -1336,11 +1370,6 @@ def simulate_matchup(
 
     home_rec_gf, home_rec_ga, _ = team_last_n_metrics(home_abbr, game_date.isoformat(), n=trend_games)
     away_rec_gf, away_rec_ga, _ = team_last_n_metrics(away_abbr, game_date.isoformat(), n=trend_games)
-
-    feat_home = compute_rest_travel_features_fast(home_abbr, away_abbr, game_date, [])
-    feat_away = compute_rest_travel_features_fast(away_abbr, home_abbr, game_date, [])
-    rest_mult_home = fatigue_multiplier(feat_home)
-    rest_mult_away = fatigue_multiplier(feat_away)
 
     if 'tz_diff' in feat_home:
         tz_pen_home = -0.01 * abs(feat_home.get('tz_diff', 0))
@@ -1769,6 +1798,8 @@ def simulate_matchup(
         "ot_games_pct": round(100.0 * ot_games / denom, 1),
         "so_games_pct": round(100.0 * so_games / denom, 1),
         "confidence": round(conf, 3),
+        "home_goalie": selected_home_goalie,
+        "away_goalie": selected_away_goalie,
         "breakdown": breakdown,
     }
 

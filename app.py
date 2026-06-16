@@ -37,6 +37,7 @@ from NHL.ApiScrape import (
     get_roster_goalies_for_override,
     get_games_on_date, get_boxscore,
 )
+from NHL.GoaliePrediction import predict_starting_goalie
 from NHL.Errors import safe_api_call
 from NHL.Utils import (
     season_from_date, get_data_season_for_game,
@@ -140,13 +141,26 @@ def api_teams():
 
 @app.route("/api/goalies/<team>/<date_str>")
 def api_goalies(team: str, date_str: str):
-    """Return roster goalies for a team on a given date."""
+    """Return predicted starter + backup goalies for a team on a given date."""
     try:
         abbr = TEAM_ABBR_MAPPING.get(team.upper(), team.upper())
-        result = get_roster_goalies_for_override(abbr, date_str)
-        if result is None:
-            result = []
-        return jsonify({"goalies": result})
+        opponent = request.args.get("opponent") or None
+        is_b2b = request.args.get("b2b", "false").lower() in ("1", "true", "yes")
+
+        all_goalies = get_roster_goalies_for_override(abbr, date_str)
+        if all_goalies is None:
+            all_goalies = []
+
+        predicted = predict_starting_goalie(abbr, date_str, opponent_abbr=opponent, is_b2b=is_b2b)
+
+        ordered = []
+        if predicted and predicted in all_goalies:
+            ordered.append(predicted)
+        for g in all_goalies:
+            if g not in ordered:
+                ordered.append(g)
+
+        return jsonify({"goalies": ordered})
     except Exception as e:
         logger.error(f"Error fetching goalies for {team}: {e}")
         return jsonify({"error": str(e)}), 500
