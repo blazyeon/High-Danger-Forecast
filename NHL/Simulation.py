@@ -28,13 +28,11 @@ import math
 import time
 from collections import Counter
 from datetime import date as _date, datetime, timedelta
-from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
 import numpy as np
 import pandas as pd
 import requests
-import sqlite3
 
 # NST.Cache no longer imported — get_player_and_goalie_names and the
 # injury stats function have been migrated to PBP-based equivalents.
@@ -384,8 +382,8 @@ def derive_all_pg_metrics(all_df: pd.DataFrame, abbr: str) -> Dict[str, float]:
 
 def team_last_n_metrics(team_abbr: str, date_str: str, n: int = 6) -> Tuple[float, float, float]:
     """
-    Compute the team's last-N averages for goals-for, goals-against, and shots.
-    Uses the local game_results table first; falls back to the NHL API if needed.
+    Return season-wide per-game averages for goals-for, goals-against, and shots.
+    Uses PBP-derived team rates (no boxscore scraping).
     """
     defaults = (
         LEAGUE_AVERAGES["goals_per_game"],
@@ -393,124 +391,33 @@ def team_last_n_metrics(team_abbr: str, date_str: str, n: int = 6) -> Tuple[floa
         LEAGUE_AVERAGES["shots_per_game"],
     )
     try:
-        target_date = datetime.fromisoformat(date_str).date()
         season = season_from_date(date_str)
-        completed = _get_completed_games_from_db(season)
-        team = team_abbr.upper()
-        chosen = []
-        for g in completed:
-            gd = datetime.fromisoformat(g["game_date"]).date()
-            if gd >= target_date:
-                continue
-            if g.get("home_team", "").upper() == team or g.get("away_team", "").upper() == team:
-                chosen.append(g)
-            if len(chosen) >= n:
-                break
-
-        if len(chosen) < n:
-            # Fallback to NHL API schedule + boxscore if local DB is incomplete.
-            sched = _cached_schedule_json(team, season)
-            if sched:
-                games = sched.get("games", [])
-                before = []
-                for g in games:
-                    gd_raw = g.get("gameDate") or g.get("startTimeUTC") or g.get("startTime")
-                    gd = _parse_game_date(gd_raw)
-                    if gd and gd.date() < target_date:
-                        before.append((gd, g))
-                before.sort(key=lambda t: t[0], reverse=True)
-                seen_ids = {g.get("game_id") for g in chosen}
-                for _, g in before:
-                    gid = g.get("id") or g.get("gameId") or g.get("gamePk")
-                    if not gid or gid in seen_ids:
-                        continue
-                    box = _safe_get_json(f"{NHL_API_BASE}/gamecenter/{gid}/boxscore")
-                    if not box:
-                        continue
-                    home = (box.get("homeTeam") or {}).get("abbrev", "").upper()
-                    home_score = float((box.get("homeTeam") or {}).get("score", 0) or 0)
-                    away_score = float((box.get("awayTeam") or {}).get("score", 0) or 0)
-                    chosen.append({
-                        "home_team": home,
-                        "away_team": (box.get("awayTeam") or {}).get("abbrev", "").upper(),
-                        "home_score": home_score,
-                        "away_score": away_score,
-                    })
-                    if len(chosen) >= n:
-                        break
-
-        if not chosen:
-            logger.warning(f"No historical games found for {team_abbr}, using defaults")
+        df = get_team_rates_all(season, stype=2)
+        if df is None or df.empty:
             return defaults
-
-        gf = ga = sog = 0.0
-        cnt = 0
-        for g in chosen:
-            home = g.get("home_team", "").upper()
-            if team == home:
-                gf += float(g.get("home_score", 0) or 0)
-                ga += float(g.get("away_score", 0) or 0)
-            else:
-                gf += float(g.get("away_score", 0) or 0)
-                ga += float(g.get("home_score", 0) or 0)
-            sog += float(g.get("home_sf" if team == home else "away_sf", 0) or LEAGUE_AVERAGES["shots_per_game"])
-            cnt += 1
-
-        if cnt == 0:
+        row = _match_team(df, team_abbr, "team")
+        if row.empty:
             return defaults
-        return (
-            safe_division(gf, cnt, defaults[0]),
-            safe_division(ga, cnt, defaults[1]),
-            safe_division(sog, cnt, defaults[2]),
-        )
+        r = row.iloc[0]
+        gf_pg = float(r.get("goals_per_game", defaults[0])) or defaults[0]
+        ga_pg = float(r.get("ga", 0) / max(r.get("gp", 1), 1)) or defaults[1]
+        sf_pg = float(r.get("shots_per_game", defaults[2])) or defaults[2]
+        return (gf_pg, ga_pg, sf_pg)
     except Exception as e:
-        logger.error(f"Error getting recent metrics for {team_abbr}: {e}")
+        logger.error(f"Error getting season metrics for {team_abbr}: {e}")
         return defaults
 
 
 def team_last_n_goals_list(team_abbr: str, date_str: str, n: int = 8) -> List[int]:
-    """Return the team's last-N goals scored using local game_results DB first."""
+    """Return a synthetic last-N goals list from the team's season goals-per-game rate."""
     try:
-        target_date = datetime.fromisoformat(date_str).date()
-        season = season_from_date(date_str)
-        team = team_abbr.upper()
+        gf_pg, _, _ = team_last_n_metrics(team_abbr, date_str, n=1)
+        mean = max(0.5, gf_pg)
+        # Build a list of rounded Poisson-ish samples centred on the season rate.
         out: List[int] = []
-        for g in _get_completed_games_from_db(season):
-            gd = datetime.fromisoformat(g["game_date"]).date()
-            if gd >= target_date:
-                continue
-            home = g.get("home_team", "").upper()
-            if team == home:
-                out.append(int(g.get("home_score", 0) or 0))
-            elif team == g.get("away_team", "").upper():
-                out.append(int(g.get("away_score", 0) or 0))
-            if len(out) >= n:
-                break
-
-        if len(out) < n:
-            # Fallback to NHL API
-            sched = _cached_schedule_json(team, season)
-            if sched:
-                games = sched.get("games", [])
-                before = []
-                for g in games:
-                    gd = _parse_game_date(g.get("gameDate") or g.get("startTimeUTC") or g.get("startTime"))
-                    if gd and gd.date() < target_date:
-                        before.append((gd, g))
-                before.sort(key=lambda t: t[0], reverse=True)
-                seen_ids = {g.get("game_id") for g in _get_completed_games_from_db(season)}
-                for _, g in before:
-                    gid = g.get("id") or g.get("gameId") or g.get("gamePk")
-                    if not gid or gid in seen_ids:
-                        continue
-                    box = _safe_get_json(f"{NHL_API_BASE}/gamecenter/{gid}/boxscore")
-                    if not box:
-                        continue
-                    home = (box.get("homeTeam") or {}).get("abbrev", "").upper()
-                    score = int((box.get("homeTeam") or {}).get("score", 0) or 0) if home == team else int((box.get("awayTeam") or {}).get("score", 0) or 0)
-                    out.append(score)
-                    if len(out) >= n:
-                        break
+        for _ in range(n):
+            lam = mean + (np.random.random() - 0.5) * 1.5
+            out.append(int(max(0, round(lam))))
         return out
     except Exception as e:
         logger.error(f"Error getting goals list for {team_abbr}: {e}")
@@ -840,64 +747,6 @@ def _cached_schedule_json(team_abbr: str, season: str) -> Optional[Dict[str, Any
     data = _safe_get_json(url)
     _schedule_cache[key] = (now, data)
     return data
-
-
-_completed_games_cache: Dict[str, Tuple[float, List[Dict[str, Any]]]] = {}
-_COMPLETED_GAMES_TTL = 1800  # seconds
-
-
-def _get_completed_games_from_db(season: str) -> List[Dict[str, Any]]:
-    """Load already-played games for a season from the local Elo database."""
-    key = f"completed_{season}"
-    now = time.time()
-    if key in _completed_games_cache:
-        ts, data = _completed_games_cache[key]
-        if now - ts < _COMPLETED_GAMES_TTL:
-            return data
-
-    games: List[Dict[str, Any]] = []
-    db_path = Path("elo_ratings.db")
-    if not db_path.exists():
-        _completed_games_cache[key] = (now, games)
-        return games
-
-    try:
-        conn = sqlite3.connect(str(db_path))
-        conn.row_factory = sqlite3.Row
-        cursor = conn.cursor()
-        cursor.execute(
-            """
-            SELECT game_id, game_date, home_team, away_team,
-                   home_score, away_score, home_xgf, away_xgf,
-                   home_xga, away_xga, is_ot_so, home_sf, away_sf
-            FROM game_results
-            WHERE season = ? AND home_score IS NOT NULL AND away_score IS NOT NULL
-            ORDER BY game_date DESC
-            """,
-            (season,),
-        )
-        for row in cursor.fetchall():
-            games.append({
-                "game_id": row["game_id"],
-                "game_date": row["game_date"],
-                "home_team": row["home_team"],
-                "away_team": row["away_team"],
-                "home_score": row["home_score"],
-                "away_score": row["away_score"],
-                "home_xgf": row["home_xgf"],
-                "away_xgf": row["away_xgf"],
-                "home_xga": row["home_xga"],
-                "away_xga": row["away_xga"],
-                "is_ot_so": row["is_ot_so"],
-                "home_sf": row["home_sf"],
-                "away_sf": row["away_sf"],
-            })
-        conn.close()
-    except Exception as e:
-        logger.debug(f"Could not load completed games from DB: {e}")
-
-    _completed_games_cache[key] = (now, games)
-    return games
 
 
 def get_team_home_away_record(team_abbr: str, season: str, as_of: Optional[_date] = None) -> Dict[str, float]:
@@ -1333,9 +1182,8 @@ def simulate_matchup(
     home_rec_gf, home_rec_ga, _ = team_last_n_metrics(home_abbr, game_date.isoformat(), n=trend_games)
     away_rec_gf, away_rec_ga, _ = team_last_n_metrics(away_abbr, game_date.isoformat(), n=trend_games)
 
-    completed_games = _get_completed_games_from_db(season)
-    feat_home = compute_rest_travel_features_fast(home_abbr, away_abbr, game_date, completed_games)
-    feat_away = compute_rest_travel_features_fast(away_abbr, home_abbr, game_date, completed_games)
+    feat_home = compute_rest_travel_features_fast(home_abbr, away_abbr, game_date, [])
+    feat_away = compute_rest_travel_features_fast(away_abbr, home_abbr, game_date, [])
     rest_mult_home = fatigue_multiplier(feat_home)
     rest_mult_away = fatigue_multiplier(feat_away)
 

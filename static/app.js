@@ -424,7 +424,7 @@ async function runPrediction() {
         if (homeB2B) logStep('B2B', `${home} flagged as back-to-back (~8% fatigue penalty)`);
         if (awayB2B) logStep('B2B', `${away} flagged as back-to-back (~8% fatigue penalty)`);
         await delay(100);
-        logStep('SIM', `Running ${document.getElementById('sims').value || 2500} Monte Carlo iterations`);
+        logStep('SIM', `Running ${document.getElementById('sims').value || 10000} Monte Carlo iterations`);
         await delay(250);
         logStep('ENSEMBLE', `Blending Elo (35%) + simulation (65%) outcomes`);
         await delay(100);
@@ -436,7 +436,7 @@ async function runPrediction() {
             const body = {
                 home_team: home,
                 away_team: away,
-                simulations: parseInt(document.getElementById('sims').value) || 2500,
+                simulations: parseInt(document.getElementById('sims').value) || 10000,
                 trend_games: parseInt(document.getElementById('trendGames').value) || 25,
                 nst_window: parseInt(document.getElementById('nstWindow').value) || 14,
                 season_type: 2,
