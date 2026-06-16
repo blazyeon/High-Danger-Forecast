@@ -48,6 +48,7 @@ from NHL.StatsFromPBP import (
     compute_skater_rates,
     compute_goalie_rates,
     load_skater_rates_from_json,
+    load_cached_stats,
 )
 from NHL.PlayByPlay import count_pp_opportunities
 
@@ -470,6 +471,9 @@ def _fetch_pbp_stats(table_type: str, season: str, stype: int):
     `season` is the YYYYYYYY form ("20242025"); if omitted, the current
     NHL season is used. We translate to the start year (2024) for the
     PBP shot-store lookup.
+
+    Stats are served from the daily JSON cache first; only a cold cache
+    falls back to on-the-fly computation from the PBP shot store.
     """
     try:
         try:
@@ -477,36 +481,21 @@ def _fetch_pbp_stats(table_type: str, season: str, stype: int):
         except (ValueError, TypeError):
             start_year = _current_season_start_year()
 
-        if table_type == "teams":
-            df = compute_team_rates(start_year, stype)
-        elif table_type == "skaters":
-            rates = compute_skater_rates(start_year, stype)
-            df = pd.DataFrame(
-                [
-                    {
-                        "name": d.get("name", ""),
-                        "gp": d.get("gp", 0),
-                        "goals": d.get("goals", 0),
-                        "assists": d.get("assists", 0),
-                        "points": d.get("goals", 0) + d.get("assists", 0),
-                        "shots": d.get("shots", 0),
-                        "gpg": d.get("gpg", 0.0),
-                        "apg": d.get("apg", 0.0),
-                        "sogpg": d.get("sogpg", 0.0),
-                        "xgf_pg": d.get("xgf_pg", 0.0),
-                    }
-                    for d in rates.values()
-                ]
-            )
-        elif table_type == "goalies":
-            df = compute_goalie_rates(start_year, stype)
-        else:
-            return jsonify({"error": f"Unknown table_type {table_type!r}"}), 400
-
-        if df is None or df.empty:
+        payload = load_cached_stats(table_type, start_year, stype)
+        data = payload.get("data", [])
+        if not data:
             return jsonify({"error": f"No {table_type} data available"}), 404
-        data = df.to_dict(orient="records")
-        return jsonify({"type": table_type, "data": _make_json_safe(data)})
+
+        return jsonify({
+            "type": table_type,
+            "data": _make_json_safe(data),
+            "meta": {
+                "season": payload.get("season"),
+                "stype": payload.get("stype"),
+                "source": payload.get("source"),
+                "updated_at": payload.get("updated_at"),
+            },
+        })
     except Exception as e:
         logger.error(f"Stats API error ({table_type}): {e}")
         return jsonify({"error": str(e)}), 500

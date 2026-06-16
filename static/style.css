@@ -646,6 +646,26 @@ input[type="date"].param-input, input[type="date"].date-input {
 .data-table tr:nth-child(even) td { background: rgba(255,255,255,0.015); }
 .data-table tr:first-child td { border-top: none; }
 
+/* ── Stats Table Enhancements ─────────────────────────────────── */
+.stats-team-cell {
+    display: flex; align-items: center; gap: 10px;
+}
+.stats-team-logo {
+    width: 24px; height: 24px; object-fit: contain;
+    filter: drop-shadow(0 0 4px rgba(255,255,255,0.08));
+}
+.stats-source {
+    display: inline-flex; align-items: center;
+    font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.6px;
+    padding: 2px 8px; border-radius: 100px; margin-left: 8px;
+}
+.stats-source.cached {
+    background: rgba(46,229,157,0.10); color: var(--accent-green); border: 1px solid rgba(46,229,157,0.20);
+}
+.stats-source.computed {
+    background: rgba(255,209,102,0.10); color: var(--accent-gold); border: 1px solid rgba(255,209,102,0.20);
+}
+
 /* ── Game Cards ────────────────────────────────────────────────── */
 .game-card {
     background: var(--bg-surface-elevated); border: 1px solid var(--border-subtle);

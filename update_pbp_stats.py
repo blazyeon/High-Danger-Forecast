@@ -29,6 +29,7 @@ import logging
 import os
 import sys
 import time
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Dict, List, Optional
 
@@ -55,6 +56,13 @@ def _df_to_records(df: pd.DataFrame) -> List[Dict]:
     return json.loads(df.where(pd.notna(df), None).to_json(orient="records"))
 
 
+def _write_json(out_path: Path, payload: Dict) -> None:
+    """Write a JSON payload with a stable key order and a freshness timestamp."""
+    ts = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    payload = {**payload, "updated_at": ts}
+    out_path.write_text(json.dumps(payload, indent=2))
+
+
 def write_season_outputs(
     season_year: int,
     stype: int,
@@ -63,17 +71,22 @@ def write_season_outputs(
     """
     Compute team/skater/goalie rates for one season and write JSON.
 
+    Writes both a generic file (used by the app as a default) and a
+    per-season file (e.g. pbp_team_stats_20252026.json) so the API can
+    serve past seasons from disk instead of re-scraping.
+
     Returns counts (teams, skaters, goalies) for the run log.
     """
     out_dir.mkdir(parents=True, exist_ok=True)
     season_str = f"{season_year}{season_year + 1}"
+    meta = {"season": season_str, "stype": stype}
 
     logger.info(f"Computing team rates for {season_str} (stype={stype})")
     team_df = compute_team_rates(season_year, stype)
     team_records = _df_to_records(team_df)
-    (out_dir / "pbp_team_stats.json").write_text(
-        json.dumps({"season": season_str, "stype": stype, "data": team_records}, indent=2)
-    )
+    team_payload = {**meta, "data": team_records}
+    _write_json(out_dir / "pbp_team_stats.json", team_payload)
+    _write_json(out_dir / f"pbp_team_stats_{season_str}.json", team_payload)
 
     logger.info(f"Computing skater rates for {season_str} (stype={stype})")
     skater_rates = compute_skater_rates(season_year, stype)
@@ -92,20 +105,16 @@ def write_season_outputs(
         }
         for d in skater_rates.values()
     ]
-    (out_dir / "pbp_skater_stats.json").write_text(
-        json.dumps(
-            {"season": season_str, "stype": stype, "data": skater_records}, indent=2
-        )
-    )
+    skater_payload = {**meta, "data": skater_records}
+    _write_json(out_dir / "pbp_skater_stats.json", skater_payload)
+    _write_json(out_dir / f"pbp_skater_stats_{season_str}.json", skater_payload)
 
     logger.info(f"Computing goalie rates for {season_str} (stype={stype})")
     goalie_df = compute_goalie_rates(season_year, stype)
     goalie_records = _df_to_records(goalie_df)
-    (out_dir / "pbp_goalie_stats.json").write_text(
-        json.dumps(
-            {"season": season_str, "stype": stype, "data": goalie_records}, indent=2
-        )
-    )
+    goalie_payload = {**meta, "data": goalie_records}
+    _write_json(out_dir / "pbp_goalie_stats.json", goalie_payload)
+    _write_json(out_dir / f"pbp_goalie_stats_{season_str}.json", goalie_payload)
 
     return {
         "teams": len(team_records),

@@ -1082,20 +1082,21 @@ const FALLBACK_GOALIES = [
     { name:'J. Blackwood', team:'COL', gp:50, w:30, sv:0.909, gaa:2.50, gsax:13.8, hdsv:0.824 },
 ];
 
-async function loadNstJson(type) {
+async function loadStatsPayload(type) {
     const season = document.getElementById('statsSeason')?.value || '20252026';
     const endpoint = USE_DEMO
         ? `../static/data/pbp_${type}_stats.json`
         : `/api/stats/${type}?season=${season}&stype=2`;
     try {
         const payload = await safeFetchJson(endpoint, { cache: 'no-store' });
-        return payload.data || [];
+        return payload || {};
     } catch (e) {
-        console.warn(`Stats ${type} JSON unavailable, using fallback`, e);
-        if (type === 'teams') return FALLBACK_TEAM_STATS;
-        if (type === 'skaters') return FALLBACK_SKATERS;
-        if (type === 'goalies') return FALLBACK_GOALIES;
-        return [];
+        console.warn(`Stats ${type} API unavailable, using fallback`, e);
+        const data =
+            type === 'teams' ? FALLBACK_TEAM_STATS :
+            type === 'skaters' ? FALLBACK_SKATERS :
+            type === 'goalies' ? FALLBACK_GOALIES : [];
+        return { data, meta: { source: 'fallback', updated_at: null } };
     }
 }
 
@@ -1120,8 +1121,13 @@ async function runStats() {
     const type = document.getElementById('statsType').value;
     container.innerHTML = '<div class="loading"><div class="spinner"></div><span>Loading advanced stats...</span></div>';
 
-    const data = await loadNstJson(type);
-    if (!data.length) {
+    const { data, meta } = await loadStatsPayload(type);
+    const source = meta?.source || 'unknown';
+    const updatedAt = meta?.updated_at
+        ? new Date(meta.updated_at).toLocaleString()
+        : null;
+
+    if (!data || !data.length) {
         container.innerHTML = '<div class="empty-state"><div class="empty-icon">📊</div><h3 class="empty-title">No Data</h3><p class="empty-desc">Advanced stats are not available yet. Run <code>python update_pbp_stats.py</code> to populate them.</p></div>';
         return;
     }
@@ -1130,88 +1136,80 @@ async function runStats() {
     let notice = '';
 
     if (type === 'teams') {
+        const sorted = [...data].sort(
+            (a, b) => (parseFloat(b.xgf_pct) || 0) - (parseFloat(a.xgf_pct) || 0)
+        );
         const cols = [
-            { key:'team',  label:'Team', fmt: v => `<strong>${v}</strong>` },
-            { key:'gp',    label:'GP' },
-            { key:'w',     label:'W' },
-            { key:'l',     label:'L' },
-            { key:'otl',   label:'OTL' },
-            { key:'pts',   label:'PTS', fmt: v => `<strong>${v}</strong>` },
-            { key:'cf_pct',label:'CF%' },
-            { key:'xgf_pct',label:'xGF%' },
-            { key:'hdcf_pct',label:'HDCF%' },
-            { key:'hdsf_pct',label:'HDSF%' },
-            { key:'sh_pct',label:'SH%' },
-            { key:'sv_pct',label:'SV%' },
-            { key:'pdo',   label:'PDO' },
+            { key: 'team', label: 'Team', fmt: v => `<div class="stats-team-cell"><img class="stats-team-logo" src="/api/logos/${v}.png" alt="${v}" onerror="this.style.display='none'"><strong>${v}</strong></div>` },
+            { key: 'gp', label: 'GP' },
+            { key: 'gf', label: 'GF' },
+            { key: 'ga', label: 'GA' },
+            { key: 'cf_pct', label: 'CF%', fmt: v => fmtPct(v) },
+            { key: 'xgf_pct', label: 'xGF%', fmt: v => fmtPct(v) },
+            { key: 'hdcf_pct', label: 'HDCF%', fmt: v => fmtPct(v) },
+            { key: 'sv_pct', label: 'SV%', fmt: v => fmtPct(v) },
+            { key: 'sh_pct', label: 'SH%', fmt: v => fmtPct(v) },
+            { key: 'pdo', label: 'PDO', fmt: v => fmtNum(v, 1) },
         ];
-        html = '<div class="table-wrap"><table class="data-table"><thead><tr>';
-        cols.forEach(c => html += `<th>${c.label}</th>`);
-        html += '</tr></thead><tbody>';
-        data.forEach(t => {
-            html += '<tr>';
-            cols.forEach(c => {
-                const val = t[c.key] ?? t[c.key.replace('_pct','')] ?? '-';
-                html += `<td>${c.fmt ? c.fmt(val) : fmtNum(val, c.digits ?? 1)}</td>`;
-            });
-            html += '</tr>';
-        });
-        html += '</tbody></table></div>';
-        notice = '📊 Team advanced metrics from Natural Stat Trick (CF%, xGF%, HDCF%, HDSF%, PDO). Updated daily via GitHub Actions.';
+        html = _buildStatsTable(cols, sorted);
+        notice = '📊 Team advanced metrics from PBP data (CF%, xGF%, HDCF%, PDO).';
     } else if (type === 'skaters') {
+        const sorted = [...data].sort(
+            (a, b) => (parseInt(b.points) || 0) - (parseInt(a.points) || 0)
+        );
         const cols = [
-            { key:'player', label:'Player', fmt: v => `<strong>${v}</strong>` },
-            { key:'team',   label:'Team' },
-            { key:'gp',     label:'GP' },
-            { key:'g',      label:'G' },
-            { key:'a',      label:'A' },
-            { key:'pts',    label:'Pts', fmt: v => `<strong>${v}</strong>` },
-            { key:'cf_pct', label:'CF%' },
-            { key:'xgf_pct',label:'xGF%' },
-            { key:'hdcf_pct',label:'HDCF%' },
-            { key:'pdo',    label:'PDO' },
+            { key: 'name', label: 'Player', fmt: v => `<strong>${v}</strong>` },
+            { key: 'gp', label: 'GP' },
+            { key: 'goals', label: 'G' },
+            { key: 'assists', label: 'A' },
+            { key: 'points', label: 'Pts', fmt: v => `<strong>${v}</strong>` },
+            { key: 'shots', label: 'SOG' },
+            { key: 'gpg', label: 'G/GP', fmt: v => fmtNum(v, 2) },
+            { key: 'apg', label: 'A/GP', fmt: v => fmtNum(v, 2) },
+            { key: 'xgf_pg', label: 'xGF/GP', fmt: v => fmtNum(v, 2) },
         ];
-        html = '<div class="table-wrap"><table class="data-table"><thead><tr>';
-        cols.forEach(c => html += `<th>${c.label}</th>`);
-        html += '</tr></thead><tbody>';
-        data.forEach(p => {
-            html += '<tr>';
-            cols.forEach(c => {
-                const val = p[c.key] ?? p[c.key.replace('_pct','')] ?? '-';
-                html += `<td>${c.fmt ? c.fmt(val) : fmtNum(val, c.digits ?? 1)}</td>`;
-            });
-            html += '</tr>';
-        });
-        html += '</tbody></table></div>';
-        notice = '📊 Skater advanced metrics (CF%, xGF%, HDCF%, PDO). Sorted by NST default order.';
+        html = _buildStatsTable(cols, sorted);
+        notice = '📊 Skater advanced metrics sorted by points.';
     } else if (type === 'goalies') {
+        const sorted = [...data].sort(
+            (a, b) => (parseFloat(b.gsax) || 0) - (parseFloat(a.gsax) || 0)
+        );
         const cols = [
-            { key:'player', label:'Player', fmt: v => `<strong>${v}</strong>` },
-            { key:'team',   label:'Team' },
-            { key:'gp',     label:'GP' },
-            { key:'w',      label:'W' },
-            { key:'sv_pct', label:'SV%', digits: 3 },
-            { key:'gaa',    label:'GAA', digits: 2 },
-            { key:'gsax',   label:'GSAx', digits: 1 },
-            { key:'hdsv_pct',label:'HDSV%', digits: 3 },
+            { key: 'name', label: 'Player', fmt: v => `<strong>${v}</strong>` },
+            { key: 'gp', label: 'GP' },
+            { key: 'ga', label: 'GA' },
+            { key: 'gaa', label: 'GAA', fmt: v => fmtNum(v, 2) },
+            { key: 'sa', label: 'SA' },
+            { key: 'sv_pct', label: 'SV%', fmt: v => fmtPct(v) },
+            { key: 'gsax', label: 'GSAx', fmt: v => fmtNum(v, 1) },
+            { key: 'gsax_per_60', label: 'GSAx/60', fmt: v => fmtNum(v, 2) },
         ];
-        html = '<div class="table-wrap"><table class="data-table"><thead><tr>';
-        cols.forEach(c => html += `<th>${c.label}</th>`);
-        html += '</tr></thead><tbody>';
-        data.forEach(p => {
-            html += '<tr>';
-            cols.forEach(c => {
-                const val = p[c.key] ?? p[c.key.replace('_pct','')] ?? '-';
-                html += `<td>${c.fmt ? c.fmt(val) : fmtNum(val, c.digits ?? 1)}</td>`;
-            });
-            html += '</tr>';
-        });
-        html += '</tbody></table></div>';
-        notice = '📊 Goalie advanced stats: GSAx (Goals Saved Above Expected) and HDSV% (High-Danger Save %). Updated daily via GitHub Actions.';
+        html = _buildStatsTable(cols, sorted);
+        notice = '📊 Goalie advanced stats sorted by Goals Saved Above Expected (GSAx).';
     }
 
-    html += `<div class="cors-notice" style="margin-top:12px">${notice}</div>`;
+    const sourceBadge = source === 'cache'
+        ? '<span class="stats-source cached">Cached</span>'
+        : `<span class="stats-source computed">${source}</span>`;
+    const updatedText = updatedAt ? `Last updated: ${updatedAt}` : 'Live computation';
+    html += `<div class="cors-notice" style="margin-top:12px">${notice} ${sourceBadge} • ${updatedText}</div>`;
     container.innerHTML = html;
+}
+
+function _buildStatsTable(cols, rows) {
+    let html = '<div class="table-wrap"><table class="data-table"><thead><tr>';
+    cols.forEach(c => html += `<th>${c.label}</th>`);
+    html += '</tr></thead><tbody>';
+    rows.forEach(row => {
+        html += '<tr>';
+        cols.forEach(c => {
+            const raw = row[c.key];
+            html += `<td>${c.fmt ? c.fmt(raw) : (raw ?? '-')}</td>`;
+        });
+        html += '</tr>';
+    });
+    html += '</tbody></table></div>';
+    return html;
 }
 
 async function runElo() {

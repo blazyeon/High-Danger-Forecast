@@ -238,6 +238,111 @@ def load_goalie_rates_from_json(season_year: int, stype: int = 2) -> pd.DataFram
     return df
 
 
+# ── Cached stats loader for the Flask API ───────────────────────────────
+
+STATS_CACHE_DIR = Path("static/data")
+
+
+def load_cached_stats(
+    table_type: str,
+    season_year: int,
+    stype: int = 2,
+    out_dir: Optional[Path] = None,
+) -> Dict[str, Any]:
+    """
+    Load team/skater/goalie stats from the daily JSON cache when possible.
+
+    Resolution order:
+      1. Per-season file: pbp_{type}_stats_YYYYYYYY.json
+      2. Generic file:  pbp_{type}_stats.json
+      3. On-the-fly computation from the PBP shot store
+
+    Returns a dict with:
+        data, source ('cache'|'compute'), updated_at (ISO), season, stype
+    """
+    out_dir = out_dir or STATS_CACHE_DIR
+    season_str = f"{season_year}{season_year + 1}"
+    # Filenames use the singular form (pbp_team_stats.json, etc.)
+    file_stem = {"teams": "team", "skaters": "skater", "goalies": "goalie"}.get(
+        table_type, table_type
+    )
+    base_name = f"pbp_{file_stem}_stats"
+
+    candidates = [
+        out_dir / f"{base_name}_{season_str}.json",
+        out_dir / f"{base_name}.json",
+    ]
+
+    for path in candidates:
+        if path.exists():
+            try:
+                payload = json.loads(path.read_text(encoding="utf-8"))
+                if payload.get("stype") != stype:
+                    continue
+                if payload.get("season") != season_str:
+                    continue
+                data = payload.get("data")
+                if data is None:
+                    continue
+                logger.info(
+                    f"Served {table_type} stats for {season_str} from cache: {path.name}"
+                )
+                return {
+                    "data": data,
+                    "source": "cache",
+                    "updated_at": payload.get("updated_at"),
+                    "season": season_str,
+                    "stype": stype,
+                }
+            except Exception as e:
+                logger.warning(f"Failed to read cached stats {path}: {e}")
+
+    # No usable cache — compute from PBP (slow path, guarded by safe_api_call).
+    logger.info(
+        f"No cached {table_type} stats for {season_str}; computing from PBP"
+    )
+    if table_type == "teams":
+        df = compute_team_rates(season_year, stype)
+        data = _df_to_json_safe_records(df)
+    elif table_type == "skaters":
+        rates = compute_skater_rates(season_year, stype)
+        data = [
+            {
+                "name": d.get("name", ""),
+                "gp": d.get("gp", 0),
+                "goals": d.get("goals", 0),
+                "assists": d.get("assists", 0),
+                "points": d.get("goals", 0) + d.get("assists", 0),
+                "shots": d.get("shots", 0),
+                "gpg": d.get("gpg", 0.0),
+                "apg": d.get("apg", 0.0),
+                "sogpg": d.get("sogpg", 0.0),
+                "xgf_pg": d.get("xgf_pg", 0.0),
+            }
+            for d in rates.values()
+        ]
+    elif table_type == "goalies":
+        df = compute_goalie_rates(season_year, stype)
+        data = _df_to_json_safe_records(df)
+    else:
+        raise ValueError(f"Unknown table_type {table_type!r}")
+
+    return {
+        "data": data,
+        "source": "compute",
+        "updated_at": None,
+        "season": season_str,
+        "stype": stype,
+    }
+
+
+def _df_to_json_safe_records(df: pd.DataFrame) -> List[Dict]:
+    """Convert DataFrame to JSON-safe records (NaN → None)."""
+    if df is None or df.empty:
+        return []
+    return json.loads(df.where(pd.notna(df), None).to_json(orient="records"))
+
+
 # Keep private aliases for the fallback code inside compute_* functions.
 _load_skater_rates_from_json = load_skater_rates_from_json
 _load_team_rates_from_json = load_team_rates_from_json
