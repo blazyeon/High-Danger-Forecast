@@ -621,8 +621,10 @@ async function runLookup() {
         html += `<div class="game-card" data-gameid="${g.id}" data-home="${homeAbbr}" data-away="${awayAbbr}">
             <div class="game-card-left">
                 <div class="game-card-teams">
+                    <img class="game-card-logo" src="/api/logos/${awayAbbr}.png" alt="${awayAbbr}" onerror="this.style.display='none'">
                     <span class="team-name">${awayName}</span>
                     <span class="vs-sep">@</span>
+                    <img class="game-card-logo" src="/api/logos/${homeAbbr}.png" alt="${homeAbbr}" onerror="this.style.display='none'">
                     <span class="team-name">${homeName}</span>
                 </div>
                 <div class="game-card-time">${time}</div>
@@ -660,7 +662,10 @@ async function showGameDetail(gameId, homeAbbrFallback, awayAbbrFallback) {
         const state = (data.state || '').toString().toUpperCase();
         const period = data.period ? `P${data.period}` : '';
         const clock = data.clock ? ` – ${data.clock}` : '';
-        const statusText = state === 'LIVE' || state === 'CRIT' ? `🔴 LIVE ${period}${clock}` : (state === 'OFF' || state === 'FINAL' ? 'FINAL' : 'UPCOMING');
+        let statusText = state === 'LIVE' || state === 'CRIT' ? `🔴 LIVE ${period}${clock}` : (state === 'OFF' || state === 'FINAL' ? 'FINAL' : 'UPCOMING');
+        if ((state === 'OFF' || state === 'FINAL') && data.last_period_type && data.last_period_type.toUpperCase() !== 'REG') {
+            statusText += ` (${data.last_period_type.toUpperCase()})`;
+        }
 
         let html = `<div class="modal-header">
             <div class="modal-teams">
@@ -694,8 +699,9 @@ async function showGameDetail(gameId, homeAbbrFallback, awayAbbrFallback) {
             { label: 'Blocked Shots', away: away.blocked_shots ?? '-', home: home.blocked_shots ?? '-' },
             { label: 'Giveaways', away: away.giveaways ?? '-', home: home.giveaways ?? '-' },
             { label: 'Takeaways', away: away.takeaways ?? '-', home: home.takeaways ?? '-' },
+            { label: 'Penalty Minutes', away: away.pim ?? '-', home: home.pim ?? '-' },
             { label: 'Power Play', away: away.power_play ?? '-', home: home.power_play ?? '-' },
-            { label: 'Faceoff %', away: away.faceoff_pct ?? '-', home: home.faceoff_pct ?? '-' },
+            { label: 'Faceoff %', away: fmtPct(away.faceoff_pct), home: fmtPct(home.faceoff_pct) },
         ];
         statKeys.forEach(s => {
             html += `<div class="modal-stats-row">
@@ -835,6 +841,15 @@ function fmtNum(v, digits=1) {
     const n = parseFloat(v);
     if (isNaN(n)) return v;
     return n.toFixed(digits);
+}
+
+function fmtPct(v) {
+    if (v === null || v === undefined || v === '') return '-';
+    const n = parseFloat(v);
+    if (isNaN(n)) return v;
+    // API may return 0-1 or 0-100
+    const pct = n > 0 && n <= 1 ? n * 100 : n;
+    return pct.toFixed(1) + '%';
 }
 
 async function runStats() {

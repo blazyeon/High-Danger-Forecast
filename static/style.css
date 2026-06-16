@@ -277,21 +277,33 @@ body {
 /* ── Form Controls ──────────────────────────────────────────────── */
 .team-select, .goalie-select, .param-input {
     width: 100%;
-    padding: 11px 36px 11px 14px;
+    padding: 11px 14px;
     background: var(--bg-input);
     border: 1px solid var(--border-default);
     border-radius: var(--radius-sm);
     color: var(--text-primary); font-size: 14px;
     font-family: var(--font-body);
-    appearance: none; -webkit-appearance: none;
     transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
     outline: none;
+}
+
+.team-select, .goalie-select {
+    appearance: none; -webkit-appearance: none;
+    padding-right: 36px;
 }
 
 .team-select:focus, .goalie-select:focus, .param-input:focus {
     border-color: var(--accent-cyan-dim);
     box-shadow: 0 0 0 3px var(--accent-cyan-glow);
 }
+
+input[type="date"].param-input, input[type="date"].date-input {
+    appearance: auto; -webkit-appearance: auto;
+    min-height: 40px;
+    cursor: pointer;
+}
+
+.date-field { min-width: 160px; }
 
 .team-select {
     background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%238b94a8' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
@@ -584,10 +596,11 @@ body {
 .game-card-left { display: flex; flex-direction: column; gap: 3px; }
 .game-card-right { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
 
-.game-card-teams { font-weight: 700; font-size: 14px; color: var(--text-primary); }
+.game-card-teams { font-weight: 700; font-size: 14px; color: var(--text-primary); display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 .game-card-teams .team-name { color: var(--accent-cyan); }
-.game-card-teams .vs-sep { color: var(--text-muted); font-weight: 400; margin: 0 6px; }
-.game-card-time { font-size: 11px; color: var(--text-muted); font-weight: 500; }
+.game-card-teams .vs-sep { color: var(--text-muted); font-weight: 400; }
+.game-card-logo { width: 26px; height: 26px; object-fit: contain; border-radius: var(--radius-sm); background: var(--bg-base); padding: 2px; border: 1px solid var(--border-subtle); }
+.game-card-time { font-size: 11px; color: var(--text-muted); font-weight: 500; margin-top: 4px; }
 .game-card-score { font-size: 18px; font-weight: 800; color: var(--text-primary); }
 .game-card-meta { font-size: 12px; color: var(--text-muted); display: flex; flex-direction: column; align-items: flex-end; gap: 3px; }
 

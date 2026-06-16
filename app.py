@@ -532,23 +532,84 @@ def api_boxscore(game_id: str):
         def _norm_team_info(t):
             if not isinstance(t, dict):
                 return {}
-            name_field = t.get("name") or {}
+            name_field = t.get("name") or t.get("commonName") or {}
             return {
                 "id": t.get("id"),
                 "abbrev": t.get("abbrev"),
                 "name": name_field.get("default") if isinstance(name_field, dict) else str(name_field),
                 "score": t.get("score"),
-                "sog": t.get("sog"),
-                "hits": t.get("hits"),
-                "blocked_shots": t.get("blockedShots", t.get("blocked_shots")),
-                "giveaways": t.get("giveaways"),
-                "takeaways": t.get("takeaways"),
-                "power_play": t.get("powerPlay", t.get("power_play")),
-                "faceoff_pct": t.get("faceoffPct", t.get("faceoff_pct")),
             }
 
+        def _aggregate_team_stats(side: str) -> Dict[str, Any]:
+            """Sum player boxscore stats into team totals."""
+            raw_groups = box.get("playerByGameStats", {}).get(side, {}) if isinstance(box, dict) else {}
+            if isinstance(raw_groups, dict):
+                raw = raw_groups.get("forwards", []) + raw_groups.get("defense", []) + raw_groups.get("goalies", [])
+            elif isinstance(raw_groups, list):
+                raw = raw_groups
+            else:
+                raw = []
+            totals: Dict[str, Any] = {
+                "sog": 0, "hits": 0, "blocked_shots": 0, "giveaways": 0,
+                "takeaways": 0, "pim": 0, "goals": 0, "assists": 0,
+                "power_play_goals": 0, "power_play_opps": 0,
+                "faceoff_wins": 0, "faceoff_total": 0,
+            }
+            for p in raw:
+                if not isinstance(p, dict):
+                    continue
+                totals["sog"] += int(p.get("sog", 0) or 0)
+                totals["hits"] += int(p.get("hits", 0) or 0)
+                totals["blocked_shots"] += int(p.get("blockedShots", 0) or 0)
+                totals["giveaways"] += int(p.get("giveaways", 0) or 0)
+                totals["takeaways"] += int(p.get("takeaways", 0) or 0)
+                totals["pim"] += int(p.get("pim", 0) or 0)
+                totals["goals"] += int(p.get("goals", 0) or 0)
+                totals["assists"] += int(p.get("assists", 0) or 0)
+                totals["power_play_goals"] += int(p.get("powerPlayGoals", 0) or 0)
+                fop = p.get("faceoffWinningPctg")
+                # faceoffWinningPctg is a decimal (0-1) per player; treat it as fraction of
+                # that player's taken faceoffs. Without raw attempts, approximate by averaging.
+                if fop is not None:
+                    totals["faceoff_total"] += 1
+                    totals["faceoff_wins"] += float(fop)
+
+            # Power-play opportunities are not in player stats; infer from summary penalties.
+            pp_opps = _infer_pp_opportunities(side)
+            totals["power_play_opps"] = pp_opps
+            if totals["faceoff_total"] > 0:
+                totals["faceoff_pct"] = round(100 * totals["faceoff_wins"] / totals["faceoff_total"], 1)
+            else:
+                totals["faceoff_pct"] = None
+            return totals
+
+        def _infer_pp_opportunities(side: str) -> int:
+            """Infer power-play opportunities from opponent penalties in the summary."""
+            summary = box.get("summary", {}) if isinstance(box, dict) else {}
+            penalties = summary.get("penalties", [])
+            if not penalties:
+                return 0
+            opp_abbrev = (away.get("abbrev") if side == "homeTeam" else home.get("abbrev")) or ""
+            opps = 0
+            for period in penalties:
+                for pen in period.get("penalties", []):
+                    team = pen.get("teamAbbrev", {}).get("default", "")
+                    if team and team != opp_abbrev:
+                        continue
+                    # Count minor/major penalties that create a PP opportunity.
+                    duration = pen.get("duration", 0)
+                    if duration and pen.get("type") == "MIN":
+                        opps += 1
+            return opps
+
         def _norm_roster(side):
-            raw = box.get("playerByGameStats", {}).get(side, []) if isinstance(box, dict) else []
+            raw_groups = box.get("playerByGameStats", {}).get(side, {}) if isinstance(box, dict) else {}
+            if isinstance(raw_groups, dict):
+                raw = raw_groups.get("forwards", []) + raw_groups.get("defense", []) + raw_groups.get("goalies", [])
+            elif isinstance(raw_groups, list):
+                raw = raw_groups
+            else:
+                raw = []
             out = []
             for p in raw:
                 if not isinstance(p, dict):
@@ -561,19 +622,29 @@ def api_boxscore(game_id: str):
                     "goals": p.get("goals"),
                     "assists": p.get("assists"),
                     "sog": p.get("sog"),
+                    "hits": p.get("hits"),
+                    "blocked_shots": p.get("blockedShots"),
+                    "takeaways": p.get("takeaways"),
+                    "giveaways": p.get("giveaways"),
+                    "pim": p.get("pim"),
                     "toi": p.get("toi"),
                 })
             return out
 
         period = box.get("periodDescriptor", {}) if isinstance(box, dict) else {}
         clock = box.get("clock", {}) if isinstance(box, dict) else {}
+        outcome = box.get("gameOutcome", {}) if isinstance(box, dict) else {}
+        home_stats = _aggregate_team_stats("homeTeam")
+        away_stats = _aggregate_team_stats("awayTeam")
         return jsonify({
             "game_id": game_id,
             "state": box.get("gameState", box.get("status", {}).get("abstractGameState", "")),
             "period": period.get("number"),
+            "period_type": period.get("periodType"),
             "clock": clock.get("timeRemaining"),
-            "home_team": _norm_team_info(home),
-            "away_team": _norm_team_info(away),
+            "last_period_type": outcome.get("lastPeriodType"),
+            "home_team": {**_norm_team_info(home), **home_stats},
+            "away_team": {**_norm_team_info(away), **away_stats},
             "home_roster": _norm_roster("homeTeam"),
             "away_roster": _norm_roster("awayTeam"),
         })
