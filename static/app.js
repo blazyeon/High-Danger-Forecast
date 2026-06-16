@@ -70,10 +70,11 @@ function getBaseXg(elo) {
     return Math.max(1.8, 3.2 + (elo - 1500) * 0.0035);
 }
 
-// All 32 teams with likely starters
+// Fallback goalie names used only when the live roster API is unreachable.
+// The UI normally populates this from /api/goalies/<team>/<date>.
 const GOALIE_POOL = {
     ANA: ["L. Dostal", "J. Gibson"],
-    BOS: ["J. Swayman", "L. Ullmark"],
+    BOS: ["J. Swayman", "J. Korpisalo"],
     BUF: ["U. Luukkonen", "D. Levi"],
     CGY: ["D. Vladar", "D. Wolf"],
     CAR: ["F. Andersen", "P. Kochetkov"],
@@ -102,7 +103,7 @@ const GOALIE_POOL = {
     UTA: ["K. Vejmelka", "C. Ingram"],
     VAN: ["T. Demko", "K. Lankinen"],
     VGK: ["A. Hill", "I. Samsonov"],
-    WSH: ["C. Lindgren", "L. Ullmark"],
+    WSH: ["C. Lindgren", "L. Thompson"],
     WPG: ["C. Hellebuyck", "E. Comrie"],
 };
 
@@ -298,26 +299,43 @@ function initSeasons() {
     sel.value = '20252026';
 }
 
-function populateGoalies() {
+async function populateGoalies() {
     const home = document.getElementById('homeTeam').value;
     const away = document.getElementById('awayTeam').value;
     const hRow = document.getElementById('homeGoalieRow');
     const aRow = document.getElementById('awayGoalieRow');
     const hSel = document.getElementById('homeGoalie');
     const aSel = document.getElementById('awayGoalie');
+    const dateStr = new Date().toISOString().split('T')[0];
 
     hSel.innerHTML = '<option value="">Auto-select</option>';
     aSel.innerHTML = '<option value="">Auto-select</option>';
+    hRow.style.display = home ? 'block' : 'none';
+    aRow.style.display = away ? 'block' : 'none';
+    if (!home && !away) return;
 
-    if (GOALIE_POOL[home]) {
-        GOALIE_POOL[home].forEach(g => hSel.add(new Option(g, g)));
-        hRow.style.display = 'block';
-    } else { hRow.style.display = 'none'; }
+    const fill = (sel, list) => {
+        if (!list || !list.length) return false;
+        list.forEach(g => sel.add(new Option(g, g)));
+        return true;
+    };
 
-    if (GOALIE_POOL[away]) {
-        GOALIE_POOL[away].forEach(g => aSel.add(new Option(g, g)));
-        aRow.style.display = 'block';
-    } else { aRow.style.display = 'none'; }
+    if (home) {
+        let live = [];
+        if (!USE_DEMO) {
+            try { live = (await safeFetchJson(`/api/goalies/${home}/${dateStr}`)).goalies || []; }
+            catch (e) { console.warn(`Goalie API failed for ${home}:`, e); }
+        }
+        if (!fill(hSel, live.length ? live : GOALIE_POOL[home])) hRow.style.display = 'none';
+    }
+    if (away) {
+        let live = [];
+        if (!USE_DEMO) {
+            try { live = (await safeFetchJson(`/api/goalies/${away}/${dateStr}`)).goalies || []; }
+            catch (e) { console.warn(`Goalie API failed for ${away}:`, e); }
+        }
+        if (!fill(aSel, live.length ? live : GOALIE_POOL[away])) aRow.style.display = 'none';
+    }
 }
 
 function updateLogos() {
@@ -406,7 +424,7 @@ async function runPrediction() {
         if (homeB2B) logStep('B2B', `${home} flagged as back-to-back (~8% fatigue penalty)`);
         if (awayB2B) logStep('B2B', `${away} flagged as back-to-back (~8% fatigue penalty)`);
         await delay(100);
-        logStep('SIM', `Running ${document.getElementById('sims').value || 10000} Monte Carlo iterations`);
+        logStep('SIM', `Running ${document.getElementById('sims').value || 2500} Monte Carlo iterations`);
         await delay(250);
         logStep('ENSEMBLE', `Blending Elo (35%) + simulation (65%) outcomes`);
         await delay(100);
@@ -415,13 +433,31 @@ async function runPrediction() {
         logStep('DONE', `Prediction complete. Confidence: ${data.confidence}`);
     } else {
         try {
-            const resp = await fetch('/api/predict', {
-                method: 'POST', headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ home_team: home, away_team: away, simulations: parseInt(document.getElementById('sims').value), trend_games: parseInt(document.getElementById('trendGames').value), nst_window: parseInt(document.getElementById('nstWindow').value), season_type: 2, home_goalie: homeGoalie || null, away_goalie: awayGoalie || null, home_b2b: homeB2B, away_b2b: awayB2B })
+            const body = {
+                home_team: home,
+                away_team: away,
+                simulations: parseInt(document.getElementById('sims').value) || 2500,
+                trend_games: parseInt(document.getElementById('trendGames').value) || 25,
+                nst_window: parseInt(document.getElementById('nstWindow').value) || 14,
+                season_type: 2,
+                home_goalie: homeGoalie || null,
+                away_goalie: awayGoalie || null,
+                home_b2b: homeB2B,
+                away_b2b: awayB2B,
+                date: new Date().toISOString().split('T')[0],
+            };
+            data = await safeFetchJson('/api/predict', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(body),
             });
-            data = await resp.json();
             if (data.error) { content.innerHTML = `<div class="error-box">${data.error}</div>`; btn.disabled = false; return; }
-        } catch (e) { content.innerHTML = `<div class="error-box">${e.message}</div>`; btn.disabled = false; return; }
+        } catch (e) {
+            console.error('Prediction failed:', e);
+            content.innerHTML = `<div class="error-box">Prediction failed: ${e.message}</div>`;
+            btn.disabled = false;
+            return;
+        }
     }
 
     renderResults(data, home, away);
@@ -513,6 +549,16 @@ function getTeamName(abbr) {
         if (t) return t.name;
     }
     return abbr;
+}
+
+async function safeFetchJson(url, opts={}) {
+    const resp = await fetch(url, opts);
+    const ct = (resp.headers.get('content-type') || '').toLowerCase();
+    if (!resp.ok || !ct.includes('application/json')) {
+        const text = await resp.text().catch(() => '');
+        throw new Error(`${url} returned ${resp.status} (${ct.split(';')[0] || 'unknown'}): ${text.slice(0, 160)}`);
+    }
+    return resp.json();
 }
 
 // ── Schedule Tab ─────────────────────────────────────────────────
@@ -796,13 +842,12 @@ const FALLBACK_GOALIES = [
 ];
 
 async function loadNstJson(type) {
+    const season = document.getElementById('statsSeason')?.value || '20252026';
     const endpoint = USE_DEMO
         ? `../static/data/pbp_${type}_stats.json`
-        : `/api/stats/${type}?stype=2`;
+        : `/api/stats/${type}?season=${season}&stype=2`;
     try {
-        const resp = await fetch(endpoint, { cache: 'no-store' });
-        if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
-        const payload = await resp.json();
+        const payload = await safeFetchJson(endpoint, { cache: 'no-store' });
         return payload.data || [];
     } catch (e) {
         console.warn(`Stats ${type} JSON unavailable, using fallback`, e);
@@ -948,27 +993,31 @@ async function runProps() {
 
 // ── Real API stubs (unused in demo) ───────────────────────────────
 async function loadAppState() {
+    const dot = document.querySelector('.status-dot');
+    const txt = document.querySelector('.status-label');
     try {
-        const data = await fetch('/api/state').then(r => r.json());
-        const dot = document.querySelector('.status-dot');
-        const txt = document.querySelector('.status-label');
+        const data = await safeFetchJson('/api/state');
         if (data.state?.is_fallback) { dot.className='status-dot error'; txt.textContent='Fallback'; }
         else if (data.state?.ml_model_trained) { dot.className='status-dot ready'; txt.textContent='Ready'; }
         else { dot.className='status-dot loading'; txt.textContent='Loading...'; }
-    } catch (e) { document.querySelector('.status-dot').className='status-dot error'; document.querySelector('.status-label').textContent='Offline'; }
+    } catch (e) {
+        console.error('State load failed:', e);
+        dot.className='status-dot error';
+        txt.textContent='Offline';
+    }
 }
 
 async function loadTeams() {
     try {
-        const data = await fetch('/api/teams').then(r => r.json());
-    } catch (e) { console.error('Failed to load teams', e); }
+        await safeFetchJson('/api/teams');
+    } catch (e) { console.error('Teams load failed:', e); }
 }
 
 async function loadSeasons() {
     try {
-        const data = await fetch('/api/seasons').then(r => r.json());
+        const data = await safeFetchJson('/api/seasons');
         const sel = document.getElementById('statsSeason');
         sel.innerHTML = '';
         (data.seasons || []).forEach(s => sel.add(new Option(s.label, s.key)));
-    } catch (e) {}
+    } catch (e) { console.error('Seasons load failed:', e); }
 }
