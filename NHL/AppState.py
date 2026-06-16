@@ -15,6 +15,7 @@ from EloMl.Database import EloDatabase
 from EloMl.Ratings import PlayerEloSystem, TeamEloSystem, EloConfig
 from EloMl.MLModel import EloMLPredictor, ModelConfig
 from EloMl.Features import EloFeatureEngine
+from Calibration import Calibrator
 from NHL.Utils import season_from_date
 
 logger = logging.getLogger(__name__)
@@ -113,6 +114,16 @@ def get_app_state() -> Dict[str, Any]:
             logger.info(f"ℹ️  No trained model found at {model_path}")
             logger.info(f"   Run: python train_model.py --season {current_season}")
 
+        # Try to load fitted calibrator
+        calibrator = None
+        calib_path = Path("models/calibrator.pkl")
+        if calib_path.exists():
+            try:
+                calibrator = Calibrator.load(str(calib_path))
+                logger.info(f"✓ Calibrator loaded from {calib_path}")
+            except Exception as e:
+                logger.warning(f"⚠️  Failed to load calibrator: {e}")
+
         from datetime import datetime
         state = {
             'db': db,
@@ -120,6 +131,7 @@ def get_app_state() -> Dict[str, Any]:
             'team_elo': team_elo,
             'feature_engine': feature_engine,
             'ml_model': ml_model,
+            'calibrator': calibrator,
             'config': config,
             'current_season': current_season,
             'initialized_at': datetime.now().isoformat(),
@@ -417,6 +429,7 @@ def _create_fallback_state() -> Dict[str, Any]:
         'team_elo': team_elo,
         'feature_engine': feature_engine,
         'ml_model': ml_model,
+        'calibrator': None,
         'config': config,
         'current_season': current_season,
         'is_fallback': True,

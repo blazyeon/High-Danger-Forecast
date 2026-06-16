@@ -15,7 +15,7 @@ Then open **http://localhost:8501** in your browser.
 
 - **Matchup Predictor** — Select two teams, optionally choose goalies and simulation parameters, and get win probabilities, expected goals, score distributions, and projected lineups
 - **Game Lookup** — Search NHL games by date with scores and status
-- **Advanced Stats** — Browse Natural Stat Trick team, skater, and goalie statistics
+- **Advanced Stats** — Browse NHL API PBP-derived team, skater, and goalie statistics
 - **Player Props** — View player prop lines and odds from sportsbooks
 
 ## Configuration
@@ -32,8 +32,14 @@ Key settings are in `NHL/Config.py`:
 # Update Elo ratings from NHL data
 python update_elo_ratings.py --current-season --reset
 
-# Train the ML model
-python train_model.py --season 20252026
+# Refresh PBP-derived stats
+python update_pbp_stats.py --season 2024 --stype 2 --out static/data
+
+# Train the ML model (default: all available seasons)
+python train_model.py
+
+# Backtest and tune weights
+python backtest.py --season 20242025
 
 # Check Elo database status
 python check_elo_data.py
@@ -44,8 +50,8 @@ python view_elo_ratings.py
 # Check ML model status
 python check_model.py
 
-# Test a prediction
-python test_prediction.py
+# Run the test suite
+python test_xg_pipeline.py
 ```
 
 ## Architecture
@@ -55,7 +61,6 @@ python test_prediction.py
 | `app.py` | Flask web server with REST API |
 | `NHL/` | Core prediction logic |
 | `EloMl/` | Elo rating system & ML model |
-| `NST/` | Natural Stat Trick data fetching |
 | `templates/index.html` | SPA frontend |
 | `static/style.css` | Dark hockey theme |
 | `static/app.js` | Frontend application logic |

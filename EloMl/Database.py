@@ -100,6 +100,8 @@ class EloDatabase:
                 away_score INTEGER,
                 home_xgf REAL,
                 away_xgf REAL,
+                home_xga REAL,
+                away_xga REAL,
                 is_ot_so INTEGER DEFAULT 0,
                 home_sf INTEGER,
                 away_sf INTEGER,
@@ -107,6 +109,19 @@ class EloDatabase:
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )
         """)
+
+        # Migration: add columns that older databases may be missing
+        for col_sql in (
+            "ALTER TABLE game_results ADD COLUMN home_xga REAL",
+            "ALTER TABLE game_results ADD COLUMN away_xga REAL",
+            "ALTER TABLE game_results ADD COLUMN is_ot_so INTEGER DEFAULT 0",
+            "ALTER TABLE game_results ADD COLUMN home_sf INTEGER",
+            "ALTER TABLE game_results ADD COLUMN away_sf INTEGER",
+        ):
+            try:
+                cursor.execute(col_sql)
+            except sqlite3.OperationalError:
+                pass
 
         # ML model performance tracking
         cursor.execute("""

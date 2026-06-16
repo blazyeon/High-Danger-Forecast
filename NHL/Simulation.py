@@ -68,6 +68,7 @@ from NHL.Utils import (
 # Feature helpers and calibration
 from NHL.Features import (
     compute_rest_travel_features,
+    compute_rest_travel_features_fast,
     fatigue_multiplier,
     penalty_diff_per60,
     shared_correlation_factor,
@@ -75,7 +76,8 @@ from NHL.Features import (
     component_breakdown,
 )
 
-from Calibration import calibrate_prob  # Imported for calibration
+from Calibration import calibrate_prob, Calibrator  # Imported for calibration
+from NHL.StatsFromPBP import TEAM_ID_TO_ABBR
 
 # Import persistent app state instead of creating new instances
 from NHL.AppState import get_app_state
@@ -110,6 +112,7 @@ def _norm_team(s: str) -> str:
 def _match_team(df: pd.DataFrame, abbr: str, team_col: str) -> pd.DataFrame:
     """
     Helper to find team rows with strict matching first, then fallback to contains.
+    Falls back to NHL team_id when the team name column is unreliable.
     Prevents picking up wrong teams or failing silently.
     """
     target = _norm_team(abbr)
@@ -124,17 +127,29 @@ def _match_team(df: pd.DataFrame, abbr: str, team_col: str) -> pd.DataFrame:
     subset = df[norm_col.str.contains(target, na=False, regex=False)]
     if not subset.empty:
         return subset
-    
+
     # 3. Try matching original abbr directly (for edge cases)
     target_orig = str(abbr).upper().strip()
     for nst_abbr, nst_full in NST_ABBR_TO_FULL.items():
         if target_orig in (nst_abbr, nst_full.upper()):
-            # Try matching with this variant
             norm_target = "".join(ch for ch in nst_full.upper() if ch.isalnum())
             subset = df[norm_col == norm_target]
             if not subset.empty:
                 return subset
-    
+
+    # 4. Fallback: match by NHL team_id if available
+    team_id_col = get_column_safe(df, {"team_id": ["team_id", "TeamID", "id", "teamId"]}, "team_id")
+    if team_id_col:
+        abbr_to_id = {v: k for k, v in TEAM_ID_TO_ABBR.items()}
+        from NHL.Config import TEAM_ABBR_MAPPING
+        lookup_abbr = TEAM_ABBR_MAPPING.get(abbr.upper(), abbr.upper())
+        target_id = abbr_to_id.get(lookup_abbr)
+        if target_id is not None:
+            subset = df[df[team_id_col].astype(str) == str(target_id)]
+            if not subset.empty:
+                logger.debug(f"Matched {abbr} by team_id {target_id}")
+                return subset
+
     return pd.DataFrame()
 
 def _parse_game_date(raw: Any) -> Optional[datetime]:
@@ -257,6 +272,11 @@ def _extract_pp_pk_rates(pp_df: pd.DataFrame, pk_df: pd.DataFrame, abbr: str) ->
     return pp_gf60, pk_ga60
 
 def derive_all_pg_metrics(all_df: pd.DataFrame, abbr: str) -> Dict[str, float]:
+    """
+    Derive per-game team metrics from a team-rates DataFrame.
+    Supports both the old NST uppercase columns and the PBP lowercase columns.
+    Falls back to league averages for any missing fields.
+    """
     defaults = {
         "xGFpg": LEAGUE_AVERAGES["goals_per_game"],
         "xGApG": LEAGUE_AVERAGES["goals_per_game"],
@@ -278,34 +298,69 @@ def derive_all_pg_metrics(all_df: pd.DataFrame, abbr: str) -> Dict[str, float]:
         team_col = get_column_safe(all_df, COLUMN_VARIATIONS, "team")
         if not team_col:
             return defaults
-        
-        # Use STRICT matching helper
+
         subset = _match_team(all_df, abbr, team_col)
-            
         if subset.empty:
             logger.warning(
-                f"⚠️ MISSING STATS: Could not find '{abbr}' in NST dataframe. "
-                f"Available teams: {all_df[team_col].unique()[:5]}... "
-                "Check Config.NST_ABBR_TO_FULL mappings."
+                f"⚠️ MISSING STATS: Could not find '{abbr}' in team rates DataFrame. "
+                f"Available teams: {list(all_df[team_col].unique())[:5]}..."
             )
             return defaults
-            
+
         r = subset.iloc[0]
-        gp = max(1.0, float(r.get("GP") or 1.0))
-        xgf = float(r.get("xGF") or 0.0)
-        xga = float(r.get("xGA") or 0.0)
-        gf = float(r.get("GF") or 0.0)
-        ga = float(r.get("GA") or 0.0)
-        sf = float(r.get("SF") or 0.0)
-        sa = float(r.get("SA") or 0.0)
-        ff = float(r.get("FF") or 0.0)
-        cf = float(r.get("CF") or 0.0)
-        xgf_pct = float(r.get("xGF%") or 50.0)
-        scf_pct = float(r.get("SCF%") or 50.0)
-        hdcf_pct = float(r.get("HDCF%") or 50.0)
-        pdo = float(r.get("PDO") or 100.0)
-        sv_col = get_column_safe(all_df, COLUMN_VARIATIONS, "save_pct")
-        sv = float(r.get(sv_col)) if sv_col and pd.notna(r.get(sv_col)) else defaults["SvPct"]
+
+        # Helper to read a field trying several possible column names.
+        def _get(candidates: List[str], default: float = 0.0) -> float:
+            for c in candidates:
+                if c in subset.columns:
+                    try:
+                        v = r.get(c)
+                        if v is None or (isinstance(v, float) and np.isnan(v)):
+                            continue
+                        return float(v)
+                    except Exception:
+                        continue
+            return default
+
+        gp = max(1.0, _get(["GP", "gp"], 1.0))
+        xgf = _get(["xGF", "xgf"], 0.0)
+        xga = _get(["xGA", "xga"], 0.0)
+        gf = _get(["GF", "gf"], 0.0)
+        ga = _get(["GA", "ga"], 0.0)
+        sf = _get(["SF", "sf"], 0.0)
+        sa = _get(["SA", "sa"], 0.0)
+        ff = _get(["FF", "ff"], 0.0)
+        cf = _get(["CF", "cf"], 0.0)
+
+        # Percentage-style fields may be 0-100 or 0-1; try both column names.
+        xgf_pct = _get(["xGF%", "xgf_pct"], 50.0)
+        if 0 < xgf_pct <= 1.0:
+            xgf_pct *= 100.0
+
+        scf_pct = _get(["SCF%", "scf_pct", "cf_pct"], 50.0)
+        if 0 < scf_pct <= 1.0:
+            scf_pct *= 100.0
+
+        hdcf_pct = _get(["HDCF%", "hdcf_pct"], 50.0)
+        if 0 < hdcf_pct <= 1.0:
+            hdcf_pct *= 100.0
+
+        pdo = _get(["PDO", "pdo"], 100.0)
+        if pd.isna(pdo):
+            pdo = 100.0
+
+        sv_col = get_column_safe(all_df, {"sv_pct": ["Sv%", "sv_pct", "SV_PCT", "Save%"]}, "sv_pct")
+        sv = defaults["SvPct"]
+        if sv_col:
+            try:
+                raw_sv = r.get(sv_col)
+                if raw_sv is not None and not (isinstance(raw_sv, float) and np.isnan(raw_sv)):
+                    sv = float(raw_sv)
+                    if 0 < sv <= 1.0:
+                        sv *= 100.0
+            except Exception:
+                sv = defaults["SvPct"]
+
         return {
             "xGFpg": safe_division(xgf, gp, defaults["xGFpg"]),
             "xGApG": safe_division(xga, gp, defaults["xGApG"]),
@@ -325,11 +380,16 @@ def derive_all_pg_metrics(all_df: pd.DataFrame, abbr: str) -> Dict[str, float]:
         logger.error(f"Error deriving metrics for {abbr}: {e}")
         return defaults
 
+
 def team_last_n_metrics(team_abbr: str, date_str: str, n: int = 6) -> Tuple[float, float, float]:
+    """
+    Compute the team's last-N averages for goals-for, goals-against, and shots.
+    Uses the NHL API schedule + boxscore endpoints.
+    """
     defaults = (
         LEAGUE_AVERAGES["goals_per_game"],
         LEAGUE_AVERAGES["goals_per_game"],
-        LEAGUE_AVERAGES["shots_per_game"]
+        LEAGUE_AVERAGES["shots_per_game"],
     )
     try:
         season = season_from_date(date_str)
@@ -378,11 +438,12 @@ def team_last_n_metrics(team_abbr: str, date_str: str, n: int = 6) -> Tuple[floa
         return (
             safe_division(gf, cnt, defaults[0]),
             safe_division(ga, cnt, defaults[1]),
-            safe_division(sog, cnt, defaults[2])
+            safe_division(sog, cnt, defaults[2]),
         )
     except Exception as e:
         logger.error(f"Error getting recent metrics for {team_abbr}: {e}")
         return defaults
+
 
 def team_last_n_goals_list(team_abbr: str, date_str: str, n: int = 8) -> List[int]:
     try:
@@ -417,6 +478,182 @@ def team_last_n_goals_list(team_abbr: str, date_str: str, n: int = 8) -> List[in
     except Exception as e:
         logger.error(f"Error getting goals list for {team_abbr}: {e}")
         return []
+
+def _get_loaded_calibrator() -> Optional[Calibrator]:
+    """Return the fitted Calibrator from app state, or None if unavailable."""
+    try:
+        app_state = get_app_state()
+        calib = app_state.get("calibrator")
+        if isinstance(calib, Calibrator):
+            return calib
+    except Exception:
+        pass
+    try:
+        calib = Calibrator.load("models/calibrator.pkl")
+        return calib
+    except Exception:
+        return None
+
+
+def _h2h_pct_from_schedules(
+    home_abbr: str, away_abbr: str, game_date: _date, season: str
+) -> float:
+    """
+    Compute home team's win percentage in recent head-to-head meetings.
+    Uses cached schedules and fetches boxscores only for completed H2H games.
+    """
+    try:
+        home_sched = _cached_schedule_json(home_abbr, season)
+        away_sched = _cached_schedule_json(away_abbr, season)
+        if not home_sched or not away_sched:
+            return 0.5
+
+        def _game_id(g: Dict[str, Any]) -> Optional[str]:
+            return str(g.get("id") or g.get("gameId") or g.get("gamePk") or "")
+
+        home_games = {gid: g for gid, g in [(_game_id(g), g) for g in home_sched.get("games", [])] if gid}
+        away_games = {gid: g for gid, g in [(_game_id(g), g) for g in away_sched.get("games", [])] if gid}
+        common_ids = sorted(set(home_games.keys()) & set(away_games.keys()))
+
+        meetings = []
+        for gid in common_ids:
+            g = home_games[gid]
+            gd = _parse_game_date(g.get("gameDate") or g.get("startTimeUTC") or g.get("startTime"))
+            if not gd or gd.date() >= game_date:
+                continue
+            state = str(g.get("gameState", "")).upper()
+            if state not in ("OFF", "FINAL", "OVER"):
+                continue
+            box = _safe_get_json(f"{NHL_API_BASE}/gamecenter/{gid}/boxscore")
+            if not box:
+                continue
+            h = (box.get("homeTeam") or {}).get("abbrev", "").upper()
+            hs = float((box.get("homeTeam") or {}).get("score", 0) or 0)
+            as_ = float((box.get("awayTeam") or {}).get("score", 0) or 0)
+            meetings.append({"home_team": h, "home_score": hs, "away_score": as_, "date": gd.date()})
+
+        if not meetings:
+            return 0.5
+
+        # Last 5 meetings
+        meetings.sort(key=lambda x: x["date"], reverse=True)
+        meetings = meetings[:5]
+        home_wins = 0
+        for m in meetings:
+            if m["home_team"] == home_abbr.upper():
+                if m["home_score"] > m["away_score"]:
+                    home_wins += 1
+            else:
+                if m["away_score"] > m["home_score"]:
+                    home_wins += 1
+        return home_wins / len(meetings)
+    except Exception as e:
+        logger.debug(f"H2H lookup failed for {home_abbr} v {away_abbr}: {e}")
+        return 0.5
+
+
+def _build_ml_features(
+    home_abbr: str,
+    away_abbr: str,
+    game_date: _date,
+    season: str,
+    home_all: Dict[str, float],
+    away_all: Dict[str, float],
+    home_ev: Dict[str, float],
+    away_ev: Dict[str, float],
+    home_rec_gf: float,
+    home_rec_ga: float,
+    away_rec_gf: float,
+    away_rec_ga: float,
+    home_venue_pct: float,
+    away_venue_pct: float,
+    feat_home: Dict[str, Any],
+    feat_away: Dict[str, Any],
+    h2h_pct: float,
+    feature_engine: Any,
+    team_elo: Any,
+) -> Dict[str, float]:
+    """
+    Build a leakage-free pre-game feature vector matching the training pipeline.
+    Any missing fields are filled with neutral defaults so the model degrades
+    gracefully when data is sparse.
+    """
+    try:
+        elo_features = feature_engine.extract_team_features(home_abbr, away_abbr)
+    except Exception as e:
+        logger.debug(f"Feature engine failed: {e}")
+        elo_features = {}
+
+    home_elo = 1500.0
+    away_elo = 1500.0
+    try:
+        home_elo = team_elo.get_team_rating(home_abbr)
+        away_elo = team_elo.get_team_rating(away_abbr)
+    except Exception:
+        pass
+
+    home_xgf_pg = home_all.get("xGFpg", LEAGUE_AVERAGES["goals_per_game"])
+    away_xgf_pg = away_all.get("xGFpg", LEAGUE_AVERAGES["goals_per_game"])
+    home_xga_pg = home_all.get("xGApG", LEAGUE_AVERAGES["goals_per_game"])
+    away_xga_pg = away_all.get("xGApG", LEAGUE_AVERAGES["goals_per_game"])
+
+    home_sf_pg = home_all.get("SFpg", LEAGUE_AVERAGES["shots_per_game"])
+    away_sf_pg = away_all.get("SFpg", LEAGUE_AVERAGES["shots_per_game"])
+
+    # Recent form (training normalizes by subtracting 3.0)
+    home_recent_form_off = home_rec_gf - 3.0
+    away_recent_form_off = away_rec_gf - 3.0
+
+    features: Dict[str, float] = {
+        **elo_features,
+        "home_elo": float(home_elo),
+        "away_elo": float(away_elo),
+
+        # Season-average xG / xGA (replicate training scaling)
+        "home_season_xgf_pg": float(home_xgf_pg / 0.06) if home_xgf_pg else 0.0,
+        "away_season_xgf_pg": float(away_xgf_pg / 0.06) if away_xgf_pg else 0.0,
+        "home_xgf_norm": float(home_xgf_pg / 6.0) if home_xgf_pg else 0.0,
+        "away_xgf_norm": float(away_xgf_pg / 6.0) if away_xgf_pg else 0.0,
+        "home_xgf_share": float(home_xgf_pg / max(home_xgf_pg + away_xgf_pg, 0.1)),
+
+        # Recent form
+        "home_recent_xgf_pg": float(home_xgf_pg),
+        "home_recent_xga_pg": float(home_xga_pg),
+        "away_recent_xgf_pg": float(away_xgf_pg),
+        "away_recent_xga_pg": float(away_xga_pg),
+        "home_recent_gf_pg": float(home_rec_gf),
+        "away_recent_gf_pg": float(away_rec_gf),
+        "home_recent_form_off": float(home_recent_form_off),
+        "away_recent_form_off": float(away_recent_form_off),
+
+        # Shots / pace
+        "home_sf_pg": float(home_sf_pg / 0.06) if home_sf_pg else 0.0,
+        "away_sf_pg": float(away_sf_pg / 0.06) if away_sf_pg else 0.0,
+        "home_recent_sf_pg": float(home_sf_pg),
+        "away_recent_sf_pg": float(away_sf_pg),
+
+        # Venue
+        "home_venue_pct": float(home_venue_pct),
+        "away_venue_pct": float(away_venue_pct),
+        "venue_diff": float(home_venue_pct - away_venue_pct),
+
+        # Rest / travel
+        "home_rest_days": float(feat_home.get("rest_days", 3.0)),
+        "away_rest_days": float(feat_away.get("rest_days", 3.0)),
+        "rest_diff": float(feat_away.get("rest_days", 3.0)) - float(feat_home.get("rest_days", 3.0)),
+        "home_b2b": 1.0 if feat_home.get("is_b2b") else 0.0,
+        "away_b2b": 1.0 if feat_away.get("is_b2b") else 0.0,
+        "home_travel_km": float(feat_home.get("travel_km", 0.0)),
+        "away_travel_km": float(feat_away.get("travel_km", 0.0)),
+        "home_tz_diff": float(feat_home.get("tz_diff", 0.0)),
+        "away_tz_diff": float(feat_away.get("tz_diff", 0.0)),
+
+        # Head-to-head
+        "h2h_home_pct": float(h2h_pct),
+    }
+
+    return features
+
 
 def estimate_gamma_shape_from_recent(goals: List[int]) -> Optional[float]:
     if not goals or len(goals) < 3:
@@ -1156,6 +1393,15 @@ def simulate_matchup(
     # ✅ PURE DATA-DRIVEN VENUE ADVANTAGE (reduced scaling)
     venue_advantage = calculate_venue_advantage(home_abbr, away_abbr, season)
 
+    # Capture individual venue records for the ML feature vector (cached)
+    home_venue_record = get_team_home_away_record(home_abbr, season, as_of=game_date)
+    away_venue_record = get_team_home_away_record(away_abbr, season, as_of=game_date)
+    home_venue_pct = home_venue_record['home_win_pct']
+    away_venue_pct = away_venue_record['away_win_pct']
+
+    # Head-to-head history for the ML feature vector
+    h2h_pct = _h2h_pct_from_schedules(home_abbr, away_abbr, game_date, season)
+
     # Calculate baseline WITHOUT score effects (will apply AFTER ML adjustments)
     mu_home, br_home = _compute_expected_goals(
         home_all, away_all, home_pp60, away_pk_ga60,
@@ -1182,6 +1428,8 @@ def simulate_matchup(
     try:
         app_state = get_app_state()
         team_elo_system = app_state['team_elo']
+        feature_engine = app_state.get('feature_engine')
+        ml_model = app_state.get('ml_model')
         current_season = app_state.get('current_season', 'unknown')
 
         home_elo = team_elo_system.get_team_rating(home_abbr)
@@ -1198,6 +1446,65 @@ def simulate_matchup(
     except Exception as e:
         logger.warning(f"Could not load Elo ratings for ensemble: {e}")
         elo_win_prob = None
+        feature_engine = None
+        ml_model = None
+
+    # ── ML adjustment: blend the physics-based baseline with the trained ML view ──
+    ml_prob: Optional[float] = None
+    try:
+        if (
+            ml_model is not None
+            and getattr(ml_model, "is_trained", False)
+            and feature_engine is not None
+        ):
+            ml_features = _build_ml_features(
+                home_abbr=home_abbr,
+                away_abbr=away_abbr,
+                game_date=game_date,
+                season=season,
+                home_all=home_all,
+                away_all=away_all,
+                home_ev=home_ev,
+                away_ev=away_ev,
+                home_rec_gf=home_rec_gf,
+                home_rec_ga=home_rec_ga,
+                away_rec_gf=away_rec_gf,
+                away_rec_ga=away_rec_ga,
+                home_venue_pct=home_venue_pct,
+                away_venue_pct=away_venue_pct,
+                feat_home=feat_home,
+                feat_away=feat_away,
+                h2h_pct=h2h_pct,
+                feature_engine=feature_engine,
+                team_elo=team_elo_system,
+            )
+            raw_ml_prob = ml_model.predict_proba(ml_features)
+
+            # Calibrate the raw ML probability using the OOF-fitted calibrator.
+            # The calibrator was trained on the same model's out-of-fold predictions,
+            # so it is only safe to apply here, not to the final ensemble blend.
+            try:
+                calibrator = _get_loaded_calibrator()
+                if calibrator is not None:
+                    ml_prob = calibrator.predict_one(raw_ml_prob)
+                else:
+                    ml_prob = raw_ml_prob
+            except Exception:
+                ml_prob = raw_ml_prob
+
+            # Convert the (calibrated) probability into an expected-goal delta.
+            prob_delta = ml_prob - 0.5
+            goal_delta = prob_delta * 1.2
+            ml_mu_home = max(0.5, mu_home + goal_delta)
+            ml_mu_away = max(0.5, mu_away - goal_delta * 0.5)
+            logger.info(
+                f"ML adjustment: baseline {mu_home:.2f} v {mu_away:.2f} "
+                f"→ ML {ml_mu_home:.2f} v {ml_mu_away:.2f} (raw p={raw_ml_prob:.3f}, cal p={ml_prob:.3f})"
+            )
+            mu_home, mu_away = ml_mu_home, ml_mu_away
+    except Exception as e:
+        logger.warning(f"ML adjustment failed, using physics baseline: {e}")
+        ml_prob = None
 
     k_home = estimate_gamma_shape_from_recent(team_last_n_goals_list(home_abbr, game_date.isoformat(), n=8))
     k_away = estimate_gamma_shape_from_recent(team_last_n_goals_list(away_abbr, game_date.isoformat(), n=8))
@@ -1243,23 +1550,27 @@ def simulate_matchup(
     raw_prob = improved_winner_prediction(final_home, final_away)
     sim_win_prob = max(0.05, min(0.95, raw_prob))
 
-    calibrated_winner_prob = calibrate_prob(sim_win_prob)
-    if abs(calibrated_winner_prob - sim_win_prob) > 0.001:
-        logger.debug(f"Calibrated win prob: {sim_win_prob:.3f} -> {calibrated_winner_prob:.3f}")
-        sim_win_prob = calibrated_winner_prob
-
-    # Ensemble: blend simulation win probability with Elo win probability
-    # This is the key accuracy improvement — Elo is well-calibrated over long
-    # horizons while the simulation captures current matchup specifics.
+    # Ensemble: blend simulation, Elo, and ML win probabilities.
+    # Each source captures a different time horizon / signal.
     try:
-        if elo_win_prob is not None:
-            w_elo = MODEL_WEIGHTS["elo_winprob_weight"]
-            w_sim = MODEL_WEIGHTS["simulation_winprob_weight"]
-            winner_prob = w_elo * elo_win_prob + w_sim * sim_win_prob
+        w_elo = MODEL_WEIGHTS["elo_winprob_weight"]
+        w_sim = MODEL_WEIGHTS["simulation_winprob_weight"]
+        w_ml = MODEL_WEIGHTS.get("ml_winprob_weight", 0.0)
+
+        components: List[Tuple[Optional[float], float]] = [
+            (elo_win_prob, w_elo),
+            (sim_win_prob, w_sim),
+            (ml_prob, w_ml),
+        ]
+        available = [(p, w) for p, w in components if p is not None]
+        total_weight = sum(w for _, w in available)
+
+        if available and total_weight > 0:
+            winner_prob = sum(p * w for p, w in available) / total_weight
             winner_prob = max(0.05, min(0.95, winner_prob))
             logger.info(
-                f"Ensemble win prob: Sim={sim_win_prob:.3f}, Elo={elo_win_prob:.3f} "
-                f"→ Blend={winner_prob:.3f}"
+                f"Ensemble win prob: Sim={sim_win_prob:.3f}, Elo={elo_win_prob if elo_win_prob is not None else 'N/A'}, "
+                f"ML={ml_prob if ml_prob is not None else 'N/A'} → Blend={winner_prob:.3f}"
             )
         else:
             winner_prob = sim_win_prob

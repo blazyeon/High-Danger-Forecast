@@ -1,6 +1,5 @@
 """
-Update Elo ratings with comprehensive NST player data integration.
-Uses existing NST.Cache module for data extraction.
+Update Elo ratings and game_results using NHL API PBP-derived stats.
 
 Run:
   python update_elo_ratings.py --current-season --reset --initial-only
@@ -11,7 +10,7 @@ from __future__ import annotations
 import argparse
 import logging
 from datetime import date, datetime, timedelta
-from typing import Dict, Optional, Tuple
+from typing import Dict, List, Optional, Tuple
 
 import pandas as pd
 import numpy as np
@@ -24,7 +23,7 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 from NHL.Utils import season_from_date
-from NHL.StatsFromPBP import compute_skater_rates
+from NHL.StatsFromPBP import compute_skater_rates, TEAM_ID_TO_ABBR
 from NHL.PlayByPlay import load_shot_store
 from NHL.xGModel import load_xg_model, predict_xg
 from EloMl.Database import EloDatabase
@@ -274,17 +273,17 @@ def calculate_player_initial_rating(stats: Dict, config: EloConfig) -> float:
 def populate_initial_player_elo(
     season: str,
     db: EloDatabase,
-    nst_player_stats: Dict[str, Dict],
+    player_stats: Dict[str, Dict],
     min_games: int = 1
 ) -> int:
-    """Populate initial player Elo ratings from NST stats."""
+    """Populate initial player Elo ratings from PBP-derived stats."""
     logger.info(f"\n⚙️  Setting initial player Elo ratings for {season}...")
     
     config = EloConfig()
     processed = 0
     skipped_low_gp = 0
     
-    for name_key, stats in nst_player_stats.items():
+    for name_key, stats in player_stats.items():
         try:
             gp = stats.get('gp', 0)
             if gp < min_games:
@@ -465,6 +464,77 @@ def populate_team_elo_from_games(season: str, db: EloDatabase) -> int:
     logger.info(f"\n✓ Set initial ratings for {processed} teams")
     return processed
 
+def _build_abbr_to_team_id() -> Dict[str, int]:
+    """Build a best-effort abbreviation -> team_id lookup from the PBP table."""
+    out: Dict[str, int] = {}
+    for tid, abbr in TEAM_ID_TO_ABBR.items():
+        if abbr not in out:
+            out[abbr] = tid
+    out["UTA"] = 59
+    out["ARI"] = 30
+    return out
+
+
+def _team_ids_for_abbr(abbr: str, mapping: Dict[str, int]) -> List[int]:
+    """Return candidate team_ids for an abbreviation (handles franchise moves)."""
+    abbr = abbr.upper()
+    if abbr == "ARI":
+        return [30, 53]
+    tid = mapping.get(abbr)
+    return [tid] if tid else []
+
+
+def _build_game_xg_lookup(
+    season_start: int,
+    stype: int = 2
+) -> Tuple[Optional[pd.DataFrame], Dict[int, Dict[int, Dict[str, float]]]]:
+    """
+    Build a lookup of per-game xG and shot-on-goal counts by team_id.
+
+    Returns:
+        (shots_df_or_none, {game_id: {team_id: {'xgf': float, 'sf': int}}})
+    """
+    try:
+        shots = load_shot_store(season_start, stype)
+    except Exception as e:
+        logger.warning(f"Could not load shot store for {season_start}: {e}")
+        return None, {}
+
+    if shots.empty or "game_id" not in shots.columns or "team_id" not in shots.columns:
+        logger.warning(f"No PBP shots available for {season_start}")
+        return shots, {}
+
+    try:
+        xg_model = load_xg_model()
+        shots = shots.copy()
+        shots["xg"] = predict_xg(shots, xg_model)
+    except Exception as e:
+        logger.warning(f"xG model unavailable for {season_start}: {e}")
+        shots = shots.copy()
+        shots["xg"] = 0.092
+
+    shots["is_shot_on_goal"] = (
+        shots.get("is_shot", pd.Series([0] * len(shots))).fillna(0).astype(int)
+    )
+
+    grouped = shots.groupby(["game_id", "team_id"], as_index=False).agg(
+        xgf=("xg", "sum"),
+        sf=("is_shot_on_goal", "sum"),
+    )
+
+    lookup: Dict[int, Dict[int, Dict[str, float]]] = {}
+    for _, row in grouped.iterrows():
+        gid = int(row["game_id"])
+        tid = int(row["team_id"])
+        lookup.setdefault(gid, {})[tid] = {
+            "xgf": float(row["xgf"]),
+            "sf": int(row["sf"]),
+        }
+
+    logger.info(f"✓ Built PBP xG lookup for {season_start}: {len(lookup)} games")
+    return shots, lookup
+
+
 def fetch_and_process_games(
     season_str: str,
     start_date: date,
@@ -475,42 +545,47 @@ def fetch_and_process_games(
     config: EloConfig
 ) -> int:
     """Fetch games and process them to update Elo and save to database."""
-    
+
     logger.info("\n" + "=" * 60)
     logger.info("📊 PROCESSING GAMES")
     logger.info("=" * 60)
     logger.info(f"\nSeason: {season_str}")
     logger.info(f"Date range: {start_date} to {end_date}")
-    
+
     logger.info(f"\nFetching games from NHL API...")
-    
+
     all_games = []
     current_date = start_date
-    
+
     while current_date <= end_date:
         date_str = current_date.isoformat()
         games = get_games_on_date(date_str)
-        
+
         for game in games:
             game_state = str(game.get('gameState', '')).upper()
             if game_state in ('OFF', 'FINAL', 'OVER'):
                 all_games.append(game)
-        
+
         current_date += timedelta(days=1)
-    
+
     logger.info(f"✓ Found {len(all_games)} completed games")
-    
+
     if len(all_games) == 0:
         logger.warning("⚠️  No games found in date range")
         return 0
-    
+
+    # Load PBP-derived xG/shot counts for the season
+    season_start = int(season_str[:4])
+    _, game_xg_lookup = _build_game_xg_lookup(season_start, stype=2)
+    abbr_to_tid = _build_abbr_to_team_id()
+
     logger.info(f"\n🔄 Processing {len(all_games)} games...")
     processed = 0
     errors = 0
-    
+
     # Track games played manually
     team_games_count = {}
-    
+
     for i, game in enumerate(all_games, 1):
         if i % 100 == 0:
             logger.info(f"   Progress: {i}/{len(all_games)} games...")
@@ -563,10 +638,36 @@ def fetch_and_process_games(
             period_type = str(period_descriptor.get('periodType', '')).upper()
             is_ot_so = period_type in ('OT', 'SO')
 
-            # Derive shot estimates from score (NHL avg ~30 shots/game)
-            # Use score differential as a proxy when real data unavailable
-            home_sf_est = max(25, min(42, int(30 + (home_score - away_score) * 1.5)))
-            away_sf_est = max(25, min(42, int(30 + (away_score - home_score) * 1.5)))
+            # Pull real xG and shot counts from PBP when available
+            home_tids = _team_ids_for_abbr(home_abbr, abbr_to_tid)
+            away_tids = _team_ids_for_abbr(away_abbr, abbr_to_tid)
+            game_lookup = game_xg_lookup.get(int(game_id), {})
+
+            home_xgf = 0.0
+            away_xgf = 0.0
+            home_sf_est = 0
+            away_sf_est = 0
+
+            for tid in home_tids:
+                if tid in game_lookup:
+                    home_xgf = game_lookup[tid]["xgf"]
+                    home_sf_est = game_lookup[tid]["sf"]
+                    break
+            for tid in away_tids:
+                if tid in game_lookup:
+                    away_xgf = game_lookup[tid]["xgf"]
+                    away_sf_est = game_lookup[tid]["sf"]
+                    break
+
+            # Fallback to score-based estimates when PBP data is missing
+            if home_sf_est == 0:
+                home_sf_est = max(25, min(42, int(30 + (home_score - away_score) * 1.5)))
+            if away_sf_est == 0:
+                away_sf_est = max(25, min(42, int(30 + (away_score - home_score) * 1.5)))
+            if home_xgf == 0.0:
+                home_xgf = float(home_score)
+            if away_xgf == 0.0:
+                away_xgf = float(away_score)
 
             # Save to game_results table
             cursor = db.conn.cursor()
@@ -576,8 +677,9 @@ def fetch_and_process_games(
                     home_team, away_team,
                     home_score, away_score,
                     home_xgf, away_xgf,
+                    home_xga, away_xga,
                     is_ot_so, home_sf, away_sf
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             """, (
                 game_id,
                 game_date.isoformat(),
@@ -586,8 +688,10 @@ def fetch_and_process_games(
                 away_abbr,
                 home_score,
                 away_score,
-                0.0,
-                0.0,
+                home_xgf,
+                away_xgf,
+                away_xgf,
+                home_xgf,
                 1 if is_ot_so else 0,
                 home_sf_est,
                 away_sf_est,
@@ -612,8 +716,8 @@ def fetch_and_process_games(
                 opponent_rating=away_team_obj.rating,
                 team_gf=home_score,
                 team_ga=away_score,
-                team_xgf=float(home_score),
-                team_xga=float(away_score),
+                team_xgf=home_xgf,
+                team_xga=away_xgf,
                 team_sf=home_sf_est,
                 team_sa=away_sf_est,
                 result=home_result,
@@ -624,8 +728,8 @@ def fetch_and_process_games(
                 opponent_rating=home_team_obj.rating,
                 team_gf=away_score,
                 team_ga=home_score,
-                team_xgf=float(away_score),
-                team_xga=float(home_score),
+                team_xgf=away_xgf,
+                team_xga=home_xgf,
                 team_sf=away_sf_est,
                 team_sa=home_sf_est,
                 result=away_result,
@@ -726,11 +830,11 @@ def main() -> int:
         db.conn.commit()
         logger.info(f"✅ Database cleared for {season_str}")
 
-    nst_player_stats = load_nst_player_stats(season_str)
-    if nst_player_stats:
-        populate_initial_player_elo(season_str, db, nst_player_stats, min_games=args.min_games)
+    player_stats = load_nst_player_stats(season_str)
+    if player_stats:
+        populate_initial_player_elo(season_str, db, player_stats, min_games=args.min_games)
     else:
-        logger.warning("⚠️  NST player data unavailable (Cloudflare blocked). Skipping player Elo init.")
+        logger.warning("⚠️  PBP player data unavailable. Skipping player Elo init.")
 
     populate_team_elo_from_games(season_str, db)
 

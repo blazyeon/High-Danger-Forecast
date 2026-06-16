@@ -30,3 +30,12 @@ training_data_*.db
 
 # Logs
 *.log
+
+# Claude Code local files
+.claude/
+PLAN.md
+
+# Backtest outputs (regenerated on demand)
+backtest_results.json
+elo_tuning_results.json
+models/calibration_data.json

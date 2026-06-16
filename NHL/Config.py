@@ -3,7 +3,7 @@ Configuration constants for NHL Game Predictor.
 Consolidated, deduplicated, and tuned for 2024-25 season baselines.
 """
 
-from typing import Dict, Any, List
+from typing import Dict, Any, List, Tuple
 import os
 
 # ── APIs ────────────────────────────────────────────────────────────
@@ -100,8 +100,9 @@ MODEL_WEIGHTS = {
     "goalie_impact_weight": 0.75,
     "season_blend_current": 0.70,
     "season_blend_previous": 0.30,
-    "elo_winprob_weight": 0.35,      # NEW: weight for Elo win probability
-    "simulation_winprob_weight": 0.65, # NEW: weight for simulation win probability
+    "elo_winprob_weight": 0.30,      # weight for Elo win probability
+    "simulation_winprob_weight": 0.45, # weight for simulation win probability
+    "ml_winprob_weight": 0.25,       # weight for ML win probability
 }
 
 # ── Player / Goalie / Special Teams ───────────────────────────────
@@ -157,6 +158,20 @@ GOALIE_POSITIONS = ["G", "Goalie"]
 
 # ── Season Range ────────────────────────────────────────────────────
 EARLIEST_SEASON_YEAR = 2010
+
+
+def _season_options(
+    start_year: int = EARLIEST_SEASON_YEAR,
+    end_year: int = CURRENT_SEASON_YEAR
+) -> List[Tuple[str, str]]:
+    """Generate season options for dropdown."""
+    opts: List[Tuple[str, str]] = []
+    for y in range(start_year, end_year + 1):
+        key = f"{y}{y+1}"
+        label = f"{y}-{str(y+1)[-2:]}"
+        opts.append((label, key))
+    return opts
+
 
 # ── UI ──────────────────────────────────────────────────────────────
 UI_PARAMS = {

@@ -435,14 +435,16 @@ def compute_goalie_rates(
 # renamed 2024-25). 30 is still ARI for the historical Arizona Coyotes
 # games that predate the move.
 TEAM_ID_TO_ABBR: Dict[int, str] = {
+    # Mapping that matches the team_id values emitted by the NHL API
+    # play-by-play feed we consume (this is NOT the global franchise id).
     1: "NJD", 2: "NYI", 3: "NYR", 4: "PHI", 5: "PIT", 6: "BOS",
-    7: "BUF", 8: "MTL", 9: "OTT", 10: "TOR", 11: "CAR", 12: "FLA",
-    13: "TBL", 14: "WSH", 15: "CHI", 16: "DET", 17: "NSH", 18: "STL",
-    19: "CGY", 20: "COL", 21: "EDM", 22: "VAN", 23: "ANA", 24: "DAL",
-    25: "LAK", 26: "SJS", 27: "CBJ", 28: "MIN", 29: "WPG", 30: "ARI",
-    52: "WIN",  # old Winnipeg Jets (pre-2011)
-    53: "ARI",  # 5-digit
-    54: "VGK", 55: "SEA", 59: "UTA",  # Utah Hockey Club (2024-25+)
+    7: "BUF", 8: "MTL", 9: "OTT", 10: "TOR", 12: "CAR", 13: "FLA",
+    14: "TBL", 15: "WSH", 16: "CHI", 17: "DET", 18: "NSH", 19: "STL",
+    20: "CGY", 21: "COL", 22: "EDM", 23: "VAN", 24: "ANA", 25: "DAL",
+    26: "LAK", 28: "SJS", 29: "CBJ", 30: "MIN",
+    52: "WPG",  # PBP uses this id for the current Winnipeg Jets
+    53: "ARI",  # legacy Arizona Coyotes (folded); remapped to UTA below
+    54: "VGK", 55: "SEA", 59: "UTA", 68: "UTA",  # Utah Hockey Club
 }
 
 

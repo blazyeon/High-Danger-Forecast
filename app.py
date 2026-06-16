@@ -21,7 +21,7 @@ from NHL.AppState import (
 )
 from NHL.Config import (
     DIVISIONS, TEAM_ABBR_MAPPING, NST_ABBR_TO_FULL, NHL_SEASON_START_MONTH,
-    DEFAULT_SIMULATIONS, DEFAULT_TREND_GAMES,
+    DEFAULT_SIMULATIONS, DEFAULT_TREND_GAMES, _season_options,
 )
 from NHL.MatchupUtils import (
     build_team_options, build_teams_api_data,
@@ -42,9 +42,6 @@ from NHL.Utils import (
     sanitize_text, format_initial_last,
 )
 from NHL.OddsAPI import fetch_nhl_player_props_by_date, OddsAPIError
-# NST.Cache no longer imported — stats are sourced from NHL API PBP via
-# NHL.StatsFromPBP. The endpoint shape is preserved.
-from NHL.AdvancedStats import _season_options  # noqa: F401  (kept for legacy imports)
 from NHL.StatsFromPBP import compute_team_rates, compute_skater_rates, compute_goalie_rates
 
 logger = logging.getLogger(__name__)
@@ -358,75 +355,73 @@ def api_lookup():
 
 # ── API: Stats ─────────────────────────────────────────────────────────
 
+def _current_season_start_year() -> int:
+    """Return the start year of the current NHL season."""
+    today = _date.today()
+    return today.year if today.month >= NHL_SEASON_START_MONTH else today.year - 1
+
+
 @app.route("/api/stats/teams")
 def api_stats_teams():
-    """Return NST team statistics."""
+    """Return PBP-derived team statistics."""
     season = request.args.get("season", "")
     stype = int(request.args.get("stype", "2"))
-    return _fetch_nst_stats("teams", season, stype)
+    return _fetch_pbp_stats("teams", season, stype)
 
 
 @app.route("/api/stats/skaters")
 def api_stats_skaters():
-    """Return NST skater statistics."""
+    """Return PBP-derived skater statistics."""
     season = request.args.get("season", "")
     stype = int(request.args.get("stype", "2"))
-    return _fetch_nst_stats("skaters", season, stype)
+    return _fetch_pbp_stats("skaters", season, stype)
 
 
 @app.route("/api/stats/goalies")
 def api_stats_goalies():
-    """Return NST goalie statistics."""
+    """Return PBP-derived goalie statistics."""
     season = request.args.get("season", "")
     stype = int(request.args.get("stype", "2"))
-    return _fetch_nst_stats("goalies", season, stype)
+    return _fetch_pbp_stats("goalies", season, stype)
 
 
-def _fetch_nst_stats(table_type: str, season: str, stype: int):
+def _fetch_pbp_stats(table_type: str, season: str, stype: int):
     """
-    Fetch stats table and return as JSON.
+    Fetch PBP-derived stats and return as JSON.
 
-    Endpoint shape is preserved from the NST-scrape era
-    ({type, data: [...]}) so the frontend doesn't need to change.
-    The data is now sourced from the NHL API PBP via StatsFromPBP.
-
-    `season` is the YYYYYYYY form ("20242025"). We translate to the
-    start year (2024) for the PBP store lookup.
+    `season` is the YYYYYYYY form ("20242025"); if omitted, the current
+    NHL season is used. We translate to the start year (2024) for the
+    PBP shot-store lookup.
     """
     try:
         try:
             start_year = int(str(season)[:4])
         except (ValueError, TypeError):
-            start_year = None
+            start_year = _current_season_start_year()
 
         if table_type == "teams":
-            df = compute_team_rates(start_year, stype) if start_year else pd.DataFrame()
+            df = compute_team_rates(start_year, stype)
         elif table_type == "skaters":
-            if not start_year:
-                df = pd.DataFrame()
-            else:
-                # Return as a records-shaped DataFrame so the existing
-                # to_dict() pipeline keeps working.
-                rates = compute_skater_rates(start_year, stype)
-                df = pd.DataFrame(
-                    [
-                        {
-                            "name": d.get("name", ""),
-                            "gp": d.get("gp", 0),
-                            "goals": d.get("goals", 0),
-                            "assists": d.get("assists", 0),
-                            "points": d.get("goals", 0) + d.get("assists", 0),
-                            "shots": d.get("shots", 0),
-                            "gpg": d.get("gpg", 0.0),
-                            "apg": d.get("apg", 0.0),
-                            "sogpg": d.get("sogpg", 0.0),
-                            "xgf_pg": d.get("xgf_pg", 0.0),
-                        }
-                        for d in rates.values()
-                    ]
-                )
+            rates = compute_skater_rates(start_year, stype)
+            df = pd.DataFrame(
+                [
+                    {
+                        "name": d.get("name", ""),
+                        "gp": d.get("gp", 0),
+                        "goals": d.get("goals", 0),
+                        "assists": d.get("assists", 0),
+                        "points": d.get("goals", 0) + d.get("assists", 0),
+                        "shots": d.get("shots", 0),
+                        "gpg": d.get("gpg", 0.0),
+                        "apg": d.get("apg", 0.0),
+                        "sogpg": d.get("sogpg", 0.0),
+                        "xgf_pg": d.get("xgf_pg", 0.0),
+                    }
+                    for d in rates.values()
+                ]
+            )
         elif table_type == "goalies":
-            df = compute_goalie_rates(start_year, stype) if start_year else pd.DataFrame()
+            df = compute_goalie_rates(start_year, stype)
         else:
             return jsonify({"error": f"Unknown table_type {table_type!r}"}), 400
 
@@ -446,11 +441,8 @@ def api_player_props(date_str: str):
     """Return player prop odds for a given date."""
     try:
         from NHL.PlayerLinePredictor import (
-            load_player_props_multi_day, calculate_hit_probability,
-            american_to_decimal, implied_probability, _shape_player_df,
-            _best_prices, DEFAULT_PLAYER_MARKETS,
+            load_player_props_multi_day, DEFAULT_PLAYER_MARKETS,
         )
-        from NHL.AppState import get_player_elo
 
         game_date = _date.fromisoformat(date_str)
         markets = request.args.getlist("markets")
@@ -476,51 +468,6 @@ def api_seasons():
     """Return available season options for stats."""
     options = _season_options()
     return jsonify({"seasons": [{"label": label, "key": key} for label, key in options]})
-
-
-# ── API: NST Cached JSON ────────────────────────────────────────────────
-
-NST_DATA_DIR = Path(__file__).parent / "static" / "data"
-
-
-def _load_nst_json(table_type: str) -> Optional[Dict[str, Any]]:
-    """Load cached NST JSON from disk."""
-    path = NST_DATA_DIR / f"nst_{table_type}_stats.json"
-    if not path.exists():
-        return None
-    try:
-        with open(path, "r", encoding="utf-8") as f:
-            return json.load(f)
-    except Exception as e:
-        logger.error(f"Failed to load NST JSON {path}: {e}")
-        return None
-
-
-@app.route("/api/nst/teams")
-def api_nst_teams():
-    """Return cached NST team stats JSON."""
-    data = _load_nst_json("team")
-    if data is None:
-        return jsonify({"error": "NST team stats not available. Run update_nst_stats.py or wait for GitHub Actions."}), 404
-    return jsonify(data)
-
-
-@app.route("/api/nst/skaters")
-def api_nst_skaters():
-    """Return cached NST skater stats JSON."""
-    data = _load_nst_json("skater")
-    if data is None:
-        return jsonify({"error": "NST skater stats not available. Run update_nst_stats.py or wait for GitHub Actions."}), 404
-    return jsonify(data)
-
-
-@app.route("/api/nst/goalies")
-def api_nst_goalies():
-    """Return cached NST goalie stats JSON."""
-    data = _load_nst_json("goalie")
-    if data is None:
-        return jsonify({"error": "NST goalie stats not available. Run update_nst_stats.py or wait for GitHub Actions."}), 404
-    return jsonify(data)
 
 
 # ── Entry point ────────────────────────────────────────────────────────

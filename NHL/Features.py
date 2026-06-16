@@ -9,7 +9,7 @@ Feature utilities for NHL simulations:
 from __future__ import annotations
 
 import math
-from typing import Dict, Tuple, Optional, Any
+from typing import Dict, Tuple, Optional, Any, List
 from datetime import date as _date, datetime, timedelta
 
 import numpy as np
@@ -109,7 +109,7 @@ def compute_rest_travel_features(team_abbr: str, opponent_abbr: str, game_date: 
             lat1, lon1 = _team_loc(team_abbr)
             lat2, lon2 = _team_loc(opponent_abbr)
             out["travel_km"] = _haversine_km(lat1, lon1, lat2, lon2)
-            
+
             # ✅ NEW: Estimate timezone difference
             # Rough approximation: ~1500 km = 1 hour timezone
             out["tz_diff"] = min(3.0, out["travel_km"] / 1500.0)
@@ -123,10 +123,77 @@ def compute_rest_travel_features(team_abbr: str, opponent_abbr: str, game_date: 
 
     return out
 
+
+def _prev_game_from_completed(
+    team_abbr: str,
+    game_date: _date,
+    completed_games: List[Dict[str, Any]],
+) -> Optional[Dict[str, Any]]:
+    """Find the most recent game for a team before game_date from an in-memory list."""
+    chosen = None
+    target = team_abbr.upper()
+    for g in completed_games:
+        gd = g.get("game_date")
+        if not gd:
+            continue
+        if isinstance(gd, str):
+            try:
+                gd = datetime.fromisoformat(gd).date()
+            except Exception:
+                continue
+        if gd >= game_date:
+            continue
+        if g.get("home_team", "").upper() == target or g.get("away_team", "").upper() == target:
+            if chosen is None or gd > chosen["_date"]:
+                g = dict(g)
+                g["_date"] = gd
+                chosen = g
+    return chosen
+
+
+def compute_rest_travel_features_fast(
+    team_abbr: str,
+    opponent_abbr: str,
+    game_date: _date,
+    completed_games: List[Dict[str, Any]],
+) -> Dict[str, Any]:
+    """
+    Fast, offline rest/travel features using already-played games.
+    Useful during historical training where API calls are too slow.
+    """
+    out = {
+        "is_b2b": False,
+        "rest_days": 3.0,
+        "opp_rest_days": 3.0,
+        "travel_km": 0.0,
+        "tz_diff": 0.0,
+    }
+    try:
+        prev_team = _prev_game_from_completed(team_abbr, game_date, completed_games)
+        prev_opp = _prev_game_from_completed(opponent_abbr, game_date, completed_games)
+
+        if prev_team:
+            last_date = prev_team["_date"]
+            out["is_b2b"] = (game_date - last_date) == timedelta(days=1)
+            out["rest_days"] = max(0.0, (game_date - last_date).days - 1)
+            lat1, lon1 = _team_loc(team_abbr)
+            lat2, lon2 = _team_loc(opponent_abbr)
+            out["travel_km"] = _haversine_km(lat1, lon1, lat2, lon2)
+            out["tz_diff"] = min(3.0, out["travel_km"] / 1500.0)
+
+        if prev_opp:
+            last_date_o = prev_opp["_date"]
+            out["opp_rest_days"] = max(0.0, (game_date - last_date_o).days - 1)
+    except Exception as e:
+        logger.debug(f"Fast rest/travel feature failure: {e}")
+
+    return out
+
+
 def fatigue_multiplier(features: Dict[str, Any]) -> float:
     """
     ✅ IMPROVED: Compute fatigue multiplier for expected goals.
-    
+
     Penalties:
     - Back-to-back: -9% (was -3%)
     - Rest disadvantage: -2% per day (was -1%)
@@ -145,7 +212,7 @@ def fatigue_multiplier(features: Dict[str, Any]) -> float:
     W_TRAVEL = REST_TRAVEL_PARAMS["travel_penalty_per_km"]  # -0.0003
 
     rest_diff = max(-3.0, min(3.0, opp_rest_days - rest_days))
-    
+
     # ✅ NEW: Additional cross-country penalty
     cross_country_penalty = 0.0
     if travel_km > 2500 or tz_diff >= 2.5:

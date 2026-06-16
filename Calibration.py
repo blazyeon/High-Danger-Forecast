@@ -4,6 +4,9 @@ Probability calibration and online update scaffolding.
 """
 from __future__ import annotations
 
+from pathlib import Path
+import pickle
+
 import numpy as np
 
 import logging
@@ -11,8 +14,8 @@ logger = logging.getLogger(__name__)
 
 class Calibrator:
     """
-    Placeholder calibrator. If scikit-learn/fit history available, uses isotonic regression.
-    Otherwise, returns input probability unchanged.
+    Isotonic regression calibrator for home-win probabilities.
+    Falls back to identity if no fit data or scikit-learn unavailable.
     """
     def __init__(self, method: str = "isotonic"):
         self.method = method
@@ -49,6 +52,30 @@ class Calibrator:
             return float(self.predict(arr)[0])
         except Exception:
             return float(p)
+
+    def save(self, filepath: str) -> None:
+        """Persist fitted calibrator to disk."""
+        path = Path(filepath)
+        path.parent.mkdir(parents=True, exist_ok=True)
+        with open(path, "wb") as f:
+            pickle.dump({"model": self._model, "fitted": self._fitted, "method": self.method}, f)
+        logger.info(f"Saved calibrator to {filepath}")
+
+    @classmethod
+    def load(cls, filepath: str) -> "Calibrator":
+        """Load a fitted calibrator from disk."""
+        cal = cls(method="identity")
+        try:
+            with open(filepath, "rb") as f:
+                data = pickle.load(f)
+            cal._model = data.get("model")
+            cal._fitted = bool(data.get("fitted", False))
+            cal.method = data.get("method", "isotonic")
+            logger.info(f"Loaded calibrator from {filepath} (fitted={cal._fitted})")
+        except Exception as e:
+            logger.warning(f"Could not load calibrator from {filepath}: {e}")
+        return cal
+
 
 _GLOBAL_CALIBRATOR = Calibrator()
 

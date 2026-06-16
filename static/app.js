@@ -796,14 +796,16 @@ const FALLBACK_GOALIES = [
 ];
 
 async function loadNstJson(type) {
-    const endpoint = USE_DEMO ? `../static/data/nst_${type}_stats.json` : `/api/nst/${type}`;
+    const endpoint = USE_DEMO
+        ? `../static/data/pbp_${type}_stats.json`
+        : `/api/stats/${type}?stype=2`;
     try {
         const resp = await fetch(endpoint, { cache: 'no-store' });
         if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
         const payload = await resp.json();
         return payload.data || [];
     } catch (e) {
-        console.warn(`NST ${type} JSON unavailable, using fallback`, e);
+        console.warn(`Stats ${type} JSON unavailable, using fallback`, e);
         if (type === 'teams') return FALLBACK_TEAM_STATS;
         if (type === 'skaters') return FALLBACK_SKATERS;
         if (type === 'goalies') return FALLBACK_GOALIES;
@@ -825,7 +827,7 @@ async function runStats() {
 
     const data = await loadNstJson(type);
     if (!data.length) {
-        container.innerHTML = '<div class="empty-state"><div class="empty-icon">📊</div><h3 class="empty-title">No Data</h3><p class="empty-desc">Advanced stats are not available yet. Run <code>python update_nst_stats.py</code> to populate them.</p></div>';
+        container.innerHTML = '<div class="empty-state"><div class="empty-icon">📊</div><h3 class="empty-title">No Data</h3><p class="empty-desc">Advanced stats are not available yet. Run <code>python update_pbp_stats.py</code> to populate them.</p></div>';
         return;
     }
 
