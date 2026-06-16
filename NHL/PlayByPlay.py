@@ -434,6 +434,11 @@ def build_shot_store(
         meta_df = meta_df.rename(columns={"id": "game_id"})
         meta_df = meta_df[["game_id", "homeTeam", "awayTeam"]]
         df = df.merge(meta_df, on="game_id", how="left")
+    # Pre-compute high-danger flag once at build time so every stats call
+    # doesn't re-run the trigonometry on hundreds of thousands of rows.
+    if not df.empty and "hd" not in df.columns and {"x", "y"}.issubset(df.columns):
+        from NHL.StatsFromPBP import _vectorized_high_danger
+        df["hd"] = _vectorized_high_danger(df["x"], df["y"]).astype(int)
     df.to_parquet(out_path, index=False)
     logger.info(
         f"Wrote {len(df):,} shots from {len(meta_rows)} games "

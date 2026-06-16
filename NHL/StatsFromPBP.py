@@ -122,6 +122,39 @@ def _is_high_danger(x: float, y: float) -> bool:
     return dist < HD_DISTANCE_FT and angle < HD_ANGLE_DEG
 
 
+def _vectorized_high_danger(xs: pd.Series, ys: pd.Series) -> pd.Series:
+    """Vectorized version of _is_high_danger for use on whole columns."""
+    x_arr = np.asarray(xs, dtype=float)
+    y_arr = np.asarray(ys, dtype=float)
+    dx = np.where(x_arr < 0, 89.0 - np.abs(x_arr), 89.0 - x_arr)
+    dx = np.maximum(dx, 0.0)
+    dist = np.sqrt(dx * dx + y_arr * y_arr)
+    with np.errstate(divide="ignore", invalid="ignore"):
+        angle = np.where(dx > 0, np.degrees(np.abs(np.arctan2(y_arr, dx))), 90.0)
+    return pd.Series((dist < HD_DISTANCE_FT) & (angle < HD_ANGLE_DEG), index=xs.index)
+
+
+def _load_json_rates(
+    json_path: Path,
+    season_year: int,
+    stype: int,
+) -> Optional[Dict[str, Any]]:
+    """Shared helper for reading exported JSON rate files."""
+    if not json_path.exists():
+        return None
+    try:
+        payload = json.loads(json_path.read_text(encoding="utf-8"))
+        if payload.get("stype") != stype:
+            return None
+        expected_season = f"{season_year}{season_year + 1}"
+        if payload.get("season") != expected_season:
+            return None
+        return payload
+    except Exception as e:
+        logger.warning(f"Failed to read {json_path}: {e}")
+        return None
+
+
 def _load_skater_rates_from_json(season_year: int, stype: int) -> Dict[str, Dict[str, float]]:
     """
     Fallback when the shot parquet is missing on the server.
@@ -131,42 +164,62 @@ def _load_skater_rates_from_json(season_year: int, stype: int) -> Dict[str, Dict
     times out on Render. Date-window filtering is not available in
     this fallback; callers receive full-season rates.
     """
-    json_path = Path("static/data/pbp_skater_stats.json")
-    if not json_path.exists():
+    payload = _load_json_rates(Path("static/data/pbp_skater_stats.json"), season_year, stype)
+    if payload is None:
         return {}
-    try:
-        payload = json.loads(json_path.read_text(encoding="utf-8"))
-        if payload.get("stype") != stype:
-            return {}
-        expected_season = f"{season_year}{season_year + 1}"
-        if payload.get("season") != expected_season:
-            return {}
-        out: Dict[str, Dict[str, float]] = {}
-        for rec in payload.get("data", []):
-            name = rec.get("name", "")
-            if not name:
-                continue
-            key = normalize_name_key(name)
-            if not key:
-                continue
-            out[key] = {
-                "gp": int(rec.get("gp", 0)),
-                "goals": int(rec.get("goals", 0)),
-                "assists": int(rec.get("assists", 0)),
-                "shots": int(rec.get("shots", 0)),
-                "gpg": float(rec.get("gpg", 0.0)),
-                "apg": float(rec.get("apg", 0.0)),
-                "sogpg": float(rec.get("sogpg", 0.0)),
-                "xgf_pg": float(rec.get("xgf_pg", 0.0)),
-            }
-        logger.info(
-            f"Loaded {len(out)} skater rates from fallback JSON for "
-            f"{expected_season} stype={stype}"
-        )
-        return out
-    except Exception as e:
-        logger.warning(f"Failed to load skater rates fallback JSON: {e}")
-        return {}
+    out: Dict[str, Dict[str, float]] = {}
+    for rec in payload.get("data", []):
+        name = rec.get("name", "")
+        if not name:
+            continue
+        key = normalize_name_key(name)
+        if not key:
+            continue
+        out[key] = {
+            "gp": int(rec.get("gp", 0)),
+            "goals": int(rec.get("goals", 0)),
+            "assists": int(rec.get("assists", 0)),
+            "shots": int(rec.get("shots", 0)),
+            "gpg": float(rec.get("gpg", 0.0)),
+            "apg": float(rec.get("apg", 0.0)),
+            "sogpg": float(rec.get("sogpg", 0.0)),
+            "xgf_pg": float(rec.get("xgf_pg", 0.0)),
+        }
+    logger.info(
+        f"Loaded {len(out)} skater rates from fallback JSON for "
+        f"{season_year}{season_year + 1} stype={stype}"
+    )
+    return out
+
+
+def _load_team_rates_from_json(season_year: int, stype: int) -> pd.DataFrame:
+    """
+    Fallback full-season team rates from exported JSON.
+    """
+    payload = _load_json_rates(Path("static/data/pbp_team_stats.json"), season_year, stype)
+    if payload is None:
+        return pd.DataFrame()
+    df = pd.DataFrame(payload.get("data", []))
+    logger.info(
+        f"Loaded {len(df)} team rates from fallback JSON for "
+        f"{season_year}{season_year + 1} stype={stype}"
+    )
+    return df
+
+
+def _load_goalie_rates_from_json(season_year: int, stype: int) -> pd.DataFrame:
+    """
+    Fallback full-season goalie rates from exported JSON.
+    """
+    payload = _load_json_rates(Path("static/data/pbp_goalie_stats.json"), season_year, stype)
+    if payload is None:
+        return pd.DataFrame()
+    df = pd.DataFrame(payload.get("data", []))
+    logger.info(
+        f"Loaded {len(df)} goalie rates from fallback JSON for "
+        f"{season_year}{season_year + 1} stype={stype}"
+    )
+    return df
 
 
 # ── Team rates ──────────────────────────────────────────────────────────
@@ -182,15 +235,30 @@ def compute_team_rates(
 
     Returns a DataFrame with the columns the simulation expects.
     """
-    shots = load_shot_store(season_year, stype)
-    if shots.empty:
-        return pd.DataFrame()
-    shots = _filter_by_date(shots, fd, td, season_year, stype)
+    full_shots = load_shot_store(season_year, stype)
+    if full_shots.empty:
+        # Fallback to pre-computed full-season JSON if the parquet isn't on
+        # the server. Date-window filtering is not available in this path.
+        if fd or td:
+            logger.warning(
+                f"Shot store missing for {season_year}-{season_year + 1} "
+                f"and date window [{fd}, {td}] requested; using full-season "
+                f"fallback JSON for team rates."
+            )
+        return _load_team_rates_from_json(season_year, stype)
+    shots = _filter_by_date(full_shots, fd, td, season_year, stype)
+    if shots.empty and (fd or td):
+        logger.warning(
+            f"Date window [{fd}, {td}] has no shots for "
+            f"{season_year}-{season_year + 1}; using full-season team rates."
+        )
+        shots = full_shots.copy()
+        fd = td = ""
 
-    # Pre-compute HD flag once and attach to the shots df
-    hd = shots.apply(lambda r: _is_high_danger(float(r["x"]), float(r["y"])), axis=1)
+    # Pre-compute HD flag once and attach to the shots df (vectorized)
     shots = shots.copy()
-    shots["hd"] = hd
+    if "hd" not in shots.columns:
+        shots["hd"] = _vectorized_high_danger(shots["x"], shots["y"]).astype(int)
 
     out_rows: List[Dict] = []
     grouped = shots.groupby("team_id", dropna=False)
@@ -319,8 +387,8 @@ def compute_skater_rates(
     normalize_name_key(name). Drop-in compatible with the old
     season_skater_rates_from_nst return shape.
     """
-    shots = load_shot_store(season_year, stype)
-    if shots.empty:
+    full_shots = load_shot_store(season_year, stype)
+    if full_shots.empty:
         # On Render the PBP parquet may be missing on a cold start. Fall back
         # to the pre-computed full-season JSON so we don't crawl the NHL API
         # and hit the gunicorn timeout.
@@ -331,7 +399,17 @@ def compute_skater_rates(
                 f"fallback JSON (window filter will be ignored)."
             )
         return _load_skater_rates_from_json(season_year, stype)
-    shots = _filter_by_date(shots, fd, td, season_year, stype)
+
+    shots = _filter_by_date(full_shots, fd, td, season_year, stype)
+    if shots.empty and (fd or td):
+        # Requested date window has no games (e.g., offseason). Fall back to
+        # full-season rates from the parquet instead of returning empty rates.
+        logger.warning(
+            f"Date window [{fd}, {td}] has no shots for "
+            f"{season_year}-{season_year + 1}; using full-season rates."
+        )
+        shots = full_shots
+        fd = td = ""
 
     # Group by shooter_id (stable) but expose by shooter_name (what callers
     # will look up). Both can fail — empty shooter_name means we skip the row.
@@ -352,27 +430,42 @@ def compute_skater_rates(
     by_shooter = shots.groupby("shooter_id", dropna=True)
     games_per_shooter = shots.groupby("shooter_id")["game_id"].nunique()
 
-    # Count actual assists: every row in `shots` with a non-null
-    # `assist1_id` or `assist2_id` credits the corresponding player
-    # with one assist. We do this by walking the goal rows once and
-    # adding to per-shooter totals.
+    # Count actual assists: vectorized tally per assist player id.
     assists_count: Dict[int, int] = {}
     if "assist1_id" in shots.columns:
-        for pid in shots["assist1_id"].dropna().unique():
+        for pid, n in shots["assist1_id"].value_counts().items():
             try:
                 pid_int = int(pid)
             except (TypeError, ValueError):
                 continue
-            n = int((shots["assist1_id"] == pid).sum())
-            assists_count[pid_int] = assists_count.get(pid_int, 0) + n
+            assists_count[pid_int] = assists_count.get(pid_int, 0) + int(n)
     if "assist2_id" in shots.columns:
-        for pid in shots["assist2_id"].dropna().unique():
+        for pid, n in shots["assist2_id"].value_counts().items():
             try:
                 pid_int = int(pid)
             except (TypeError, ValueError):
                 continue
-            n = int((shots["assist2_id"] == pid).sum())
-            assists_count[pid_int] = assists_count.get(pid_int, 0) + n
+            assists_count[pid_int] = assists_count.get(pid_int, 0) + int(n)
+
+    # Load xG model once for all skaters (avoid repeated disk/model load).
+    xg_model = None
+    try:
+        from NHL.xGModel import load_xg_model, predict_xg
+        xg_model = load_xg_model()
+    except FileNotFoundError:
+        pass
+    except Exception as e:
+        logger.debug(f"xG model load for skater rates failed: {e}")
+
+    # Compute xG once for the whole (filtered) shot set, then sum per shooter.
+    shot_xg = None
+    if xg_model is not None and not shots.empty:
+        try:
+            shot_xg = pd.Series(
+                predict_xg(shots, xg_model), index=shots.index, dtype=float
+            )
+        except Exception as e:
+            logger.debug(f"xG inference for skater rates failed: {e}")
 
     for shooter_id, grp in by_shooter:
         try:
@@ -392,17 +485,10 @@ def compute_skater_rates(
         # The previous version used a goals*0.5 proxy; the PBP now
         # gives us actual primary/secondary assists.
         assists = assists_count.get(shooter_id_int, 0)
-        # Add xG
+        # Sum pre-computed xG values for this shooter's rows.
         xgf = 0.0
-        try:
-            from NHL.xGModel import load_xg_model, predict_xg
-            model = load_xg_model()
-            xg_vals = predict_xg(grp, model)
-            xgf = float(xg_vals.sum())
-        except FileNotFoundError:
-            pass
-        except Exception as e:
-            logger.debug(f"xG for skater rates failed: {e}")
+        if shot_xg is not None:
+            xgf = float(shot_xg.loc[grp.index].sum())
 
         out[key] = {
             "name": str(name),
@@ -432,10 +518,42 @@ def compute_goalie_rates(
     sv_pct, xga, gsax, gsax_per_60. The Flask app's goalie dropdown reads
     this.
     """
-    shots = load_shot_store(season_year, stype)
-    if shots.empty:
-        return pd.DataFrame()
-    shots = _filter_by_date(shots, fd, td, season_year, stype)
+    full_shots = load_shot_store(season_year, stype)
+    if full_shots.empty:
+        if fd or td:
+            logger.warning(
+                f"Shot store missing for {season_year}-{season_year + 1} "
+                f"and date window [{fd}, {td}] requested; using full-season "
+                f"fallback JSON for goalie rates."
+            )
+        return _load_goalie_rates_from_json(season_year, stype)
+    shots = _filter_by_date(full_shots, fd, td, season_year, stype)
+    if shots.empty and (fd or td):
+        logger.warning(
+            f"Date window [{fd}, {td}] has no shots for "
+            f"{season_year}-{season_year + 1}; using full-season goalie rates."
+        )
+        shots = full_shots.copy()
+        fd = td = ""
+
+    # Load xG model once for all goalies and predict once for all shots.
+    xg_model = None
+    shot_xg = None
+    try:
+        from NHL.xGModel import load_xg_model, predict_xg
+        xg_model = load_xg_model()
+    except FileNotFoundError:
+        pass
+    except Exception as e:
+        logger.debug(f"xG model load for goalie rates failed: {e}")
+
+    if xg_model is not None and not shots.empty:
+        try:
+            shot_xg = pd.Series(
+                predict_xg(shots, xg_model), index=shots.index, dtype=float
+            )
+        except Exception as e:
+            logger.debug(f"xG inference for goalie rates failed: {e}")
 
     by_goalie = shots.groupby("goalie_id", dropna=True)
     rows: List[Dict] = []
@@ -450,17 +568,13 @@ def compute_goalie_rates(
         # GAA: 60-min rate, assumes goalie played all 60 min in each game
         gaa = ga / max(gp, 1)
         sv_pct = sv / max(sa, 1) if sa else LEAGUE_AVERAGES["sv_pct"]
-        # xGA from xG model
+        # xGA from pre-computed shot xG values.
         xga = 0.0
-        try:
-            from NHL.xGModel import load_xg_model, predict_xg
-            model = load_xg_model()
-            xg_vals = predict_xg(grp, model)
-            xga = float(xg_vals.sum())
-        except FileNotFoundError:
-            pass
-        except Exception as e:
-            logger.debug(f"xG for goalie rates failed: {e}")
+        if shot_xg is not None:
+            try:
+                xga = float(shot_xg.loc[grp.index].sum())
+            except Exception as e:
+                logger.debug(f"xG aggregation for goalie {name} failed: {e}")
         gsax = ga - xga
         gsax_per_60 = gsax / max(gp, 1)
         rows.append({
