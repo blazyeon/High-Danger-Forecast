@@ -550,6 +550,15 @@ function populateTeams() {
     }
 }
 
+function currentNHLSeasonKey() {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = now.getMonth() + 1; // 1-12
+    // NHL season spans two calendar years; start in October.
+    const startYear = month >= 10 ? year : year - 1;
+    return `${startYear}${startYear + 1}`;
+}
+
 function initSeasons() {
     const sel = document.getElementById('statsSeason');
     if (!sel) return;
@@ -563,8 +572,9 @@ function initSeasons() {
         { key: '20202021', label: '2020-21' },
         { key: '20192020', label: '2019-20' },
     ];
+    const currentSeason = currentNHLSeasonKey();
     seasons.forEach(s => sel.add(new Option(s.label, s.key)));
-    sel.value = '20252026';
+    sel.value = seasons.some(s => s.key === currentSeason) ? currentSeason : '20252026';
 }
 
 async function populateGoalies() {
@@ -1384,7 +1394,11 @@ async function loadSeasons() {
     try {
         const data = await safeFetchJson('/api/seasons');
         const sel = document.getElementById('statsSeason');
+        const currentSeason = currentNHLSeasonKey();
         sel.innerHTML = '';
         (data.seasons || []).forEach(s => sel.add(new Option(s.label, s.key)));
+        if (data.seasons?.some(s => s.key === currentSeason)) {
+            sel.value = currentSeason;
+        }
     } catch (e) { console.error('Seasons load failed:', e); }
 }
