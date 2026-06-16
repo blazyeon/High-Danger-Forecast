@@ -48,7 +48,8 @@ from NHL.Config import (
     COLUMN_VARIATIONS,
     GOALIE_PARAMS,
     SPECIAL_TEAMS_PARAMS,
-    NST_ABBR_TO_FULL
+    NST_ABBR_TO_FULL,
+    VENUE_ADV_PARAMS,
 )
 from NHL.Errors import (
     retry_on_failure,
@@ -997,59 +998,65 @@ def calculate_venue_advantage(
     season: str,
 ) -> float:
     """
-    Calculate venue advantage based PURELY on actual home/away performance.
-    
-    NO ARTIFICIAL FLOORS OR CEILINGS.
-    
-    Examples:
-    - Leafs home (65% win) vs Bruins away (40% win) → +0.30 goals to Leafs
-    - Rangers away (60% win) vs Sharks home (35% win) → -0.30 goals (Rangers advantage!)
-    - Average home (52%) vs Average away (48%) → +0.05 goals
-    
-    The advantage goes to whoever has better record in their venue, period.
+    Calculate venue advantage based on team-specific home/away records,
+    calibrated to the observed league home-ice edge.
+
+    2025-26 regular-season baseline:
+      - Home teams won 54.5% of all games
+      - Home moneyline favorites won 56.0% of their games
+
+    The adjustment combines a league-average home-ice baseline with a
+    team-specific over/under-performance term. A team that only wins 30% at
+    home will have its home edge reduced (or flipped vs a strong road team),
+    while a dominant home club keeps most/all of the baseline advantage.
     """
     home_record = get_team_home_away_record(home_team, season)
     away_record = get_team_home_away_record(away_team, season)
-    
+
     home_pct = home_record['home_win_pct']
     away_pct = away_record['away_win_pct']
-    
-    # Pure win% differential, scaled to goals
-    # A 10% win differential ≈ 0.12 goals (reduced from 0.20)
-    # A 25% win differential ≈ 0.30 goals (reduced from 0.50)
-    win_pct_diff = home_pct - away_pct
-    
-    # Scale factor: convert win% to expected goal differential
-    # Typical NHL spread: 10% win difference ≈ 0.12 goals (reduced from 0.20)
-    goals_per_pct_point = 1.2
-    
-    adjustment = win_pct_diff * goals_per_pct_point
-    
-    # ✅ NO FLOORS, NO CEILINGS - Pure data
-    # Only cap at extreme outliers (±1.0 goals) to prevent data errors
-    adjustment = max(-1.0, min(1.0, adjustment))
-    
+
+    params = VENUE_ADV_PARAMS
+
+    # How much better/worse each team is in its venue vs the league average.
+    home_over = home_pct - params["league_home_win_pct"]
+    away_over = away_pct - params["league_away_win_pct"]
+    net_overperformance = home_over - away_over
+
+    # Baseline home-ice edge + team-specific deviation.
+    # For an average home team vs an average road team this is exactly the
+    # league baseline (~+0.30 goals ≈ 54.5% win prob for otherwise even teams).
+    adjustment = (
+        params["baseline_goals"]
+        + params["overperformance_scale"] * net_overperformance
+    )
+
+    adjustment = max(
+        -params["max_adjustment"],
+        min(params["max_adjustment"], adjustment),
+    )
+
     # Log the breakdown
-    if adjustment > 0:
+    if adjustment > 0.02:
         logger.info(
             f"🏠 Venue advantage: {home_team} at home\n"
-            f"   {home_team} home record: {home_pct:.1%} | "
-            f"{away_team} away record: {away_pct:.1%}\n"
-            f"   Differential: {win_pct_diff:+.1%} → {adjustment:+.3f} goals to {home_team}"
+            f"   {home_team} home record: {home_pct:.1%} (Lg avg {params['league_home_win_pct']:.1%}) | "
+            f"{away_team} away record: {away_pct:.1%} (Lg avg {params['league_away_win_pct']:.1%})\n"
+            f"   Net overperformance: {net_overperformance:+.1%} → {adjustment:+.3f} goals to {home_team}"
         )
-    elif adjustment < 0:
+    elif adjustment < -0.02:
         logger.info(
             f"✈️  Road warrior advantage: {away_team} on the road\n"
-            f"   {away_team} away record: {away_pct:.1%} | "
-            f"{home_team} home record: {home_pct:.1%}\n"
-            f"   Differential: {win_pct_diff:+.1%} → {adjustment:+.3f} goals to {away_team}"
+            f"   {away_team} away record: {away_pct:.1%} (Lg avg {params['league_away_win_pct']:.1%}) | "
+            f"{home_team} home record: {home_pct:.1%} (Lg avg {params['league_home_win_pct']:.1%})\n"
+            f"   Net overperformance: {net_overperformance:+.1%} → {adjustment:+.3f} goals to {away_team}"
         )
     else:
         logger.info(
             f"⚖️  Neutral venue: {home_team} ({home_pct:.1%} home) vs "
             f"{away_team} ({away_pct:.1%} away) → {adjustment:+.3f} goals"
         )
-    
+
     return adjustment
 
 def calculate_automatic_injury_impact(
@@ -1252,6 +1259,8 @@ def simulate_matchup(
     home_elo_override: Optional[float] = None,
     away_elo_override: Optional[float] = None,
     apply_injury_impact: bool = True,  # NEW PARAMETER
+    home_b2b: bool = False,
+    away_b2b: bool = False,
 ) -> Dict[str, Any]:
     if not home_abbr or not away_abbr:
         raise SimulationError("Team abbreviations cannot be empty")
@@ -1315,6 +1324,15 @@ def simulate_matchup(
     # Rest/travel features are needed early for goalie prediction (b2b detection).
     feat_home = compute_rest_travel_features_fast(home_abbr, away_abbr, game_date, [])
     feat_away = compute_rest_travel_features_fast(away_abbr, home_abbr, game_date, [])
+
+    # Allow the user/schedule to override the fatigue flags for back-to-back games.
+    if home_b2b:
+        feat_home["is_b2b"] = True
+        feat_home["rest_days"] = min(feat_home.get("rest_days", 3.0), 0.0)
+    if away_b2b:
+        feat_away["is_b2b"] = True
+        feat_away["rest_days"] = min(feat_away.get("rest_days", 3.0), 0.0)
+
     rest_mult_home = fatigue_multiplier(feat_home)
     rest_mult_away = fatigue_multiplier(feat_away)
 

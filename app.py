@@ -183,7 +183,9 @@ def api_predict():
         "nst_window": 14,
         "season_type": 2,
         "home_goalie": null,
-        "away_goalie": null
+        "away_goalie": null,
+        "home_b2b": false,
+        "away_b2b": false
     }
     """
     try:
@@ -206,6 +208,8 @@ def api_predict():
         nst_days_window = data.get("nst_window")
         home_goalie = data.get("home_goalie") or None
         away_goalie = data.get("away_goalie") or None
+        home_b2b = bool(data.get("home_b2b", False))
+        away_b2b = bool(data.get("away_b2b", False))
 
         game_season, data_season, use_previous = get_data_season_for_game(
             game_date, NHL_SEASON_START_MONTH
@@ -295,6 +299,8 @@ def api_predict():
             selected_away_goalie=away_goalie,
             home_elo_override=home_elo,
             away_elo_override=away_elo,
+            home_b2b=home_b2b,
+            away_b2b=away_b2b,
         )
 
         result = _make_json_safe(sim)

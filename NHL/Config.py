@@ -136,13 +136,21 @@ SPECIAL_TEAMS_PARAMS = {
     "max_pp_goal_impact": 0.30,
 }
 
+VENUE_ADV_PARAMS = {
+    "league_home_win_pct": 0.545,
+    "league_away_win_pct": 0.455,
+    "baseline_goals": 0.30,
+    "overperformance_scale": 1.2,
+    "max_adjustment": 0.70,
+}
+
 REST_TRAVEL_PARAMS = {
-    "back_to_back_penalty": -0.18,
-    "rest_diff_penalty": -0.03,
-    "travel_penalty_per_km": -0.0006,
-    "cross_country_penalty": -0.06,
-    "min_multiplier": 0.80,
-    "max_multiplier": 1.05,
+    "back_to_back_penalty": -0.08,      # ~8% reduction in expected goals
+    "rest_diff_penalty": -0.02,          # per day of rest disadvantage
+    "travel_penalty_per_km": -0.0002,    # fatigue per km traveled
+    "cross_country_penalty": -0.04,     # extra penalty for 2500+ km / 2.5+ tz
+    "min_multiplier": 0.85,
+    "max_multiplier": 1.08,
 }
 
 # ── Connection / Retry ──────────────────────────────────────────────

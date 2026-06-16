@@ -192,12 +192,12 @@ def compute_rest_travel_features_fast(
 
 def fatigue_multiplier(features: Dict[str, Any]) -> float:
     """
-    ✅ IMPROVED: Compute fatigue multiplier for expected goals.
+    ✅ Compute fatigue multiplier for expected goals.
 
     Penalties:
-    - Back-to-back: -9% (was -3%)
-    - Rest disadvantage: -2% per day (was -1%)
-    - Travel: -0.03% per km (was -0.015%)
+    - Back-to-back: -8%
+    - Rest disadvantage: -2% per day
+    - Travel: -0.02% per km
     - Cross-country (2500+ km): Additional -4%
     """
     is_b2b = 1.0 if features.get("is_b2b") else 0.0
@@ -206,10 +206,9 @@ def fatigue_multiplier(features: Dict[str, Any]) -> float:
     travel_km = float(features.get("travel_km", 0.0))
     tz_diff = float(features.get("tz_diff", 0.0))
 
-    # ✅ IMPROVED: Stronger penalties
-    W_B2B = REST_TRAVEL_PARAMS["back_to_back_penalty"]  # -0.09
+    W_B2B = REST_TRAVEL_PARAMS["back_to_back_penalty"]  # -0.08
     W_REST_DIFF = REST_TRAVEL_PARAMS["rest_diff_penalty"]  # -0.02
-    W_TRAVEL = REST_TRAVEL_PARAMS["travel_penalty_per_km"]  # -0.0003
+    W_TRAVEL = REST_TRAVEL_PARAMS["travel_penalty_per_km"]  # -0.0002
 
     rest_diff = max(-3.0, min(3.0, opp_rest_days - rest_days))
 
