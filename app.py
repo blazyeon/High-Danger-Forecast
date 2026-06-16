@@ -49,6 +49,7 @@ from NHL.StatsFromPBP import (
     compute_goalie_rates,
     load_skater_rates_from_json,
 )
+from NHL.PlayByPlay import count_pp_opportunities
 
 logger = logging.getLogger(__name__)
 
@@ -529,6 +530,14 @@ def api_boxscore(game_id: str):
         home = box.get("homeTeam", {})
         away = box.get("awayTeam", {})
 
+        # Actual power-play opportunities are not present in the modern boxscore
+        # endpoint, so derive them from the play-by-play situation codes.
+        try:
+            home_pp_opps, away_pp_opps = count_pp_opportunities(game_id)
+        except Exception as e:
+            logger.warning(f"Failed to count PP opportunities for {game_id}: {e}")
+            home_pp_opps, away_pp_opps = 0, 0
+
         def _norm_team_info(t):
             if not isinstance(t, dict):
                 return {}
@@ -613,7 +622,8 @@ def api_boxscore(game_id: str):
                 if key in summary_stats:
                     totals[key] = _to_int_safe(summary_stats[key])
 
-            # Power-play display string (e.g. "1/4") from summary if present.
+            # Power-play display string (e.g. "1/4") from summary if present,
+            # otherwise use the play-by-play-derived opportunities.
             pp_summary = summary_stats.get("power_play")
             if isinstance(pp_summary, str) and "/" in pp_summary:
                 totals["power_play"] = pp_summary
@@ -624,7 +634,8 @@ def api_boxscore(game_id: str):
                 except Exception:
                     pass
             else:
-                totals["power_play_opps"] = _infer_pp_opportunities(side)
+                side_pp_opps = home_pp_opps if side == "homeTeam" else away_pp_opps
+                totals["power_play_opps"] = side_pp_opps
                 totals["power_play"] = f"{totals['power_play_goals']}/{totals['power_play_opps']}"
 
             # Faceoff percentage from summary is authoritative; convert to wins/total.
@@ -657,24 +668,6 @@ def api_boxscore(game_id: str):
                 return int(float(v))
             except (TypeError, ValueError):
                 return 0
-
-        def _infer_pp_opportunities(side: str) -> int:
-            """Infer power-play opportunities from opponent penalties in the summary."""
-            summary = box.get("summary", {}) if isinstance(box, dict) else {}
-            penalties = summary.get("penalties", [])
-            if not penalties:
-                return 0
-            opp_abbrev = (away.get("abbrev") if side == "homeTeam" else home.get("abbrev")) or ""
-            opps = 0
-            for period in penalties:
-                for pen in period.get("penalties", []):
-                    team = pen.get("teamAbbrev", {}).get("default", "")
-                    if team and team != opp_abbrev:
-                        continue
-                    duration = pen.get("duration", 0)
-                    if duration and pen.get("type") == "MIN":
-                        opps += 1
-            return opps
 
         def _get_raw_players(side):
             raw_groups = box.get("playerByGameStats", {}).get(side, {}) if isinstance(box, dict) else {}

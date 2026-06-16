@@ -238,6 +238,61 @@ def _parse_situation(sit_code: str) -> Tuple[int, int]:
         return 5, 5
 
 
+def count_pp_opportunities(game_id: Any, use_cache: bool = True) -> Tuple[int, int]:
+    """
+    Count actual power-play opportunities for each team from the play-by-play.
+
+    The NHL boxscore endpoint no longer exposes a summary with teamGameStats,
+    so we derive PP opportunities by tracking situationCode transitions.
+    A new opportunity is counted when a team gains a skater advantage over
+    the opponent while both goalies are in net.
+
+    Returns (home_pp_opportunities, away_pp_opportunities).
+    """
+    pbp = fetch_game_pbp(game_id, use_cache=use_cache)
+    if not pbp:
+        return 0, 0
+
+    home_pp = 0
+    away_pp = 0
+    home_pp_active = False
+    away_pp_active = False
+
+    for play in pbp.get("plays", []) or []:
+        code = play.get("situationCode", "")
+        if not code or len(code) != 4:
+            continue
+        try:
+            away_goalie = int(code[0])
+            away_skaters = int(code[1])
+            home_skaters = int(code[2])
+            home_goalie = int(code[3])
+        except Exception:
+            continue
+
+        # Empty-net / pulled goalie situations reset standard PP tracking.
+        if home_goalie == 0 or away_goalie == 0:
+            home_pp_active = False
+            away_pp_active = False
+            continue
+
+        home_advantage = home_skaters > away_skaters
+        away_advantage = away_skaters > home_skaters
+
+        if home_advantage and not home_pp_active:
+            home_pp += 1
+            home_pp_active = True
+        if away_advantage and not away_pp_active:
+            away_pp += 1
+            away_pp_active = True
+        if not home_advantage:
+            home_pp_active = False
+        if not away_advantage:
+            away_pp_active = False
+
+    return home_pp, away_pp
+
+
 def _time_to_seconds(t: str, period: int) -> Optional[float]:
     """Convert MM:SS + period to seconds elapsed in the game (1-indexed period)."""
     if not t:
