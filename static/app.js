@@ -266,6 +266,7 @@ class DatePicker {
         this.isOpen = false;
         this.container = null;
         this.popup = null;
+        this.trigger = null;
 
         this._parseInput();
         this._build();
@@ -282,18 +283,39 @@ class DatePicker {
     }
 
     _build() {
-        this.input.classList.add('date-picker-input');
-
         this.container = document.createElement('div');
         this.container.className = 'date-picker';
         this.input.parentNode.insertBefore(this.container, this.input);
         this.container.appendChild(this.input);
 
+        // Switch to text so the browser's native calendar never appears.
+        this.input.type = 'text';
+        this.input.className = (this.input.className + ' date-picker-input').trim();
+        this.input.placeholder = 'YYYY-MM-DD';
+        this.input.inputMode = 'numeric';
+        this.input.autocomplete = 'off';
+
+        // Visible calendar trigger button.
+        this.trigger = document.createElement('button');
+        this.trigger.type = 'button';
+        this.trigger.className = 'date-picker-trigger';
+        this.trigger.setAttribute('aria-label', 'Open calendar');
+        this.trigger.innerHTML = `
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                <line x1="16" y1="2" x2="16" y2="6"/>
+                <line x1="8" y1="2" x2="8" y2="6"/>
+                <line x1="3" y1="10" x2="21" y2="10"/>
+            </svg>
+        `;
+        this.container.appendChild(this.trigger);
+
+        // Append popup to <body> to avoid clipping by parent containers.
         this.popup = document.createElement('div');
         this.popup.className = 'date-picker-popup';
         this.popup.setAttribute('role', 'dialog');
         this.popup.setAttribute('aria-modal', 'true');
-        this.container.appendChild(this.popup);
+        document.body.appendChild(this.popup);
 
         this._render();
     }
@@ -329,9 +351,13 @@ class DatePicker {
 
         this.popup.innerHTML = `
             <div class="dp-header">
-                <button type="button" class="dp-nav dp-prev" aria-label="Previous month"><i class="fa-solid fa-chevron-left"></i></button>
+                <button type="button" class="dp-nav dp-prev" aria-label="Previous month">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                </button>
                 <div class="dp-title">${monthNames[month]} ${year}</div>
-                <button type="button" class="dp-nav dp-next" aria-label="Next month"><i class="fa-solid fa-chevron-right"></i></button>
+                <button type="button" class="dp-nav dp-next" aria-label="Next month">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </button>
             </div>
             <div class="dp-weekdays">
                 ${dayLabels.map(l => `<div class="dp-weekday">${l}</div>`).join('')}
@@ -354,27 +380,70 @@ class DatePicker {
     }
 
     _bind() {
+        // Open on input click / focus.
         this.input.addEventListener('click', (e) => {
-            e.preventDefault();
+            e.stopPropagation();
+            this.open();
+        });
+        this.input.addEventListener('focus', () => this.open());
+
+        // Open on trigger click.
+        this.trigger.addEventListener('click', (e) => {
+            e.stopPropagation();
             this.open();
         });
 
-        this.input.addEventListener('focus', (e) => {
-            e.preventDefault();
-            this.open();
-        });
+        // Allow manual typing; validate on blur.
+        this.input.addEventListener('input', () => this._onManualInput());
+        this.input.addEventListener('blur', () => this._validateInput());
 
-        this.input.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                this.close();
-            }
+        // Close on Escape and outside click.
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && this.isOpen) this.close();
         });
+        this._outsideClick = (e) => {
+            if (!this.isOpen) return;
+            if (this.container.contains(e.target) || this.popup.contains(e.target)) return;
+            this.close();
+        };
+        document.addEventListener('click', this._outsideClick);
 
-        document.addEventListener('click', (e) => {
-            if (this.isOpen && !this.container.contains(e.target)) {
-                this.close();
-            }
+        // Reposition on resize.
+        window.addEventListener('resize', () => {
+            if (this.isOpen) this._position();
         });
+    }
+
+    _onManualInput() {
+        const val = this.input.value;
+        if (/^\d{4}-\d{2}-\d{2}$/.test(val)) {
+            const [y, m, d] = val.split('-').map(Number);
+            const date = new Date(y, m - 1, d);
+            if (date.getFullYear() === y && date.getMonth() === m - 1 && date.getDate() === d) {
+                this.selectedDate = date;
+                this.viewDate = new Date(date);
+                this._render();
+            }
+        }
+    }
+
+    _validateInput() {
+        const val = this.input.value;
+        if (!val) return;
+        if (!/^\d{4}-\d{2}-\d{2}$/.test(val)) {
+            this.input.value = this.selectedDate ? this._ymd(this.selectedDate) : '';
+            return;
+        }
+        const [y, m, d] = val.split('-').map(Number);
+        const date = new Date(y, m - 1, d);
+        if (date.getFullYear() !== y || date.getMonth() !== m - 1 || date.getDate() !== d) {
+            this.input.value = this.selectedDate ? this._ymd(this.selectedDate) : '';
+        } else {
+            this.selectedDate = date;
+            this.viewDate = new Date(date);
+            this.input.dispatchEvent(new Event('change', { bubbles: true }));
+            this._render();
+        }
     }
 
     _changeMonth(delta) {
@@ -422,27 +491,32 @@ class DatePicker {
 
     _position() {
         const rect = this.container.getBoundingClientRect();
-        const popupHeight = this.popup.offsetHeight || 360;
-        const spaceBelow = window.innerHeight - rect.bottom;
-        const spaceAbove = rect.top;
+        const popupRect = this.popup.getBoundingClientRect();
+        const width = popupRect.width || 280;
+        const height = popupRect.height || 320;
+        const margin = 8;
 
-        this.popup.style.left = '0';
-        if (spaceBelow < popupHeight && spaceAbove > popupHeight) {
-            this.popup.style.top = 'auto';
-            this.popup.style.bottom = '100%';
-            this.popup.style.marginBottom = '8px';
-            this.popup.style.marginTop = '0';
-        } else {
-            this.popup.style.top = '100%';
-            this.popup.style.bottom = 'auto';
-            this.popup.style.marginTop = '8px';
-            this.popup.style.marginBottom = '0';
+        let left = rect.left + window.scrollX;
+        let top = rect.bottom + window.scrollY + margin;
+
+        // Flip above if not enough room below.
+        if (top + height > window.innerHeight + window.scrollY && rect.top - height - margin >= window.scrollY) {
+            top = rect.top + window.scrollY - height - margin;
         }
+
+        // Keep inside viewport horizontally.
+        if (left + width > window.innerWidth + window.scrollX) {
+            left = Math.max(8, window.innerWidth + window.scrollX - width - margin);
+        }
+
+        this.popup.style.position = 'absolute';
+        this.popup.style.left = `${left}px`;
+        this.popup.style.top = `${top}px`;
     }
 }
 
 function initDatePickers() {
-    document.querySelectorAll('input[type="date"]').forEach(input => {
+    document.querySelectorAll('input[type="date"], input[type="text"].date-input').forEach(input => {
         if (!input.classList.contains('date-picker-input')) {
             new DatePicker(input);
         }
