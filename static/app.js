@@ -209,6 +209,7 @@ function getMockResult(home, away, opts={}) {
 document.addEventListener('DOMContentLoaded', () => {
     initTabs();
     initDateDefaults();
+    initDatePickers();
     initSettingsToggle();
     populateTeams();
     initSeasons();
@@ -254,6 +255,198 @@ function initDateDefaults() {
     if (lookupDate) lookupDate.value = today;
     const propsDate = document.getElementById('propsDate');
     if (propsDate) propsDate.value = today;
+}
+
+// ── Custom Calendar Date Picker ─────────────────────────────────────
+class DatePicker {
+    constructor(input) {
+        this.input = input;
+        this.viewDate = new Date();
+        this.selectedDate = null;
+        this.isOpen = false;
+        this.container = null;
+        this.popup = null;
+
+        this._parseInput();
+        this._build();
+        this._bind();
+    }
+
+    _parseInput() {
+        const val = this.input.value;
+        if (val) {
+            const [y, m, d] = val.split('-').map(Number);
+            this.selectedDate = new Date(y, m - 1, d);
+            this.viewDate = new Date(this.selectedDate);
+        }
+    }
+
+    _build() {
+        this.input.classList.add('date-picker-input');
+
+        this.container = document.createElement('div');
+        this.container.className = 'date-picker';
+        this.input.parentNode.insertBefore(this.container, this.input);
+        this.container.appendChild(this.input);
+
+        this.popup = document.createElement('div');
+        this.popup.className = 'date-picker-popup';
+        this.popup.setAttribute('role', 'dialog');
+        this.popup.setAttribute('aria-modal', 'true');
+        this.container.appendChild(this.popup);
+
+        this._render();
+    }
+
+    _render() {
+        const year = this.viewDate.getFullYear();
+        const month = this.viewDate.getMonth();
+        const firstDay = new Date(year, month, 1).getDay();
+        const daysInMonth = new Date(year, month + 1, 0).getDate();
+        const today = new Date();
+        const todayYMD = this._ymd(today);
+
+        const monthNames = [
+            'January', 'February', 'March', 'April', 'May', 'June',
+            'July', 'August', 'September', 'October', 'November', 'December'
+        ];
+        const dayLabels = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
+
+        let daysHtml = '';
+        for (let i = 0; i < firstDay; i++) {
+            daysHtml += '<div class="dp-day dp-empty"></div>';
+        }
+        for (let d = 1; d <= daysInMonth; d++) {
+            const date = new Date(year, month, d);
+            const ymd = this._ymd(date);
+            const isSelected = this.selectedDate && this._ymd(this.selectedDate) === ymd;
+            const isToday = ymd === todayYMD;
+            let cls = 'dp-day';
+            if (isSelected) cls += ' selected';
+            if (isToday) cls += ' today';
+            daysHtml += `<button type="button" class="${cls}" data-ymd="${ymd}" data-day="${d}">${d}</button>`;
+        }
+
+        this.popup.innerHTML = `
+            <div class="dp-header">
+                <button type="button" class="dp-nav dp-prev" aria-label="Previous month"><i class="fa-solid fa-chevron-left"></i></button>
+                <div class="dp-title">${monthNames[month]} ${year}</div>
+                <button type="button" class="dp-nav dp-next" aria-label="Next month"><i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+            <div class="dp-weekdays">
+                ${dayLabels.map(l => `<div class="dp-weekday">${l}</div>`).join('')}
+            </div>
+            <div class="dp-days">${daysHtml}</div>
+            <div class="dp-footer">
+                <button type="button" class="dp-today">Today</button>
+            </div>
+        `;
+
+        this.popup.querySelector('.dp-prev').addEventListener('click', () => this._changeMonth(-1));
+        this.popup.querySelector('.dp-next').addEventListener('click', () => this._changeMonth(1));
+        this.popup.querySelector('.dp-today').addEventListener('click', () => this._selectToday());
+        this.popup.querySelectorAll('.dp-day').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const day = parseInt(e.currentTarget.dataset.day, 10);
+                this._selectDate(new Date(year, month, day));
+            });
+        });
+    }
+
+    _bind() {
+        this.input.addEventListener('click', (e) => {
+            e.preventDefault();
+            this.open();
+        });
+
+        this.input.addEventListener('focus', (e) => {
+            e.preventDefault();
+            this.open();
+        });
+
+        this.input.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                this.close();
+            }
+        });
+
+        document.addEventListener('click', (e) => {
+            if (this.isOpen && !this.container.contains(e.target)) {
+                this.close();
+            }
+        });
+    }
+
+    _changeMonth(delta) {
+        this.viewDate.setMonth(this.viewDate.getMonth() + delta);
+        this._render();
+    }
+
+    _selectToday() {
+        const now = new Date();
+        this._selectDate(now);
+        this.viewDate = new Date(now);
+    }
+
+    _selectDate(date) {
+        this.selectedDate = date;
+        this.input.value = this._ymd(date);
+        this.input.dispatchEvent(new Event('input', { bubbles: true }));
+        this.input.dispatchEvent(new Event('change', { bubbles: true }));
+        this.close();
+    }
+
+    _ymd(date) {
+        const y = date.getFullYear();
+        const m = String(date.getMonth() + 1).padStart(2, '0');
+        const d = String(date.getDate()).padStart(2, '0');
+        return `${y}-${m}-${d}`;
+    }
+
+    open() {
+        if (this.isOpen) return;
+        this._parseInput();
+        if (this.selectedDate) {
+            this.viewDate = new Date(this.selectedDate);
+        }
+        this._render();
+        this.popup.classList.add('open');
+        this.isOpen = true;
+        this._position();
+    }
+
+    close() {
+        this.popup.classList.remove('open');
+        this.isOpen = false;
+    }
+
+    _position() {
+        const rect = this.container.getBoundingClientRect();
+        const popupHeight = this.popup.offsetHeight || 360;
+        const spaceBelow = window.innerHeight - rect.bottom;
+        const spaceAbove = rect.top;
+
+        this.popup.style.left = '0';
+        if (spaceBelow < popupHeight && spaceAbove > popupHeight) {
+            this.popup.style.top = 'auto';
+            this.popup.style.bottom = '100%';
+            this.popup.style.marginBottom = '8px';
+            this.popup.style.marginTop = '0';
+        } else {
+            this.popup.style.top = '100%';
+            this.popup.style.bottom = 'auto';
+            this.popup.style.marginTop = '8px';
+            this.popup.style.marginBottom = '0';
+        }
+    }
+}
+
+function initDatePickers() {
+    document.querySelectorAll('input[type="date"]').forEach(input => {
+        if (!input.classList.contains('date-picker-input')) {
+            new DatePicker(input);
+        }
+    });
 }
 
 function initSettingsToggle() {
