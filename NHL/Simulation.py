@@ -202,7 +202,7 @@ def _fetch_nst_df(url: str) -> pd.DataFrame:
 
 
 def get_team_rates_all(season: str, stype: int, fd: str = "", td: str = "") -> pd.DataFrame:
-    """PBP-backed. Same return shape as the old NST-driven version."""
+    """Return team rates. Prefer lightweight exported JSON; fall back to PBP."""
     try:
         season_start = int(season[:4]) if len(str(season)) >= 4 else 2024
     except (ValueError, TypeError):
@@ -212,6 +212,17 @@ def get_team_rates_all(season: str, stype: int, fd: str = "", td: str = "") -> p
     cached = _RATES_CACHE.get(key)
     if cached and (now - cached[0]) < _RATES_CACHE_TTL:
         return cached[1].copy() if isinstance(cached[1], pd.DataFrame) else cached[1]
+
+    # Fast path: full-season JSON avoids loading the PBP parquet on every request.
+        try:
+            from NHL.StatsFromPBP import load_team_rates_from_json
+            df = load_team_rates_from_json(season_start, stype)
+            if not df.empty:
+                _RATES_CACHE[key] = (now, df.copy())
+                return df.copy()
+        except Exception as e:
+            logger.debug(f"JSON team rates failed, falling back to PBP: {e}")
+
     try:
         from NHL.StatsFromPBP import compute_team_rates
         df = compute_team_rates(season_start, stype, fd=fd, td=td)
@@ -227,6 +238,7 @@ def get_team_rates_ev(season: str, stype: int, fd: str = "", td: str = "") -> pd
     return get_team_rates_all(season, stype, fd=fd, td=td)
 
 
+
 def get_team_rates_pp_per60(season: str, stype: int, fd: str = "", td: str = "") -> pd.DataFrame:
     """PBP-backed. (PP slice; future work to filter by situation.)"""
     return get_team_rates_all(season, stype, fd=fd, td=td)
@@ -237,7 +249,7 @@ def get_team_rates_pk_per60(season: str, stype: int, fd: str = "", td: str = "")
     return get_team_rates_all(season, stype, fd=fd, td=td)
 
 def get_goalie_table(season: str, stype: int, fd: str = "", td: str = "") -> pd.DataFrame:
-    """PBP-backed. Returns a goalie DataFrame with name, gp, sa, sv, ga, sv_pct, xga, gsax."""
+    """Return goalie rates. Prefer lightweight exported JSON; fall back to PBP."""
     try:
         season_start = int(season[:4]) if len(str(season)) >= 4 else 2024
     except (ValueError, TypeError):
@@ -247,6 +259,16 @@ def get_goalie_table(season: str, stype: int, fd: str = "", td: str = "") -> pd.
     cached = _RATES_CACHE.get(key)
     if cached and (now - cached[0]) < _RATES_CACHE_TTL:
         return cached[1].copy() if isinstance(cached[1], pd.DataFrame) else cached[1]
+
+    try:
+        from NHL.StatsFromPBP import load_goalie_rates_from_json
+        df = load_goalie_rates_from_json(season_start, stype)
+        if not df.empty:
+            _RATES_CACHE[key] = (now, df.copy())
+            return df.copy()
+    except Exception as e:
+        logger.debug(f"JSON goalie rates failed, falling back to PBP: {e}")
+
     try:
         from NHL.StatsFromPBP import compute_goalie_rates
         df = compute_goalie_rates(season_start, stype, fd=fd, td=td)

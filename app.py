@@ -43,7 +43,12 @@ from NHL.Utils import (
     sanitize_text, format_initial_last,
 )
 from NHL.OddsAPI import fetch_nhl_player_props_by_date, OddsAPIError
-from NHL.StatsFromPBP import compute_team_rates, compute_skater_rates, compute_goalie_rates
+from NHL.StatsFromPBP import (
+    compute_team_rates,
+    compute_skater_rates,
+    compute_goalie_rates,
+    load_skater_rates_from_json,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -252,14 +257,21 @@ def api_predict():
         df_away_sk = pd.DataFrame(away_sk, columns=["Name", "Position", "Confirmed"])
         df_home_sk = pd.DataFrame(home_sk, columns=["Name", "Position", "Confirmed"])
 
-        # NST skater rates
-        season_skill_cur = safe_api_call(
-            season_skater_rates_from_nst,
-            data_season, stype,
-            fd=fd_str, td=td_str,
-            service_name="NST Skater Rates",
-            fallback={},
-        )
+        # Skater rates: use the lightweight exported JSON instead of loading
+        # the full PBP parquet and running xG inference per request. This is the
+        # main memory/CPU win for Render.
+        try:
+            data_season_year = int(data_season[:4])
+            season_skill_cur = load_skater_rates_from_json(data_season_year, stype)
+        except Exception as e:
+            logger.warning(f"JSON skater rates failed, falling back to PBP: {e}")
+            season_skill_cur = safe_api_call(
+                season_skater_rates_from_nst,
+                data_season, stype,
+                fd=fd_str, td=td_str,
+                service_name="NST Skater Rates",
+                fallback={},
+            )
 
         # Run simulation
         sim = simulate_matchup(

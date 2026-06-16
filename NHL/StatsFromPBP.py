@@ -37,6 +37,7 @@ from __future__ import annotations
 import json
 import logging
 import math
+import time
 from collections import defaultdict
 from datetime import date, datetime
 from pathlib import Path
@@ -134,12 +135,23 @@ def _vectorized_high_danger(xs: pd.Series, ys: pd.Series) -> pd.Series:
     return pd.Series((dist < HD_DISTANCE_FT) & (angle < HD_ANGLE_DEG), index=xs.index)
 
 
+# In-process cache for exported JSON stats. These are tiny (a few MB) and
+# avoid the large memory spike from loading the PBP parquet on every request.
+_JSON_RATES_CACHE: Dict[str, Tuple[float, Any]] = {}
+_JSON_RATES_CACHE_TTL = 600  # seconds
+
+
 def _load_json_rates(
     json_path: Path,
     season_year: int,
     stype: int,
+    cache_key: str,
 ) -> Optional[Dict[str, Any]]:
-    """Shared helper for reading exported JSON rate files."""
+    """Shared helper for reading exported JSON rate files (with short cache)."""
+    now = time.time()
+    cached = _JSON_RATES_CACHE.get(cache_key)
+    if cached and (now - cached[0]) < _JSON_RATES_CACHE_TTL:
+        return cached[1]
     if not json_path.exists():
         return None
     try:
@@ -149,22 +161,24 @@ def _load_json_rates(
         expected_season = f"{season_year}{season_year + 1}"
         if payload.get("season") != expected_season:
             return None
+        _JSON_RATES_CACHE[cache_key] = (now, payload)
         return payload
     except Exception as e:
         logger.warning(f"Failed to read {json_path}: {e}")
         return None
 
 
-def _load_skater_rates_from_json(season_year: int, stype: int) -> Dict[str, Dict[str, float]]:
+def load_skater_rates_from_json(season_year: int, stype: int = 2) -> Dict[str, Dict[str, float]]:
     """
-    Fallback when the shot parquet is missing on the server.
+    Load pre-computed full-season skater rates from JSON.
 
-    Loads the pre-computed full-season skater rates exported by
-    update_pbp_stats.py. This avoids the live NHL API crawl that
-    times out on Render. Date-window filtering is not available in
-    this fallback; callers receive full-season rates.
+    This is the *fast* path for prediction requests on Render: it avoids the
+    PBP parquet load and xG model inference entirely.
     """
-    payload = _load_json_rates(Path("static/data/pbp_skater_stats.json"), season_year, stype)
+    payload = _load_json_rates(
+        Path("static/data/pbp_skater_stats.json"), season_year, stype,
+        f"skater_{season_year}_{stype}",
+    )
     if payload is None:
         return {}
     out: Dict[str, Dict[str, float]] = {}
@@ -186,40 +200,48 @@ def _load_skater_rates_from_json(season_year: int, stype: int) -> Dict[str, Dict
             "xgf_pg": float(rec.get("xgf_pg", 0.0)),
         }
     logger.info(
-        f"Loaded {len(out)} skater rates from fallback JSON for "
+        f"Loaded {len(out)} skater rates from JSON for "
         f"{season_year}{season_year + 1} stype={stype}"
     )
     return out
 
 
-def _load_team_rates_from_json(season_year: int, stype: int) -> pd.DataFrame:
-    """
-    Fallback full-season team rates from exported JSON.
-    """
-    payload = _load_json_rates(Path("static/data/pbp_team_stats.json"), season_year, stype)
+def load_team_rates_from_json(season_year: int, stype: int = 2) -> pd.DataFrame:
+    """Load pre-computed full-season team rates from JSON."""
+    payload = _load_json_rates(
+        Path("static/data/pbp_team_stats.json"), season_year, stype,
+        f"team_{season_year}_{stype}",
+    )
     if payload is None:
         return pd.DataFrame()
     df = pd.DataFrame(payload.get("data", []))
     logger.info(
-        f"Loaded {len(df)} team rates from fallback JSON for "
+        f"Loaded {len(df)} team rates from JSON for "
         f"{season_year}{season_year + 1} stype={stype}"
     )
     return df
 
 
-def _load_goalie_rates_from_json(season_year: int, stype: int) -> pd.DataFrame:
-    """
-    Fallback full-season goalie rates from exported JSON.
-    """
-    payload = _load_json_rates(Path("static/data/pbp_goalie_stats.json"), season_year, stype)
+def load_goalie_rates_from_json(season_year: int, stype: int = 2) -> pd.DataFrame:
+    """Load pre-computed full-season goalie rates from JSON."""
+    payload = _load_json_rates(
+        Path("static/data/pbp_goalie_stats.json"), season_year, stype,
+        f"goalie_{season_year}_{stype}",
+    )
     if payload is None:
         return pd.DataFrame()
     df = pd.DataFrame(payload.get("data", []))
     logger.info(
-        f"Loaded {len(df)} goalie rates from fallback JSON for "
+        f"Loaded {len(df)} goalie rates from JSON for "
         f"{season_year}{season_year + 1} stype={stype}"
     )
     return df
+
+
+# Keep private aliases for the fallback code inside compute_* functions.
+_load_skater_rates_from_json = load_skater_rates_from_json
+_load_team_rates_from_json = load_team_rates_from_json
+_load_goalie_rates_from_json = load_goalie_rates_from_json
 
 
 # ── Team rates ──────────────────────────────────────────────────────────
