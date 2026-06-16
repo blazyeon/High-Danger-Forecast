@@ -37,6 +37,8 @@ import requests
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 
+from NHL.ApiScrape import get_boxscore
+from NHL.Errors import safe_api_call
 from NHL.Config import (
     NHL_API_BASE,
     REQUEST_HEADERS,
@@ -536,6 +538,63 @@ def game_date_map(season_year: int, stype: int = 2) -> Dict[int, str]:
     return {g["id"]: g["date"] for g in games if g.get("id") is not None}
 
 
+def count_faceoffs(
+    game_id: int,
+    use_cache: bool = True,
+    home_team_id: Optional[int] = None,
+    away_team_id: Optional[int] = None,
+) -> Tuple[int, int]:
+    """
+    Count faceoff wins for the home and away teams from the PBP.
+
+    The NHL boxscore no longer exposes a team-level faceoff summary, and the
+    per-player percentages do not include raw totals. The PBP faceoff events
+    carry `winningPlayerId` and `eventOwnerTeamId`, so we can derive accurate
+    home/away win counts.
+
+    Returns (home_wins, away_wins). If team IDs are not provided, they are
+    read from the boxscore or the PBP top-level rosterSpots.
+    """
+    pbp = fetch_game_pbp(game_id, use_cache=use_cache)
+    if not pbp:
+        return 0, 0
+
+    plays = pbp.get("plays", [])
+    faceoffs = [p for p in plays if p.get("typeCode") == 502]
+    if not faceoffs:
+        return 0, 0
+
+    # Resolve home/away team IDs
+    if home_team_id is None or away_team_id is None:
+        box = safe_api_call(get_boxscore, game_id, fallback={})
+        home_team_id = box.get("homeTeam", {}).get("id") if box else None
+        away_team_id = box.get("awayTeam", {}).get("id") if box else None
+
+    # Fallback to rosterSpots if boxscore unavailable
+    if home_team_id is None or away_team_id is None:
+        roster_spots = pbp.get("rosterSpots", [])
+        teams = {spot.get("teamId") for spot in roster_spots}
+        # Home team usually appears first in rosterSpots, but this is a weak
+        # heuristic. Prefer boxscore when possible.
+        if home_team_id is None and teams:
+            home_team_id = sorted(teams)[0]
+        if away_team_id is None and len(teams) > 1:
+            away_team_id = sorted(teams)[1]
+
+    home_wins = 0
+    away_wins = 0
+    for play in faceoffs:
+        details = play.get("details") or {}
+        # The winning team is the owner of the faceoff event.
+        winning_team = details.get("eventOwnerTeamId")
+        if winning_team == home_team_id:
+            home_wins += 1
+        elif winning_team == away_team_id:
+            away_wins += 1
+
+    return home_wins, away_wins
+
+
 __all__ = [
     "fetch_game_pbp",
     "fetch_schedule_window",
@@ -545,6 +604,7 @@ __all__ = [
     "build_shot_store",
     "load_shot_store",
     "game_date_map",
+    "count_faceoffs",
     "PBP_CACHE_DIR",
     "RAW_DIR",
     "SHOT_STORE_DIR",

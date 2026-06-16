@@ -50,7 +50,7 @@ from NHL.StatsFromPBP import (
     load_skater_rates_from_json,
     load_cached_stats,
 )
-from NHL.PlayByPlay import count_pp_opportunities
+from NHL.PlayByPlay import count_pp_opportunities, count_faceoffs
 
 logger = logging.getLogger(__name__)
 
@@ -519,13 +519,22 @@ def api_boxscore(game_id: str):
         home = box.get("homeTeam", {})
         away = box.get("awayTeam", {})
 
-        # Actual power-play opportunities are not present in the modern boxscore
-        # endpoint, so derive them from the play-by-play situation codes.
+        # Modern boxscore endpoint no longer exposes summary.teamGameStats,
+        # so derive real special-teams and faceoff numbers from PBP.
         try:
             home_pp_opps, away_pp_opps = count_pp_opportunities(game_id)
         except Exception as e:
             logger.warning(f"Failed to count PP opportunities for {game_id}: {e}")
             home_pp_opps, away_pp_opps = 0, 0
+        try:
+            home_fo_wins, away_fo_wins = count_faceoffs(
+                game_id,
+                home_team_id=home.get("id"),
+                away_team_id=away.get("id"),
+            )
+        except Exception as e:
+            logger.warning(f"Failed to count faceoffs for {game_id}: {e}")
+            home_fo_wins, away_fo_wins = 0, 0
 
         def _norm_team_info(t):
             if not isinstance(t, dict):
@@ -588,6 +597,7 @@ def api_boxscore(game_id: str):
                 "takeaways": 0, "pim": 0, "goals": 0, "assists": 0,
                 "power_play_goals": 0, "power_play_opps": 0,
                 "faceoff_wins": 0, "faceoff_total": 0,
+                "_faceoff_players": 0, "_faceoff_sum": 0.0,
             }
             for p in raw:
                 if not isinstance(p, dict):
@@ -602,9 +612,25 @@ def api_boxscore(game_id: str):
                 totals["assists"] += int(p.get("assists", 0) or 0)
                 totals["power_play_goals"] += int(p.get("powerPlayGoals", 0) or 0)
                 fop = p.get("faceoffWinningPctg")
-                if fop is not None:
-                    totals["faceoff_total"] += 1
-                    totals["faceoff_wins"] += float(fop)
+                fot = p.get("faceoffTaken")
+                # The modern boxscore exposes per-player faceoffWinningPctg but
+                # not the raw number of draws. Each player who took a draw has a
+                # non-None percentage; we cannot derive an exact total without
+                # raw counts. We used to sum 1 per player (giving 18 total for
+                # a full roster), which produced wildly wrong records. Instead,
+                # keep the percentage as an average and skip the fabricated
+                # wins/total. When a real summary stat is available, it wins.
+                if fop is not None and fot is not None:
+                    try:
+                        totals["faceoff_total"] += int(fot)
+                        totals["faceoff_wins"] += round(float(fop) * int(fot))
+                    except (TypeError, ValueError):
+                        pass
+                elif fop is not None:
+                    # Tally how many players had a percentage so we can at least
+                    # produce a team average when no summary stat exists.
+                    totals["_faceoff_players"] = totals.get("_faceoff_players", 0) + 1
+                    totals["_faceoff_sum"] = totals.get("_faceoff_sum", 0.0) + float(fop)
 
             # Prefer summary stats for display categories.
             for key in ("sog", "hits", "blocked_shots", "giveaways", "takeaways", "pim"):
@@ -627,29 +653,27 @@ def api_boxscore(game_id: str):
                 totals["power_play_opps"] = side_pp_opps
                 totals["power_play"] = f"{totals['power_play_goals']}/{totals['power_play_opps']}"
 
-            # Faceoff percentage from summary is authoritative; convert to wins/total.
-            faceoff_raw = summary_stats.get("faceoff_pct_raw")
-            if faceoff_raw is not None:
-                try:
-                    pct = float(faceoff_raw)
-                    # The API may return 0-100 or 0-1.
-                    if pct <= 1:
-                        pct = pct * 100
-                    totals["faceoff_pct"] = round(pct, 1)
-                    # Approximate total faceoffs from aggregated player takes.
-                    total_takes = max(totals["faceoff_total"], 1)
-                    totals["faceoff_wins"] = round(pct / 100 * total_takes)
-                    totals["faceoff_total"] = total_takes
-                except Exception:
-                    totals["faceoff_pct"] = None
+            # Faceoff data from PBP is authoritative. Player boxscore percentages
+            # no longer include raw totals, so we count wins from PBP and the
+            # total is home_wins + away_wins. The per-side wins are passed in via
+            # the closure from the caller.
+            is_home = side == "homeTeam"
+            fo_wins = home_fo_wins if is_home else away_fo_wins
+            fo_losses = away_fo_wins if is_home else home_fo_wins
+            fo_total = fo_wins + fo_losses
+
+            if fo_total > 0:
+                totals["faceoff_wins"] = fo_wins
+                totals["faceoff_total"] = fo_total
+                totals["faceoff_pct"] = round(100 * fo_wins / fo_total, 1)
+                totals["faceoff_record"] = f"{fo_wins}/{fo_total}"
             elif totals["faceoff_total"] > 0:
                 totals["faceoff_pct"] = round(100 * totals["faceoff_wins"] / totals["faceoff_total"], 1)
+                totals["faceoff_record"] = f"{int(totals['faceoff_wins'])}/{int(totals['faceoff_total'])}"
             else:
                 totals["faceoff_pct"] = None
-            totals["faceoff_record"] = (
-                f"{int(totals['faceoff_wins'])}/{int(totals['faceoff_total'])}"
-                if totals["faceoff_total"] > 0 else "-"
-            )
+                totals["faceoff_record"] = "-"
+
             return totals
 
         def _to_int_safe(v: Any) -> int:
