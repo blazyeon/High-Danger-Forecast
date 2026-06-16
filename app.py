@@ -211,6 +211,11 @@ def api_predict():
         home_b2b = bool(data.get("home_b2b", False))
         away_b2b = bool(data.get("away_b2b", False))
 
+        logger.info(
+            f"API predict request: {home_raw} v {away_raw}, "
+            f"goalies={home_goalie}/{away_goalie}, b2b={home_b2b}/{away_b2b}"
+        )
+
         game_season, data_season, use_previous = get_data_season_for_game(
             game_date, NHL_SEASON_START_MONTH
         )

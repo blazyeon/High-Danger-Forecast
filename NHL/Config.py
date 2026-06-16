@@ -70,7 +70,7 @@ SIMULATION_PARAMS = {
     "min_goals": 0.05,
     "max_goals": 10.0,
     "shock_sigma": 0.22,
-    "empty_net_probability": 0.40,
+    "empty_net_probability": 0.28,     # dynamic in code; this is the ceiling
     "empty_net_2goal_probability": 0.15,
     "blowout_probability": 0.06,
     "blowout_boost": 1.35,

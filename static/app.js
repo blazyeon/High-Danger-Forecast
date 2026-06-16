@@ -586,6 +586,10 @@ async function populateGoalies() {
     const aSel = document.getElementById('awayGoalie');
     const dateStr = new Date().toISOString().split('T')[0];
 
+    // Remember user selections so toggling B2B or refetching doesn't wipe them.
+    const prevHomeGoalie = hSel.value;
+    const prevAwayGoalie = aSel.value;
+
     hSel.innerHTML = '';
     aSel.innerHTML = '';
     hRow.style.display = home ? 'block' : 'none';
@@ -595,11 +599,16 @@ async function populateGoalies() {
     const homeB2B = document.getElementById('homeB2B')?.checked || false;
     const awayB2B = document.getElementById('awayB2B')?.checked || false;
 
-    const fill = (sel, list) => {
+    const fill = (sel, list, previous) => {
         if (!list || !list.length) return false;
         sel.innerHTML = '';
         list.forEach(g => sel.add(new Option(g, g)));
-        sel.selectedIndex = 0;
+        // Restore the previous selection if it's still valid, otherwise keep first option.
+        if (previous && list.includes(previous)) {
+            sel.value = previous;
+        } else {
+            sel.selectedIndex = 0;
+        }
         return true;
     };
 
@@ -612,7 +621,8 @@ async function populateGoalies() {
             }
             catch (e) { console.warn(`Goalie API failed for ${home}:`, e); }
         }
-        if (!fill(hSel, live.length ? live : GOALIE_POOL[home])) hRow.style.display = 'none';
+        const list = live.length ? live : GOALIE_POOL[home];
+        if (!fill(hSel, list, prevHomeGoalie)) hRow.style.display = 'none';
     }
     if (away) {
         let live = [];
@@ -623,7 +633,8 @@ async function populateGoalies() {
             }
             catch (e) { console.warn(`Goalie API failed for ${away}:`, e); }
         }
-        if (!fill(aSel, live.length ? live : GOALIE_POOL[away])) aRow.style.display = 'none';
+        const list = live.length ? live : GOALIE_POOL[away];
+        if (!fill(aSel, list, prevAwayGoalie)) aRow.style.display = 'none';
     }
 }
 

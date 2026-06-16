@@ -217,13 +217,21 @@ def fatigue_multiplier(features: Dict[str, Any]) -> float:
     if travel_km > 2500 or tz_diff >= 2.5:
         cross_country_penalty = REST_TRAVEL_PARAMS["cross_country_penalty"]  # -0.04
 
-    delta = (
-        W_B2B * is_b2b + 
-        W_REST_DIFF * rest_diff + 
-        W_TRAVEL * min(travel_km, 4000.0) +
-        cross_country_penalty
-    )
-    
+    # Cap stacking: B2B already includes the fatigue of a same-city second game.
+    # Travel penalties are capped so a road B2B does not double-penalize brutally.
+    travel_delta = W_TRAVEL * min(travel_km, 4000.0)
+    cross_delta = cross_country_penalty
+    non_b2b_delta = W_REST_DIFF * rest_diff + travel_delta + cross_delta
+
+    # B2B gets its full penalty only if travel is light; heavy travel mostly
+    # replaces part of the B2B penalty instead of stacking on top.
+    b2b_delta = W_B2B * is_b2b * max(0.0, 1.0 - 0.0002 * min(travel_km, 1500.0))
+
+    delta = b2b_delta + non_b2b_delta
+
+    # Hard ceiling on total fatigue so pathological schedules don't break mu.
+    delta = max(-0.22, delta)
+
     result = float(max(
         REST_TRAVEL_PARAMS["min_multiplier"],  # 0.85
         min(REST_TRAVEL_PARAMS["max_multiplier"], 1.0 + delta)  # 1.08

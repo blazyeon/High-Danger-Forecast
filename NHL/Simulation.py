@@ -773,7 +773,7 @@ def resolve_score_mode(final_home: np.ndarray, final_away: np.ndarray) -> Tuple[
 
 def apply_empty_net_adjustments(final_home: np.ndarray, final_away: np.ndarray, mu_home: float, mu_away: float, p_base: float = None) -> Tuple[np.ndarray, np.ndarray]:
     if p_base is None:
-        p_base = SIMULATION_PARAMS.get("empty_net_probability", 0.40)
+        p_base = SIMULATION_PARAMS.get("empty_net_probability", 0.28)
     fh = final_home.copy()
     fa = final_away.copy()
     diff = fh - fa
@@ -785,8 +785,13 @@ def apply_empty_net_adjustments(final_home: np.ndarray, final_away: np.ndarray, 
     if idxs.size == 0:
         return fh, fa
     mu_gap = abs(mu_home - mu_away)
-    scale = max(0.6, 1.1 - 0.2 * mu_gap)
-    draws = np.random.random(size=idxs.size) < (p_base * scale)
+    # Lower base rate when the game is already high-scoring (more chances have
+    # already resolved) and when teams are evenly matched (tighter checking).
+    scale = max(0.35, 0.75 - 0.15 * mu_gap)
+    # Pull the ceiling down for high-total games.
+    high_total_discount = np.where(total_goals[idxs] >= 6, 0.7, 1.0)
+    probs = np.clip(p_base * scale * high_total_discount, 0.0, 0.35)
+    draws = np.random.random(size=idxs.size) < probs
     for idx, got_en in zip(idxs, draws):
         if not got_en:
             continue
@@ -1086,39 +1091,39 @@ def calculate_automatic_injury_impact(
         return {'offense_impact': 0.0, 'n_injuries': 0}
     
     team_totals = team_stats_cache.get(team_abbr.upper(), {})
-    team_goals = team_totals.get('total_goals', 280.0)  # League avg fallback
-    
+    team_points = team_totals.get('total_points', 700.0)  # League avg fallback
+
     total_offense_loss = 0.0
-    
+
     for player_name_key, injury_status in injuries.items():
         player_stats = player_stats_cache.get(player_name_key)
-        
+
         if not player_stats:
             continue
-        
+
         points = player_stats.get('points', 0)
         gp = player_stats.get('gp', 1)
-        
-        # Calculate contribution
-        if team_goals > 0:
-            contribution_pct = points / team_goals
+
+        # Contribution is share of team *points*, not goals.
+        if team_points > 0:
+            contribution_pct = points / team_points
         else:
             contribution_pct = 0.0
-        
+
         # Convert to negative impact
         offense_loss = -contribution_pct
-        
+
         # Cap individual impact at -40%
         offense_loss = max(-0.40, offense_loss)
-        
+
         total_offense_loss += offense_loss
-        
+
         logger.info(
             f"💥 {player_stats.get('name', player_name_key)}: "
-            f"{points} pts / {team_goals:.0f} team goals = "
+            f"{points} pts / {team_points:.0f} team points = "
             f"{contribution_pct*100:.1f}% → {offense_loss*100:+.1f}% offense"
         )
-    
+
     # Cap total at -80%
     total_offense_loss = max(-0.80, total_offense_loss)
     
@@ -1213,7 +1218,7 @@ def _load_player_stats_for_injuries(season: str) -> Tuple[Dict[str, Dict], Dict[
         if abbr not in team_cache:
             team_cache[abbr] = {"total_goals": 0, "total_points": 0}
         team_cache[abbr]["total_goals"] += stats["goals"]
-        team_cache[abbr]["total_points"] += stats["goals"]  # pts ≈ goals proxy
+        team_cache[abbr]["total_points"] += stats["goals"] + stats["assists"]
 
     logger.info(
         f"Loaded injury stats: {len(player_cache)} players, {len(team_cache)} teams"
@@ -1336,6 +1341,11 @@ def simulate_matchup(
     rest_mult_home = fatigue_multiplier(feat_home)
     rest_mult_away = fatigue_multiplier(feat_away)
 
+    logger.info(
+        f"User-selected goalies: home={selected_home_goalie or 'Auto'}, "
+        f"away={selected_away_goalie or 'Auto'}"
+    )
+
     # Auto-select the predicted starting goalie for each team when the caller
     # did not provide one. The predictor uses recent game TOI, rest, and
     # opponent strength so backups are chosen vs weak opponents and starters vs
@@ -1386,8 +1396,8 @@ def simulate_matchup(
         g_df, home_abbr, selected_goalie=selected_home_goalie
     )
 
-    home_rec_gf, home_rec_ga, _ = team_last_n_metrics(home_abbr, game_date.isoformat(), n=trend_games)
-    away_rec_gf, away_rec_ga, _ = team_last_n_metrics(away_abbr, game_date.isoformat(), n=trend_games)
+    home_rec_gf, home_rec_ga, _ = team_last_n_metrics(home_abbr, game_date.isoformat(), n=max(10, trend_games))
+    away_rec_gf, away_rec_ga, _ = team_last_n_metrics(away_abbr, game_date.isoformat(), n=max(10, trend_games))
 
     if 'tz_diff' in feat_home:
         tz_pen_home = -0.01 * abs(feat_home.get('tz_diff', 0))
@@ -1477,11 +1487,12 @@ def simulate_matchup(
         mu *= (1.0 + 0.10 * safe_division(advanced_stats.get("xGF%", 50.0) - 50.0, 50.0, 0.0))
         mu *= (1.0 + 0.06 * safe_division(advanced_stats.get("SCF%", 50.0) - 50.0, 50.0, 0.0))
         mu *= (1.0 + 0.05 * safe_division(advanced_stats.get("HDCF%", 50.0) - 50.0, 50.0, 0.0))
-        # PDO is mostly luck: light signal, regressive. A high PDO suggests some overperformance
-        # that may slightly mean-revert, so we nudge expected goals toward baseline.
+        # PDO is mostly luck: dampen it aggressively toward the mean. A high PDO
+        # means the team has overperformed, so we slightly lower future expectation
+        # (regression), and vice versa.
         pdo = advanced_stats.get("PDO", 100.0)
         if pdo is not None and not math.isnan(pdo):
-            mu *= (1.0 + 0.015 * safe_division(pdo - 100.0, 100.0, 0.0))
+            mu *= (1.0 - 0.012 * safe_division(pdo - 100.0, 100.0, 0.0))
         mu *= (1.0 + 0.09 * safe_division(
             advanced_stats.get("EVGFpg", offense_all["GFpg"]) - offense_all["GFpg"],
             max(1e-9, offense_all["GFpg"]),
@@ -1566,8 +1577,18 @@ def simulate_matchup(
     home_venue_pct = home_venue_record['home_win_pct']
     away_venue_pct = away_venue_record['away_win_pct']
 
-    # Head-to-head history for the ML feature vector
+    # Head-to-head history for the ML feature vector and a small physics nudge.
     h2h_pct = _h2h_pct_from_schedules(home_abbr, away_abbr, game_date, season)
+
+    # Small H2H momentum adjustment: a team that has dominated recent meetings
+    # gets a slight psychological/matchup edge, capped to avoid overfitting.
+    h2h_physics_adj = 0.0
+    if h2h_pct != 0.5:
+        # Convert H2H win% deviation into a tiny goal adjustment.
+        # 80% H2H record ≈ +0.12 goals, 20% ≈ -0.12 goals.
+        h2h_physics_adj = 0.30 * (h2h_pct - 0.5)
+        h2h_physics_adj = max(-0.15, min(0.15, h2h_physics_adj))
+        logger.info(f"📊 H2H physics nudge: {h2h_physics_adj:+.3f} goals to home ({h2h_pct:.1%} home H2H)")
 
     # Calculate baseline WITHOUT score effects (will apply AFTER ML adjustments)
     mu_home, br_home = _compute_expected_goals(
@@ -1575,7 +1596,7 @@ def simulate_matchup(
         home_opp_sv, home_opp_dsv, home_opp_gsaa_pg, home_opp_gsax60,
         home_rec_gf, away_rec_ga,
         lineup_shoot_home - lineup_shoot_away,
-        venue_advantage,
+        venue_advantage + h2h_physics_adj,
         advanced_stats_home, extra_pp_goals_home, rest_mult_home, 1.0,  # score_mult=1.0 (no score effects yet)
         injury_impact_home
     )
@@ -1689,8 +1710,8 @@ def simulate_matchup(
         f"→ mu {mu_home:.2f} v {mu_away:.2f}"
     )
 
-    k_home = estimate_gamma_shape_from_recent(team_last_n_goals_list(home_abbr, game_date.isoformat(), n=8))
-    k_away = estimate_gamma_shape_from_recent(team_last_n_goals_list(away_abbr, game_date.isoformat(), n=8))
+    k_home = estimate_gamma_shape_from_recent(team_last_n_goals_list(home_abbr, game_date.isoformat(), n=10))
+    k_away = estimate_gamma_shape_from_recent(team_last_n_goals_list(away_abbr, game_date.isoformat(), n=10))
 
     lam_h_base, lam_a_base = apply_per_sim_shock(mu_home, mu_away, sims=sims)
 
