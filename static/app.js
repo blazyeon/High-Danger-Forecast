@@ -746,6 +746,18 @@ async function runPrediction() {
                 body: JSON.stringify(body),
             });
             if (data.error) { content.innerHTML = `<div class="error-box">${data.error}</div>`; btn.disabled = false; return; }
+
+            logStep('INIT', `Matchup: ${getTeamName(home)} (HOME) vs ${getTeamName(away)} (AWAY)`);
+            logStep('ELO', `${home} rating: ${Math.round(data.home_elo_adj || 1500)} | ${away} rating: ${Math.round(data.away_elo_adj || 1500)}`);
+            logStep('PROB', `Win prob: ${data.home_win_pct}% home / ${data.away_win_pct}% away`);
+            const actualHomeGoalie = data.home_goalie || homeGoalie || 'N/A';
+            const actualAwayGoalie = data.away_goalie || awayGoalie || 'N/A';
+            logStep('GOALIE', `Home goalie: ${actualHomeGoalie} | Away goalie: ${actualAwayGoalie}`);
+            if (homeB2B) logStep('B2B', `${home} flagged as back-to-back (~8% fatigue penalty)`);
+            if (awayB2B) logStep('B2B', `${away} flagged as back-to-back (~8% fatigue penalty)`);
+            logStep('SIM', `Ran ${data.sims || body.simulations} Monte Carlo iterations`);
+            logStep('ENSEMBLE', 'Blended Elo + simulation + ML outcomes');
+            logStep('DONE', `Prediction complete. Confidence: ${data.confidence}`);
         } catch (e) {
             console.error('Prediction failed:', e);
             content.innerHTML = `<div class="error-box">Prediction failed: ${e.message}</div>`;
