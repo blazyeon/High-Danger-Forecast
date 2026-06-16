@@ -809,8 +809,8 @@ function renderResults(sim, homeAbbr, awayAbbr) {
         { label: 'Away Elo', value: Math.round(sim.away_elo_adj || 1500) },
         { label: 'Exp Home G', value: parseFloat(sim.exp_home_goals).toFixed(2) },
         { label: 'Exp Away G', value: parseFloat(sim.exp_away_goals).toFixed(2) },
-        { label: 'Reg Home Win', value: (hPct * 0.7).toFixed(1) + '%' },
-        { label: 'Reg Away Win', value: (aPct * 0.7).toFixed(1) + '%' },
+        { label: 'Reg Home Win', value: (hPct * (sim.regulation_games_pct || 100) / 100).toFixed(1) + '%' },
+        { label: 'Reg Away Win', value: (aPct * (sim.regulation_games_pct || 100) / 100).toFixed(1) + '%' },
         { label: 'OT %', value: (sim.ot_games_pct || 16).toFixed(1) + '%' },
         { label: 'Most Likely', value: `${sim.mode_home_goals}-${sim.mode_away_goals}`, cls: 'gold' },
     ];
