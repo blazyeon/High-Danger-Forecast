@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>High Danger Forecast</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Top Navigation -->
+    <nav class="top-nav">
+        <div class="nav-inner">
+            <a href="#" class="brand">
+                <i class="fa-solid fa-crosshairs brand-icon"></i>
+                <span class="brand-text">High Danger Forecast</span>
+            </a>
+            <div class="nav-actions">
+                <button class="icon-btn" aria-label="Search">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+                <button class="primary-btn">Sign In</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Date Ribbon -->
+    <div class="date-ribbon">
+        <div class="ribbon-inner">
+            <button class="date-tab" data-date="yesterday">Yesterday</button>
+            <button class="date-tab active" data-date="today">Today</button>
+            <button class="date-tab" data-date="tomorrow">Tomorrow</button>
+        </div>
+    </div>
+
+    <!-- Main Dashboard -->
+    <main class="dashboard">
+        <div class="dashboard-inner">
+            <!-- Section Header -->
+            <header class="section-header">
+                <h1>NHL Forecast</h1>
+                <p class="section-sub">Predictive analytics and betting edges for tonight's slate.</p>
+            </header>
+
+            <!-- Forecast Game Cards -->
+            <section class="games-section" id="gamesSection">
+                <!-- Cards injected by JS -->
+            </section>
+
+            <!-- Rosters & Live Stats -->
+            <section class="rosters-section" id="rostersSection">
+                <!-- Injected by JS -->
+            </section>
+
+            <!-- Player Prop Table -->
+            <section class="props-section">
+                <div class="props-header">
+                    <h2>Player Prop Projections</h2>
+                    <span class="props-meta"><i class="fa-solid fa-circle-info"></i> Edge = Model projection vs. sportsbook line</span>
+                </div>
+                <div class="table-wrap">
+                    <table class="props-table" id="propsTable">
+                        <thead>
+                            <tr>
+                                <th>Player</th>
+                                <th>Matchup</th>
+                                <th>Prop Category</th>
+                                <th class="numeric">Sportsbook Line</th>
+                                <th class="numeric">Model Projection</th>
+                                <th class="numeric">The Edge</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Rows injected by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
