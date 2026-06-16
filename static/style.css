@@ -244,12 +244,12 @@ body {
 /* ── Matchup Predictor Layout ──────────────────────────────────── */
 .predictor-grid {
     display: grid;
-    grid-template-columns: 420px minmax(0, 1fr);
+    grid-template-columns: 560px minmax(0, 1fr);
     gap: 28px;
     align-items: start;
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1160px) {
     .predictor-grid { grid-template-columns: 1fr; }
 }
 

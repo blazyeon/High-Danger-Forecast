@@ -16,7 +16,7 @@ from typing import Any, Dict, List, Optional, Tuple
 
 from NHL.ApiScrape import _get_last_game_roster, _try_get_json
 from NHL.Config import NHL_API_BASE
-from NHL.Utils import format_initial_last, sanitize_text, season_from_date
+from NHL.Utils import format_initial_last, sanitize_text, season_from_date, normalize_name_key
 
 logger = logging.getLogger(__name__)
 
@@ -77,6 +77,35 @@ def _last_game_goalies(team_abbr: str, game_date: str) -> List[str]:
     ]
 
 
+def _confirmed_goalie_for_date(team_abbr: str, target_date: date) -> Optional[str]:
+    """
+    Try to get the projected/confirmed starting goalie from the NHL game preview
+    for the team's game on `target_date`. Returns the raw name or None.
+    """
+    season = season_from_date(target_date.isoformat())
+    games = _team_schedule(team_abbr, season)
+    game_id = None
+    for g in games:
+        gd = _parse_game_date(g)
+        if gd == target_date:
+            game_id = g.get("id") or g.get("gameId") or g.get("gamePk")
+            break
+
+    if not game_id:
+        return None
+
+    try:
+        from NHL.ApiScrape import get_confirmed_or_predicted_lineup
+        lineup = get_confirmed_or_predicted_lineup(team_abbr, target_date.isoformat(), game_id=game_id)
+        gls = lineup.get("goalies") or []
+        if gls and gls[0].get("confirmed"):
+            return gls[0].get("name")
+    except Exception as e:
+        logger.debug(f"Confirmed goalie lookup failed for {team_abbr} {target_date}: {e}")
+
+    return None
+
+
 def predict_starting_goalie(
     team_abbr: str,
     game_date: Any,
@@ -100,10 +129,16 @@ def predict_starting_goalie(
 
     season = season_from_date(target_date.isoformat())
 
-    # Most recent game goalies, ordered by TOI (starter first).
+    # 1) Try the NHL game preview/landing page for a projected/confirmed starter.
+    confirmed = _confirmed_goalie_for_date(team_abbr, target_date)
+    if confirmed:
+        logger.info(f"Using confirmed/projected starter for {team_abbr}: {confirmed}")
+        return format_initial_last(sanitize_text(confirmed))
+
+    # 2) Fallback: most recent game goalies ordered by TOI.
     names = _last_game_goalies(team_abbr, target_date.isoformat())
 
-    # Fallback to roster if we have no recent game data.
+    # 3) Fallback to roster if we have no recent game data.
     if not names:
         from NHL.ApiScrape import get_roster_goalies_for_override
         names = get_roster_goalies_for_override(team_abbr, target_date.isoformat())
