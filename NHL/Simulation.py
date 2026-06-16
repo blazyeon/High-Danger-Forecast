@@ -1215,8 +1215,12 @@ def _load_player_stats_for_injuries(season: str) -> Tuple[Dict[str, Dict], Dict[
             continue
         if abbr not in team_cache:
             team_cache[abbr] = {"total_goals": 0, "total_points": 0}
-        team_cache[abbr]["total_goals"] += stats["goals"]
-        team_cache[abbr]["total_points"] += stats["goals"] + stats["assists"]
+        # API player-summary only has goals; points are approximated as goals*2,
+        # which is conservative but avoids KeyError on missing 'assists'.
+        goals = int(stats.get("goals", 0))
+        assists = int(stats.get("assists", goals))
+        team_cache[abbr]["total_goals"] += goals
+        team_cache[abbr]["total_points"] += goals + assists
 
     logger.info(
         f"Loaded injury stats: {len(player_cache)} players, {len(team_cache)} teams"
