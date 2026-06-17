@@ -373,6 +373,8 @@ function populateTeams() {
     if (!homeSel || !awaySel) return;
     homeSel.innerHTML = '';
     awaySel.innerHTML = '';
+    homeSel.add(new Option('Select Team', ''));
+    awaySel.add(new Option('Select Team', ''));
     const divisions = getTeamsData();
     for (const [div, teams] of Object.entries(divisions)) {
         const homeGroup = document.createElement('optgroup');
@@ -388,6 +390,8 @@ function populateTeams() {
         homeSel.appendChild(homeGroup);
         awaySel.appendChild(awayGroup);
     }
+    homeSel.value = '';
+    awaySel.value = '';
 }
 
 function currentNHLSeasonKey() {
@@ -624,7 +628,6 @@ function renderResults(sim, homeAbbr, awayAbbr) {
         { label: 'Reg Away Win', value: (aPct * (sim.regulation_games_pct || 100) / 100).toFixed(1) + '%' },
         { label: 'OT %', value: (sim.ot_games_pct || 16).toFixed(1) + '%' },
         { label: 'Most Likely Score', value: `${sim.mode_home_goals}-${sim.mode_away_goals}`, cls: 'gold' },
-        { label: 'Modal Total', value: (sim.most_likely_total !== undefined ? sim.most_likely_total : sim.mode_home_goals + sim.mode_away_goals), cls: 'gold' },
     ];
     stats.forEach(s => {
         html += `<div class="stat-card"><div class="stat-value ${s.cls || ''}">${s.value}</div><div class="stat-label">${s.label}</div></div>`;

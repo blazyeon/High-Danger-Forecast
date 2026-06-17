@@ -98,17 +98,15 @@ def parse_game_datetime(g: Dict[str, Any]) -> Optional[datetime]:
         logger.debug(f"Failed to parse game datetime: {raw}")
         return None
 
-def display_abbr_for_game(raw_abbr: str) -> str:
+def display_abbr_for_game(raw_abbr) -> str:
     """
     Get display abbreviation with team mapping (e.g., ARI -> UTA).
 
-    Args:
-        raw_abbr: Raw team abbreviation
-
-    Returns:
-        Display abbreviation
+    Accepts a raw abbreviation string or a dict like {"default": "TOR"}.
     """
-    abbr = (raw_abbr or "").upper()
+    if isinstance(raw_abbr, dict):
+        raw_abbr = raw_abbr.get("default") or raw_abbr.get("abbrev") or ""
+    abbr = str(raw_abbr or "").upper()
     return TEAM_ABBR_MAPPING.get(abbr, abbr)
 
 def get_logo_b64_for_display_abbr(display_abbr: str) -> Optional[str]:
