@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import json
 import logging
+import os
 import traceback
 from datetime import date as _date, timedelta
 from pathlib import Path
@@ -36,6 +37,7 @@ from NHL.ApiScrape import (
     get_confirmed_or_predicted_lineup,
     get_roster_goalies_for_override,
     get_games_on_date, get_boxscore,
+    get_team_injuries,
 )
 from NHL.GoaliePrediction import predict_starting_goalie
 from NHL.Errors import safe_api_call
@@ -321,6 +323,48 @@ def api_predict():
 
     except Exception as e:
         logger.error(f"Prediction error: {e}", exc_info=True)
+        return jsonify({"error": str(e)}), 500
+
+
+# ── API: Injuries ────────────────────────────────────────────────────────
+
+@app.route("/api/injuries/<team>")
+def api_injuries(team: str):
+    """
+    Return current injured players for a team from injuries.json / Daily Faceoff.
+    Response: {"team": "TOR", "injuries": [{"player": "...", "status": "..."}]}
+    """
+    try:
+        abbr = TEAM_ABBR_MAPPING.get(team.upper(), team.upper())
+        raw = get_team_injuries(abbr)
+        # raw is a dict of normalized-name-key -> status; convert to list.
+        # Reverse-map to the canonical display names we have in injuries.json
+        # if possible, otherwise return the normalized key capitalized.
+        injuries_list = []
+        seen = set()
+        if os.path.exists("injuries.json"):
+            with open("injuries.json", "r") as f:
+                data = json.load(f)
+            items = data.get("injuries", []) if isinstance(data, dict) else data
+            for item in items:
+                if item.get("team") == abbr and item.get("injured", True):
+                    name = item.get("player")
+                    if name and name not in seen:
+                        seen.add(name)
+                        injuries_list.append({
+                            "player": name,
+                            "status": item.get("status", "injured"),
+                        })
+        if not injuries_list:
+            for name_key, status in raw.items():
+                display = name_key.replace("_", " ").title()
+                if display not in seen:
+                    seen.add(display)
+                    injuries_list.append({"player": display, "status": status})
+
+        return jsonify({"team": abbr, "injuries": injuries_list})
+    except Exception as e:
+        logger.error(f"Injuries API error: {e}", exc_info=True)
         return jsonify({"error": str(e)}), 500
 
 

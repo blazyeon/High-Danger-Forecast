@@ -842,6 +842,39 @@ function renderResults(sim, homeAbbr, awayAbbr) {
     });
     html += `</div>`;
 
+    // Injuries
+    const homeInj = sim.home_injuries || {};
+    const awayInj = sim.away_injuries || {};
+    const homePlayers = homeInj.players || [];
+    const awayPlayers = awayInj.players || [];
+    if (homePlayers.length || awayPlayers.length) {
+        html += `<hr class="section-divider"><div class="section-title">🚑 Injury Impact</div>`;
+
+        const renderTeamInjuries = (teamName, teamAbbr, injData, players) => {
+            const totalImpact = (injData.offense_impact || 0) * 100;
+            html += `<div class="injury-team"><div class="injury-team-header">`;
+            html += `<img class="injury-team-logo" src="/api/logos/${teamAbbr}.png" alt="${teamName}" onerror="this.style.display='none'">`;
+            html += `<span>${teamName}</span><span class="injury-total ${totalImpact < 0 ? 'negative' : ''}">${totalImpact.toFixed(1)}% offense</span>`;
+            html += `</div>`;
+            if (players.length) {
+                html += `<div class="injury-list">`;
+                players.forEach(p => {
+                    const contrib = ((p.contribution_pct || 0) * 100).toFixed(1);
+                    const pts = p.points || 0;
+                    const status = (p.status || 'injured').toUpperCase();
+                    html += `<div class="injury-row"><div class="injury-name">${p.name}</div><div class="injury-meta"><span class="injury-status ${status === 'DTD' ? 'dtd' : ''}">${status}</span><span class="injury-contrib">${contrib}% team pts</span></div></div>`;
+                });
+                html += `</div>`;
+            } else {
+                html += `<div class="injury-none">No significant injuries</div>`;
+            }
+            html += `</div>`;
+        };
+
+        renderTeamInjuries(homeName, homeAbbr, homeInj, homePlayers);
+        renderTeamInjuries(awayName, awayAbbr, awayInj, awayPlayers);
+    }
+
     // Totals
     if (sim.totals_distribution) {
         html += `<hr class="section-divider"><div class="section-title">Total Goals Distribution</div><div class="ou-section">`;

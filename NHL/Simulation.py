@@ -24,6 +24,7 @@ FIXED: Variable name error in goalie function (df_goalie -> goalie_df).
 """
 from __future__ import annotations
 import math
+import re
 import time
 from collections import Counter
 from datetime import date as _date, datetime, timedelta
@@ -1175,73 +1176,127 @@ def calculate_automatic_injury_impact(
     season: str,
     player_stats_cache: Dict[str, Dict],
     team_stats_cache: Dict[str, Dict]
-) -> Dict[str, float]:
+) -> Dict[str, Any]:
     """
     Automatically calculate injury impact from player contribution %.
-    
+
+    get_team_injuries() can return multiple normalized name keys for the same
+    player, so we deduplicate by the resolved player stats record.
+
     Returns:
         {
-            'offense_impact': float,  # Negative = loss
-            'n_injuries': int
+            'offense_impact': float,  # Negative = loss (capped)
+            'n_injuries': int,        # Unique injured players with stats found
+            'players': [              # Per-player details for UI display
+                {
+                    'name': str,
+                    'points': int,
+                    'team_points': float,
+                    'contribution_pct': float,
+                    'impact_pct': float,
+                    'status': str,
+                },
+                ...
+            ]
         }
     """
     try:
-        # Try to import injury function
         from NHL.ApiScrape import get_team_injuries
         injuries = get_team_injuries(team_abbr)
     except Exception as e:
         logger.debug(f"Could not get injuries for {team_abbr}: {e}")
         injuries = {}
-    
+
     if not injuries:
-        return {'offense_impact': 0.0, 'n_injuries': 0}
-    
+        return {'offense_impact': 0.0, 'n_injuries': 0, 'players': []}
+
+    # Build a normalized-key -> display-name map from injuries.json so the UI
+    # shows real player names instead of concatenated normalized keys.
+    display_name_map: Dict[str, str] = {}
+    try:
+        import json, os
+        if os.path.exists("injuries.json"):
+            with open("injuries.json", "r") as f:
+                data = json.load(f)
+            items = data.get("injuries", []) if isinstance(data, dict) else data
+            for item in items:
+                if item.get("team") == team_abbr.upper() and item.get("injured", True):
+                    display = item.get("player", "")
+                    if display:
+                        display_name_map[normalize_name_key(display)] = display
+    except Exception:
+        pass
+
     team_totals = team_stats_cache.get(team_abbr.upper(), {})
     team_points = team_totals.get('total_points', 700.0)  # League avg fallback
 
     total_offense_loss = 0.0
+    seen_players: set[str] = set()
+    player_details: List[Dict[str, Any]] = []
+
+    def _display_from_key(k: str) -> str:
+        """Convert a normalized name key (e.g. 'samreinhart') to a readable name."""
+        # Some keys contain initials like 'l.brossoit'; normalize those first.
+        k = str(k).replace(".", "").replace("_", " ")
+        return re.sub(r"([a-z])([A-Z])", r"\1 \2", k).title()
 
     for player_name_key, injury_status in injuries.items():
         player_stats = player_stats_cache.get(player_name_key)
-
         if not player_stats:
             continue
 
-        points = player_stats.get('points', 0)
-        gp = player_stats.get('gp', 1)
+        # get_team_injuries() stores several name variants per player.
+        # Deduplicate by the underlying stats record (name + points + gp).
+        dedupe_key = f"{player_stats.get('name', player_name_key)}|{player_stats.get('points', 0)}|{player_stats.get('gp', 0)}"
+        if dedupe_key in seen_players:
+            continue
+        seen_players.add(dedupe_key)
+
+        points = int(player_stats.get('points', 0))
+        gp = int(player_stats.get('gp', 1))
 
         # Contribution is share of team *points*, not goals.
-        if team_points > 0:
-            contribution_pct = points / team_points
-        else:
-            contribution_pct = 0.0
+        contribution_pct = points / team_points if team_points > 0 else 0.0
 
-        # Convert to negative impact
-        offense_loss = -contribution_pct
-
-        # Cap individual impact at -40%
-        offense_loss = max(-0.40, offense_loss)
-
+        # Convert to negative impact; cap individual impact at -40%.
+        offense_loss = max(-0.40, -contribution_pct)
         total_offense_loss += offense_loss
 
+        raw_name = player_stats.get('name')
+        name = (
+            display_name_map.get(player_name_key)
+            or (raw_name if raw_name and str(raw_name).strip() else None)
+            or _display_from_key(player_name_key)
+        )
+        player_details.append({
+            'name': name,
+            'points': points,
+            'gp': gp,
+            'team_points': float(team_points),
+            'contribution_pct': float(contribution_pct),
+            'impact_pct': float(offense_loss),
+            'status': str(injury_status),
+        })
+
         logger.info(
-            f"💥 {player_stats.get('name', player_name_key)}: "
+            f"💥 {name}: "
             f"{points} pts / {team_points:.0f} team points = "
             f"{contribution_pct*100:.1f}% → {offense_loss*100:+.1f}% offense"
         )
 
     # Cap total at -80%
     total_offense_loss = max(-0.80, total_offense_loss)
-    
+
     if total_offense_loss < -0.05:
         logger.warning(
             f"⚠️  {team_abbr} injury impact: {total_offense_loss*100:.1f}% offense loss "
-            f"({len(injuries)} injuries)"
+            f"({len(player_details)} injuries)"
         )
-    
+
     return {
         'offense_impact': total_offense_loss,
-        'n_injuries': len(injuries)
+        'n_injuries': len(player_details),
+        'players': sorted(player_details, key=lambda p: p['contribution_pct'], reverse=True),
     }
 
 
@@ -1546,6 +1601,8 @@ def simulate_matchup(
                 f"   {away_abbr}: {injury_impact_away*100:+.1f}% ({away_injury_data['n_injuries']} injuries)"
             )
     else:
+        home_injury_data = {'offense_impact': 0.0, 'n_injuries': 0, 'players': []}
+        away_injury_data = {'offense_impact': 0.0, 'n_injuries': 0, 'players': []}
         injury_impact_home = 0.0
         injury_impact_away = 0.0
         logger.info("Injury impact disabled for this simulation")
@@ -1966,6 +2023,8 @@ def simulate_matchup(
         "home_goalie": selected_home_goalie,
         "away_goalie": selected_away_goalie,
         "breakdown": breakdown,
+        "home_injuries": home_injury_data,
+        "away_injuries": away_injury_data,
     }
 
     logger.info(
