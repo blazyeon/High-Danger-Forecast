@@ -1933,6 +1933,7 @@ def simulate_matchup(
     final_home, final_away = apply_empty_net_adjustments(final_home, final_away, mu_home, mu_away)
 
     mode_home_goals, mode_away_goals = resolve_score_mode(final_home, final_away)
+    most_likely_total = int(mode_home_goals + mode_away_goals)
 
     raw_prob = improved_winner_prediction(final_home, final_away)
     sim_win_prob = max(0.05, min(0.95, raw_prob))
@@ -2008,6 +2009,7 @@ def simulate_matchup(
         "median_away_goals": median_away,
         "mode_home_goals": mode_home_goals,
         "mode_away_goals": mode_away_goals,
+        "most_likely_total": most_likely_total,
         "dist_home": final_home,
         "dist_away": final_away,
         "mode_pair": (mode_home_goals, mode_away_goals),

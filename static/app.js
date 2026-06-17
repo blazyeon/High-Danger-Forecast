@@ -142,16 +142,39 @@ function getMockResult(home, away, opts={}) {
     const eloGap = Math.abs(homeElo - awayElo);
     const confidence = Math.min(0.95, 0.55 + eloGap / 800);
 
-    // Most likely score = rounded expected goals
-    const modeHome = Math.round(homeXg);
-    const modeAway = Math.round(awayXg);
+    // Build a consistent Poisson score distribution from expected goals.
+    // The exact-score mode and the total distribution come from the same
+    // probability grid so they always match.
+    function poissonProb(lambda, k) {
+        if (lambda <= 0 || k < 0) return 0;
+        // Avoid overflow for large lambda/k
+        let logP = -lambda + k * Math.log(lambda);
+        for (let i = 2; i <= k; i++) logP -= Math.log(i);
+        return Math.exp(logP);
+    }
 
-    // Totals distribution centered around (homeXg + awayXg)
-    const totalMean = homeXg + awayXg;
+    const maxGoals = 6;
+    let bestProb = -1;
+    let modeHome = Math.round(homeXg);
+    let modeAway = Math.round(awayXg);
     const totals = {};
-    for (let t = 3; t <= 10; t++) {
-        const dist = Math.exp(-Math.pow(t - totalMean, 2) / 4);
-        totals[t] = Math.round(dist * 1000);
+    for (let h = 0; h <= maxGoals; h++) {
+        for (let a = 0; a <= maxGoals; a++) {
+            const p = poissonProb(homeXg, h) * poissonProb(awayXg, a);
+            if (p > bestProb) {
+                bestProb = p;
+                modeHome = h;
+                modeAway = a;
+            }
+            const total = h + a;
+            totals[total] = (totals[total] || 0) + p;
+        }
+    }
+    // Convert probabilities to integer counts and cover a sensible total range.
+    const scale = 10000;
+    const roundedTotals = {};
+    for (let t = 0; t <= 10; t++) {
+        roundedTotals[t] = Math.round((totals[t] || 0) * scale);
     }
 
     // Back-to-back adjustments (~14% fatigue penalty)
@@ -193,7 +216,7 @@ function getMockResult(home, away, opts={}) {
         away_win_2plus_pct: (finalAwayWin * 0.38).toFixed(1),
         mode_home_goals: modeHome,
         mode_away_goals: modeAway,
-        totals_distribution: totals,
+        totals_distribution: roundedTotals,
         reg_games_pct: (74 + (eloGap / 100)).toFixed(1),
         ot_games_pct: (16 - (eloGap / 200)).toFixed(1),
         so_games_pct: (10 - (eloGap / 300)).toFixed(1),
@@ -835,7 +858,8 @@ function renderResults(sim, homeAbbr, awayAbbr) {
         { label: 'Reg Home Win', value: (hPct * (sim.regulation_games_pct || 100) / 100).toFixed(1) + '%' },
         { label: 'Reg Away Win', value: (aPct * (sim.regulation_games_pct || 100) / 100).toFixed(1) + '%' },
         { label: 'OT %', value: (sim.ot_games_pct || 16).toFixed(1) + '%' },
-        { label: 'Most Likely', value: `${sim.mode_home_goals}-${sim.mode_away_goals}`, cls: 'gold' },
+        { label: 'Most Likely Score', value: `${sim.mode_home_goals}-${sim.mode_away_goals}`, cls: 'gold' },
+        { label: 'Modal Total', value: (sim.most_likely_total !== undefined ? sim.most_likely_total : sim.mode_home_goals + sim.mode_away_goals), cls: 'gold' },
     ];
     stats.forEach(s => {
         html += `<div class="stat-card"><div class="stat-value ${s.cls || ''}">${s.value}</div><div class="stat-label">${s.label}</div></div>`;
