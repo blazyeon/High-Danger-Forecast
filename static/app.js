@@ -1330,10 +1330,12 @@ function renderProps(props) {
         };
     });
 
-    // Apply market filters. Goals market is always Over-only.
-    rows = rows.filter(p => _propsMarketFilter[p.canonicalMarket]);
+    // Apply market filters. Goals market is hidden when Under is selected.
     rows = rows.filter(p => {
-        if (p.canonicalMarket === 'Goals') return p.isOver;
+        if (p.canonicalMarket === 'Goals') {
+            return p.isOver && _propsSideFilter !== 'Under' && _propsMarketFilter['Goals'];
+        }
+        if (!_propsMarketFilter[p.canonicalMarket]) return false;
         if (_propsSideFilter === 'both') return true;
         return p.rec === _propsSideFilter;
     });
