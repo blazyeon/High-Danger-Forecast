@@ -1266,7 +1266,7 @@ function setPropsMarketFilter(market, active) {
 
 function setPropsSideFilter(side) {
     if (!_lastPropsData) return;
-    _propsSideFilter = side === 'Under' ? 'Over' : (side || 'Over');
+    _propsSideFilter = side || 'Over';
     const container = document.getElementById('propsResults');
     if (container) renderProps(_lastPropsData);
 }
@@ -1310,9 +1310,13 @@ function renderProps(props) {
         };
     });
 
-    // Apply market filters. Goals market is always Over-only (ignore Under picks).
+    // Apply market filters. Goals market is always Over-only.
     rows = rows.filter(p => _propsMarketFilter[p.canonicalMarket]);
-    rows = rows.filter(p => p.rec === 'Over' && !(p.canonicalMarket === 'Goals' && !p.isOver));
+    rows = rows.filter(p => {
+        if (p.canonicalMarket === 'Goals') return p.isOver;
+        if (_propsSideFilter === 'both') return true;
+        return p.rec === _propsSideFilter;
+    });
 
     if (_propsSort === 'odds') {
         rows.sort((a, b) => (parseFloat(b.recDecimal) || 0) - (parseFloat(a.recDecimal) || 0));
@@ -1336,10 +1340,11 @@ function renderProps(props) {
         html += `<button class="props-market-btn ${active ? 'active' : ''}" onclick="setPropsMarketFilter('${m}', ${!active})">${m}</button>`;
     });
 
-    // Side filter toggles (Over only; Goals market is always Over regardless).
+    // Side filter toggles. Goals market is always Over-only regardless of this filter.
     html += `<span class="props-toolbar-label props-side-label">Side:</span>`;
     const sides = [
         { key: 'Over', label: 'Over' },
+        { key: 'Under', label: 'Under' },
         { key: 'both', label: 'Both' },
     ];
     sides.forEach(s => {
@@ -1354,7 +1359,7 @@ function renderProps(props) {
     </div>`;
 
     if (rows.length === 0) {
-        html += '<div class="empty-state"><div class="empty-icon">🔍</div><h3 class="empty-title">No props match your filters</h3><p class="empty-text">Try enabling more markets or switching the side filter.</p></div>';
+        html += '<div class="empty-state"><div class="empty-icon">🔍</div><h3 class="empty-title">No props match your filters</h3><p class="empty-text">Try enabling more markets or switching the Over/Under side.</p></div>';
         container.innerHTML = html;
         return;
     }
