@@ -895,37 +895,128 @@ input[type="date"].param-input, input[type="date"].date-input {
     line-height: 1.5;
 }
 
-/* ── Prop Cards ──────────────────────────────────────────────── */
-.prop-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px; }
-.prop-card {
-    background: var(--bg-surface-elevated); border: 1px solid var(--border-subtle);
-    border-radius: var(--radius-md); padding: 18px 22px; transition: var(--transition-base);
-    position: relative; overflow: hidden;
+/* ── Prop Table ───────────────────────────────────────────────── */
+.props-toolbar {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 16px; padding: 12px 14px;
+    background: var(--bg-surface-elevated);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
 }
-.prop-card::before {
-    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-    background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
-    opacity: 0; transition: opacity var(--transition-fast);
+
+.props-toolbar-label {
+    font-size: 13px; font-weight: 700; color: var(--text-secondary);
+    margin-right: 4px;
 }
-.prop-card:hover { border-color: var(--border-default); transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.30); }
-.prop-card:hover::before { opacity: 1; }
-.prop-player { font-weight: 800; font-size: 15px; color: var(--text-primary); margin-bottom: 8px; }
-.prop-details { display: flex; justify-content: space-between; align-items: center; font-size: 13px; }
-.prop-market { color: var(--text-secondary); font-weight: 700; }
-.prop-line { font-weight: 900; color: var(--accent-gold); }
-.prop-odds { display: flex; gap: 14px; font-size: 14px; font-weight: 800; }
-.prop-over { color: var(--accent-green); }
-.prop-under { color: var(--accent-red); }
-.prop-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-.prop-rec { font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.6px; padding: 3px 9px; border-radius: 100px; }
-.prop-rec-over { background: rgba(46,229,157,0.12); color: var(--accent-green); border: 1px solid rgba(46,229,157,0.25); }
-.prop-rec-under { background: rgba(255,77,77,0.12); color: var(--accent-red); border: 1px solid rgba(255,77,77,0.25); }
-.prop-model-row { display: flex; justify-content: space-between; margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--border-subtle); font-size: 12px; }
-.prop-prob { color: var(--text-secondary); font-weight: 700; }
-.prop-edge { font-weight: 800; color: var(--text-muted); }
-.prop-card.edge-slight .prop-edge { color: var(--accent-cyan); }
-.prop-card.edge-good .prop-edge { color: var(--accent-green); }
-.prop-card.edge-strong .prop-edge { color: var(--accent-gold); }
+
+.props-sort-btn {
+    background: var(--bg-base);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-sm);
+    color: var(--text-secondary);
+    font-size: 13px; font-weight: 700;
+    padding: 6px 12px;
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.props-sort-btn:hover {
+    border-color: var(--border-default);
+    color: var(--text-primary);
+}
+
+.props-sort-btn.active {
+    background: var(--accent-cyan);
+    border-color: var(--accent-cyan);
+    color: #0a0a0f;
+}
+
+.props-table { display: flex; flex-direction: column; gap: 10px; }
+
+.props-row {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr 70px 90px 1fr 90px;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 16px;
+    background: var(--bg-surface-elevated);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    transition: var(--transition-base);
+    position: relative;
+    overflow: hidden;
+}
+
+.props-row:hover {
+    border-color: var(--border-default);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.30);
+}
+
+.props-row.edge-slight { border-left: 3px solid var(--accent-cyan); }
+.props-row.edge-good { border-left: 3px solid var(--accent-green); }
+.props-row.edge-strong { border-left: 3px solid var(--accent-gold); }
+
+.props-cell { display: flex; flex-direction: column; gap: 4px; }
+
+.props-name { font-size: 15px; font-weight: 800; color: var(--text-primary); }
+.props-game { font-size: 12px; font-weight: 700; color: var(--text-muted); }
+
+.props-market-name { font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.7px; color: var(--text-muted); }
+.props-line { font-size: 14px; font-weight: 800; color: var(--text-primary); }
+
+.props-rec { align-items: center; }
+.props-rec-badge {
+    font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.6px;
+    padding: 4px 10px; border-radius: 100px;
+}
+.props-rec-badge.prop-rec-over { background: rgba(46,229,157,0.12); color: var(--accent-green); border: 1px solid rgba(46,229,157,0.25); }
+.props-rec-badge.prop-rec-under { background: rgba(255,85,119,0.14); color: var(--accent-red); border: 1px solid rgba(255,85,119,0.25); }
+
+.props-price { align-items: center; }
+.props-price-val { font-size: 18px; font-weight: 900; color: var(--accent-cyan); }
+.props-price-label { font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.6px; }
+
+.props-prob { gap: 8px; }
+.props-prob-bar { display: flex; align-items: center; gap: 10px; }
+.props-prob-track {
+    flex: 1; height: 6px; background: var(--bg-base);
+    border-radius: 100px; overflow: hidden;
+}
+.props-prob-fill { height: 100%; background: linear-gradient(90deg, var(--accent-green), var(--accent-cyan-dim)); border-radius: 100px; }
+.props-prob-text { font-size: 11px; font-weight: 700; color: var(--text-secondary); white-space: nowrap; }
+
+.props-edge { align-items: flex-end; }
+.props-edge-badge {
+    font-size: 15px; font-weight: 900;
+    padding: 8px 14px; border-radius: var(--radius-sm);
+    background: var(--bg-base); border: 1px solid var(--border-subtle);
+    color: var(--text-muted);
+}
+
+.props-row.edge-slight .props-edge-badge { color: var(--accent-cyan); border-color: rgba(0,224,255,0.22); }
+.props-row.edge-good .props-edge-badge { color: var(--accent-green); border-color: rgba(46,229,157,0.25); }
+.props-row.edge-strong .props-edge-badge { color: var(--accent-gold); border-color: rgba(255,209,102,0.25); }
+
+@media (max-width: 900px) {
+    .props-row { grid-template-columns: 1fr 1fr 80px; grid-template-rows: auto auto auto; gap: 12px; }
+    .props-player { grid-column: 1 / 3; grid-row: 1; }
+    .props-market { grid-column: 1 / 2; grid-row: 2; }
+    .props-rec { grid-column: 2 / 3; grid-row: 2; }
+    .props-price { grid-column: 3 / 4; grid-row: 1; }
+    .props-prob { grid-column: 1 / 3; grid-row: 3; }
+    .props-edge { grid-column: 3 / 4; grid-row: 2 / 4; align-items: center; justify-content: center; }
+}
+
+@media (max-width: 560px) {
+    .props-row { grid-template-columns: 1fr auto; grid-template-rows: auto auto auto auto; padding: 14px; }
+    .props-player { grid-column: 1 / 3; grid-row: 1; }
+    .props-market { grid-column: 1 / 2; grid-row: 2; }
+    .props-rec { grid-column: 2 / 3; grid-row: 2; }
+    .props-price { grid-column: 1 / 2; grid-row: 3; align-items: flex-start; }
+    .props-prob { grid-column: 1 / 3; grid-row: 4; }
+    .props-edge { grid-column: 2 / 3; grid-row: 3; align-items: center; justify-content: center; }
+}
 
 /* ── Betting Edge Cards ─────────────────────────────────────────── */
 .betting-edge-warning {

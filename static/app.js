@@ -1193,28 +1193,39 @@ async function runProps() {
     const date = document.getElementById('propsDate')?.value || new Date().toISOString().split('T')[0];
     const markets = ["player_points", "player_assists", "player_goals", "player_shots_on_goal"];
 
-
     try {
         const url = `/api/player-props/${date}?regions=us&markets=${markets.join(',')}`;
         const data = await safeFetchJson(url);
         if (data.error) {
-            // NHL season is over / no API key set: fall back to demo data so the UI still works.
             console.warn('Props API returned error, using demo data:', data.error);
             const demo = await safeFetchJson('../static/data/demo_props.json');
-            renderProps(demo.props || []);
+            _lastPropsData = demo.props || [];
+            _propsSort = 'edge';
+            renderProps(_lastPropsData);
             return;
         }
-        renderProps(data.props || []);
+        _lastPropsData = data.props || [];
+        _propsSort = 'edge';
+        renderProps(_lastPropsData);
     } catch (e) {
         console.warn('Props API unavailable, using demo data:', e);
         try {
             const demo = await safeFetchJson('../static/data/demo_props.json');
-            renderProps(demo.props || []);
+            _lastPropsData = demo.props || [];
+            _propsSort = 'edge';
+            renderProps(_lastPropsData);
         } catch (demoErr) {
             container.innerHTML = `<div class="error-box">Could not load props: ${e.message}</div>`;
             console.error('Props load failed:', e, demoErr);
         }
     }
+}
+
+function setPropsSort(sort) {
+    if (!_lastPropsData) return;
+    _propsSort = sort;
+    const container = document.getElementById('propsResults');
+    if (container) renderProps(_lastPropsData);
 }
 
 function renderProps(props) {
@@ -1224,34 +1235,76 @@ function renderProps(props) {
         return;
     }
 
-    let html = '<div class="prop-grid">';
-    props.forEach(p => {
+    const rows = props.map(p => {
         const rec = p.recommendation || 'Pass';
         const isOver = rec === 'Over';
-        const recClass = isOver ? 'prop-rec-over' : 'prop-rec-under';
-        const edge = p.edge != null ? parseFloat(p.edge) : null;
-        const edgeClass = edge == null ? '' : (edge >= 0.05 ? 'edge-strong' : edge >= 0.02 ? 'edge-good' : 'edge-slight');
-        const edgeText = edge == null ? '-' : (edge >= 0 ? '+' : '') + (edge * 100).toFixed(1) + '%';
-        const over = p.over_american != null ? formatAmerican(p.over_american) : '-';
-        const under = p.under_american != null ? formatAmerican(p.under_american) : '-';
+        const edge = p.edge != null ? parseFloat(p.edge) : 0;
+        const recPrice = isOver ? p.over_american : p.under_american;
+        const recDecimal = isOver ? p.over_decimal : p.under_decimal;
+        return {
+            ...p,
+            edge,
+            rec,
+            isOver,
+            recPrice,
+            recDecimal,
+            probOver: parseFloat(p.prob_over) || 0,
+        };
+    });
 
-        html += `<div class="prop-card ${edgeClass}">
-            <div class="prop-header">
-                <div class="prop-player">${p.player}</div>
-                <div class="prop-rec ${recClass}">${rec}</div>
+    if (_propsSort === 'odds') {
+        rows.sort((a, b) => (parseFloat(b.recDecimal) || 0) - (parseFloat(a.recDecimal) || 0));
+    } else {
+        rows.sort((a, b) => b.edge - a.edge);
+    }
+
+    let html = `<div class="props-toolbar">
+        <span class="props-toolbar-label">Sort by:</span>
+        <button class="props-sort-btn ${_propsSort === 'edge' ? 'active' : ''}" onclick="setPropsSort('edge')">Best Edge</button>
+        <button class="props-sort-btn ${_propsSort === 'odds' ? 'active' : ''}" onclick="setPropsSort('odds')">Best Odds</button>
+    </div>`;
+
+    html += '<div class="props-table">';
+    rows.forEach(p => {
+        const edge = p.edge;
+        const edgePct = (edge * 100).toFixed(1);
+        const edgeSign = edge >= 0 ? '+' : '';
+        const recClass = p.isOver ? 'prop-rec-over' : 'prop-rec-under';
+        const rowClass = edge >= 0.05 ? 'edge-strong' : edge >= 0.02 ? 'edge-good' : 'edge-slight';
+        const price = p.recPrice != null ? formatAmerican(p.recPrice) : '-';
+        const prob = p.probOver.toFixed(1);
+        // Placeholder: game matchup (filled from event context when available).
+        const matchup = p.matchup || '—';
+
+        html += `<div class="props-row ${rowClass}">
+            <div class="props-cell props-player">
+                <div class="props-name">${escapeHtml(p.player)}</div>
+                <div class="props-game">${escapeHtml(matchup)}</div>
             </div>
-            <div class="prop-details">
-                <span class="prop-market">${p.market}</span>
-                <span class="prop-line">O/U ${parseFloat(p.line).toFixed(1)}</span>
-                <div class="prop-odds"><span class="prop-over">O ${over}</span><span class="prop-under">U ${under}</span></div>
+            <div class="props-cell props-market">
+                <div class="props-market-name">${escapeHtml(p.market)}</div>
+                <div class="props-line">${p.isOver ? 'Over' : 'Under'} ${parseFloat(p.line).toFixed(1)}</div>
             </div>
-            <div class="prop-model-row">
-                <span class="prop-prob">Model: ${parseFloat(p.prob_over).toFixed(1)}% over</span>
-                <span class="prop-edge">Edge: ${edgeText}</span>
+            <div class="props-cell props-rec">
+                <div class="props-rec-badge ${recClass}">${p.isOver ? 'Over' : 'Under'}</div>
+            </div>
+            <div class="props-cell props-price">
+                <div class="props-price-val">${escapeHtml(price)}</div>
+                <div class="props-price-label">odds</div>
+            </div>
+            <div class="props-cell props-prob">
+                <div class="props-prob-bar">
+                    <div class="props-prob-track"><div class="props-prob-fill" style="width:${prob}%"></div></div>
+                    <span class="props-prob-text">Model ${prob}%</span>
+                </div>
+            </div>
+            <div class="props-cell props-edge">
+                <div class="props-edge-badge">${edgeSign}${edgePct}%</div>
             </div>
         </div>`;
     });
     html += '</div>';
+
     container.innerHTML = html;
 }
 
@@ -1272,6 +1325,10 @@ function formatAmerican(n) {
 // ── Betting Edge Tab ─────────────────────────────────────────────
 let _lastBettingEdgeData = null;
 let _bettingEdgeSort = 'edge';
+
+// ── Player Props Tab ─────────────────────────────────────────────
+let _lastPropsData = null;
+let _propsSort = 'edge';
 
 async function runBettingEdge() {
     const container = document.getElementById('bettingEdgeResults');
