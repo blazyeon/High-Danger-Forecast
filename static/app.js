@@ -186,7 +186,7 @@ class DatePicker {
             let cls = 'dp-day';
             if (isSelected) cls += ' selected';
             if (isToday) cls += ' today';
-            daysHtml += `<button type="button" class="${cls}" data-ymd="${ymd}" data-day="${d}">${d}</button>`;
+            daysHtml += `<button type="button" class="${cls}" data-ymd="${ymd}" data-year="${year}" data-month="${month}" data-day="${d}">${d}</button>`;
         }
 
         this.popup.innerHTML = `
@@ -207,16 +207,6 @@ class DatePicker {
                 <button type="button" class="dp-today">Today</button>
             </div>
         `;
-
-        this.popup.querySelector('.dp-prev').addEventListener('click', () => this._changeMonth(-1));
-        this.popup.querySelector('.dp-next').addEventListener('click', () => this._changeMonth(1));
-        this.popup.querySelector('.dp-today').addEventListener('click', () => this._selectToday());
-        this.popup.querySelectorAll('.dp-day').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const day = parseInt(e.currentTarget.dataset.day, 10);
-                this._selectDate(new Date(year, month, day));
-            });
-        });
     }
 
     _bind() {
@@ -236,6 +226,34 @@ class DatePicker {
         // Allow manual typing; validate on blur.
         this.input.addEventListener('input', () => this._onManualInput());
         this.input.addEventListener('blur', () => this._validateInput());
+
+        // Calendar navigation / day selection via event delegation on the popup.
+        this.popup.addEventListener('click', (e) => {
+            const target = e.target;
+            if (target.closest('.dp-prev')) {
+                e.stopPropagation();
+                this._changeMonth(-1);
+                return;
+            }
+            if (target.closest('.dp-next')) {
+                e.stopPropagation();
+                this._changeMonth(1);
+                return;
+            }
+            if (target.closest('.dp-today')) {
+                e.stopPropagation();
+                this._selectToday();
+                return;
+            }
+            const dayBtn = target.closest('.dp-day[data-day]');
+            if (dayBtn) {
+                e.stopPropagation();
+                const year = parseInt(dayBtn.dataset.year, 10);
+                const month = parseInt(dayBtn.dataset.month, 10);
+                const day = parseInt(dayBtn.dataset.day, 10);
+                this._selectDate(new Date(year, month, day));
+            }
+        });
 
         // Close on Escape and outside click.
         document.addEventListener('keydown', (e) => {
@@ -287,7 +305,9 @@ class DatePicker {
     }
 
     _changeMonth(delta) {
-        this.viewDate.setMonth(this.viewDate.getMonth() + delta);
+        const next = new Date(this.viewDate);
+        next.setMonth(next.getMonth() + delta);
+        this.viewDate = next;
         this._render();
     }
 

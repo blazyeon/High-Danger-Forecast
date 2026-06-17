@@ -1623,6 +1623,8 @@ input[type="date"].param-input, input[type="date"].date-input {
     font-size: 11px;
 }
 
+.dp-nav svg { pointer-events: none; }
+
 .dp-nav:hover {
     color: var(--accent-cyan);
     border-color: var(--accent-cyan);
