@@ -1257,17 +1257,16 @@ function renderProps(props) {
 
 function formatAmerican(n) {
     if (n === null || n === undefined || n === '') return '-';
-    // Accept either an integer American price or a decimal odds value.
     let v = parseFloat(n);
-    if (isNaN(v)) return '-';
-    if (v > 0 && v < 10) {
-        // Looks like decimal odds; convert to American.
-        v = v >= 2.0 ? Math.round((v - 1.0) * 100.0) : Math.round(-100.0 / (v - 1.0));
-    } else {
-        v = parseInt(n, 10);
+    if (!isFinite(v) || isNaN(v)) return '-';
+    // If it looks like an American price (integer and |v| ≥ 100), return as-is.
+    if (Number.isInteger(v) && Math.abs(v) >= 100) {
+        return v > 0 ? `+${v}` : `${v}`;
     }
-    if (isNaN(v)) return '-';
-    return v > 0 ? `+${v}` : `${v}`;
+    // Otherwise treat it as decimal odds (typical range ~1.2 – 3.5).
+    if (v <= 1.0) return '-';
+    const american = v >= 2.0 ? Math.round((v - 1.0) * 100.0) : Math.round(-100.0 / (v - 1.0));
+    return american > 0 ? `+${american}` : `${american}`;
 }
 
 // ── Betting Edge Tab ─────────────────────────────────────────────
@@ -1335,7 +1334,7 @@ function renderBettingEdge(data, container) {
             const edgeSign = edge > 0 ? '+' : '';
             const implied = (parseFloat(e.implied_prob) * 100).toFixed(1);
             const model = (parseFloat(e.model_prob) * 100).toFixed(1);
-            const odds = e.odds != null ? formatAmerican(parseInt(e.odds, 10)) : '-';
+            const odds = e.odds != null ? formatAmerican(e.odds) : '-';
             const pick = e.pick || e.side || '-';
 
             html += `<div class="betting-edge-market">

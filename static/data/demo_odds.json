@@ -21,11 +21,11 @@
               "outcomes": [
                 {
                   "name": "Toronto Maple Leafs",
-                  "price": 1.7407407407407407
+                  "price": -150
                 },
                 {
                   "name": "Montreal Canadiens",
-                  "price": 2.35
+                  "price": 130
                 }
               ]
             },
@@ -35,12 +35,12 @@
               "outcomes": [
                 {
                   "name": "Toronto Maple Leafs",
-                  "price": 1.606060606060606,
+                  "price": 135,
                   "point": -1.5
                 },
                 {
                   "name": "Montreal Canadiens",
-                  "price": 2.55,
+                  "price": -155,
                   "point": 1.5
                 }
               ]
@@ -51,12 +51,12 @@
               "outcomes": [
                 {
                   "name": "Over",
-                  "price": 2.1,
+                  "price": -110,
                   "point": 6.5
                 },
                 {
                   "name": "Under",
-                  "price": 1.9090909090909092,
+                  "price": -110,
                   "point": 6.5
                 }
               ]
@@ -83,11 +83,11 @@
               "outcomes": [
                 {
                   "name": "Edmonton Oilers",
-                  "price": 2.05
+                  "price": -130
                 },
                 {
                   "name": "Calgary Flames",
-                  "price": 1.9523809523809523
+                  "price": 110
                 }
               ]
             },
@@ -97,12 +97,12 @@
               "outcomes": [
                 {
                   "name": "Edmonton Oilers",
-                  "price": 1.625,
+                  "price": 165,
                   "point": -1.5
                 },
                 {
                   "name": "Calgary Flames",
-                  "price": 2.6,
+                  "price": -190,
                   "point": 1.5
                 }
               ]
@@ -113,12 +113,12 @@
               "outcomes": [
                 {
                   "name": "Over",
-                  "price": 2.15,
+                  "price": -110,
                   "point": 6.5
                 },
                 {
                   "name": "Under",
-                  "price": 1.8695652173913042,
+                  "price": -110,
                   "point": 6.5
                 }
               ]
@@ -145,11 +145,11 @@
               "outcomes": [
                 {
                   "name": "Colorado Avalanche",
-                  "price": 1.9523809523809523
+                  "price": -140
                 },
                 {
                   "name": "Vegas Golden Knights",
-                  "price": 2.05
+                  "price": 120
                 }
               ]
             },
@@ -159,12 +159,12 @@
               "outcomes": [
                 {
                   "name": "Colorado Avalanche",
-                  "price": 1.625,
+                  "price": 125,
                   "point": -1.5
                 },
                 {
                   "name": "Vegas Golden Knights",
-                  "price": 2.35,
+                  "price": -145,
                   "point": 1.5
                 }
               ]
@@ -175,12 +175,12 @@
               "outcomes": [
                 {
                   "name": "Over",
-                  "price": 1.9523809523809523,
+                  "price": -115,
                   "point": 6.0
                 },
                 {
                   "name": "Under",
-                  "price": 2.05,
+                  "price": -105,
                   "point": 6.0
                 }
               ]
@@ -207,11 +207,11 @@
               "outcomes": [
                 {
                   "name": "Carolina Hurricanes",
-                  "price": 1.8333333333333335
+                  "price": -160
                 },
                 {
                   "name": "New York Rangers",
-                  "price": 2.2
+                  "price": 140
                 }
               ]
             },
@@ -221,12 +221,12 @@
               "outcomes": [
                 {
                   "name": "Carolina Hurricanes",
-                  "price": 2.35,
+                  "price": 105,
                   "point": -1.5
                 },
                 {
                   "name": "New York Rangers",
-                  "price": 1.625,
+                  "price": -125,
                   "point": 1.5
                 }
               ]
@@ -237,12 +237,12 @@
               "outcomes": [
                 {
                   "name": "Over",
-                  "price": 2.15,
+                  "price": -105,
                   "point": 5.5
                 },
                 {
                   "name": "Under",
-                  "price": 1.8695652173913042,
+                  "price": -115,
                   "point": 5.5
                 }
               ]
@@ -269,11 +269,11 @@
               "outcomes": [
                 {
                   "name": "Dallas Stars",
-                  "price": 1.6451612903225805
+                  "price": -145
                 },
                 {
                   "name": "St. Louis Blues",
-                  "price": 2.55
+                  "price": 125
                 }
               ]
             },
@@ -283,12 +283,12 @@
               "outcomes": [
                 {
                   "name": "Dallas Stars",
-                  "price": 2.55,
+                  "price": 130,
                   "point": -1.5
                 },
                 {
                   "name": "St. Louis Blues",
-                  "price": 1.6666666666666665,
+                  "price": -150,
                   "point": 1.5
                 }
               ]
@@ -299,12 +299,12 @@
               "outcomes": [
                 {
                   "name": "Over",
-                  "price": 1.8695652173913042,
+                  "price": -110,
                   "point": 6.0
                 },
                 {
                   "name": "Under",
-                  "price": 2.15,
+                  "price": -110,
                   "point": 6.0
                 }
               ]
@@ -331,11 +331,11 @@
               "outcomes": [
                 {
                   "name": "Florida Panthers",
-                  "price": 1.9090909090909092
+                  "price": -125
                 },
                 {
                   "name": "Tampa Bay Lightning",
-                  "price": 2.1
+                  "price": 105
                 }
               ]
             },
@@ -345,12 +345,12 @@
               "outcomes": [
                 {
                   "name": "Florida Panthers",
-                  "price": 1.6666666666666665,
+                  "price": 180,
                   "point": -1.5
                 },
                 {
                   "name": "Tampa Bay Lightning",
-                  "price": 2.5,
+                  "price": -220,
                   "point": 1.5
                 }
               ]
@@ -361,13 +361,13 @@
               "outcomes": [
                 {
                   "name": "Over",
-                  "price": 2.05,
-                  "point": 6.0
+                  "price": -125,
+                  "point": 5.5
                 },
                 {
                   "name": "Under",
-                  "price": 1.9523809523809523,
-                  "point": 6.0
+                  "price": 105,
+                  "point": 5.5
                 }
               ]
             }
@@ -393,11 +393,11 @@
               "outcomes": [
                 {
                   "name": "Boston Bruins",
-                  "price": 1.9523809523809523
+                  "price": -180
                 },
                 {
                   "name": "Ottawa Senators",
-                  "price": 2.05
+                  "price": 155
                 }
               ]
             },
@@ -407,12 +407,12 @@
               "outcomes": [
                 {
                   "name": "Boston Bruins",
-                  "price": 1.606060606060606,
+                  "price": 110,
                   "point": -1.5
                 },
                 {
                   "name": "Ottawa Senators",
-                  "price": 2.45,
+                  "price": -130,
                   "point": 1.5
                 }
               ]
@@ -423,13 +423,13 @@
               "outcomes": [
                 {
                   "name": "Over",
-                  "price": 1.8695652173913042,
-                  "point": 6.5
+                  "price": -110,
+                  "point": 6.0
                 },
                 {
                   "name": "Under",
-                  "price": 2.15,
-                  "point": 6.5
+                  "price": -110,
+                  "point": 6.0
                 }
               ]
             }
@@ -455,11 +455,11 @@
               "outcomes": [
                 {
                   "name": "Los Angeles Kings",
-                  "price": 1.8695652173913042
+                  "price": -135
                 },
                 {
                   "name": "Anaheim Ducks",
-                  "price": 2.15
+                  "price": 115
                 }
               ]
             },
@@ -469,12 +469,12 @@
               "outcomes": [
                 {
                   "name": "Los Angeles Kings",
-                  "price": 2.4,
+                  "price": 150,
                   "point": -1.5
                 },
                 {
                   "name": "Anaheim Ducks",
-                  "price": 1.5882352941176472,
+                  "price": -175,
                   "point": 1.5
                 }
               ]
@@ -485,12 +485,12 @@
               "outcomes": [
                 {
                   "name": "Over",
-                  "price": 1.9090909090909092,
+                  "price": -105,
                   "point": 6.0
                 },
                 {
                   "name": "Under",
-                  "price": 2.1,
+                  "price": -115,
                   "point": 6.0
                 }
               ]
@@ -517,11 +517,11 @@
               "outcomes": [
                 {
                   "name": "Minnesota Wild",
-                  "price": 1.7692307692307692
+                  "price": -155
                 },
                 {
                   "name": "Winnipeg Jets",
-                  "price": 2.3
+                  "price": 135
                 }
               ]
             },
@@ -531,12 +531,12 @@
               "outcomes": [
                 {
                   "name": "Minnesota Wild",
-                  "price": 1.7142857142857144,
+                  "price": 120,
                   "point": -1.5
                 },
                 {
                   "name": "Winnipeg Jets",
-                  "price": 2.55,
+                  "price": -140,
                   "point": 1.5
                 }
               ]
@@ -547,12 +547,12 @@
               "outcomes": [
                 {
                   "name": "Over",
-                  "price": 2.05,
+                  "price": -110,
                   "point": 5.5
                 },
                 {
                   "name": "Under",
-                  "price": 1.9523809523809523,
+                  "price": -110,
                   "point": 5.5
                 }
               ]
@@ -579,11 +579,11 @@
               "outcomes": [
                 {
                   "name": "New Jersey Devils",
-                  "price": 2.05
+                  "price": -125
                 },
                 {
                   "name": "New York Islanders",
-                  "price": 1.9523809523809523
+                  "price": 105
                 }
               ]
             },
@@ -593,12 +593,12 @@
               "outcomes": [
                 {
                   "name": "New Jersey Devils",
-                  "price": 1.5882352941176472,
+                  "price": 170,
                   "point": -1.5
                 },
                 {
                   "name": "New York Islanders",
-                  "price": 2.5,
+                  "price": -200,
                   "point": 1.5
                 }
               ]
@@ -609,12 +609,12 @@
               "outcomes": [
                 {
                   "name": "Over",
-                  "price": 2.0,
+                  "price": -110,
                   "point": 6.0
                 },
                 {
                   "name": "Under",
-                  "price": 2.0,
+                  "price": -110,
                   "point": 6.0
                 }
               ]
@@ -641,11 +641,11 @@
               "outcomes": [
                 {
                   "name": "Pittsburgh Penguins",
-                  "price": 1.625
+                  "price": -170
                 },
                 {
                   "name": "Philadelphia Flyers",
-                  "price": 2.6
+                  "price": 150
                 }
               ]
             },
@@ -655,12 +655,12 @@
               "outcomes": [
                 {
                   "name": "Pittsburgh Penguins",
-                  "price": 1.6666666666666665,
+                  "price": 115,
                   "point": -1.5
                 },
                 {
                   "name": "Philadelphia Flyers",
-                  "price": 2.55,
+                  "price": -135,
                   "point": 1.5
                 }
               ]
@@ -671,12 +671,12 @@
               "outcomes": [
                 {
                   "name": "Over",
-                  "price": 2.1,
+                  "price": -110,
                   "point": 6.0
                 },
                 {
                   "name": "Under",
-                  "price": 1.9090909090909092,
+                  "price": -110,
                   "point": 6.0
                 }
               ]
@@ -703,11 +703,11 @@
               "outcomes": [
                 {
                   "name": "Detroit Red Wings",
-                  "price": 1.5882352941176472
+                  "price": -185
                 },
                 {
                   "name": "Columbus Blue Jackets",
-                  "price": 2.7
+                  "price": 160
                 }
               ]
             },
@@ -717,12 +717,12 @@
               "outcomes": [
                 {
                   "name": "Detroit Red Wings",
-                  "price": 1.625,
+                  "price": 105,
                   "point": -1.5
                 },
                 {
                   "name": "Columbus Blue Jackets",
-                  "price": 2.55,
+                  "price": -125,
                   "point": 1.5
                 }
               ]
@@ -733,13 +733,13 @@
               "outcomes": [
                 {
                   "name": "Over",
-                  "price": 1.9090909090909092,
-                  "point": 6.0
+                  "price": -110,
+                  "point": 6.5
                 },
                 {
                   "name": "Under",
-                  "price": 2.1,
-                  "point": 6.0
+                  "price": -110,
+                  "point": 6.5
                 }
               ]
             }
@@ -765,11 +765,11 @@
               "outcomes": [
                 {
                   "name": "San Jose Sharks",
-                  "price": 2.0
+                  "price": 120
                 },
                 {
                   "name": "Seattle Kraken",
-                  "price": 2.0
+                  "price": -140
                 }
               ]
             },
@@ -779,12 +779,12 @@
               "outcomes": [
                 {
                   "name": "San Jose Sharks",
-                  "price": 2.3,
+                  "price": 200,
                   "point": -1.5
                 },
                 {
                   "name": "Seattle Kraken",
-                  "price": 1.6666666666666665,
+                  "price": -250,
                   "point": 1.5
                 }
               ]
@@ -795,12 +795,12 @@
               "outcomes": [
                 {
                   "name": "Over",
-                  "price": 1.9523809523809523,
+                  "price": -110,
                   "point": 6.0
                 },
                 {
                   "name": "Under",
-                  "price": 2.05,
+                  "price": -110,
                   "point": 6.0
                 }
               ]
@@ -827,11 +827,11 @@
               "outcomes": [
                 {
                   "name": "Vancouver Canucks",
-                  "price": 1.9523809523809523
+                  "price": -125
                 },
                 {
                   "name": "Utah Mammoth",
-                  "price": 2.05
+                  "price": 105
                 }
               ]
             },
@@ -841,12 +841,12 @@
               "outcomes": [
                 {
                   "name": "Vancouver Canucks",
-                  "price": 2.35,
+                  "price": 170,
                   "point": -1.5
                 },
                 {
                   "name": "Utah Mammoth",
-                  "price": 1.5882352941176472,
+                  "price": -200,
                   "point": 1.5
                 }
               ]
@@ -857,12 +857,12 @@
               "outcomes": [
                 {
                   "name": "Over",
-                  "price": 2.1,
+                  "price": -110,
                   "point": 6.5
                 },
                 {
                   "name": "Under",
-                  "price": 1.9090909090909092,
+                  "price": -110,
                   "point": 6.5
                 }
               ]
@@ -889,11 +889,11 @@
               "outcomes": [
                 {
                   "name": "Buffalo Sabres",
-                  "price": 2.1
+                  "price": 105
                 },
                 {
                   "name": "Chicago Blackhawks",
-                  "price": 1.9090909090909092
+                  "price": -125
                 }
               ]
             },
@@ -903,12 +903,12 @@
               "outcomes": [
                 {
                   "name": "Buffalo Sabres",
-                  "price": 2.6,
+                  "price": 210,
                   "point": -1.5
                 },
                 {
                   "name": "Chicago Blackhawks",
-                  "price": 1.6451612903225805,
+                  "price": -260,
                   "point": 1.5
                 }
               ]
@@ -919,12 +919,12 @@
               "outcomes": [
                 {
                   "name": "Over",
-                  "price": 1.8695652173913042,
+                  "price": -110,
                   "point": 6.0
                 },
                 {
                   "name": "Under",
-                  "price": 2.15,
+                  "price": -110,
                   "point": 6.0
                 }
               ]
@@ -939,7 +939,7 @@
       "sport_title": "NHL",
       "commence_time": "2026-06-16T19:30:00Z",
       "home_team": "Washington Capitals",
-      "away_team": "ARI",
+      "away_team": "Arizona Coyotes",
       "bookmakers": [
         {
           "key": "demo_book",
@@ -951,11 +951,11 @@
               "outcomes": [
                 {
                   "name": "Washington Capitals",
-                  "price": 1.7692307692307692
+                  "price": -155
                 },
                 {
-                  "name": "ARI",
-                  "price": 2.3
+                  "name": "Arizona Coyotes",
+                  "price": 135
                 }
               ]
             },
@@ -965,12 +965,12 @@
               "outcomes": [
                 {
                   "name": "Washington Capitals",
-                  "price": 2.45,
+                  "price": 120,
                   "point": -1.5
                 },
                 {
-                  "name": "ARI",
-                  "price": 1.6896551724137931,
+                  "name": "Arizona Coyotes",
+                  "price": -140,
                   "point": 1.5
                 }
               ]
@@ -981,13 +981,13 @@
               "outcomes": [
                 {
                   "name": "Over",
-                  "price": 1.8695652173913042,
-                  "point": 6.0
+                  "price": -110,
+                  "point": 6.5
                 },
                 {
                   "name": "Under",
-                  "price": 2.15,
-                  "point": 6.0
+                  "price": -110,
+                  "point": 6.5
                 }
               ]
             }

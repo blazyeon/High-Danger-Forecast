@@ -80,6 +80,24 @@ def _normalize_abbr(abbr: str) -> str:
     return TEAM_ABBR_MAPPING.get(full_abbr, full_abbr)
 
 
+def _schedule_from_events(events: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    """Build a minimal schedule from odds events (used as an offseason fallback)."""
+    games: List[Dict[str, Any]] = []
+    for ev in events or []:
+        home = ev.get("home_team")
+        away = ev.get("away_team")
+        if not home or not away:
+            continue
+        games.append({
+            "id": ev.get("id"),
+            "homeTeam": {"name": {"default": home}},
+            "awayTeam": {"name": {"default": away}},
+            "startTimeUTC": ev.get("commence_time"),
+            "gameState": "FUT",
+        })
+    return games
+
+
 def find_event_for_game(game: Dict[str, Any], events: List[Dict[str, Any]]) -> Optional[Dict[str, Any]]:
     """Match a schedule game dict {home, away} to an Odds API event."""
     home = _normalize_abbr(game.get("home") or game.get("home_team", ""))
@@ -100,15 +118,20 @@ def _best_outcome(outcomes: List[Dict[str, Any]], side: str) -> Optional[Dict[st
 
 
 def _decimal_price(outcome: Optional[Dict[str, Any]]) -> Optional[float]:
+    """Return decimal odds for an outcome, accepting either decimal or American prices."""
     if not outcome:
         return None
     price = outcome.get("price")
     if price is None:
         return None
     try:
-        return float(price)
+        p = float(price)
     except Exception:
         return None
+    # Odds API returns American-style integers (e.g. -135, +220). Convert them.
+    if p == int(p) and abs(int(p)) >= 100:
+        return american_to_decimal(p)
+    return p
 
 
 def _best_book_market(event: Dict[str, Any], market_key: str) -> Optional[Dict[str, Any]]:
@@ -210,12 +233,12 @@ def compute_game_edges(
                 (home_name, home_edge, home_win_pct, home_imp, home_out, home),
                 (away_name, away_edge, away_win_pct, away_imp, away_out, away),
             ):
-                if abs(edge) > edge_threshold:
+                if edge > edge_threshold:
                     dec = _decimal_price(out)
                     edges.append(_edge_dict(
                         market="Moneyline",
                         side=side,
-                        pick=home_name if edge > 0 else away_name,
+                        pick=side,
                         team=team,
                         odds=out.get("price"),
                         odds_decimal=dec,
@@ -253,11 +276,11 @@ def compute_game_edges(
             else:
                 true_p = implied_probability(dec)
             edge = model_p - true_p
-            if abs(edge) > edge_threshold:
+            if edge > edge_threshold:
                 edges.append(_edge_dict(
                     market=f"Puck Line ({point})",
                     side=side_name,
-                    pick=side_name if edge > 0 else other_name,
+                    pick=side_name,
                     team=home if is_home else away,
                     odds=price,
                     odds_decimal=dec,
@@ -290,12 +313,12 @@ def compute_game_edges(
                     ("Over", over_edge, model_over, over_imp, over_out),
                     ("Under", under_edge, model_under, under_imp, under_out),
                 ):
-                    if abs(edge) > edge_threshold:
+                    if edge > edge_threshold:
                         dec = _decimal_price(out) or american_to_decimal(out.get("price"))
                         edges.append(_edge_dict(
                             market=f"Total {line}",
                             side=side,
-                            pick=side if edge > 0 else ("Under" if side == "Over" else "Over"),
+                            pick=side,
                             team=None,
                             odds=out.get("price"),
                             odds_decimal=dec,
@@ -431,7 +454,7 @@ def compute_and_cache_edges(
         odds_payload, warning = load_cached_odds(day, max_age_hours=24.0)
         if odds_payload is None:
             odds_payload = load_demo_odds(DEFAULT_DEMO_PATH)
-            warning = warning or "Using demo odds."
+            warning = "Using demo odds (no live odds cached)."
 
     events = odds_payload.get("events", [])
 
@@ -441,8 +464,10 @@ def compute_and_cache_edges(
         service_name="NHL Schedule API", fallback=[],
     )
     if not schedule_games:
-        warning = warning or "No live schedule found; using demo games."
+        warning = warning or "No live schedule found; using odds event matchups."
         schedule_games = load_demo_schedule()
+        if not schedule_games:
+            schedule_games = _schedule_from_events(events)
 
     # 3. Build slate matchups.
     slate_matchups: List[Tuple[str, str]] = []
@@ -508,8 +533,8 @@ def compute_and_cache_edges(
         if not edges:
             continue
 
-        edges.sort(key=lambda e: abs(e.get("edge", 0.0)), reverse=True)
-        best_edge = max(edges, key=lambda e: abs(e.get("edge", 0.0)))
+        edges.sort(key=lambda e: e.get("edge", 0.0), reverse=True)
+        best_edge = max(edges, key=lambda e: e.get("edge", 0.0))
         value_games.append({
             "home": home_abbr,
             "away": away_abbr,
