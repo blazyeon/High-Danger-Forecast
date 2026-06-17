@@ -1193,12 +1193,13 @@ async function runProps() {
     const date = document.getElementById('propsDate')?.value || new Date().toISOString().split('T')[0];
     const markets = ["player_points", "player_assists", "player_goals", "player_shots_on_goal"];
 
+    const demoUrl = '/static/data/demo_props.json';
     try {
         const url = `/api/player-props/${date}?regions=us&markets=${markets.join(',')}`;
         const data = await safeFetchJson(url);
         if (data.error) {
             console.warn('Props API returned error, using demo data:', data.error);
-            const demo = await safeFetchJson('../static/data/demo_props.json');
+            const demo = await safeFetchJson(demoUrl);
             _lastPropsData = demo.props || [];
             _propsSort = 'edge';
             renderProps(_lastPropsData);
@@ -1210,7 +1211,7 @@ async function runProps() {
     } catch (e) {
         console.warn('Props API unavailable, using demo data:', e);
         try {
-            const demo = await safeFetchJson('../static/data/demo_props.json');
+            const demo = await safeFetchJson(demoUrl);
             _lastPropsData = demo.props || [];
             _propsSort = 'edge';
             renderProps(_lastPropsData);
