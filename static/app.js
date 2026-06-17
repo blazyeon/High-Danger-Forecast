@@ -674,9 +674,40 @@ function renderResults(sim, homeAbbr, awayAbbr) {
     if (hasInjuries) {
         html += `<hr class="section-divider"><div class="section-title">🚑 Injury Impact</div>`;
 
+        const mergeInjuries = (players, topDefense) => {
+            const byName = {};
+            players.forEach(p => { byName[p.name] = { ...p }; });
+            topDefense.forEach(d => {
+                if (byName[d.name]) {
+                    byName[d.name].defensive_score = d.defensive_score;
+                    byName[d.name].defensive_percentile = d.defensive_percentile;
+                    byName[d.name].position = d.position || byName[d.name].position;
+                } else {
+                    byName[d.name] = {
+                        name: d.name,
+                        points: 0,
+                        contribution_pct: 0,
+                        impact_pct: 0,
+                        position: d.position || 'D',
+                        defensive_score: d.defensive_score,
+                        defensive_percentile: d.defensive_percentile,
+                        status: d.status,
+                    };
+                }
+            });
+            return Object.values(byName).sort((a, b) => {
+                const aOff = Math.abs(a.impact_pct || 0);
+                const bOff = Math.abs(b.impact_pct || 0);
+                const aDef = ((a.defensive_score || 0) > 0.5) ? (a.defensive_score / 5) : 0;
+                const bDef = ((b.defensive_score || 0) > 0.5) ? (b.defensive_score / 5) : 0;
+                return (bOff + bDef) - (aOff + aDef);
+            });
+        };
+
         const renderTeamInjuries = (teamName, teamAbbr, injData, players, topDefense) => {
             const totalImpact = (injData.offense_impact || 0) * 100;
             const defenseImpact = (injData.defense_impact || 0) * 100;
+            const merged = mergeInjuries(players, topDefense);
             html += `<div class="injury-team"><div class="injury-team-header">`;
             html += `<img class="injury-team-logo" src="/api/logos/${teamAbbr}.png" alt="${teamName}" onerror="this.style.display='none'">`;
             html += `<span>${teamName}</span><div class="injury-totals">`;
@@ -685,29 +716,24 @@ function renderResults(sim, homeAbbr, awayAbbr) {
                 html += `<span class="injury-total defense">+${defenseImpact.toFixed(1)}% opp goals</span>`;
             }
             html += `</div></div>`;
-            if (players.length) {
+            if (merged.length) {
                 html += `<div class="injury-list">`;
-                players.forEach(p => {
+                merged.forEach(p => {
                     const contrib = ((p.contribution_pct || 0) * 100).toFixed(1);
                     const status = (p.status || 'injured').toUpperCase();
                     const isDefense = (p.position || '').toUpperCase().startsWith('D');
+                    const dScore = p.defensive_score || 0;
+                    const defenseNote = (dScore > 0.5)
+                        ? `<span class="injury-contrib defense" title="Defensive score ${dScore.toFixed(2)}">🛡️ ${dScore.toFixed(1)}</span>`
+                        : '';
+                    const offenseNote = (p.contribution_pct > 0)
+                        ? `<span class="injury-contrib">${contrib}% team pts</span>`
+                        : '';
                     const defenseBadge = isDefense ? `<span class="injury-badge defense">D</span>` : '';
-                    html += `<div class="injury-row"><div class="injury-name">${defenseBadge}${p.name}</div><div class="injury-meta"><span class="injury-status ${status === 'DTD' ? 'dtd' : ''}">${status}</span><span class="injury-contrib">${contrib}% team pts</span></div></div>`;
+                    html += `<div class="injury-row"><div class="injury-name">${defenseBadge}${p.name}</div><div class="injury-meta"><span class="injury-status ${status === 'DTD' ? 'dtd' : ''}">${status}</span>${offenseNote}${defenseNote}</div></div>`;
                 });
                 html += `</div>`;
-            }
-            if (topDefense.length) {
-                html += `<div class="injury-defense-title">Top defensive absences</div>`;
-                html += `<div class="injury-defense-list">`;
-                topDefense.forEach(d => {
-                    const score = (d.defensive_score || 0).toFixed(2);
-                    const pct = (d.defensive_percentile || 50).toFixed(0);
-                    const status = (d.status || 'injured').toUpperCase();
-                    html += `<div class="injury-defense-row"><div class="injury-defense-name">🛡️ ${d.name} <span class="injury-defense-pos">${d.position || 'D'}</span></div><div class="injury-defense-meta"><span class="injury-status ${status === 'DTD' ? 'dtd' : ''}">${status}</span><span class="injury-defense-score" title="Defensive percentile: ${pct}%">score ${score}</span></div></div>`;
-                });
-                html += `</div>`;
-            }
-            if (!players.length && !topDefense.length) {
+            } else {
                 html += `<div class="injury-none">No significant injuries</div>`;
             }
             html += `</div>`;
