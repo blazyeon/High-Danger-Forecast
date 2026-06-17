@@ -1313,7 +1313,6 @@ function renderBettingEdge(data, container) {
         return;
     }
 
-    // Flatten every edge into a single list; each row carries its game context.
     const rows = [];
     games.forEach(g => {
         const homeAbbr = g.home;
@@ -1333,10 +1332,8 @@ function renderBettingEdge(data, container) {
     });
 
     if (_bettingEdgeSort === 'odds') {
-        // Higher decimal odds (bigger payout) first.
         rows.sort((a, b) => b.oddsDecimal - a.oddsDecimal);
     } else {
-        // Best model edge first.
         rows.sort((a, b) => b.edge - a.edge);
     }
 
@@ -1351,7 +1348,7 @@ function renderBettingEdge(data, container) {
         <button class="be-sort-btn ${_bettingEdgeSort === 'odds' ? 'active' : ''}" onclick="setBettingEdgeSort('odds')">Best Odds</button>
     </div>`;
 
-    html += '<div class="betting-edge-list">';
+    html += '<div class="betting-edge-table">';
     rows.forEach(r => {
         const e = r.e;
         const edge = r.edge;
@@ -1361,30 +1358,35 @@ function renderBettingEdge(data, container) {
         const model = (parseFloat(e.model_prob) * 100).toFixed(1);
         const odds = e.odds != null ? formatAmerican(e.odds) : '-';
         const pick = e.pick || e.side || '-';
+        const teamTag = e.team || (e.market.toLowerCase().startsWith('total') ? 'Total' : (r.homeName === pick || pick.includes(r.homeName) ? r.homeAbbr : r.awayAbbr));
         const cardClass = edge >= 0.05 ? 'edge-strong' : edge >= 0.03 ? 'edge-good' : 'edge-slight';
 
-        html += `<div class="betting-edge-card ${cardClass}">
-            <div class="betting-edge-header">
-                <div class="betting-edge-matchup">
-                    <img class="betting-edge-logo" src="/api/logos/${r.awayAbbr}.png" alt="${r.awayAbbr}" onerror="this.style.display='none'">
-                    <span class="team-name">${r.awayName}</span>
-                    <span class="vs-sep">@</span>
-                    <img class="betting-edge-logo" src="/api/logos/${r.homeAbbr}.png" alt="${r.homeAbbr}" onerror="this.style.display='none'">
-                    <span class="team-name">${r.homeName}</span>
-                </div>
-                <div class="betting-edge-best">Edge ${edgeSign}${edgePct}%</div>
+        html += `<div class="be-row ${cardClass}">
+            <div class="be-cell be-matchup">
+                <img class="be-row-logo" src="/api/logos/${r.awayAbbr}.png" alt="${r.awayAbbr}" onerror="this.style.display='none'">
+                <img class="be-row-logo" src="/api/logos/${r.homeAbbr}.png" alt="${r.homeAbbr}" onerror="this.style.display='none'">
+                <span class="be-row-teams">${r.awayAbbr} @ ${r.homeAbbr}</span>
             </div>
-            <div class="betting-edge-market">
-                <div class="be-market-meta">
-                    <span class="be-market">${escapeHtml(e.market)}</span>
-                    <span class="be-pick">Pick: ${escapeHtml(pick)}</span>
+            <div class="be-cell be-play">
+                <div class="be-play-market">${escapeHtml(e.market)}</div>
+                <div class="be-play-pick">${escapeHtml(pick)} <span class="be-team-tag">${escapeHtml(teamTag)}</span></div>
+            </div>
+            <div class="be-cell be-price">
+                <div class="be-price-val">${escapeHtml(odds)}</div>
+                <div class="be-price-label">odds</div>
+            </div>
+            <div class="be-cell be-probs">
+                <div class="be-prob-bar">
+                    <div class="be-prob-track"><div class="be-prob-fill" style="width:${implied}%"></div></div>
+                    <span class="be-prob-text">Implied ${implied}%</span>
                 </div>
-                <div class="be-odds-row">
-                    <span class="be-odds">${escapeHtml(odds)}</span>
-                    <span class="be-implied">Implied ${implied}%</span>
-                    <span class="be-model">Model ${model}%</span>
-                    <span class="be-edge">${edgeSign}${edgePct}%</span>
+                <div class="be-prob-bar">
+                    <div class="be-prob-track"><div class="be-prob-fill be-model-fill" style="width:${model}%"></div></div>
+                    <span class="be-prob-text">Model ${model}%</span>
                 </div>
+            </div>
+            <div class="be-cell be-edge-cell">
+                <div class="be-edge-badge">${edgeSign}${edgePct}%</div>
             </div>
         </div>`;
     });
