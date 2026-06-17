@@ -195,7 +195,8 @@ def fatigue_multiplier(features: Dict[str, Any]) -> float:
     ✅ Compute fatigue multiplier for expected goals.
 
     Penalties:
-    - Back-to-back: -8%
+    - Back-to-back: -14%
+    - Road B2B (travel >= 1000 km): extra -3%
     - Rest disadvantage: -2% per day
     - Travel: -0.02% per km
     - Cross-country (2500+ km): Additional -4%
@@ -206,7 +207,7 @@ def fatigue_multiplier(features: Dict[str, Any]) -> float:
     travel_km = float(features.get("travel_km", 0.0))
     tz_diff = float(features.get("tz_diff", 0.0))
 
-    W_B2B = REST_TRAVEL_PARAMS["back_to_back_penalty"]  # -0.08
+    W_B2B = REST_TRAVEL_PARAMS["back_to_back_penalty"]  # -0.14
     W_REST_DIFF = REST_TRAVEL_PARAMS["rest_diff_penalty"]  # -0.02
     W_TRAVEL = REST_TRAVEL_PARAMS["travel_penalty_per_km"]  # -0.0002
 
@@ -227,21 +228,27 @@ def fatigue_multiplier(features: Dict[str, Any]) -> float:
     # replaces part of the B2B penalty instead of stacking on top.
     b2b_delta = W_B2B * is_b2b * max(0.0, 1.0 - 0.0002 * min(travel_km, 1500.0))
 
-    delta = b2b_delta + non_b2b_delta
+    # Road B2B: extra penalty when a team played yesterday and traveled >=1000 km.
+    road_b2b_delta = 0.0
+    if is_b2b and travel_km >= 1000.0:
+        road_b2b_delta = REST_TRAVEL_PARAMS.get("road_b2b_extra_penalty", -0.03)
+
+    delta = b2b_delta + non_b2b_delta + road_b2b_delta
 
     # Hard ceiling on total fatigue so pathological schedules don't break mu.
-    delta = max(-0.22, delta)
+    # Raised to -0.30 to allow the stronger B2B signal to show through.
+    delta = max(-0.30, delta)
 
     result = float(max(
-        REST_TRAVEL_PARAMS["min_multiplier"],  # 0.85
+        REST_TRAVEL_PARAMS["min_multiplier"],  # 0.70
         min(REST_TRAVEL_PARAMS["max_multiplier"], 1.0 + delta)  # 1.08
     ))
-    
+
     logger.debug(
         f"Fatigue: B2B={is_b2b}, RestDiff={rest_diff:.1f}, Travel={travel_km:.0f}km, "
         f"TZ={tz_diff:.1f}h → Multiplier={result:.3f}"
     )
-    
+
     return result
 
 def penalty_diff_per60(all_df: pd.DataFrame, abbr: str) -> float:
@@ -321,7 +328,8 @@ def component_breakdown(
     lineup_adj: float,
     rest_adj: float,
     score_adj: float,
-    final_mu: float
+    final_mu: float,
+    momentum_adj: float = 0.0
 ) -> Dict[str, float]:
     return {
         "Base xGF": base_xgf,
@@ -330,6 +338,7 @@ def component_breakdown(
         "Goalie adj (mult-1)": goalie_adj,
         "Recent form adj": recent_adj,
         "Lineup delta": lineup_adj,
+        "Momentum adj (mult-1)": momentum_adj,
         "Rest/Travel adj (mult-1)": rest_adj,
         "Score-effects adj (mult-1)": score_adj,
         "Final mu": final_mu

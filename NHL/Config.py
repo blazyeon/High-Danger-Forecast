@@ -93,16 +93,17 @@ MODEL_WEIGHTS = {
     "xg_for_weight": 0.55,
     "gf_weight": 0.20,
     "xga_weight": 0.25,
-    "recent_form_weight": 0.12,
+    "recent_form_weight": 0.18,
+    "momentum_factor_weight": 0.12,
     "opponent_defense_weight": 0.06,
     "lineup_impact_weight": 0.10,
     "pp_pk_weight": 0.70,
     "goalie_impact_weight": 0.75,
     "season_blend_current": 0.70,
     "season_blend_previous": 0.30,
-    "elo_winprob_weight": 0.34,      # weight for Elo win probability
-    "simulation_winprob_weight": 0.51, # weight for simulation win probability
-    "ml_winprob_weight": 0.15,       # weight for ML win probability
+    "elo_winprob_weight": 0.25,      # weight for Elo win probability
+    "simulation_winprob_weight": 0.50, # weight for simulation win probability
+    "ml_winprob_weight": 0.25,       # weight for ML win probability
 }
 
 # ── Player / Goalie / Special Teams ───────────────────────────────
@@ -145,11 +146,12 @@ VENUE_ADV_PARAMS = {
 }
 
 REST_TRAVEL_PARAMS = {
-    "back_to_back_penalty": -0.08,      # ~8% reduction in expected goals
+    "back_to_back_penalty": -0.14,      # ~14% reduction in expected goals
     "rest_diff_penalty": -0.02,          # per day of rest disadvantage
     "travel_penalty_per_km": -0.0002,    # fatigue per km traveled
     "cross_country_penalty": -0.04,     # extra penalty for 2500+ km / 2.5+ tz
-    "min_multiplier": 0.85,
+    "road_b2b_extra_penalty": -0.03,    # extra penalty when B2B includes >=1000 km travel
+    "min_multiplier": 0.70,
     "max_multiplier": 1.08,
 }
 

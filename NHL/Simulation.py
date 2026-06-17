@@ -550,6 +550,114 @@ def team_last_n_goals_list(team_abbr: str, date_str: str, n: int = 8) -> List[in
             logger.error(f"Error getting goals list for {team_abbr}: {e2}")
             return []
 
+def team_recent_streak_factor(
+    team_abbr: str,
+    date_str: str,
+    n: int = 10,
+) -> float:
+    """
+    Compute a hot/cold momentum factor from the last N completed games.
+
+    Uses the NHL schedule (cached) to determine wins, OT/SO losses, and goal
+    differential. Points percentage (2 for a win, 1 for an OT/SO loss) is blended
+    with per-game goal differential to produce a factor in [-0.05, +0.05].
+
+    Positive = hot streak, negative = cold streak, 0 = neutral/insufficient data.
+    """
+    try:
+        season = season_from_date(date_str)
+        target_date = datetime.fromisoformat(date_str).date()
+    except Exception as e:
+        logger.debug(f"Could not parse date for streak factor: {e}")
+        return 0.0
+
+    try:
+        sched = _cached_schedule_json(team_abbr.upper(), season)
+        if not sched:
+            return 0.0
+
+        games = sched.get("games", [])
+        records: List[Dict[str, Any]] = []
+        for g in games:
+            gd = _parse_game_date(g.get("gameDate") or g.get("startTimeUTC") or g.get("startTime"))
+            if not gd or gd.date() >= target_date:
+                continue
+            state = str(g.get("gameState", "")).upper()
+            if state not in ("OFF", "FINAL", "OVER"):
+                continue
+
+            home = (g.get("homeTeam") or {}).get("abbrev", "").upper()
+            away = (g.get("awayTeam") or {}).get("abbrev", "").upper()
+            hs = (g.get("homeTeam") or {}).get("score")
+            aw = (g.get("awayTeam") or {}).get("score")
+            if hs is None or aw is None:
+                continue
+            try:
+                hs = int(hs)
+                aw = int(aw)
+            except Exception:
+                continue
+
+            pd = (g.get("periodDescriptor") or {})
+            pt = str(pd.get("periodType", "")).upper()
+            was_ot = pt in ("OT", "SO")
+
+            if home == team_abbr.upper():
+                gf, ga = hs, aw
+            elif away == team_abbr.upper():
+                gf, ga = aw, hs
+            else:
+                continue
+
+            if gf > ga:
+                points = 2
+            elif gf < ga and was_ot:
+                points = 1
+            else:
+                points = 0
+
+            records.append({
+                "date": gd.date(),
+                "gf": gf,
+                "ga": ga,
+                "points": points,
+                "goal_diff": gf - ga,
+            })
+
+        if not records:
+            return 0.0
+
+        records.sort(key=lambda x: x["date"], reverse=True)
+        last_n = records[:n]
+        sample_size = len(last_n)
+        if sample_size < 3:
+            return 0.0
+
+        max_points = 2.0 * sample_size
+        points_pct = sum(r["points"] for r in last_n) / max_points
+        avg_goal_diff = safe_division(
+            sum(r["goal_diff"] for r in last_n), float(sample_size), 0.0
+        )
+
+        # Normalize components to roughly [-1, 1]
+        points_component = (points_pct - 0.5) * 2.0
+        goal_component = max(-1.0, min(1.0, avg_goal_diff / 2.0))
+
+        # 60% points, 40% goal differential, then scaled to a small ±5% factor
+        momentum = 0.6 * points_component + 0.4 * goal_component
+        momentum = max(-1.0, min(1.0, momentum))
+        factor = round(momentum * 0.05, 4)
+
+        logger.info(
+            f"🔥 {team_abbr} last-{sample_size} momentum: "
+            f"points%={points_pct:.1%}, GD/GM={avg_goal_diff:+.2f} → factor={factor:+.3f}"
+        )
+        return factor
+    except Exception as e:
+        logger.debug(f"Recent streak factor failed for {team_abbr}: {e}")
+        return 0.0
+
+
 def _get_loaded_calibrator() -> Optional[Calibrator]:
     """Return the fitted Calibrator from app state, or None if unavailable."""
     try:
@@ -1401,6 +1509,10 @@ def simulate_matchup(
     home_rec_gf, home_rec_ga, _ = team_last_n_metrics(home_abbr, game_date.isoformat(), n=max(10, trend_games))
     away_rec_gf, away_rec_ga, _ = team_last_n_metrics(away_abbr, game_date.isoformat(), n=max(10, trend_games))
 
+    # Independent hot/cold streak signal based on last 5-10 games (points % + goal differential)
+    home_momentum = team_recent_streak_factor(home_abbr, game_date.isoformat(), n=10)
+    away_momentum = team_recent_streak_factor(away_abbr, game_date.isoformat(), n=10)
+
     if 'tz_diff' in feat_home:
         tz_pen_home = -0.01 * abs(feat_home.get('tz_diff', 0))
         rest_mult_home += tz_pen_home
@@ -1455,7 +1567,8 @@ def simulate_matchup(
         extra_pp_goals: float,
         rest_mult: float,
         score_mult: float,
-        injury_impact: float
+        injury_impact: float,
+        momentum_factor: float = 0.0
     ) -> Tuple[float, Dict[str, float]]:
         league_sv = LEAGUE_AVERAGES["sv_pct"]
         base_xgf = (
@@ -1519,6 +1632,7 @@ def simulate_matchup(
         mu *= (1.0 + MODEL_WEIGHTS["recent_form_weight"] * (rec_gfpg - offense_all["GFpg"]))
         mu *= (1.0 + MODEL_WEIGHTS["opponent_defense_weight"] * (rec_gapg_opp - defense_all["GApG"]))
         mu *= (1.0 + MODEL_WEIGHTS["lineup_impact_weight"] * lineup_delta)
+        mu *= (1.0 + MODEL_WEIGHTS["momentum_factor_weight"] * momentum_factor)
         mu += venue_adj
 
         mu *= rest_mult
@@ -1536,6 +1650,7 @@ def simulate_matchup(
             goalie_adj=round(goalie_adj_mult - 1.0, 4),
             recent_adj=round(MODEL_WEIGHTS["recent_form_weight"] * (rec_gfpg - offense_all["GFpg"]), 4),
             lineup_adj=round(MODEL_WEIGHTS["lineup_impact_weight"] * lineup_delta, 4),
+            momentum_adj=round(MODEL_WEIGHTS["momentum_factor_weight"] * momentum_factor, 4),
             rest_adj=round(rest_mult - 1.0, 4),
             score_adj=round(score_mult - 1.0, 4),
             final_mu=round(mu, 3)
@@ -1601,7 +1716,8 @@ def simulate_matchup(
         lineup_shoot_home - lineup_shoot_away,
         venue_advantage + h2h_physics_adj,
         advanced_stats_home, extra_pp_goals_home, rest_mult_home, 1.0,  # no pre-sim score effects
-        injury_impact_home
+        injury_impact_home,
+        momentum_factor=home_momentum
     )
     mu_away, br_away = _compute_expected_goals(
         away_all, home_all, away_pp60, home_pk_ga60,
@@ -1610,7 +1726,8 @@ def simulate_matchup(
         lineup_shoot_away - lineup_shoot_home,
         0.0,
         advanced_stats_away, extra_pp_goals_away, rest_mult_away, 1.0,  # no pre-sim score effects
-        injury_impact_away
+        injury_impact_away,
+        momentum_factor=away_momentum
     )
     
     logger.info(f"Expected goals (baseline) - Home: {mu_home:.2f}, Away: {mu_away:.2f}")
@@ -1623,15 +1740,22 @@ def simulate_matchup(
         ml_model = app_state.get('ml_model')
         current_season = app_state.get('current_season', 'unknown')
 
-        home_elo = team_elo_system.get_team_rating(home_abbr)
-        away_elo = team_elo_system.get_team_rating(away_abbr)
+        # Use recent-form-adjusted Elo for the ensemble so the Elo component
+        # reflects the last ~5-7 games, not just long-term team strength.
+        home_team_obj = team_elo_system.get_or_create_team(home_abbr)
+        away_team_obj = team_elo_system.get_or_create_team(away_abbr)
+        home_elo_raw = home_team_obj.rating
+        away_elo_raw = away_team_obj.rating
+        home_elo = home_team_obj.get_recent_form_rating(days=14)
+        away_elo = away_team_obj.get_recent_form_rating(days=14)
 
         # Compute Elo win probability (standard logistic)
         elo_diff = home_elo - away_elo
         elo_win_prob = 1.0 / (1.0 + 10.0 ** (-elo_diff / 400.0))
 
         logger.info(
-            f"Elo ratings: {home_abbr}={home_elo:.0f}, {away_abbr}={away_elo:.0f} "
+            f"Elo ratings: {home_abbr}={home_elo_raw:.0f}→{home_elo:.0f} (adj), "
+            f"{away_abbr}={away_elo_raw:.0f}→{away_elo:.0f} (adj) "
             f"→ win prob={elo_win_prob:.3f}"
         )
     except Exception as e:
@@ -1862,4 +1986,5 @@ __all__ = [
     'prev_season_key',
     'team_last_n_metrics',
     'team_last_n_goals_list',
+    'team_recent_streak_factor',
 ]

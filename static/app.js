@@ -127,8 +127,8 @@ function getMockResult(home, away, opts={}) {
     const simVariance = (Math.random() - 0.5) * 0.16;
     let simHomeWinProb = Math.max(0.05, Math.min(0.95, baseHomeWinProb + simVariance));
 
-    // Ensemble: 35% Elo + 65% simulation (matches backend logic)
-    const ensembleHomeWinProb = 0.35 * baseHomeWinProb + 0.65 * simHomeWinProb;
+    // Offline mock ensemble: 25% Elo + 75% simulation (backend uses 25/50/25 Elo/Sim/ML)
+    const ensembleHomeWinProb = 0.25 * baseHomeWinProb + 0.75 * simHomeWinProb;
     const clampedHomeProb = Math.max(0.05, Math.min(0.95, ensembleHomeWinProb));
 
     const homeWinPct = (clampedHomeProb * 100);
@@ -154,8 +154,8 @@ function getMockResult(home, away, opts={}) {
         totals[t] = Math.round(dist * 1000);
     }
 
-    // Back-to-back adjustments
-    const b2bFactor = 0.92;
+    // Back-to-back adjustments (~14% fatigue penalty)
+    const b2bFactor = 0.86;
     let finalHomeWin = homeWinPct;
     let finalAwayWin = awayWinPct;
     let finalHomeXg = homeXg;
@@ -726,12 +726,12 @@ async function runPrediction() {
         const resolvedAwayGoalie = data?.away_goalie || awayGoalie || 'Auto-select';
         logStep('GOALIE', `Home goalie: ${resolvedHomeGoalie} | Away goalie: ${resolvedAwayGoalie}`);
         await delay(100);
-        if (homeB2B) logStep('B2B', `${home} flagged as back-to-back (~8% fatigue penalty)`);
-        if (awayB2B) logStep('B2B', `${away} flagged as back-to-back (~8% fatigue penalty)`);
+        if (homeB2B) logStep('B2B', `${home} flagged as back-to-back (~14% fatigue penalty)`);
+        if (awayB2B) logStep('B2B', `${away} flagged as back-to-back (~14% fatigue penalty)`);
         await delay(100);
         logStep('SIM', `Running ${document.getElementById('sims').value || 10000} Monte Carlo iterations`);
         await delay(250);
-        logStep('ENSEMBLE', `Blending Elo (35%) + simulation (65%) outcomes`);
+        logStep('ENSEMBLE', `Blending Elo (25%) + simulation (75%) outcomes`);
         await delay(100);
 
         data = getMockResult(home, away, { homeB2B, awayB2B });
@@ -764,10 +764,10 @@ async function runPrediction() {
             const actualHomeGoalie = data.home_goalie || homeGoalie || 'N/A';
             const actualAwayGoalie = data.away_goalie || awayGoalie || 'N/A';
             logStep('GOALIE', `Home goalie: ${actualHomeGoalie} | Away goalie: ${actualAwayGoalie}`);
-            if (homeB2B) logStep('B2B', `${home} flagged as back-to-back (~8% fatigue penalty)`);
-            if (awayB2B) logStep('B2B', `${away} flagged as back-to-back (~8% fatigue penalty)`);
+            if (homeB2B) logStep('B2B', `${home} flagged as back-to-back (~14% fatigue penalty)`);
+            if (awayB2B) logStep('B2B', `${away} flagged as back-to-back (~14% fatigue penalty)`);
             logStep('SIM', `Ran ${data.sims || body.simulations} Monte Carlo iterations`);
-            logStep('ENSEMBLE', 'Blended Elo + simulation + ML outcomes');
+            logStep('ENSEMBLE', 'Blended Elo (25%) + simulation (50%) + ML (25%) outcomes');
             logStep('DONE', `Prediction complete. Confidence: ${data.confidence}`);
         } catch (e) {
             console.error('Prediction failed:', e);
