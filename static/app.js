@@ -1270,6 +1270,9 @@ function formatAmerican(n) {
 }
 
 // ── Betting Edge Tab ─────────────────────────────────────────────
+let _lastBettingEdgeData = null;
+let _bettingEdgeSort = 'edge';
+
 async function runBettingEdge() {
     const container = document.getElementById('bettingEdgeResults');
     if (!container) return;
@@ -1283,11 +1286,20 @@ async function runBettingEdge() {
             container.innerHTML = `<div class="error-box">${data.error}</div>`;
             return;
         }
+        _lastBettingEdgeData = data;
+        _bettingEdgeSort = 'edge';
         renderBettingEdge(data, container);
     } catch (e) {
         console.error('Betting edge failed:', e);
         container.innerHTML = `<div class="error-box">Could not load betting edge: ${e.message}</div>`;
     }
+}
+
+function setBettingEdgeSort(sort) {
+    if (!_lastBettingEdgeData) return;
+    _bettingEdgeSort = sort;
+    const container = document.getElementById('bettingEdgeResults');
+    if (container) renderBettingEdge(_lastBettingEdgeData, container);
 }
 
 function renderBettingEdge(data, container) {
@@ -1301,43 +1313,68 @@ function renderBettingEdge(data, container) {
         return;
     }
 
+    // Flatten every edge into a single list; each row carries its game context.
+    const rows = [];
+    games.forEach(g => {
+        const homeAbbr = g.home;
+        const awayAbbr = g.away;
+        const homeName = g.home_name || getTeamName(homeAbbr) || homeAbbr;
+        const awayName = g.away_name || getTeamName(awayAbbr) || awayAbbr;
+        g.edges.forEach(e => {
+            const oddsDecimal = parseFloat(e.odds_decimal) || 0;
+            rows.push({
+                homeAbbr, awayAbbr, homeName, awayName,
+                edge: parseFloat(e.edge) || 0,
+                oddsDecimal,
+                oddsAmerican: e.odds,
+                e,
+            });
+        });
+    });
+
+    if (_bettingEdgeSort === 'odds') {
+        // Higher decimal odds (bigger payout) first.
+        rows.sort((a, b) => b.oddsDecimal - a.oddsDecimal);
+    } else {
+        // Best model edge first.
+        rows.sort((a, b) => b.edge - a.edge);
+    }
+
     let html = '';
     if (data.warning) {
         html += `<div class="betting-edge-warning">⚠️ ${escapeHtml(data.warning)}</div>`;
     }
 
-    html += '<div class="betting-edge-grid">';
-    games.forEach(g => {
-        const homeAbbr = g.home;
-        const awayAbbr = g.away;
-        const homeName = g.home_name || getTeamName(homeAbbr);
-        const awayName = g.away_name || getTeamName(awayAbbr);
-        const bestEdge = g.best_edge != null ? parseFloat(g.best_edge) : 0;
-        const cardClass = bestEdge >= 0.05 ? 'edge-strong' : bestEdge >= 0.03 ? 'edge-good' : 'edge-slight';
+    html += `<div class="betting-edge-toolbar">
+        <span class="be-toolbar-label">Sort by:</span>
+        <button class="be-sort-btn ${_bettingEdgeSort === 'edge' ? 'active' : ''}" onclick="setBettingEdgeSort('edge')">Best Edge</button>
+        <button class="be-sort-btn ${_bettingEdgeSort === 'odds' ? 'active' : ''}" onclick="setBettingEdgeSort('odds')">Best Odds</button>
+    </div>`;
+
+    html += '<div class="betting-edge-list">';
+    rows.forEach(r => {
+        const e = r.e;
+        const edge = r.edge;
+        const edgePct = (edge * 100).toFixed(1);
+        const edgeSign = edge > 0 ? '+' : '';
+        const implied = (parseFloat(e.implied_prob) * 100).toFixed(1);
+        const model = (parseFloat(e.model_prob) * 100).toFixed(1);
+        const odds = e.odds != null ? formatAmerican(e.odds) : '-';
+        const pick = e.pick || e.side || '-';
+        const cardClass = edge >= 0.05 ? 'edge-strong' : edge >= 0.03 ? 'edge-good' : 'edge-slight';
 
         html += `<div class="betting-edge-card ${cardClass}">
             <div class="betting-edge-header">
                 <div class="betting-edge-matchup">
-                    <img class="betting-edge-logo" src="/api/logos/${awayAbbr}.png" alt="${awayAbbr}" onerror="this.style.display='none'">
-                    <span class="team-name">${awayName}</span>
+                    <img class="betting-edge-logo" src="/api/logos/${r.awayAbbr}.png" alt="${r.awayAbbr}" onerror="this.style.display='none'">
+                    <span class="team-name">${r.awayName}</span>
                     <span class="vs-sep">@</span>
-                    <img class="betting-edge-logo" src="/api/logos/${homeAbbr}.png" alt="${homeAbbr}" onerror="this.style.display='none'">
-                    <span class="team-name">${homeName}</span>
+                    <img class="betting-edge-logo" src="/api/logos/${r.homeAbbr}.png" alt="${r.homeAbbr}" onerror="this.style.display='none'">
+                    <span class="team-name">${r.homeName}</span>
                 </div>
-                <div class="betting-edge-best">Best edge ${(bestEdge * 100).toFixed(1)}%</div>
+                <div class="betting-edge-best">Edge ${edgeSign}${edgePct}%</div>
             </div>
-            <div class="betting-edge-markets">`;
-
-        g.edges.forEach(e => {
-            const edge = parseFloat(e.edge);
-            const edgePct = (edge * 100).toFixed(1);
-            const edgeSign = edge > 0 ? '+' : '';
-            const implied = (parseFloat(e.implied_prob) * 100).toFixed(1);
-            const model = (parseFloat(e.model_prob) * 100).toFixed(1);
-            const odds = e.odds != null ? formatAmerican(e.odds) : '-';
-            const pick = e.pick || e.side || '-';
-
-            html += `<div class="betting-edge-market">
+            <div class="betting-edge-market">
                 <div class="be-market-meta">
                     <span class="be-market">${escapeHtml(e.market)}</span>
                     <span class="be-pick">Pick: ${escapeHtml(pick)}</span>
@@ -1348,10 +1385,8 @@ function renderBettingEdge(data, container) {
                     <span class="be-model">Model ${model}%</span>
                     <span class="be-edge">${edgeSign}${edgePct}%</span>
                 </div>
-            </div>`;
-        });
-
-        html += `</div></div>`;
+            </div>
+        </div>`;
     });
     html += '</div>';
 

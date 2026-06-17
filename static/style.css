@@ -939,8 +939,42 @@ input[type="date"].param-input, input[type="date"].date-input {
     margin-bottom: 18px;
 }
 
-.betting-edge-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 16px; }
-@media (max-width: 640px) { .betting-edge-grid { grid-template-columns: 1fr; } }
+.betting-edge-toolbar {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 16px; padding: 12px 14px;
+    background: var(--bg-surface-elevated);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+}
+
+.be-toolbar-label {
+    font-size: 13px; font-weight: 700; color: var(--text-secondary);
+    margin-right: 4px;
+}
+
+.be-sort-btn {
+    background: var(--bg-base);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-sm);
+    color: var(--text-secondary);
+    font-size: 13px; font-weight: 700;
+    padding: 6px 12px;
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.be-sort-btn:hover {
+    border-color: var(--border-default);
+    color: var(--text-primary);
+}
+
+.be-sort-btn.active {
+    background: var(--accent-cyan);
+    border-color: var(--accent-cyan);
+    color: #0a0a0f;
+}
+
+.betting-edge-list { display: flex; flex-direction: column; gap: 12px; }
 
 .betting-edge-card {
     background: var(--bg-surface-elevated);
