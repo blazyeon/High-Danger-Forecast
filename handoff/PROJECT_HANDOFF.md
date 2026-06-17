@@ -2,8 +2,8 @@
 
 **Project:** High Danger Forecast / NHL Game Predictor  
 **Repository:** `C:\Users\Nicholas Siapas\OneDrive\Documents\NHLPredictionV1.0.0\NHLPrediction-main`  
-**Handoff date:** 2026-06-16  
-**Status:** Active; Betting Edge feature just completed and tested.
+**Handoff date:** 2026-06-17  
+**Status:** Active; Betting Edge and Player Props table refactor deployed.
 
 ---
 
@@ -15,7 +15,7 @@ A Flask-based single-page application that predicts NHL game outcomes using a hy
 - **Monte-Carlo simulation** (`NHL/Simulation.py`)
 - **Machine-learning win-probability model** (`EloMl/MLModel.py`)
 
-The site serves a dark-themed hockey UI with tabs for Matchup Predictor, Game Lookup, Advanced Stats, Player Props, and (new) Betting Edge.
+The site serves a dark-themed hockey UI with tabs for Matchup Predictor, Game Lookup, Advanced Stats, Player Props (new table layout), and (new) Betting Edge.
 
 ---
 

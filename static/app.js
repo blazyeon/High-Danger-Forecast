@@ -63,6 +63,11 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('gameModal').addEventListener('click', (e) => {
         if (e.target.id === 'gameModal') document.getElementById('gameModal').style.display = 'none';
     });
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && document.getElementById('gameModal').style.display === 'flex') {
+            document.getElementById('gameModal').style.display = 'none';
+        }
+    });
     loadAppState();
     updateLogos();
     updatePredictBtn();
@@ -77,6 +82,7 @@ function initTabs() {
             document.getElementById(`tab-${btn.dataset.tab}`).classList.add('active');
             if (btn.dataset.tab === 'elo') runElo();
             if (btn.dataset.tab === 'betting-edge') runBettingEdge();
+            if (btn.dataset.tab === 'props') runProps();
         });
     });
 }
@@ -588,7 +594,7 @@ function renderResults(sim, homeAbbr, awayAbbr) {
     html += `<div class="result-team-block">
         <div class="result-badge home">HOME</div>
         <img class="result-team-logo" src="/api/logos/${homeAbbr}.png" alt="${homeName}" onerror="this.style.display='none'">
-        <div class="result-team-name">${homeName}</div>
+        <div class="result-team-name" title="${escapeHtml(homeName)}">${homeName}</div>
         <div class="result-team-abbr">${homeAbbr}</div>
     </div>`;
     html += `<div class="result-center">
@@ -598,7 +604,7 @@ function renderResults(sim, homeAbbr, awayAbbr) {
     html += `<div class="result-team-block">
         <div class="result-badge away">AWAY</div>
         <img class="result-team-logo" src="/api/logos/${awayAbbr}.png" alt="${awayName}" onerror="this.style.display='none'">
-        <div class="result-team-name">${awayName}</div>
+        <div class="result-team-name" title="${escapeHtml(awayName)}">${awayName}</div>
         <div class="result-team-abbr">${awayAbbr}</div>
     </div>`;
     html += `</div>`;
@@ -1157,8 +1163,8 @@ async function runElo() {
         const minRating = Math.min(...teams.map(t => t.rating || 0));
         const range = Math.max(1, maxRating - minRating);
 
-        let html = '<div class="table-wrap"><table class="data-table"><thead><tr>';
-        html += '<th>#</th><th>Team</th><th>Rating</th><th>Games</th><th style="width:40%">Strength</th>';
+        let html = '<div class="table-wrap"><table class="data-table elo-table"><thead><tr>';
+        html += '<th>#</th><th>Team</th><th>Rating</th><th>Games</th><th>Strength</th>';
         html += '</tr></thead><tbody>';
 
         teams.forEach((t, i) => {
@@ -1194,29 +1200,40 @@ async function runProps() {
     const markets = ["player_points", "player_assists", "player_goals", "player_shots_on_goal"];
 
     const demoUrl = '/static/data/demo_props.json';
+    async function loadDemo(reason) {
+        console.warn(reason + ', using demo data.');
+        const demo = await safeFetchJson(demoUrl);
+        _lastPropsData = demo.props || [];
+        _propsSort = 'edge';
+        _propsIsDemo = true;
+        _propsDemoReason = reason;
+        renderProps(_lastPropsData);
+    }
+
     try {
         const url = `/api/player-props/${date}?regions=us&markets=${markets.join(',')}`;
         const data = await safeFetchJson(url);
         if (data.error) {
-            console.warn('Props API returned error, using demo data:', data.error);
-            const demo = await safeFetchJson(demoUrl);
-            _lastPropsData = demo.props || [];
-            _propsSort = 'edge';
-            renderProps(_lastPropsData);
+            await loadDemo('Props API returned error: ' + data.error);
             return;
         }
-        _lastPropsData = data.props || [];
+        const liveProps = data.props || [];
+        if (liveProps.length === 0) {
+            await loadDemo('No live props for ' + date);
+            return;
+        }
+        _lastPropsData = liveProps;
         _propsSort = 'edge';
+        _propsIsDemo = false;
+        _propsDemoReason = null;
         renderProps(_lastPropsData);
     } catch (e) {
-        console.warn('Props API unavailable, using demo data:', e);
         try {
-            const demo = await safeFetchJson(demoUrl);
-            _lastPropsData = demo.props || [];
-            _propsSort = 'edge';
-            renderProps(_lastPropsData);
+            await loadDemo('Props API unavailable: ' + e.message);
         } catch (demoErr) {
-            container.innerHTML = `<div class="error-box">Could not load props: ${e.message}</div>`;
+            _lastPropsData = [];
+            _propsIsDemo = false;
+            container.innerHTML = `<div class="error-box">Could not load props: ${e.message}. Demo data also failed to load.</div>`;
             console.error('Props load failed:', e, demoErr);
         }
     }
@@ -1259,7 +1276,15 @@ function renderProps(props) {
         rows.sort((a, b) => b.edge - a.edge);
     }
 
-    let html = `<div class="props-toolbar">
+    let html = '';
+    if (_propsIsDemo) {
+        html += `<div class="demo-notice">
+            📡 Showing sample props because live odds are unavailable${_propsDemoReason ? ': ' + escapeHtml(_propsDemoReason) : ''}.
+            Set <code>ODDS_API_KEY</code> for real lines.
+        </div>`;
+    }
+
+    html += `<div class="props-toolbar">
         <span class="props-toolbar-label">Sort by:</span>
         <button class="props-sort-btn ${_propsSort === 'edge' ? 'active' : ''}" onclick="setPropsSort('edge')">Best Edge</button>
         <button class="props-sort-btn ${_propsSort === 'odds' ? 'active' : ''}" onclick="setPropsSort('odds')">Best Odds</button>
@@ -1327,6 +1352,8 @@ let _bettingEdgeSort = 'edge';
 // ── Player Props Tab ─────────────────────────────────────────────
 let _lastPropsData = null;
 let _propsSort = 'edge';
+let _propsIsDemo = false;
+let _propsDemoReason = null;
 
 async function runBettingEdge() {
     const container = document.getElementById('bettingEdgeResults');
@@ -1416,25 +1443,30 @@ function renderBettingEdge(data, container) {
         const teamTag = e.team || (e.market.toLowerCase().startsWith('total') ? 'Total' : (r.homeName === pick || pick.includes(r.homeName) ? r.homeAbbr : r.awayAbbr));
         const cardClass = edge >= 0.05 ? 'edge-strong' : edge >= 0.03 ? 'edge-good' : 'edge-slight';
 
-        html += `<div class="be-row ${cardClass}">
-            <div class="be-cell be-matchup">
-                <div class="be-team-pill">
-                    <img class="be-row-logo" src="/api/logos/${r.awayAbbr}.png" alt="${r.awayAbbr}" onerror="this.style.display='none'">
-                    <span class="be-row-abbr">${r.awayAbbr}</span>
-                    <span class="be-at">@</span>
-                    <img class="be-row-logo" src="/api/logos/${r.homeAbbr}.png" alt="${r.homeAbbr}" onerror="this.style.display='none'">
-                    <span class="be-row-abbr">${r.homeAbbr}</span>
+        html += `<div class="be-card ${cardClass}">
+            <div class="be-card-top">
+                <div class="be-matchup">
+                    <div class="be-team-pill">
+                        <img class="be-row-logo" src="/api/logos/${r.awayAbbr}.png" alt="${r.awayAbbr}" onerror="this.style.display='none'">
+                        <span class="be-row-abbr">${r.awayAbbr}</span>
+                        <span class="be-at">@</span>
+                        <img class="be-row-logo" src="/api/logos/${r.homeAbbr}.png" alt="${r.homeAbbr}" onerror="this.style.display='none'">
+                        <span class="be-row-abbr">${r.homeAbbr}</span>
+                    </div>
+                </div>
+                <div class="be-edge-badge">${edgeSign}${edgePct}%</div>
+            </div>
+            <div class="be-card-top">
+                <div class="be-play-meta">
+                    <div class="be-play-market">${escapeHtml(e.market)}</div>
+                    <div class="be-play-pick">${escapeHtml(pick)} <span class="be-team-tag">${escapeHtml(teamTag)}</span></div>
+                </div>
+                <div class="be-odds-price">
+                    <div class="be-price-val">${escapeHtml(odds)}</div>
+                    <div class="be-price-label">odds</div>
                 </div>
             </div>
-            <div class="be-cell be-play">
-                <div class="be-play-market">${escapeHtml(e.market)}</div>
-                <div class="be-play-pick">${escapeHtml(pick)} <span class="be-team-tag">${escapeHtml(teamTag)}</span></div>
-            </div>
-            <div class="be-cell be-price">
-                <div class="be-price-val">${escapeHtml(odds)}</div>
-                <div class="be-price-label">odds</div>
-            </div>
-            <div class="be-cell be-probs">
+            <div class="be-probs">
                 <div class="be-prob-bar">
                     <div class="be-prob-track"><div class="be-prob-fill" style="width:${implied}%"></div></div>
                     <span class="be-prob-text">Implied ${implied}%</span>
@@ -1443,9 +1475,6 @@ function renderBettingEdge(data, container) {
                     <div class="be-prob-track"><div class="be-prob-fill be-model-fill" style="width:${model}%"></div></div>
                     <span class="be-prob-text">Model ${model}%</span>
                 </div>
-            </div>
-            <div class="be-cell be-edge-cell">
-                <div class="be-edge-badge">${edgeSign}${edgePct}%</div>
             </div>
         </div>`;
     });
