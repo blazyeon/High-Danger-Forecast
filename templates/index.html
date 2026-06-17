@@ -54,6 +54,10 @@
                 <span class="tab-icon">💰</span>
                 <span class="tab-label">Props</span>
             </button>
+            <button class="tab-btn" data-tab="betting-edge">
+                <span class="tab-icon">🎯</span>
+                <span class="tab-label">Betting Edge</span>
+            </button>
             <button class="tab-btn" data-tab="elo">
                 <span class="tab-icon">🏆</span>
                 <span class="tab-label">Elo</span>
@@ -226,6 +230,24 @@
                     <button id="propsBtn" class="action-btn">Load Props</button>
                 </div>
                 <div id="propsResults" class="results-area"></div>
+            </div>
+        </section>
+
+        <!-- BETTING EDGE TAB -->
+        <section id="tab-betting-edge" class="tab-panel">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">NHL Betting Edge</h2>
+                    <p class="card-subtitle">Model probability vs. no-vig implied probability for moneyline, puck line, and totals</p>
+                </div>
+                <div class="lookup-row">
+                    <div class="field">
+                        <label>Date</label>
+                        <input type="date" id="bettingEdgeDate" class="param-input">
+                    </div>
+                    <button id="bettingEdgeBtn" class="action-btn">Find Value Bets</button>
+                </div>
+                <div id="bettingEdgeResults" class="results-area"></div>
             </div>
         </section>
 

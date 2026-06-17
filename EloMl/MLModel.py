@@ -194,12 +194,13 @@ class EloMLPredictor:
         prob = self.predict_proba(features)
 
         # Convert probability into an expected-goal delta centered on 50%.
-        # At p=0.5 no change. At p=0.7 we add ~0.35 goals to home, subtract ~0.18 away.
+        # Apply the same magnitude to both teams so model conviction does not
+        # inflate the total goals expectation.
         prob_delta = prob - 0.5
         goal_delta = prob_delta * 1.2  # empirical scale
 
         adjusted_home = max(0.5, baseline_mu_home + goal_delta)
-        adjusted_away = max(0.5, baseline_mu_away - goal_delta * 0.5)
+        adjusted_away = max(0.5, baseline_mu_away - goal_delta)
 
         logger.debug(
             f"ML margin: prob={prob:.3f}, baseline {baseline_mu_home:.2f} v {baseline_mu_away:.2f} "

@@ -927,6 +927,101 @@ input[type="date"].param-input, input[type="date"].date-input {
 .prop-card.edge-good .prop-edge { color: var(--accent-green); }
 .prop-card.edge-strong .prop-edge { color: var(--accent-gold); }
 
+/* ── Betting Edge Cards ─────────────────────────────────────────── */
+.betting-edge-warning {
+    background: rgba(255, 209, 102, 0.08);
+    border: 1px solid rgba(255, 209, 102, 0.18);
+    border-radius: var(--radius-sm);
+    padding: 12px 16px;
+    color: var(--accent-gold);
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 18px;
+}
+
+.betting-edge-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 16px; }
+@media (max-width: 640px) { .betting-edge-grid { grid-template-columns: 1fr; } }
+
+.betting-edge-card {
+    background: var(--bg-surface-elevated);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: 20px;
+    transition: var(--transition-base);
+    position: relative;
+    overflow: hidden;
+}
+
+.betting-edge-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
+    opacity: 0;
+    transition: opacity var(--transition-fast);
+}
+
+.betting-edge-card:hover { border-color: var(--border-default); transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.30); }
+.betting-edge-card:hover::before { opacity: 1; }
+
+.betting-edge-card.edge-slight { border-left: 3px solid var(--accent-cyan); }
+.betting-edge-card.edge-good { border-left: 3px solid var(--accent-green); }
+.betting-edge-card.edge-strong { border-left: 3px solid var(--accent-gold); }
+
+.betting-edge-header {
+    display: flex; justify-content: space-between; align-items: center; gap: 12px;
+    margin-bottom: 16px; padding-bottom: 14px; border-bottom: 1px solid var(--border-subtle);
+}
+
+.betting-edge-matchup {
+    display: flex; align-items: center; gap: 10px;
+    font-weight: 800; font-size: 15px; color: var(--text-primary); flex-wrap: wrap;
+}
+
+.betting-edge-matchup .team-name { color: var(--text-primary); }
+.betting-edge-matchup .vs-sep { color: var(--text-muted); font-weight: 500; font-size: 13px; }
+
+.betting-edge-logo {
+    width: 30px; height: 30px; object-fit: contain;
+    border-radius: var(--radius-sm); background: var(--bg-base); padding: 3px;
+    border: 1px solid var(--border-subtle);
+}
+
+.betting-edge-best {
+    font-size: 12px; font-weight: 900; color: var(--text-primary);
+    background: var(--bg-base); border: 1px solid var(--border-subtle);
+    padding: 6px 12px; border-radius: 100px; white-space: nowrap;
+}
+
+.betting-edge-markets { display: flex; flex-direction: column; gap: 12px; }
+
+.betting-edge-market {
+    background: var(--bg-base); border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-sm); padding: 12px;
+}
+
+.be-market-meta {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 8px; font-size: 12px;
+}
+
+.be-market { font-weight: 800; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.6px; }
+.be-pick { font-weight: 700; color: var(--text-primary); }
+
+.be-odds-row {
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 13px; font-weight: 800;
+}
+
+.be-odds { color: var(--accent-cyan); min-width: 56px; }
+.be-implied { color: var(--text-secondary); }
+.be-model { color: var(--text-secondary); }
+.be-edge { color: var(--text-muted); }
+
+.betting-edge-card.edge-slight .be-edge { color: var(--accent-cyan); }
+.betting-edge-card.edge-good .be-edge { color: var(--accent-green); }
+.betting-edge-card.edge-strong .be-edge { color: var(--accent-gold); }
+
 /* ── Lookup / Stats / Props rows ──────────────────────────────── */
 .lookup-row, .stats-row { display: flex; gap: 12px; align-items: flex-end; flex-wrap: wrap; margin-bottom: 10px; }
 

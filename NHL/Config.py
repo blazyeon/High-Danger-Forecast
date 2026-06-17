@@ -77,7 +77,7 @@ SIMULATION_PARAMS = {
     "correlation_rho": 0.38,
 }
 
-# ── League Baseline (2024-25) ─────────────────────────────────────
+# ── League Baseline (2025-26) ─────────────────────────────────────
 LEAGUE_AVERAGES = {
     "sv_pct": 0.905,
     "goals_per_game": 3.0,
@@ -89,7 +89,14 @@ LEAGUE_AVERAGES = {
 }
 
 # ── Model Weights ─────────────────────────────────────────────────
+# Ensemble win-prob weights calibrated via 2024-25 walk-forward backtest.
+# See memory/ensemble-weights-backtest-2026-06.md for methodology.
 MODEL_WEIGHTS = {
+    # Ensemble blend (must sum to 1.0; re-normalized at runtime if a source is missing)
+    "elo_winprob_weight": 0.34,      # weight for Elo win probability
+    "simulation_winprob_weight": 0.51, # weight for simulation win probability
+    "ml_winprob_weight": 0.15,       # weight for ML win probability
+
     "xg_for_weight": 0.55,
     "gf_weight": 0.20,
     "xga_weight": 0.25,
@@ -101,9 +108,6 @@ MODEL_WEIGHTS = {
     "goalie_impact_weight": 0.75,
     "season_blend_current": 0.70,
     "season_blend_previous": 0.30,
-    "elo_winprob_weight": 0.25,      # weight for Elo win probability
-    "simulation_winprob_weight": 0.50, # weight for simulation win probability
-    "ml_winprob_weight": 0.25,       # weight for ML win probability
 }
 
 # ── Player / Goalie / Special Teams ───────────────────────────────

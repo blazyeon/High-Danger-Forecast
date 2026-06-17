@@ -176,9 +176,14 @@ def load_skater_rates_from_json(season_year: int, stype: int = 2) -> Dict[str, D
     PBP parquet load and xG model inference entirely.
     """
     payload = _load_json_rates(
-        Path("static/data/pbp_skater_stats.json"), season_year, stype,
-        f"skater_{season_year}_{stype}",
+        Path(f"static/data/pbp_skater_stats_{season_year}{season_year + 1}.json"),
+        season_year, stype, f"skater_{season_year}_{stype}_dated",
     )
+    if payload is None:
+        payload = _load_json_rates(
+            Path("static/data/pbp_skater_stats.json"), season_year, stype,
+            f"skater_{season_year}_{stype}",
+        )
     if payload is None:
         return {}
     out: Dict[str, Dict[str, float]] = {}
@@ -209,9 +214,14 @@ def load_skater_rates_from_json(season_year: int, stype: int = 2) -> Dict[str, D
 def load_team_rates_from_json(season_year: int, stype: int = 2) -> pd.DataFrame:
     """Load pre-computed full-season team rates from JSON."""
     payload = _load_json_rates(
-        Path("static/data/pbp_team_stats.json"), season_year, stype,
-        f"team_{season_year}_{stype}",
+        Path(f"static/data/pbp_team_stats_{season_year}{season_year + 1}.json"),
+        season_year, stype, f"team_{season_year}_{stype}_dated",
     )
+    if payload is None:
+        payload = _load_json_rates(
+            Path("static/data/pbp_team_stats.json"), season_year, stype,
+            f"team_{season_year}_{stype}",
+        )
     if payload is None:
         return pd.DataFrame()
     df = pd.DataFrame(payload.get("data", []))
@@ -225,9 +235,14 @@ def load_team_rates_from_json(season_year: int, stype: int = 2) -> pd.DataFrame:
 def load_goalie_rates_from_json(season_year: int, stype: int = 2) -> pd.DataFrame:
     """Load pre-computed full-season goalie rates from JSON."""
     payload = _load_json_rates(
-        Path("static/data/pbp_goalie_stats.json"), season_year, stype,
-        f"goalie_{season_year}_{stype}",
+        Path(f"static/data/pbp_goalie_stats_{season_year}{season_year + 1}.json"),
+        season_year, stype, f"goalie_{season_year}_{stype}_dated",
     )
+    if payload is None:
+        payload = _load_json_rates(
+            Path("static/data/pbp_goalie_stats.json"), season_year, stype,
+            f"goalie_{season_year}_{stype}",
+        )
     if payload is None:
         return pd.DataFrame()
     df = pd.DataFrame(payload.get("data", []))
@@ -396,41 +411,32 @@ def compute_team_rates(
     # will skip.
     for team_id, grp in grouped:
         gf = int(grp["is_goal"].sum())
-        # All attempts = shots + missed + blocked
-        attempts = len(grp)
-        goals_against = 0  # filled below via cross-team
-        # We can't know goals_against for a team without looking at the
-        # opponent's shots. We compute it as total goals in games this
-        # team played in minus goals the team itself scored.
-        all_goals = int(grp["is_goal"].sum())
-        # Simpler: ga = total goals in games - gf
-        if "game_id" in grp.columns:
-            game_ids = grp["game_id"].unique()
-            other_shots = shots[shots["game_id"].isin(game_ids) & (shots["team_id"] != team_id)]
-            goals_against = int(other_shots["is_goal"].sum())
         shots_for = int((grp["is_shot"] == 1).sum())
-        shots_against = 0
-        if "game_id" in grp.columns:
-            game_ids = grp["game_id"].unique()
-            other = shots[shots["game_id"].isin(game_ids) & (shots["team_id"] != team_id)]
-            shots_against = int((other["is_shot"] == 1).sum())
-        cf = shots_for + int((grp["event_type"] == "missed").sum()) + int((grp["event_type"] == "blocked").sum())
-        ca = attempts - shots_for + shots_against  # rough
-        # Fenwick = shots + missed (unblocked)
-        ff = shots_for + int((grp["event_type"] == "missed").sum())
-        # We don't have fa cleanly here; use the opponent fenwick proxy
-        if "game_id" in grp.columns:
-            other = shots[shots["game_id"].isin(game_ids) & (shots["team_id"] != team_id)]
-            fa = int((other["is_shot"] == 1).sum()) + int((other["event_type"] == "missed").sum())
-        else:
-            fa = 0
+        missed_for = int((grp["event_type"] == "missed").sum())
+        blocked_for = int((grp["event_type"] == "blocked").sum())
+
+        # Opponent stats from the same games (one filtered lookup).
+        game_ids = grp["game_id"].unique() if "game_id" in grp.columns else []
+        other = pd.DataFrame()
+        if len(game_ids):
+            other = shots[
+                shots["game_id"].isin(game_ids) & (shots["team_id"] != team_id)
+            ].copy()
+
+        goals_against = int(other["is_goal"].sum()) if not other.empty else 0
+        shots_against = int((other["is_shot"] == 1).sum()) if not other.empty else 0
+        missed_against = int((other["event_type"] == "missed").sum()) if not other.empty else 0
+        blocked_against = int((other["event_type"] == "blocked").sum()) if not other.empty else 0
+
+        # Corsi / Fenwick are symmetric: team CF = opponent CA.
+        cf = shots_for + missed_for + blocked_for
+        ca = shots_against + missed_against + blocked_against
+        ff = shots_for + missed_for
+        fa = shots_against + missed_against
         sf = shots_for
         sa = shots_against
         hdcf = int(grp["hd"].sum())
-        hdca = 0
-        if "game_id" in grp.columns:
-            other = shots[shots["game_id"].isin(game_ids) & (shots["team_id"] != team_id)]
-            hdca = int(other["hd"].sum())
+        hdca = int(other["hd"].sum()) if not other.empty and "hd" in other.columns else 0
 
         gp = int(grp["game_id"].nunique()) if "game_id" in grp.columns else 0
         gp = max(gp, 1)

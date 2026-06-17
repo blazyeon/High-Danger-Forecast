@@ -1,232 +1,51 @@
 /**
- * NHL Game Predictor — Frontend v3.2
- * Premium dark SPA with offline demo mode, simulation logs, and live API integration.
+ * NHL Game Predictor — Frontend v3.3
+ * Premium dark SPA backed by the Flask API.
  */
 
-// ── Demo Mode Detection ───────────────────────────────────────────
-const USE_DEMO = false; // Set true for offline standalone mode
-
-// ── Team Data ──────────────────────────────────────────────────────
-const TEAMS = {
+// ── Minimal offline fallback (used only if /api/teams fails) ─────
+const TEAMS_FALLBACK = {
     Atlantic: [
-        { abbr:"BOS", name:"Boston Bruins" },
-        { abbr:"BUF", name:"Buffalo Sabres" },
-        { abbr:"DET", name:"Detroit Red Wings" },
-        { abbr:"FLA", name:"Florida Panthers" },
-        { abbr:"MTL", name:"Montreal Canadiens" },
-        { abbr:"OTT", name:"Ottawa Senators" },
-        { abbr:"TBL", name:"Tampa Bay Lightning" },
-        { abbr:"TOR", name:"Toronto Maple Leafs" },
+        { abbr:"BOS", full_name:"Boston Bruins" },
+        { abbr:"BUF", full_name:"Buffalo Sabres" },
+        { abbr:"DET", full_name:"Detroit Red Wings" },
+        { abbr:"FLA", full_name:"Florida Panthers" },
+        { abbr:"MTL", full_name:"Montreal Canadiens" },
+        { abbr:"OTT", full_name:"Ottawa Senators" },
+        { abbr:"TBL", full_name:"Tampa Bay Lightning" },
+        { abbr:"TOR", full_name:"Toronto Maple Leafs" },
     ],
     Metropolitan: [
-        { abbr:"CAR", name:"Carolina Hurricanes" },
-        { abbr:"CBJ", name:"Columbus Blue Jackets" },
-        { abbr:"NJD", name:"New Jersey Devils" },
-        { abbr:"NYI", name:"New York Islanders" },
-        { abbr:"NYR", name:"New York Rangers" },
-        { abbr:"PHI", name:"Philadelphia Flyers" },
-        { abbr:"PIT", name:"Pittsburgh Penguins" },
-        { abbr:"WSH", name:"Washington Capitals" },
+        { abbr:"CAR", full_name:"Carolina Hurricanes" },
+        { abbr:"CBJ", full_name:"Columbus Blue Jackets" },
+        { abbr:"NJD", full_name:"New Jersey Devils" },
+        { abbr:"NYI", full_name:"New York Islanders" },
+        { abbr:"NYR", full_name:"New York Rangers" },
+        { abbr:"PHI", full_name:"Philadelphia Flyers" },
+        { abbr:"PIT", full_name:"Pittsburgh Penguins" },
+        { abbr:"WSH", full_name:"Washington Capitals" },
     ],
     Central: [
-        { abbr:"CHI", name:"Chicago Blackhawks" },
-        { abbr:"COL", name:"Colorado Avalanche" },
-        { abbr:"DAL", name:"Dallas Stars" },
-        { abbr:"MIN", name:"Minnesota Wild" },
-        { abbr:"NSH", name:"Nashville Predators" },
-        { abbr:"STL", name:"St. Louis Blues" },
-        { abbr:"UTA", name:"Utah Mammoth" },
-        { abbr:"WPG", name:"Winnipeg Jets" },
+        { abbr:"CHI", full_name:"Chicago Blackhawks" },
+        { abbr:"COL", full_name:"Colorado Avalanche" },
+        { abbr:"DAL", full_name:"Dallas Stars" },
+        { abbr:"MIN", full_name:"Minnesota Wild" },
+        { abbr:"NSH", full_name:"Nashville Predators" },
+        { abbr:"STL", full_name:"St. Louis Blues" },
+        { abbr:"UTA", full_name:"Utah Mammoth" },
+        { abbr:"WPG", full_name:"Winnipeg Jets" },
     ],
     Pacific: [
-        { abbr:"ANA", name:"Anaheim Ducks" },
-        { abbr:"CGY", name:"Calgary Flames" },
-        { abbr:"EDM", name:"Edmonton Oilers" },
-        { abbr:"LAK", name:"Los Angeles Kings" },
-        { abbr:"SJS", name:"San Jose Sharks" },
-        { abbr:"SEA", name:"Seattle Kraken" },
-        { abbr:"VAN", name:"Vancouver Canucks" },
-        { abbr:"VGK", name:"Vegas Golden Knights" },
+        { abbr:"ANA", full_name:"Anaheim Ducks" },
+        { abbr:"CGY", full_name:"Calgary Flames" },
+        { abbr:"EDM", full_name:"Edmonton Oilers" },
+        { abbr:"LAK", full_name:"Los Angeles Kings" },
+        { abbr:"SJS", full_name:"San Jose Sharks" },
+        { abbr:"SEA", full_name:"Seattle Kraken" },
+        { abbr:"VAN", full_name:"Vancouver Canucks" },
+        { abbr:"VGK", full_name:"Vegas Golden Knights" },
     ],
 };
-
-// Realistic Elo ratings (end-of-2024-25 season approximation)
-// Best teams ~1650, worst ~1380. League average = 1500.
-const TEAM_ELO = {
-    COL: 1650, WPG: 1640, DAL: 1600, TOR: 1590, FLA: 1580,
-    CAR: 1570, EDM: 1560, NYR: 1550, BOS: 1540, VGK: 1535,
-    TBL: 1530, LAK: 1520, MIN: 1515, NJD: 1510, WSH: 1505,
-    NSH: 1500, CGY: 1490, STL: 1485, PIT: 1480, PHI: 1475,
-    SEA: 1470, DET: 1460, BUF: 1450, OTT: 1445, NYI: 1440,
-    MTL: 1430, CBJ: 1420, CHI: 1410, UTA: 1400, ANA: 1390,
-    VAN: 1380, SJS: 1360,
-};
-
-const HOME_ADVANTAGE_ELO = 45; // ~56% win prob for evenly matched teams at home
-
-// Expected goals model: base 3.2 + (elo - 1500) * 0.003
-// So a 1650 team scores ~3.65, a 1380 team scores ~2.54
-function getBaseXg(elo) {
-    return Math.max(1.8, 3.2 + (elo - 1500) * 0.0035);
-}
-
-// Fallback goalie names used only when the live roster API is unreachable.
-// The UI normally populates this from /api/goalies/<team>/<date>.
-const GOALIE_POOL = {
-    ANA: ["L. Dostal", "J. Gibson"],
-    BOS: ["J. Swayman", "J. Korpisalo"],
-    BUF: ["U. Luukkonen", "D. Levi"],
-    CGY: ["D. Vladar", "D. Wolf"],
-    CAR: ["F. Andersen", "P. Kochetkov"],
-    CHI: ["P. Mrazek", "A. Soderblom"],
-    CBJ: ["E. Merzlikins", "D. Tarasov"],
-    COL: ["J. Blackwood", "S. Wedgewood"],
-    DAL: ["J. Oettinger", "C. Wedgewood"],
-    DET: ["C. Talbot", "A. Lyon"],
-    EDM: ["S. Skinner", "C. Pickard"],
-    FLA: ["S. Bobrovsky", "A. Lyon"],
-    LAK: ["D. Kuemper", "E. Portillo"],
-    MIN: ["M. Fleury", "J. Wallstedt"],
-    MTL: ["S. Montembeault", "C. Primeau"],
-    NSH: ["J. Saros", "Y. Askarov"],
-    NJD: ["J. Allen", "J. Markstrom"],
-    NYI: ["I. Sorokin", "S. Varlamov"],
-    NYR: ["I. Shesterkin", "J. Quick"],
-    OTT: ["L. Ullmark", "A. Forsberg"],
-    PHI: ["S. Ersson", "A. Kolosov"],
-    PIT: ["T. Jarry", "A. Nedeljkovic"],
-    SEA: ["J. Daccord", "P. Grubauer"],
-    SJS: ["V. Vanecek", "Y. Askarov"],
-    STL: ["J. Binnington", "J. Hofer"],
-    TBL: ["A. Vasilevskiy", "J. Hlinka"],
-    TOR: ["J. Woll", "A. Stolarz"],
-    UTA: ["K. Vejmelka", "C. Ingram"],
-    VAN: ["T. Demko", "K. Lankinen"],
-    VGK: ["A. Hill", "I. Samsonov"],
-    WSH: ["C. Lindgren", "L. Thompson"],
-    WPG: ["C. Hellebuyck", "E. Comrie"],
-};
-
-function getTeamElo(abbr) {
-    return TEAM_ELO[abbr] || 1500;
-}
-
-function computeWinProb(homeElo, awayElo) {
-    const diff = (homeElo + HOME_ADVANTAGE_ELO) - awayElo;
-    return 1.0 / (1.0 + Math.pow(10, -diff / 400.0));
-}
-
-function getMockResult(home, away, opts={}) {
-    const homeElo = getTeamElo(home);
-    const awayElo = getTeamElo(away);
-
-    // Base win probability from Elo
-    const baseHomeWinProb = computeWinProb(homeElo, awayElo);
-
-    // Monte Carlo adds some variance (±8%)
-    const simVariance = (Math.random() - 0.5) * 0.16;
-    let simHomeWinProb = Math.max(0.05, Math.min(0.95, baseHomeWinProb + simVariance));
-
-    // Offline mock ensemble: 25% Elo + 75% simulation (backend uses 25/50/25 Elo/Sim/ML)
-    const ensembleHomeWinProb = 0.25 * baseHomeWinProb + 0.75 * simHomeWinProb;
-    const clampedHomeProb = Math.max(0.05, Math.min(0.95, ensembleHomeWinProb));
-
-    const homeWinPct = (clampedHomeProb * 100);
-    const awayWinPct = ((1 - clampedHomeProb) * 100);
-
-    // Expected goals
-    let homeXg = getBaseXg(homeElo) * 1.05; // home ice boost
-    let awayXg = getBaseXg(awayElo) * 0.97; // road penalty
-
-    // Confidence based on rating gap (bigger gap = higher confidence)
-    const eloGap = Math.abs(homeElo - awayElo);
-    const confidence = Math.min(0.95, 0.55 + eloGap / 800);
-
-    // Build a consistent Poisson score distribution from expected goals.
-    // The exact-score mode and the total distribution come from the same
-    // probability grid so they always match.
-    function poissonProb(lambda, k) {
-        if (lambda <= 0 || k < 0) return 0;
-        // Avoid overflow for large lambda/k
-        let logP = -lambda + k * Math.log(lambda);
-        for (let i = 2; i <= k; i++) logP -= Math.log(i);
-        return Math.exp(logP);
-    }
-
-    const maxGoals = 6;
-    let bestProb = -1;
-    let modeHome = Math.round(homeXg);
-    let modeAway = Math.round(awayXg);
-    const totals = {};
-    for (let h = 0; h <= maxGoals; h++) {
-        for (let a = 0; a <= maxGoals; a++) {
-            const p = poissonProb(homeXg, h) * poissonProb(awayXg, a);
-            if (p > bestProb) {
-                bestProb = p;
-                modeHome = h;
-                modeAway = a;
-            }
-            const total = h + a;
-            totals[total] = (totals[total] || 0) + p;
-        }
-    }
-    // Convert probabilities to integer counts and cover a sensible total range.
-    const scale = 10000;
-    const roundedTotals = {};
-    for (let t = 0; t <= 10; t++) {
-        roundedTotals[t] = Math.round((totals[t] || 0) * scale);
-    }
-
-    // Back-to-back adjustments (~14% fatigue penalty)
-    const b2bFactor = 0.86;
-    let finalHomeWin = homeWinPct;
-    let finalAwayWin = awayWinPct;
-    let finalHomeXg = homeXg;
-    let finalAwayXg = awayXg;
-
-    if (opts.homeB2B) {
-        finalHomeWin = homeWinPct * b2bFactor;
-        finalAwayWin = 100 - finalHomeWin;
-        finalHomeXg = homeXg * 0.95;
-    }
-    if (opts.awayB2B) {
-        finalAwayWin = awayWinPct * b2bFactor;
-        finalHomeWin = 100 - finalAwayWin;
-        finalAwayXg = awayXg * 0.95;
-    }
-    // If both are B2B, apply both but cap at reasonable bounds
-    if (opts.homeB2B && opts.awayB2B) {
-        finalHomeWin = homeWinPct * b2bFactor;
-        finalAwayWin = awayWinPct * b2bFactor;
-        const total = finalHomeWin + finalAwayWin;
-        finalHomeWin = (finalHomeWin / total) * 100;
-        finalAwayWin = (finalAwayWin / total) * 100;
-        finalHomeXg = homeXg * 0.95;
-        finalAwayXg = awayXg * 0.95;
-    }
-
-    return {
-        home_win_pct: finalHomeWin.toFixed(1),
-        away_win_pct: finalAwayWin.toFixed(1),
-        home_elo_adj: Math.round(homeElo + HOME_ADVANTAGE_ELO),
-        away_elo_adj: Math.round(awayElo),
-        exp_home_goals: finalHomeXg.toFixed(2),
-        exp_away_goals: finalAwayXg.toFixed(2),
-        home_win_2plus_pct: (finalHomeWin * 0.45).toFixed(1),
-        away_win_2plus_pct: (finalAwayWin * 0.38).toFixed(1),
-        mode_home_goals: modeHome,
-        mode_away_goals: modeAway,
-        totals_distribution: roundedTotals,
-        reg_games_pct: (74 + (eloGap / 100)).toFixed(1),
-        ot_games_pct: (16 - (eloGap / 200)).toFixed(1),
-        so_games_pct: (10 - (eloGap / 300)).toFixed(1),
-        confidence: confidence.toFixed(2),
-        breakdown: {
-            HOME: {"Base xGF": getBaseXg(homeElo).toFixed(2), "Home Ice": "+5%", "Elo": homeElo},
-            AWAY: {"Base xGF": getBaseXg(awayElo).toFixed(2), "Road Pen": "-3%", "Elo": awayElo}
-        }
-    };
-}
 
 // ── Init ─────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
@@ -235,7 +54,8 @@ document.addEventListener('DOMContentLoaded', () => {
     initDatePickers();
     initSettingsToggle();
     populateTeams();
-    initSeasons();
+    loadTeams();
+    loadSeasons();
     setupEventListeners();
     document.getElementById('modalClose').addEventListener('click', () => {
         document.getElementById('gameModal').style.display = 'none';
@@ -243,21 +63,9 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('gameModal').addEventListener('click', (e) => {
         if (e.target.id === 'gameModal') document.getElementById('gameModal').style.display = 'none';
     });
-    if (USE_DEMO) {
-        document.getElementById('statusPill').innerHTML =
-            '<span class="status-dot ready"></span><span class="status-label">Demo Mode</span>';
-        const sp = document.querySelector('.status-pill');
-        if (sp) { sp.style.background = 'rgba(255,209,102,0.08)'; sp.style.borderColor = 'rgba(255,209,102,0.18)'; sp.style.color = 'var(--accent-gold)'; }
-        document.getElementById('homeTeam').value = 'TOR';
-        document.getElementById('awayTeam').value = 'NYR';
-        updateLogos();
-        updatePredictBtn();
-        populateGoalies();
-    } else {
-        loadAppState();
-        loadTeams();
-        loadSeasons();
-    }
+    loadAppState();
+    updateLogos();
+    updatePredictBtn();
 });
 
 function initTabs() {
@@ -268,6 +76,7 @@ function initTabs() {
             btn.classList.add('active');
             document.getElementById(`tab-${btn.dataset.tab}`).classList.add('active');
             if (btn.dataset.tab === 'elo') runElo();
+            if (btn.dataset.tab === 'betting-edge') runBettingEdge();
         });
     });
 }
@@ -278,6 +87,8 @@ function initDateDefaults() {
     if (lookupDate) lookupDate.value = today;
     const propsDate = document.getElementById('propsDate');
     if (propsDate) propsDate.value = today;
+    const bettingEdgeDate = document.getElementById('bettingEdgeDate');
+    if (bettingEdgeDate) bettingEdgeDate.value = today;
 }
 
 // ── Custom Calendar Date Picker ─────────────────────────────────────
@@ -559,14 +370,20 @@ function initSettingsToggle() {
 function populateTeams() {
     const homeSel = document.getElementById('homeTeam');
     const awaySel = document.getElementById('awayTeam');
-    for (const [div, teams] of Object.entries(TEAMS)) {
+    if (!homeSel || !awaySel) return;
+    homeSel.innerHTML = '';
+    awaySel.innerHTML = '';
+    const divisions = getTeamsData();
+    for (const [div, teams] of Object.entries(divisions)) {
         const homeGroup = document.createElement('optgroup');
         homeGroup.label = div;
         const awayGroup = document.createElement('optgroup');
         awayGroup.label = div;
         teams.forEach(t => {
-            homeGroup.appendChild(new Option(`${t.name} (${t.abbr})`, t.abbr));
-            awayGroup.appendChild(new Option(`${t.name} (${t.abbr})`, t.abbr));
+            const abbr = t.abbr || t;
+            const name = t.full_name || t.name || abbr;
+            homeGroup.appendChild(new Option(`${name} (${abbr})`, abbr));
+            awayGroup.appendChild(new Option(`${name} (${abbr})`, abbr));
         });
         homeSel.appendChild(homeGroup);
         awaySel.appendChild(awayGroup);
@@ -580,24 +397,6 @@ function currentNHLSeasonKey() {
     // NHL season spans two calendar years; start in October.
     const startYear = month >= 10 ? year : year - 1;
     return `${startYear}${startYear + 1}`;
-}
-
-function initSeasons() {
-    const sel = document.getElementById('statsSeason');
-    if (!sel) return;
-    sel.innerHTML = '';
-    const seasons = [
-        { key: '20252026', label: '2025-26' },
-        { key: '20242025', label: '2024-25' },
-        { key: '20232024', label: '2023-24' },
-        { key: '20222023', label: '2022-23' },
-        { key: '20212022', label: '2021-22' },
-        { key: '20202021', label: '2020-21' },
-        { key: '20192020', label: '2019-20' },
-    ];
-    const currentSeason = currentNHLSeasonKey();
-    seasons.forEach(s => sel.add(new Option(s.label, s.key)));
-    sel.value = seasons.some(s => s.key === currentSeason) ? currentSeason : '20252026';
 }
 
 async function populateGoalies() {
@@ -637,27 +436,21 @@ async function populateGoalies() {
 
     if (home) {
         let live = [];
-        if (!USE_DEMO) {
-            try {
-                const params = away ? `?opponent=${away}&b2b=${homeB2B ? 1 : 0}` : '';
-                live = (await safeFetchJson(`/api/goalies/${home}/${dateStr}${params}`)).goalies || [];
-            }
-            catch (e) { console.warn(`Goalie API failed for ${home}:`, e); }
+        try {
+            const params = away ? `?opponent=${away}&b2b=${homeB2B ? 1 : 0}` : '';
+            live = (await safeFetchJson(`/api/goalies/${home}/${dateStr}${params}`)).goalies || [];
         }
-        const list = live.length ? live : GOALIE_POOL[home];
-        if (!fill(hSel, list, prevHomeGoalie)) hRow.style.display = 'none';
+        catch (e) { console.warn(`Goalie API failed for ${home}:`, e); }
+        if (!fill(hSel, live, prevHomeGoalie)) hRow.style.display = 'none';
     }
     if (away) {
         let live = [];
-        if (!USE_DEMO) {
-            try {
-                const params = home ? `?opponent=${home}&b2b=${awayB2B ? 1 : 0}` : '';
-                live = (await safeFetchJson(`/api/goalies/${away}/${dateStr}${params}`)).goalies || [];
-            }
-            catch (e) { console.warn(`Goalie API failed for ${away}:`, e); }
+        try {
+            const params = home ? `?opponent=${home}&b2b=${awayB2B ? 1 : 0}` : '';
+            live = (await safeFetchJson(`/api/goalies/${away}/${dateStr}${params}`)).goalies || [];
         }
-        const list = live.length ? live : GOALIE_POOL[away];
-        if (!fill(aSel, list, prevAwayGoalie)) aRow.style.display = 'none';
+        catch (e) { console.warn(`Goalie API failed for ${away}:`, e); }
+        if (!fill(aSel, live, prevAwayGoalie)) aRow.style.display = 'none';
     }
 }
 
@@ -688,6 +481,7 @@ function setupEventListeners() {
     document.getElementById('lookupBtn').addEventListener('click', runLookup);
     document.getElementById('statsBtn').addEventListener('click', runStats);
     document.getElementById('propsBtn').addEventListener('click', runProps);
+    document.getElementById('bettingEdgeBtn').addEventListener('click', runBettingEdge);
     document.getElementById('eloBtn').addEventListener('click', runElo);
 }
 
@@ -734,78 +528,49 @@ async function runPrediction() {
     const awayGoalie = document.getElementById('awayGoalie').value;
 
     let data;
-    if (USE_DEMO) {
-        const hElo = getTeamElo(home);
-        const aElo = getTeamElo(away);
-        const baseProb = computeWinProb(hElo, aElo);
+    try {
+        const body = {
+            home_team: home,
+            away_team: away,
+            simulations: parseInt(document.getElementById('sims').value) || 10000,
+            trend_games: parseInt(document.getElementById('trendGames').value) || 25,
+            nst_window: parseInt(document.getElementById('nstWindow').value) || 14,
+            season_type: 2,
+            home_goalie: homeGoalie || null,
+            away_goalie: awayGoalie || null,
+            home_b2b: homeB2B,
+            away_b2b: awayB2B,
+            date: new Date().toISOString().split('T')[0],
+        };
+        data = await safeFetchJson('/api/predict', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(body),
+        });
+        if (data.error) { content.innerHTML = `<div class="error-box">${data.error}</div>`; btn.disabled = false; return; }
 
         logStep('INIT', `Matchup: ${getTeamName(home)} (HOME) vs ${getTeamName(away)} (AWAY)`);
-        await delay(120);
-        logStep('ELO', `${home} rating: ${hElo} | ${away} rating: ${aElo} | Home adv: +${HOME_ADVANTAGE_ELO}`);
-        await delay(150);
-        logStep('PROB', `Base Elo win prob: ${(baseProb*100).toFixed(1)}% home / ${((1-baseProb)*100).toFixed(1)}% away`);
-        await delay(100);
-        const resolvedHomeGoalie = data?.home_goalie || homeGoalie || 'Auto-select';
-        const resolvedAwayGoalie = data?.away_goalie || awayGoalie || 'Auto-select';
-        logStep('GOALIE', `Home goalie: ${resolvedHomeGoalie} | Away goalie: ${resolvedAwayGoalie}`);
-        await delay(100);
+        logStep('ELO', `${home} rating: ${Math.round(data.home_elo_adj || 1500)} | ${away} rating: ${Math.round(data.away_elo_adj || 1500)}`);
+        logStep('PROB', `Win prob: ${data.home_win_pct}% home / ${data.away_win_pct}% away`);
+        const actualHomeGoalie = data.home_goalie || homeGoalie || 'N/A';
+        const actualAwayGoalie = data.away_goalie || awayGoalie || 'N/A';
+        logStep('GOALIE', `Home goalie: ${actualHomeGoalie} | Away goalie: ${actualAwayGoalie}`);
         if (homeB2B) logStep('B2B', `${home} flagged as back-to-back (~14% fatigue penalty)`);
         if (awayB2B) logStep('B2B', `${away} flagged as back-to-back (~14% fatigue penalty)`);
-        await delay(100);
-        logStep('SIM', `Running ${document.getElementById('sims').value || 10000} Monte Carlo iterations`);
-        await delay(250);
-        logStep('ENSEMBLE', `Blending Elo (25%) + simulation (75%) outcomes`);
-        await delay(100);
-
-        data = getMockResult(home, away, { homeB2B, awayB2B });
+        logStep('SIM', `Ran ${data.sims || body.simulations} Monte Carlo iterations`);
+        logStep('ENSEMBLE', 'Blended Elo (34%) + simulation (51%) + ML (15%) outcomes');
         logStep('DONE', `Prediction complete. Confidence: ${data.confidence}`);
-    } else {
-        try {
-            const body = {
-                home_team: home,
-                away_team: away,
-                simulations: parseInt(document.getElementById('sims').value) || 10000,
-                trend_games: parseInt(document.getElementById('trendGames').value) || 25,
-                nst_window: parseInt(document.getElementById('nstWindow').value) || 14,
-                season_type: 2,
-                home_goalie: homeGoalie || null,
-                away_goalie: awayGoalie || null,
-                home_b2b: homeB2B,
-                away_b2b: awayB2B,
-                date: new Date().toISOString().split('T')[0],
-            };
-            data = await safeFetchJson('/api/predict', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(body),
-            });
-            if (data.error) { content.innerHTML = `<div class="error-box">${data.error}</div>`; btn.disabled = false; return; }
-
-            logStep('INIT', `Matchup: ${getTeamName(home)} (HOME) vs ${getTeamName(away)} (AWAY)`);
-            logStep('ELO', `${home} rating: ${Math.round(data.home_elo_adj || 1500)} | ${away} rating: ${Math.round(data.away_elo_adj || 1500)}`);
-            logStep('PROB', `Win prob: ${data.home_win_pct}% home / ${data.away_win_pct}% away`);
-            const actualHomeGoalie = data.home_goalie || homeGoalie || 'N/A';
-            const actualAwayGoalie = data.away_goalie || awayGoalie || 'N/A';
-            logStep('GOALIE', `Home goalie: ${actualHomeGoalie} | Away goalie: ${actualAwayGoalie}`);
-            if (homeB2B) logStep('B2B', `${home} flagged as back-to-back (~14% fatigue penalty)`);
-            if (awayB2B) logStep('B2B', `${away} flagged as back-to-back (~14% fatigue penalty)`);
-            logStep('SIM', `Ran ${data.sims || body.simulations} Monte Carlo iterations`);
-            logStep('ENSEMBLE', 'Blended Elo (25%) + simulation (50%) + ML (25%) outcomes');
-            logStep('DONE', `Prediction complete. Confidence: ${data.confidence}`);
-        } catch (e) {
-            console.error('Prediction failed:', e);
-            content.innerHTML = `<div class="error-box">Prediction failed: ${e.message}</div>`;
-            btn.disabled = false;
-            return;
-        }
+    } catch (e) {
+        console.error('Prediction failed:', e);
+        content.innerHTML = `<div class="error-box">Prediction failed: ${e.message}</div>`;
+        btn.disabled = false;
+        return;
     }
 
     renderResults(data, home, away);
     renderLog();
     btn.disabled = false;
 }
-
-function delay(ms) { return new Promise(r => setTimeout(r, ms)); }
 
 function renderResults(sim, homeAbbr, awayAbbr) {
     const homeName = getTeamName(homeAbbr);
@@ -919,9 +684,10 @@ function renderResults(sim, homeAbbr, awayAbbr) {
 }
 
 function getTeamName(abbr) {
-    for (const div of Object.values(TEAMS)) {
-        const t = div.find(x => x.abbr === abbr);
-        if (t) return t.name;
+    const divisions = getTeamsData();
+    for (const div of Object.values(divisions)) {
+        const t = div.find(x => (x.abbr || x) === abbr);
+        if (t) return t.full_name || t.name || abbr;
     }
     return abbr;
 }
@@ -1198,85 +964,11 @@ async function showGameDetail(gameId, homeAbbrFallback, awayAbbrFallback) {
     }
 }
 
-// ── Analytics Tab (NST-Style Advanced Stats) ────────────────────
-// Fallback hardcoded data used when JSON files are not yet scraped
-const FALLBACK_TEAM_STATS = [
-    { team:'WPG', gp:82, w:56, l:20, otl:6, pts:118, cf:54.2, ff:53.8, sf:52.9, xgf:55.1, scf:54.3, hdsf:53.2, sh:9.2, sv:0.918, pdo:101.0 },
-    { team:'TOR', gp:82, w:52, l:24, otl:6, pts:110, cf:53.1, ff:52.5, sf:51.8, xgf:53.2, scf:52.8, hdsf:51.5, sh:10.1, sv:0.912, pdo:101.3 },
-    { team:'DAL', gp:82, w:51, l:26, otl:5, pts:107, cf:52.8, ff:52.2, sf:51.5, xgf:52.9, scf:52.1, hdsf:50.8, sh:9.8, sv:0.915, pdo:101.3 },
-    { team:'FLA', gp:82, w:50, l:26, otl:6, pts:106, cf:52.5, ff:51.9, sf:51.2, xgf:52.4, scf:51.7, hdsf:50.2, sh:9.5, sv:0.914, pdo:100.9 },
-    { team:'CAR', gp:82, w:49, l:27, otl:6, pts:104, cf:55.8, ff:55.2, sf:54.6, xgf:56.2, scf:55.4, hdsf:54.1, sh:8.9, sv:0.916, pdo:100.5 },
-    { team:'COL', gp:82, w:49, l:28, otl:5, pts:103, cf:53.5, ff:52.9, sf:52.1, xgf:53.8, scf:53.0, hdsf:51.9, sh:10.5, sv:0.910, pdo:101.5 },
-    { team:'EDM', gp:82, w:48, l:28, otl:6, pts:102, cf:53.2, ff:52.6, sf:51.8, xgf:53.5, scf:52.7, hdsf:51.4, sh:10.8, sv:0.908, pdo:101.6 },
-    { team:'NYR', gp:82, w:47, l:29, otl:6, pts:100, cf:50.5, ff:50.1, sf:49.6, xgf:50.8, scf:50.2, hdsf:49.5, sh:10.2, sv:0.911, pdo:101.3 },
-    { team:'VGK', gp:82, w:46, l:30, otl:6, pts:98,  cf:51.2, ff:50.6, sf:49.9, xgf:51.0, scf:50.4, hdsf:49.2, sh:9.6, sv:0.913, pdo:100.9 },
-    { team:'BOS', gp:82, w:45, l:30, otl:7, pts:97,  cf:51.5, ff:50.9, sf:50.2, xgf:51.2, scf:50.6, hdsf:49.5, sh:9.2, sv:0.917, pdo:100.9 },
-    { team:'TBL', gp:82, w:45, l:31, otl:6, pts:96,  cf:52.1, ff:51.5, sf:50.8, xgf:52.0, scf:51.3, hdsf:50.1, sh:9.4, sv:0.912, pdo:100.6 },
-    { team:'LAK', gp:82, w:44, l:32, otl:6, pts:94,  cf:52.5, ff:51.9, sf:51.2, xgf:52.1, scf:51.5, hdsf:50.3, sh:8.8, sv:0.916, pdo:100.4 },
-    { team:'MIN', gp:82, w:43, l:32, otl:7, pts:93,  cf:50.8, ff:50.2, sf:49.6, xgf:50.5, scf:49.9, hdsf:48.8, sh:9.1, sv:0.914, pdo:100.5 },
-    { team:'WSH', gp:82, w:42, l:33, otl:7, pts:91,  cf:49.5, ff:49.0, sf:48.5, xgf:49.2, scf:48.6, hdsf:47.8, sh:9.5, sv:0.911, pdo:100.6 },
-    { team:'NJD', gp:82, w:41, l:34, otl:7, pts:89,  cf:50.2, ff:49.6, sf:49.0, xgf:49.8, scf:49.2, hdsf:48.2, sh:9.8, sv:0.909, pdo:100.7 },
-    { team:'NSH', gp:82, w:40, l:35, otl:7, pts:87,  cf:49.2, ff:48.6, sf:48.0, xgf:48.8, scf:48.2, hdsf:47.2, sh:9.3, sv:0.910, pdo:100.3 },
-    { team:'CGY', gp:82, w:39, l:36, otl:7, pts:85,  cf:48.8, ff:48.2, sf:47.6, xgf:48.2, scf:47.6, hdsf:46.8, sh:9.0, sv:0.911, pdo:100.1 },
-    { team:'STL', gp:82, w:38, l:37, otl:7, pts:83,  cf:48.5, ff:47.9, sf:47.3, xgf:47.9, scf:47.3, hdsf:46.5, sh:8.8, sv:0.912, pdo:100.0 },
-    { team:'PIT', gp:82, w:37, l:38, otl:7, pts:81,  cf:48.2, ff:47.6, sf:47.0, xgf:47.5, scf:46.9, hdsf:46.0, sh:8.9, sv:0.909, pdo:99.8 },
-    { team:'PHI', gp:82, w:36, l:39, otl:7, pts:79,  cf:47.5, ff:47.0, sf:46.4, xgf:46.8, scf:46.2, hdsf:45.4, sh:8.6, sv:0.910, pdo:99.6 },
-    { team:'SEA', gp:82, w:36, l:40, otl:6, pts:78,  cf:47.8, ff:47.2, sf:46.6, xgf:47.0, scf:46.4, hdsf:45.6, sh:8.4, sv:0.911, pdo:99.5 },
-    { team:'DET', gp:82, w:35, l:40, otl:7, pts:77,  cf:47.2, ff:46.6, sf:46.0, xgf:46.5, scf:45.9, hdsf:45.0, sh:8.8, sv:0.908, pdo:99.6 },
-    { team:'BUF', gp:82, w:34, l:41, otl:7, pts:75,  cf:46.8, ff:46.2, sf:45.6, xgf:46.0, scf:45.4, hdsf:44.5, sh:9.1, sv:0.906, pdo:99.7 },
-    { team:'OTT', gp:82, w:34, l:42, otl:6, pts:74,  cf:46.5, ff:45.9, sf:45.3, xgf:45.7, scf:45.1, hdsf:44.2, sh:9.0, sv:0.907, pdo:99.7 },
-    { team:'NYI', gp:82, w:33, l:42, otl:7, pts:73,  cf:46.2, ff:45.6, sf:45.0, xgf:45.4, scf:44.8, hdsf:43.9, sh:8.5, sv:0.909, pdo:99.4 },
-    { team:'MTL', gp:82, w:32, l:43, otl:7, pts:71,  cf:45.5, ff:44.9, sf:44.3, xgf:44.6, scf:44.0, hdsf:43.2, sh:8.6, sv:0.907, pdo:99.3 },
-    { team:'CBJ', gp:82, w:31, l:44, otl:7, pts:69,  cf:45.2, ff:44.6, sf:44.0, xgf:44.2, scf:43.6, hdsf:42.8, sh:8.4, sv:0.908, pdo:99.2 },
-    { team:'CHI', gp:82, w:30, l:45, otl:7, pts:67,  cf:44.5, ff:43.9, sf:43.3, xgf:43.5, scf:42.9, hdsf:42.0, sh:8.2, sv:0.906, pdo:98.8 },
-    { team:'UTA', gp:82, w:29, l:46, otl:7, pts:65,  cf:44.2, ff:43.6, sf:43.0, xgf:43.2, scf:42.6, hdsf:41.8, sh:8.3, sv:0.905, pdo:98.8 },
-    { team:'ANA', gp:82, w:28, l:47, otl:7, pts:63,  cf:43.5, ff:42.9, sf:42.3, xgf:42.4, scf:41.8, hdsf:41.0, sh:8.1, sv:0.905, pdo:98.6 },
-    { team:'VAN', gp:82, w:27, l:48, otl:7, pts:61,  cf:43.2, ff:42.6, sf:42.0, xgf:42.0, scf:41.4, hdsf:40.6, sh:7.9, sv:0.904, pdo:98.3 },
-    { team:'SJS', gp:82, w:24, l:51, otl:7, pts:55,  cf:42.0, ff:41.4, sf:40.8, xgf:40.5, scf:39.9, hdsf:39.1, sh:7.6, sv:0.902, pdo:97.8 },
-];
-
-const FALLBACK_SKATERS = [
-    { name:'C. McDavid', team:'EDM', gp:82, g:52, a:78, pts:130, cf:58.2, xgf:59.5, hdcf:62.1, pdo:102.5 },
-    { name:'N. MacKinnon', team:'COL', gp:80, g:49, a:72, pts:121, cf:57.8, xgf:58.9, hdcf:60.8, pdo:101.8 },
-    { name:'A. Matthews', team:'TOR', gp:82, g:69, a:38, pts:107, cf:56.2, xgf:57.1, hdcf:58.5, pdo:102.2 },
-    { name:'D. Pastrnak', team:'BOS', gp:82, g:47, a:55, pts:102, cf:55.8, xgf:56.5, hdcf:57.2, pdo:101.5 },
-    { name:'M. Tkachuk', team:'FLA', gp:80, g:42, a:58, pts:100, cf:55.2, xgf:55.8, hdcf:56.9, pdo:101.2 },
-    { name:'J. Robertson', team:'DAL', gp:82, g:46, a:48, pts:94,  cf:54.5, xgf:55.1, hdcf:55.8, pdo:100.8 },
-    { name:'S. Crosby', team:'PIT', gp:82, g:42, a:52, pts:94,  cf:54.1, xgf:54.6, hdcf:55.2, pdo:100.5 },
-    { name:'A. Panarin', team:'NYR', gp:82, g:35, a:58, pts:93,  cf:53.8, xgf:54.3, hdcf:54.9, pdo:100.9 },
-    { name:'B. Point', team:'TBL', gp:82, g:48, a:44, pts:92,  cf:53.5, xgf:54.0, hdcf:54.6, pdo:100.7 },
-    { name:'S. Reinhart', team:'FLA', gp:82, g:55, a:35, pts:90,  cf:53.2, xgf:53.7, hdcf:54.2, pdo:101.1 },
-];
-
-const FALLBACK_GOALIES = [
-    { name:'C. Hellebuyck', team:'WPG', gp:62, w:45, sv:0.925, gaa:2.12, gsax:28.5, hdsv:0.852 },
-    { name:'J. Oettinger', team:'DAL', gp:58, w:38, sv:0.918, gaa:2.28, gsax:22.1, hdsv:0.841 },
-    { name:'S. Bobrovsky', team:'FLA', gp:60, w:39, sv:0.916, gaa:2.32, gsax:20.8, hdsv:0.838 },
-    { name:'A. Vasilevskiy', team:'TBL', gp:56, w:36, sv:0.915, gaa:2.35, gsax:19.5, hdsv:0.835 },
-    { name:'I. Shesterkin', team:'NYR', gp:58, w:35, sv:0.914, gaa:2.38, gsax:18.2, hdsv:0.833 },
-    { name:'J. Swayman', team:'BOS', gp:50, w:32, sv:0.913, gaa:2.42, gsax:16.8, hdsv:0.830 },
-    { name:'F. Andersen', team:'CAR', gp:52, w:34, sv:0.912, gaa:2.40, gsax:17.5, hdsv:0.831 },
-    { name:'D. Kuemper', team:'LAK', gp:54, w:33, sv:0.911, gaa:2.45, gsax:15.2, hdsv:0.828 },
-    { name:'J. Woll', team:'TOR', gp:48, w:31, sv:0.910, gaa:2.48, gsax:14.5, hdsv:0.825 },
-    { name:'J. Blackwood', team:'COL', gp:50, w:30, sv:0.909, gaa:2.50, gsax:13.8, hdsv:0.824 },
-];
-
+// ── Analytics Tab (PBP Advanced Stats) ────────────────────────────
 async function loadStatsPayload(type) {
     const season = document.getElementById('statsSeason')?.value || '20252026';
-    const endpoint = USE_DEMO
-        ? `../static/data/pbp_${type}_stats.json`
-        : `/api/stats/${type}?season=${season}&stype=2`;
-    try {
-        const payload = await safeFetchJson(endpoint, { cache: 'no-store' });
-        return payload || {};
-    } catch (e) {
-        console.warn(`Stats ${type} API unavailable, using fallback`, e);
-        const data =
-            type === 'teams' ? FALLBACK_TEAM_STATS :
-            type === 'skaters' ? FALLBACK_SKATERS :
-            type === 'goalies' ? FALLBACK_GOALIES : [];
-        return { data, meta: { source: 'fallback', updated_at: null } };
-    }
+    const endpoint = `/api/stats/${type}?season=${season}&stype=2`;
+    return safeFetchJson(endpoint, { cache: 'no-store' });
 }
 
 function fmtNum(v, digits=1) {
@@ -1566,6 +1258,101 @@ function formatAmerican(n) {
     return v > 0 ? `+${v}` : `${v}`;
 }
 
+// ── Betting Edge Tab ─────────────────────────────────────────────
+async function runBettingEdge() {
+    const container = document.getElementById('bettingEdgeResults');
+    if (!container) return;
+    container.innerHTML = '<div class="loading"><div class="spinner"></div><span>Crunching model probabilities and odds...</span></div>';
+
+    const date = document.getElementById('bettingEdgeDate')?.value || new Date().toISOString().split('T')[0];
+
+    try {
+        const data = await safeFetchJson(`/api/betting-edge?date=${encodeURIComponent(date)}`);
+        if (data.error) {
+            container.innerHTML = `<div class="error-box">${data.error}</div>`;
+            return;
+        }
+        renderBettingEdge(data, container);
+    } catch (e) {
+        console.error('Betting edge failed:', e);
+        container.innerHTML = `<div class="error-box">Could not load betting edge: ${e.message}</div>`;
+    }
+}
+
+function renderBettingEdge(data, container) {
+    const games = data.games || [];
+    if (!games.length) {
+        container.innerHTML = `<div class="empty-state">
+            <div class="empty-icon">🎯</div>
+            <h3 class="empty-title">No value bets</h3>
+            <p class="empty-desc">No market edges above the 3% threshold for ${data.date}. Try a different date or check back after the next odds update.</p>
+        </div>`;
+        return;
+    }
+
+    let html = '';
+    if (data.warning) {
+        html += `<div class="betting-edge-warning">⚠️ ${escapeHtml(data.warning)}</div>`;
+    }
+
+    html += '<div class="betting-edge-grid">';
+    games.forEach(g => {
+        const homeAbbr = g.home;
+        const awayAbbr = g.away;
+        const homeName = g.home_name || getTeamName(homeAbbr);
+        const awayName = g.away_name || getTeamName(awayAbbr);
+        const bestEdge = g.best_edge != null ? parseFloat(g.best_edge) : 0;
+        const cardClass = bestEdge >= 0.05 ? 'edge-strong' : bestEdge >= 0.03 ? 'edge-good' : 'edge-slight';
+
+        html += `<div class="betting-edge-card ${cardClass}">
+            <div class="betting-edge-header">
+                <div class="betting-edge-matchup">
+                    <img class="betting-edge-logo" src="/api/logos/${awayAbbr}.png" alt="${awayAbbr}" onerror="this.style.display='none'">
+                    <span class="team-name">${awayName}</span>
+                    <span class="vs-sep">@</span>
+                    <img class="betting-edge-logo" src="/api/logos/${homeAbbr}.png" alt="${homeAbbr}" onerror="this.style.display='none'">
+                    <span class="team-name">${homeName}</span>
+                </div>
+                <div class="betting-edge-best">Best edge ${(bestEdge * 100).toFixed(1)}%</div>
+            </div>
+            <div class="betting-edge-markets">`;
+
+        g.edges.forEach(e => {
+            const edge = parseFloat(e.edge);
+            const edgePct = (edge * 100).toFixed(1);
+            const edgeSign = edge > 0 ? '+' : '';
+            const implied = (parseFloat(e.implied_prob) * 100).toFixed(1);
+            const model = (parseFloat(e.model_prob) * 100).toFixed(1);
+            const odds = e.odds != null ? formatAmerican(parseInt(e.odds, 10)) : '-';
+            const pick = e.pick || e.side || '-';
+
+            html += `<div class="betting-edge-market">
+                <div class="be-market-meta">
+                    <span class="be-market">${escapeHtml(e.market)}</span>
+                    <span class="be-pick">Pick: ${escapeHtml(pick)}</span>
+                </div>
+                <div class="be-odds-row">
+                    <span class="be-odds">${escapeHtml(odds)}</span>
+                    <span class="be-implied">Implied ${implied}%</span>
+                    <span class="be-model">Model ${model}%</span>
+                    <span class="be-edge">${edgeSign}${edgePct}%</span>
+                </div>
+            </div>`;
+        });
+
+        html += `</div></div>`;
+    });
+    html += '</div>';
+
+    container.innerHTML = html;
+}
+
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
+
 // ── Real API stubs (unused in demo) ───────────────────────────────
 async function loadAppState() {
     const dot = document.querySelector('.status-dot');
@@ -1584,8 +1371,15 @@ async function loadAppState() {
 
 async function loadTeams() {
     try {
-        await safeFetchJson('/api/teams');
+        const data = await safeFetchJson('/api/teams');
+        window.TEAMS_API = data.divisions || {};
+        populateTeams();
     } catch (e) { console.error('Teams load failed:', e); }
+}
+
+function getTeamsData() {
+    if (typeof window !== 'undefined' && window.TEAMS_API) return window.TEAMS_API;
+    return TEAMS_FALLBACK;
 }
 
 async function loadSeasons() {

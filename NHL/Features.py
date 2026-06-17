@@ -57,6 +57,14 @@ def _team_loc(abbr: str) -> Tuple[float, float]:
         return (0.0, 0.0)
     return float(m["lat"]), float(m["lon"])
 
+
+def _team_tz(abbr: str) -> float:
+    """Return the venue time-zone offset for a team (UTC). Returns 0 if unknown."""
+    m = TEAM_META.get(abbr.upper())
+    if not m:
+        return 0.0
+    return float(m.get("tz", 0.0))
+
 def _prev_game_for(team_abbr: str, season: str, until: _date) -> Optional[Dict[str, Any]]:
     sched_url = f"{NHL_API_BASE}/club-schedule-season/{team_abbr}/{season}"
     js = _get_json(sched_url)
@@ -110,9 +118,8 @@ def compute_rest_travel_features(team_abbr: str, opponent_abbr: str, game_date: 
             lat2, lon2 = _team_loc(opponent_abbr)
             out["travel_km"] = _haversine_km(lat1, lon1, lat2, lon2)
 
-            # ✅ NEW: Estimate timezone difference
-            # Rough approximation: ~1500 km = 1 hour timezone
-            out["tz_diff"] = min(3.0, out["travel_km"] / 1500.0)
+            # Use real venue time-zone offsets instead of the rough km/1500 proxy.
+            out["tz_diff"] = _team_tz(team_abbr) - _team_tz(opponent_abbr)
 
         if prev_opp:
             last_date_o = prev_opp["_d"]
@@ -179,7 +186,7 @@ def compute_rest_travel_features_fast(
             lat1, lon1 = _team_loc(team_abbr)
             lat2, lon2 = _team_loc(opponent_abbr)
             out["travel_km"] = _haversine_km(lat1, lon1, lat2, lon2)
-            out["tz_diff"] = min(3.0, out["travel_km"] / 1500.0)
+            out["tz_diff"] = _team_tz(team_abbr) - _team_tz(opponent_abbr)
 
         if prev_opp:
             last_date_o = prev_opp["_date"]
@@ -279,18 +286,20 @@ def penalty_diff_per60(all_df: pd.DataFrame, abbr: str) -> float:
     except Exception:
         return 0.0
 
-def shared_correlation_factor(sims: int, rho: float = 0.38) -> np.ndarray:
+def shared_correlation_factor(sims: int, rho: float = 0.38, rng: Optional[np.random.Generator] = None) -> np.ndarray:
     """
     ✅ IMPROVED: Generate a per-simulation shared multiplicative factor.
-    
+
     Default rho increased from 0.25 to 0.38 for better correlation.
+    Pass rng for deterministic output.
     """
     rho = float(max(0.0, min(0.8, rho)))
     if sims <= 0:
         return np.array([], dtype=float)
     sigma = 0.30 * rho
     mu = -0.5 * (sigma ** 2)
-    return np.exp(np.random.normal(loc=mu, scale=sigma, size=sims))
+    gen = rng if rng is not None else np.random
+    return np.exp(gen.normal(loc=mu, scale=sigma, size=sims))
 
 def score_effect_scaler(mu_for: float, mu_against: float) -> float:
     """

@@ -11,7 +11,7 @@ import os
 import traceback
 from datetime import date as _date, timedelta
 from pathlib import Path
-from typing import Any, Dict, Optional
+from typing import Any, Dict, List, Optional, Tuple
 
 import numpy as np
 import pandas as pd
@@ -31,7 +31,7 @@ from NHL.MatchupUtils import (
     build_skater_stats_df, merge_goalie_options,
     detect_game_type,
 )
-from NHL.Simulation import simulate_matchup
+from NHL.Simulation import simulate_matchup, simulate_slate
 from NHL.StatsFromPBP import load_skater_rates_from_json
 from NHL.ApiScrape import (
     get_confirmed_or_predicted_lineup,
@@ -48,6 +48,14 @@ from NHL.Utils import (
 from NHL.OddsAPI import fetch_nhl_player_props_by_date, OddsAPIError
 from NHL.StatsFromPBP import load_skater_rates_from_json, load_cached_stats
 from NHL.PlayByPlay import count_pp_opportunities, count_faceoffs
+from NHL.BettingEdge import (
+    compute_game_edges,
+    find_event_for_game,
+    load_cached_odds,
+    load_demo_odds,
+    load_demo_schedule,
+    DEFAULT_DEMO_PATH,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -224,9 +232,9 @@ def api_predict():
 
         fd_str = td_str = ""
         if nst_days_window:
-            data_season_year = int(data_season[:4])
-            season_end_date = _date(data_season_year + 1, 4, 30)
-            td_day = min(game_date - timedelta(days=1), _date.today(), season_end_date)
+            # Use the day before the game as the window end, capped at today so we
+            # never request future data. Playoff games in May/June are supported.
+            td_day = min(game_date - timedelta(days=1), _date.today())
             fd_day = td_day - timedelta(days=nst_days_window - 1)
             fd_str = fd_day.isoformat()
             td_str = td_day.isoformat()
@@ -930,12 +938,165 @@ def api_player_props(date_str: str):
         return jsonify({"error": str(e)}), 500
 
 
+
+# ── API: Betting Edge ──────────────────────────────────────────────────
+
+@app.route("/api/betting-edge")
+def api_betting_edge():
+    """
+    Return value bets for today's (or requested) games.
+
+    Query params:
+        date           – YYYY-MM-DD (default: today)
+        edge_threshold – minimum absolute edge to surface (default: 0.03)
+        demo           – set to 1 to force demo odds
+    """
+    try:
+        date_str = request.args.get("date")
+        game_date = _date.fromisoformat(date_str) if date_str else _date.today()
+        edge_threshold = float(request.args.get("edge_threshold", "0.03"))
+        force_demo = request.args.get("demo", "0").lower() in ("1", "true", "yes")
+
+        # 1. Load odds: prefer cache, fall back to demo on missing/stale.
+        if force_demo:
+            odds_payload = load_demo_odds(DEFAULT_DEMO_PATH)
+            warning = "Using demo odds (forced)."
+        else:
+            odds_payload, warning = load_cached_odds(game_date, max_age_hours=6.0)
+            if odds_payload is None:
+                odds_payload = load_demo_odds(DEFAULT_DEMO_PATH)
+                warning = warning or "Using demo odds."
+
+        events = odds_payload.get("events", [])
+
+        # 2. Load schedule for the date.
+        from NHL.Lookup import get_team_full_name, display_abbr_for_game
+
+        schedule_games = safe_api_call(
+            get_games_on_date, game_date.isoformat(),
+            service_name="NHL Schedule API", fallback=[],
+        )
+
+        # Offseason / no real games: fall back to the demo schedule.
+        if force_demo or not schedule_games:
+            if not schedule_games:
+                warning = warning or "No live schedule found; using demo games."
+            schedule_games = load_demo_schedule()
+
+        # 3. Build the slate and warm shared caches, then simulate all games.
+        slate_matchups: List[Tuple[str, str]] = []
+        slate_games: Dict[Tuple[str, str], Dict[str, Any]] = {}
+        for game in schedule_games or []:
+            home_team = game.get("homeTeam") or {}
+            away_team = game.get("awayTeam") or {}
+            home_abbr = display_abbr_for_game(
+                home_team.get("abbrev", home_team.get("name", ""))
+            )
+            away_abbr = display_abbr_for_game(
+                away_team.get("abbrev", away_team.get("name", ""))
+            )
+            if not home_abbr or not away_abbr:
+                continue
+
+            schedule_game = {
+                "home": home_abbr,
+                "away": away_abbr,
+                "home_name": get_team_full_name(home_team),
+                "away_name": get_team_full_name(away_team),
+                "startTime": game.get("startTimeUTC", game.get("gameDate", "")),
+            }
+
+            event = find_event_for_game(schedule_game, events)
+            if not event:
+                continue
+
+            key = (home_abbr, away_abbr)
+            slate_matchups.append(key)
+            slate_games[key] = {"schedule_game": schedule_game, "event": event}
+
+        slate_results = simulate_slate(
+            game_date=game_date,
+            matchups=slate_matchups,
+            stype=2,
+            sims=1000,
+            trend_games=DEFAULT_TREND_GAMES,
+            use_recent_window_days=14,
+        )
+
+        value_games = []
+        for res in slate_results:
+            home_abbr = res["home"]
+            away_abbr = res["away"]
+            sim = res.get("sim")
+            if sim is None:
+                logger.warning(
+                    f"Simulation failed for {home_abbr} v {away_abbr}: {res.get('error', '')}"
+                )
+                continue
+
+            entry = slate_games.get((home_abbr, away_abbr), {})
+            schedule_game = entry.get("schedule_game", {
+                "home": home_abbr, "away": away_abbr,
+                "home_name": home_abbr, "away_name": away_abbr, "startTime": "",
+            })
+            event = entry.get("event")
+            if not event:
+                continue
+
+            edges = compute_game_edges(schedule_game, event, sim, edge_threshold=edge_threshold)
+            if not edges:
+                continue
+
+            edges = _make_json_safe(edges)
+            best_edge = max(edges, key=lambda e: abs(e.get("edge", 0.0)))
+            value_games.append({
+                "home": home_abbr,
+                "away": away_abbr,
+                "home_name": schedule_game["home_name"],
+                "away_name": schedule_game["away_name"],
+                "start_time": schedule_game["startTime"],
+                "best_edge": best_edge.get("edge", 0.0),
+                "edges": edges,
+            })
+
+        value_games.sort(key=lambda g: abs(g.get("best_edge", 0.0)), reverse=True)
+
+        return jsonify({
+            "date": game_date.isoformat(),
+            "warning": warning,
+            "source": odds_payload.get("source", "unknown"),
+            "games": value_games,
+        })
+
+    except Exception as e:
+        logger.error(f"Betting edge error: {e}", exc_info=True)
+        return jsonify({"error": str(e)}), 500
+
+
 # ── API: Season Options ────────────────────────────────────────────────
+
+def _available_season_keys() -> List[str]:
+    """Return seasons that have exported PBP stats caches on disk."""
+    data_dir = Path(__file__).resolve().parent / "static" / "data"
+    keys = set()
+    for path in data_dir.glob("pbp_*_stats_*.json"):
+        # filenames look like pbp_team_stats_20252026.json
+        parts = path.stem.rsplit("_", 1)
+        if len(parts) == 2 and parts[1].isdigit() and len(parts[1]) == 8:
+            keys.add(parts[1])
+    return sorted(keys, reverse=True)
+
 
 @app.route("/api/seasons")
 def api_seasons():
-    """Return available season options for stats."""
-    options = _season_options()
+    """Return available season options for stats, limited to cached data."""
+    available = _available_season_keys()
+    if not available:
+        # No caches yet; fall back to the full range so the UI isn't empty.
+        options = _season_options()
+    else:
+        all_options = _season_options()
+        options = [(label, key) for label, key in all_options if key in available]
     return jsonify({"seasons": [{"label": label, "key": key} for label, key in options]})
 
 

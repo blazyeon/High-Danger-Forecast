@@ -60,6 +60,13 @@ def _iso_utc(dt: datetime) -> str:
         dt = dt.astimezone(timezone.utc)
     return dt.strftime("%Y-%m-%dT%H:%M:%SZ")
 
+def _log_quota_headers(hdrs: Dict[str, str]) -> None:
+    """Log remaining Odds API quota so we can see usage per call."""
+    remaining = hdrs.get("x-requests-remaining")
+    used = hdrs.get("x-requests-used")
+    if remaining is not None or used is not None:
+        logger.info(f"Odds API quota — used={used}, remaining={remaining}")
+
 def _request_with_retry(
     method: str,
     url: str,
@@ -129,6 +136,7 @@ def fetch_nhl_odds_by_date(
 
     url = f"{base_url}/sports/icehockey_nhl/odds"
     data, hdrs = _request_with_retry("GET", url, params=params)
+    _log_quota_headers(hdrs)
 
     if not isinstance(data, list):
         raise OddsAPIError(f"Unexpected response type: {type(data)}")
@@ -153,7 +161,8 @@ def fetch_nhl_events_by_date(
         "commenceTimeTo": commence_to,
     }
     url = f"{base_url}/sports/icehockey_nhl/events"
-    data, _ = _request_with_retry("GET", url, params=params)
+    data, hdrs = _request_with_retry("GET", url, params=params)
+    _log_quota_headers(hdrs)
     if not isinstance(data, list):
         raise OddsAPIError(f"Unexpected response type: {type(data)}")
     return data
@@ -184,7 +193,8 @@ def fetch_event_player_odds(
     if bookmakers_csv:
         params["bookmakers"] = bookmakers_csv
     url = f"{base_url}/sports/icehockey_nhl/events/{event_id}/odds"
-    data, _ = _request_with_retry("GET", url, params=params)
+    data, hdrs = _request_with_retry("GET", url, params=params)
+    _log_quota_headers(hdrs)
     if not isinstance(data, dict):
         return None
     # If no bookmakers/markets available, skip

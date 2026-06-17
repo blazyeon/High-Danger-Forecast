@@ -70,32 +70,6 @@ def clear_prediction_cache():
 
 # ===================== GOALIE-AWARE MATCH PROBABILITY =====================
 
-def get_starting_goalie_for_game(team_abbr: str, game_date: str, game_id: Optional[str] = None) -> Optional[str]:
-    """
-    Return the predicted starting goalie's display name for a team on a given date.
-    Uses get_confirmed_or_predicted_lineup from NHL.ApiScrape.
-    """
-    try:
-        from NHL.ApiScrape import get_confirmed_or_predicted_lineup
-        
-        lineup = get_confirmed_or_predicted_lineup(team_abbr, game_date, game_id=game_id)
-        goalies = lineup.get("goalies", []) or []
-        if not goalies:
-            logger.debug(f"No goalies found for {team_abbr} on {game_date}")
-            return None
-        
-        g = goalies[0]
-        goalie_name = g.get("name") if isinstance(g.get("name"), str) else None
-        
-        if goalie_name:
-            logger.debug(f"Predicted starter for {team_abbr}: {goalie_name}")
-        
-        return goalie_name
-    except Exception as e:
-        logger.debug(f"get_starting_goalie_for_game error for {team_abbr} {game_date}: {e}")
-        return None
-
-
 def get_player_elo(player_name: str, season: str, db_path: str = "elo_ratings.db") -> Optional[float]:
     """
     Fetch the latest Elo rating for a player (by name and season).
@@ -1339,17 +1313,3 @@ def predict_player_stats(
         "Pred_apg": round(pred_apg, 3),
         "Pred_sogpg": round(pred_sogpg, 3),
     }
-
-
-def predict_goalie_stats(
-    goalie_name: str,
-    team_abbr: str,
-    season_current: str,
-    season_prev: str,
-    stype: int = 2,
-    weight_current: float = None,
-    nst_goalie_df: Optional[pd.DataFrame] = None,
-) -> Dict[str, Any]:
-    """Predict goalie stats blending seasons"""
-    if weight_current is None:
-        weight_current = 1.0  # Heavier current season weight for goalies
