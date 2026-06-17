@@ -3,6 +3,11 @@
  * Premium dark SPA backed by the Flask API.
  */
 
+// ── Division order / labels for matchup selectors ────────────────
+const DIVISION_ORDER = ['Atlantic', 'Metropolitan', 'Central', 'Pacific'];
+const DIVISION_LABELS = { Atlantic: 'Atlantic', Metropolitan: 'Metro', Central: 'Central', Pacific: 'Pacific' };
+const FORWARD_POSITIONS = ['C', 'L', 'R', 'LW', 'RW', 'W'];
+
 // ── Minimal offline fallback (used only if /api/teams fails) ─────
 const TEAMS_FALLBACK = {
     Atlantic: [
@@ -405,11 +410,14 @@ function populateTeams() {
     homeSel.add(new Option('Select Team', ''));
     awaySel.add(new Option('Select Team', ''));
     const divisions = getTeamsData();
-    for (const [div, teams] of Object.entries(divisions)) {
+    for (const div of DIVISION_ORDER) {
+        const teams = divisions[div];
+        if (!teams) continue;
+        const label = DIVISION_LABELS[div] || div;
         const homeGroup = document.createElement('optgroup');
-        homeGroup.label = div;
+        homeGroup.label = label;
         const awayGroup = document.createElement('optgroup');
-        awayGroup.label = div;
+        awayGroup.label = label;
         teams.forEach(t => {
             const abbr = t.abbr || t;
             const name = t.full_name || t.name || abbr;
@@ -721,7 +729,9 @@ function renderResults(sim, homeAbbr, awayAbbr) {
                 merged.forEach(p => {
                     const contrib = ((p.contribution_pct || 0) * 100).toFixed(1);
                     const status = (p.status || 'injured').toUpperCase();
-                    const isDefense = (p.position || '').toUpperCase().startsWith('D');
+                    const pos = (p.position || '').toUpperCase();
+                    const isDefense = pos.startsWith('D');
+                    const isForward = FORWARD_POSITIONS.includes(pos);
                     const dScore = p.defensive_score || 0;
                     const defenseNote = (dScore > 0.5)
                         ? `<span class="injury-contrib defense" title="Defensive score ${dScore.toFixed(2)}">🛡️ ${dScore.toFixed(1)}</span>`
@@ -729,8 +739,10 @@ function renderResults(sim, homeAbbr, awayAbbr) {
                     const offenseNote = (p.contribution_pct > 0)
                         ? `<span class="injury-contrib">${contrib}% team pts</span>`
                         : '';
-                    const defenseBadge = isDefense ? `<span class="injury-badge defense">D</span>` : '';
-                    html += `<div class="injury-row"><div class="injury-name">${defenseBadge}${p.name}</div><div class="injury-meta"><span class="injury-status ${status === 'DTD' ? 'dtd' : ''}">${status}</span>${offenseNote}${defenseNote}</div></div>`;
+                    const positionBadge = isDefense
+                        ? `<span class="injury-badge defense">D</span>`
+                        : (isForward ? `<span class="injury-badge forward">F</span>` : '');
+                    html += `<div class="injury-row"><div class="injury-name">${positionBadge}${p.name}</div><div class="injury-meta"><span class="injury-status ${status === 'DTD' ? 'dtd' : ''}">${status}</span>${offenseNote}${defenseNote}</div></div>`;
                 });
                 html += `</div>`;
             } else {

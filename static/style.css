@@ -643,6 +643,7 @@ input[type="date"].param-input, input[type="date"].date-input {
 .injury-row { display: flex; align-items: center; justify-content: space-between; padding: 8px 10px; background: var(--bg-base); border-radius: var(--radius-sm); }
 .injury-name { display: flex; align-items: center; gap: 7px; font-size: 13px; color: var(--text-primary); font-weight: 700; }
 .injury-badge { font-size: 9px; font-weight: 900; padding: 1px 5px; border-radius: 4px; background: var(--accent-purple-dim); color: var(--accent-purple); border: 1px solid rgba(167,139,250,0.25); }
+.injury-badge.forward { background: var(--accent-cyan-glow); color: var(--accent-cyan); border-color: rgba(0,224,255,0.25); }
 .injury-meta { display: flex; align-items: center; gap: 10px; }
 .injury-status { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.6px; padding: 2px 7px; border-radius: 100px; background: rgba(255,77,77,0.12); color: var(--accent-red); border: 1px solid rgba(255,77,77,0.25); }
 .injury-status.dtd { background: rgba(255,193,7,0.12); color: #ffc107; border-color: rgba(255,193,7,0.25); }
