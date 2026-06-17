@@ -991,14 +991,33 @@ def apply_per_sim_shock(
     lam_a = np.clip(mu_away * f_away, SIMULATION_PARAMS["min_goals"], SIMULATION_PARAMS["max_goals"])
     return lam_h, lam_a
 
-def resolve_score_mode(final_home: np.ndarray, final_away: np.ndarray) -> Tuple[int, int]:
-    """Return the most frequently occurring final score (home, away)."""
+def resolve_score_mode(
+    final_home: np.ndarray, final_away: np.ndarray, home_win_prob: float = 0.5
+) -> Tuple[int, int]:
+    """Return the most frequently occurring final score (home, away).
+
+    NHL games cannot end in a tie, so this function never returns a tied score.
+    If the modal score is a tie, the most frequent non-tied score is returned.
+    Ties among candidate scores are broken toward the team with the higher win
+    probability so the displayed score matches the predicted winner.
+    """
     pairs = list(zip(final_home.tolist(), final_away.tolist()))
     counts = Counter(pairs)
     if not counts:
-        return 0, 0
-    (h, a), _ = counts.most_common(1)[0]
-    return int(h), int(a)
+        return (1, 0) if home_win_prob >= 0.5 else (0, 1)
+
+    # Sort by count descending; for equal counts, favor the side matching the win prob.
+    prob_edge = home_win_prob - 0.5
+    sorted_pairs = sorted(
+        counts.items(),
+        key=lambda item: (-item[1], -(item[0][0] - item[0][1]) * prob_edge),
+    )
+    for (h, a), _ in sorted_pairs:
+        if int(h) != int(a):
+            return int(h), int(a)
+
+    # All simulated outcomes were ties (extremely unlikely). Default to favorite.
+    return (1, 0) if home_win_prob >= 0.5 else (0, 1)
 
 def apply_empty_net_adjustments(
     final_home: np.ndarray, final_away: np.ndarray, mu_home: float, mu_away: float,
@@ -2157,11 +2176,13 @@ def simulate_matchup(
 
     final_home, final_away = apply_empty_net_adjustments(final_home, final_away, mu_home, mu_away, rng=rng)
 
-    mode_home_goals, mode_away_goals = resolve_score_mode(final_home, final_away)
-    most_likely_total = int(mode_home_goals + mode_away_goals)
-
     raw_prob = improved_winner_prediction(final_home, final_away)
     sim_win_prob = max(0.05, min(0.95, raw_prob))
+
+    # NHL games cannot end in a tie; force the displayed score to have a winner
+    # and bias it toward the simulated favorite.
+    mode_home_goals, mode_away_goals = resolve_score_mode(final_home, final_away, home_win_prob=sim_win_prob)
+    most_likely_total = int(mode_home_goals + mode_away_goals)
 
     # Ensemble: blend simulation, Elo, and ML win probabilities.
     # Each source captures a different time horizon / signal.
