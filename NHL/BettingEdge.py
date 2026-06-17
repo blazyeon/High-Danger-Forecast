@@ -21,11 +21,16 @@ from typing import Any, Dict, List, Optional, Tuple
 from NHL.Config import TEAM_ABBR_MAPPING, NST_ABBR_TO_FULL
 from NHL.OddsAPI import fetch_nhl_odds_by_date, OddsAPIError
 from NHL.PlayerLinePredictor import american_to_decimal
+from NHL.Simulation import simulate_slate
+from NHL.Lookup import get_team_full_name, display_abbr_for_game
+from NHL.ApiScrape import get_games_on_date
+from NHL.Errors import safe_api_call
 
 logger = logging.getLogger(__name__)
 
 DEFAULT_CACHE_PATH = Path(__file__).resolve().parent.parent / "static" / "data" / "odds_cache.json"
 DEFAULT_DEMO_PATH = Path(__file__).resolve().parent.parent / "static" / "data" / "demo_odds.json"
+DEFAULT_EDGE_CACHE_PATH = Path(__file__).resolve().parent.parent / "static" / "data" / "betting_edge_cache.json"
 DEFAULT_REGIONS = "us"
 DEFAULT_MARKETS = ["h2h", "spreads", "totals"]
 EDGE_THRESHOLD = 0.03
@@ -405,3 +410,164 @@ def load_demo_schedule(demo_path: Optional[Path] = None) -> List[Dict[str, Any]]
             "gameState": "FUT",
         })
     return games
+
+
+def compute_and_cache_edges(
+    day: _date,
+    odds_payload: Optional[Dict[str, Any]] = None,
+    edge_threshold: float = EDGE_THRESHOLD,
+    cache_path: Optional[Path] = None,
+    sims: int = 1000,
+) -> Dict[str, Any]:
+    """
+    Pre-compute betting edges for a date and write them to a local JSON cache.
+    This is designed to run during the daily update so the UI opens instantly.
+    """
+    cache_path = Path(cache_path or DEFAULT_EDGE_CACHE_PATH)
+
+    # 1. Load odds (use provided payload, then cache, then demo).
+    warning = None
+    if odds_payload is None:
+        odds_payload, warning = load_cached_odds(day, max_age_hours=24.0)
+        if odds_payload is None:
+            odds_payload = load_demo_odds(DEFAULT_DEMO_PATH)
+            warning = warning or "Using demo odds."
+
+    events = odds_payload.get("events", [])
+
+    # 2. Load schedule for the date.
+    schedule_games = safe_api_call(
+        get_games_on_date, day.isoformat(),
+        service_name="NHL Schedule API", fallback=[],
+    )
+    if not schedule_games:
+        warning = warning or "No live schedule found; using demo games."
+        schedule_games = load_demo_schedule()
+
+    # 3. Build slate matchups.
+    slate_matchups: List[Tuple[str, str]] = []
+    slate_games: Dict[Tuple[str, str], Dict[str, Any]] = {}
+    for game in schedule_games or []:
+        home_team = game.get("homeTeam") or {}
+        away_team = game.get("awayTeam") or {}
+        home_abbr = display_abbr_for_game(
+            home_team.get("abbrev", home_team.get("name", ""))
+        )
+        away_abbr = display_abbr_for_game(
+            away_team.get("abbrev", away_team.get("name", ""))
+        )
+        if not home_abbr or not away_abbr:
+            continue
+
+        schedule_game = {
+            "home": home_abbr,
+            "away": away_abbr,
+            "home_name": get_team_full_name(home_team),
+            "away_name": get_team_full_name(away_team),
+            "startTime": game.get("startTimeUTC", game.get("gameDate", "")),
+        }
+
+        event = find_event_for_game(schedule_game, events)
+        if not event:
+            continue
+
+        key = (home_abbr, away_abbr)
+        slate_matchups.append(key)
+        slate_games[key] = {"schedule_game": schedule_game, "event": event}
+
+    # 4. Simulate slate.
+    slate_results = simulate_slate(
+        game_date=day,
+        matchups=slate_matchups,
+        stype=2,
+        sims=sims,
+        trend_games=25,
+        use_recent_window_days=14,
+    )
+
+    # 5. Compute edges.
+    value_games = []
+    for res in slate_results:
+        home_abbr = res["home"]
+        away_abbr = res["away"]
+        sim = res.get("sim")
+        if sim is None:
+            logger.warning(f"Simulation failed for {home_abbr} v {away_abbr}: {res.get('error', '')}")
+            continue
+
+        entry = slate_games.get((home_abbr, away_abbr), {})
+        schedule_game = entry.get("schedule_game", {
+            "home": home_abbr, "away": away_abbr,
+            "home_name": home_abbr, "away_name": away_abbr, "startTime": "",
+        })
+        event = entry.get("event")
+        if not event:
+            continue
+
+        edges = compute_game_edges(schedule_game, event, sim, edge_threshold=edge_threshold)
+        if not edges:
+            continue
+
+        edges.sort(key=lambda e: abs(e.get("edge", 0.0)), reverse=True)
+        best_edge = max(edges, key=lambda e: abs(e.get("edge", 0.0)))
+        value_games.append({
+            "home": home_abbr,
+            "away": away_abbr,
+            "home_name": schedule_game["home_name"],
+            "away_name": schedule_game["away_name"],
+            "start_time": schedule_game["startTime"],
+            "best_edge": best_edge.get("edge", 0.0),
+            "edges": edges,
+        })
+
+    value_games.sort(key=lambda g: abs(g.get("best_edge", 0.0)), reverse=True)
+
+    payload = {
+        "date": day.isoformat(),
+        "computed_at": datetime.now(timezone.utc).isoformat(),
+        "source": odds_payload.get("source", "unknown"),
+        "warning": warning,
+        "games": value_games,
+    }
+
+    cache_path.parent.mkdir(parents=True, exist_ok=True)
+    with open(cache_path, "w") as f:
+        json.dump(payload, f, default=str, indent=2)
+
+    logger.info(f"Cached betting edges for {day}: {len(value_games)} games -> {cache_path}")
+    return payload
+
+
+def load_cached_edges(
+    day: _date,
+    cache_path: Optional[Path] = None,
+    max_age_hours: float = 24.0,
+) -> Tuple[Optional[Dict[str, Any]], Optional[str]]:
+    """
+    Load pre-computed betting edge cache. Returns (payload, warning_message).
+    warning_message is set if the cache is missing, wrong date, or stale.
+    """
+    cache_path = Path(cache_path or DEFAULT_EDGE_CACHE_PATH)
+    if not cache_path.exists():
+        return None, f"No cached edges found. Run `python update_odds.py --date {day.isoformat()}`."
+
+    try:
+        with open(cache_path, "r") as f:
+            payload = json.load(f)
+    except Exception as e:
+        return None, f"Could not read cached edges: {e}"
+
+    if payload.get("date") != day.isoformat():
+        return payload, f"Cached edges are for {payload.get('date')}, not {day.isoformat()}."
+
+    computed_at = payload.get("computed_at")
+    if computed_at:
+        try:
+            computed_dt = datetime.fromisoformat(computed_at.replace("Z", "+00:00"))
+            age = datetime.now(timezone.utc) - computed_dt
+            if age > timedelta(hours=max_age_hours):
+                return payload, f"Edge cache is {age.total_seconds() / 3600:.1f} hours old."
+        except Exception:
+            pass
+
+    return payload, None

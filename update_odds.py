@@ -16,7 +16,7 @@ import logging
 import sys
 from datetime import date as _date
 
-from NHL.BettingEdge import fetch_and_cache_odds, OddsAPIError
+from NHL.BettingEdge import fetch_and_cache_odds, compute_and_cache_edges, OddsAPIError
 
 logging.basicConfig(
     level=logging.INFO,
@@ -52,6 +52,15 @@ def main() -> int:
         return 1
 
     logger.info(f"Successfully cached {len(payload.get('events', []))} events.")
+
+    logger.info(f"Computing and caching betting edges for {game_date}...")
+    try:
+        edge_payload = compute_and_cache_edges(game_date, odds_payload=payload)
+        logger.info(f"Cached {len(edge_payload.get('games', []))} edge games.")
+    except Exception as e:
+        logger.error(f"Failed to compute betting edges: {e}")
+        # Odds are already cached; do not fail the whole update.
+
     return 0
 
 

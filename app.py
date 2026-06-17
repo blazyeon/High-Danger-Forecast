@@ -49,12 +49,15 @@ from NHL.OddsAPI import fetch_nhl_player_props_by_date, OddsAPIError
 from NHL.StatsFromPBP import load_skater_rates_from_json, load_cached_stats
 from NHL.PlayByPlay import count_pp_opportunities, count_faceoffs
 from NHL.BettingEdge import (
+    compute_and_cache_edges,
     compute_game_edges,
     find_event_for_game,
+    load_cached_edges,
     load_cached_odds,
     load_demo_odds,
     load_demo_schedule,
     DEFAULT_DEMO_PATH,
+    EDGE_THRESHOLD,
 )
 
 logger = logging.getLogger(__name__)
@@ -944,12 +947,12 @@ def api_player_props(date_str: str):
 @app.route("/api/betting-edge")
 def api_betting_edge():
     """
-    Return value bets for today's (or requested) games.
+    Return pre-computed value bets for today (or requested date).
 
     Query params:
         date           – YYYY-MM-DD (default: today)
         edge_threshold – minimum absolute edge to surface (default: 0.03)
-        demo           – set to 1 to force demo odds
+        demo           – set to 1 to force a fresh demo computation
     """
     try:
         date_str = request.args.get("date")
@@ -957,116 +960,36 @@ def api_betting_edge():
         edge_threshold = float(request.args.get("edge_threshold", "0.03"))
         force_demo = request.args.get("demo", "0").lower() in ("1", "true", "yes")
 
-        # 1. Load odds: prefer cache, fall back to demo on missing/stale.
+        # Fast path: serve pre-computed edges when available and fresh.
+        if not force_demo:
+            cached, warning = load_cached_edges(game_date, max_age_hours=24.0)
+            if cached is not None:
+                # Apply a possibly stricter client threshold to the cached set.
+                games = cached.get("games", [])
+                if edge_threshold != EDGE_THRESHOLD:
+                    games = [
+                        g for g in games
+                        if any(abs(e.get("edge", 0.0)) >= edge_threshold for e in g.get("edges", []))
+                    ]
+                    for g in games:
+                        g["edges"] = [e for e in g["edges"] if abs(e.get("edge", 0.0)) >= edge_threshold]
+                        g["best_edge"] = max((abs(e.get("edge", 0.0)) for e in g["edges"]), default=0.0)
+                result = dict(cached)
+                result["games"] = _make_json_safe(games)
+                if warning:
+                    result["warning"] = warning
+                return jsonify(result)
+
+        # Slow path: compute and cache edges now.
+        odds_payload = None
         if force_demo:
             odds_payload = load_demo_odds(DEFAULT_DEMO_PATH)
-            warning = "Using demo odds (forced)."
-        else:
-            odds_payload, warning = load_cached_odds(game_date, max_age_hours=6.0)
-            if odds_payload is None:
-                odds_payload = load_demo_odds(DEFAULT_DEMO_PATH)
-                warning = warning or "Using demo odds."
-
-        events = odds_payload.get("events", [])
-
-        # 2. Load schedule for the date.
-        from NHL.Lookup import get_team_full_name, display_abbr_for_game
-
-        schedule_games = safe_api_call(
-            get_games_on_date, game_date.isoformat(),
-            service_name="NHL Schedule API", fallback=[],
+        payload = compute_and_cache_edges(
+            day=game_date,
+            odds_payload=odds_payload,
+            edge_threshold=edge_threshold,
         )
-
-        # Offseason / no real games: fall back to the demo schedule.
-        if force_demo or not schedule_games:
-            if not schedule_games:
-                warning = warning or "No live schedule found; using demo games."
-            schedule_games = load_demo_schedule()
-
-        # 3. Build the slate and warm shared caches, then simulate all games.
-        slate_matchups: List[Tuple[str, str]] = []
-        slate_games: Dict[Tuple[str, str], Dict[str, Any]] = {}
-        for game in schedule_games or []:
-            home_team = game.get("homeTeam") or {}
-            away_team = game.get("awayTeam") or {}
-            home_abbr = display_abbr_for_game(
-                home_team.get("abbrev", home_team.get("name", ""))
-            )
-            away_abbr = display_abbr_for_game(
-                away_team.get("abbrev", away_team.get("name", ""))
-            )
-            if not home_abbr or not away_abbr:
-                continue
-
-            schedule_game = {
-                "home": home_abbr,
-                "away": away_abbr,
-                "home_name": get_team_full_name(home_team),
-                "away_name": get_team_full_name(away_team),
-                "startTime": game.get("startTimeUTC", game.get("gameDate", "")),
-            }
-
-            event = find_event_for_game(schedule_game, events)
-            if not event:
-                continue
-
-            key = (home_abbr, away_abbr)
-            slate_matchups.append(key)
-            slate_games[key] = {"schedule_game": schedule_game, "event": event}
-
-        slate_results = simulate_slate(
-            game_date=game_date,
-            matchups=slate_matchups,
-            stype=2,
-            sims=1000,
-            trend_games=DEFAULT_TREND_GAMES,
-            use_recent_window_days=14,
-        )
-
-        value_games = []
-        for res in slate_results:
-            home_abbr = res["home"]
-            away_abbr = res["away"]
-            sim = res.get("sim")
-            if sim is None:
-                logger.warning(
-                    f"Simulation failed for {home_abbr} v {away_abbr}: {res.get('error', '')}"
-                )
-                continue
-
-            entry = slate_games.get((home_abbr, away_abbr), {})
-            schedule_game = entry.get("schedule_game", {
-                "home": home_abbr, "away": away_abbr,
-                "home_name": home_abbr, "away_name": away_abbr, "startTime": "",
-            })
-            event = entry.get("event")
-            if not event:
-                continue
-
-            edges = compute_game_edges(schedule_game, event, sim, edge_threshold=edge_threshold)
-            if not edges:
-                continue
-
-            edges = _make_json_safe(edges)
-            best_edge = max(edges, key=lambda e: abs(e.get("edge", 0.0)))
-            value_games.append({
-                "home": home_abbr,
-                "away": away_abbr,
-                "home_name": schedule_game["home_name"],
-                "away_name": schedule_game["away_name"],
-                "start_time": schedule_game["startTime"],
-                "best_edge": best_edge.get("edge", 0.0),
-                "edges": edges,
-            })
-
-        value_games.sort(key=lambda g: abs(g.get("best_edge", 0.0)), reverse=True)
-
-        return jsonify({
-            "date": game_date.isoformat(),
-            "warning": warning,
-            "source": odds_payload.get("source", "unknown"),
-            "games": value_games,
-        })
+        return jsonify(_make_json_safe(payload))
 
     except Exception as e:
         logger.error(f"Betting edge error: {e}", exc_info=True)

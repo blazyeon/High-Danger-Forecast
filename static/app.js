@@ -1256,7 +1256,16 @@ function renderProps(props) {
 }
 
 function formatAmerican(n) {
-    const v = parseInt(n, 10);
+    if (n === null || n === undefined || n === '') return '-';
+    // Accept either an integer American price or a decimal odds value.
+    let v = parseFloat(n);
+    if (isNaN(v)) return '-';
+    if (v > 0 && v < 10) {
+        // Looks like decimal odds; convert to American.
+        v = v >= 2.0 ? Math.round((v - 1.0) * 100.0) : Math.round(-100.0 / (v - 1.0));
+    } else {
+        v = parseInt(n, 10);
+    }
     if (isNaN(v)) return '-';
     return v > 0 ? `+${v}` : `${v}`;
 }
