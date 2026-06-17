@@ -910,13 +910,17 @@ def api_player_props(date_str: str):
 
         df = _best_prices(df)
 
-        # Calculate model edge vs. best available line.
+        # Calculate model edge vs. book-implied probability (same convention as Betting Edge).
         def _edge(row):
             rec = row.get("recommendation")
             if rec == "Over" and pd.notna(row.get("over_decimal")):
-                return row["prob_over"] / 100.0 * row["over_decimal"] - 1.0
+                model_p = row["prob_over"] / 100.0
+                implied_p = row.get("implied_over", 50.0) / 100.0
+                return model_p - implied_p
             if rec == "Under" and pd.notna(row.get("under_decimal")):
-                return (100.0 - row["prob_over"]) / 100.0 * row["under_decimal"] - 1.0
+                model_p = (100.0 - row["prob_over"]) / 100.0
+                implied_p = row.get("implied_under", 50.0) / 100.0
+                return model_p - implied_p
             return None
 
         df["edge"] = df.apply(_edge, axis=1)
