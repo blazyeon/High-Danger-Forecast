@@ -109,7 +109,8 @@ def test_api_player_props_demo_fallback():
     assert isinstance(payload["props"], list)
     if payload["props"]:
         first = payload["props"][0]
-        for key in ("player", "market", "line", "prob_over", "recommendation"):
+        for key in ("player", "market", "line", "prob_over", "recommendation",
+                    "home_abbr", "away_abbr", "player_team", "implied_over", "implied_under"):
             assert key in first, f"demo prop missing {key}: {list(first.keys())}"
 
 

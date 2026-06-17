@@ -20,8 +20,25 @@ import difflib
 from NHL.OddsAPI import fetch_nhl_player_props_by_date, OddsAPIError
 from NHL.Utils import normalize_name_key
 from NHL.StatsFromPBP import load_skater_rates_from_json
+from NHL.Config import NST_ABBR_TO_FULL, TEAM_ABBR_MAPPING
 from EloMl.Database import EloDatabase
 # NST import removed — see get_player_pbp_stats below for the new source.
+
+# Reverse map from full team name to canonical abbreviation (same pattern as BettingEdge).
+_FULL_TO_ABBR: Dict[str, str] = {}
+for _abbr, _full in NST_ABBR_TO_FULL.items():
+    _key = str(_full).upper().strip()
+    if _key not in _FULL_TO_ABBR:
+        _FULL_TO_ABBR[_key] = _abbr
+
+
+def _normalize_team_abbr(value: str) -> str:
+    """Return canonical team abbreviation, accepting either abbr or full name."""
+    raw = str(value).upper().strip()
+    mapped = TEAM_ABBR_MAPPING.get(raw, raw)
+    full_abbr = _FULL_TO_ABBR.get(mapped, mapped)
+    return TEAM_ABBR_MAPPING.get(full_abbr, full_abbr)
+
 
 logger = logging.getLogger(__name__)
 
@@ -370,11 +387,17 @@ def _shape_player_df(
                         player_stats
                     )
 
+                    player_key = normalize_name_key(rec["player"])
+                    player_team = player_elo.get(player_key, {}).get("team") if player_elo else None
+
                     rows.append({
                         "event_id": ev_id,
                         "commence_time": ctime,
                         "home_team": home,
                         "away_team": away,
+                        "home_abbr": _normalize_team_abbr(home) if home else None,
+                        "away_abbr": _normalize_team_abbr(away) if away else None,
+                        "player_team": player_team,
                         "book_key": book_key,
                         "market": mkey,
                         "market_last_update": last_upd,
@@ -384,6 +407,8 @@ def _shape_player_df(
                         "over_decimal": rec["over_decimal"],
                         "under_american": rec["under_american"],
                         "under_decimal": rec["under_decimal"],
+                        "implied_over": implied_probability(rec["over_decimal"]) if rec["over_decimal"] else None,
+                        "implied_under": implied_probability(rec["under_decimal"]) if rec["under_decimal"] else None,
                         "prob_over": prob_over,
                         "recommendation": recommendation,
                     })
@@ -447,7 +472,17 @@ def _best_prices(df: pd.DataFrame) -> pd.DataFrame:
             sub_under = sub_under.sort_values(["under_decimal", "market_last_update"], ascending=[False, True])
             best_under_row = sub_under.iloc[0]
 
+        # Carry through event context from any row (all rows share the same event).
+        ctx_row = sub.iloc[0]
+
         row: Dict[str, Any] = {
+            "event_id": ctx_row.get("event_id") if "event_id" in ctx_row else None,
+            "commence_time": ctx_row.get("commence_time") if "commence_time" in ctx_row else None,
+            "home_team": ctx_row.get("home_team") if "home_team" in ctx_row else None,
+            "away_team": ctx_row.get("away_team") if "away_team" in ctx_row else None,
+            "home_abbr": ctx_row.get("home_abbr") if "home_abbr" in ctx_row else None,
+            "away_abbr": ctx_row.get("away_abbr") if "away_abbr" in ctx_row else None,
+            "player_team": ctx_row.get("player_team") if "player_team" in ctx_row else None,
             "player": player,
             "market": market,
             "line": line,
@@ -461,6 +496,7 @@ def _best_prices(df: pd.DataFrame) -> pd.DataFrame:
             if pd.isna(oa) and row["over_decimal"] is not None:
                 oa = decimal_to_american(row["over_decimal"])
             row["over_american"] = int(oa) if oa is not None and not pd.isna(oa) else None
+            row["implied_over"] = float(best_over_row.get("implied_over")) if pd.notna(best_over_row.get("implied_over")) else None
 
         if best_under_row is not None:
             row["under_decimal"] = float(best_under_row.get("under_decimal")) if pd.notna(best_under_row.get("under_decimal")) else None
@@ -468,6 +504,7 @@ def _best_prices(df: pd.DataFrame) -> pd.DataFrame:
             if pd.isna(ua) and row["under_decimal"] is not None:
                 ua = decimal_to_american(row["under_decimal"])
             row["under_american"] = int(ua) if ua is not None and not pd.isna(ua) else None
+            row["implied_under"] = float(best_under_row.get("implied_under")) if pd.notna(best_under_row.get("implied_under")) else None
 
         agg_rows.append(row)
 

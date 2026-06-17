@@ -1204,7 +1204,7 @@ async function runProps() {
         console.warn(reason + ', using demo data.');
         const demo = await safeFetchJson(demoUrl);
         _lastPropsData = demo.props || [];
-        _propsSort = 'edge';
+        resetPropsFilters();
         _propsIsDemo = true;
         _propsDemoReason = reason;
         renderProps(_lastPropsData);
@@ -1223,7 +1223,7 @@ async function runProps() {
             return;
         }
         _lastPropsData = liveProps;
-        _propsSort = 'edge';
+        resetPropsFilters();
         _propsIsDemo = false;
         _propsDemoReason = null;
         renderProps(_lastPropsData);
@@ -1239,11 +1239,45 @@ async function runProps() {
     }
 }
 
+function resetPropsFilters() {
+    _propsSort = 'edge';
+    _propsMarketFilter = {
+        'Points': true,
+        'Goals': true,
+        'Assists': false,
+        'Shots': true,
+    };
+    _propsSideFilter = 'Over';
+}
+
 function setPropsSort(sort) {
     if (!_lastPropsData) return;
     _propsSort = sort;
     const container = document.getElementById('propsResults');
     if (container) renderProps(_lastPropsData);
+}
+
+function setPropsMarketFilter(market, active) {
+    if (!_lastPropsData) return;
+    _propsMarketFilter[market] = active;
+    const container = document.getElementById('propsResults');
+    if (container) renderProps(_lastPropsData);
+}
+
+function setPropsSideFilter(side) {
+    if (!_lastPropsData) return;
+    _propsSideFilter = side;
+    const container = document.getElementById('propsResults');
+    if (container) renderProps(_lastPropsData);
+}
+
+function _canonicalMarketName(prop) {
+    const raw = String(prop.market || '').replace(/^Player\s+/i, '').trim();
+    if (/shots/i.test(raw)) return 'Shots';
+    if (/points/i.test(raw)) return 'Points';
+    if (/goals/i.test(raw)) return 'Goals';
+    if (/assists/i.test(raw)) return 'Assists';
+    return raw;
 }
 
 function renderProps(props) {
@@ -1253,12 +1287,16 @@ function renderProps(props) {
         return;
     }
 
-    const rows = props.map(p => {
+    const marketOrder = ['Points', 'Goals', 'Assists', 'Shots'];
+
+    let rows = props.map(p => {
         const rec = p.recommendation || 'Pass';
         const isOver = rec === 'Over';
         const edge = p.edge != null ? parseFloat(p.edge) : 0;
         const recPrice = isOver ? p.over_american : p.under_american;
         const recDecimal = isOver ? p.over_decimal : p.under_decimal;
+        const impliedKey = isOver ? 'implied_over' : 'implied_under';
+        const implied = p[impliedKey] != null ? parseFloat(p[impliedKey]) : null;
         return {
             ...p,
             edge,
@@ -1267,8 +1305,16 @@ function renderProps(props) {
             recPrice,
             recDecimal,
             probOver: parseFloat(p.prob_over) || 0,
+            impliedProb: implied,
+            canonicalMarket: _canonicalMarketName(p),
         };
     });
+
+    // Apply market and side filters.
+    rows = rows.filter(p => _propsMarketFilter[p.canonicalMarket]);
+    if (_propsSideFilter !== 'both') {
+        rows = rows.filter(p => p.rec === _propsSideFilter);
+    }
 
     if (_propsSort === 'odds') {
         rows.sort((a, b) => (parseFloat(b.recDecimal) || 0) - (parseFloat(a.recDecimal) || 0));
@@ -1284,11 +1330,37 @@ function renderProps(props) {
         </div>`;
     }
 
-    html += `<div class="props-toolbar">
-        <span class="props-toolbar-label">Sort by:</span>
+    // Market filter toggles
+    html += `<div class="props-toolbar props-filterbar">
+        <span class="props-toolbar-label">Markets:</span>`;
+    marketOrder.forEach(m => {
+        const active = !!_propsMarketFilter[m];
+        html += `<button class="props-market-btn ${active ? 'active' : ''}" onclick="setPropsMarketFilter('${m}', ${!active})">${m}</button>`;
+    });
+
+    // Side filter toggles
+    html += `<span class="props-toolbar-label props-side-label">Side:</span>`;
+    const sides = [
+        { key: 'Over', label: 'Over' },
+        { key: 'Under', label: 'Under' },
+        { key: 'both', label: 'Both' },
+    ];
+    sides.forEach(s => {
+        const active = _propsSideFilter === s.key;
+        html += `<button class="props-side-btn ${active ? 'active' : ''}" onclick="setPropsSideFilter('${s.key}')">${s.label}</button>`;
+    });
+
+    // Sort toggles
+    html += `<span class="props-toolbar-label props-sort-label">Sort:</span>
         <button class="props-sort-btn ${_propsSort === 'edge' ? 'active' : ''}" onclick="setPropsSort('edge')">Best Edge</button>
         <button class="props-sort-btn ${_propsSort === 'odds' ? 'active' : ''}" onclick="setPropsSort('odds')">Best Odds</button>
     </div>`;
+
+    if (rows.length === 0) {
+        html += '<div class="empty-state"><div class="empty-icon">🔍</div><h3 class="empty-title">No props match your filters</h3><p class="empty-text">Try enabling more markets or switching the Over/Under side.</p></div>';
+        container.innerHTML = html;
+        return;
+    }
 
     html += '<div class="props-table">';
     rows.forEach(p => {
@@ -1299,12 +1371,17 @@ function renderProps(props) {
         const rowClass = edge >= 0.05 ? 'edge-strong' : edge >= 0.02 ? 'edge-good' : 'edge-slight';
         const price = p.recPrice != null ? formatAmerican(p.recPrice) : '-';
         const prob = p.probOver.toFixed(1);
-        // Placeholder: game matchup (filled from event context when available).
+        const implied = p.impliedProb != null ? p.impliedProb.toFixed(1) : null;
+        const impliedText = implied != null ? `Book ${implied}%` : 'Book —';
+        const teamAbbr = p.player_team || '';
         const matchup = p.matchup || '—';
 
         html += `<div class="props-row ${rowClass}">
             <div class="props-cell props-player">
-                <div class="props-name">${escapeHtml(p.player)}</div>
+                <div class="props-player-header">
+                    ${teamAbbr ? `<img class="props-team-logo" src="/api/logos/${teamAbbr}.png" alt="${teamAbbr}" onerror="this.style.display='none'">` : ''}
+                    <div class="props-name">${escapeHtml(p.player)}</div>
+                </div>
                 <div class="props-game">${escapeHtml(matchup)}</div>
             </div>
             <div class="props-cell props-market">
@@ -1320,6 +1397,7 @@ function renderProps(props) {
                     <div class="props-prob-track"><div class="props-prob-fill" style="width:${prob}%"></div></div>
                     <span class="props-prob-text">Model ${prob}%</span>
                 </div>
+                <div class="props-implied-text">${impliedText}</div>
             </div>
             <div class="props-cell props-edge">
                 <div class="props-edge-badge">${edgeSign}${edgePct}%</div>
@@ -1354,6 +1432,15 @@ let _lastPropsData = null;
 let _propsSort = 'edge';
 let _propsIsDemo = false;
 let _propsDemoReason = null;
+
+// Default filters: show Over props for Points, Goals, and Shots; Assists off.
+let _propsMarketFilter = {
+    'Points': true,
+    'Goals': true,
+    'Assists': false,
+    'Shots': true,
+};
+let _propsSideFilter = 'Over'; // 'Over' | 'Under' | 'both'
 
 async function runBettingEdge() {
     const container = document.getElementById('bettingEdgeResults');

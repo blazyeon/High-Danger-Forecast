@@ -17,7 +17,10 @@
       "away_team": "Montreal Canadiens",
       "home_abbr": "TOR",
       "away_abbr": "MTL",
-      "commence_time": "2026-06-16T19:00:00Z"
+      "commence_time": "2026-06-16T19:00:00Z",
+      "player_team": "TOR",
+      "implied_over": 55.6,
+      "implied_under": 48.8
     },
     {
       "player": "Connor McDavid",
@@ -35,7 +38,10 @@
       "away_team": "Calgary Flames",
       "home_abbr": "EDM",
       "away_abbr": "CGY",
-      "commence_time": "2026-06-16T20:00:00Z"
+      "commence_time": "2026-06-16T20:00:00Z",
+      "player_team": "EDM",
+      "implied_over": 58.3,
+      "implied_under": 46.5
     },
     {
       "player": "David Pastrnak",
@@ -53,7 +59,10 @@
       "away_team": "Vegas Golden Knights",
       "home_abbr": "COL",
       "away_abbr": "VGK",
-      "commence_time": "2026-06-16T21:00:00Z"
+      "commence_time": "2026-06-16T21:00:00Z",
+      "player_team": "BOS",
+      "implied_over": 52.4,
+      "implied_under": 52.4
     },
     {
       "player": "Nathan MacKinnon",
@@ -71,7 +80,10 @@
       "away_team": "New York Rangers",
       "home_abbr": "CAR",
       "away_abbr": "NYR",
-      "commence_time": "2026-06-16T23:00:00Z"
+      "commence_time": "2026-06-16T23:00:00Z",
+      "player_team": "COL",
+      "implied_over": 53.5,
+      "implied_under": 51.2
     },
     {
       "player": "Alex Ovechkin",
@@ -89,7 +101,10 @@
       "away_team": "St. Louis Blues",
       "home_abbr": "DAL",
       "away_abbr": "STL",
-      "commence_time": "2026-06-16T20:30:00Z"
+      "commence_time": "2026-06-16T20:30:00Z",
+      "player_team": "WSH",
+      "implied_over": 54.6,
+      "implied_under": 48.8
     },
     {
       "player": "Sidney Crosby",
@@ -107,7 +122,10 @@
       "away_team": "Tampa Bay Lightning",
       "home_abbr": "FLA",
       "away_abbr": "TBL",
-      "commence_time": "2026-06-16T19:30:00Z"
+      "commence_time": "2026-06-16T19:30:00Z",
+      "player_team": "PIT",
+      "implied_over": 48.8,
+      "implied_under": 55.6
     },
     {
       "player": "Mitch Marner",
@@ -125,7 +143,10 @@
       "away_team": "Ottawa Senators",
       "home_abbr": "BOS",
       "away_abbr": "OTT",
-      "commence_time": "2026-06-16T18:00:00Z"
+      "commence_time": "2026-06-16T18:00:00Z",
+      "player_team": "TOR",
+      "implied_over": 51.2,
+      "implied_under": 53.5
     },
     {
       "player": "Jack Eichel",
@@ -143,7 +164,10 @@
       "away_team": "Anaheim Ducks",
       "home_abbr": "LAK",
       "away_abbr": "ANA",
-      "commence_time": "2026-06-16T22:00:00Z"
+      "commence_time": "2026-06-16T22:00:00Z",
+      "player_team": "VGK",
+      "implied_over": 51.2,
+      "implied_under": 53.5
     },
     {
       "player": "Matthew Tkachuk",
@@ -161,7 +185,10 @@
       "away_team": "Winnipeg Jets",
       "home_abbr": "MIN",
       "away_abbr": "WPG",
-      "commence_time": "2026-06-16T20:00:00Z"
+      "commence_time": "2026-06-16T20:00:00Z",
+      "player_team": "FLA",
+      "implied_over": 53.5,
+      "implied_under": 51.2
     },
     {
       "player": "Cale Makar",
@@ -179,7 +206,10 @@
       "away_team": "New York Islanders",
       "home_abbr": "NJD",
       "away_abbr": "NYI",
-      "commence_time": "2026-06-16T19:00:00Z"
+      "commence_time": "2026-06-16T19:00:00Z",
+      "player_team": "COL",
+      "implied_over": 60.0,
+      "implied_under": 44.4
     },
     {
       "player": "Kirill Kaprizov",
@@ -197,7 +227,10 @@
       "away_team": "Philadelphia Flyers",
       "home_abbr": "PIT",
       "away_abbr": "PHI",
-      "commence_time": "2026-06-16T19:30:00Z"
+      "commence_time": "2026-06-16T19:30:00Z",
+      "player_team": "MIN",
+      "implied_over": 52.4,
+      "implied_under": 52.4
     },
     {
       "player": "Artemi Panarin",
@@ -215,7 +248,10 @@
       "away_team": "Columbus Blue Jackets",
       "home_abbr": "DET",
       "away_abbr": "CBJ",
-      "commence_time": "2026-06-16T19:00:00Z"
+      "commence_time": "2026-06-16T19:00:00Z",
+      "player_team": "NYR",
+      "implied_over": 55.6,
+      "implied_under": 48.8
     },
     {
       "player": "Mikko Rantanen",
@@ -233,7 +269,10 @@
       "away_team": "Seattle Kraken",
       "home_abbr": "SJS",
       "away_abbr": "SEA",
-      "commence_time": "2026-06-16T22:30:00Z"
+      "commence_time": "2026-06-16T22:30:00Z",
+      "player_team": "COL",
+      "implied_over": 48.8,
+      "implied_under": 54.6
     },
     {
       "player": "Brayden Point",
@@ -251,7 +290,10 @@
       "away_team": "Utah Mammoth",
       "home_abbr": "VAN",
       "away_abbr": "UTA",
-      "commence_time": "2026-06-16T22:00:00Z"
+      "commence_time": "2026-06-16T22:00:00Z",
+      "player_team": "TBL",
+      "implied_over": 57.4,
+      "implied_under": 47.6
     },
     {
       "player": "Sebastian Aho",
@@ -269,7 +311,10 @@
       "away_team": "Chicago Blackhawks",
       "home_abbr": "BUF",
       "away_abbr": "CHI",
-      "commence_time": "2026-06-16T19:00:00Z"
+      "commence_time": "2026-06-16T19:00:00Z",
+      "player_team": "CAR",
+      "implied_over": 52.4,
+      "implied_under": 52.4
     },
     {
       "player": "Roman Josi",
@@ -287,7 +332,10 @@
       "away_team": "Arizona Coyotes",
       "home_abbr": "WSH",
       "away_abbr": "ARI",
-      "commence_time": "2026-06-16T19:30:00Z"
+      "commence_time": "2026-06-16T19:30:00Z",
+      "player_team": "NSH",
+      "implied_over": 51.2,
+      "implied_under": 53.5
     },
     {
       "player": "Tim Stutzle",
@@ -305,7 +353,10 @@
       "away_team": "Montreal Canadiens",
       "home_abbr": "TOR",
       "away_abbr": "MTL",
-      "commence_time": "2026-06-16T19:00:00Z"
+      "commence_time": "2026-06-16T19:00:00Z",
+      "player_team": "OTT",
+      "implied_over": 54.6,
+      "implied_under": 48.8
     },
     {
       "player": "Tage Thompson",
@@ -323,7 +374,10 @@
       "away_team": "Calgary Flames",
       "home_abbr": "EDM",
       "away_abbr": "CGY",
-      "commence_time": "2026-06-16T20:00:00Z"
+      "commence_time": "2026-06-16T20:00:00Z",
+      "player_team": "BUF",
+      "implied_over": 53.5,
+      "implied_under": 51.2
     },
     {
       "player": "William Karlsson",
@@ -341,7 +395,10 @@
       "away_team": "Vegas Golden Knights",
       "home_abbr": "COL",
       "away_abbr": "VGK",
-      "commence_time": "2026-06-16T21:00:00Z"
+      "commence_time": "2026-06-16T21:00:00Z",
+      "player_team": "VGK",
+      "implied_over": 52.4,
+      "implied_under": 52.4
     },
     {
       "player": "Elias Pettersson",
@@ -359,7 +416,10 @@
       "away_team": "New York Rangers",
       "home_abbr": "CAR",
       "away_abbr": "NYR",
-      "commence_time": "2026-06-16T23:00:00Z"
+      "commence_time": "2026-06-16T23:00:00Z",
+      "player_team": "VAN",
+      "implied_over": 48.8,
+      "implied_under": 55.6
     },
     {
       "player": "Johnny Gaudreau",
@@ -377,7 +437,10 @@
       "away_team": "St. Louis Blues",
       "home_abbr": "DAL",
       "away_abbr": "STL",
-      "commence_time": "2026-06-16T20:30:00Z"
+      "commence_time": "2026-06-16T20:30:00Z",
+      "player_team": "CBJ",
+      "implied_over": 56.5,
+      "implied_under": 47.6
     },
     {
       "player": "Bo Horvat",
@@ -395,7 +458,10 @@
       "away_team": "Tampa Bay Lightning",
       "home_abbr": "FLA",
       "away_abbr": "TBL",
-      "commence_time": "2026-06-16T19:30:00Z"
+      "commence_time": "2026-06-16T19:30:00Z",
+      "player_team": "NYI",
+      "implied_over": 52.4,
+      "implied_under": 52.4
     },
     {
       "player": "Tom Wilson",
@@ -413,7 +479,10 @@
       "away_team": "Ottawa Senators",
       "home_abbr": "BOS",
       "away_abbr": "OTT",
-      "commence_time": "2026-06-16T18:00:00Z"
+      "commence_time": "2026-06-16T18:00:00Z",
+      "player_team": "WSH",
+      "implied_over": 54.6,
+      "implied_under": 48.8
     },
     {
       "player": "Adam Fox",
@@ -431,7 +500,10 @@
       "away_team": "Anaheim Ducks",
       "home_abbr": "LAK",
       "away_abbr": "ANA",
-      "commence_time": "2026-06-16T22:00:00Z"
+      "commence_time": "2026-06-16T22:00:00Z",
+      "player_team": "NYR",
+      "implied_over": 51.2,
+      "implied_under": 53.5
     },
     {
       "player": "Jonathan Huberdeau",
@@ -449,7 +521,10 @@
       "away_team": "Winnipeg Jets",
       "home_abbr": "MIN",
       "away_abbr": "WPG",
-      "commence_time": "2026-06-16T20:00:00Z"
+      "commence_time": "2026-06-16T20:00:00Z",
+      "player_team": "CGY",
+      "implied_over": 53.5,
+      "implied_under": 51.2
     },
     {
       "player": "Anze Kopitar",
@@ -467,7 +542,10 @@
       "away_team": "New York Islanders",
       "home_abbr": "NJD",
       "away_abbr": "NYI",
-      "commence_time": "2026-06-16T19:00:00Z"
+      "commence_time": "2026-06-16T19:00:00Z",
+      "player_team": "LAK",
+      "implied_over": 48.8,
+      "implied_under": 54.6
     },
     {
       "player": "Leon Draisaitl",
@@ -485,7 +563,10 @@
       "away_team": "Philadelphia Flyers",
       "home_abbr": "PIT",
       "away_abbr": "PHI",
-      "commence_time": "2026-06-16T19:30:00Z"
+      "commence_time": "2026-06-16T19:30:00Z",
+      "player_team": "EDM",
+      "implied_over": 56.5,
+      "implied_under": 47.6
     },
     {
       "player": "Patrik Laine",
@@ -503,7 +584,10 @@
       "away_team": "Columbus Blue Jackets",
       "home_abbr": "DET",
       "away_abbr": "CBJ",
-      "commence_time": "2026-06-16T19:00:00Z"
+      "commence_time": "2026-06-16T19:00:00Z",
+      "player_team": "CBJ",
+      "implied_over": 52.4,
+      "implied_under": 52.4
     },
     {
       "player": "Mark Scheifele",
@@ -521,7 +605,10 @@
       "away_team": "Seattle Kraken",
       "home_abbr": "SJS",
       "away_abbr": "SEA",
-      "commence_time": "2026-06-16T22:30:00Z"
+      "commence_time": "2026-06-16T22:30:00Z",
+      "player_team": "WPG",
+      "implied_over": 51.2,
+      "implied_under": 53.5
     },
     {
       "player": "Steven Stamkos",
@@ -539,7 +626,10 @@
       "away_team": "Utah Mammoth",
       "home_abbr": "VAN",
       "away_abbr": "UTA",
-      "commence_time": "2026-06-16T22:00:00Z"
+      "commence_time": "2026-06-16T22:00:00Z",
+      "player_team": "TBL",
+      "implied_over": 53.5,
+      "implied_under": 51.2
     },
     {
       "player": "Mark Stone",
@@ -557,7 +647,10 @@
       "away_team": "Chicago Blackhawks",
       "home_abbr": "BUF",
       "away_abbr": "CHI",
-      "commence_time": "2026-06-16T19:00:00Z"
+      "commence_time": "2026-06-16T19:00:00Z",
+      "player_team": "VGK",
+      "implied_over": 52.4,
+      "implied_under": 52.4
     },
     {
       "player": "Patrice Bergeron",
@@ -575,7 +668,10 @@
       "away_team": "Arizona Coyotes",
       "home_abbr": "WSH",
       "away_abbr": "ARI",
-      "commence_time": "2026-06-16T19:30:00Z"
+      "commence_time": "2026-06-16T19:30:00Z",
+      "player_team": "BOS",
+      "implied_over": 58.3,
+      "implied_under": 46.5
     },
     {
       "player": "Connor Bedard",
@@ -593,7 +689,10 @@
       "away_team": "Montreal Canadiens",
       "home_abbr": "TOR",
       "away_abbr": "MTL",
-      "commence_time": "2026-06-16T19:00:00Z"
+      "commence_time": "2026-06-16T19:00:00Z",
+      "player_team": "CHI",
+      "implied_over": 54.6,
+      "implied_under": 48.8
     }
   ],
   "games": [

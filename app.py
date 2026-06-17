@@ -929,7 +929,8 @@ def api_player_props(date_str: str):
         out_df = df[[
             "player", "market", "line", "prob_over", "recommendation",
             "over_american", "under_american", "over_decimal", "under_decimal",
-            "edge",
+            "edge", "home_abbr", "away_abbr", "player_team",
+            "implied_over", "implied_under",
         ]].copy()
         out_df["market"] = out_df["market"].str.replace("Player ", "")
 
