@@ -1498,25 +1498,27 @@ async function runProps() {
     const date = document.getElementById('propsDate')?.value || new Date().toISOString().split('T')[0];
     const markets = ["player_points", "player_assists", "player_goals", "player_shots_on_goal"];
 
-    if (USE_DEMO) {
-        await new Promise(r => setTimeout(r, 500));
-        const demoProps = [
-            { player:"A. Matthews", market:"Goals", line:0.5, over_american:-145, under_american:115, prob_over:54.2, recommendation:"Over", edge:0.04 },
-            { player:"C. McDavid", market:"Points", line:1.5, over_american:-125, under_american:105, prob_over:58.1, recommendation:"Over", edge:0.07 },
-            { player:"M. Tkachuk", market:"Shots", line:3.5, over_american:-115, under_american:-105, prob_over:47.0, recommendation:"Under", edge:0.02 },
-        ];
-        renderProps(demoProps);
-        return;
-    }
 
     try {
         const url = `/api/player-props/${date}?regions=us&markets=${markets.join(',')}`;
         const data = await safeFetchJson(url);
-        if (data.error) throw new Error(data.error);
+        if (data.error) {
+            // NHL season is over / no API key set: fall back to demo data so the UI still works.
+            console.warn('Props API returned error, using demo data:', data.error);
+            const demo = await safeFetchJson('../static/data/demo_props.json');
+            renderProps(demo.props || []);
+            return;
+        }
         renderProps(data.props || []);
     } catch (e) {
-        container.innerHTML = `<div class="error-box">Could not load props: ${e.message}</div>`;
-        console.error('Props load failed:', e);
+        console.warn('Props API unavailable, using demo data:', e);
+        try {
+            const demo = await safeFetchJson('../static/data/demo_props.json');
+            renderProps(demo.props || []);
+        } catch (demoErr) {
+            container.innerHTML = `<div class="error-box">Could not load props: ${e.message}</div>`;
+            console.error('Props load failed:', e, demoErr);
+        }
     }
 }
 
