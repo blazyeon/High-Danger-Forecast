@@ -935,7 +935,7 @@ input[type="date"].param-input, input[type="date"].date-input {
 
 .props-row {
     display: grid;
-    grid-template-columns: 1.2fr 1fr 70px 90px 1fr 90px;
+    grid-template-columns: 1.2fr 1fr 120px 1fr 90px;
     align-items: center;
     gap: 16px;
     padding: 14px 16px;
@@ -965,7 +965,7 @@ input[type="date"].param-input, input[type="date"].date-input {
 .props-market-name { font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.7px; color: var(--text-muted); }
 .props-line { font-size: 14px; font-weight: 800; color: var(--text-primary); }
 
-.props-rec { align-items: center; }
+.props-rec-price { align-items: center; gap: 6px; }
 .props-rec-badge {
     font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.6px;
     padding: 4px 10px; border-radius: 100px;
@@ -973,9 +973,7 @@ input[type="date"].param-input, input[type="date"].date-input {
 .props-rec-badge.prop-rec-over { background: rgba(46,229,157,0.12); color: var(--accent-green); border: 1px solid rgba(46,229,157,0.25); }
 .props-rec-badge.prop-rec-under { background: rgba(255,85,119,0.14); color: var(--accent-red); border: 1px solid rgba(255,85,119,0.25); }
 
-.props-price { align-items: center; }
 .props-price-val { font-size: 18px; font-weight: 900; color: var(--accent-cyan); }
-.props-price-label { font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.6px; }
 
 .props-prob { gap: 8px; }
 .props-prob-bar { display: flex; align-items: center; gap: 10px; }
@@ -999,21 +997,19 @@ input[type="date"].param-input, input[type="date"].date-input {
 .props-row.edge-strong .props-edge-badge { color: var(--accent-gold); border-color: rgba(255,209,102,0.25); }
 
 @media (max-width: 900px) {
-    .props-row { grid-template-columns: 1fr 1fr 80px; grid-template-rows: auto auto auto; gap: 12px; }
+    .props-row { grid-template-columns: 1fr 1fr 90px; grid-template-rows: auto auto auto; gap: 12px; }
     .props-player { grid-column: 1 / 3; grid-row: 1; }
     .props-market { grid-column: 1 / 2; grid-row: 2; }
-    .props-rec { grid-column: 2 / 3; grid-row: 2; }
-    .props-price { grid-column: 3 / 4; grid-row: 1; }
+    .props-rec-price { grid-column: 2 / 3; grid-row: 2; }
     .props-prob { grid-column: 1 / 3; grid-row: 3; }
-    .props-edge { grid-column: 3 / 4; grid-row: 2 / 4; align-items: center; justify-content: center; }
+    .props-edge { grid-column: 3 / 4; grid-row: 1 / 4; align-items: center; justify-content: center; }
 }
 
 @media (max-width: 560px) {
     .props-row { grid-template-columns: 1fr auto; grid-template-rows: auto auto auto auto; padding: 14px; }
     .props-player { grid-column: 1 / 3; grid-row: 1; }
     .props-market { grid-column: 1 / 2; grid-row: 2; }
-    .props-rec { grid-column: 2 / 3; grid-row: 2; }
-    .props-price { grid-column: 1 / 2; grid-row: 3; align-items: flex-start; }
+    .props-rec-price { grid-column: 2 / 3; grid-row: 2; }
     .props-prob { grid-column: 1 / 3; grid-row: 4; }
     .props-edge { grid-column: 2 / 3; grid-row: 3; align-items: center; justify-content: center; }
 }
@@ -1095,17 +1091,27 @@ input[type="date"].param-input, input[type="date"].date-input {
 .be-cell { display: flex; flex-direction: column; gap: 4px; }
 
 .be-matchup {
-    flex-direction: row; align-items: center; gap: 8px;
+    flex-direction: row; align-items: center;
     font-weight: 800; font-size: 14px; color: var(--text-primary);
 }
 
+.be-team-pill {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--bg-base);
+    border: 1px solid var(--border-subtle);
+    border-radius: 100px;
+    padding: 4px 12px 4px 4px;
+    white-space: nowrap;
+}
+
 .be-row-logo {
-    width: 28px; height: 28px; object-fit: contain;
-    border-radius: var(--radius-sm); background: var(--bg-base); padding: 3px;
+    width: 24px; height: 24px; object-fit: contain;
+    border-radius: 50%; background: var(--bg-base); padding: 2px;
     border: 1px solid var(--border-subtle);
 }
 
-.be-row-teams { white-space: nowrap; }
+.be-row-abbr { font-weight: 900; }
+.be-at { color: var(--text-muted); font-weight: 700; font-size: 12px; }
 
 .be-play-market {
     font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.7px;

@@ -1285,12 +1285,9 @@ function renderProps(props) {
                 <div class="props-market-name">${escapeHtml(p.market)}</div>
                 <div class="props-line">${p.isOver ? 'Over' : 'Under'} ${parseFloat(p.line).toFixed(1)}</div>
             </div>
-            <div class="props-cell props-rec">
+            <div class="props-cell props-rec-price">
                 <div class="props-rec-badge ${recClass}">${p.isOver ? 'Over' : 'Under'}</div>
-            </div>
-            <div class="props-cell props-price">
                 <div class="props-price-val">${escapeHtml(price)}</div>
-                <div class="props-price-label">odds</div>
             </div>
             <div class="props-cell props-prob">
                 <div class="props-prob-bar">
@@ -1420,9 +1417,13 @@ function renderBettingEdge(data, container) {
 
         html += `<div class="be-row ${cardClass}">
             <div class="be-cell be-matchup">
-                <img class="be-row-logo" src="/api/logos/${r.awayAbbr}.png" alt="${r.awayAbbr}" onerror="this.style.display='none'">
-                <img class="be-row-logo" src="/api/logos/${r.homeAbbr}.png" alt="${r.homeAbbr}" onerror="this.style.display='none'">
-                <span class="be-row-teams">${r.awayAbbr} @ ${r.homeAbbr}</span>
+                <div class="be-team-pill">
+                    <img class="be-row-logo" src="/api/logos/${r.awayAbbr}.png" alt="${r.awayAbbr}" onerror="this.style.display='none'">
+                    <span class="be-row-abbr">${r.awayAbbr}</span>
+                    <span class="be-at">@</span>
+                    <img class="be-row-logo" src="/api/logos/${r.homeAbbr}.png" alt="${r.homeAbbr}" onerror="this.style.display='none'">
+                    <span class="be-row-abbr">${r.homeAbbr}</span>
+                </div>
             </div>
             <div class="be-cell be-play">
                 <div class="be-play-market">${escapeHtml(e.market)}</div>
