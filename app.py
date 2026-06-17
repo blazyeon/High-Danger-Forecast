@@ -852,23 +852,78 @@ def api_boxscore(game_id: str):
 
 @app.route("/api/player-props/<date_str>")
 def api_player_props(date_str: str):
-    """Return player prop odds for a given date."""
+    """
+    Return player prop odds + model edge for a given date.
+
+    Query params:
+        markets   – comma-separated list (default: player_points,player_assists,
+                    player_goals,player_shots_on_goal)
+        regions   – region code for odds (default: us)
+        bookmakers – comma-separated bookmaker keys (default: all)
+    """
     try:
         from NHL.PlayerLinePredictor import (
-            load_player_props_multi_day, DEFAULT_PLAYER_MARKETS,
+            load_player_props_multi_day,
+            DEFAULT_PLAYER_MARKETS,
+            _shape_player_df,
+            _best_prices,
+            get_player_elo_ratings,
+            get_player_pbp_stats,
         )
 
         game_date = _date.fromisoformat(date_str)
         markets = request.args.getlist("markets")
         if not markets:
             markets = list(DEFAULT_PLAYER_MARKETS)
+        markets = [m.strip().lower().replace(" ", "_") for m in markets]
 
-        props = load_player_props_multi_day(tuple(markets), game_date)
-        if not props:
+        regions = request.args.get("regions", "us") or "us"
+        bookmakers_csv = request.args.get("bookmakers") or None
+        odds_format = request.args.get("odds_format", "american") or "american"
+
+        season = season_from_date(date_str)
+        player_elo = get_player_elo_ratings(season)
+        player_stats = get_player_pbp_stats(season)
+
+        raw = load_player_props_multi_day(
+            day=game_date,
+            regions=regions,
+            markets=tuple(markets),
+            bookmakers_csv=bookmakers_csv,
+            odds_format=odds_format,
+        )
+
+        df = _shape_player_df(raw, odds_format, player_elo, player_stats)
+        if df.empty:
             return jsonify({"date": date_str, "props": []})
 
-        result = _make_json_safe(list(props))
-        return jsonify({"date": date_str, "props": result})
+        df = _best_prices(df)
+
+        # Calculate model edge vs. best available line.
+        def _edge(row):
+            rec = row.get("recommendation")
+            if rec == "Over" and pd.notna(row.get("over_decimal")):
+                return row["prob_over"] / 100.0 * row["over_decimal"] - 1.0
+            if rec == "Under" and pd.notna(row.get("under_decimal")):
+                return (100.0 - row["prob_over"]) / 100.0 * row["under_decimal"] - 1.0
+            return None
+
+        df["edge"] = df.apply(_edge, axis=1)
+        # Keep only actionable props with a model pick.
+        df = df[df["recommendation"].isin(["Over", "Under"])].copy()
+        df = df.sort_values(["edge", "prob_over"], ascending=False)
+        df = df.reset_index(drop=True)
+
+        # Rename for the UI and convert to records
+        out_df = df[[
+            "player", "market", "line", "prob_over", "recommendation",
+            "over_american", "under_american", "over_decimal", "under_decimal",
+            "edge",
+        ]].copy()
+        out_df["market"] = out_df["market"].str.replace("Player ", "")
+
+        records = out_df.to_dict(orient="records")
+        return jsonify({"date": date_str, "props": _make_json_safe(records)})
 
     except Exception as e:
         logger.error(f"Player props error: {e}", exc_info=True)

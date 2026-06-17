@@ -34,6 +34,8 @@ pbp_cache/mp/
 # Old training DBs (keep elo_ratings.db and current season)
 training_data_*.db
 
+.env
+
 # Logs
 *.log
 

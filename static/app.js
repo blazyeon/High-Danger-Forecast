@@ -1494,28 +1494,74 @@ async function runElo() {
 async function runProps() {
     const container = document.getElementById('propsResults');
     container.innerHTML = '<div class="loading"><div class="spinner"></div><span>Loading props...</span></div>';
-    if (USE_DEMO) { await new Promise(r => setTimeout(r, 500)); }
 
-    const props = [
-        { player:"A. Matthews", market:"Goals", line:"O/U 0.5", over:"-145", under:"+115" },
-        { player:"C. McDavid", market:"Points", line:"O/U 1.5", over:"-125", under:"+105" },
-        { player:"I. Shesterkin", market:"Saves", line:"O/U 28.5", over:"-110", under:"-110" },
-        { player:"M. Tkachuk", market:"Shots", line:"O/U 3.5", over:"-115", under:"-105" },
-    ];
+    const date = document.getElementById('propsDate')?.value || new Date().toISOString().split('T')[0];
+    const markets = ["player_points", "player_assists", "player_goals", "player_shots_on_goal"];
+
+    if (USE_DEMO) {
+        await new Promise(r => setTimeout(r, 500));
+        const demoProps = [
+            { player:"A. Matthews", market:"Goals", line:0.5, over_american:-145, under_american:115, prob_over:54.2, recommendation:"Over", edge:0.04 },
+            { player:"C. McDavid", market:"Points", line:1.5, over_american:-125, under_american:105, prob_over:58.1, recommendation:"Over", edge:0.07 },
+            { player:"M. Tkachuk", market:"Shots", line:3.5, over_american:-115, under_american:-105, prob_over:47.0, recommendation:"Under", edge:0.02 },
+        ];
+        renderProps(demoProps);
+        return;
+    }
+
+    try {
+        const url = `/api/player-props/${date}?regions=us&markets=${markets.join(',')}`;
+        const data = await safeFetchJson(url);
+        if (data.error) throw new Error(data.error);
+        renderProps(data.props || []);
+    } catch (e) {
+        container.innerHTML = `<div class="error-box">Could not load props: ${e.message}</div>`;
+        console.error('Props load failed:', e);
+    }
+}
+
+function renderProps(props) {
+    const container = document.getElementById('propsResults');
+    if (!props || props.length === 0) {
+        container.innerHTML = '<div class="empty-state"><div class="empty-icon">🎰</div><h3 class="empty-title">No props available</h3><p class="empty-text">Try a different date or check that ODDS_API_KEY is set.</p></div>';
+        return;
+    }
 
     let html = '<div class="prop-grid">';
     props.forEach(p => {
-        html += `<div class="prop-card">
-            <div class="prop-player">${p.player}</div>
+        const rec = p.recommendation || 'Pass';
+        const isOver = rec === 'Over';
+        const recClass = isOver ? 'prop-rec-over' : 'prop-rec-under';
+        const edge = p.edge != null ? parseFloat(p.edge) : null;
+        const edgeClass = edge == null ? '' : (edge >= 0.05 ? 'edge-strong' : edge >= 0.02 ? 'edge-good' : 'edge-slight');
+        const edgeText = edge == null ? '-' : (edge >= 0 ? '+' : '') + (edge * 100).toFixed(1) + '%';
+        const over = p.over_american != null ? formatAmerican(p.over_american) : '-';
+        const under = p.under_american != null ? formatAmerican(p.under_american) : '-';
+
+        html += `<div class="prop-card ${edgeClass}">
+            <div class="prop-header">
+                <div class="prop-player">${p.player}</div>
+                <div class="prop-rec ${recClass}">${rec}</div>
+            </div>
             <div class="prop-details">
                 <span class="prop-market">${p.market}</span>
-                <span class="prop-line">${p.line}</span>
-                <div class="prop-odds"><span class="prop-over">O ${p.over}</span><span class="prop-under">U ${p.under}</span></div>
+                <span class="prop-line">O/U ${parseFloat(p.line).toFixed(1)}</span>
+                <div class="prop-odds"><span class="prop-over">O ${over}</span><span class="prop-under">U ${under}</span></div>
+            </div>
+            <div class="prop-model-row">
+                <span class="prop-prob">Model: ${parseFloat(p.prob_over).toFixed(1)}% over</span>
+                <span class="prop-edge">Edge: ${edgeText}</span>
             </div>
         </div>`;
     });
     html += '</div>';
     container.innerHTML = html;
+}
+
+function formatAmerican(n) {
+    const v = parseInt(n, 10);
+    if (isNaN(v)) return '-';
+    return v > 0 ? `+${v}` : `${v}`;
 }
 
 // ── Real API stubs (unused in demo) ───────────────────────────────

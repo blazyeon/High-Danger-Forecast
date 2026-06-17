@@ -1,6 +1,6 @@
 """
 Thin client for The Odds API (v4) focused on NHL odds.
-- API key from env ODDS_API_KEY or .env file, with embedded fallback.
+- API key from env ODDS_API_KEY or a .env file. No embedded key.
 - Retries on 429 with exponential backoff
 - Helpers:
     - fetch_nhl_odds_by_date: featured markets (h2h/spreads/totals) using /odds
@@ -23,16 +23,13 @@ logger = logging.getLogger(__name__)
 
 DEFAULT_BASE_URL = "https://api.the-odds-api.com/v4"
 
-# Embedded key for convenience — override via env var or .env file
-_ODDS_API_KEY_EMBEDDED = "80c16c061f17d83276ee298143b52224"
-
 
 class OddsAPIError(Exception):
     pass
 
 
 def _get_api_key() -> Optional[str]:
-    """Get API key from environment variable, .env file, or embedded fallback."""
+    """Get API key from environment variable or a .env file."""
     # Try environment variable first
     key = os.getenv("ODDS_API_KEY")
     if key:
@@ -48,8 +45,7 @@ def _get_api_key() -> Optional[str]:
                     return line.split("=", 1)[1].strip().strip('"').strip("'")
     except Exception:
         pass
-    # Fallback to embedded key
-    return _ODDS_API_KEY_EMBEDDED
+    return None
 
 def _headers() -> Dict[str, str]:
     return {
