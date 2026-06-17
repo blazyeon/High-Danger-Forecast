@@ -1017,13 +1017,18 @@ input[type="date"].param-input, input[type="date"].date-input {
 .props-price-val { font-size: 18px; font-weight: 900; color: var(--accent-cyan); }
 
 .props-prob { gap: 8px; }
+.props-probs {
+    display: flex; flex-direction: column; gap: 8px;
+}
 .props-prob-bar { display: flex; align-items: center; gap: 10px; }
 .props-prob-track {
     flex: 1; height: 6px; background: var(--bg-base);
     border-radius: 100px; overflow: hidden;
 }
 .props-prob-fill { height: 100%; background: linear-gradient(90deg, var(--accent-green), var(--accent-cyan-dim)); border-radius: 100px; }
-.props-prob-text { font-size: 11px; font-weight: 700; color: var(--text-secondary); white-space: nowrap; }
+.props-prob-fill.props-implied-fill { background: linear-gradient(90deg, var(--accent-cyan), var(--accent-cyan-dim)); }
+.props-prob-fill.props-model-fill { background: linear-gradient(90deg, var(--accent-green), var(--accent-cyan-dim)); }
+.props-prob-text { font-size: 11px; font-weight: 700; color: var(--text-secondary); white-space: nowrap; min-width: 76px; }
 
 .props-edge { align-items: flex-end; }
 .props-edge-badge {
@@ -1068,11 +1073,6 @@ input[type="date"].param-input, input[type="date"].date-input {
     object-fit: contain;
     flex-shrink: 0;
 }
-.props-implied-text {
-    font-size: 11px; font-weight: 700;
-    color: var(--text-muted);
-}
-
 @media (max-width: 1200px) {
     .props-side-label, .props-sort-label { margin-left: 0; }
 }

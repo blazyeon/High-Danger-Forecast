@@ -1266,7 +1266,7 @@ function setPropsMarketFilter(market, active) {
 
 function setPropsSideFilter(side) {
     if (!_lastPropsData) return;
-    _propsSideFilter = side;
+    _propsSideFilter = side === 'Under' ? 'Over' : (side || 'Over');
     const container = document.getElementById('propsResults');
     if (container) renderProps(_lastPropsData);
 }
@@ -1310,11 +1310,9 @@ function renderProps(props) {
         };
     });
 
-    // Apply market and side filters.
+    // Apply market filters. Goals market is always Over-only (ignore Under picks).
     rows = rows.filter(p => _propsMarketFilter[p.canonicalMarket]);
-    if (_propsSideFilter !== 'both') {
-        rows = rows.filter(p => p.rec === _propsSideFilter);
-    }
+    rows = rows.filter(p => p.rec === 'Over' && !(p.canonicalMarket === 'Goals' && !p.isOver));
 
     if (_propsSort === 'odds') {
         rows.sort((a, b) => (parseFloat(b.recDecimal) || 0) - (parseFloat(a.recDecimal) || 0));
@@ -1338,11 +1336,10 @@ function renderProps(props) {
         html += `<button class="props-market-btn ${active ? 'active' : ''}" onclick="setPropsMarketFilter('${m}', ${!active})">${m}</button>`;
     });
 
-    // Side filter toggles
+    // Side filter toggles (Over only; Goals market is always Over regardless).
     html += `<span class="props-toolbar-label props-side-label">Side:</span>`;
     const sides = [
         { key: 'Over', label: 'Over' },
-        { key: 'Under', label: 'Under' },
         { key: 'both', label: 'Both' },
     ];
     sides.forEach(s => {
@@ -1357,7 +1354,7 @@ function renderProps(props) {
     </div>`;
 
     if (rows.length === 0) {
-        html += '<div class="empty-state"><div class="empty-icon">🔍</div><h3 class="empty-title">No props match your filters</h3><p class="empty-text">Try enabling more markets or switching the Over/Under side.</p></div>';
+        html += '<div class="empty-state"><div class="empty-icon">🔍</div><h3 class="empty-title">No props match your filters</h3><p class="empty-text">Try enabling more markets or switching the side filter.</p></div>';
         container.innerHTML = html;
         return;
     }
@@ -1372,7 +1369,6 @@ function renderProps(props) {
         const price = p.recPrice != null ? formatAmerican(p.recPrice) : '-';
         const prob = p.probOver.toFixed(1);
         const implied = p.impliedProb != null ? p.impliedProb.toFixed(1) : null;
-        const impliedText = implied != null ? `Book ${implied}%` : 'Book —';
         const teamAbbr = p.player_team || '';
         const matchup = p.matchup || '—';
 
@@ -1393,11 +1389,16 @@ function renderProps(props) {
                 <div class="props-price-val">${escapeHtml(price)}</div>
             </div>
             <div class="props-cell props-prob">
-                <div class="props-prob-bar">
-                    <div class="props-prob-track"><div class="props-prob-fill" style="width:${prob}%"></div></div>
-                    <span class="props-prob-text">Model ${prob}%</span>
+                <div class="props-probs">
+                    <div class="props-prob-bar">
+                        <div class="props-prob-track"><div class="props-prob-fill props-implied-fill" style="width:${implied || 0}%"></div></div>
+                        <span class="props-prob-text">Book ${implied != null ? implied + '%' : '—'}</span>
+                    </div>
+                    <div class="props-prob-bar">
+                        <div class="props-prob-track"><div class="props-prob-fill props-model-fill" style="width:${prob}%"></div></div>
+                        <span class="props-prob-text">Model ${prob}%</span>
+                    </div>
                 </div>
-                <div class="props-implied-text">${impliedText}</div>
             </div>
             <div class="props-cell props-edge">
                 <div class="props-edge-badge">${edgeSign}${edgePct}%</div>
