@@ -215,6 +215,54 @@ def get_player_nst_stats(season: str) -> Dict[str, Dict]:
 get_player_pbp_stats = get_player_nst_stats
 
 
+def _std_for_market(avg: float, market: str) -> float:
+    """
+    Return a market-appropriate standard deviation for a per-game average.
+
+    Count stats (goals, assists, points, shots) are over-dispersed compared
+    to a pure Poisson process. We start with sqrt(mean) (Poisson baseline) and
+    multiply by a market-specific dispersion factor derived from typical NHL
+    season-to-season variance:
+        - Goals/assists are the most volatile (dispersion ~1.6)
+        - Points are slightly more stable than their components (~1.4)
+        - Shots are the most repeatable (~1.2)
+    A floor keeps low-volume players from collapsing to zero variance.
+    """
+    market_lower = market.lower()
+    if 'shot' in market_lower:
+        dispersion = 1.2
+    elif 'point' in market_lower:
+        dispersion = 1.4
+    elif 'goal' in market_lower or 'assist' in market_lower:
+        dispersion = 1.6
+    else:
+        dispersion = 1.4
+    return max(math.sqrt(max(avg, 0.1)) * dispersion, 0.5)
+
+
+def _elo_rate_multiplier(elo_rating: Optional[float]) -> float:
+    """
+    Convert a player Elo rating into a small rate multiplier.
+
+    This is more accurate than a flat percentage adjustment because a 3%
+    bump matters far more for a 0.4-goal scorer than a 4.5-shot shooter.
+    Multipliers are capped to avoid extreme projections for sparse data.
+    """
+    if elo_rating is None:
+        return 1.0
+    try:
+        r = float(elo_rating)
+    except (TypeError, ValueError):
+        return 1.0
+    if r >= 1700:
+        return 1.06
+    if r >= 1600:
+        return 1.03
+    if r >= 1500:
+        return 1.0
+    return 0.97
+
+
 def calculate_hit_probability(
     player_name: str,
     market: str,
@@ -224,6 +272,11 @@ def calculate_hit_probability(
 ) -> Tuple[float, str]:
     """
     Calculate probability of hitting the line and recommend Over/Under.
+
+    Uses a per-game rate + market-appropriate over-dispersion estimate, then
+    maps the distance from the line to an over probability via a logistic CDF.
+    Player Elo is applied as a rate multiplier rather than a flat probability
+    shift so it scales correctly across different prop markets.
 
     Returns:
         (probability_pct, recommendation)
@@ -239,70 +292,42 @@ def calculate_hit_probability(
     if not stats_data:
         return 50.0, "Pass"  # No data
 
+    gp = int(stats_data.get("gp", 0) or 0)
+    if gp < 5:
+        # Not enough games to trust the per-game rate.
+        return 50.0, "Pass"
+
     # Get stat average based on market
     market_lower = market.lower()
     if 'point' in market_lower:
-        avg = stats_data.get('points_pg', 0)
+        avg = float(stats_data.get('points_pg', 0) or 0)
     elif 'assist' in market_lower:
-        avg = stats_data.get('assists_pg', 0)
+        avg = float(stats_data.get('assists_pg', 0) or 0)
     elif 'goal' in market_lower:
-        avg = stats_data.get('goals_pg', 0)
+        avg = float(stats_data.get('goals_pg', 0) or 0)
     elif 'shot' in market_lower:
-        avg = stats_data.get('shots_pg', 0)
+        avg = float(stats_data.get('shots_pg', 0) or 0)
     else:
         return 50.0, "Pass"
 
-    if avg == 0:
+    if avg <= 0:
         return 50.0, "Pass"
 
-    # Base probability from stats (how far is line from average)
-    # If line is below average, Over is more likely
-    # If line is above average, Under is more likely
+    # Apply Elo as a rate multiplier instead of a flat probability shift.
+    elo_rating = elo_data.get('elo', 1500)
+    adjusted_avg = avg * _elo_rate_multiplier(elo_rating)
 
-    # Calculate standard deviation (rough estimate)
-    # For goals/assists: std ~= avg * 0.8
-    # For points: std ~= avg * 0.7
-    # For shots: std ~= avg * 0.6
-    if 'shot' in market_lower:
-        std = avg * 0.6
-    elif 'point' in market_lower:
-        std = avg * 0.7
-    else:
-        std = avg * 0.8
-
-    std = max(std, 0.5)  # Minimum variance
+    # Standard deviation that respects count-stat over-dispersion.
+    std = _std_for_market(adjusted_avg, market)
 
     # Z-score: how many standard deviations away is the line
-    z_score = (line - avg) / std
+    z_score = (line - adjusted_avg) / std
 
-    # Base probability using normal distribution approximation
-    # z_score of 0 = 50% (line at average)
-    # z_score of -1 = 84% (line 1 std below avg, Over likely)
-    # z_score of +1 = 16% (line 1 std above avg, Under likely)
-
-    # Simple sigmoid approximation
+    # Logistic CDF approximation of over probability.
     base_prob = 100.0 / (1.0 + math.exp(z_score))
 
-    # Adjust for player Elo
-    elo_rating = elo_data.get('elo', 1500)
-
-    # Elite players (1700+): +5% to Over
-    # Good players (1600-1699): +2% to Over
-    # Average (1500-1599): No adjustment
-    # Below average (<1500): -3% to Over
-
-    if elo_rating >= 1700:
-        elo_adj = 5.0
-    elif elo_rating >= 1600:
-        elo_adj = 2.0
-    elif elo_rating >= 1500:
-        elo_adj = 0.0
-    else:
-        elo_adj = -3.0
-
-    # Final probability
-    prob_over = base_prob + elo_adj
-    prob_over = max(0.0, min(100.0, prob_over))
+    # Floor/ceiling; never claim 0% or 100% from a noisy per-game estimate.
+    prob_over = max(1.0, min(99.0, base_prob))
 
     # Recommendation logic
     # Over if probability > 55%

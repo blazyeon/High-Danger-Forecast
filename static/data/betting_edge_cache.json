@@ -1,8 +1,8 @@
 {
   "date": "2026-06-16",
-  "computed_at": "2026-06-17T06:49:09.106642+00:00",
+  "computed_at": "2026-06-17T21:30:33.865011+00:00",
   "source": "demo",
-  "warning": "Using demo odds (no live odds cached).",
+  "warning": "No live schedule found; using odds event matchups.",
   "games": [
     {
       "home": "CAR",
@@ -10,7 +10,7 @@
       "home_name": "CAR",
       "away_name": "NYR",
       "start_time": "2026-06-16T23:00:00Z",
-      "best_edge": 0.2698,
+      "best_edge": 0.2768,
       "edges": [
         {
           "market": "Total 5.5",
@@ -19,9 +19,9 @@
           "team": null,
           "odds": -105,
           "odds_decimal": 1.9523809523809523,
-          "model_prob": 0.759,
+          "model_prob": 0.766,
           "implied_prob": 0.4892,
-          "edge": 0.2698,
+          "edge": 0.2768,
           "book": "demo_book"
         },
         {
@@ -31,9 +31,9 @@
           "team": "CAR",
           "odds": -160,
           "odds_decimal": 1.625,
-          "model_prob": 0.702,
+          "model_prob": 0.706,
           "implied_prob": 0.5963,
-          "edge": 0.1057,
+          "edge": 0.1097,
           "book": "demo_book"
         },
         {
@@ -43,9 +43,9 @@
           "team": "CAR",
           "odds": 105,
           "odds_decimal": 2.05,
-          "model_prob": 0.551,
+          "model_prob": 0.557,
           "implied_prob": 0.4675,
-          "edge": 0.0835,
+          "edge": 0.0895,
           "book": "demo_book"
         }
       ]
@@ -56,7 +56,7 @@
       "home_name": "BUF",
       "away_name": "CHI",
       "start_time": "2026-06-16T19:00:00Z",
-      "best_edge": 0.2183,
+      "best_edge": 0.2193,
       "edges": [
         {
           "market": "Puck Line (-1.5)",
@@ -65,9 +65,9 @@
           "team": "BUF",
           "odds": 210,
           "odds_decimal": 3.1,
-          "model_prob": 0.527,
+          "model_prob": 0.528,
           "implied_prob": 0.3087,
-          "edge": 0.2183,
+          "edge": 0.2193,
           "book": "demo_book"
         },
         {
@@ -89,9 +89,9 @@
           "team": null,
           "odds": -110,
           "odds_decimal": 1.9090909090909092,
-          "model_prob": 0.6005,
+          "model_prob": 0.5975,
           "implied_prob": 0.5,
-          "edge": 0.1005,
+          "edge": 0.0975,
           "book": "demo_book"
         }
       ]
@@ -102,7 +102,7 @@
       "home_name": "TOR",
       "away_name": "MTL",
       "start_time": "2026-06-16T19:00:00Z",
-      "best_edge": 0.1988,
+      "best_edge": 0.2018,
       "edges": [
         {
           "market": "Moneyline",
@@ -111,9 +111,9 @@
           "team": "MTL",
           "odds": 130,
           "odds_decimal": 2.3,
-          "model_prob": 0.619,
+          "model_prob": 0.622,
           "implied_prob": 0.4202,
-          "edge": 0.1988,
+          "edge": 0.2018,
           "book": "demo_book"
         }
       ]
@@ -124,7 +124,7 @@
       "home_name": "FLA",
       "away_name": "TBL",
       "start_time": "2026-06-16T19:30:00Z",
-      "best_edge": 0.1945,
+      "best_edge": 0.2005,
       "edges": [
         {
           "market": "Moneyline",
@@ -133,9 +133,9 @@
           "team": "TBL",
           "odds": 105,
           "odds_decimal": 2.05,
-          "model_prob": 0.662,
+          "model_prob": 0.668,
           "implied_prob": 0.4675,
-          "edge": 0.1945,
+          "edge": 0.2005,
           "book": "demo_book"
         },
         {
@@ -145,9 +145,9 @@
           "team": null,
           "odds": 105,
           "odds_decimal": 2.05,
-          "model_prob": 0.53,
+          "model_prob": 0.538,
           "implied_prob": 0.4675,
-          "edge": 0.0625,
+          "edge": 0.0705,
           "book": "demo_book"
         }
       ]
@@ -179,43 +179,9 @@
           "team": null,
           "odds": -110,
           "odds_decimal": 1.9090909090909092,
-          "model_prob": 0.614,
+          "model_prob": 0.613,
           "implied_prob": 0.5,
-          "edge": 0.114,
-          "book": "demo_book"
-        }
-      ]
-    },
-    {
-      "home": "EDM",
-      "away": "CGY",
-      "home_name": "EDM",
-      "away_name": "CGY",
-      "start_time": "2026-06-16T20:00:00Z",
-      "best_edge": 0.1505,
-      "edges": [
-        {
-          "market": "Puck Line (-1.5)",
-          "side": "Edmonton Oilers",
-          "pick": "Edmonton Oilers",
-          "team": "EDM",
-          "odds": 165,
-          "odds_decimal": 2.65,
-          "model_prob": 0.516,
-          "implied_prob": 0.3655,
-          "edge": 0.1505,
-          "book": "demo_book"
-        },
-        {
-          "market": "Moneyline",
-          "side": "Edmonton Oilers",
-          "pick": "Edmonton Oilers",
-          "team": "EDM",
-          "odds": -130,
-          "odds_decimal": 1.7692307692307692,
-          "model_prob": 0.629,
-          "implied_prob": 0.5427,
-          "edge": 0.0863,
+          "edge": 0.113,
           "book": "demo_book"
         }
       ]
@@ -226,7 +192,7 @@
       "home_name": "SJS",
       "away_name": "SEA",
       "start_time": "2026-06-16T22:30:00Z",
-      "best_edge": 0.142,
+      "best_edge": 0.148,
       "edges": [
         {
           "market": "Moneyline",
@@ -235,9 +201,9 @@
           "team": "SJS",
           "odds": 120,
           "odds_decimal": 2.2,
-          "model_prob": 0.58,
+          "model_prob": 0.586,
           "implied_prob": 0.438,
-          "edge": 0.142,
+          "edge": 0.148,
           "book": "demo_book"
         },
         {
@@ -247,9 +213,43 @@
           "team": "SJS",
           "odds": 200,
           "odds_decimal": 3.0,
-          "model_prob": 0.441,
+          "model_prob": 0.464,
           "implied_prob": 0.3182,
-          "edge": 0.1228,
+          "edge": 0.1458,
+          "book": "demo_book"
+        }
+      ]
+    },
+    {
+      "home": "EDM",
+      "away": "CGY",
+      "home_name": "EDM",
+      "away_name": "CGY",
+      "start_time": "2026-06-16T20:00:00Z",
+      "best_edge": 0.1435,
+      "edges": [
+        {
+          "market": "Puck Line (-1.5)",
+          "side": "Edmonton Oilers",
+          "pick": "Edmonton Oilers",
+          "team": "EDM",
+          "odds": 165,
+          "odds_decimal": 2.65,
+          "model_prob": 0.509,
+          "implied_prob": 0.3655,
+          "edge": 0.1435,
+          "book": "demo_book"
+        },
+        {
+          "market": "Moneyline",
+          "side": "Edmonton Oilers",
+          "pick": "Edmonton Oilers",
+          "team": "EDM",
+          "odds": -130,
+          "odds_decimal": 1.7692307692307692,
+          "model_prob": 0.63,
+          "implied_prob": 0.5427,
+          "edge": 0.0873,
           "book": "demo_book"
         }
       ]
@@ -260,7 +260,7 @@
       "home_name": "BOS",
       "away_name": "OTT",
       "start_time": "2026-06-16T18:00:00Z",
-      "best_edge": 0.1341,
+      "best_edge": 0.1361,
       "edges": [
         {
           "market": "Moneyline",
@@ -269,9 +269,9 @@
           "team": "OTT",
           "odds": 155,
           "odds_decimal": 2.55,
-          "model_prob": 0.513,
+          "model_prob": 0.515,
           "implied_prob": 0.3789,
-          "edge": 0.1341,
+          "edge": 0.1361,
           "book": "demo_book"
         },
         {
@@ -281,9 +281,9 @@
           "team": null,
           "odds": -110,
           "odds_decimal": 1.9090909090909092,
-          "model_prob": 0.566,
+          "model_prob": 0.5675,
           "implied_prob": 0.5,
-          "edge": 0.066,
+          "edge": 0.0675,
           "book": "demo_book"
         }
       ]
@@ -294,7 +294,7 @@
       "home_name": "LAK",
       "away_name": "ANA",
       "start_time": "2026-06-16T22:00:00Z",
-      "best_edge": 0.1338,
+      "best_edge": 0.1328,
       "edges": [
         {
           "market": "Total 6.0",
@@ -303,9 +303,9 @@
           "team": null,
           "odds": -105,
           "odds_decimal": 1.9523809523809523,
-          "model_prob": 0.623,
+          "model_prob": 0.622,
           "implied_prob": 0.4892,
-          "edge": 0.1338,
+          "edge": 0.1328,
           "book": "demo_book"
         },
         {
@@ -315,9 +315,9 @@
           "team": "ANA",
           "odds": 115,
           "odds_decimal": 2.15,
-          "model_prob": 0.553,
+          "model_prob": 0.55,
           "implied_prob": 0.4474,
-          "edge": 0.1056,
+          "edge": 0.1026,
           "book": "demo_book"
         }
       ]
@@ -328,7 +328,7 @@
       "home_name": "COL",
       "away_name": "VGK",
       "start_time": "2026-06-16T21:00:00Z",
-      "best_edge": 0.1237,
+      "best_edge": 0.1212,
       "edges": [
         {
           "market": "Total 6.0",
@@ -337,43 +337,9 @@
           "team": null,
           "odds": -115,
           "odds_decimal": 1.8695652173913042,
-          "model_prob": 0.6345,
+          "model_prob": 0.632,
           "implied_prob": 0.5108,
-          "edge": 0.1237,
-          "book": "demo_book"
-        }
-      ]
-    },
-    {
-      "home": "PIT",
-      "away": "PHI",
-      "home_name": "PIT",
-      "away_name": "PHI",
-      "start_time": "2026-06-16T19:30:00Z",
-      "best_edge": 0.114,
-      "edges": [
-        {
-          "market": "Total 6.0",
-          "side": "Over",
-          "pick": "Over",
-          "team": null,
-          "odds": -110,
-          "odds_decimal": 1.9090909090909092,
-          "model_prob": 0.614,
-          "implied_prob": 0.5,
-          "edge": 0.114,
-          "book": "demo_book"
-        },
-        {
-          "market": "Moneyline",
-          "side": "Philadelphia Flyers",
-          "pick": "Philadelphia Flyers",
-          "team": "PHI",
-          "odds": 150,
-          "odds_decimal": 2.5,
-          "model_prob": 0.479,
-          "implied_prob": 0.3885,
-          "edge": 0.0905,
+          "edge": 0.1212,
           "book": "demo_book"
         }
       ]
@@ -406,7 +372,7 @@
       "home_name": "DET",
       "away_name": "CBJ",
       "start_time": "2026-06-16T19:00:00Z",
-      "best_edge": 0.1089,
+      "best_edge": 0.1069,
       "edges": [
         {
           "market": "Moneyline",
@@ -415,43 +381,43 @@
           "team": "CBJ",
           "odds": 160,
           "odds_decimal": 2.6,
-          "model_prob": 0.481,
+          "model_prob": 0.479,
           "implied_prob": 0.3721,
-          "edge": 0.1089,
+          "edge": 0.1069,
           "book": "demo_book"
         }
       ]
     },
     {
-      "home": "WSH",
-      "away": "UTA",
-      "home_name": "WSH",
-      "away_name": "ARI",
+      "home": "PIT",
+      "away": "PHI",
+      "home_name": "PIT",
+      "away_name": "PHI",
       "start_time": "2026-06-16T19:30:00Z",
-      "best_edge": 0.092,
+      "best_edge": 0.103,
       "edges": [
         {
-          "market": "Total 6.5",
+          "market": "Total 6.0",
           "side": "Over",
           "pick": "Over",
           "team": null,
           "odds": -110,
           "odds_decimal": 1.9090909090909092,
-          "model_prob": 0.592,
+          "model_prob": 0.603,
           "implied_prob": 0.5,
-          "edge": 0.092,
+          "edge": 0.103,
           "book": "demo_book"
         },
         {
           "market": "Moneyline",
-          "side": "Arizona Coyotes",
-          "pick": "Arizona Coyotes",
-          "team": "UTA",
-          "odds": 135,
-          "odds_decimal": 2.35,
-          "model_prob": 0.502,
-          "implied_prob": 0.4118,
-          "edge": 0.0902,
+          "side": "Philadelphia Flyers",
+          "pick": "Philadelphia Flyers",
+          "team": "PHI",
+          "odds": 150,
+          "odds_decimal": 2.5,
+          "model_prob": 0.47,
+          "implied_prob": 0.3885,
+          "edge": 0.0815,
           "book": "demo_book"
         }
       ]
@@ -462,7 +428,7 @@
       "home_name": "DAL",
       "away_name": "STL",
       "start_time": "2026-06-16T20:30:00Z",
-      "best_edge": 0.087,
+      "best_edge": 0.1015,
       "edges": [
         {
           "market": "Total 6.0",
@@ -471,9 +437,43 @@
           "team": null,
           "odds": -110,
           "odds_decimal": 1.9090909090909092,
-          "model_prob": 0.587,
+          "model_prob": 0.6015,
           "implied_prob": 0.5,
-          "edge": 0.087,
+          "edge": 0.1015,
+          "book": "demo_book"
+        }
+      ]
+    },
+    {
+      "home": "WSH",
+      "away": "UTA",
+      "home_name": "WSH",
+      "away_name": "ARI",
+      "start_time": "2026-06-16T19:30:00Z",
+      "best_edge": 0.0912,
+      "edges": [
+        {
+          "market": "Moneyline",
+          "side": "Arizona Coyotes",
+          "pick": "Arizona Coyotes",
+          "team": "UTA",
+          "odds": 135,
+          "odds_decimal": 2.35,
+          "model_prob": 0.503,
+          "implied_prob": 0.4118,
+          "edge": 0.0912,
+          "book": "demo_book"
+        },
+        {
+          "market": "Total 6.5",
+          "side": "Over",
+          "pick": "Over",
+          "team": null,
+          "odds": -110,
+          "odds_decimal": 1.9090909090909092,
+          "model_prob": 0.59,
+          "implied_prob": 0.5,
+          "edge": 0.09,
           "book": "demo_book"
         }
       ]
@@ -484,7 +484,7 @@
       "home_name": "NJD",
       "away_name": "NYI",
       "start_time": "2026-06-16T19:00:00Z",
-      "best_edge": 0.0555,
+      "best_edge": 0.0565,
       "edges": [
         {
           "market": "Moneyline",
@@ -493,9 +493,9 @@
           "team": "NYI",
           "odds": 105,
           "odds_decimal": 2.05,
-          "model_prob": 0.523,
+          "model_prob": 0.524,
           "implied_prob": 0.4675,
-          "edge": 0.0555,
+          "edge": 0.0565,
           "book": "demo_book"
         },
         {
@@ -505,9 +505,9 @@
           "team": null,
           "odds": -110,
           "odds_decimal": 1.9090909090909092,
-          "model_prob": 0.5535,
+          "model_prob": 0.553,
           "implied_prob": 0.5,
-          "edge": 0.0535,
+          "edge": 0.053,
           "book": "demo_book"
         }
       ]

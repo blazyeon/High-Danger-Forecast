@@ -306,6 +306,9 @@ class DatePicker {
 
     _changeMonth(delta) {
         const next = new Date(this.viewDate);
+        // Set day to 1 first so selecting the 31st does not skip months
+        // (e.g. Jan 31 + 1 month would otherwise roll to March).
+        next.setDate(1);
         next.setMonth(next.getMonth() + delta);
         this.viewDate = next;
         this._render();
@@ -1454,6 +1457,8 @@ function formatAmerican(n) {
 // ── Betting Edge Tab ─────────────────────────────────────────────
 let _lastBettingEdgeData = null;
 let _bettingEdgeSort = 'edge';
+let _bettingEdgeIsDemo = false;
+let _bettingEdgeDemoReason = null;
 
 // ── Player Props Tab ─────────────────────────────────────────────
 let _lastPropsData = null;
@@ -1477,18 +1482,35 @@ async function runBettingEdge() {
 
     const date = document.getElementById('bettingEdgeDate')?.value || new Date().toISOString().split('T')[0];
 
+    async function loadDemo(reason) {
+        console.warn(reason + ', using demo betting edge cache.');
+        try {
+            const demo = await safeFetchJson('/static/data/betting_edge_cache.json');
+            _lastBettingEdgeData = demo;
+            _bettingEdgeSort = 'edge';
+            _bettingEdgeIsDemo = true;
+            _bettingEdgeDemoReason = reason;
+            renderBettingEdge(demo, container);
+        } catch (demoErr) {
+            _lastBettingEdgeData = null;
+            container.innerHTML = `<div class="error-box">Could not load betting edge: ${e.message}. Demo cache also failed to load.</div>`;
+            console.error('Betting edge demo load failed:', e, demoErr);
+        }
+    }
+
     try {
         const data = await safeFetchJson(`/api/betting-edge?date=${encodeURIComponent(date)}`);
         if (data.error) {
-            container.innerHTML = `<div class="error-box">${data.error}</div>`;
+            await loadDemo('Betting Edge API returned error: ' + data.error);
             return;
         }
         _lastBettingEdgeData = data;
         _bettingEdgeSort = 'edge';
+        _bettingEdgeIsDemo = false;
+        _bettingEdgeDemoReason = null;
         renderBettingEdge(data, container);
     } catch (e) {
-        console.error('Betting edge failed:', e);
-        container.innerHTML = `<div class="error-box">Could not load betting edge: ${e.message}</div>`;
+        await loadDemo('Betting Edge API unavailable: ' + e.message);
     }
 }
 
@@ -1537,6 +1559,12 @@ function renderBettingEdge(data, container) {
     let html = '';
     if (data.warning) {
         html += `<div class="betting-edge-warning">⚠️ ${escapeHtml(data.warning)}</div>`;
+    }
+    if (_bettingEdgeIsDemo) {
+        html += `<div class="demo-notice">
+            📡 Showing sample value bets because live edges are unavailable${_bettingEdgeDemoReason ? ': ' + escapeHtml(_bettingEdgeDemoReason) : ''}.
+            Set <code>ODDS_API_KEY</code> for real odds.
+        </div>`;
     }
 
     html += `<div class="betting-edge-toolbar">

@@ -129,8 +129,12 @@ def _decimal_price(outcome: Optional[Dict[str, Any]]) -> Optional[float]:
     except Exception:
         return None
     # Odds API returns American-style integers (e.g. -135, +220). Convert them.
-    if p == int(p) and abs(int(p)) >= 100:
+    # Use is_integer() to avoid float precision issues with values like 100.0.
+    if abs(p) >= 100.0 and p.is_integer():
         return american_to_decimal(p)
+    # Otherwise treat as decimal odds.
+    if p <= 1.0:
+        return None
     return p
 
 
@@ -177,6 +181,40 @@ def _model_prob_for_total(totals_dist: Dict[int, int], line: float) -> Tuple[flo
         over_count += push_count / 2.0
         under_count += push_count / 2.0
     return over_count / total_sims, under_count / total_sims
+
+
+def _model_prob_for_spread(
+    sim: Dict[str, Any],
+    target_point: float,
+    is_home: bool,
+) -> float:
+    """
+    Model probability of covering the puck line / spread.
+
+    If the simulation output contains a full margin distribution we use it
+    directly. Otherwise we fall back to the existing win-by-2+ proxy.
+    """
+    margin_dist = sim.get("margin_distribution")
+    if not margin_dist:
+        fallback = "home_win_2plus_pct" if is_home else "away_win_2plus_pct"
+        return float(sim.get(fallback, 25.0)) / 100.0
+
+    total = max(1, sum(margin_dist.values()))
+    # Puck lines in NHL are typically +/- 1.5. A home team covers -1.5 when
+    # home goals - away goals >= 2, and +1.5 when home goals - away goals >= -1.
+    cover_count = 0
+    for margin, count in margin_dist.items():
+        try:
+            margin = float(margin)
+        except Exception:
+            continue
+        if target_point < 0:
+            # Favored team must win by more than the absolute spread.
+            cover_count += count if margin > abs(target_point) else 0
+        else:
+            # Underdog covers if margin is better than the spread (i.e. > -spread).
+            cover_count += count if margin > -target_point else 0
+    return cover_count / total
 
 
 def _edge_dict(**kwargs) -> Dict[str, Any]:
@@ -264,7 +302,7 @@ def compute_game_edges(
             is_away = side_name.lower() == away_name.lower()
             if not is_home and not is_away:
                 continue
-            model_p = home_win_2plus if is_home else away_win_2plus
+            model_p = _model_prob_for_spread(sim, float(point), is_home)
             dec = _decimal_price(out) or american_to_decimal(price)
             if not dec:
                 continue
@@ -294,39 +332,51 @@ def compute_game_edges(
     totals = _best_book_market(event, "totals")
     if totals and totals_dist:
         m = totals["market"]
-        line = None
+        # Some books offer multiple total lines; evaluate every distinct line
+        # that has both Over and Under prices available.
+        by_line: Dict[float, Dict[str, Any]] = {}
         for out in m.get("outcomes", []) or []:
-            if out.get("point") is not None:
-                line = float(out["point"])
-                break
-        if line is not None:
-            over_out = _best_outcome(m.get("outcomes", []), "Over")
-            under_out = _best_outcome(m.get("outcomes", []), "Under")
+            if out.get("point") is None:
+                continue
+            line_val = float(out["point"])
+            side = str(out.get("name", "")).strip()
+            if side not in ("Over", "Under"):
+                continue
+            if line_val not in by_line:
+                by_line[line_val] = {"Over": None, "Under": None}
+            by_line[line_val][side] = out
+
+        for line, sides in by_line.items():
+            over_out = sides.get("Over")
+            under_out = sides.get("Under")
+            if not over_out or not under_out:
+                continue
             over_dec = _decimal_price(over_out) or american_to_decimal(over_out.get("price"))
             under_dec = _decimal_price(under_out) or american_to_decimal(under_out.get("price"))
-            if over_dec and under_dec:
-                over_imp, under_imp = remove_vig_2way(implied_probability(over_dec), implied_probability(under_dec))
-                model_over, model_under = _model_prob_for_total(totals_dist, line)
-                over_edge = model_over - over_imp
-                under_edge = model_under - under_imp
-                for side, edge, model_p, imp_p, out in (
-                    ("Over", over_edge, model_over, over_imp, over_out),
-                    ("Under", under_edge, model_under, under_imp, under_out),
-                ):
-                    if edge > edge_threshold:
-                        dec = _decimal_price(out) or american_to_decimal(out.get("price"))
-                        edges.append(_edge_dict(
-                            market=f"Total {line}",
-                            side=side,
-                            pick=side,
-                            team=None,
-                            odds=out.get("price"),
-                            odds_decimal=dec,
-                            model_prob=model_p,
-                            implied_prob=imp_p,
-                            edge=edge,
-                            book=totals.get("book_key"),
-                        ))
+            if not over_dec or not under_dec:
+                continue
+            over_imp, under_imp = remove_vig_2way(implied_probability(over_dec), implied_probability(under_dec))
+            model_over, model_under = _model_prob_for_total(totals_dist, line)
+            over_edge = model_over - over_imp
+            under_edge = model_under - under_imp
+            for side, edge, model_p, imp_p, out in (
+                ("Over", over_edge, model_over, over_imp, over_out),
+                ("Under", under_edge, model_under, under_imp, under_out),
+            ):
+                if edge > edge_threshold:
+                    dec = _decimal_price(out) or american_to_decimal(out.get("price"))
+                    edges.append(_edge_dict(
+                        market=f"Total {line}",
+                        side=side,
+                        pick=side,
+                        team=None,
+                        odds=out.get("price"),
+                        odds_decimal=dec,
+                        model_prob=model_p,
+                        implied_prob=imp_p,
+                        edge=edge,
+                        book=totals.get("book_key"),
+                    ))
 
     edges.sort(key=lambda e: abs(e["edge"]), reverse=True)
     return edges

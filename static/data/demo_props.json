@@ -1,5 +1,5 @@
 {
-  "date": "2026-06-16",
+  "date": "2026-06-17",
   "props": [
     {
       "player": "Auston Matthews",
@@ -60,7 +60,7 @@
       "home_abbr": "COL",
       "away_abbr": "VGK",
       "commence_time": "2026-06-16T21:00:00Z",
-      "player_team": "BOS",
+      "player_team": "COL",
       "implied_over": 52.4,
       "implied_under": 52.4
     },
@@ -81,7 +81,7 @@
       "home_abbr": "CAR",
       "away_abbr": "NYR",
       "commence_time": "2026-06-16T23:00:00Z",
-      "player_team": "COL",
+      "player_team": "CAR",
       "implied_over": 53.5,
       "implied_under": 51.2
     },
@@ -102,7 +102,7 @@
       "home_abbr": "DAL",
       "away_abbr": "STL",
       "commence_time": "2026-06-16T20:30:00Z",
-      "player_team": "WSH",
+      "player_team": "DAL",
       "implied_over": 54.6,
       "implied_under": 48.8
     },
@@ -123,7 +123,7 @@
       "home_abbr": "FLA",
       "away_abbr": "TBL",
       "commence_time": "2026-06-16T19:30:00Z",
-      "player_team": "PIT",
+      "player_team": "FLA",
       "implied_over": 48.8,
       "implied_under": 55.6
     },
@@ -144,7 +144,7 @@
       "home_abbr": "BOS",
       "away_abbr": "OTT",
       "commence_time": "2026-06-16T18:00:00Z",
-      "player_team": "TOR",
+      "player_team": "BOS",
       "implied_over": 51.2,
       "implied_under": 53.5
     },
@@ -165,7 +165,7 @@
       "home_abbr": "LAK",
       "away_abbr": "ANA",
       "commence_time": "2026-06-16T22:00:00Z",
-      "player_team": "VGK",
+      "player_team": "LAK",
       "implied_over": 51.2,
       "implied_under": 53.5
     },
@@ -186,7 +186,7 @@
       "home_abbr": "MIN",
       "away_abbr": "WPG",
       "commence_time": "2026-06-16T20:00:00Z",
-      "player_team": "FLA",
+      "player_team": "MIN",
       "implied_over": 53.5,
       "implied_under": 51.2
     },
@@ -207,7 +207,7 @@
       "home_abbr": "NJD",
       "away_abbr": "NYI",
       "commence_time": "2026-06-16T19:00:00Z",
-      "player_team": "COL",
+      "player_team": "NJD",
       "implied_over": 60.0,
       "implied_under": 44.4
     },
@@ -228,7 +228,7 @@
       "home_abbr": "PIT",
       "away_abbr": "PHI",
       "commence_time": "2026-06-16T19:30:00Z",
-      "player_team": "MIN",
+      "player_team": "PIT",
       "implied_over": 52.4,
       "implied_under": 52.4
     },
@@ -249,7 +249,7 @@
       "home_abbr": "DET",
       "away_abbr": "CBJ",
       "commence_time": "2026-06-16T19:00:00Z",
-      "player_team": "NYR",
+      "player_team": "DET",
       "implied_over": 55.6,
       "implied_under": 48.8
     },
@@ -270,7 +270,7 @@
       "home_abbr": "SJS",
       "away_abbr": "SEA",
       "commence_time": "2026-06-16T22:30:00Z",
-      "player_team": "COL",
+      "player_team": "SJS",
       "implied_over": 48.8,
       "implied_under": 54.6
     },
@@ -291,7 +291,7 @@
       "home_abbr": "VAN",
       "away_abbr": "UTA",
       "commence_time": "2026-06-16T22:00:00Z",
-      "player_team": "TBL",
+      "player_team": "VAN",
       "implied_over": 57.4,
       "implied_under": 47.6
     },
@@ -312,7 +312,7 @@
       "home_abbr": "BUF",
       "away_abbr": "CHI",
       "commence_time": "2026-06-16T19:00:00Z",
-      "player_team": "CAR",
+      "player_team": "BUF",
       "implied_over": 52.4,
       "implied_under": 52.4
     },
@@ -333,7 +333,7 @@
       "home_abbr": "WSH",
       "away_abbr": "ARI",
       "commence_time": "2026-06-16T19:30:00Z",
-      "player_team": "NSH",
+      "player_team": "WSH",
       "implied_over": 51.2,
       "implied_under": 53.5
     },
@@ -354,7 +354,7 @@
       "home_abbr": "TOR",
       "away_abbr": "MTL",
       "commence_time": "2026-06-16T19:00:00Z",
-      "player_team": "OTT",
+      "player_team": "TOR",
       "implied_over": 54.6,
       "implied_under": 48.8
     },
@@ -375,7 +375,7 @@
       "home_abbr": "EDM",
       "away_abbr": "CGY",
       "commence_time": "2026-06-16T20:00:00Z",
-      "player_team": "BUF",
+      "player_team": "EDM",
       "implied_over": 53.5,
       "implied_under": 51.2
     },
@@ -417,7 +417,7 @@
       "home_abbr": "CAR",
       "away_abbr": "NYR",
       "commence_time": "2026-06-16T23:00:00Z",
-      "player_team": "VAN",
+      "player_team": "CAR",
       "implied_over": 48.8,
       "implied_under": 55.6
     },
@@ -438,7 +438,7 @@
       "home_abbr": "DAL",
       "away_abbr": "STL",
       "commence_time": "2026-06-16T20:30:00Z",
-      "player_team": "CBJ",
+      "player_team": "DAL",
       "implied_over": 56.5,
       "implied_under": 47.6
     },
@@ -459,7 +459,7 @@
       "home_abbr": "FLA",
       "away_abbr": "TBL",
       "commence_time": "2026-06-16T19:30:00Z",
-      "player_team": "NYI",
+      "player_team": "FLA",
       "implied_over": 52.4,
       "implied_under": 52.4
     },
@@ -480,7 +480,7 @@
       "home_abbr": "BOS",
       "away_abbr": "OTT",
       "commence_time": "2026-06-16T18:00:00Z",
-      "player_team": "WSH",
+      "player_team": "BOS",
       "implied_over": 54.6,
       "implied_under": 48.8
     },
@@ -501,7 +501,7 @@
       "home_abbr": "LAK",
       "away_abbr": "ANA",
       "commence_time": "2026-06-16T22:00:00Z",
-      "player_team": "NYR",
+      "player_team": "LAK",
       "implied_over": 51.2,
       "implied_under": 53.5
     },
@@ -522,7 +522,7 @@
       "home_abbr": "MIN",
       "away_abbr": "WPG",
       "commence_time": "2026-06-16T20:00:00Z",
-      "player_team": "CGY",
+      "player_team": "MIN",
       "implied_over": 53.5,
       "implied_under": 51.2
     },
@@ -543,7 +543,7 @@
       "home_abbr": "NJD",
       "away_abbr": "NYI",
       "commence_time": "2026-06-16T19:00:00Z",
-      "player_team": "LAK",
+      "player_team": "NJD",
       "implied_over": 48.8,
       "implied_under": 54.6
     },
@@ -564,7 +564,7 @@
       "home_abbr": "PIT",
       "away_abbr": "PHI",
       "commence_time": "2026-06-16T19:30:00Z",
-      "player_team": "EDM",
+      "player_team": "PIT",
       "implied_over": 56.5,
       "implied_under": 47.6
     },
@@ -585,7 +585,7 @@
       "home_abbr": "DET",
       "away_abbr": "CBJ",
       "commence_time": "2026-06-16T19:00:00Z",
-      "player_team": "MTL",
+      "player_team": "DET",
       "implied_over": 52.4,
       "implied_under": 52.4
     },
@@ -606,7 +606,7 @@
       "home_abbr": "SJS",
       "away_abbr": "SEA",
       "commence_time": "2026-06-16T22:30:00Z",
-      "player_team": "WPG",
+      "player_team": "SJS",
       "implied_over": 51.2,
       "implied_under": 53.5
     },
@@ -627,7 +627,7 @@
       "home_abbr": "VAN",
       "away_abbr": "UTA",
       "commence_time": "2026-06-16T22:00:00Z",
-      "player_team": "NSH",
+      "player_team": "VAN",
       "implied_over": 53.5,
       "implied_under": 51.2
     },
@@ -648,7 +648,7 @@
       "home_abbr": "BUF",
       "away_abbr": "CHI",
       "commence_time": "2026-06-16T19:00:00Z",
-      "player_team": "VGK",
+      "player_team": "BUF",
       "implied_over": 52.4,
       "implied_under": 52.4
     },
@@ -669,7 +669,7 @@
       "home_abbr": "WSH",
       "away_abbr": "ARI",
       "commence_time": "2026-06-16T19:30:00Z",
-      "player_team": "BOS",
+      "player_team": "WSH",
       "implied_over": 58.3,
       "implied_under": 46.5
     },
@@ -690,7 +690,7 @@
       "home_abbr": "TOR",
       "away_abbr": "MTL",
       "commence_time": "2026-06-16T19:00:00Z",
-      "player_team": "CHI",
+      "player_team": "TOR",
       "implied_over": 54.6,
       "implied_under": 48.8
     }
