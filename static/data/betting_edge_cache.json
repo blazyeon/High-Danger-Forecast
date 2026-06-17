@@ -1,6 +1,6 @@
 {
-  "date": "2026-06-17",
-  "computed_at": "2026-06-17T22:17:08.677619+00:00",
+  "date": "2026-06-16",
+  "computed_at": "2026-06-17T22:32:19.774023+00:00",
   "source": "demo",
   "warning": "No live schedule found; using odds event matchups.",
   "games": [
@@ -56,20 +56,8 @@
       "home_name": "BUF",
       "away_name": "CHI",
       "start_time": "2026-06-16T19:00:00Z",
-      "best_edge": 0.2263,
+      "best_edge": 0.2285,
       "edges": [
-        {
-          "market": "Puck Line (-1.5)",
-          "side": "Buffalo Sabres",
-          "pick": "Buffalo Sabres",
-          "team": "BUF",
-          "odds": 210,
-          "odds_decimal": 3.1,
-          "model_prob": 0.535,
-          "implied_prob": 0.3087,
-          "edge": 0.2263,
-          "book": "demo_book"
-        },
         {
           "market": "Moneyline",
           "side": "Buffalo Sabres",
@@ -77,9 +65,21 @@
           "team": "BUF",
           "odds": 105,
           "odds_decimal": 2.05,
-          "model_prob": 0.689,
+          "model_prob": 0.696,
           "implied_prob": 0.4675,
-          "edge": 0.2215,
+          "edge": 0.2285,
+          "book": "demo_book"
+        },
+        {
+          "market": "Puck Line (-1.5)",
+          "side": "Buffalo Sabres",
+          "pick": "Buffalo Sabres",
+          "team": "BUF",
+          "odds": 210,
+          "odds_decimal": 3.1,
+          "model_prob": 0.531,
+          "implied_prob": 0.3087,
+          "edge": 0.2223,
           "book": "demo_book"
         },
         {
@@ -89,9 +89,9 @@
           "team": null,
           "odds": -110,
           "odds_decimal": 1.9090909090909092,
-          "model_prob": 0.596,
+          "model_prob": 0.598,
           "implied_prob": 0.5,
-          "edge": 0.096,
+          "edge": 0.098,
           "book": "demo_book"
         }
       ]
@@ -145,55 +145,9 @@
           "team": null,
           "odds": 105,
           "odds_decimal": 2.05,
-          "model_prob": 0.544,
+          "model_prob": 0.539,
           "implied_prob": 0.4675,
-          "edge": 0.0765,
-          "book": "demo_book"
-        }
-      ]
-    },
-    {
-      "home": "SJS",
-      "away": "SEA",
-      "home_name": "SJS",
-      "away_name": "SEA",
-      "start_time": "2026-06-16T22:30:00Z",
-      "best_edge": 0.1688,
-      "edges": [
-        {
-          "market": "Puck Line (-1.5)",
-          "side": "San Jose Sharks",
-          "pick": "San Jose Sharks",
-          "team": "SJS",
-          "odds": 200,
-          "odds_decimal": 3.0,
-          "model_prob": 0.487,
-          "implied_prob": 0.3182,
-          "edge": 0.1688,
-          "book": "demo_book"
-        },
-        {
-          "market": "Moneyline",
-          "side": "San Jose Sharks",
-          "pick": "San Jose Sharks",
-          "team": "SJS",
-          "odds": 120,
-          "odds_decimal": 2.2,
-          "model_prob": 0.592,
-          "implied_prob": 0.438,
-          "edge": 0.154,
-          "book": "demo_book"
-        },
-        {
-          "market": "Total 6.0",
-          "side": "Over",
-          "pick": "Over",
-          "team": null,
-          "odds": -110,
-          "odds_decimal": 1.9090909090909092,
-          "model_prob": 0.5445,
-          "implied_prob": 0.5,
-          "edge": 0.0445,
+          "edge": 0.0715,
           "book": "demo_book"
         }
       ]
@@ -204,7 +158,7 @@
       "home_name": "VAN",
       "away_name": "UTA",
       "start_time": "2026-06-16T22:00:00Z",
-      "best_edge": 0.1685,
+      "best_edge": 0.1725,
       "edges": [
         {
           "market": "Moneyline",
@@ -213,9 +167,9 @@
           "team": "UTA",
           "odds": 105,
           "odds_decimal": 2.05,
-          "model_prob": 0.636,
+          "model_prob": 0.64,
           "implied_prob": 0.4675,
-          "edge": 0.1685,
+          "edge": 0.1725,
           "book": "demo_book"
         },
         {
@@ -225,9 +179,9 @@
           "team": null,
           "odds": -110,
           "odds_decimal": 1.9090909090909092,
-          "model_prob": 0.608,
+          "model_prob": 0.607,
           "implied_prob": 0.5,
-          "edge": 0.108,
+          "edge": 0.107,
           "book": "demo_book"
         }
       ]
@@ -238,7 +192,7 @@
       "home_name": "EDM",
       "away_name": "CGY",
       "start_time": "2026-06-16T20:00:00Z",
-      "best_edge": 0.1625,
+      "best_edge": 0.1645,
       "edges": [
         {
           "market": "Puck Line (-1.5)",
@@ -247,9 +201,9 @@
           "team": "EDM",
           "odds": 165,
           "odds_decimal": 2.65,
-          "model_prob": 0.528,
+          "model_prob": 0.53,
           "implied_prob": 0.3655,
-          "edge": 0.1625,
+          "edge": 0.1645,
           "book": "demo_book"
         },
         {
@@ -259,43 +213,43 @@
           "team": "EDM",
           "odds": -130,
           "odds_decimal": 1.7692307692307692,
-          "model_prob": 0.638,
+          "model_prob": 0.641,
           "implied_prob": 0.5427,
-          "edge": 0.0953,
+          "edge": 0.0983,
           "book": "demo_book"
         }
       ]
     },
     {
-      "home": "BOS",
-      "away": "OTT",
-      "home_name": "BOS",
-      "away_name": "OTT",
-      "start_time": "2026-06-16T18:00:00Z",
-      "best_edge": 0.1351,
+      "home": "SJS",
+      "away": "SEA",
+      "home_name": "SJS",
+      "away_name": "SEA",
+      "start_time": "2026-06-16T22:30:00Z",
+      "best_edge": 0.144,
       "edges": [
         {
           "market": "Moneyline",
-          "side": "Ottawa Senators",
-          "pick": "Ottawa Senators",
-          "team": "OTT",
-          "odds": 155,
-          "odds_decimal": 2.55,
-          "model_prob": 0.514,
-          "implied_prob": 0.3789,
-          "edge": 0.1351,
+          "side": "San Jose Sharks",
+          "pick": "San Jose Sharks",
+          "team": "SJS",
+          "odds": 120,
+          "odds_decimal": 2.2,
+          "model_prob": 0.582,
+          "implied_prob": 0.438,
+          "edge": 0.144,
           "book": "demo_book"
         },
         {
-          "market": "Total 6.0",
-          "side": "Over",
-          "pick": "Over",
-          "team": null,
-          "odds": -110,
-          "odds_decimal": 1.9090909090909092,
-          "model_prob": 0.5675,
-          "implied_prob": 0.5,
-          "edge": 0.0675,
+          "market": "Puck Line (-1.5)",
+          "side": "San Jose Sharks",
+          "pick": "San Jose Sharks",
+          "team": "SJS",
+          "odds": 200,
+          "odds_decimal": 3.0,
+          "model_prob": 0.453,
+          "implied_prob": 0.3182,
+          "edge": 0.1348,
           "book": "demo_book"
         }
       ]
@@ -306,7 +260,7 @@
       "home_name": "LAK",
       "away_name": "ANA",
       "start_time": "2026-06-16T22:00:00Z",
-      "best_edge": 0.1343,
+      "best_edge": 0.1328,
       "edges": [
         {
           "market": "Total 6.0",
@@ -315,9 +269,9 @@
           "team": null,
           "odds": -105,
           "odds_decimal": 1.9523809523809523,
-          "model_prob": 0.6235,
+          "model_prob": 0.622,
           "implied_prob": 0.4892,
-          "edge": 0.1343,
+          "edge": 0.1328,
           "book": "demo_book"
         },
         {
@@ -327,9 +281,43 @@
           "team": "ANA",
           "odds": 115,
           "odds_decimal": 2.15,
-          "model_prob": 0.552,
+          "model_prob": 0.55,
           "implied_prob": 0.4474,
-          "edge": 0.1046,
+          "edge": 0.1026,
+          "book": "demo_book"
+        }
+      ]
+    },
+    {
+      "home": "BOS",
+      "away": "OTT",
+      "home_name": "BOS",
+      "away_name": "OTT",
+      "start_time": "2026-06-16T18:00:00Z",
+      "best_edge": 0.1281,
+      "edges": [
+        {
+          "market": "Moneyline",
+          "side": "Ottawa Senators",
+          "pick": "Ottawa Senators",
+          "team": "OTT",
+          "odds": 155,
+          "odds_decimal": 2.55,
+          "model_prob": 0.507,
+          "implied_prob": 0.3789,
+          "edge": 0.1281,
+          "book": "demo_book"
+        },
+        {
+          "market": "Total 6.0",
+          "side": "Over",
+          "pick": "Over",
+          "team": null,
+          "odds": -110,
+          "odds_decimal": 1.9090909090909092,
+          "model_prob": 0.5665,
+          "implied_prob": 0.5,
+          "edge": 0.0665,
           "book": "demo_book"
         }
       ]
@@ -352,6 +340,28 @@
           "model_prob": 0.632,
           "implied_prob": 0.5108,
           "edge": 0.1212,
+          "book": "demo_book"
+        }
+      ]
+    },
+    {
+      "home": "MIN",
+      "away": "WPG",
+      "home_name": "MIN",
+      "away_name": "WPG",
+      "start_time": "2026-06-16T20:00:00Z",
+      "best_edge": 0.115,
+      "edges": [
+        {
+          "market": "Total 5.5",
+          "side": "Over",
+          "pick": "Over",
+          "team": null,
+          "odds": -110,
+          "odds_decimal": 1.9090909090909092,
+          "model_prob": 0.615,
+          "implied_prob": 0.5,
+          "edge": 0.115,
           "book": "demo_book"
         }
       ]
@@ -413,47 +423,13 @@
       ]
     },
     {
-      "home": "MIN",
-      "away": "WPG",
-      "home_name": "MIN",
-      "away_name": "WPG",
-      "start_time": "2026-06-16T20:00:00Z",
-      "best_edge": 0.097,
-      "edges": [
-        {
-          "market": "Total 5.5",
-          "side": "Over",
-          "pick": "Over",
-          "team": null,
-          "odds": -110,
-          "odds_decimal": 1.9090909090909092,
-          "model_prob": 0.597,
-          "implied_prob": 0.5,
-          "edge": 0.097,
-          "book": "demo_book"
-        }
-      ]
-    },
-    {
       "home": "WSH",
       "away": "UTA",
       "home_name": "WSH",
       "away_name": "ARI",
       "start_time": "2026-06-16T19:30:00Z",
-      "best_edge": 0.096,
+      "best_edge": 0.0972,
       "edges": [
-        {
-          "market": "Total 6.5",
-          "side": "Over",
-          "pick": "Over",
-          "team": null,
-          "odds": -110,
-          "odds_decimal": 1.9090909090909092,
-          "model_prob": 0.596,
-          "implied_prob": 0.5,
-          "edge": 0.096,
-          "book": "demo_book"
-        },
         {
           "market": "Moneyline",
           "side": "Arizona Coyotes",
@@ -461,9 +437,21 @@
           "team": "UTA",
           "odds": 135,
           "odds_decimal": 2.35,
-          "model_prob": 0.494,
+          "model_prob": 0.509,
           "implied_prob": 0.4118,
-          "edge": 0.0822,
+          "edge": 0.0972,
+          "book": "demo_book"
+        },
+        {
+          "market": "Total 6.5",
+          "side": "Over",
+          "pick": "Over",
+          "team": null,
+          "odds": -110,
+          "odds_decimal": 1.9090909090909092,
+          "model_prob": 0.578,
+          "implied_prob": 0.5,
+          "edge": 0.078,
           "book": "demo_book"
         }
       ]
@@ -474,7 +462,7 @@
       "home_name": "DAL",
       "away_name": "STL",
       "start_time": "2026-06-16T20:30:00Z",
-      "best_edge": 0.0935,
+      "best_edge": 0.0865,
       "edges": [
         {
           "market": "Total 6.0",
@@ -483,9 +471,9 @@
           "team": null,
           "odds": -110,
           "odds_decimal": 1.9090909090909092,
-          "model_prob": 0.5935,
+          "model_prob": 0.5865,
           "implied_prob": 0.5,
-          "edge": 0.0935,
+          "edge": 0.0865,
           "book": "demo_book"
         }
       ]
@@ -496,20 +484,8 @@
       "home_name": "NJD",
       "away_name": "NYI",
       "start_time": "2026-06-16T19:00:00Z",
-      "best_edge": 0.0605,
+      "best_edge": 0.057,
       "edges": [
-        {
-          "market": "Moneyline",
-          "side": "New York Islanders",
-          "pick": "New York Islanders",
-          "team": "NYI",
-          "odds": 105,
-          "odds_decimal": 2.05,
-          "model_prob": 0.528,
-          "implied_prob": 0.4675,
-          "edge": 0.0605,
-          "book": "demo_book"
-        },
         {
           "market": "Total 6.0",
           "side": "Over",
@@ -517,9 +493,21 @@
           "team": null,
           "odds": -110,
           "odds_decimal": 1.9090909090909092,
-          "model_prob": 0.556,
+          "model_prob": 0.557,
           "implied_prob": 0.5,
-          "edge": 0.056,
+          "edge": 0.057,
+          "book": "demo_book"
+        },
+        {
+          "market": "Moneyline",
+          "side": "New York Islanders",
+          "pick": "New York Islanders",
+          "team": "NYI",
+          "odds": 105,
+          "odds_decimal": 2.05,
+          "model_prob": 0.522,
+          "implied_prob": 0.4675,
+          "edge": 0.0545,
           "book": "demo_book"
         }
       ]

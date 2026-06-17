@@ -77,19 +77,20 @@ def _compute_player_defense_row(
     if icetime < 60:  # need at least a minute of ice time
         return None
 
-    gp = int(row.get("games_played", 0) or 0)
-    hours = icetime / 3600.0
-    # Ignore tiny samples (call-ups, trades at deadline with almost no TOI).
-    # 10 hours ~= 12-15 games of regular usage is a sensible floor.
-    if gp < 5 or hours < 10.0:
-        return None
-
     name = str(row.get("name", "")).strip()
     if not name:
         return None
 
     position = str(row.get("position", "") or "").upper().strip()
     team = str(row.get("team", "") or "").upper().strip()
+
+    gp = int(row.get("games_played", 0) or 0)
+    hours = icetime / 3600.0
+    # Sensible sample-size floor. Defensemen who kill penalties or were
+    # traded/injured can have lower 5-on-5 ice time and still matter.
+    min_hours = 4.0 if position in DEFENSE_POSITIONS else 6.0
+    if gp < 5 or hours < min_hours:
+        return None
 
     # On-ice defensive rates (lower = better defense)
     onice_xga = float(row.get("OnIce_A_xGoals", 0) or 0)
@@ -165,11 +166,15 @@ def _compute_player_defense_row(
 
 def compute_defensive_impact_scores(
     season_year: int,
-    situation: str = "all",
+    situation: str = "5on5",
     force_refresh: bool = False,
 ) -> Dict[str, Dict[str, Any]]:
     """
     Compute per-player defensive importance scores from MoneyPuck data.
+
+    Uses 5-on-5 by default because all-situations numbers are polluted by
+    special-teams usage: a shutdown defenseman who kills penalties will look
+    worse in "all" simply because the PK bleeds xG by design.
 
     Returns {name_key: {name, team, position, ..., defensive_score}}
     keyed by normalized player name for easy joining with injury data.
@@ -315,7 +320,7 @@ def defensively_important_injuries(
 
     Each entry in `injuries` should have at least {"player": "..."}.
     """
-    scores = compute_defensive_impact_scores(season_year, "all")
+    scores = compute_defensive_impact_scores(season_year, "5on5")
     out: List[Dict[str, Any]] = []
     seen: set[str] = set()
     for inj in injuries:

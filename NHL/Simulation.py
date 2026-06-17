@@ -1376,7 +1376,7 @@ def calculate_automatic_injury_impact(
     try:
         start_year = int(str(season)[:4])
         from NHL.DefensiveImpact import compute_defensive_impact_scores
-        defensive_scores = compute_defensive_impact_scores(start_year, situation="all")
+        defensive_scores = compute_defensive_impact_scores(start_year, situation="5on5")
     except Exception as e:
         logger.debug(f"Could not load defensive impact scores: {e}")
 
