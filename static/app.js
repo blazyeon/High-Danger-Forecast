@@ -668,32 +668,53 @@ function renderResults(sim, homeAbbr, awayAbbr) {
     const awayInj = sim.away_injuries || {};
     const homePlayers = homeInj.players || [];
     const awayPlayers = awayInj.players || [];
-    if (homePlayers.length || awayPlayers.length) {
+    const homeTopDefense = homeInj.top_defensive_injuries || [];
+    const awayTopDefense = awayInj.top_defensive_injuries || [];
+    const hasInjuries = homePlayers.length || awayPlayers.length || homeTopDefense.length || awayTopDefense.length;
+    if (hasInjuries) {
         html += `<hr class="section-divider"><div class="section-title">🚑 Injury Impact</div>`;
 
-        const renderTeamInjuries = (teamName, teamAbbr, injData, players) => {
+        const renderTeamInjuries = (teamName, teamAbbr, injData, players, topDefense) => {
             const totalImpact = (injData.offense_impact || 0) * 100;
+            const defenseImpact = (injData.defense_impact || 0) * 100;
             html += `<div class="injury-team"><div class="injury-team-header">`;
             html += `<img class="injury-team-logo" src="/api/logos/${teamAbbr}.png" alt="${teamName}" onerror="this.style.display='none'">`;
-            html += `<span>${teamName}</span><span class="injury-total ${totalImpact < 0 ? 'negative' : ''}">${totalImpact.toFixed(1)}% offense</span>`;
-            html += `</div>`;
+            html += `<span>${teamName}</span><div class="injury-totals">`;
+            html += `<span class="injury-total ${totalImpact < 0 ? 'negative' : ''}">${totalImpact.toFixed(1)}% offense</span>`;
+            if (defenseImpact > 0.5) {
+                html += `<span class="injury-total defense">+${defenseImpact.toFixed(1)}% opp goals</span>`;
+            }
+            html += `</div></div>`;
             if (players.length) {
                 html += `<div class="injury-list">`;
                 players.forEach(p => {
                     const contrib = ((p.contribution_pct || 0) * 100).toFixed(1);
-                    const pts = p.points || 0;
                     const status = (p.status || 'injured').toUpperCase();
-                    html += `<div class="injury-row"><div class="injury-name">${p.name}</div><div class="injury-meta"><span class="injury-status ${status === 'DTD' ? 'dtd' : ''}">${status}</span><span class="injury-contrib">${contrib}% team pts</span></div></div>`;
+                    const isDefense = (p.position || '').toUpperCase().startsWith('D');
+                    const defenseBadge = isDefense ? `<span class="injury-badge defense">D</span>` : '';
+                    html += `<div class="injury-row"><div class="injury-name">${defenseBadge}${p.name}</div><div class="injury-meta"><span class="injury-status ${status === 'DTD' ? 'dtd' : ''}">${status}</span><span class="injury-contrib">${contrib}% team pts</span></div></div>`;
                 });
                 html += `</div>`;
-            } else {
+            }
+            if (topDefense.length) {
+                html += `<div class="injury-defense-title">Top defensive absences</div>`;
+                html += `<div class="injury-defense-list">`;
+                topDefense.forEach(d => {
+                    const score = (d.defensive_score || 0).toFixed(2);
+                    const pct = (d.defensive_percentile || 50).toFixed(0);
+                    const status = (d.status || 'injured').toUpperCase();
+                    html += `<div class="injury-defense-row"><div class="injury-defense-name">🛡️ ${d.name} <span class="injury-defense-pos">${d.position || 'D'}</span></div><div class="injury-defense-meta"><span class="injury-status ${status === 'DTD' ? 'dtd' : ''}">${status}</span><span class="injury-defense-score" title="Defensive percentile: ${pct}%">score ${score}</span></div></div>`;
+                });
+                html += `</div>`;
+            }
+            if (!players.length && !topDefense.length) {
                 html += `<div class="injury-none">No significant injuries</div>`;
             }
             html += `</div>`;
         };
 
-        renderTeamInjuries(homeName, homeAbbr, homeInj, homePlayers);
-        renderTeamInjuries(awayName, awayAbbr, awayInj, awayPlayers);
+        renderTeamInjuries(homeName, homeAbbr, homeInj, homePlayers, homeTopDefense);
+        renderTeamInjuries(awayName, awayAbbr, awayInj, awayPlayers, awayTopDefense);
     }
 
     // Totals

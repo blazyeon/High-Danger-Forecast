@@ -1312,18 +1312,25 @@ def calculate_automatic_injury_impact(
 
     Returns:
         {
-            'offense_impact': float,  # Negative = loss (capped)
-            'n_injuries': int,        # Unique injured players with stats found
-            'players': [              # Per-player details for UI display
+            'offense_impact': float,   # Negative = loss (capped)
+            'defense_impact': float,   # Positive = opponent's goals should rise
+            'n_injuries': int,
+            'players': [               # Per-player details for UI display
                 {
                     'name': str,
                     'points': int,
                     'team_points': float,
                     'contribution_pct': float,
                     'impact_pct': float,
+                    'defensive_score': float,
+                    'defensive_percentile': float,
+                    'position': str,
                     'status': str,
                 },
                 ...
+            ],
+            'top_defensive_injuries': [  # Most important defensive absences
+                {'name': str, 'position': str, 'defensive_score': float, ...}
             ]
         }
     """
@@ -1335,11 +1342,18 @@ def calculate_automatic_injury_impact(
         injuries = {}
 
     if not injuries:
-        return {'offense_impact': 0.0, 'n_injuries': 0, 'players': []}
+        return {
+            'offense_impact': 0.0,
+            'defense_impact': 0.0,
+            'n_injuries': 0,
+            'players': [],
+            'top_defensive_injuries': [],
+        }
 
     # Build a normalized-key -> display-name map from injuries.json so the UI
     # shows real player names instead of concatenated normalized keys.
     display_name_map: Dict[str, str] = {}
+    injury_list_for_defense: List[Dict[str, Any]] = []
     try:
         import json, os
         if os.path.exists("injuries.json"):
@@ -1349,21 +1363,33 @@ def calculate_automatic_injury_impact(
             for item in items:
                 if item.get("team") == team_abbr.upper() and item.get("injured", True):
                     display = item.get("player", "")
+                    status = item.get("status", "injured")
                     if display:
-                        display_name_map[normalize_name_key(display)] = display
+                        key = normalize_name_key(display)
+                        display_name_map[key] = display
+                        injury_list_for_defense.append({"player": display, "status": status})
     except Exception:
         pass
+
+    # Load defensive impact scores once per call.
+    defensive_scores: Dict[str, Dict[str, Any]] = {}
+    try:
+        start_year = int(str(season)[:4])
+        from NHL.DefensiveImpact import compute_defensive_impact_scores
+        defensive_scores = compute_defensive_impact_scores(start_year, situation="all")
+    except Exception as e:
+        logger.debug(f"Could not load defensive impact scores: {e}")
 
     team_totals = team_stats_cache.get(team_abbr.upper(), {})
     team_points = team_totals.get('total_points', 700.0)  # League avg fallback
 
     total_offense_loss = 0.0
+    total_defense_impact = 0.0
     seen_players: set[str] = set()
     player_details: List[Dict[str, Any]] = []
 
     def _display_from_key(k: str) -> str:
         """Convert a normalized name key (e.g. 'samreinhart') to a readable name."""
-        # Some keys contain initials like 'l.brossoit'; normalize those first.
         k = str(k).replace(".", "").replace("_", " ")
         return re.sub(r"([a-z])([A-Z])", r"\1 \2", k).title()
 
@@ -1395,6 +1421,20 @@ def calculate_automatic_injury_impact(
             or (raw_name if raw_name and str(raw_name).strip() else None)
             or _display_from_key(player_name_key)
         )
+
+        # Defensive impact: positive defensive_score means the team is worse
+        # defensively without this player. We translate that into an increase
+        # in opponent expected goals. Cap individual effect to avoid outliers.
+        d_score = defensive_scores.get(player_name_key, {})
+        defensive_score = d_score.get("defensive_score", 0.0) or 0.0
+        defensive_percentile = d_score.get("defensive_percentile", 50.0) or 50.0
+        position = d_score.get("position", "")
+
+        # Scaling: a +4.0 shutdown D missing adds ~+4% to opponent goals.
+        # This is intentionally conservative relative to offense impact.
+        individual_defense_impact = min(0.06, max(0.0, defensive_score * 0.01))
+        total_defense_impact += individual_defense_impact
+
         player_details.append({
             'name': name,
             'points': points,
@@ -1402,28 +1442,49 @@ def calculate_automatic_injury_impact(
             'team_points': float(team_points),
             'contribution_pct': float(contribution_pct),
             'impact_pct': float(offense_loss),
+            'defensive_score': round(float(defensive_score), 3),
+            'defensive_percentile': round(float(defensive_percentile), 1),
+            'position': str(position),
             'status': str(injury_status),
         })
 
         logger.debug(
             f"💥 {name}: "
             f"{points} pts / {team_points:.0f} team points = "
-            f"{contribution_pct*100:.1f}% → {offense_loss*100:+.1f}% offense"
+            f"{contribution_pct*100:.1f}% → {offense_loss*100:+.1f}% offense, "
+            f"defense_score={defensive_score:+.2f}"
         )
 
-    # Cap total at -80%
+    # Cap totals to avoid pathological cases.
     total_offense_loss = max(-0.80, total_offense_loss)
+    total_defense_impact = min(0.12, total_defense_impact)
 
-    if total_offense_loss < -0.05:
+    if total_offense_loss < -0.05 or total_defense_impact > 0.02:
         logger.warning(
-            f"⚠️  {team_abbr} injury impact: {total_offense_loss*100:.1f}% offense loss "
+            f"⚠️  {team_abbr} injury impact: "
+            f"{total_offense_loss*100:+.1f}% offense, "
+            f"+{total_defense_impact*100:.1f}% opponent goals "
             f"({len(player_details)} injuries)"
         )
 
+    # Surface the most defensively important absences separately for the UI.
+    top_defensive_injuries: List[Dict[str, Any]] = []
+    try:
+        from NHL.DefensiveImpact import defensively_important_injuries
+        top_defensive_injuries = defensively_important_injuries(
+            injury_list_for_defense or [{"player": n, "status": s} for n, s in display_name_map.items()],
+            start_year,
+            top_n=5,
+        )
+    except Exception as e:
+        logger.debug(f"Could not rank defensive injuries: {e}")
+
     return {
         'offense_impact': total_offense_loss,
+        'defense_impact': total_defense_impact,
         'n_injuries': len(player_details),
         'players': sorted(player_details, key=lambda p: p['contribution_pct'], reverse=True),
+        'top_defensive_injuries': top_defensive_injuries,
     }
 
 
@@ -1721,28 +1782,45 @@ def simulate_matchup(
     # AUTOMATIC INJURY IMPACT CALCULATION
     if apply_injury_impact:
         player_stats_cache, team_stats_cache = _load_player_stats_for_injuries(season)
-        
+
         home_injury_data = calculate_automatic_injury_impact(
             home_abbr, season, player_stats_cache, team_stats_cache
         )
         away_injury_data = calculate_automatic_injury_impact(
             away_abbr, season, player_stats_cache, team_stats_cache
         )
-        
+
         injury_impact_home = home_injury_data['offense_impact']
         injury_impact_away = away_injury_data['offense_impact']
-        
-        if injury_impact_home < -0.05 or injury_impact_away < -0.05:
+        # Defensive injuries on the home team make it easier for the away team
+        # to score; defensive injuries on the away team help the home team score.
+        home_defense_impact = home_injury_data.get('defense_impact', 0.0)
+        away_defense_impact = away_injury_data.get('defense_impact', 0.0)
+
+        if injury_impact_home < -0.05 or injury_impact_away < -0.05 or \
+           home_defense_impact > 0.02 or away_defense_impact > 0.02:
             logger.debug(
                 f"💉 Injury adjustments:\n"
-                f"   {home_abbr}: {injury_impact_home*100:+.1f}% ({home_injury_data['n_injuries']} injuries)\n"
-                f"   {away_abbr}: {injury_impact_away*100:+.1f}% ({away_injury_data['n_injuries']} injuries)"
+                f"   {home_abbr}: offense {injury_impact_home*100:+.1f}%, "
+                f"defense +{home_defense_impact*100:.1f}% opp goals "
+                f"({home_injury_data['n_injuries']} injuries)\n"
+                f"   {away_abbr}: offense {injury_impact_away*100:+.1f}%, "
+                f"defense +{away_defense_impact*100:.1f}% opp goals "
+                f"({away_injury_data['n_injuries']} injuries)"
             )
     else:
-        home_injury_data = {'offense_impact': 0.0, 'n_injuries': 0, 'players': []}
-        away_injury_data = {'offense_impact': 0.0, 'n_injuries': 0, 'players': []}
+        home_injury_data = {
+            'offense_impact': 0.0, 'defense_impact': 0.0,
+            'n_injuries': 0, 'players': [], 'top_defensive_injuries': [],
+        }
+        away_injury_data = {
+            'offense_impact': 0.0, 'defense_impact': 0.0,
+            'n_injuries': 0, 'players': [], 'top_defensive_injuries': [],
+        }
         injury_impact_home = 0.0
         injury_impact_away = 0.0
+        home_defense_impact = 0.0
+        away_defense_impact = 0.0
         logger.debug("Injury impact disabled for this simulation")
 
     def _compute_expected_goals(
@@ -1911,7 +1989,7 @@ def simulate_matchup(
         lineup_shoot_home - lineup_shoot_away,
         venue_advantage + h2h_physics_adj,
         advanced_stats_home, extra_pp_goals_home, rest_mult_home, 1.0,  # no pre-sim score effects
-        injury_impact_home,
+        injury_impact_home + away_defense_impact,  # away defensive injuries help home score
         momentum_factor=home_momentum
     )
     mu_away, br_away = _compute_expected_goals(
@@ -1921,7 +1999,7 @@ def simulate_matchup(
         lineup_shoot_away - lineup_shoot_home,
         0.0,
         advanced_stats_away, extra_pp_goals_away, rest_mult_away, 1.0,  # no pre-sim score effects
-        injury_impact_away,
+        injury_impact_away + home_defense_impact,  # home defensive injuries help away score
         momentum_factor=away_momentum
     )
     

@@ -343,7 +343,11 @@ def api_predict():
 def api_injuries(team: str):
     """
     Return current injured players for a team from injuries.json / Daily Faceoff.
-    Response: {"team": "TOR", "injuries": [{"player": "...", "status": "..."}]}
+    Response: {
+        "team": "TOR",
+        "injuries": [{"player": "...", "status": "..."}],
+        "top_defensive_injuries": [{"name": "...", "position": "D", ...}]
+    }
     """
     try:
         abbr = TEAM_ABBR_MAPPING.get(team.upper(), team.upper())
@@ -373,7 +377,21 @@ def api_injuries(team: str):
                     seen.add(display)
                     injuries_list.append({"player": display, "status": status})
 
-        return jsonify({"team": abbr, "injuries": injuries_list})
+        # Compute defensive importance for the injured players.
+        top_defensive = []
+        try:
+            from NHL.DefensiveImpact import defensively_important_injuries
+            from NHL.Utils import season_from_date
+            season_year = int(season_from_date(_date.today().isoformat())[:4])
+            top_defensive = defensively_important_injuries(injuries_list, season_year, top_n=5)
+        except Exception as e:
+            logger.debug(f"Could not compute defensive injuries for {abbr}: {e}")
+
+        return jsonify({
+            "team": abbr,
+            "injuries": injuries_list,
+            "top_defensive_injuries": top_defensive,
+        })
     except Exception as e:
         logger.error(f"Injuries API error: {e}", exc_info=True)
         return jsonify({"error": str(e)}), 500

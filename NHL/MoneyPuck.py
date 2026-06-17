@@ -176,10 +176,33 @@ def download_historical_shots_zip(force: bool = False) -> Optional[Path]:
 def download_season_summary(year: int, kind: str, force: bool = False) -> Optional[Path]:
     """
     Download a season summary CSV. kind in {skaters, goalies, teams, lines}.
+
+    The peter-tanner.com mirror has dropped the /playerData/seasonSummary
+    route for some seasons, so we first try the canonical moneypuck.com URL.
     """
-    url = f"{MP_BASE}/playerData/seasonSummary/{year}/regular/{kind}.csv"
-    out = MP_CACHE_DIR / f"mp_{kind}_{year}.csv"
-    return out if _download(url, out, force=force) else None
+    kinds = {"skaters", "goalies", "teams", "lines"}
+    if kind not in kinds:
+        raise ValueError(f"kind must be one of {kinds}, got {kind!r}")
+
+    # The canonical endpoint uses the calendar year of the season start.
+    for base in (MP_BASE_ALT, MP_BASE):
+        url = f"{base}/playerData/seasonSummary/{year}/regular/{kind}.csv"
+        out = MP_CACHE_DIR / f"mp_{kind}_{year}.csv"
+        if _download(url, out, force=force):
+            return out
+    return None
+
+
+def load_season_summary(year: int, kind: str, force: bool = False) -> Optional[pd.DataFrame]:
+    """Load a cached or freshly-downloaded season summary CSV as a DataFrame."""
+    path = download_season_summary(year, kind, force=force)
+    if path is None or not path.exists():
+        return None
+    try:
+        return pd.read_csv(path, low_memory=False)
+    except Exception as e:
+        logger.error(f"Failed to read {path}: {e}")
+        return None
 
 
 # ── Parsing ─────────────────────────────────────────────────────────────
@@ -237,10 +260,12 @@ def load_all_mp_shots(force: bool = False) -> pd.DataFrame:
 
 __all__ = [
     "MP_BASE",
+    "MP_BASE_ALT",
     "MP_CACHE_DIR",
     "download_shots_zip",
     "download_historical_shots_zip",
     "download_season_summary",
+    "load_season_summary",
     "parse_mp_shots",
     "load_all_mp_shots",
 ]

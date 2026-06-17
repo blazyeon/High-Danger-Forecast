@@ -635,15 +635,25 @@ input[type="date"].param-input, input[type="date"].date-input {
 .injury-team { background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 14px; margin-bottom: 16px; }
 .injury-team-header { display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 800; color: var(--text-primary); margin-bottom: 12px; }
 .injury-team-logo { width: 28px; height: 28px; object-fit: contain; }
-.injury-total { margin-left: auto; font-size: 12px; font-weight: 800; color: var(--accent-green); }
+.injury-totals { margin-left: auto; display: flex; align-items: center; gap: 8px; }
+.injury-total { font-size: 12px; font-weight: 800; color: var(--accent-green); }
 .injury-total.negative { color: var(--accent-red); }
+.injury-total.defense { color: var(--accent-purple); }
 .injury-list { display: flex; flex-direction: column; gap: 8px; }
 .injury-row { display: flex; align-items: center; justify-content: space-between; padding: 8px 10px; background: var(--bg-base); border-radius: var(--radius-sm); }
-.injury-name { font-size: 13px; color: var(--text-primary); font-weight: 700; }
+.injury-name { display: flex; align-items: center; gap: 7px; font-size: 13px; color: var(--text-primary); font-weight: 700; }
+.injury-badge { font-size: 9px; font-weight: 900; padding: 1px 5px; border-radius: 4px; background: var(--accent-purple-dim); color: var(--accent-purple); border: 1px solid rgba(167,139,250,0.25); }
 .injury-meta { display: flex; align-items: center; gap: 10px; }
 .injury-status { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.6px; padding: 2px 7px; border-radius: 100px; background: rgba(255,77,77,0.12); color: var(--accent-red); border: 1px solid rgba(255,77,77,0.25); }
 .injury-status.dtd { background: rgba(255,193,7,0.12); color: #ffc107; border-color: rgba(255,193,7,0.25); }
 .injury-contrib { font-size: 12px; color: var(--text-secondary); font-weight: 700; }
+.injury-defense-title { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; color: var(--accent-purple); margin: 12px 0 8px; }
+.injury-defense-list { display: flex; flex-direction: column; gap: 6px; }
+.injury-defense-row { display: flex; align-items: center; justify-content: space-between; padding: 7px 10px; background: rgba(167,139,250,0.06); border: 1px solid rgba(167,139,250,0.10); border-radius: var(--radius-sm); }
+.injury-defense-name { font-size: 12px; color: var(--text-primary); font-weight: 700; }
+.injury-defense-pos { font-size: 10px; font-weight: 800; color: var(--accent-purple); margin-left: 4px; }
+.injury-defense-meta { display: flex; align-items: center; gap: 10px; }
+.injury-defense-score { font-size: 11px; font-weight: 800; color: var(--accent-purple); }
 .injury-none { font-size: 12px; color: var(--text-muted); font-style: italic; }
 
 /* ── Lineup Grid ──────────────────────────────────────────────── */
