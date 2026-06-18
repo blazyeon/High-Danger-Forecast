@@ -495,6 +495,7 @@ def compute_and_cache_edges(
     edge_threshold: float = EDGE_THRESHOLD,
     cache_path: Optional[Path] = None,
     sims: int = 1000,
+    use_events_schedule: bool = False,
 ) -> Dict[str, Any]:
     """
     Pre-compute betting edges for a date and write them to a local JSON cache.
@@ -513,15 +514,19 @@ def compute_and_cache_edges(
     events = odds_payload.get("events", [])
 
     # 2. Load schedule for the date.
-    schedule_games = safe_api_call(
-        get_games_on_date, day.isoformat(),
-        service_name="NHL Schedule API", fallback=[],
-    )
-    if not schedule_games:
-        warning = warning or "No live schedule found; using odds event matchups."
-        schedule_games = load_demo_schedule()
+    if use_events_schedule:
+        warning = warning or "Using odds event matchups."
+        schedule_games = _schedule_from_events(events)
+    else:
+        schedule_games = safe_api_call(
+            get_games_on_date, day.isoformat(),
+            service_name="NHL Schedule API", fallback=[],
+        )
         if not schedule_games:
-            schedule_games = _schedule_from_events(events)
+            warning = warning or "No live schedule found; using odds event matchups."
+            schedule_games = load_demo_schedule()
+            if not schedule_games:
+                schedule_games = _schedule_from_events(events)
 
     # 3. Build slate matchups.
     slate_matchups: List[Tuple[str, str]] = []

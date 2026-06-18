@@ -1,13 +1,13 @@
 {
-  "date": "2026-06-18",
-  "fetched_at": "2026-06-18T12:00:00+00:00",
+  "date": "2025-10-28",
+  "fetched_at": "2025-10-28T12:00:00+00:00",
   "source": "demo",
   "events": [
     {
       "id": "demo-game-1",
       "sport_key": "icehockey_nhl",
       "sport_title": "NHL",
-      "commence_time": "2026-06-18T19:00:00Z",
+      "commence_time": "2025-10-28T19:00:00Z",
       "home_team": "Toronto Maple Leafs",
       "away_team": "Calgary Flames",
       "bookmakers": [
@@ -17,7 +17,7 @@
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-06-18T19:00:00Z",
+              "last_update": "2025-10-28T19:00:00Z",
               "outcomes": [
                 {
                   "name": "Toronto Maple Leafs",
@@ -31,7 +31,7 @@
             },
             {
               "key": "spreads",
-              "last_update": "2026-06-18T19:00:00Z",
+              "last_update": "2025-10-28T19:00:00Z",
               "outcomes": [
                 {
                   "name": "Toronto Maple Leafs",
@@ -47,7 +47,7 @@
             },
             {
               "key": "totals",
-              "last_update": "2026-06-18T19:00:00Z",
+              "last_update": "2025-10-28T19:00:00Z",
               "outcomes": [
                 {
                   "name": "Over",
@@ -69,7 +69,7 @@
       "id": "demo-game-2",
       "sport_key": "icehockey_nhl",
       "sport_title": "NHL",
-      "commence_time": "2026-06-18T19:30:00Z",
+      "commence_time": "2025-10-28T19:30:00Z",
       "home_team": "Philadelphia Flyers",
       "away_team": "Pittsburgh Penguins",
       "bookmakers": [
@@ -79,7 +79,7 @@
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-06-18T19:30:00Z",
+              "last_update": "2025-10-28T19:30:00Z",
               "outcomes": [
                 {
                   "name": "Philadelphia Flyers",
@@ -93,7 +93,7 @@
             },
             {
               "key": "spreads",
-              "last_update": "2026-06-18T19:30:00Z",
+              "last_update": "2025-10-28T19:30:00Z",
               "outcomes": [
                 {
                   "name": "Philadelphia Flyers",
@@ -109,7 +109,7 @@
             },
             {
               "key": "totals",
-              "last_update": "2026-06-18T19:30:00Z",
+              "last_update": "2025-10-28T19:30:00Z",
               "outcomes": [
                 {
                   "name": "Over",
@@ -131,7 +131,7 @@
       "id": "demo-game-3",
       "sport_key": "icehockey_nhl",
       "sport_title": "NHL",
-      "commence_time": "2026-06-18T20:00:00Z",
+      "commence_time": "2025-10-28T20:00:00Z",
       "home_team": "Dallas Stars",
       "away_team": "Washington Capitals",
       "bookmakers": [
@@ -141,7 +141,7 @@
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-06-18T20:00:00Z",
+              "last_update": "2025-10-28T20:00:00Z",
               "outcomes": [
                 {
                   "name": "Dallas Stars",
@@ -155,7 +155,7 @@
             },
             {
               "key": "spreads",
-              "last_update": "2026-06-18T20:00:00Z",
+              "last_update": "2025-10-28T20:00:00Z",
               "outcomes": [
                 {
                   "name": "Dallas Stars",
@@ -171,7 +171,7 @@
             },
             {
               "key": "totals",
-              "last_update": "2026-06-18T20:00:00Z",
+              "last_update": "2025-10-28T20:00:00Z",
               "outcomes": [
                 {
                   "name": "Over",
@@ -193,7 +193,7 @@
       "id": "demo-game-4",
       "sport_key": "icehockey_nhl",
       "sport_title": "NHL",
-      "commence_time": "2026-06-18T21:00:00Z",
+      "commence_time": "2025-10-28T21:00:00Z",
       "home_team": "Carolina Hurricanes",
       "away_team": "Vegas Golden Knights",
       "bookmakers": [
@@ -203,7 +203,7 @@
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-06-18T21:00:00Z",
+              "last_update": "2025-10-28T21:00:00Z",
               "outcomes": [
                 {
                   "name": "Carolina Hurricanes",
@@ -217,7 +217,7 @@
             },
             {
               "key": "spreads",
-              "last_update": "2026-06-18T21:00:00Z",
+              "last_update": "2025-10-28T21:00:00Z",
               "outcomes": [
                 {
                   "name": "Carolina Hurricanes",
@@ -233,7 +233,7 @@
             },
             {
               "key": "totals",
-              "last_update": "2026-06-18T21:00:00Z",
+              "last_update": "2025-10-28T21:00:00Z",
               "outcomes": [
                 {
                   "name": "Over",
@@ -255,7 +255,7 @@
       "id": "demo-game-5",
       "sport_key": "icehockey_nhl",
       "sport_title": "NHL",
-      "commence_time": "2026-06-18T22:00:00Z",
+      "commence_time": "2025-10-28T22:00:00Z",
       "home_team": "Colorado Avalanche",
       "away_team": "New Jersey Devils",
       "bookmakers": [
@@ -265,7 +265,7 @@
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-06-18T22:00:00Z",
+              "last_update": "2025-10-28T22:00:00Z",
               "outcomes": [
                 {
                   "name": "Colorado Avalanche",
@@ -279,7 +279,7 @@
             },
             {
               "key": "spreads",
-              "last_update": "2026-06-18T22:00:00Z",
+              "last_update": "2025-10-28T22:00:00Z",
               "outcomes": [
                 {
                   "name": "Colorado Avalanche",
@@ -295,7 +295,7 @@
             },
             {
               "key": "totals",
-              "last_update": "2026-06-18T22:00:00Z",
+              "last_update": "2025-10-28T22:00:00Z",
               "outcomes": [
                 {
                   "name": "Over",
@@ -317,7 +317,7 @@
       "id": "demo-game-6",
       "sport_key": "icehockey_nhl",
       "sport_title": "NHL",
-      "commence_time": "2026-06-18T22:30:00Z",
+      "commence_time": "2025-10-28T22:30:00Z",
       "home_team": "San Jose Sharks",
       "away_team": "Los Angeles Kings",
       "bookmakers": [
@@ -327,7 +327,7 @@
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-06-18T22:30:00Z",
+              "last_update": "2025-10-28T22:30:00Z",
               "outcomes": [
                 {
                   "name": "San Jose Sharks",
@@ -341,7 +341,7 @@
             },
             {
               "key": "spreads",
-              "last_update": "2026-06-18T22:30:00Z",
+              "last_update": "2025-10-28T22:30:00Z",
               "outcomes": [
                 {
                   "name": "San Jose Sharks",
@@ -357,7 +357,7 @@
             },
             {
               "key": "totals",
-              "last_update": "2026-06-18T22:30:00Z",
+              "last_update": "2025-10-28T22:30:00Z",
               "outcomes": [
                 {
                   "name": "Over",
@@ -379,7 +379,7 @@
       "id": "demo-game-7",
       "sport_key": "icehockey_nhl",
       "sport_title": "NHL",
-      "commence_time": "2026-06-18T23:00:00Z",
+      "commence_time": "2025-10-28T23:00:00Z",
       "home_team": "Montreal Canadiens",
       "away_team": "New York Rangers",
       "bookmakers": [
@@ -389,7 +389,7 @@
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-06-18T23:00:00Z",
+              "last_update": "2025-10-28T23:00:00Z",
               "outcomes": [
                 {
                   "name": "Montreal Canadiens",
@@ -403,7 +403,7 @@
             },
             {
               "key": "spreads",
-              "last_update": "2026-06-18T23:00:00Z",
+              "last_update": "2025-10-28T23:00:00Z",
               "outcomes": [
                 {
                   "name": "Montreal Canadiens",
@@ -419,7 +419,7 @@
             },
             {
               "key": "totals",
-              "last_update": "2026-06-18T23:00:00Z",
+              "last_update": "2025-10-28T23:00:00Z",
               "outcomes": [
                 {
                   "name": "Over",
@@ -441,7 +441,7 @@
       "id": "demo-game-8",
       "sport_key": "icehockey_nhl",
       "sport_title": "NHL",
-      "commence_time": "2026-06-18T18:00:00Z",
+      "commence_time": "2025-10-28T18:00:00Z",
       "home_team": "New York Islanders",
       "away_team": "Boston Bruins",
       "bookmakers": [
@@ -451,7 +451,7 @@
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-06-18T18:00:00Z",
+              "last_update": "2025-10-28T18:00:00Z",
               "outcomes": [
                 {
                   "name": "New York Islanders",
@@ -465,7 +465,7 @@
             },
             {
               "key": "spreads",
-              "last_update": "2026-06-18T18:00:00Z",
+              "last_update": "2025-10-28T18:00:00Z",
               "outcomes": [
                 {
                   "name": "New York Islanders",
@@ -481,7 +481,7 @@
             },
             {
               "key": "totals",
-              "last_update": "2026-06-18T18:00:00Z",
+              "last_update": "2025-10-28T18:00:00Z",
               "outcomes": [
                 {
                   "name": "Over",
@@ -503,7 +503,7 @@
       "id": "demo-game-9",
       "sport_key": "icehockey_nhl",
       "sport_title": "NHL",
-      "commence_time": "2026-06-18T19:00:00Z",
+      "commence_time": "2025-10-28T19:00:00Z",
       "home_team": "Anaheim Ducks",
       "away_team": "Edmonton Oilers",
       "bookmakers": [
@@ -513,7 +513,7 @@
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-06-18T19:00:00Z",
+              "last_update": "2025-10-28T19:00:00Z",
               "outcomes": [
                 {
                   "name": "Anaheim Ducks",
@@ -527,7 +527,7 @@
             },
             {
               "key": "spreads",
-              "last_update": "2026-06-18T19:00:00Z",
+              "last_update": "2025-10-28T19:00:00Z",
               "outcomes": [
                 {
                   "name": "Anaheim Ducks",
@@ -543,7 +543,7 @@
             },
             {
               "key": "totals",
-              "last_update": "2026-06-18T19:00:00Z",
+              "last_update": "2025-10-28T19:00:00Z",
               "outcomes": [
                 {
                   "name": "Over",
@@ -565,7 +565,7 @@
       "id": "demo-game-10",
       "sport_key": "icehockey_nhl",
       "sport_title": "NHL",
-      "commence_time": "2026-06-18T20:00:00Z",
+      "commence_time": "2025-10-28T20:00:00Z",
       "home_team": "Chicago Blackhawks",
       "away_team": "Minnesota Wild",
       "bookmakers": [
@@ -575,7 +575,7 @@
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-06-18T20:00:00Z",
+              "last_update": "2025-10-28T20:00:00Z",
               "outcomes": [
                 {
                   "name": "Chicago Blackhawks",
@@ -589,7 +589,7 @@
             },
             {
               "key": "spreads",
-              "last_update": "2026-06-18T20:00:00Z",
+              "last_update": "2025-10-28T20:00:00Z",
               "outcomes": [
                 {
                   "name": "Chicago Blackhawks",
@@ -605,7 +605,7 @@
             },
             {
               "key": "totals",
-              "last_update": "2026-06-18T20:00:00Z",
+              "last_update": "2025-10-28T20:00:00Z",
               "outcomes": [
                 {
                   "name": "Over",
@@ -627,7 +627,7 @@
       "id": "demo-game-11",
       "sport_key": "icehockey_nhl",
       "sport_title": "NHL",
-      "commence_time": "2026-06-18T19:30:00Z",
+      "commence_time": "2025-10-28T19:30:00Z",
       "home_team": "Nashville Predators",
       "away_team": "Winnipeg Jets",
       "bookmakers": [
@@ -637,7 +637,7 @@
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-06-18T19:30:00Z",
+              "last_update": "2025-10-28T19:30:00Z",
               "outcomes": [
                 {
                   "name": "Nashville Predators",
@@ -651,7 +651,7 @@
             },
             {
               "key": "spreads",
-              "last_update": "2026-06-18T19:30:00Z",
+              "last_update": "2025-10-28T19:30:00Z",
               "outcomes": [
                 {
                   "name": "Nashville Predators",
@@ -667,7 +667,7 @@
             },
             {
               "key": "totals",
-              "last_update": "2026-06-18T19:30:00Z",
+              "last_update": "2025-10-28T19:30:00Z",
               "outcomes": [
                 {
                   "name": "Over",
@@ -689,7 +689,7 @@
       "id": "demo-game-12",
       "sport_key": "icehockey_nhl",
       "sport_title": "NHL",
-      "commence_time": "2026-06-18T20:30:00Z",
+      "commence_time": "2025-10-28T20:30:00Z",
       "home_team": "Tampa Bay Lightning",
       "away_team": "Florida Panthers",
       "bookmakers": [
@@ -699,7 +699,7 @@
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-06-18T20:30:00Z",
+              "last_update": "2025-10-28T20:30:00Z",
               "outcomes": [
                 {
                   "name": "Tampa Bay Lightning",
@@ -713,7 +713,7 @@
             },
             {
               "key": "spreads",
-              "last_update": "2026-06-18T20:30:00Z",
+              "last_update": "2025-10-28T20:30:00Z",
               "outcomes": [
                 {
                   "name": "Tampa Bay Lightning",
@@ -729,7 +729,7 @@
             },
             {
               "key": "totals",
-              "last_update": "2026-06-18T20:30:00Z",
+              "last_update": "2025-10-28T20:30:00Z",
               "outcomes": [
                 {
                   "name": "Over",
@@ -751,7 +751,7 @@
       "id": "demo-game-13",
       "sport_key": "icehockey_nhl",
       "sport_title": "NHL",
-      "commence_time": "2026-06-18T19:00:00Z",
+      "commence_time": "2025-10-28T19:00:00Z",
       "home_team": "Buffalo Sabres",
       "away_team": "Ottawa Senators",
       "bookmakers": [
@@ -761,7 +761,7 @@
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-06-18T19:00:00Z",
+              "last_update": "2025-10-28T19:00:00Z",
               "outcomes": [
                 {
                   "name": "Buffalo Sabres",
@@ -775,7 +775,7 @@
             },
             {
               "key": "spreads",
-              "last_update": "2026-06-18T19:00:00Z",
+              "last_update": "2025-10-28T19:00:00Z",
               "outcomes": [
                 {
                   "name": "Buffalo Sabres",
@@ -791,7 +791,7 @@
             },
             {
               "key": "totals",
-              "last_update": "2026-06-18T19:00:00Z",
+              "last_update": "2025-10-28T19:00:00Z",
               "outcomes": [
                 {
                   "name": "Over",
@@ -813,7 +813,7 @@
       "id": "demo-game-14",
       "sport_key": "icehockey_nhl",
       "sport_title": "NHL",
-      "commence_time": "2026-06-18T19:30:00Z",
+      "commence_time": "2025-10-28T19:30:00Z",
       "home_team": "Columbus Blue Jackets",
       "away_team": "Detroit Red Wings",
       "bookmakers": [
@@ -823,7 +823,7 @@
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-06-18T19:30:00Z",
+              "last_update": "2025-10-28T19:30:00Z",
               "outcomes": [
                 {
                   "name": "Columbus Blue Jackets",
@@ -837,7 +837,7 @@
             },
             {
               "key": "spreads",
-              "last_update": "2026-06-18T19:30:00Z",
+              "last_update": "2025-10-28T19:30:00Z",
               "outcomes": [
                 {
                   "name": "Columbus Blue Jackets",
@@ -853,7 +853,7 @@
             },
             {
               "key": "totals",
-              "last_update": "2026-06-18T19:30:00Z",
+              "last_update": "2025-10-28T19:30:00Z",
               "outcomes": [
                 {
                   "name": "Over",
@@ -875,7 +875,7 @@
       "id": "demo-game-15",
       "sport_key": "icehockey_nhl",
       "sport_title": "NHL",
-      "commence_time": "2026-06-18T22:00:00Z",
+      "commence_time": "2025-10-28T22:00:00Z",
       "home_team": "Vancouver Canucks",
       "away_team": "Seattle Kraken",
       "bookmakers": [
@@ -885,7 +885,7 @@
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-06-18T22:00:00Z",
+              "last_update": "2025-10-28T22:00:00Z",
               "outcomes": [
                 {
                   "name": "Vancouver Canucks",
@@ -899,7 +899,7 @@
             },
             {
               "key": "spreads",
-              "last_update": "2026-06-18T22:00:00Z",
+              "last_update": "2025-10-28T22:00:00Z",
               "outcomes": [
                 {
                   "name": "Vancouver Canucks",
@@ -915,7 +915,7 @@
             },
             {
               "key": "totals",
-              "last_update": "2026-06-18T22:00:00Z",
+              "last_update": "2025-10-28T22:00:00Z",
               "outcomes": [
                 {
                   "name": "Over",
@@ -937,7 +937,7 @@
       "id": "demo-game-16",
       "sport_key": "icehockey_nhl",
       "sport_title": "NHL",
-      "commence_time": "2026-06-18T19:00:00Z",
+      "commence_time": "2025-10-28T19:00:00Z",
       "home_team": "Boston Bruins",
       "away_team": "Montreal Canadiens",
       "bookmakers": [
@@ -947,7 +947,7 @@
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-06-18T19:00:00Z",
+              "last_update": "2025-10-28T19:00:00Z",
               "outcomes": [
                 {
                   "name": "Boston Bruins",
@@ -961,7 +961,7 @@
             },
             {
               "key": "spreads",
-              "last_update": "2026-06-18T19:00:00Z",
+              "last_update": "2025-10-28T19:00:00Z",
               "outcomes": [
                 {
                   "name": "Boston Bruins",

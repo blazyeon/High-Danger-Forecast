@@ -1011,6 +1011,7 @@ def api_betting_edge():
             day=game_date,
             odds_payload=odds_payload,
             edge_threshold=edge_threshold,
+            use_events_schedule=bool(force_demo),
         )
         return jsonify(_make_json_safe(payload))
 

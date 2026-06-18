@@ -169,7 +169,7 @@ def test_api_betting_edge_demo():
         pytest.skip(f"Could not import app: {e}")
 
     client = app_module.app.test_client()
-    resp = client.get("/api/betting-edge?date=2026-06-16&demo=1")
+    resp = client.get("/api/betting-edge?date=2025-10-28&demo=1")
     assert resp.status_code == 200
     data = resp.get_json()
     assert "games" in data
