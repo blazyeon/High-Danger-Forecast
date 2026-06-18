@@ -88,10 +88,14 @@ def _schedule_from_events(events: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
         away = ev.get("away_team")
         if not home or not away:
             continue
+        home_key = str(home).upper().strip()
+        away_key = str(away).upper().strip()
+        home_abbr = _FULL_TO_ABBR.get(home_key, home_key)
+        away_abbr = _FULL_TO_ABBR.get(away_key, away_key)
         games.append({
             "id": ev.get("id"),
-            "homeTeam": {"name": {"default": home}},
-            "awayTeam": {"name": {"default": away}},
+            "homeTeam": {"abbrev": home_abbr, "name": {"default": home}},
+            "awayTeam": {"abbrev": away_abbr, "name": {"default": away}},
             "startTimeUTC": ev.get("commence_time"),
             "gameState": "FUT",
         })

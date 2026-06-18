@@ -1,15 +1,15 @@
 {
-  "date": "2026-06-17",
-  "fetched_at": "2026-06-16T05:03:00+00:00",
+  "date": "2026-06-18",
+  "fetched_at": "2026-06-18T12:00:00+00:00",
   "source": "demo",
   "events": [
     {
       "id": "demo-game-1",
       "sport_key": "icehockey_nhl",
       "sport_title": "NHL",
-      "commence_time": "2026-06-16T19:00:00Z",
+      "commence_time": "2026-06-18T19:00:00Z",
       "home_team": "Toronto Maple Leafs",
-      "away_team": "Montreal Canadiens",
+      "away_team": "Calgary Flames",
       "bookmakers": [
         {
           "key": "demo_book",
@@ -17,46 +17,46 @@
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-06-16T19:00:00Z",
+              "last_update": "2026-06-18T19:00:00Z",
               "outcomes": [
                 {
                   "name": "Toronto Maple Leafs",
-                  "price": -150
+                  "price": -180
                 },
                 {
-                  "name": "Montreal Canadiens",
-                  "price": 130
+                  "name": "Calgary Flames",
+                  "price": 155
                 }
               ]
             },
             {
               "key": "spreads",
-              "last_update": "2026-06-16T19:00:00Z",
+              "last_update": "2026-06-18T19:00:00Z",
               "outcomes": [
                 {
                   "name": "Toronto Maple Leafs",
-                  "price": 135,
+                  "price": -155,
                   "point": -1.5
                 },
                 {
-                  "name": "Montreal Canadiens",
-                  "price": -155,
+                  "name": "Calgary Flames",
+                  "price": 130,
                   "point": 1.5
                 }
               ]
             },
             {
               "key": "totals",
-              "last_update": "2026-06-16T19:00:00Z",
+              "last_update": "2026-06-18T19:00:00Z",
               "outcomes": [
                 {
                   "name": "Over",
-                  "price": -110,
+                  "price": -115,
                   "point": 6.5
                 },
                 {
                   "name": "Under",
-                  "price": -110,
+                  "price": -105,
                   "point": 6.5
                 }
               ]
@@ -69,9 +69,9 @@
       "id": "demo-game-2",
       "sport_key": "icehockey_nhl",
       "sport_title": "NHL",
-      "commence_time": "2026-06-16T20:00:00Z",
-      "home_team": "Edmonton Oilers",
-      "away_team": "Calgary Flames",
+      "commence_time": "2026-06-18T19:30:00Z",
+      "home_team": "Philadelphia Flyers",
+      "away_team": "Pittsburgh Penguins",
       "bookmakers": [
         {
           "key": "demo_book",
@@ -79,47 +79,47 @@
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-06-16T20:00:00Z",
+              "last_update": "2026-06-18T19:30:00Z",
               "outcomes": [
                 {
-                  "name": "Edmonton Oilers",
-                  "price": -130
+                  "name": "Philadelphia Flyers",
+                  "price": -170
                 },
                 {
-                  "name": "Calgary Flames",
-                  "price": 110
+                  "name": "Pittsburgh Penguins",
+                  "price": 145
                 }
               ]
             },
             {
               "key": "spreads",
-              "last_update": "2026-06-16T20:00:00Z",
+              "last_update": "2026-06-18T19:30:00Z",
               "outcomes": [
                 {
-                  "name": "Edmonton Oilers",
-                  "price": 165,
+                  "name": "Philadelphia Flyers",
+                  "price": -150,
                   "point": -1.5
                 },
                 {
-                  "name": "Calgary Flames",
-                  "price": -190,
+                  "name": "Pittsburgh Penguins",
+                  "price": 125,
                   "point": 1.5
                 }
               ]
             },
             {
               "key": "totals",
-              "last_update": "2026-06-16T20:00:00Z",
+              "last_update": "2026-06-18T19:30:00Z",
               "outcomes": [
                 {
                   "name": "Over",
-                  "price": -110,
-                  "point": 6.5
+                  "price": -115,
+                  "point": 6.0
                 },
                 {
                   "name": "Under",
-                  "price": -110,
-                  "point": 6.5
+                  "price": -105,
+                  "point": 6.0
                 }
               ]
             }
@@ -131,9 +131,9 @@
       "id": "demo-game-3",
       "sport_key": "icehockey_nhl",
       "sport_title": "NHL",
-      "commence_time": "2026-06-16T21:00:00Z",
-      "home_team": "Colorado Avalanche",
-      "away_team": "Vegas Golden Knights",
+      "commence_time": "2026-06-18T20:00:00Z",
+      "home_team": "Dallas Stars",
+      "away_team": "Washington Capitals",
       "bookmakers": [
         {
           "key": "demo_book",
@@ -141,46 +141,46 @@
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-06-16T21:00:00Z",
+              "last_update": "2026-06-18T20:00:00Z",
               "outcomes": [
                 {
-                  "name": "Colorado Avalanche",
-                  "price": -140
+                  "name": "Dallas Stars",
+                  "price": -145
                 },
                 {
-                  "name": "Vegas Golden Knights",
-                  "price": 120
+                  "name": "Washington Capitals",
+                  "price": 125
                 }
               ]
             },
             {
               "key": "spreads",
-              "last_update": "2026-06-16T21:00:00Z",
+              "last_update": "2026-06-18T20:00:00Z",
               "outcomes": [
                 {
-                  "name": "Colorado Avalanche",
-                  "price": 125,
+                  "name": "Dallas Stars",
+                  "price": -135,
                   "point": -1.5
                 },
                 {
-                  "name": "Vegas Golden Knights",
-                  "price": -145,
+                  "name": "Washington Capitals",
+                  "price": 110,
                   "point": 1.5
                 }
               ]
             },
             {
               "key": "totals",
-              "last_update": "2026-06-16T21:00:00Z",
+              "last_update": "2026-06-18T20:00:00Z",
               "outcomes": [
                 {
                   "name": "Over",
-                  "price": -115,
+                  "price": -110,
                   "point": 6.0
                 },
                 {
                   "name": "Under",
-                  "price": -105,
+                  "price": -110,
                   "point": 6.0
                 }
               ]
@@ -193,9 +193,9 @@
       "id": "demo-game-4",
       "sport_key": "icehockey_nhl",
       "sport_title": "NHL",
-      "commence_time": "2026-06-16T23:00:00Z",
+      "commence_time": "2026-06-18T21:00:00Z",
       "home_team": "Carolina Hurricanes",
-      "away_team": "New York Rangers",
+      "away_team": "Vegas Golden Knights",
       "bookmakers": [
         {
           "key": "demo_book",
@@ -203,47 +203,47 @@
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-06-16T23:00:00Z",
+              "last_update": "2026-06-18T21:00:00Z",
               "outcomes": [
                 {
                   "name": "Carolina Hurricanes",
-                  "price": -160
+                  "price": -145
                 },
                 {
-                  "name": "New York Rangers",
-                  "price": 140
+                  "name": "Vegas Golden Knights",
+                  "price": 120
                 }
               ]
             },
             {
               "key": "spreads",
-              "last_update": "2026-06-16T23:00:00Z",
+              "last_update": "2026-06-18T21:00:00Z",
               "outcomes": [
                 {
                   "name": "Carolina Hurricanes",
-                  "price": 105,
+                  "price": -125,
                   "point": -1.5
                 },
                 {
-                  "name": "New York Rangers",
-                  "price": -125,
+                  "name": "Vegas Golden Knights",
+                  "price": 105,
                   "point": 1.5
                 }
               ]
             },
             {
               "key": "totals",
-              "last_update": "2026-06-16T23:00:00Z",
+              "last_update": "2026-06-18T21:00:00Z",
               "outcomes": [
                 {
                   "name": "Over",
-                  "price": -105,
-                  "point": 5.5
+                  "price": -115,
+                  "point": 6.0
                 },
                 {
                   "name": "Under",
-                  "price": -115,
-                  "point": 5.5
+                  "price": -105,
+                  "point": 6.0
                 }
               ]
             }
@@ -255,9 +255,9 @@
       "id": "demo-game-5",
       "sport_key": "icehockey_nhl",
       "sport_title": "NHL",
-      "commence_time": "2026-06-16T20:30:00Z",
-      "home_team": "Dallas Stars",
-      "away_team": "St. Louis Blues",
+      "commence_time": "2026-06-18T22:00:00Z",
+      "home_team": "Colorado Avalanche",
+      "away_team": "New Jersey Devils",
       "bookmakers": [
         {
           "key": "demo_book",
@@ -265,46 +265,46 @@
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-06-16T20:30:00Z",
+              "last_update": "2026-06-18T22:00:00Z",
               "outcomes": [
                 {
-                  "name": "Dallas Stars",
-                  "price": -145
+                  "name": "Colorado Avalanche",
+                  "price": -160
                 },
                 {
-                  "name": "St. Louis Blues",
-                  "price": 125
+                  "name": "New Jersey Devils",
+                  "price": 135
                 }
               ]
             },
             {
               "key": "spreads",
-              "last_update": "2026-06-16T20:30:00Z",
+              "last_update": "2026-06-18T22:00:00Z",
               "outcomes": [
                 {
-                  "name": "Dallas Stars",
-                  "price": 130,
+                  "name": "Colorado Avalanche",
+                  "price": -140,
                   "point": -1.5
                 },
                 {
-                  "name": "St. Louis Blues",
-                  "price": -150,
+                  "name": "New Jersey Devils",
+                  "price": 115,
                   "point": 1.5
                 }
               ]
             },
             {
               "key": "totals",
-              "last_update": "2026-06-16T20:30:00Z",
+              "last_update": "2026-06-18T22:00:00Z",
               "outcomes": [
                 {
                   "name": "Over",
-                  "price": -110,
+                  "price": -115,
                   "point": 6.0
                 },
                 {
                   "name": "Under",
-                  "price": -110,
+                  "price": -105,
                   "point": 6.0
                 }
               ]
@@ -317,9 +317,9 @@
       "id": "demo-game-6",
       "sport_key": "icehockey_nhl",
       "sport_title": "NHL",
-      "commence_time": "2026-06-16T19:30:00Z",
-      "home_team": "Florida Panthers",
-      "away_team": "Tampa Bay Lightning",
+      "commence_time": "2026-06-18T22:30:00Z",
+      "home_team": "San Jose Sharks",
+      "away_team": "Los Angeles Kings",
       "bookmakers": [
         {
           "key": "demo_book",
@@ -327,47 +327,47 @@
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-06-16T19:30:00Z",
+              "last_update": "2026-06-18T22:30:00Z",
               "outcomes": [
                 {
-                  "name": "Florida Panthers",
-                  "price": -125
+                  "name": "San Jose Sharks",
+                  "price": 135
                 },
                 {
-                  "name": "Tampa Bay Lightning",
-                  "price": 105
+                  "name": "Los Angeles Kings",
+                  "price": -155
                 }
               ]
             },
             {
               "key": "spreads",
-              "last_update": "2026-06-16T19:30:00Z",
+              "last_update": "2026-06-18T22:30:00Z",
               "outcomes": [
                 {
-                  "name": "Florida Panthers",
-                  "price": 180,
-                  "point": -1.5
+                  "name": "San Jose Sharks",
+                  "price": -165,
+                  "point": 1.5
                 },
                 {
-                  "name": "Tampa Bay Lightning",
-                  "price": -220,
-                  "point": 1.5
+                  "name": "Los Angeles Kings",
+                  "price": 140,
+                  "point": -1.5
                 }
               ]
             },
             {
               "key": "totals",
-              "last_update": "2026-06-16T19:30:00Z",
+              "last_update": "2026-06-18T22:30:00Z",
               "outcomes": [
                 {
                   "name": "Over",
-                  "price": -125,
-                  "point": 5.5
+                  "price": -120,
+                  "point": 6.5
                 },
                 {
                   "name": "Under",
-                  "price": 105,
-                  "point": 5.5
+                  "price": 100,
+                  "point": 6.5
                 }
               ]
             }
@@ -379,9 +379,9 @@
       "id": "demo-game-7",
       "sport_key": "icehockey_nhl",
       "sport_title": "NHL",
-      "commence_time": "2026-06-16T18:00:00Z",
-      "home_team": "Boston Bruins",
-      "away_team": "Ottawa Senators",
+      "commence_time": "2026-06-18T23:00:00Z",
+      "home_team": "Montreal Canadiens",
+      "away_team": "New York Rangers",
       "bookmakers": [
         {
           "key": "demo_book",
@@ -389,37 +389,37 @@
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-06-16T18:00:00Z",
+              "last_update": "2026-06-18T23:00:00Z",
               "outcomes": [
                 {
-                  "name": "Boston Bruins",
-                  "price": -180
+                  "name": "Montreal Canadiens",
+                  "price": 105
                 },
                 {
-                  "name": "Ottawa Senators",
-                  "price": 155
+                  "name": "New York Rangers",
+                  "price": -125
                 }
               ]
             },
             {
               "key": "spreads",
-              "last_update": "2026-06-16T18:00:00Z",
+              "last_update": "2026-06-18T23:00:00Z",
               "outcomes": [
                 {
-                  "name": "Boston Bruins",
-                  "price": 110,
-                  "point": -1.5
+                  "name": "Montreal Canadiens",
+                  "price": -185,
+                  "point": 1.5
                 },
                 {
-                  "name": "Ottawa Senators",
-                  "price": -130,
-                  "point": 1.5
+                  "name": "New York Rangers",
+                  "price": 155,
+                  "point": -1.5
                 }
               ]
             },
             {
               "key": "totals",
-              "last_update": "2026-06-16T18:00:00Z",
+              "last_update": "2026-06-18T23:00:00Z",
               "outcomes": [
                 {
                   "name": "Over",
@@ -441,9 +441,9 @@
       "id": "demo-game-8",
       "sport_key": "icehockey_nhl",
       "sport_title": "NHL",
-      "commence_time": "2026-06-16T22:00:00Z",
-      "home_team": "Los Angeles Kings",
-      "away_team": "Anaheim Ducks",
+      "commence_time": "2026-06-18T18:00:00Z",
+      "home_team": "New York Islanders",
+      "away_team": "Boston Bruins",
       "bookmakers": [
         {
           "key": "demo_book",
@@ -451,47 +451,47 @@
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-06-16T22:00:00Z",
+              "last_update": "2026-06-18T18:00:00Z",
               "outcomes": [
                 {
-                  "name": "Los Angeles Kings",
-                  "price": -135
+                  "name": "New York Islanders",
+                  "price": 120
                 },
                 {
-                  "name": "Anaheim Ducks",
-                  "price": 115
+                  "name": "Boston Bruins",
+                  "price": -140
                 }
               ]
             },
             {
               "key": "spreads",
-              "last_update": "2026-06-16T22:00:00Z",
+              "last_update": "2026-06-18T18:00:00Z",
               "outcomes": [
                 {
-                  "name": "Los Angeles Kings",
-                  "price": 150,
-                  "point": -1.5
-                },
-                {
-                  "name": "Anaheim Ducks",
+                  "name": "New York Islanders",
                   "price": -175,
                   "point": 1.5
+                },
+                {
+                  "name": "Boston Bruins",
+                  "price": 150,
+                  "point": -1.5
                 }
               ]
             },
             {
               "key": "totals",
-              "last_update": "2026-06-16T22:00:00Z",
+              "last_update": "2026-06-18T18:00:00Z",
               "outcomes": [
                 {
                   "name": "Over",
-                  "price": -105,
-                  "point": 6.0
+                  "price": -120,
+                  "point": 5.5
                 },
                 {
                   "name": "Under",
-                  "price": -115,
-                  "point": 6.0
+                  "price": 100,
+                  "point": 5.5
                 }
               ]
             }
@@ -503,9 +503,9 @@
       "id": "demo-game-9",
       "sport_key": "icehockey_nhl",
       "sport_title": "NHL",
-      "commence_time": "2026-06-16T20:00:00Z",
-      "home_team": "Minnesota Wild",
-      "away_team": "Winnipeg Jets",
+      "commence_time": "2026-06-18T19:00:00Z",
+      "home_team": "Anaheim Ducks",
+      "away_team": "Edmonton Oilers",
       "bookmakers": [
         {
           "key": "demo_book",
@@ -513,47 +513,47 @@
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-06-16T20:00:00Z",
+              "last_update": "2026-06-18T19:00:00Z",
               "outcomes": [
                 {
-                  "name": "Minnesota Wild",
-                  "price": -155
+                  "name": "Anaheim Ducks",
+                  "price": 175
                 },
                 {
-                  "name": "Winnipeg Jets",
-                  "price": 135
+                  "name": "Edmonton Oilers",
+                  "price": -210
                 }
               ]
             },
             {
               "key": "spreads",
-              "last_update": "2026-06-16T20:00:00Z",
+              "last_update": "2026-06-18T19:00:00Z",
               "outcomes": [
                 {
-                  "name": "Minnesota Wild",
-                  "price": 120,
-                  "point": -1.5
+                  "name": "Anaheim Ducks",
+                  "price": 115,
+                  "point": 1.5
                 },
                 {
-                  "name": "Winnipeg Jets",
-                  "price": -140,
-                  "point": 1.5
+                  "name": "Edmonton Oilers",
+                  "price": -135,
+                  "point": -1.5
                 }
               ]
             },
             {
               "key": "totals",
-              "last_update": "2026-06-16T20:00:00Z",
+              "last_update": "2026-06-18T19:00:00Z",
               "outcomes": [
                 {
                   "name": "Over",
-                  "price": -110,
-                  "point": 5.5
+                  "price": -115,
+                  "point": 6.5
                 },
                 {
                   "name": "Under",
-                  "price": -110,
-                  "point": 5.5
+                  "price": -105,
+                  "point": 6.5
                 }
               ]
             }
@@ -565,9 +565,9 @@
       "id": "demo-game-10",
       "sport_key": "icehockey_nhl",
       "sport_title": "NHL",
-      "commence_time": "2026-06-16T19:00:00Z",
-      "home_team": "New Jersey Devils",
-      "away_team": "New York Islanders",
+      "commence_time": "2026-06-18T20:00:00Z",
+      "home_team": "Chicago Blackhawks",
+      "away_team": "Minnesota Wild",
       "bookmakers": [
         {
           "key": "demo_book",
@@ -575,37 +575,37 @@
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-06-16T19:00:00Z",
+              "last_update": "2026-06-18T20:00:00Z",
               "outcomes": [
                 {
-                  "name": "New Jersey Devils",
-                  "price": -125
+                  "name": "Chicago Blackhawks",
+                  "price": 170
                 },
                 {
-                  "name": "New York Islanders",
-                  "price": 105
+                  "name": "Minnesota Wild",
+                  "price": -200
                 }
               ]
             },
             {
               "key": "spreads",
-              "last_update": "2026-06-16T19:00:00Z",
+              "last_update": "2026-06-18T20:00:00Z",
               "outcomes": [
                 {
-                  "name": "New Jersey Devils",
-                  "price": 170,
-                  "point": -1.5
+                  "name": "Chicago Blackhawks",
+                  "price": 110,
+                  "point": 1.5
                 },
                 {
-                  "name": "New York Islanders",
-                  "price": -200,
-                  "point": 1.5
+                  "name": "Minnesota Wild",
+                  "price": -130,
+                  "point": -1.5
                 }
               ]
             },
             {
               "key": "totals",
-              "last_update": "2026-06-16T19:00:00Z",
+              "last_update": "2026-06-18T20:00:00Z",
               "outcomes": [
                 {
                   "name": "Over",
@@ -627,9 +627,9 @@
       "id": "demo-game-11",
       "sport_key": "icehockey_nhl",
       "sport_title": "NHL",
-      "commence_time": "2026-06-16T19:30:00Z",
-      "home_team": "Pittsburgh Penguins",
-      "away_team": "Philadelphia Flyers",
+      "commence_time": "2026-06-18T19:30:00Z",
+      "home_team": "Nashville Predators",
+      "away_team": "Winnipeg Jets",
       "bookmakers": [
         {
           "key": "demo_book",
@@ -637,46 +637,46 @@
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-06-16T19:30:00Z",
+              "last_update": "2026-06-18T19:30:00Z",
               "outcomes": [
                 {
-                  "name": "Pittsburgh Penguins",
-                  "price": -170
+                  "name": "Nashville Predators",
+                  "price": 130
                 },
                 {
-                  "name": "Philadelphia Flyers",
-                  "price": 150
+                  "name": "Winnipeg Jets",
+                  "price": -150
                 }
               ]
             },
             {
               "key": "spreads",
-              "last_update": "2026-06-16T19:30:00Z",
+              "last_update": "2026-06-18T19:30:00Z",
               "outcomes": [
                 {
-                  "name": "Pittsburgh Penguins",
-                  "price": 115,
-                  "point": -1.5
+                  "name": "Nashville Predators",
+                  "price": -140,
+                  "point": 1.5
                 },
                 {
-                  "name": "Philadelphia Flyers",
-                  "price": -135,
-                  "point": 1.5
+                  "name": "Winnipeg Jets",
+                  "price": 120,
+                  "point": -1.5
                 }
               ]
             },
             {
               "key": "totals",
-              "last_update": "2026-06-16T19:30:00Z",
+              "last_update": "2026-06-18T19:30:00Z",
               "outcomes": [
                 {
                   "name": "Over",
-                  "price": -110,
+                  "price": -115,
                   "point": 6.0
                 },
                 {
                   "name": "Under",
-                  "price": -110,
+                  "price": -105,
                   "point": 6.0
                 }
               ]
@@ -689,9 +689,9 @@
       "id": "demo-game-12",
       "sport_key": "icehockey_nhl",
       "sport_title": "NHL",
-      "commence_time": "2026-06-16T19:00:00Z",
-      "home_team": "Detroit Red Wings",
-      "away_team": "Columbus Blue Jackets",
+      "commence_time": "2026-06-18T20:30:00Z",
+      "home_team": "Tampa Bay Lightning",
+      "away_team": "Florida Panthers",
       "bookmakers": [
         {
           "key": "demo_book",
@@ -699,46 +699,46 @@
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-06-16T19:00:00Z",
+              "last_update": "2026-06-18T20:30:00Z",
               "outcomes": [
                 {
-                  "name": "Detroit Red Wings",
-                  "price": -185
+                  "name": "Tampa Bay Lightning",
+                  "price": 100
                 },
                 {
-                  "name": "Columbus Blue Jackets",
-                  "price": 160
+                  "name": "Florida Panthers",
+                  "price": -120
                 }
               ]
             },
             {
               "key": "spreads",
-              "last_update": "2026-06-16T19:00:00Z",
+              "last_update": "2026-06-18T20:30:00Z",
               "outcomes": [
                 {
-                  "name": "Detroit Red Wings",
-                  "price": 105,
-                  "point": -1.5
+                  "name": "Tampa Bay Lightning",
+                  "price": -170,
+                  "point": 1.5
                 },
                 {
-                  "name": "Columbus Blue Jackets",
-                  "price": -125,
-                  "point": 1.5
+                  "name": "Florida Panthers",
+                  "price": 145,
+                  "point": -1.5
                 }
               ]
             },
             {
               "key": "totals",
-              "last_update": "2026-06-16T19:00:00Z",
+              "last_update": "2026-06-18T20:30:00Z",
               "outcomes": [
                 {
                   "name": "Over",
-                  "price": -110,
+                  "price": -115,
                   "point": 6.5
                 },
                 {
                   "name": "Under",
-                  "price": -110,
+                  "price": -105,
                   "point": 6.5
                 }
               ]
@@ -751,9 +751,9 @@
       "id": "demo-game-13",
       "sport_key": "icehockey_nhl",
       "sport_title": "NHL",
-      "commence_time": "2026-06-16T22:30:00Z",
-      "home_team": "San Jose Sharks",
-      "away_team": "Seattle Kraken",
+      "commence_time": "2026-06-18T19:00:00Z",
+      "home_team": "Buffalo Sabres",
+      "away_team": "Ottawa Senators",
       "bookmakers": [
         {
           "key": "demo_book",
@@ -761,47 +761,47 @@
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-06-16T22:30:00Z",
+              "last_update": "2026-06-18T19:00:00Z",
               "outcomes": [
                 {
-                  "name": "San Jose Sharks",
-                  "price": 120
+                  "name": "Buffalo Sabres",
+                  "price": -105
                 },
                 {
-                  "name": "Seattle Kraken",
-                  "price": -140
+                  "name": "Ottawa Senators",
+                  "price": -115
                 }
               ]
             },
             {
               "key": "spreads",
-              "last_update": "2026-06-16T22:30:00Z",
+              "last_update": "2026-06-18T19:00:00Z",
               "outcomes": [
                 {
-                  "name": "San Jose Sharks",
-                  "price": 200,
-                  "point": -1.5
+                  "name": "Buffalo Sabres",
+                  "price": -175,
+                  "point": 1.5
                 },
                 {
-                  "name": "Seattle Kraken",
-                  "price": -250,
-                  "point": 1.5
+                  "name": "Ottawa Senators",
+                  "price": 150,
+                  "point": -1.5
                 }
               ]
             },
             {
               "key": "totals",
-              "last_update": "2026-06-16T22:30:00Z",
+              "last_update": "2026-06-18T19:00:00Z",
               "outcomes": [
                 {
                   "name": "Over",
                   "price": -110,
-                  "point": 6.0
+                  "point": 6.5
                 },
                 {
                   "name": "Under",
                   "price": -110,
-                  "point": 6.0
+                  "point": 6.5
                 }
               ]
             }
@@ -813,9 +813,9 @@
       "id": "demo-game-14",
       "sport_key": "icehockey_nhl",
       "sport_title": "NHL",
-      "commence_time": "2026-06-16T22:00:00Z",
-      "home_team": "Vancouver Canucks",
-      "away_team": "Utah Mammoth",
+      "commence_time": "2026-06-18T19:30:00Z",
+      "home_team": "Columbus Blue Jackets",
+      "away_team": "Detroit Red Wings",
       "bookmakers": [
         {
           "key": "demo_book",
@@ -823,37 +823,37 @@
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-06-16T22:00:00Z",
+              "last_update": "2026-06-18T19:30:00Z",
               "outcomes": [
                 {
-                  "name": "Vancouver Canucks",
-                  "price": -125
+                  "name": "Columbus Blue Jackets",
+                  "price": -110
                 },
                 {
-                  "name": "Utah Mammoth",
-                  "price": 105
+                  "name": "Detroit Red Wings",
+                  "price": -110
                 }
               ]
             },
             {
               "key": "spreads",
-              "last_update": "2026-06-16T22:00:00Z",
+              "last_update": "2026-06-18T19:30:00Z",
               "outcomes": [
                 {
-                  "name": "Vancouver Canucks",
-                  "price": 170,
-                  "point": -1.5
+                  "name": "Columbus Blue Jackets",
+                  "price": -185,
+                  "point": 1.5
                 },
                 {
-                  "name": "Utah Mammoth",
-                  "price": -200,
-                  "point": 1.5
+                  "name": "Detroit Red Wings",
+                  "price": 155,
+                  "point": -1.5
                 }
               ]
             },
             {
               "key": "totals",
-              "last_update": "2026-06-16T22:00:00Z",
+              "last_update": "2026-06-18T19:30:00Z",
               "outcomes": [
                 {
                   "name": "Over",
@@ -875,9 +875,9 @@
       "id": "demo-game-15",
       "sport_key": "icehockey_nhl",
       "sport_title": "NHL",
-      "commence_time": "2026-06-16T19:00:00Z",
-      "home_team": "Buffalo Sabres",
-      "away_team": "Chicago Blackhawks",
+      "commence_time": "2026-06-18T22:00:00Z",
+      "home_team": "Vancouver Canucks",
+      "away_team": "Seattle Kraken",
       "bookmakers": [
         {
           "key": "demo_book",
@@ -885,37 +885,37 @@
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-06-16T19:00:00Z",
+              "last_update": "2026-06-18T22:00:00Z",
               "outcomes": [
                 {
-                  "name": "Buffalo Sabres",
-                  "price": 105
+                  "name": "Vancouver Canucks",
+                  "price": -140
                 },
                 {
-                  "name": "Chicago Blackhawks",
-                  "price": -125
+                  "name": "Seattle Kraken",
+                  "price": 120
                 }
               ]
             },
             {
               "key": "spreads",
-              "last_update": "2026-06-16T19:00:00Z",
+              "last_update": "2026-06-18T22:00:00Z",
               "outcomes": [
                 {
-                  "name": "Buffalo Sabres",
-                  "price": 210,
+                  "name": "Vancouver Canucks",
+                  "price": 140,
                   "point": -1.5
                 },
                 {
-                  "name": "Chicago Blackhawks",
-                  "price": -260,
+                  "name": "Seattle Kraken",
+                  "price": -165,
                   "point": 1.5
                 }
               ]
             },
             {
               "key": "totals",
-              "last_update": "2026-06-16T19:00:00Z",
+              "last_update": "2026-06-18T22:00:00Z",
               "outcomes": [
                 {
                   "name": "Over",
@@ -937,9 +937,9 @@
       "id": "demo-game-16",
       "sport_key": "icehockey_nhl",
       "sport_title": "NHL",
-      "commence_time": "2026-06-16T19:30:00Z",
-      "home_team": "Washington Capitals",
-      "away_team": "Arizona Coyotes",
+      "commence_time": "2026-06-18T19:00:00Z",
+      "home_team": "Boston Bruins",
+      "away_team": "Montreal Canadiens",
       "bookmakers": [
         {
           "key": "demo_book",
@@ -947,47 +947,31 @@
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-06-16T19:30:00Z",
+              "last_update": "2026-06-18T19:00:00Z",
               "outcomes": [
                 {
-                  "name": "Washington Capitals",
-                  "price": -155
+                  "name": "Boston Bruins",
+                  "price": -135
                 },
                 {
-                  "name": "Arizona Coyotes",
-                  "price": 135
+                  "name": "Montreal Canadiens",
+                  "price": 115
                 }
               ]
             },
             {
               "key": "spreads",
-              "last_update": "2026-06-16T19:30:00Z",
+              "last_update": "2026-06-18T19:00:00Z",
               "outcomes": [
                 {
-                  "name": "Washington Capitals",
-                  "price": 120,
+                  "name": "Boston Bruins",
+                  "price": 135,
                   "point": -1.5
                 },
                 {
-                  "name": "Arizona Coyotes",
-                  "price": -140,
+                  "name": "Montreal Canadiens",
+                  "price": -160,
                   "point": 1.5
-                }
-              ]
-            },
-            {
-              "key": "totals",
-              "last_update": "2026-06-16T19:30:00Z",
-              "outcomes": [
-                {
-                  "name": "Over",
-                  "price": -110,
-                  "point": 6.5
-                },
-                {
-                  "name": "Under",
-                  "price": -110,
-                  "point": 6.5
                 }
               ]
             }
