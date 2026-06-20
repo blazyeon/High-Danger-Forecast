@@ -47,3 +47,4 @@ PLAN.md
 backtest_results.json
 elo_tuning_results.json
 models/calibration_data.json
+*.vsix
