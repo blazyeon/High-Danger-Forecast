@@ -127,6 +127,24 @@ def index():
 IMAGES_DIR = Path(__file__).parent / "Images"
 
 
+@app.route("/Images/logo.png")
+def app_logo():
+    """Serve the application logo from the Images directory."""
+    logo_path = IMAGES_DIR / "logo.png"
+    if logo_path.exists():
+        return send_from_directory(str(IMAGES_DIR), "logo.png")
+    return "", 404
+
+
+@app.route("/favicon.ico")
+def favicon():
+    """Serve the application favicon from the Images directory."""
+    favicon_path = IMAGES_DIR / "favicon.ico"
+    if favicon_path.exists():
+        return send_from_directory(str(IMAGES_DIR), "favicon.ico")
+    return "", 404
+
+
 @app.route("/api/logos/<team>.png")
 def team_logo(team: str):
     """Serve team logo PNG from the Images directory."""

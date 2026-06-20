@@ -99,6 +99,14 @@ button, a, input, select, textarea, .tab-btn, .action-btn, .predict-btn, .be-sor
     border-radius: var(--radius-md);
     border: 1px solid rgba(0,224,255,0.18);
     box-shadow: 0 0 20px rgba(0,224,255,0.12);
+    overflow: hidden;
+}
+
+.logo-mark img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
 }
 
 .logo-text h1 {
