@@ -372,7 +372,8 @@ input[type="date"].param-input, input[type="date"].date-input {
     transition: var(--transition-fast); flex-shrink: 0;
 }
 .b2b-check::after {
-    content: '✓'; font-size: 11px; font-weight: 800; color: #000;
+    content: '\f00c'; font-family: 'Font Awesome 6 Free'; font-weight: 900;
+    font-size: 11px; color: #000;
     opacity: 0; transform: scale(0.8); transition: var(--transition-fast);
 }
 .b2b-toggle input:checked + .b2b-check {
@@ -772,6 +773,13 @@ input[type="date"].param-input, input[type="date"].date-input {
 }
 
 .game-status.upcoming { background: var(--accent-cyan-glow); color: var(--accent-cyan); box-shadow: 0 0 12px rgba(0,224,255,0.10); }
+
+.live-dot {
+    color: var(--accent-red);
+    font-size: 0.65em;
+    vertical-align: middle;
+    margin-right: 4px;
+}
 
 /* ── Modal ─────────────────────────────────────────────────────── */
 .modal-overlay {

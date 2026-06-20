@@ -680,7 +680,7 @@ function renderResults(sim, homeAbbr, awayAbbr) {
     const awayTopDefense = awayInj.top_defensive_injuries || [];
     const hasInjuries = homePlayers.length || awayPlayers.length || homeTopDefense.length || awayTopDefense.length;
     if (hasInjuries) {
-        html += `<hr class="section-divider"><div class="section-title">🚑 Injury Impact</div>`;
+        html += `<hr class="section-divider"><div class="section-title"><i class="fa-solid fa-user-injured"></i> Injury Impact</div>`;
 
         const mergeInjuries = (players, topDefense) => {
             const byName = {};
@@ -734,7 +734,7 @@ function renderResults(sim, homeAbbr, awayAbbr) {
                     const isForward = FORWARD_POSITIONS.includes(pos);
                     const dScore = p.defensive_score || 0;
                     const defenseNote = (dScore > 0.5)
-                        ? `<span class="injury-contrib defense" title="Defensive score ${dScore.toFixed(2)}">🛡️ ${dScore.toFixed(1)}</span>`
+                        ? `<span class="injury-contrib defense" title="Defensive score ${dScore.toFixed(2)}"><i class="fa-solid fa-shield-halved"></i> ${dScore.toFixed(1)}</span>`
                         : '';
                     const offenseNote = (p.contribution_pct > 0)
                         ? `<span class="injury-contrib">${contrib}% team pts</span>`
@@ -815,7 +815,7 @@ async function runLookup() {
     }
 
     if (!games.length) {
-        container.innerHTML = `<div class="empty-state"><div class="empty-icon">📅</div><h3 class="empty-title">No Games</h3><p class="empty-desc">No NHL games scheduled for ${date}.</p></div>`;
+        container.innerHTML = `<div class="empty-state"><div class="empty-icon"><i class="fa-solid fa-calendar-xmark"></i></div><h3 class="empty-title">No Games</h3><p class="empty-desc">No NHL games scheduled for ${date}.</p></div>`;
         return;
     }
 
@@ -828,7 +828,7 @@ async function runLookup() {
         let scoreHtml = '';
 
         if (state === 'LIVE' || state === 'CRIT') {
-            stateLabel = '🔴 Live';
+            stateLabel = '<i class="fa-solid fa-circle live-dot"></i> Live';
             stateClass = '';
             const hScore = g.home_score ?? '-';
             const aScore = g.away_score ?? '-';
@@ -891,7 +891,7 @@ async function showGameDetail(gameId, homeAbbrFallback, awayAbbrFallback) {
         const state = (data.state || '').toString().toUpperCase();
         const period = data.period ? `P${data.period}` : '';
         const clock = data.clock ? ` – ${data.clock}` : '';
-        let statusText = state === 'LIVE' || state === 'CRIT' ? `🔴 LIVE ${period}${clock}` : (state === 'OFF' || state === 'FINAL' ? 'FINAL' : 'UPCOMING');
+        let statusText = state === 'LIVE' || state === 'CRIT' ? `<i class="fa-solid fa-circle live-dot"></i> LIVE ${period}${clock}` : (state === 'OFF' || state === 'FINAL' ? 'FINAL' : 'UPCOMING');
         if ((state === 'OFF' || state === 'FINAL') && data.last_period_type && data.last_period_type.toUpperCase() !== 'REG') {
             statusText += ` (${data.last_period_type.toUpperCase()})`;
         }
@@ -1090,7 +1090,7 @@ async function runStats() {
         : null;
 
     if (!data || !data.length) {
-        container.innerHTML = '<div class="empty-state"><div class="empty-icon">📊</div><h3 class="empty-title">No Data</h3><p class="empty-desc">Advanced stats are not available yet. Run <code>python update_pbp_stats.py</code> to populate them.</p></div>';
+        container.innerHTML = '<div class="empty-state"><div class="empty-icon"><i class="fa-solid fa-chart-simple"></i></div><h3 class="empty-title">No Data</h3><p class="empty-desc">Advanced stats are not available yet. Run <code>python update_pbp_stats.py</code> to populate them.</p></div>';
         return;
     }
 
@@ -1114,7 +1114,7 @@ async function runStats() {
             { key: 'pdo', label: 'PDO', fmt: v => fmtNum(v, 1) },
         ];
         html = _buildStatsTable(cols, sorted, { sortable: true });
-        notice = '📊 Team advanced metrics from PBP data (CF%, xGF%, HDCF%, PDO).';
+        notice = '<i class="fa-solid fa-chart-simple"></i> Team advanced metrics from PBP data (CF%, xGF%, HDCF%, PDO).';
     } else if (type === 'skaters') {
         const sorted = [...data].sort(
             (a, b) => (parseInt(b.points) || 0) - (parseInt(a.points) || 0)
@@ -1131,7 +1131,7 @@ async function runStats() {
             { key: 'xgf_pg', label: 'xGF/GP', fmt: v => fmtNum(v, 2) },
         ];
         html = _buildStatsTable(cols, sorted, { sortable: true });
-        notice = '📊 Skater advanced metrics sorted by points.';
+        notice = '<i class="fa-solid fa-chart-simple"></i> Skater advanced metrics sorted by points.';
     } else if (type === 'goalies') {
         const sorted = [...data].sort(
             (a, b) => (parseFloat(b.gsax) || 0) - (parseFloat(a.gsax) || 0)
@@ -1147,7 +1147,7 @@ async function runStats() {
             { key: 'gsax_per_60', label: 'GSAx/60', fmt: v => fmtNum(v, 2) },
         ];
         html = _buildStatsTable(cols, sorted, { sortable: true });
-        notice = '📊 Goalie advanced stats sorted by Goals Saved Above Expected (GSAx).';
+        notice = '<i class="fa-solid fa-chart-simple"></i> Goalie advanced stats sorted by Goals Saved Above Expected (GSAx).';
     }
 
     const sourceBadge = source === 'cache'
@@ -1237,7 +1237,7 @@ async function runElo() {
         const data = await safeFetchJson('/api/elo-leaderboard');
         const teams = data.teams || [];
         if (!teams.length) {
-            container.innerHTML = '<div class="empty-state"><div class="empty-icon">🏆</div><h3 class="empty-title">No Elo Data</h3><p class="empty-desc">Team Elo ratings are not available yet. Run <code>python update_elo_ratings.py --current-season --reset</code> to populate them.</p></div>';
+            container.innerHTML = '<div class="empty-state"><div class="empty-icon"><i class="fa-solid fa-trophy"></i></div><h3 class="empty-title">No Elo Data</h3><p class="empty-desc">Team Elo ratings are not available yet. Run <code>python update_elo_ratings.py --current-season --reset</code> to populate them.</p></div>';
             return;
         }
 
@@ -1266,7 +1266,7 @@ async function runElo() {
         });
 
         html += '</tbody></table></div>';
-        html += `<div class="cors-notice" style="margin-top:12px">🏆 Elo ratings for season ${data.season || 'current'}. League average is 1500; top teams are typically 1600+.</div>`;
+        html += `<div class="cors-notice" style="margin-top:12px"><i class="fa-solid fa-trophy"></i> Elo ratings for season ${data.season || 'current'}. League average is 1500; top teams are typically 1600+.</div>`;
         container.innerHTML = html;
     } catch (e) {
         console.error('Elo leaderboard failed:', e);
@@ -1365,7 +1365,7 @@ function _canonicalMarketName(prop) {
 function renderProps(props) {
     const container = document.getElementById('propsResults');
     if (!props || props.length === 0) {
-        container.innerHTML = '<div class="empty-state"><div class="empty-icon">🎰</div><h3 class="empty-title">No props available</h3><p class="empty-text">Try a different date or check that ODDS_API_KEY is set.</p></div>';
+        container.innerHTML = '<div class="empty-state"><div class="empty-icon"><i class="fa-solid fa-dice"></i></div><h3 class="empty-title">No props available</h3><p class="empty-text">Try a different date or check that ODDS_API_KEY is set.</p></div>';
         return;
     }
 
@@ -1411,7 +1411,7 @@ function renderProps(props) {
     let html = '';
     if (_propsIsDemo) {
         html += `<div class="demo-notice">
-            📡 Showing sample props because live odds are unavailable${_propsDemoReason ? ': ' + escapeHtml(_propsDemoReason) : ''}.
+            <i class="fa-solid fa-tower-broadcast"></i> Showing sample props because live odds are unavailable${_propsDemoReason ? ': ' + escapeHtml(_propsDemoReason) : ''}.
             Set <code>ODDS_API_KEY</code> for real lines.
         </div>`;
     }
@@ -1443,7 +1443,7 @@ function renderProps(props) {
     </div>`;
 
     if (rows.length === 0) {
-        html += '<div class="empty-state"><div class="empty-icon">🔍</div><h3 class="empty-title">No props match your filters</h3><p class="empty-text">Try enabling more markets or switching the Over/Under side.</p></div>';
+        html += '<div class="empty-state"><div class="empty-icon"><i class="fa-solid fa-magnifying-glass"></i></div><h3 class="empty-title">No props match your filters</h3><p class="empty-text">Try enabling more markets or switching the Over/Under side.</p></div>';
         container.innerHTML = html;
         return;
     }
@@ -1584,7 +1584,7 @@ function renderBettingEdge(data, container) {
     const games = data.games || [];
     if (!games.length) {
         container.innerHTML = `<div class="empty-state">
-            <div class="empty-icon">🎯</div>
+            <div class="empty-icon"><i class="fa-solid fa-bullseye"></i></div>
             <h3 class="empty-title">No value bets</h3>
             <p class="empty-desc">No market edges above the 3% threshold for ${data.date}. Try a different date or check back after the next odds update.</p>
         </div>`;
@@ -1617,11 +1617,11 @@ function renderBettingEdge(data, container) {
 
     let html = '';
     if (data.warning) {
-        html += `<div class="betting-edge-warning">⚠️ ${escapeHtml(data.warning)}</div>`;
+        html += `<div class="betting-edge-warning"><i class="fa-solid fa-triangle-exclamation"></i> ${escapeHtml(data.warning)}</div>`;
     }
     if (_bettingEdgeIsDemo) {
         html += `<div class="demo-notice">
-            📡 Showing sample value bets because live edges are unavailable${_bettingEdgeDemoReason ? ': ' + escapeHtml(_bettingEdgeDemoReason) : ''}.
+            <i class="fa-solid fa-tower-broadcast"></i> Showing sample value bets because live edges are unavailable${_bettingEdgeDemoReason ? ': ' + escapeHtml(_bettingEdgeDemoReason) : ''}.
             Set <code>ODDS_API_KEY</code> for real odds.
         </div>`;
     }

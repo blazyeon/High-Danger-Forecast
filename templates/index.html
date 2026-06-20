@@ -10,6 +10,7 @@
     <title>High Danger Forecast</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
     <link rel="stylesheet" href="../static/style.css?v=2.2">
 </head>
 <body>
@@ -43,27 +44,27 @@
     <nav class="tab-nav">
         <div class="tab-nav-inner">
             <button class="tab-btn active" data-tab="predictor">
-                <span class="tab-icon">⚔️</span>
+                <i class="fa-solid fa-crosshairs tab-icon"></i>
                 <span class="tab-label">Predictor</span>
             </button>
             <button class="tab-btn" data-tab="lookup">
-                <span class="tab-icon">📅</span>
+                <i class="fa-solid fa-calendar-days tab-icon"></i>
                 <span class="tab-label">Schedule</span>
             </button>
             <button class="tab-btn" data-tab="stats">
-                <span class="tab-icon">📊</span>
+                <i class="fa-solid fa-chart-simple tab-icon"></i>
                 <span class="tab-label">Analytics</span>
             </button>
             <button class="tab-btn" data-tab="props">
-                <span class="tab-icon">💰</span>
+                <i class="fa-solid fa-sack-dollar tab-icon"></i>
                 <span class="tab-label">Props</span>
             </button>
             <button class="tab-btn" data-tab="betting-edge">
-                <span class="tab-icon">🎯</span>
+                <i class="fa-solid fa-bullseye tab-icon"></i>
                 <span class="tab-label">Betting Edge</span>
             </button>
             <button class="tab-btn" data-tab="elo">
-                <span class="tab-icon">🏆</span>
+                <i class="fa-solid fa-trophy tab-icon"></i>
                 <span class="tab-label">Elo</span>
             </button>
         </div>
@@ -161,7 +162,7 @@
                 <div class="card results-card" id="resultsPanel">
                     <div id="resultsContent">
                         <div class="empty-state">
-                            <div class="empty-icon">📊</div>
+                            <div class="empty-icon"><i class="fa-solid fa-chart-simple"></i></div>
                             <h3 class="empty-title">Ready to Simulate</h3>
                             <p class="empty-desc">Select both teams and run a prediction to see detailed matchup analysis, win probabilities, and projected scores.</p>
                         </div>
