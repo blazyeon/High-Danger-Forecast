@@ -2,7 +2,7 @@
   "season": 2025,
   "n_joined": 111502,
   "n_valid": 111502,
-  "correlation_ours_vs_mp": 0.5531971409366907,
+  "correlation_ours_vs_mp": 0.553197140936691,
   "auc_ours": 0.703321754686422,
   "auc_mp": 0.7758817422744744,
   "brier_ours": 0.06465150713982243,
