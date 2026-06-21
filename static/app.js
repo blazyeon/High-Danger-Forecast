@@ -1116,38 +1116,45 @@ async function runStats() {
         html = _buildStatsTable(cols, sorted, { sortable: true });
         notice = '<i class="fa-solid fa-chart-simple"></i> Team advanced metrics from PBP data (CF%, xGF%, HDCF%, PDO).';
     } else if (type === 'skaters') {
-        const sorted = [...data].sort(
+        let sorted = [...data].sort(
             (a, b) => (parseInt(b.points) || 0) - (parseInt(a.points) || 0)
         );
         const cols = [
-            { key: 'name', label: 'Player', fmt: v => `<strong>${v}</strong>` },
+            { key: 'name', label: 'Player', fmt: v => `<strong class="player-name">${escapeHtml(v)}</strong>` },
+            { key: 'team', label: 'Team' },
+            { key: 'position', label: 'Pos' },
             { key: 'gp', label: 'GP' },
             { key: 'goals', label: 'G' },
             { key: 'assists', label: 'A' },
             { key: 'points', label: 'Pts', fmt: v => `<strong>${v}</strong>` },
+            { key: 'ppg', label: 'PPG', fmt: v => fmtNum(v, 2) },
             { key: 'shots', label: 'SOG' },
-            { key: 'gpg', label: 'G/GP', fmt: v => fmtNum(v, 2) },
-            { key: 'apg', label: 'A/GP', fmt: v => fmtNum(v, 2) },
-            { key: 'xgf_pg', label: 'xGF/GP', fmt: v => fmtNum(v, 2) },
+            { key: 'sh_pct', label: 'SH%', fmt: v => fmtPct(v) },
+            { key: 'plus_minus', label: '+/-' },
+            { key: 'toi_pg', label: 'TOI/GP', fmt: v => _fmtToi(v) },
         ];
-        html = _buildStatsTable(cols, sorted, { sortable: true });
-        notice = '<i class="fa-solid fa-chart-simple"></i> Skater advanced metrics sorted by points.';
+        html = _buildStatsTable(cols, sorted, { sortable: true, type });
+        notice = '<i class="fa-solid fa-chart-simple"></i> Skater stats sorted by points. Click a player row for the full stat line.';
     } else if (type === 'goalies') {
-        const sorted = [...data].sort(
+        let sorted = [...data].sort(
             (a, b) => (parseFloat(b.gsax) || 0) - (parseFloat(a.gsax) || 0)
         );
         const cols = [
-            { key: 'name', label: 'Player', fmt: v => `<strong>${v}</strong>` },
+            { key: 'name', label: 'Player', fmt: v => `<strong class="player-name">${escapeHtml(v)}</strong>` },
+            { key: 'team', label: 'Team' },
             { key: 'gp', label: 'GP' },
+            { key: 'gs', label: 'GS' },
+            { key: 'w', label: 'W' },
+            { key: 'l', label: 'L' },
+            { key: 'otl', label: 'OTL' },
             { key: 'ga', label: 'GA' },
             { key: 'gaa', label: 'GAA', fmt: v => fmtNum(v, 2) },
             { key: 'sa', label: 'SA' },
             { key: 'sv_pct', label: 'SV%', fmt: v => fmtPct(v) },
             { key: 'gsax', label: 'GSAx', fmt: v => fmtNum(v, 1) },
-            { key: 'gsax_per_60', label: 'GSAx/60', fmt: v => fmtNum(v, 2) },
         ];
-        html = _buildStatsTable(cols, sorted, { sortable: true });
-        notice = '<i class="fa-solid fa-chart-simple"></i> Goalie advanced stats sorted by Goals Saved Above Expected (GSAx).';
+        html = _buildStatsTable(cols, sorted, { sortable: true, type });
+        notice = '<i class="fa-solid fa-chart-simple"></i> Goalie stats sorted by GSAx. Click a player row for the full stat line.';
     }
 
     const sourceBadge = source === 'cache'
@@ -1162,6 +1169,7 @@ async function runStats() {
 let _currentStatsRows = [];
 let _currentStatsCols = [];
 let _currentStatsSort = { key: null, dir: 'desc' };
+let _currentStatsType = null;
 
 function _sortStatsBy(key) {
     const prev = _currentStatsSort;
@@ -1188,16 +1196,31 @@ function _sortStatsBy(key) {
 
     const container = document.getElementById('statsResults');
     const notice = container.querySelector('.cors-notice');
-    const tableHtml = _buildStatsTable(_currentStatsCols, rows, { sortable: true, activeKey: key, activeDir: dir });
+    const tableHtml = _buildStatsTable(_currentStatsCols, rows, { sortable: true, activeKey: key, activeDir: dir, type: _currentStatsType });
     container.querySelector('.table-wrap').outerHTML = tableHtml;
     if (notice) container.appendChild(notice);
+}
+
+function _fmtToi(v) {
+    if (v === null || v === undefined || v === '') return '-';
+    const n = parseFloat(v);
+    if (isNaN(n)) return v;
+    const m = Math.floor(n);
+    const s = Math.round((n - m) * 60);
+    return `${m}:${String(s).padStart(2, '0')}`;
 }
 
 function _buildStatsTable(cols, rows, opts = {}) {
     _currentStatsRows = rows;
     _currentStatsCols = cols;
-    const { sortable = false, activeKey, activeDir } = opts;
-    let html = '<div class="table-wrap"><table class="data-table"><thead><tr>';
+    _currentStatsType = opts.type || _currentStatsType;
+    const { sortable = false, activeKey, activeDir, type } = opts;
+    const showSearch = type === 'skaters' || type === 'goalies';
+    let html = '';
+    if (showSearch) {
+        html += `<div class="stats-toolbar"><input type="text" id="statsSearch" class="param-input" placeholder="Search player..." oninput="filterStatsRows(this.value)"></div>`;
+    }
+    html += '<div class="table-wrap"><table class="data-table"><thead><tr>';
     cols.forEach(c => {
         const canSort = c.key !== 'team' && c.key !== 'name';
         if (sortable && canSort) {
@@ -1209,8 +1232,9 @@ function _buildStatsTable(cols, rows, opts = {}) {
         }
     });
     html += '</tr></thead><tbody>';
-    rows.forEach(row => {
-        html += '<tr>';
+    rows.forEach((row, idx) => {
+        const playerName = escapeHtml(row.name || '');
+        html += `<tr class="stats-row" data-player="${playerName}" data-type="${type || ''}" data-idx="${idx}">`;
         cols.forEach(c => {
             const raw = row[c.key];
             html += `<td>${c.fmt ? c.fmt(raw) : (raw ?? '-')}</td>`;
@@ -1221,12 +1245,81 @@ function _buildStatsTable(cols, rows, opts = {}) {
     return html;
 }
 
-function _attachStatsSortListeners() {
-    document.getElementById('statsResults')?.addEventListener('click', (e) => {
-        const th = e.target.closest('th.sortable');
-        if (!th) return;
-        _sortStatsBy(th.dataset.key);
+function filterStatsRows(query) {
+    const q = query.toLowerCase();
+    document.querySelectorAll('.stats-row').forEach(row => {
+        const name = row.dataset.player || '';
+        row.style.display = name.toLowerCase().includes(q) ? '' : 'none';
     });
+}
+
+function _attachStatsSortListeners() {
+    const container = document.getElementById('statsResults');
+    if (!container) return;
+    container.addEventListener('click', (e) => {
+        const th = e.target.closest('th.sortable');
+        if (th) {
+            _sortStatsBy(th.dataset.key);
+            return;
+        }
+        const row = e.target.closest('.stats-row');
+        if (row) {
+            const idx = parseInt(row.dataset.idx, 10);
+            const type = row.dataset.type;
+            if (!isNaN(idx) && _currentStatsRows[idx]) {
+                showPlayerDetail(_currentStatsRows[idx], type);
+            }
+        }
+    });
+}
+
+function showPlayerDetail(player, type) {
+    const modal = document.getElementById('gameModal');
+    const body = document.getElementById('modalBody');
+    modal.style.display = 'flex';
+    const season = document.getElementById('statsSeason')?.value || '';
+    const seasonLabel = season ? `${season.slice(0, 4)}-${season.slice(4)}` : '';
+
+    let rows = '';
+    const addRow = (label, val) => {
+        rows += `<div class="modal-player"><span class="modal-player-pos">${label}</span> <span class="modal-player-name">${val ?? '-'}</span></div>`;
+    };
+
+    addRow('Season', seasonLabel);
+    if (type === 'skaters') {
+        addRow('Team', player.team);
+        addRow('Position', player.position);
+        addRow('GP', player.gp);
+        addRow('Goals', player.goals);
+        addRow('Assists', player.assists);
+        addRow('Points', player.points);
+        addRow('Points/GP', fmtNum(player.ppg, 2));
+        addRow('Shots', player.shots);
+        addRow('Shooting %', fmtPct(player.sh_pct));
+        addRow('Plus/Minus', player.plus_minus);
+        addRow('PIM', player.pim);
+        addRow('TOI/GP', _fmtToi(player.toi_pg));
+        addRow('Faceoff %', fmtPct(player.faceoff_pct));
+        addRow('PP Goals', player.power_play_goals);
+        addRow('SH Goals', player.short_handed_goals);
+        addRow('GW Goals', player.game_winning_goals);
+        addRow('xGF/GP', fmtNum(player.xgf_pg, 2));
+    } else {
+        addRow('Team', player.team);
+        addRow('GP', player.gp);
+        addRow('GS', player.gs);
+        addRow('Record', `${player.w || 0}-${player.l || 0}-${player.otl || 0}`);
+        addRow('GA', player.ga);
+        addRow('GAA', fmtNum(player.gaa, 2));
+        addRow('SA', player.sa);
+        addRow('SV', player.sv);
+        addRow('SV%', fmtPct(player.sv_pct));
+        addRow('GSAx', fmtNum(player.gsax, 1));
+        addRow('GSAx/60', fmtNum(player.gsax_per_60, 2));
+        addRow('Shutouts', player.shutouts);
+    }
+
+    body.innerHTML = `<div class="modal-header"><div class="modal-team-name">${escapeHtml(player.name)}</div><div class="modal-team-abbr">${type === 'skaters' ? 'Skater' : 'Goalie'} Details</div></div><div class="modal-section"><div class="modal-section-title">Season Stats</div>${rows}</div>`;
 }
 
 async function runElo() {
@@ -1726,9 +1819,20 @@ async function loadSeasons() {
         const sel = document.getElementById('statsSeason');
         const currentSeason = currentNHLSeasonKey();
         sel.innerHTML = '';
-        (data.seasons || []).forEach(s => sel.add(new Option(s.label, s.key)));
-        if (data.seasons?.some(s => s.key === currentSeason)) {
+        (data.seasons || []).forEach(s => {
+            const opt = new Option(s.label, s.key);
+            if (s.has_data === false) {
+                opt.text = `${s.label} (no data)`;
+                opt.disabled = true;
+            }
+            sel.add(opt);
+        });
+        if (data.seasons?.some(s => s.key === currentSeason && s.has_data !== false)) {
             sel.value = currentSeason;
+        } else if (data.seasons?.length) {
+            // Fall back to the most recent season that actually has data.
+            const latest = [...data.seasons].reverse().find(s => s.has_data !== false);
+            if (latest) sel.value = latest.key;
         }
     } catch (e) { console.error('Seasons load failed:', e); }
 }

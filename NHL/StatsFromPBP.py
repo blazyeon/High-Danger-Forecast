@@ -45,12 +45,14 @@ from typing import Dict, List, Optional, Tuple
 
 import numpy as np
 import pandas as pd
+import requests
 
-from NHL.Config import LEAGUE_AVERAGES
+from NHL.Config import LEAGUE_AVERAGES, NHL_API_BASE, REQUEST_HEADERS, DEFAULT_TIMEOUT
 from NHL.Utils import normalize_name_key
 from NHL.PlayByPlay import (
     load_shot_store,
     game_date_map,
+    discover_season_games,
     SHOT_STORE_DIR,
 )
 
@@ -760,6 +762,8 @@ TEAM_ID_TO_ABBR: Dict[int, str] = {
     14: "TBL", 15: "WSH", 16: "CHI", 17: "DET", 18: "NSH", 19: "STL",
     20: "CGY", 21: "COL", 22: "EDM", 23: "VAN", 24: "ANA", 25: "DAL",
     26: "LAK", 28: "SJS", 29: "CBJ", 30: "MIN",
+    11: "ATL",  # Atlanta Thrashers (1999-2011)
+    27: "PHX",  # Phoenix Coyotes (1996-2014)
     52: "WPG",  # PBP uses this id for the current Winnipeg Jets
     53: "ARI",  # legacy Arizona Coyotes (folded); remapped to UTA below
     54: "VGK", 55: "SEA", 59: "UTA", 68: "UTA",  # Utah Hockey Club
@@ -774,10 +778,294 @@ def team_abbr_from_id(team_id: Optional[int]) -> str:
     return _TEAM_ABBR_MAPPING.get(abbr, abbr)
 
 
+# ── Season-long player stats from NHL club-stats endpoint ───────────────
+
+_CLUB_STATS_SESSION: Optional[requests.Session] = None
+
+
+def _get_club_stats_session() -> requests.Session:
+    """Shared requests session for club-stats fetches."""
+    global _CLUB_STATS_SESSION
+    if _CLUB_STATS_SESSION is None:
+        s = requests.Session()
+        s.headers.update(REQUEST_HEADERS)
+        _CLUB_STATS_SESSION = s
+    return _CLUB_STATS_SESSION
+
+
+def _season_teams(season_year: int, stype: int = 2) -> List[str]:
+    """
+    Discover the set of team abbreviations that played in a season.
+
+    Uses the schedule walker (already cached by PBP ingestion) so we only
+    fetch club-stats for teams that actually existed that year.
+    """
+    from datetime import date as _date
+
+    season_start = _date(season_year, 10, 1)
+    season_end = _date(season_year + 1, 6, 30)
+    try:
+        games = discover_season_games(season_start, season_end, stype=stype)
+    except Exception as e:
+        logger.warning(f"Could not discover teams for {season_year}: {e}")
+        return []
+    teams: Set[str] = set()
+    for g in games:
+        home = (g.get("homeTeam") or "").upper()
+        away = (g.get("awayTeam") or "").upper()
+        if home:
+            teams.add(home)
+        if away:
+            teams.add(away)
+    return sorted(teams)
+
+
+def _fetch_club_stats(team_abbr: str, season_str: str, stype: int) -> Optional[Dict]:
+    """Fetch club-stats for one team/season. Returns None on failure."""
+    url = f"{NHL_API_BASE}/club-stats/{team_abbr}/{season_str}/{stype}"
+    try:
+        resp = _get_club_stats_session().get(url, timeout=DEFAULT_TIMEOUT)
+        resp.raise_for_status()
+        return resp.json()
+    except Exception as e:
+        logger.debug(f"Club-stats fetch failed for {team_abbr}/{season_str}: {e}")
+        return None
+
+
+def compute_season_skater_stats(
+    season_year: int,
+    stype: int = 2,
+) -> List[Dict[str, Any]]:
+    """
+    Aggregated skater stats for a full season via the NHL club-stats endpoint.
+
+    This complements the PBP-based `compute_skater_rates`: it provides the
+    extra counting stats (hits, blocks, takeaways, giveaways, plus-minus,
+    TOI, faceoffs) that the play-by-play feed does not carry (especially for
+    seasons before 2009-10). The output is a list of records ready for the
+    analytics JSON files.
+    """
+    season_str = f"{season_year}{season_year + 1}"
+    teams = _season_teams(season_year, stype)
+    if not teams:
+        logger.warning(f"No teams discovered for {season_str}; cannot build skater stats")
+        return []
+
+    out: List[Dict[str, Any]] = []
+    seen: Set[str] = set()
+
+    # Rate-limit lightly; the schedule/PBP pipeline already throttles itself,
+    # but club-stats is a separate endpoint.
+    for team in teams:
+        time.sleep(0.15)
+        payload = _fetch_club_stats(team, season_str, stype)
+        if not payload:
+            continue
+        skaters = payload.get("skaters") or []
+        for s in skaters:
+            if not isinstance(s, dict):
+                continue
+            first = (s.get("firstName") or {}).get("default", "")
+            last = (s.get("lastName") or {}).get("default", "")
+            name = " ".join([first, last]).strip()
+            if not name:
+                continue
+            key = normalize_name_key(name)
+            if key in seen:
+                continue
+            seen.add(key)
+
+            gp = int(s.get("gamesPlayed", 0))
+            goals = int(s.get("goals", 0))
+            assists = int(s.get("assists", 0))
+            points = int(s.get("points", 0))
+            shots = int(s.get("shots", 0))
+            toi_sec = float(s.get("avgTimeOnIcePerGame", 0.0))  # seconds per game
+            toi_min = toi_sec / 60.0
+
+            out.append({
+                "name": name,
+                "team": team,
+                "position": str(s.get("positionCode", "")).upper(),
+                "gp": gp,
+                "goals": goals,
+                "assists": assists,
+                "points": points,
+                "shots": shots,
+                "gpg": goals / max(gp, 1),
+                "apg": assists / max(gp, 1),
+                "ppg": points / max(gp, 1),
+                "sogpg": shots / max(gp, 1),
+                "sh_pct": float(s.get("shootingPctg", 0.0)),
+                "plus_minus": int(s.get("plusMinus", 0)),
+                "pim": int(s.get("penaltyMinutes", 0)),
+                "toi_pg": toi_min,
+                "ppg_raw": toi_sec,  # keep raw seconds for detail view
+                "faceoff_pct": float(s.get("faceoffWinPctg", 0.0)) * 100.0,
+                "power_play_goals": int(s.get("powerPlayGoals", 0)),
+                "short_handed_goals": int(s.get("shorthandedGoals", 0)),
+                "game_winning_goals": int(s.get("gameWinningGoals", 0)),
+                # xG per game is not available from club-stats; fill from PBP
+                # rates later if possible.
+                "xgf_pg": 0.0,
+            })
+
+    logger.info(f"Built {len(out)} skater stat rows from club-stats for {season_str}")
+    return out
+
+
+def compute_season_goalie_stats(
+    season_year: int,
+    stype: int = 2,
+) -> List[Dict[str, Any]]:
+    """
+    Aggregated goalie stats for a full season via the NHL club-stats endpoint.
+
+    Provides wins/losses/OTL, games started, and per-game averages in addition
+    to the PBP-derived GSAx columns.
+    """
+    season_str = f"{season_year}{season_year + 1}"
+    teams = _season_teams(season_year, stype)
+    if not teams:
+        logger.warning(f"No teams discovered for {season_str}; cannot build goalie stats")
+        return []
+
+    out: List[Dict[str, Any]] = []
+    seen: Set[str] = set()
+
+    for team in teams:
+        time.sleep(0.15)
+        payload = _fetch_club_stats(team, season_str, stype)
+        if not payload:
+            continue
+        goalies = payload.get("goalies") or []
+        for g in goalies:
+            if not isinstance(g, dict):
+                continue
+            first = (g.get("firstName") or {}).get("default", "")
+            last = (g.get("lastName") or {}).get("default", "")
+            name = " ".join([first, last]).strip()
+            if not name:
+                continue
+            key = normalize_name_key(name)
+            if key in seen:
+                continue
+            seen.add(key)
+
+            gp = int(g.get("gamesPlayed", 0))
+            gs = int(g.get("gamesStarted", 0))
+            ga = int(g.get("goalsAgainst", 0))
+            sa = int(g.get("shotsAgainst", 0))
+            sv = int(g.get("saves", 0))
+            toi_sec = float(g.get("timeOnIce", 0.0))
+            toi_hours = toi_sec / 3600.0
+
+            out.append({
+                "name": name,
+                "team": team,
+                "gp": gp,
+                "gs": gs,
+                "w": int(g.get("wins", 0)),
+                "l": int(g.get("losses", 0)),
+                "otl": int(g.get("overtimeLosses", 0)),
+                "ga": ga,
+                "sa": sa,
+                "sv": sv,
+                "sv_pct": float(g.get("savePercentage", 0.0)),
+                "gaa": float(g.get("goalsAgainstAverage", 0.0)),
+                "sa_per_game": sa / max(gp, 1),
+                "saves_per_game": sv / max(gp, 1),
+                "ga_per_game": ga / max(gp, 1),
+                "toi_total_hours": toi_hours,
+                "shutouts": int(g.get("shutouts", 0)),
+                # GSAx requires xG; will be merged from PBP rates when available.
+                "xga": 0.0,
+                "gsax": 0.0,
+                "gsax_per_60": 0.0,
+            })
+
+    logger.info(f"Built {len(out)} goalie stat rows from club-stats for {season_str}")
+    return out
+
+
+def merge_xg_into_skater_stats(
+    skater_records: List[Dict[str, Any]],
+    season_year: int,
+    stype: int = 2,
+) -> List[Dict[str, Any]]:
+    """
+    Enrich club-stats skater records with xG per game from PBP rates.
+
+    For seasons with a full shot store (2009-10 onward), this overwrites the
+    placeholder ``xgf_pg``. For older or missing seasons the placeholder stays
+    at 0.0.
+    """
+    try:
+        pbp_rates = compute_skater_rates(season_year, stype)
+    except Exception as e:
+        logger.debug(f"Could not load PBP skater rates for xG merge: {e}")
+        return skater_records
+
+    if not pbp_rates:
+        return skater_records
+
+    by_name: Dict[str, Dict[str, float]] = {}
+    for rec in skater_records:
+        key = normalize_name_key(rec.get("name", ""))
+        if key:
+            by_name[key] = rec
+
+    for key, rates in pbp_rates.items():
+        if key in by_name:
+            by_name[key]["xgf_pg"] = rates.get("xgf_pg", 0.0)
+            # If PBP has a different shot count, prefer club-stats points but
+            # keep PBP goals/assists available for debugging.
+            by_name[key]["pbp_goals"] = rates.get("goals", 0)
+            by_name[key]["pbp_assists"] = rates.get("assists", 0)
+            by_name[key]["pbp_shots"] = rates.get("shots", 0)
+
+    return skater_records
+
+
+def merge_xg_into_goalie_stats(
+    goalie_records: List[Dict[str, Any]],
+    season_year: int,
+    stype: int = 2,
+) -> List[Dict[str, Any]]:
+    """Enrich club-stats goalie records with GSAx from PBP rates when available."""
+    try:
+        pbp_df = compute_goalie_rates(season_year, stype)
+    except Exception as e:
+        logger.debug(f"Could not load PBP goalie rates for GSAx merge: {e}")
+        return goalie_records
+
+    if pbp_df is None or pbp_df.empty:
+        return goalie_records
+
+    by_name: Dict[str, Dict[str, Any]] = {}
+    for rec in goalie_records:
+        key = normalize_name_key(rec.get("name", ""))
+        if key:
+            by_name[key] = rec
+
+    for _, row in pbp_df.iterrows():
+        key = normalize_name_key(str(row.get("name", "")))
+        if key in by_name:
+            by_name[key]["xga"] = float(row.get("xga", 0.0)) if pd.notna(row.get("xga")) else 0.0
+            by_name[key]["gsax"] = float(row.get("gsax", 0.0)) if pd.notna(row.get("gsax")) else 0.0
+            by_name[key]["gsax_per_60"] = float(row.get("gsax_per_60", 0.0)) if pd.notna(row.get("gsax_per_60")) else 0.0
+
+    return goalie_records
+
+
 __all__ = [
     "compute_team_rates",
     "compute_skater_rates",
     "compute_goalie_rates",
+    "compute_season_skater_stats",
+    "compute_season_goalie_stats",
+    "merge_xg_into_skater_stats",
+    "merge_xg_into_goalie_stats",
     "team_abbr_from_id",
     "TEAM_ID_TO_ABBR",
 ]

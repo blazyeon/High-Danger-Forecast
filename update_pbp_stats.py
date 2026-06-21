@@ -42,7 +42,15 @@ if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
 from NHL.PlayByPlay import build_shot_store, load_shot_store
-from NHL.StatsFromPBP import compute_team_rates, compute_skater_rates, compute_goalie_rates
+from NHL.StatsFromPBP import (
+    compute_team_rates,
+    compute_skater_rates,
+    compute_goalie_rates,
+    compute_season_skater_stats,
+    compute_season_goalie_stats,
+    merge_xg_into_skater_stats,
+    merge_xg_into_goalie_stats,
+)
 from NHL.MoneyPuck import download_shots_zip, MP_CACHE_DIR, parse_mp_shots
 from NHL.Validation import validate_xg_against_money_puck
 
@@ -64,6 +72,12 @@ def _write_json(out_path: Path, payload: Dict) -> None:
     out_path.write_text(json.dumps(payload, indent=2))
 
 
+def _current_season_start_year() -> int:
+    """Return the start year of the current NHL season (Oct cutoff)."""
+    today = pd.Timestamp.utcnow()
+    return today.year if today.month >= 10 else today.year - 1
+
+
 def write_season_outputs(
     season_year: int,
     stype: int,
@@ -72,49 +86,65 @@ def write_season_outputs(
     """
     Compute team/skater/goalie rates for one season and write JSON.
 
-    Writes both a generic file (used by the app as a default) and a
-    per-season file (e.g. pbp_team_stats_20252026.json) so the API can
-    serve past seasons from disk instead of re-scraping.
+    Per-season files are always written. Generic files (pbp_*_stats.json) are
+    only overwritten when we are processing the current in-progress season,
+    so a bulk historical refresh does not clobber the prediction cache.
 
     Returns counts (teams, skaters, goalies) for the run log.
     """
     out_dir.mkdir(parents=True, exist_ok=True)
     season_str = f"{season_year}{season_year + 1}"
     meta = {"season": season_str, "stype": stype}
+    is_current = season_year == _current_season_start_year()
 
     logger.info(f"Computing team rates for {season_str} (stype={stype})")
     team_df = compute_team_rates(season_year, stype)
     team_records = _df_to_records(team_df)
     team_payload = {**meta, "data": team_records}
-    _write_json(out_dir / "pbp_team_stats.json", team_payload)
+    if is_current:
+        _write_json(out_dir / "pbp_team_stats.json", team_payload)
     _write_json(out_dir / f"pbp_team_stats_{season_str}.json", team_payload)
 
-    logger.info(f"Computing skater rates for {season_str} (stype={stype})")
-    skater_rates = compute_skater_rates(season_year, stype)
-    skater_records = [
-        {
-            "name": d.get("name", ""),
-            "gp": d.get("gp", 0),
-            "goals": d.get("goals", 0),
-            "assists": d.get("assists", 0),
-            "points": d.get("goals", 0) + d.get("assists", 0),
-            "shots": d.get("shots", 0),
-            "gpg": d.get("gpg", 0.0),
-            "apg": d.get("apg", 0.0),
-            "sogpg": d.get("sogpg", 0.0),
-            "xgf_pg": d.get("xgf_pg", 0.0),
-        }
-        for d in skater_rates.values()
-    ]
+    logger.info(f"Computing skater stats for {season_str} (stype={stype})")
+    skater_records = compute_season_skater_stats(season_year, stype)
+    skater_records = merge_xg_into_skater_stats(skater_records, season_year, stype)
     skater_payload = {**meta, "data": skater_records}
-    _write_json(out_dir / "pbp_skater_stats.json", skater_payload)
+    if is_current:
+        # Prediction path prefers the PBP-derived rates for the live season.
+        try:
+            pbp_skater_rates = compute_skater_rates(season_year, stype)
+            current_skater_records = [
+                {
+                    "name": d.get("name", ""),
+                    "gp": d.get("gp", 0),
+                    "goals": d.get("goals", 0),
+                    "assists": d.get("assists", 0),
+                    "points": d.get("goals", 0) + d.get("assists", 0),
+                    "shots": d.get("shots", 0),
+                    "gpg": d.get("gpg", 0.0),
+                    "apg": d.get("apg", 0.0),
+                    "sogpg": d.get("sogpg", 0.0),
+                    "xgf_pg": d.get("xgf_pg", 0.0),
+                }
+                for d in pbp_skater_rates.values()
+            ]
+            _write_json(out_dir / "pbp_skater_stats.json", {**meta, "data": current_skater_records})
+        except Exception as e:
+            logger.warning(f"Could not build PBP skater rates for current season: {e}")
+            _write_json(out_dir / "pbp_skater_stats.json", skater_payload)
     _write_json(out_dir / f"pbp_skater_stats_{season_str}.json", skater_payload)
 
-    logger.info(f"Computing goalie rates for {season_str} (stype={stype})")
-    goalie_df = compute_goalie_rates(season_year, stype)
-    goalie_records = _df_to_records(goalie_df)
+    logger.info(f"Computing goalie stats for {season_str} (stype={stype})")
+    goalie_records = compute_season_goalie_stats(season_year, stype)
+    goalie_records = merge_xg_into_goalie_stats(goalie_records, season_year, stype)
     goalie_payload = {**meta, "data": goalie_records}
-    _write_json(out_dir / "pbp_goalie_stats.json", goalie_payload)
+    if is_current:
+        try:
+            pbp_goalie_df = compute_goalie_rates(season_year, stype)
+            _write_json(out_dir / "pbp_goalie_stats.json", {**meta, "data": _df_to_records(pbp_goalie_df)})
+        except Exception as e:
+            logger.warning(f"Could not build PBP goalie rates for current season: {e}")
+            _write_json(out_dir / "pbp_goalie_stats.json", goalie_payload)
     _write_json(out_dir / f"pbp_goalie_stats_{season_str}.json", goalie_payload)
 
     return {

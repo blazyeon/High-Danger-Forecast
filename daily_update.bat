@@ -16,7 +16,10 @@ echo =========================================== >> "%LOG_FILE%"
 echo Daily update started: %date% %time% >> "%LOG_FILE%"
 echo =========================================== >> "%LOG_FILE%"
 
-%PYTHON% update_pbp_stats.py >> "%LOG_FILE%" 2>&1
+REM Determine current NHL season start year (October cutoff).
+for /f %%i in ('%PYTHON% -c "import datetime; y=datetime.datetime.utcnow().year; m=datetime.datetime.utcnow().month; print(y if m >= 10 else y-1)"') do set "CURR_SEASON=%%i"
+
+%PYTHON% update_pbp_stats.py --season %CURR_SEASON% --stype 2 >> "%LOG_FILE%" 2>&1
 if %errorlevel% neq 0 (
     echo [ERROR] update_pbp_stats.py failed at %date% %time% >> "%LOG_FILE%"
 ) else (

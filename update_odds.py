@@ -16,7 +16,12 @@ import logging
 import sys
 from datetime import date as _date
 
-from NHL.BettingEdge import fetch_and_cache_odds, compute_and_cache_edges, OddsAPIError
+from NHL.BettingEdge import (
+    fetch_and_cache_odds,
+    compute_and_cache_edges,
+    load_demo_odds,
+    OddsAPIError,
+)
 
 logging.basicConfig(
     level=logging.INFO,
@@ -42,16 +47,23 @@ def main() -> int:
         return 1
 
     logger.info(f"Fetching NHL odds for {game_date}...")
+    payload = None
     try:
         payload = fetch_and_cache_odds(game_date)
     except OddsAPIError as e:
-        logger.error(f"Odds API error: {e}")
-        return 1
+        err_msg = str(e).lower()
+        if "missing api key" in err_msg:
+            logger.warning(f"No Odds API key configured; falling back to demo odds for {game_date}.")
+            payload = load_demo_odds()
+        else:
+            logger.error(f"Odds API error: {e}")
+            return 1
     except Exception as e:
         logger.error(f"Unexpected error fetching odds: {e}")
         return 1
 
-    logger.info(f"Successfully cached {len(payload.get('events', []))} events.")
+    if payload and payload.get("source") == "the-odds-api":
+        logger.info(f"Successfully cached {len(payload.get('events', []))} events.")
 
     logger.info(f"Computing and caching betting edges for {game_date}...")
     try:

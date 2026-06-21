@@ -171,7 +171,9 @@ DEFENSE_POSITIONS = ["D", "LD", "RD"]
 GOALIE_POSITIONS = ["G", "Goalie"]
 
 # ── Season Range ────────────────────────────────────────────────────
-EARLIEST_SEASON_YEAR = 2010
+# Analytics supports every season back to 2007-08 (the first year the NHL
+# published the modern play-by-play feed that our pipeline consumes).
+EARLIEST_SEASON_YEAR = 2007
 
 
 def _season_options(

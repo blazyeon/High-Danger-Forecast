@@ -1054,15 +1054,24 @@ def _available_season_keys() -> List[str]:
 
 @app.route("/api/seasons")
 def api_seasons():
-    """Return available season options for stats, limited to cached data."""
-    available = _available_season_keys()
-    if not available:
-        # No caches yet; fall back to the full range so the UI isn't empty.
-        options = _season_options()
-    else:
-        all_options = _season_options()
-        options = [(label, key) for label, key in all_options if key in available]
-    return jsonify({"seasons": [{"label": label, "key": key} for label, key in options]})
+    """
+    Return every season in the configured range, with a flag for cached data.
+
+    The dropdown now shows 2007-08 through the current season. Seasons that
+    have not been built yet are still listed so users can request them, but
+    they are marked with ``has_data: false`` so the UI can grey them out.
+    """
+    available = set(_available_season_keys())
+    options = _season_options()
+    seasons = [
+        {
+            "label": label,
+            "key": key,
+            "has_data": key in available,
+        }
+        for label, key in options
+    ]
+    return jsonify({"seasons": seasons})
 
 
 # ── Entry point ────────────────────────────────────────────────────────
