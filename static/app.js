@@ -8,6 +8,12 @@ const DIVISION_ORDER = ['Atlantic', 'Metropolitan', 'Central', 'Pacific'];
 const DIVISION_LABELS = { Atlantic: 'Atlantic', Metropolitan: 'Metro', Central: 'Central', Pacific: 'Pacific' };
 const FORWARD_POSITIONS = ['C', 'L', 'R', 'LW', 'RW', 'W'];
 
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
+
 // ── Minimal offline fallback (used only if /api/teams fails) ─────
 const TEAMS_FALLBACK = {
     Atlantic: [
@@ -588,7 +594,7 @@ async function runPrediction() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(body),
         });
-        if (data.error) { content.innerHTML = `<div class="error-box">${data.error}</div>`; btn.disabled = false; return; }
+        if (data.error) { content.innerHTML = `<div class="error-box">${escapeHtml(data.error)}</div>`; btn.disabled = false; return; }
 
         logStep('INIT', `Matchup: ${getTeamName(home)} (HOME) vs ${getTeamName(away)} (AWAY)`);
         logStep('ELO', `${home} rating: ${Math.round(data.home_elo_adj || 1500)} | ${away} rating: ${Math.round(data.away_elo_adj || 1500)}`);
@@ -603,7 +609,7 @@ async function runPrediction() {
         logStep('DONE', `Prediction complete. Confidence: ${data.confidence}`);
     } catch (e) {
         console.error('Prediction failed:', e);
-        content.innerHTML = `<div class="error-box">Prediction failed: ${e.message}</div>`;
+        content.innerHTML = `<div class="error-box">Prediction failed: ${escapeHtml(e.message)}</div>`;
         btn.disabled = false;
         return;
     }
@@ -1051,7 +1057,7 @@ async function showGameDetail(gameId, homeAbbrFallback, awayAbbrFallback) {
         body.innerHTML = html;
     } catch (e) {
         console.error(e);
-        body.innerHTML = `<div class="error-box">Could not load game details.<br><small>${e.message}</small></div>`;
+        body.innerHTML = `<div class="error-box">Could not load game details.<br><small>${escapeHtml(e.message)}</small></div>`;
     }
 }
 
@@ -1090,7 +1096,7 @@ async function runStats() {
         payload = await loadStatsPayload(type);
     } catch (e) {
         console.error('Stats load failed:', e);
-        container.innerHTML = `<div class="error-box">Could not load advanced stats for ${seasonLabel}.<br><small>${e.message}</small></div>`;
+        container.innerHTML = `<div class="error-box">Could not load advanced stats for ${seasonLabel}.<br><small>${escapeHtml(e.message)}</small></div>`;
         return;
     }
     const { data, meta } = payload;
@@ -1413,11 +1419,11 @@ async function runElo() {
         });
 
         html += '</tbody></table></div>';
-        html += `<div class="cors-notice" style="margin-top:12px"><i class="fa-solid fa-trophy"></i> Elo ratings for season ${data.season || 'current'}. League average is 1500; top teams are typically 1600+.</div>`;
+        html += `<div class="cors-notice" style="margin-top:12px"><i class="fa-solid fa-trophy"></i> Elo ratings for season ${escapeHtml(data.season || 'current')}. League average is 1500; top teams are typically 1600+.</div>`;
         container.innerHTML = html;
     } catch (e) {
         console.error('Elo leaderboard failed:', e);
-        container.innerHTML = `<div class="error-box">Could not load Elo leaderboard: ${e.message}</div>`;
+        container.innerHTML = `<div class="error-box">Could not load Elo leaderboard: ${escapeHtml(e.message)}</div>`;
     }
 }
 
@@ -1462,7 +1468,7 @@ async function runProps() {
         } catch (demoErr) {
             _lastPropsData = [];
             _propsIsDemo = false;
-            container.innerHTML = `<div class="error-box">Could not load props: ${e.message}. Demo data also failed to load.</div>`;
+            container.innerHTML = `<div class="error-box">Could not load props: ${escapeHtml(e.message)}. Demo data also failed to load: ${escapeHtml(demoErr.message)}.</div>`;
             console.error('Props load failed:', e, demoErr);
         }
     }
@@ -1699,7 +1705,7 @@ async function runBettingEdge() {
             renderBettingEdge(demo, container);
         } catch (demoErr) {
             _lastBettingEdgeData = null;
-            container.innerHTML = `<div class="error-box">Could not load betting edge: ${e.message}. Demo cache also failed to load.</div>`;
+            container.innerHTML = `<div class="error-box">Could not load betting edge: ${escapeHtml(e.message)}. Demo cache also failed to load: ${escapeHtml(demoErr.message)}.</div>`;
             console.error('Betting edge demo load failed:', e, demoErr);
         }
     }
@@ -1733,7 +1739,7 @@ function renderBettingEdge(data, container) {
         container.innerHTML = `<div class="empty-state">
             <div class="empty-icon"><i class="fa-solid fa-bullseye"></i></div>
             <h3 class="empty-title">No value bets</h3>
-            <p class="empty-desc">No market edges above the 3% threshold for ${data.date}. Try a different date or check back after the next odds update.</p>
+            <p class="empty-desc">No market edges above the 3% threshold for ${escapeHtml(data.date)}. Try a different date or check back after the next odds update.</p>
         </div>`;
         return;
     }
@@ -1830,12 +1836,6 @@ function renderBettingEdge(data, container) {
     html += '</div>';
 
     container.innerHTML = html;
-}
-
-function escapeHtml(text) {
-    const div = document.createElement('div');
-    div.textContent = text;
-    return div.innerHTML;
 }
 
 // ── Real API stubs (unused in demo) ───────────────────────────────
