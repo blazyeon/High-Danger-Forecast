@@ -1081,9 +1081,20 @@ function fmtPct(v) {
 async function runStats() {
     const container = document.getElementById('statsResults');
     const type = document.getElementById('statsType').value;
+    const season = document.getElementById('statsSeason')?.value || '';
+    const seasonLabel = season ? `${season.slice(0, 4)}-${season.slice(4)}` : 'selected season';
     container.innerHTML = '<div class="loading"><div class="spinner"></div><span>Loading advanced stats...</span></div>';
 
-    const { data, meta } = await loadStatsPayload(type);
+    let payload;
+    try {
+        payload = await loadStatsPayload(type);
+    } catch (e) {
+        console.error('Stats load failed:', e);
+        container.innerHTML = `<div class="error-box">Could not load advanced stats for ${seasonLabel}.<br><small>${e.message}</small></div>`;
+        return;
+    }
+    const { data, meta } = payload;
+
     const source = meta?.source || 'unknown';
     const updatedAt = meta?.updated_at
         ? new Date(meta.updated_at).toLocaleString()
@@ -1199,6 +1210,11 @@ function _sortStatsBy(key) {
     const tableHtml = _buildStatsTable(_currentStatsCols, rows, { sortable: true, activeKey: key, activeDir: dir, type: _currentStatsType });
     container.querySelector('.table-wrap').outerHTML = tableHtml;
     if (notice) container.appendChild(notice);
+    // Keep any active player search filter in sync after a sort.
+    const searchInput = document.getElementById('statsSearch');
+    if (searchInput && searchInput.value.trim()) {
+        filterStatsRows(searchInput.value.trim());
+    }
 }
 
 function _fmtToi(v) {
@@ -1234,7 +1250,7 @@ function _buildStatsTable(cols, rows, opts = {}) {
     html += '</tr></thead><tbody>';
     rows.forEach((row, idx) => {
         const playerName = escapeHtml(row.name || '');
-        html += `<tr class="stats-row" data-player="${playerName}" data-type="${type || ''}" data-idx="${idx}">`;
+        html += `<tr class="stats-row" data-player="${playerName}" data-type="${type || ''}" data-idx="${idx}" title="Click for details">`;
         cols.forEach(c => {
             const raw = row[c.key];
             html += `<td>${c.fmt ? c.fmt(raw) : (raw ?? '-')}</td>`;

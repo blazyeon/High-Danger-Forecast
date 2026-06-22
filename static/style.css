@@ -708,13 +708,32 @@ input[type="date"].param-input, input[type="date"].date-input {
 }
 
 /* ── Stats Table Enhancements ─────────────────────────────────── */
+#statsResults { min-height: 120px; }
+#statsResults .table-wrap { margin-top: 16px; }
+
 .stats-team-cell {
     display: flex; align-items: center; gap: 10px;
+    white-space: nowrap;
+    min-width: 110px;
 }
 .stats-team-logo {
     width: 24px; height: 24px; object-fit: contain;
     filter: drop-shadow(0 0 4px rgba(255,255,255,0.08));
+    flex-shrink: 0;
 }
+.stats-toolbar {
+    margin-bottom: 12px;
+}
+.stats-toolbar input { max-width: 260px; width: 100%; }
+.stats-row {
+    cursor: pointer;
+}
+/* Keep player / team columns wide enough so the table doesn't look crushed */
+.data-table th:first-child,
+.data-table td:first-child { min-width: 120px; }
+.data-table th:nth-child(2),
+.data-table td:nth-child(2) { min-width: 60px; }
+
 .stats-source {
     display: inline-flex; align-items: center;
     font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.6px;
@@ -1307,7 +1326,7 @@ input[type="date"].param-input, input[type="date"].date-input {
 }
 
 /* ── Lookup / Stats / Props rows ──────────────────────────────── */
-.lookup-row, .stats-row { display: flex; gap: 12px; align-items: flex-end; flex-wrap: wrap; margin-bottom: 10px; }
+.lookup-row, .analytics-controls { display: flex; gap: 12px; align-items: flex-end; flex-wrap: wrap; margin-bottom: 10px; }
 
 /* ── Loading ────────────────────────────────────────────────────── */
 .loading {
