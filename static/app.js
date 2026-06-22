@@ -1127,6 +1127,7 @@ async function runStats() {
         html = _buildStatsTable(cols, sorted, { sortable: true });
         notice = '<i class="fa-solid fa-chart-simple"></i> Team advanced metrics from PBP data (CF%, xGF%, HDCF%, PDO).';
     } else if (type === 'skaters') {
+        const toolbar = _buildStatsToolbar(type, data);
         let sorted = [...data].sort(
             (a, b) => (parseInt(b.points) || 0) - (parseInt(a.points) || 0)
         );
@@ -1144,9 +1145,10 @@ async function runStats() {
             { key: 'plus_minus', label: '+/-' },
             { key: 'toi_pg', label: 'TOI/GP', fmt: v => _fmtToi(v) },
         ];
-        html = _buildStatsTable(cols, sorted, { sortable: true, type });
-        notice = '<i class="fa-solid fa-chart-simple"></i> Skater stats sorted by points. Click a player row for the full stat line.';
+        html = toolbar + _buildStatsTable(cols, sorted, { sortable: true, type });
+        notice = '<i class="fa-solid fa-chart-simple"></i> Skater stats sorted by points. Use filters to narrow by team, position, or games played.';
     } else if (type === 'goalies') {
+        const toolbar = _buildStatsToolbar(type, data);
         let sorted = [...data].sort(
             (a, b) => (parseFloat(b.gsax) || 0) - (parseFloat(a.gsax) || 0)
         );
@@ -1164,8 +1166,8 @@ async function runStats() {
             { key: 'sv_pct', label: 'SV%', fmt: v => fmtPct(v) },
             { key: 'gsax', label: 'GSAx', fmt: v => fmtNum(v, 1) },
         ];
-        html = _buildStatsTable(cols, sorted, { sortable: true, type });
-        notice = '<i class="fa-solid fa-chart-simple"></i> Goalie stats sorted by GSAx. Click a player row for the full stat line.';
+        html = toolbar + _buildStatsTable(cols, sorted, { sortable: true, type });
+        notice = '<i class="fa-solid fa-chart-simple"></i> Goalie stats sorted by GSAx. Use filters to narrow by team or games played.';
     }
 
     const sourceBadge = source === 'cache'
@@ -1208,13 +1210,20 @@ function _sortStatsBy(key) {
     const container = document.getElementById('statsResults');
     const notice = container.querySelector('.cors-notice');
     const tableHtml = _buildStatsTable(_currentStatsCols, rows, { sortable: true, activeKey: key, activeDir: dir, type: _currentStatsType });
-    container.querySelector('.table-wrap').outerHTML = tableHtml;
-    if (notice) container.appendChild(notice);
-    // Keep any active player search filter in sync after a sort.
-    const searchInput = document.getElementById('statsSearch');
-    if (searchInput && searchInput.value.trim()) {
-        filterStatsRows(searchInput.value.trim());
+    const tableWrap = container.querySelector('.table-wrap');
+    if (tableWrap) {
+        tableWrap.outerHTML = tableHtml;
+    } else {
+        const insertBefore = notice || container.lastElementChild;
+        if (insertBefore) {
+            insertBefore.insertAdjacentHTML('beforebegin', tableHtml);
+        } else {
+            container.insertAdjacentHTML('beforeend', tableHtml);
+        }
     }
+    if (notice) container.appendChild(notice);
+    // Re-apply any active player filters after sorting.
+    applyStatsFilters();
 }
 
 function _fmtToi(v) {
@@ -1226,17 +1235,27 @@ function _fmtToi(v) {
     return `${m}:${String(s).padStart(2, '0')}`;
 }
 
+function _buildStatsToolbar(type, rows) {
+    if (type !== 'skaters' && type !== 'goalies') return '';
+    const teams = [...new Set(rows.map(r => r.team).filter(Boolean))].sort();
+    const teamOptions = teams.map(t => `<option value="${escapeHtml(t)}">${escapeHtml(t)}</option>`).join('');
+    let html = '<div class="stats-toolbar">';
+    html += `<input type="text" id="statsSearch" class="param-input" placeholder="Search player..." oninput="applyStatsFilters()">`;
+    html += `<select id="statsTeamFilter" class="team-select stats-filter" onchange="applyStatsFilters()"><option value="">All Teams</option>${teamOptions}</select>`;
+    if (type === 'skaters') {
+        html += `<select id="statsPositionFilter" class="team-select stats-filter" onchange="applyStatsFilters()"><option value="">All Positions</option><option value="C">C</option><option value="LW">LW</option><option value="RW">RW</option><option value="D">D</option></select>`;
+    }
+    html += `<input type="number" id="statsGpFilter" class="param-input stats-filter" min="0" placeholder="Min GP" oninput="applyStatsFilters()">`;
+    html += '</div>';
+    return html;
+}
+
 function _buildStatsTable(cols, rows, opts = {}) {
     _currentStatsRows = rows;
     _currentStatsCols = cols;
     _currentStatsType = opts.type || _currentStatsType;
     const { sortable = false, activeKey, activeDir, type } = opts;
-    const showSearch = type === 'skaters' || type === 'goalies';
-    let html = '';
-    if (showSearch) {
-        html += `<div class="stats-toolbar"><input type="text" id="statsSearch" class="param-input" placeholder="Search player..." oninput="filterStatsRows(this.value)"></div>`;
-    }
-    html += '<div class="table-wrap"><table class="data-table"><thead><tr>';
+    let html = '<div class="table-wrap"><table class="data-table"><thead><tr>';
     cols.forEach(c => {
         const canSort = c.key !== 'team' && c.key !== 'name';
         if (sortable && canSort) {
@@ -1250,7 +1269,10 @@ function _buildStatsTable(cols, rows, opts = {}) {
     html += '</tr></thead><tbody>';
     rows.forEach((row, idx) => {
         const playerName = escapeHtml(row.name || '');
-        html += `<tr class="stats-row" data-player="${playerName}" data-type="${type || ''}" data-idx="${idx}" title="Click for details">`;
+        const team = escapeHtml(row.team || '');
+        const position = escapeHtml(row.position || '');
+        const gp = parseInt(row.gp, 10) || 0;
+        html += `<tr class="stats-row" data-player="${playerName}" data-team="${team}" data-position="${position}" data-gp="${gp}" data-type="${type || ''}" data-idx="${idx}" title="Click for details">`;
         cols.forEach(c => {
             const raw = row[c.key];
             html += `<td>${c.fmt ? c.fmt(raw) : (raw ?? '-')}</td>`;
@@ -1261,12 +1283,28 @@ function _buildStatsTable(cols, rows, opts = {}) {
     return html;
 }
 
-function filterStatsRows(query) {
-    const q = query.toLowerCase();
+function applyStatsFilters() {
+    const query = (document.getElementById('statsSearch')?.value || '').toLowerCase();
+    const team = (document.getElementById('statsTeamFilter')?.value || '').toLowerCase();
+    const position = (document.getElementById('statsPositionFilter')?.value || '').toLowerCase();
+    const minGp = parseInt(document.getElementById('statsGpFilter')?.value, 10);
     document.querySelectorAll('.stats-row').forEach(row => {
-        const name = row.dataset.player || '';
-        row.style.display = name.toLowerCase().includes(q) ? '' : 'none';
+        const name = (row.dataset.player || '').toLowerCase();
+        const rowTeam = (row.dataset.team || '').toLowerCase();
+        const rowPos = (row.dataset.position || '').toLowerCase();
+        const rowGp = parseInt(row.dataset.gp, 10) || 0;
+        const nameMatch = !query || name.includes(query);
+        const teamMatch = !team || rowTeam === team;
+        const posMatch = !position || rowPos === position;
+        const gpMatch = isNaN(minGp) || rowGp >= minGp;
+        row.style.display = (nameMatch && teamMatch && posMatch && gpMatch) ? '' : 'none';
     });
+}
+
+function filterStatsRows(query) {
+    const searchInput = document.getElementById('statsSearch');
+    if (searchInput) searchInput.value = query;
+    applyStatsFilters();
 }
 
 function _attachStatsSortListeners() {

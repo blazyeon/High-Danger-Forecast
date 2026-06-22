@@ -722,9 +722,16 @@ input[type="date"].param-input, input[type="date"].date-input {
     flex-shrink: 0;
 }
 .stats-toolbar {
+    display: flex; flex-wrap: wrap; gap: 10px;
+    align-items: flex-end;
     margin-bottom: 12px;
 }
-.stats-toolbar input { max-width: 260px; width: 100%; }
+.stats-toolbar input,
+.stats-toolbar select {
+    max-width: 220px;
+    width: 100%;
+}
+.stats-toolbar input[type="number"] { max-width: 90px; }
 .stats-row {
     cursor: pointer;
 }
