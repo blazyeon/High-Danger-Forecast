@@ -89,13 +89,18 @@ LEAGUE_AVERAGES = {
 }
 
 # ── Model Weights ─────────────────────────────────────────────────
-# Ensemble win-prob weights calibrated via 2024-25 walk-forward backtest.
+# Ensemble win-prob weights calibrated via walk-forward backtest.
+# 2026-06-16 baseline: 34/51/15 from 2024-25 only.
+# 2026-06-23 update: ML model improved (OOF logloss 0.671 vs Elo proxy 0.681).
+# Raw proxy backtest suggested ~8/12/80, but because backtest.py uses
+# sim=Elo proxy, the conservative adjustment below raises ML share while
+# keeping simulation dominant. Revisit with a real-simulation backtest.
 # See memory/ensemble-weights-backtest-2026-06.md for methodology.
 MODEL_WEIGHTS = {
     # Ensemble blend (must sum to 1.0; re-normalized at runtime if a source is missing)
-    "elo_winprob_weight": 0.34,      # weight for Elo win probability
-    "simulation_winprob_weight": 0.51, # weight for simulation win probability
-    "ml_winprob_weight": 0.15,       # weight for ML win probability
+    "elo_winprob_weight": 0.25,      # weight for Elo win probability
+    "simulation_winprob_weight": 0.50, # weight for simulation win probability
+    "ml_winprob_weight": 0.25,       # weight for ML win probability
 
     "xg_for_weight": 0.55,
     "gf_weight": 0.20,

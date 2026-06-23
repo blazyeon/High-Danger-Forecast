@@ -26,10 +26,14 @@ class ModelConfig:
     # Regularization
     reg_alpha: float = 0.1
     reg_lambda: float = 1.0
+    gamma: float = 0.0
+    max_delta_step: float = 0.0
+    scale_pos_weight: float = 1.0
 
     # Early stopping
     early_stopping_rounds: int = 50
     eval_metric: str = "logloss"
+    use_early_stopping: bool = True
 
 
 class EloMLPredictor:
@@ -61,8 +65,13 @@ class EloMLPredictor:
                     colsample_bytree=self.config.colsample_bytree,
                     reg_alpha=self.config.reg_alpha,
                     reg_lambda=self.config.reg_lambda,
+                    gamma=self.config.gamma,
+                    max_delta_step=self.config.max_delta_step,
+                    scale_pos_weight=self.config.scale_pos_weight,
                     objective='reg:logistic',
-                    random_state=42
+                    eval_metric=self.config.eval_metric,
+                    random_state=42,
+                    n_jobs=1,
                 )
                 logger.info("Created XGBoost model")
             except ImportError:
@@ -118,9 +127,24 @@ class EloMLPredictor:
         if feature_names:
             self.feature_names = feature_names
 
-        # Train without validation set complications
-        # This is the most compatible approach
-        self.model.fit(X_train, y_train)
+        # Train with early stopping when a validation set is provided and the
+        # underlying estimator supports it.
+        fit_kwargs: Dict[str, Any] = {}
+        if (
+            self.config.use_early_stopping
+            and X_val is not None
+            and y_val is not None
+            and len(X_val) > 0
+        ):
+            fit_kwargs["eval_set"] = [(X_val, y_val)]
+            fit_kwargs["early_stopping_rounds"] = max(5, self.config.early_stopping_rounds)
+            fit_kwargs["verbose"] = False
+
+        try:
+            self.model.fit(X_train, y_train, **fit_kwargs)
+        except TypeError:
+            # Fallback for estimators that don't accept eval_set/early_stopping.
+            self.model.fit(X_train, y_train)
 
         self.is_trained = True
         logger.info(f"Model {self.model_id} trained on {len(X_train)} samples")

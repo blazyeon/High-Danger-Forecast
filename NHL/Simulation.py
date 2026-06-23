@@ -955,6 +955,17 @@ def _build_ml_features(
         "ga_pg_diff": away_all.get("GApG", 3.0) - home_all.get("GApG", 3.0),
         "sf_pg_diff": home_all.get("SFpg", 30.0) - away_all.get("SFpg", 30.0),
         "xga_pg_diff": home_all.get("xGApG", 3.0) - away_all.get("xGApG", 3.0),
+
+        # Interaction / ratio features (must match train_model.py)
+        "elo_diff_x_xgf_pct_diff": elo_features.get("elo_diff", 0.0) * safe_division(
+            home_all.get("xGF%", 50.0) - away_all.get("xGF%", 50.0), 50.0, 0.0
+        ),
+        "venue_diff_x_elo_diff": (home_venue_pct - away_venue_pct) * elo_features.get("elo_diff", 0.0),
+        "rest_diff_x_b2b": (float(feat_away.get("rest_days", 3.0)) - float(feat_home.get("rest_days", 3.0))) *
+                           (1.0 if feat_home.get("is_b2b") or feat_away.get("is_b2b") else 0.0),
+        "recent_form_off_diff": (home_recent_form_off - away_recent_form_off),
+        "recent_xga_pg_diff": home_xga_pg - away_xga_pg,
+        "pace_ratio": safe_division(home_sf_pg, away_sf_pg, 1.0),
     }
 
     return features

@@ -14,29 +14,82 @@ logger = logging.getLogger(__name__)
 
 class Calibrator:
     """
-    Isotonic regression calibrator for home-win probabilities.
+    Probability calibrator for home-win probabilities.
+    Supports isotonic regression and Platt (sigmoid) scaling.
     Falls back to identity if no fit data or scikit-learn unavailable.
     """
-    def __init__(self, method: str = "isotonic"):
+    def __init__(self, method: str = "auto"):
         self.method = method
         self._fitted = False
         self._model = None
 
     def fit(self, probs: np.ndarray, outcomes: np.ndarray) -> None:
-        try:
-            from sklearn.isotonic import IsotonicRegression
-            if len(probs) < 50:
-                return
-            ir = IsotonicRegression(out_of_bounds="clip")
-            ir.fit(probs.astype(float), outcomes.astype(float))
-            self._model = ir
-            self._fitted = True
-            self.method = "isotonic"
-            logger.info("Fitted isotonic calibrator on rolling dataset")
-        except Exception as e:
-            logger.debug(f"Calibrator fit failed, staying as identity: {e}")
-            self._fitted = False
-            self._model = None
+        if len(probs) < 50:
+            return
+        probs_arr = np.asarray(probs, dtype=float)
+        outcomes_arr = np.asarray(outcomes, dtype=float)
+
+        methods_to_try = []
+        if self.method == "auto":
+            methods_to_try = ["isotonic", "sigmoid"]
+        else:
+            methods_to_try = [self.method]
+
+        best_model = None
+        best_method = "identity"
+        best_score = float("inf")
+        # Use last 20% as a tiny holdout for method selection; the full fit is used
+        # for the chosen model because the OOF preds are already out-of-fold.
+        n = len(probs_arr)
+        holdout = max(20, int(0.2 * n))
+        train_idx = np.arange(n - holdout)
+        val_idx = np.arange(n - holdout, n)
+
+        for method in methods_to_try:
+            try:
+                if method == "isotonic":
+                    from sklearn.isotonic import IsotonicRegression
+                    model = IsotonicRegression(out_of_bounds="clip")
+                    model.fit(probs_arr[train_idx], outcomes_arr[train_idx])
+                    preds = model.predict(probs_arr[val_idx])
+                elif method == "sigmoid":
+                    from sklearn.linear_model import LogisticRegression
+                    # Add small noise to avoid singular features
+                    X = probs_arr[train_idx].reshape(-1, 1)
+                    model = LogisticRegression(C=1e10, solver="lbfgs", max_iter=200)
+                    model.fit(X, outcomes_arr[train_idx])
+                    preds = model.predict_proba(probs_arr[val_idx].reshape(-1, 1))[:, 1]
+                else:
+                    continue
+
+                preds = np.clip(preds, 1e-6, 1 - 1e-6)
+                score = -np.mean(
+                    outcomes_arr[val_idx] * np.log(preds) +
+                    (1 - outcomes_arr[val_idx]) * np.log(1 - preds)
+                )
+                if score < best_score:
+                    best_score = score
+                    best_model = model
+                    best_method = method
+            except Exception as e:
+                logger.debug(f"{method} calibrator fit failed: {e}")
+                continue
+
+        if best_model is not None:
+            # Refit on full data for the chosen method.
+            try:
+                if best_method == "isotonic":
+                    best_model.fit(probs_arr, outcomes_arr)
+                elif best_method == "sigmoid":
+                    best_model.fit(probs_arr.reshape(-1, 1), outcomes_arr)
+                self._model = best_model
+                self._fitted = True
+                self.method = best_method
+                logger.info(f"Fitted {best_method} calibrator (holdout logloss={best_score:.4f})")
+            except Exception as e:
+                logger.debug(f"Final {best_method} refit failed: {e}")
+                self._fitted = False
+                self._model = None
 
     def predict(self, probs: np.ndarray) -> np.ndarray:
         if self._fitted and self._model is not None:

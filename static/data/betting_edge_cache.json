@@ -1,152 +1,16 @@
 {
   "date": "2025-10-28",
-  "computed_at": "2026-06-22T02:51:48.148612+00:00",
+  "computed_at": "2026-06-23T07:48:55.352561+00:00",
   "source": "demo",
   "warning": "Using odds event matchups.",
   "games": [
-    {
-      "home": "TBL",
-      "away": "FLA",
-      "home_name": "Tampa Bay Lightning",
-      "away_name": "Florida Panthers",
-      "start_time": "2025-10-28T20:30:00Z",
-      "best_edge": 0.2117,
-      "edges": [
-        {
-          "market": "Moneyline",
-          "side": "Tampa Bay Lightning",
-          "pick": "Tampa Bay Lightning",
-          "team": "TBL",
-          "odds": 100,
-          "odds_decimal": 2.0,
-          "model_prob": 0.69,
-          "implied_prob": 0.4783,
-          "edge": 0.2117,
-          "book": "demo_book"
-        },
-        {
-          "market": "Total 6.5",
-          "side": "Under",
-          "pick": "Under",
-          "team": null,
-          "odds": -105,
-          "odds_decimal": 1.9523809523809523,
-          "model_prob": 0.623,
-          "implied_prob": 0.4892,
-          "edge": 0.1338,
-          "book": "demo_book"
-        }
-      ]
-    },
-    {
-      "home": "PHI",
-      "away": "PIT",
-      "home_name": "Philadelphia Flyers",
-      "away_name": "Pittsburgh Penguins",
-      "start_time": "2025-10-28T19:30:00Z",
-      "best_edge": 0.1697,
-      "edges": [
-        {
-          "market": "Moneyline",
-          "side": "Pittsburgh Penguins",
-          "pick": "Pittsburgh Penguins",
-          "team": "PIT",
-          "odds": 145,
-          "odds_decimal": 2.45,
-          "model_prob": 0.563,
-          "implied_prob": 0.3933,
-          "edge": 0.1697,
-          "book": "demo_book"
-        },
-        {
-          "market": "Total 6.0",
-          "side": "Over",
-          "pick": "Over",
-          "team": null,
-          "odds": -115,
-          "odds_decimal": 1.8695652173913042,
-          "model_prob": 0.5805,
-          "implied_prob": 0.5108,
-          "edge": 0.0697,
-          "book": "demo_book"
-        }
-      ]
-    },
-    {
-      "home": "NYI",
-      "away": "BOS",
-      "home_name": "New York Islanders",
-      "away_name": "Boston Bruins",
-      "start_time": "2025-10-28T18:00:00Z",
-      "best_edge": 0.1673,
-      "edges": [
-        {
-          "market": "Total 5.5",
-          "side": "Over",
-          "pick": "Over",
-          "team": null,
-          "odds": -120,
-          "odds_decimal": 1.8333333333333335,
-          "model_prob": 0.689,
-          "implied_prob": 0.5217,
-          "edge": 0.1673,
-          "book": "demo_book"
-        },
-        {
-          "market": "Moneyline",
-          "side": "New York Islanders",
-          "pick": "New York Islanders",
-          "team": "NYI",
-          "odds": 120,
-          "odds_decimal": 2.2,
-          "model_prob": 0.469,
-          "implied_prob": 0.438,
-          "edge": 0.031,
-          "book": "demo_book"
-        }
-      ]
-    },
-    {
-      "home": "MTL",
-      "away": "NYR",
-      "home_name": "Montreal Canadiens",
-      "away_name": "New York Rangers",
-      "start_time": "2025-10-28T23:00:00Z",
-      "best_edge": 0.1485,
-      "edges": [
-        {
-          "market": "Moneyline",
-          "side": "Montreal Canadiens",
-          "pick": "Montreal Canadiens",
-          "team": "MTL",
-          "odds": 105,
-          "odds_decimal": 2.05,
-          "model_prob": 0.616,
-          "implied_prob": 0.4675,
-          "edge": 0.1485,
-          "book": "demo_book"
-        },
-        {
-          "market": "Total 6.0",
-          "side": "Over",
-          "pick": "Over",
-          "team": null,
-          "odds": -110,
-          "odds_decimal": 1.9090909090909092,
-          "model_prob": 0.59,
-          "implied_prob": 0.5,
-          "edge": 0.09,
-          "book": "demo_book"
-        }
-      ]
-    },
     {
       "home": "ANA",
       "away": "EDM",
       "home_name": "Anaheim Ducks",
       "away_name": "Edmonton Oilers",
       "start_time": "2025-10-28T19:00:00Z",
-      "best_edge": 0.1477,
+      "best_edge": 0.1907,
       "edges": [
         {
           "market": "Moneyline",
@@ -155,9 +19,9 @@
           "team": "ANA",
           "odds": 175,
           "odds_decimal": 2.75,
-          "model_prob": 0.497,
+          "model_prob": 0.54,
           "implied_prob": 0.3493,
-          "edge": 0.1477,
+          "edge": 0.1907,
           "book": "demo_book"
         },
         {
@@ -167,65 +31,9 @@
           "team": null,
           "odds": -115,
           "odds_decimal": 1.8695652173913042,
-          "model_prob": 0.567,
+          "model_prob": 0.58,
           "implied_prob": 0.5108,
-          "edge": 0.0562,
-          "book": "demo_book"
-        }
-      ]
-    },
-    {
-      "home": "COL",
-      "away": "NJD",
-      "home_name": "Colorado Avalanche",
-      "away_name": "New Jersey Devils",
-      "start_time": "2025-10-28T22:00:00Z",
-      "best_edge": 0.1437,
-      "edges": [
-        {
-          "market": "Total 6.0",
-          "side": "Over",
-          "pick": "Over",
-          "team": null,
-          "odds": -115,
-          "odds_decimal": 1.8695652173913042,
-          "model_prob": 0.6545,
-          "implied_prob": 0.5108,
-          "edge": 0.1437,
-          "book": "demo_book"
-        },
-        {
-          "market": "Moneyline",
-          "side": "Colorado Avalanche",
-          "pick": "Colorado Avalanche",
-          "team": "COL",
-          "odds": -160,
-          "odds_decimal": 1.625,
-          "model_prob": 0.66,
-          "implied_prob": 0.5912,
-          "edge": 0.0688,
-          "book": "demo_book"
-        }
-      ]
-    },
-    {
-      "home": "CAR",
-      "away": "VGK",
-      "home_name": "Carolina Hurricanes",
-      "away_name": "Vegas Golden Knights",
-      "start_time": "2025-10-28T21:00:00Z",
-      "best_edge": 0.1427,
-      "edges": [
-        {
-          "market": "Total 6.0",
-          "side": "Over",
-          "pick": "Over",
-          "team": null,
-          "odds": -115,
-          "odds_decimal": 1.8695652173913042,
-          "model_prob": 0.6535,
-          "implied_prob": 0.5108,
-          "edge": 0.1427,
+          "edge": 0.0692,
           "book": "demo_book"
         }
       ]
@@ -236,7 +44,7 @@
       "home_name": "Vancouver Canucks",
       "away_name": "Seattle Kraken",
       "start_time": "2025-10-28T22:00:00Z",
-      "best_edge": 0.139,
+      "best_edge": 0.178,
       "edges": [
         {
           "market": "Moneyline",
@@ -245,31 +53,31 @@
           "team": "SEA",
           "odds": 120,
           "odds_decimal": 2.2,
-          "model_prob": 0.577,
+          "model_prob": 0.616,
           "implied_prob": 0.438,
-          "edge": 0.139,
+          "edge": 0.178,
           "book": "demo_book"
         }
       ]
     },
     {
-      "home": "NSH",
-      "away": "WPG",
-      "home_name": "Nashville Predators",
-      "away_name": "Winnipeg Jets",
+      "home": "PHI",
+      "away": "PIT",
+      "home_name": "Philadelphia Flyers",
+      "away_name": "Pittsburgh Penguins",
       "start_time": "2025-10-28T19:30:00Z",
-      "best_edge": 0.1068,
+      "best_edge": 0.1507,
       "edges": [
         {
           "market": "Moneyline",
-          "side": "Nashville Predators",
-          "pick": "Nashville Predators",
-          "team": "NSH",
-          "odds": 130,
-          "odds_decimal": 2.3,
-          "model_prob": 0.527,
-          "implied_prob": 0.4202,
-          "edge": 0.1068,
+          "side": "Pittsburgh Penguins",
+          "pick": "Pittsburgh Penguins",
+          "team": "PIT",
+          "odds": 145,
+          "odds_decimal": 2.45,
+          "model_prob": 0.544,
+          "implied_prob": 0.3933,
+          "edge": 0.1507,
           "book": "demo_book"
         },
         {
@@ -279,31 +87,167 @@
           "team": null,
           "odds": -115,
           "odds_decimal": 1.8695652173913042,
-          "model_prob": 0.553,
+          "model_prob": 0.6295,
           "implied_prob": 0.5108,
-          "edge": 0.0422,
+          "edge": 0.1187,
           "book": "demo_book"
         }
       ]
     },
     {
-      "home": "SJS",
-      "away": "LAK",
-      "home_name": "San Jose Sharks",
-      "away_name": "Los Angeles Kings",
-      "start_time": "2025-10-28T22:30:00Z",
-      "best_edge": 0.0832,
+      "home": "NYI",
+      "away": "BOS",
+      "home_name": "New York Islanders",
+      "away_name": "Boston Bruins",
+      "start_time": "2025-10-28T18:00:00Z",
+      "best_edge": 0.1503,
+      "edges": [
+        {
+          "market": "Total 5.5",
+          "side": "Over",
+          "pick": "Over",
+          "team": null,
+          "odds": -120,
+          "odds_decimal": 1.8333333333333335,
+          "model_prob": 0.672,
+          "implied_prob": 0.5217,
+          "edge": 0.1503,
+          "book": "demo_book"
+        },
+        {
+          "market": "Moneyline",
+          "side": "New York Islanders",
+          "pick": "New York Islanders",
+          "team": "NYI",
+          "odds": 120,
+          "odds_decimal": 2.2,
+          "model_prob": 0.493,
+          "implied_prob": 0.438,
+          "edge": 0.055,
+          "book": "demo_book"
+        }
+      ]
+    },
+    {
+      "home": "CAR",
+      "away": "VGK",
+      "home_name": "Carolina Hurricanes",
+      "away_name": "Vegas Golden Knights",
+      "start_time": "2025-10-28T21:00:00Z",
+      "best_edge": 0.1477,
+      "edges": [
+        {
+          "market": "Total 6.0",
+          "side": "Over",
+          "pick": "Over",
+          "team": null,
+          "odds": -115,
+          "odds_decimal": 1.8695652173913042,
+          "model_prob": 0.6585,
+          "implied_prob": 0.5108,
+          "edge": 0.1477,
+          "book": "demo_book"
+        },
+        {
+          "market": "Moneyline",
+          "side": "Vegas Golden Knights",
+          "pick": "Vegas Golden Knights",
+          "team": "VGK",
+          "odds": 120,
+          "odds_decimal": 2.2,
+          "model_prob": 0.479,
+          "implied_prob": 0.4344,
+          "edge": 0.0446,
+          "book": "demo_book"
+        }
+      ]
+    },
+    {
+      "home": "MTL",
+      "away": "NYR",
+      "home_name": "Montreal Canadiens",
+      "away_name": "New York Rangers",
+      "start_time": "2025-10-28T23:00:00Z",
+      "best_edge": 0.132,
+      "edges": [
+        {
+          "market": "Total 6.0",
+          "side": "Over",
+          "pick": "Over",
+          "team": null,
+          "odds": -110,
+          "odds_decimal": 1.9090909090909092,
+          "model_prob": 0.632,
+          "implied_prob": 0.5,
+          "edge": 0.132,
+          "book": "demo_book"
+        },
+        {
+          "market": "Moneyline",
+          "side": "Montreal Canadiens",
+          "pick": "Montreal Canadiens",
+          "team": "MTL",
+          "odds": 105,
+          "odds_decimal": 2.05,
+          "model_prob": 0.532,
+          "implied_prob": 0.4675,
+          "edge": 0.0645,
+          "book": "demo_book"
+        }
+      ]
+    },
+    {
+      "home": "TBL",
+      "away": "FLA",
+      "home_name": "Tampa Bay Lightning",
+      "away_name": "Florida Panthers",
+      "start_time": "2025-10-28T20:30:00Z",
+      "best_edge": 0.1307,
       "edges": [
         {
           "market": "Moneyline",
-          "side": "San Jose Sharks",
-          "pick": "San Jose Sharks",
-          "team": "SJS",
-          "odds": 135,
-          "odds_decimal": 2.35,
-          "model_prob": 0.495,
-          "implied_prob": 0.4118,
-          "edge": 0.0832,
+          "side": "Tampa Bay Lightning",
+          "pick": "Tampa Bay Lightning",
+          "team": "TBL",
+          "odds": 100,
+          "odds_decimal": 2.0,
+          "model_prob": 0.609,
+          "implied_prob": 0.4783,
+          "edge": 0.1307,
+          "book": "demo_book"
+        },
+        {
+          "market": "Total 6.5",
+          "side": "Under",
+          "pick": "Under",
+          "team": null,
+          "odds": -105,
+          "odds_decimal": 1.9523809523809523,
+          "model_prob": 0.606,
+          "implied_prob": 0.4892,
+          "edge": 0.1168,
+          "book": "demo_book"
+        }
+      ]
+    },
+    {
+      "home": "COL",
+      "away": "NJD",
+      "home_name": "Colorado Avalanche",
+      "away_name": "New Jersey Devils",
+      "start_time": "2025-10-28T22:00:00Z",
+      "best_edge": 0.1197,
+      "edges": [
+        {
+          "market": "Total 6.0",
+          "side": "Over",
+          "pick": "Over",
+          "team": null,
+          "odds": -115,
+          "odds_decimal": 1.8695652173913042,
+          "model_prob": 0.6305,
+          "implied_prob": 0.5108,
+          "edge": 0.1197,
           "book": "demo_book"
         }
       ]
@@ -314,7 +258,7 @@
       "home_name": "Boston Bruins",
       "away_name": "Montreal Canadiens",
       "start_time": "2025-10-28T19:00:00Z",
-      "best_edge": 0.0776,
+      "best_edge": 0.1046,
       "edges": [
         {
           "market": "Moneyline",
@@ -323,9 +267,9 @@
           "team": "MTL",
           "odds": 115,
           "odds_decimal": 2.15,
-          "model_prob": 0.525,
+          "model_prob": 0.552,
           "implied_prob": 0.4474,
-          "edge": 0.0776,
+          "edge": 0.1046,
           "book": "demo_book"
         }
       ]
@@ -336,7 +280,7 @@
       "home_name": "Dallas Stars",
       "away_name": "Washington Capitals",
       "start_time": "2025-10-28T20:00:00Z",
-      "best_edge": 0.0685,
+      "best_edge": 0.078,
       "edges": [
         {
           "market": "Total 6.0",
@@ -345,75 +289,21 @@
           "team": null,
           "odds": -110,
           "odds_decimal": 1.9090909090909092,
-          "model_prob": 0.5685,
+          "model_prob": 0.578,
           "implied_prob": 0.5,
-          "edge": 0.0685,
+          "edge": 0.078,
           "book": "demo_book"
-        }
-      ]
-    },
-    {
-      "home": "CBJ",
-      "away": "DET",
-      "home_name": "Columbus Blue Jackets",
-      "away_name": "Detroit Red Wings",
-      "start_time": "2025-10-28T19:30:00Z",
-      "best_edge": 0.063,
-      "edges": [
-        {
-          "market": "Total 6.5",
-          "side": "Under",
-          "pick": "Under",
-          "team": null,
-          "odds": -110,
-          "odds_decimal": 1.9090909090909092,
-          "model_prob": 0.563,
-          "implied_prob": 0.5,
-          "edge": 0.063,
-          "book": "demo_book"
-        }
-      ]
-    },
-    {
-      "home": "BUF",
-      "away": "OTT",
-      "home_name": "Buffalo Sabres",
-      "away_name": "Ottawa Senators",
-      "start_time": "2025-10-28T19:00:00Z",
-      "best_edge": 0.0518,
-      "edges": [
+        },
         {
           "market": "Moneyline",
-          "side": "Buffalo Sabres",
-          "pick": "Buffalo Sabres",
-          "team": "BUF",
-          "odds": -105,
-          "odds_decimal": 1.9523809523809523,
-          "model_prob": 0.541,
-          "implied_prob": 0.4892,
-          "edge": 0.0518,
-          "book": "demo_book"
-        }
-      ]
-    },
-    {
-      "home": "CHI",
-      "away": "MIN",
-      "home_name": "Chicago Blackhawks",
-      "away_name": "Minnesota Wild",
-      "start_time": "2025-10-28T20:00:00Z",
-      "best_edge": 0.0455,
-      "edges": [
-        {
-          "market": "Total 6.0",
-          "side": "Under",
-          "pick": "Under",
-          "team": null,
-          "odds": -110,
-          "odds_decimal": 1.9090909090909092,
-          "model_prob": 0.5455,
-          "implied_prob": 0.5,
-          "edge": 0.0455,
+          "side": "Washington Capitals",
+          "pick": "Washington Capitals",
+          "team": "WSH",
+          "odds": 125,
+          "odds_decimal": 2.25,
+          "model_prob": 0.48,
+          "implied_prob": 0.4289,
+          "edge": 0.0511,
           "book": "demo_book"
         }
       ]
@@ -424,7 +314,7 @@
       "home_name": "Toronto Maple Leafs",
       "away_name": "Calgary Flames",
       "start_time": "2025-10-28T19:00:00Z",
-      "best_edge": 0.0421,
+      "best_edge": 0.0711,
       "edges": [
         {
           "market": "Moneyline",
@@ -433,9 +323,9 @@
           "team": "CGY",
           "odds": 155,
           "odds_decimal": 2.55,
-          "model_prob": 0.421,
+          "model_prob": 0.45,
           "implied_prob": 0.3789,
-          "edge": 0.0421,
+          "edge": 0.0711,
           "book": "demo_book"
         },
         {
@@ -445,9 +335,155 @@
           "team": null,
           "odds": -105,
           "odds_decimal": 1.9523809523809523,
-          "model_prob": 0.521,
+          "model_prob": 0.558,
           "implied_prob": 0.4892,
-          "edge": 0.0318,
+          "edge": 0.0688,
+          "book": "demo_book"
+        }
+      ]
+    },
+    {
+      "home": "BUF",
+      "away": "OTT",
+      "home_name": "Buffalo Sabres",
+      "away_name": "Ottawa Senators",
+      "start_time": "2025-10-28T19:00:00Z",
+      "best_edge": 0.071,
+      "edges": [
+        {
+          "market": "Total 6.5",
+          "side": "Over",
+          "pick": "Over",
+          "team": null,
+          "odds": -110,
+          "odds_decimal": 1.9090909090909092,
+          "model_prob": 0.571,
+          "implied_prob": 0.5,
+          "edge": 0.071,
+          "book": "demo_book"
+        },
+        {
+          "market": "Moneyline",
+          "side": "Ottawa Senators",
+          "pick": "Ottawa Senators",
+          "team": "OTT",
+          "odds": -115,
+          "odds_decimal": 1.8695652173913042,
+          "model_prob": 0.578,
+          "implied_prob": 0.5108,
+          "edge": 0.0672,
+          "book": "demo_book"
+        }
+      ]
+    },
+    {
+      "home": "SJS",
+      "away": "LAK",
+      "home_name": "San Jose Sharks",
+      "away_name": "Los Angeles Kings",
+      "start_time": "2025-10-28T22:30:00Z",
+      "best_edge": 0.0647,
+      "edges": [
+        {
+          "market": "Total 6.5",
+          "side": "Under",
+          "pick": "Under",
+          "team": null,
+          "odds": 100,
+          "odds_decimal": 2.0,
+          "model_prob": 0.543,
+          "implied_prob": 0.4783,
+          "edge": 0.0647,
+          "book": "demo_book"
+        }
+      ]
+    },
+    {
+      "home": "CBJ",
+      "away": "DET",
+      "home_name": "Columbus Blue Jackets",
+      "away_name": "Detroit Red Wings",
+      "start_time": "2025-10-28T19:30:00Z",
+      "best_edge": 0.064,
+      "edges": [
+        {
+          "market": "Total 6.5",
+          "side": "Under",
+          "pick": "Under",
+          "team": null,
+          "odds": -110,
+          "odds_decimal": 1.9090909090909092,
+          "model_prob": 0.564,
+          "implied_prob": 0.5,
+          "edge": 0.064,
+          "book": "demo_book"
+        },
+        {
+          "market": "Moneyline",
+          "side": "Detroit Red Wings",
+          "pick": "Detroit Red Wings",
+          "team": "DET",
+          "odds": -110,
+          "odds_decimal": 1.9090909090909092,
+          "model_prob": 0.556,
+          "implied_prob": 0.5,
+          "edge": 0.056,
+          "book": "demo_book"
+        }
+      ]
+    },
+    {
+      "home": "CHI",
+      "away": "MIN",
+      "home_name": "Chicago Blackhawks",
+      "away_name": "Minnesota Wild",
+      "start_time": "2025-10-28T20:00:00Z",
+      "best_edge": 0.0545,
+      "edges": [
+        {
+          "market": "Total 6.0",
+          "side": "Under",
+          "pick": "Under",
+          "team": null,
+          "odds": -110,
+          "odds_decimal": 1.9090909090909092,
+          "model_prob": 0.5545,
+          "implied_prob": 0.5,
+          "edge": 0.0545,
+          "book": "demo_book"
+        }
+      ]
+    },
+    {
+      "home": "NSH",
+      "away": "WPG",
+      "home_name": "Nashville Predators",
+      "away_name": "Winnipeg Jets",
+      "start_time": "2025-10-28T19:30:00Z",
+      "best_edge": 0.0382,
+      "edges": [
+        {
+          "market": "Total 6.0",
+          "side": "Over",
+          "pick": "Over",
+          "team": null,
+          "odds": -115,
+          "odds_decimal": 1.8695652173913042,
+          "model_prob": 0.549,
+          "implied_prob": 0.5108,
+          "edge": 0.0382,
+          "book": "demo_book"
+        },
+        {
+          "market": "Moneyline",
+          "side": "Winnipeg Jets",
+          "pick": "Winnipeg Jets",
+          "team": "WPG",
+          "odds": -150,
+          "odds_decimal": 1.6666666666666665,
+          "model_prob": 0.616,
+          "implied_prob": 0.5798,
+          "edge": 0.0362,
           "book": "demo_book"
         }
       ]

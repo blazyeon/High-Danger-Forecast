@@ -361,6 +361,20 @@ def extract_features_for_game(
             h2h_home_wins += 1
     h2h_pct = (h2h_home_wins / h2h_gp) if h2h_gp else 0.5
 
+    # Use season-to-date per-game rates (matches the inference path in
+    # NHL/Simulation.py::_build_ml_features).
+    home_xgf_pg = home_std["xgf_pg"]
+    away_xgf_pg = away_std["xgf_pg"]
+    home_xga_pg = home_std["xga_pg"]
+    away_xga_pg = away_std["xga_pg"]
+    home_sf_pg = home_std["sf_pg"]
+    away_sf_pg = away_std["sf_pg"]
+
+    # Recent-form offense/defense (inference uses actual last-N GF/GA because
+    # PBP-based recent xG is expensive at request time).
+    home_recent_gf_pg = home_recent["gf_pg"]
+    away_recent_gf_pg = away_recent["gf_pg"]
+
     # Build the feature dict
     features: Dict[str, float] = {
         # Elo
@@ -368,28 +382,29 @@ def extract_features_for_game(
         "home_elo": team_elo.get_team_rating(home_team),
         "away_elo": team_elo.get_team_rating(away_team),
 
-        # Season-average xG/xGA (from game_results, pre-game perspective)
-        "home_season_xgf_pg": game["home_xgf"] / 0.06 if game["home_xgf"] else 0.0,
-        "away_season_xgf_pg": game["away_xgf"] / 0.06 if game["away_xgf"] else 0.0,
-        "home_xgf_norm": game["home_xgf"] / 6.0,
-        "away_xgf_norm": game["away_xgf"] / 6.0,
-        "home_xgf_share": game["home_xgf"] / max(game["home_xgf"] + game["away_xgf"], 0.1),
+        # Season-average xG/xGA (per-game rates, matching inference)
+        "home_season_xgf_pg": home_xgf_pg / 0.06 if home_xgf_pg else 0.0,
+        "away_season_xgf_pg": away_xgf_pg / 0.06 if away_xgf_pg else 0.0,
+        "home_xgf_norm": home_xgf_pg / 6.0,
+        "away_xgf_norm": away_xgf_pg / 6.0,
+        "home_xgf_share": safe_division(home_xgf_pg, home_xgf_pg + away_xgf_pg, 0.5),
 
-        # Recent form
-        "home_recent_xgf_pg": home_recent["xgf_pg"],
-        "home_recent_xga_pg": home_recent["xga_pg"],
-        "away_recent_xgf_pg": away_recent["xgf_pg"],
-        "away_recent_xga_pg": away_recent["xga_pg"],
-        "home_recent_gf_pg": home_recent["gf_pg"],
-        "away_recent_gf_pg": away_recent["gf_pg"],
-        "home_recent_form_off": home_recent["xgf_pg"] - 3.0,
-        "away_recent_form_off": away_recent["xgf_pg"] - 3.0,
+        # Recent form (mirror inference: GF/GA for recent, season xG where inference
+        # falls back to season averages).
+        "home_recent_xgf_pg": home_xgf_pg,
+        "home_recent_xga_pg": home_xga_pg,
+        "away_recent_xgf_pg": away_xgf_pg,
+        "away_recent_xga_pg": away_xga_pg,
+        "home_recent_gf_pg": home_recent_gf_pg,
+        "away_recent_gf_pg": away_recent_gf_pg,
+        "home_recent_form_off": home_recent_gf_pg - 3.0,
+        "away_recent_form_off": away_recent_gf_pg - 3.0,
 
-        # Shots / pace
-        "home_sf_pg": game["home_sf"] / 0.06 if game["home_sf"] else 0.0,
-        "away_sf_pg": game["away_sf"] / 0.06 if game["away_sf"] else 0.0,
-        "home_recent_sf_pg": home_recent["sf_pg"],
-        "away_recent_sf_pg": away_recent["sf_pg"],
+        # Shots / pace (season rates to match inference)
+        "home_sf_pg": home_sf_pg / 0.06 if home_sf_pg else 0.0,
+        "away_sf_pg": away_sf_pg / 0.06 if away_sf_pg else 0.0,
+        "home_recent_sf_pg": home_sf_pg,
+        "away_recent_sf_pg": away_sf_pg,
 
         # Venue
         "home_venue_pct": home_pct,
@@ -412,15 +427,29 @@ def extract_features_for_game(
 
         # Season-to-date differential features (match inference path)
         "xgf_pct_diff": safe_division(
-            (home_std["xgf_pg"] / max(home_std["xgf_pg"] + home_std["xga_pg"], 0.1) -
-             away_std["xgf_pg"] / max(away_std["xgf_pg"] + away_std["xga_pg"], 0.1)) * 100.0,
+            (home_xgf_pg / max(home_xgf_pg + home_xga_pg, 0.1) -
+             away_xgf_pg / max(away_xgf_pg + away_xga_pg, 0.1)) * 100.0,
             50.0,
             0.0,
         ),
         "gf_pg_diff": home_std["gf_pg"] - away_std["gf_pg"],
         "ga_pg_diff": away_std["ga_pg"] - home_std["ga_pg"],
-        "sf_pg_diff": home_std["sf_pg"] - away_std["sf_pg"],
-        "xga_pg_diff": home_std["xga_pg"] - away_std["xga_pg"],
+        "sf_pg_diff": home_sf_pg - away_sf_pg,
+        "xga_pg_diff": home_xga_pg - away_xga_pg,
+
+        # Interaction / ratio features
+        "elo_diff_x_xgf_pct_diff": elo_features.get("elo_diff", 0.0) * safe_division(
+            (home_xgf_pg / max(home_xgf_pg + home_xga_pg, 0.1) -
+             away_xgf_pg / max(away_xgf_pg + away_xga_pg, 0.1)) * 100.0,
+            50.0,
+            0.0,
+        ),
+        "venue_diff_x_elo_diff": (home_pct - away_pct) * elo_features.get("elo_diff", 0.0),
+        "rest_diff_x_b2b": (float(away_rest.get("rest_days", 3.0)) - float(home_rest.get("rest_days", 3.0))) *
+                           (1.0 if home_rest.get("is_b2b") or away_rest.get("is_b2b") else 0.0),
+        "recent_form_off_diff": (home_recent_gf_pg - 3.0) - (away_recent_gf_pg - 3.0),
+        "recent_xga_pg_diff": home_xga_pg - away_xga_pg,
+        "pace_ratio": safe_division(home_sf_pg, away_sf_pg, 1.0),
     }
 
     return features
@@ -587,24 +616,34 @@ def train_model(
             configs = []
             rng = np.random.default_rng(42)
             for _ in range(tune_iters):
+                # Log-uniform learning rate tends to explore the low-rate regime
+                # more effectively for small-data gradient boosting.
+                lr = 10.0 ** float(rng.uniform(-2.5, -0.5))
                 configs.append(
                     ModelConfig(
-                        learning_rate=float(rng.uniform(0.01, 0.15)),
-                        max_depth=int(rng.integers(3, 10)),
-                        n_estimators=int(rng.integers(100, 600)),
-                        min_child_weight=int(rng.integers(1, 10)),
-                        subsample=float(rng.uniform(0.5, 1.0)),
-                        colsample_bytree=float(rng.uniform(0.5, 1.0)),
-                        reg_alpha=float(rng.uniform(0.0, 1.0)),
-                        reg_lambda=float(rng.uniform(0.0, 3.0)),
+                        learning_rate=float(np.clip(lr, 0.005, 0.30)),
+                        max_depth=int(rng.integers(2, 8)),
+                        n_estimators=int(rng.integers(80, 500)),
+                        min_child_weight=int(rng.integers(2, 15)),
+                        subsample=float(rng.uniform(0.55, 1.0)),
+                        colsample_bytree=float(rng.uniform(0.55, 1.0)),
+                        reg_alpha=float(10.0 ** rng.uniform(-3.0, 0.0)),
+                        reg_lambda=float(10.0 ** rng.uniform(-2.0, 0.6)),
+                        gamma=float(10.0 ** rng.uniform(-3.0, 0.0)),
+                        max_delta_step=float(rng.choice([0.0, 0.0, 0.0, 0.5, 1.0])),
+                        scale_pos_weight=float(np.clip(
+                            (np.mean(y) + 1e-6) / (1.0 - np.mean(y) + 1e-6), 0.8, 1.4
+                        )),
                     )
                 )
         else:
             configs = [ModelConfig()]
 
         cv_results: List[Dict[str, Any]] = []
+        best_oof_probs = np.full(n, np.nan)
         for cfg_idx, cfg in enumerate(configs):
             fold_lls = []
+            cfg_oof = np.full(n, np.nan)
             for step in range(steps):
                 train_end = min_train + step * val_size
                 val_start = train_end
@@ -620,30 +659,35 @@ def train_model(
                     X_train, y_train, X_val, y_val, feature_names, cfg
                 )
                 fold_lls.append(metrics["logloss"])
-                # Save OOF predictions for the final selected config
-                if cfg_idx == 0:
-                    oof_probs[val_start:val_end] = _clip_probs(
-                        model.model.predict(X_val)
-                    )
+                cfg_oof[val_start:val_end] = _clip_probs(
+                    model.model.predict(X_val)
+                )
 
             avg_ll = float(np.mean(fold_lls)) if fold_lls else float("inf")
             cv_results.append({"cfg": cfg, "logloss": avg_ll})
             if avg_ll < best_ll:
                 best_ll = avg_ll
                 best_cfg = cfg
+                best_oof_probs = cfg_oof.copy()
             logger.info(
                 f"   cfg {cfg_idx + 1}/{len(configs)}: logloss={avg_ll:.4f} "
                 f"lr={cfg.learning_rate:.3f} depth={cfg.max_depth} n={cfg.n_estimators}"
             )
+
+        oof_probs = best_oof_probs
 
         logger.info(
             f"\n✅ Best CV logloss: {best_ll:.4f} "
             f"(lr={best_cfg.learning_rate:.3f}, depth={best_cfg.max_depth}, n={best_cfg.n_estimators})"
         )
 
-        # Re-train final model on all data using best config
-        final_model, final_metrics = _train_one(
-            X, y, X[-100:], y[-100:], feature_names, best_cfg
+        # Re-train final model on all data using best config (no validation leak).
+        final_model = EloMLPredictor(model_id="main", config=best_cfg)
+        final_model.train(X, y, feature_names=feature_names)
+        final_metrics = _report(
+            y[~np.isnan(oof_probs)],
+            oof_probs[~np.isnan(oof_probs)],
+            "oof",
         )
     else:
         # Simple holdout for quick runs
@@ -654,7 +698,7 @@ def train_model(
         oof_probs = np.full(len(X), np.nan)
         oof_probs[split:] = _clip_probs(final_model.model.predict(X[split:]))
 
-    logger.info(f"\n📊 Final validation metrics: {final_metrics}")
+    logger.info(f"\n📊 Final out-of-fold metrics: {final_metrics}")
 
     # Feature importance
     logger.info("\n📊 Feature Importance (Top 20):")
@@ -683,7 +727,7 @@ def train_model(
     # Fit and save calibrator using out-of-fold predictions
     valid_idx = ~np.isnan(oof_probs)
     if np.sum(valid_idx) >= 50:
-        calibrator = Calibrator(method="isotonic")
+        calibrator = Calibrator(method="auto")
         calibrator.fit(oof_probs[valid_idx], y[valid_idx])
         calib_path = str(Path(output_path).parent / "calibrator.pkl")
         calibrator.save(calib_path)
