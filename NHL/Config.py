@@ -164,6 +164,20 @@ REST_TRAVEL_PARAMS = {
     "max_multiplier": 1.08,
 }
 
+DEFENSIVE_INJURY_PARAMS = {
+    "replacement_defensive_score": -1.0,  # approx. depth / AHL call-up defensive level
+    "value_per_score_point": 0.15,        # goals/60 per z-score point above replacement
+    "reference_toi_hours": 20.0,          # TOI of a top-pair defenseman
+    "min_toi_weight": 0.25,               # floor for very low-sample players
+    "max_toi_weight": 1.5,                # ceiling for extreme workloads
+    "per_player_cap": 0.20,               # max +20% opp goals for a single injury
+    "team_cap": 0.45,                     # max +45% opp goals total
+    "forward_weight": 0.30,               # forwards count at 30% vs defensemen
+    "pair_disruption_rate": 0.12,         # extra 12% per additional injured defenseman
+    "league_goals_per_game": 3.0,          # used to translate goals/60 → percentage
+    "negative_floor": -0.10,              # soft floor so a bad player's absence can't "help" more than 10%
+}
+
 # ── Connection / Retry ──────────────────────────────────────────────
 MAX_RETRIES = 3
 RETRY_BACKOFF_BASE = 0.75

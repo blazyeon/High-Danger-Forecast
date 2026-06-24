@@ -51,6 +51,8 @@ from NHL.Config import (
     SPECIAL_TEAMS_PARAMS,
     NST_ABBR_TO_FULL,
     VENUE_ADV_PARAMS,
+    DEFENSIVE_INJURY_PARAMS,
+    DEFENSE_POSITIONS,
 )
 from NHL.Errors import (
     retry_on_failure,
@@ -1415,6 +1417,8 @@ def calculate_automatic_injury_impact(
 
     total_offense_loss = 0.0
     total_defense_impact = 0.0
+    n_injured_defensemen = 0
+    individual_defense_impacts: List[float] = []
     seen_players: set[str] = set()
     player_details: List[Dict[str, Any]] = []
 
@@ -1452,18 +1456,57 @@ def calculate_automatic_injury_impact(
             or _display_from_key(player_name_key)
         )
 
-        # Defensive impact: positive defensive_score means the team is worse
-        # defensively without this player. We translate that into an increase
-        # in opponent expected goals. Cap individual effect to avoid outliers.
+        # Defensive impact: model the value of the missing player's minutes above
+        # a replacement-level player. Losing a top-pair shutdown defenseman costs
+        # far more than losing a depth player, and losing a defensive liability
+        # can actually help (data-driven).
         d_score = defensive_scores.get(player_name_key, {})
         defensive_score = d_score.get("defensive_score", 0.0) or 0.0
         defensive_percentile = d_score.get("defensive_percentile", 50.0) or 50.0
         position = d_score.get("position", "")
+        icetime_hours = d_score.get("icetime_hours", 0.0) or 0.0
 
-        # Scaling: a +4.0 shutdown D missing adds ~+4% to opponent goals.
-        # This is intentionally conservative relative to offense impact.
-        individual_defense_impact = min(0.06, max(0.0, defensive_score * 0.01))
-        total_defense_impact += individual_defense_impact
+        is_defenseman = str(position).upper().strip() in DEFENSE_POSITIONS
+        if is_defenseman:
+            n_injured_defensemen += 1
+
+        # ── replacement-level defensive value model ──
+        # If the player has no defensive record at all, they contribute nothing to
+        # the defensive adjustment (but still count for offense impact).
+        if not d_score:
+            individual_defense_impact = 0.0
+            raw_individual_impact = 0.0
+        else:
+            dip = DEFENSIVE_INJURY_PARAMS
+            replacement_score = dip["replacement_defensive_score"]
+            value_per_point = dip["value_per_score_point"]
+            ref_toi = dip["reference_toi_hours"]
+            min_w = dip["min_toi_weight"]
+            max_w = dip["max_toi_weight"]
+            per_player_cap = dip["per_player_cap"]
+            lg_gpg = dip["league_goals_per_game"]
+            fwd_weight = dip["forward_weight"]
+
+            # Value above replacement per 60 minutes of 5v5 ice time.
+            value_per60 = (defensive_score - replacement_score) * value_per_point
+
+            # Weight by the share of top-pair minutes the player would have played.
+            toi_weight = max(min_w, min(max_w, icetime_hours / ref_toi)) if icetime_hours else min_w
+
+            # Goals per game of defensive value lost (negative if player is below replacement).
+            goals_lost_per_game = value_per60 * toi_weight
+
+            # Convert to a percentage change in opponent goals.
+            raw_individual_impact = goals_lost_per_game / lg_gpg if lg_gpg else 0.0
+
+            # Forwards influence defense far less than defensemen.
+            if not is_defenseman:
+                raw_individual_impact *= fwd_weight
+
+            # Per-player cap on the positive side only.
+            individual_defense_impact = min(per_player_cap, raw_individual_impact)
+
+        individual_defense_impacts.append(individual_defense_impact)
 
         player_details.append({
             'name': name,
@@ -1482,19 +1525,36 @@ def calculate_automatic_injury_impact(
             f"💥 {name}: "
             f"{points} pts / {team_points:.0f} team points = "
             f"{contribution_pct*100:.1f}% → {offense_loss*100:+.1f}% offense, "
-            f"defense_score={defensive_score:+.2f}"
+            f"defense_score={defensive_score:+.2f}, toi={icetime_hours:.1f}h "
+            f"→ {raw_individual_impact*100:+.1f}% opp goals"
         )
+
+    # Aggregate defensive impacts with pair-disruption compounding. When multiple
+    # defensemen are out, remaining pairings are broken and call-ups play higher
+    # minutes, so the effect grows faster than linearly.
+    dip = DEFENSIVE_INJURY_PARAMS
+    pair_disruption_rate = dip["pair_disruption_rate"]
+    team_cap = dip["team_cap"]
+    negative_floor = dip["negative_floor"]
+
+    raw_total_defense_impact = sum(individual_defense_impacts)
+    if n_injured_defensemen > 1:
+        compound = 1.0 + pair_disruption_rate * (n_injured_defensemen - 1)
+        raw_total_defense_impact *= compound
+
+    # Cap the positive side only; keep a soft floor on the negative side.
+    total_defense_impact = min(team_cap, raw_total_defense_impact)
+    total_defense_impact = max(negative_floor, total_defense_impact)
 
     # Cap totals to avoid pathological cases.
     total_offense_loss = max(-0.80, total_offense_loss)
-    total_defense_impact = min(0.12, total_defense_impact)
 
-    if total_offense_loss < -0.05 or total_defense_impact > 0.02:
+    if total_offense_loss < -0.05 or abs(total_defense_impact) > 0.02:
         logger.warning(
             f"⚠️  {team_abbr} injury impact: "
             f"{total_offense_loss*100:+.1f}% offense, "
-            f"+{total_defense_impact*100:.1f}% opponent goals "
-            f"({len(player_details)} injuries)"
+            f"{total_defense_impact*100:+.1f}% opponent goals "
+            f"({len(player_details)} injuries, {n_injured_defensemen} defensemen)"
         )
 
     # Surface the most defensively important absences separately for the UI.
