@@ -41,6 +41,8 @@ training_data_*.db
 
 # Claude Code local files
 .claude/
+.agents/
+skills-lock.json
 PLAN.md
 
 # Backtest outputs (regenerated on demand)

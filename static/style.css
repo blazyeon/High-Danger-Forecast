@@ -831,10 +831,10 @@ input[type="date"].param-input, input[type="date"].date-input {
     position: relative; padding: 32px;
 }
 .modal-close {
-    position: absolute; top: 16px; right: 18px;
+    position: absolute; top: 12px; right: 14px;
     background: var(--bg-surface-elevated); border: 1px solid var(--border-subtle);
     color: var(--text-muted); border-radius: var(--radius-sm);
-    font-size: 20px; cursor: pointer; width: 38px; height: 38px;
+    font-size: 22px; cursor: pointer; width: 44px; height: 44px;
     display: flex; align-items: center; justify-content: center;
     transition: var(--transition-fast);
 }
@@ -1423,6 +1423,8 @@ input[type="date"].param-input, input[type="date"].date-input {
     .result-banner { gap: 20px; padding: 22px 16px; }
     .result-team-logo { width: 56px; height: 56px; }
     .result-team-block { min-width: 90px; }
+    .result-team-name { font-size: 14px; }
+    .result-prediction-value { font-size: 22px; }
     .modal-content { padding: 24px; }
 }
 
@@ -1577,6 +1579,53 @@ input[type="date"].param-input, input[type="date"].date-input {
 
     /* Demo notice */
     .demo-notice { padding: 10px 12px; font-size: 11px; }
+}
+
+@media (max-width: 480px) {
+    /* Predictor result banner */
+    .result-banner { padding: 14px 10px; gap: 8px; }
+    .result-team-logo { width: 40px; height: 40px; }
+    .result-team-name { font-size: 11px; }
+    .result-team-abbr { font-size: 9px; }
+    .result-prediction-value { font-size: 15px; }
+    .result-prediction-label { font-size: 8px; margin-bottom: 2px; }
+    .result-badge { top: -5px; font-size: 7px; padding: 1px 6px; }
+
+    /* Modal bottom sheet tighter */
+    .modal-content { padding: 52px 14px 20px; border-radius: 18px 18px 0 0; }
+    .modal-header { padding: 14px; margin-bottom: 14px; }
+    .modal-team img { width: 44px; height: 44px; }
+    .modal-score-value { font-size: 22px; }
+    .modal-team-name { font-size: 13px; }
+    .modal-team-abbr { font-size: 11px; }
+
+    /* Stat compare stacked layout smaller */
+    .stat-compare-num { font-size: 18px; }
+    .stat-compare-label { font-size: 10px; }
+
+    /* Game cards */
+    .game-card { padding: 12px; gap: 6px; }
+    .game-card-teams { font-size: 13px; gap: 6px; }
+    .game-card-logo { width: 24px; height: 24px; }
+    .game-card-score { font-size: 15px; }
+    .game-status { font-size: 9px; padding: 2px 8px; }
+
+    /* Footer */
+    .app-footer { font-size: 10px; gap: 4px; padding-top: 14px; padding-bottom: calc(14px + env(safe-area-inset-bottom)); }
+
+    /* Inputs */
+    .team-select, .goalie-select, .param-input { font-size: 16px; padding: 12px 12px; }
+
+    /* Toolbars */
+    .lookup-row, .analytics-controls { gap: 8px; }
+    .action-btn { width: 100%; }
+
+    /* Touch targets */
+    .tab-btn { min-width: 44px; min-height: 44px; padding: 10px 12px; }
+    .predict-btn, .action-btn { min-height: 46px; }
+    .data-table th.sortable { min-height: 44px; }
+    .settings-toggle { min-height: 44px; }
+    .b2b-check { width: 22px; height: 22px; }
 }
 
 /* ── Muted text helper for leaderboard ─────────────────────────── */

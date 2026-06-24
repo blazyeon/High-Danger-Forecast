@@ -277,9 +277,13 @@ class DatePicker {
         };
         document.addEventListener('click', this._outsideClick);
 
-        // Reposition on resize.
+        // Reposition on resize/orientation change with a small debounce.
+        let resizeTimer;
         window.addEventListener('resize', () => {
-            if (this.isOpen) this._position();
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(() => {
+                if (this.isOpen) this._position();
+            }, 100);
         });
     }
 
@@ -605,7 +609,7 @@ async function runPrediction() {
         if (homeB2B) logStep('B2B', `${home} flagged as back-to-back (~14% fatigue penalty)`);
         if (awayB2B) logStep('B2B', `${away} flagged as back-to-back (~14% fatigue penalty)`);
         logStep('SIM', `Ran ${data.sims || body.simulations} Monte Carlo iterations`);
-        logStep('ENSEMBLE', 'Blended Elo (34%) + simulation (51%) + ML (15%) outcomes');
+        logStep('ENSEMBLE', 'Blended Elo (25%) + simulation (50%) + ML (25%) outcomes');
         logStep('DONE', `Prediction complete. Confidence: ${data.confidence}`);
     } catch (e) {
         console.error('Prediction failed:', e);
