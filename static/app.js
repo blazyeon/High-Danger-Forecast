@@ -793,6 +793,25 @@ function getTeamName(abbr) {
     return abbr;
 }
 
+const TEAM_COLORS = {
+    "ANA": "#F47A38", "BOS": "#FFB81C", "BUF": "#002654", "CGY": "#C8102E",
+    "CAR": "#CE1126", "CHI": "#CF0A2C", "COL": "#6F263D", "CBJ": "#002654",
+    "DAL": "#006847", "DET": "#CE1126", "EDM": "#FF4C00", "FLA": "#C8102E",
+    "LAK": "#A2AAAD", "MIN": "#154734", "MTL": "#AF1E2D", "NSH": "#FFB81C",
+    "NJD": "#CE1126", "NYI": "#00539B", "NYR": "#0038A8", "OTT": "#C69214",
+    "PHI": "#F74902", "PIT": "#FCB514", "SEA": "#001628", "SJS": "#006D75",
+    "STL": "#002F87", "TBL": "#002868", "TOR": "#00205B", "VAN": "#00205B",
+    "VGK": "#B4975A", "WPG": "#041E42", "WSH": "#C8102E", "UTA": "#041E42",
+    "ARI": "#8C2633"
+};
+
+function getTeamColor(abbr) {
+    if (!abbr) return '#64748b';
+    const alias = { "UTAH": "UTA" };
+    const normalized = alias[abbr.toUpperCase()] || abbr.toUpperCase();
+    return TEAM_COLORS[normalized] || '#64748b';
+}
+
 async function safeFetchJson(url, opts={}) {
     const resp = await fetch(url, opts);
     const ct = (resp.headers.get('content-type') || '').toLowerCase();
@@ -946,6 +965,8 @@ async function showGameDetail(gameId, homeAbbrFallback, awayAbbrFallback) {
                 awayWidth = (a / total) * 100;
                 homeWidth = (h / total) * 100;
             }
+            const awayColor = getTeamColor(awayAbbr);
+            const homeColor = getTeamColor(homeAbbr);
             return `<div class="stat-compare">
                 <div class="stat-compare-values">
                     <div class="stat-compare-team left">
@@ -959,8 +980,8 @@ async function showGameDetail(gameId, homeAbbrFallback, awayAbbrFallback) {
                     </div>
                 </div>
                 <div class="stat-compare-bars">
-                    <div class="stat-compare-bar-left" style="width:${awayWidth.toFixed(1)}%"></div>
-                    <div class="stat-compare-bar-right" style="width:${homeWidth.toFixed(1)}%"></div>
+                    <div class="stat-compare-bar-left" style="width:${awayWidth.toFixed(1)}%; background:${awayColor}"></div>
+                    <div class="stat-compare-bar-right" style="width:${homeWidth.toFixed(1)}%; background:${homeColor}"></div>
                 </div>
             </div>`;
         }
