@@ -794,14 +794,14 @@ function getTeamName(abbr) {
 }
 
 const TEAM_COLORS = {
-    "ANA": "#F47A38", "BOS": "#FFB81C", "BUF": "#002654", "CGY": "#C8102E",
-    "CAR": "#CE1126", "CHI": "#CF0A2C", "COL": "#6F263D", "CBJ": "#002654",
-    "DAL": "#006847", "DET": "#CE1126", "EDM": "#FF4C00", "FLA": "#C8102E",
-    "LAK": "#A2AAAD", "MIN": "#154734", "MTL": "#AF1E2D", "NSH": "#FFB81C",
-    "NJD": "#CE1126", "NYI": "#00539B", "NYR": "#0038A8", "OTT": "#C69214",
-    "PHI": "#F74902", "PIT": "#FCB514", "SEA": "#001628", "SJS": "#006D75",
+    "ANA": "#F95602", "BOS": "#FFB81C", "BUF": "#002654", "CGY": "#D2001C",
+    "CAR": "#CC0000", "CHI": "#CF0A2C", "COL": "#6F263D", "CBJ": "#C8102E",
+    "DAL": "#00843D", "DET": "#C8102E", "EDM": "#FF4C00", "FLA": "#C8102E",
+    "LAK": "#A2AAAD", "MIN": "#A6192E", "MTL": "#AF1E2D", "NSH": "#FFB81C",
+    "NJD": "#CE1126", "NYI": "#00539B", "NYR": "#DA291C", "OTT": "#C8102E",
+    "PHI": "#F74600", "PIT": "#FCB514", "SEA": "#99D6EA", "SJS": "#006D80",
     "STL": "#002F87", "TBL": "#002868", "TOR": "#00205B", "VAN": "#00205B",
-    "VGK": "#B4975A", "WPG": "#041E42", "WSH": "#C8102E", "UTA": "#041E42",
+    "VGK": "#B4975A", "WPG": "#ACD3EA", "WSH": "#C8102E", "UTA": "#041E42",
     "ARI": "#8C2633"
 };
 
