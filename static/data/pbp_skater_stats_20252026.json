@@ -14763,7 +14763,7 @@
       "pbp_shots": 2
     },
     {
-      "name": "Max Shabanov",
+      "name": "Maksim Shabanov",
       "team": "NYI",
       "position": "R",
       "gp": 44,
@@ -14784,10 +14784,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.1745182572515431,
-      "pbp_goals": 5,
-      "pbp_assists": 13,
-      "pbp_shots": 56
+      "xgf_pg": 0.0
     },
     {
       "name": "Justin Dowling",
@@ -17784,7 +17781,7 @@
       "pbp_shots": 110
     },
     {
-      "name": "Jack St. Ivany",
+      "name": "John St. Ivany",
       "team": "PIT",
       "position": "D",
       "gp": 20,
@@ -17805,10 +17802,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.0898234642018593,
-      "pbp_goals": 0,
-      "pbp_assists": 7,
-      "pbp_shots": 17
+      "xgf_pg": 0.0
     },
     {
       "name": "Rafael Harvey-Pinard",
@@ -25338,5 +25332,5 @@
       "pbp_shots": 7
     }
   ],
-  "updated_at": "2026-07-07T11:30:58Z"
+  "updated_at": "2026-07-08T10:42:07Z"
 }
