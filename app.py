@@ -32,7 +32,7 @@ from NHL.MatchupUtils import (
     detect_game_type,
 )
 from NHL.Simulation import simulate_matchup, simulate_slate
-from NHL.StatsFromPBP import load_skater_rates_from_json
+from NHL.StatsFromPBP import load_skater_rates_from_json, load_cached_stats
 from NHL.ApiScrape import (
     get_confirmed_or_predicted_lineup,
     get_roster_goalies_for_override,
@@ -46,7 +46,6 @@ from NHL.Utils import (
     sanitize_text, format_initial_last,
 )
 from NHL.OddsAPI import fetch_nhl_player_props_by_date, OddsAPIError
-from NHL.StatsFromPBP import load_skater_rates_from_json, load_cached_stats
 from NHL.PlayByPlay import count_pp_opportunities, count_faceoffs
 from NHL.BettingEdge import (
     compute_and_cache_edges,

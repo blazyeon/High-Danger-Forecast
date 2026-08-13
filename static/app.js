@@ -1233,6 +1233,8 @@ function _sortStatsBy(key) {
             const bv = parseFloat(b[key]);
             const aNum = isNaN(av) ? -Infinity : av;
             const bNum = isNaN(bv) ? -Infinity : bv;
+            // Both non-numeric: preserve original order (stable).
+            if (aNum === -Infinity && bNum === -Infinity) return 0;
             const delta = bNum - aNum;
             return dir === 'desc' ? delta : -delta;
         });
@@ -1649,7 +1651,7 @@ function renderProps(props) {
             </div>
             <div class="props-cell props-market">
                 <div class="props-market-name">${escapeHtml(p.market)}</div>
-                <div class="props-line">${p.isOver ? 'Over' : 'Under'} ${parseFloat(p.line).toFixed(1)}</div>
+                <div class="props-line">${p.isOver ? 'Over' : 'Under'} ${(p.line != null ? parseFloat(p.line).toFixed(1) : '—')}</div>
             </div>
             <div class="props-cell props-rec-price">
                 <div class="props-rec-badge ${recClass}">${p.isOver ? 'Over' : 'Under'}</div>
@@ -1816,8 +1818,12 @@ function renderBettingEdge(data, container) {
         const edge = r.edge;
         const edgePct = (edge * 100).toFixed(1);
         const edgeSign = edge > 0 ? '+' : '';
-        const implied = (parseFloat(e.implied_prob) * 100).toFixed(1);
-        const model = (parseFloat(e.model_prob) * 100).toFixed(1);
+        const impliedVal = parseFloat(e.implied_prob);
+        const impliedNum = isNaN(impliedVal) ? 0 : impliedVal * 100;
+        const impliedDisplay = isNaN(impliedVal) ? '—' : (impliedVal * 100).toFixed(1);
+        const modelVal = parseFloat(e.model_prob);
+        const modelNum = isNaN(modelVal) ? 0 : modelVal * 100;
+        const modelDisplay = isNaN(modelVal) ? '—' : (modelVal * 100).toFixed(1);
         const odds = e.odds != null ? formatAmerican(e.odds) : '-';
         const pick = e.pick || e.side || '-';
         const teamTag = e.team || (e.market.toLowerCase().startsWith('total') ? 'Total' : (r.homeName === pick || pick.includes(r.homeName) ? r.homeAbbr : r.awayAbbr));
@@ -1848,12 +1854,12 @@ function renderBettingEdge(data, container) {
             </div>
             <div class="be-probs">
                 <div class="be-prob-bar">
-                    <div class="be-prob-track"><div class="be-prob-fill" style="width:${implied}%"></div></div>
-                    <span class="be-prob-text">Implied ${implied}%</span>
+                    <div class="be-prob-track"><div class="be-prob-fill" style="width:${impliedNum}%"></div></div>
+                    <span class="be-prob-text">Implied ${impliedDisplay}%</span>
                 </div>
                 <div class="be-prob-bar">
-                    <div class="be-prob-track"><div class="be-prob-fill be-model-fill" style="width:${model}%"></div></div>
-                    <span class="be-prob-text">Model ${model}%</span>
+                    <div class="be-prob-track"><div class="be-prob-fill be-model-fill" style="width:${modelNum}%"></div></div>
+                    <span class="be-prob-text">Model ${modelDisplay}%</span>
                 </div>
             </div>
         </div>`;

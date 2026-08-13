@@ -78,7 +78,8 @@ from NHL.Features import (
     component_breakdown,
 )
 
-from Calibration import calibrate_prob, Calibrator  # Imported for calibration
+from Calibration import Calibrator
+from NHL.PlayByPlay import load_shot_store, game_date_map
 from NHL.StatsFromPBP import TEAM_ID_TO_ABBR
 
 # Import persistent app state instead of creating new instances
@@ -1606,8 +1607,6 @@ def _load_player_stats_for_injuries(season: str) -> Tuple[Dict[str, Dict], Dict[
 
     try:
         from NHL.StatsFromPBP import load_skater_rates_from_json, team_abbr_from_id
-        from NHL.PlayByPlay import load_shot_store
-        from NHL.Utils import normalize_name_key
         rates = load_skater_rates_from_json(start_year, 2)
         shots = load_shot_store(start_year, 2)
     except Exception as e:
