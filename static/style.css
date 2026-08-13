@@ -3,28 +3,28 @@
    ============================================================ */
 
 :root {
-    --bg-base: #090a0d;
-    --bg-surface: #0f1117;
-    --bg-surface-elevated: #141720;
-    --bg-surface-hover: #1b1f2a;
-    --bg-input: #0b0d12;
-    --border-subtle: rgba(255,255,255,0.055);
-    --border-default: rgba(255,255,255,0.10);
-    --border-active: rgba(122,162,247,0.35);
-    --text-primary: #eef1f6;
-    --text-secondary: #8b93a7;
-    --text-muted: #4f586b;
-    --accent: #7aa2f7;
-    --accent-dim: #5a7cc2;
-    --accent-glow: rgba(122,162,247,0.10);
-    --accent-red: #f7768e;
-    --accent-red-dim: rgba(247,118,142,0.12);
-    --accent-gold: #e0af68;
-    --accent-gold-dim: rgba(224,175,104,0.12);
-    --accent-green: #73daca;
-    --accent-green-dim: rgba(115,218,202,0.12);
-    --accent-purple: #bb9af7;
-    --accent-purple-dim: rgba(187,154,247,0.10);
+    --bg-base: #08090c;
+    --bg-surface: #10121a;
+    --bg-surface-elevated: #161925;
+    --bg-surface-hover: #1d2130;
+    --bg-input: #0b0d13;
+    --border-subtle: rgba(255,255,255,0.085);
+    --border-default: rgba(255,255,255,0.15);
+    --border-active: rgba(122,162,247,0.45);
+    --text-primary: #f0f3f8;
+    --text-secondary: #9aa3b8;
+    --text-muted: #636d83;
+    --accent: #8ab4ff;
+    --accent-dim: #6b8ed6;
+    --accent-glow: rgba(138,180,255,0.18);
+    --accent-red: #ff7d96;
+    --accent-red-dim: rgba(255,125,150,0.16);
+    --accent-gold: #e8b76f;
+    --accent-gold-dim: rgba(232,183,111,0.16);
+    --accent-green: #7ce0d0;
+    --accent-green-dim: rgba(124,224,208,0.16);
+    --accent-purple: #c6aaff;
+    --accent-purple-dim: rgba(198,170,255,0.14);
     --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     --font-heading: 'Space Grotesk', var(--font-body);
     --font-mono: 'JetBrains Mono', ui-monospace, monospace;
@@ -32,8 +32,8 @@
     --radius-md: 12px;
     --radius-lg: 14px;
     --radius-xl: 20px;
-    --shadow-card: 0 1px 2px rgba(0,0,0,0.45), 0 8px 24px rgba(0,0,0,0.28);
-    --shadow-glow: none;
+    --shadow-card: 0 1px 2px rgba(0,0,0,0.45), 0 8px 28px rgba(0,0,0,0.32);
+    --shadow-glow: 0 0 24px rgba(138,180,255,0.12);
     --transition-fast: 0.15s ease;
     --transition-base: 0.25s ease;
 }
@@ -61,14 +61,17 @@ button, a, input, select, textarea, .tab-btn, .action-btn, .predict-btn, .be-sor
 
 /* ── Background Layers ──────────────────────────────────────────────── */
 .bg-noise {
-    position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: 0.025;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    background-repeat: repeat; background-size: 220px;
+    position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: 0.008;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-repeat: repeat; background-size: 260px;
 }
 
 .bg-gradient {
     position: fixed; inset: 0; z-index: 0; pointer-events: none;
-    background: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(122,162,247,0.035), transparent 55%);
+    background:
+        radial-gradient(ellipse 90% 70% at 50% -15%, rgba(138,180,255,0.09), transparent 55%),
+        radial-gradient(ellipse 60% 40% at 100% 0%, rgba(255,125,150,0.04), transparent 45%),
+        radial-gradient(ellipse 60% 40% at 0% 100%, rgba(124,224,208,0.04), transparent 45%);
 }
 
 /* ── Header ──────────────────────────────────────────────────────── */
@@ -207,6 +210,7 @@ button, a, input, select, textarea, .tab-btn, .action-btn, .predict-btn, .be-sor
 
 .card:hover {
     border-color: var(--border-default);
+    box-shadow: var(--shadow-card), 0 0 18px rgba(138,180,255,0.06);
 }
 
 .card-header { margin-bottom: 22px; }

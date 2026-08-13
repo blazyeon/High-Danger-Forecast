@@ -627,6 +627,11 @@ function renderResults(sim, homeAbbr, awayAbbr) {
     const homeName = getTeamName(homeAbbr);
     const awayName = getTeamName(awayAbbr);
     const homeWin = parseFloat(sim.home_win_pct) > parseFloat(sim.away_win_pct);
+    const homeColor = getTeamColor(homeAbbr);
+    const awayColor = getTeamColor(awayAbbr);
+    const homeText = getContrastColor(homeColor);
+    const awayText = getContrastColor(awayColor);
+    const winnerColor = homeWin ? homeColor : awayColor;
 
     let html = '';
 
@@ -640,7 +645,7 @@ function renderResults(sim, homeAbbr, awayAbbr) {
     </div>`;
     html += `<div class="result-center">
         <div class="result-prediction-label">Prediction</div>
-        <div class="result-prediction-value ${homeWin ? 'home-win' : 'away-win'}">${homeWin ? 'HOME WIN' : 'AWAY WIN'}</div>
+        <div class="result-prediction-value" style="color:${winnerColor}">${homeWin ? 'HOME WIN' : 'AWAY WIN'}</div>
     </div>`;
     html += `<div class="result-team-block">
         <div class="result-badge away">AWAY</div>
@@ -650,17 +655,17 @@ function renderResults(sim, homeAbbr, awayAbbr) {
     </div>`;
     html += `</div>`;
 
-    // Probability bar
+    // Probability bar (team-colored like the schedule modal stat compares)
     const hPct = parseFloat(sim.home_win_pct);
     const aPct = parseFloat(sim.away_win_pct);
     html += `<div class="prob-section">
         <div class="prob-header">
-            <span class="prob-team">${homeName} <span class="prob-pct home">${hPct.toFixed(1)}%</span></span>
-            <span class="prob-team">${awayName} <span class="prob-pct away">${aPct.toFixed(1)}%</span></span>
+            <span class="prob-team">${homeName} <span class="prob-pct" style="color:${homeColor}">${hPct.toFixed(1)}%</span></span>
+            <span class="prob-team">${awayName} <span class="prob-pct" style="color:${awayColor}">${aPct.toFixed(1)}%</span></span>
         </div>
         <div class="prob-bar-track">
-            <div class="prob-bar-home" style="width:${hPct.toFixed(1)}%">${hPct > 18 ? hPct.toFixed(0) + '%' : ''}</div>
-            <div class="prob-bar-away" style="width:${aPct.toFixed(1)}%">${aPct > 18 ? aPct.toFixed(0) + '%' : ''}</div>
+            <div class="prob-bar-home" style="width:${hPct.toFixed(1)}%; background:${homeColor}; color:${homeText}">${hPct > 18 ? hPct.toFixed(0) + '%' : ''}</div>
+            <div class="prob-bar-away" style="width:${aPct.toFixed(1)}%; background:${awayColor}; color:${awayText}">${aPct > 18 ? aPct.toFixed(0) + '%' : ''}</div>
         </div>
     </div>`;
 
@@ -810,6 +815,16 @@ function getTeamColor(abbr) {
     const alias = { "UTAH": "UTA" };
     const normalized = alias[abbr.toUpperCase()] || abbr.toUpperCase();
     return TEAM_COLORS[normalized] || '#64748b';
+}
+
+function getContrastColor(hex) {
+    const c = hex.replace('#', '');
+    if (c.length !== 6) return '#f0f3f8';
+    const r = parseInt(c.substring(0, 2), 16);
+    const g = parseInt(c.substring(2, 4), 16);
+    const b = parseInt(c.substring(4, 6), 16);
+    const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+    return luminance > 0.62 ? '#08090c' : '#f0f3f8';
 }
 
 async function safeFetchJson(url, opts={}) {
