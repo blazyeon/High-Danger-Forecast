@@ -627,8 +627,9 @@ function renderResults(sim, homeAbbr, awayAbbr) {
     const homeName = getTeamName(homeAbbr);
     const awayName = getTeamName(awayAbbr);
     const homeWin = parseFloat(sim.home_win_pct) > parseFloat(sim.away_win_pct);
-    const homeColor = getTeamColor(homeAbbr);
-    const awayColor = getTeamColor(awayAbbr);
+    const clashResolved = resolveTeamColors(homeAbbr, awayAbbr);
+    const homeColor = clashResolved.home;
+    const awayColor = clashResolved.away;
     const homeText = getContrastColor(homeColor);
     const awayText = getContrastColor(awayColor);
     const winnerColor = homeWin ? homeColor : awayColor;
@@ -660,8 +661,8 @@ function renderResults(sim, homeAbbr, awayAbbr) {
     const aPct = parseFloat(sim.away_win_pct);
     html += `<div class="prob-section">
         <div class="prob-header">
-            <span class="prob-team">${homeName} <span class="prob-pct" style="color:${homeColor}">${hPct.toFixed(1)}%</span></span>
-            <span class="prob-team">${awayName} <span class="prob-pct" style="color:${awayColor}">${aPct.toFixed(1)}%</span></span>
+            <span class="prob-team">${homeName} ${clashResolved.homeIsSecondary ? '<span style="font-size:10px;color:var(--text-muted);margin-left:4px">(alt)</span>' : ''} <span class="prob-pct" style="color:${homeColor}">${hPct.toFixed(1)}%</span></span>
+            <span class="prob-team">${awayName} ${clashResolved.awayIsSecondary ? '<span style="font-size:10px;color:var(--text-muted);margin-left:4px">(alt)</span>' : ''} <span class="prob-pct" style="color:${awayColor}">${aPct.toFixed(1)}%</span></span>
         </div>
         <div class="prob-bar-track">
             <div class="prob-bar-home" style="width:${hPct.toFixed(1)}%; background:${homeColor}; color:${homeText}">${hPct > 18 ? hPct.toFixed(0) + '%' : ''}</div>
@@ -834,11 +835,113 @@ const TEAM_COLORS = {
     "WSH": "#C8102E"
 };
 
-function getTeamColor(abbr) {
-    if (!abbr) return '#64748b';
+const TEAM_SECONDARY_COLORS = {
+    "ANA": "#B9975B",
+    "ARI": "#E2D6AD",
+    "BOS": "#000000",
+    "BUF": "#FFB81C",
+    "CGY": "#FAAF19",
+    "CAR": "#000000",
+    "CHI": "#000000",
+    "COL": "#236192",
+    "CBJ": "#CE1126",
+    "DAL": "#8F8F8C",
+    "DET": "#FFFFFF",
+    "EDM": "#041E42",
+    "FLA": "#B9975B",
+    "LAK": "#000000",
+    "MIN": "#A6192E",
+    "MTL": "#192168",
+    "NSH": "#041E42",
+    "NJD": "#000000",
+    "NYI": "#00539B",
+    "NYR": "#C8102E",
+    "OTT": "#000000",
+    "PHI": "#000000",
+    "PIT": "#000000",
+    "SEA": "#6CD1C9",
+    "SJS": "#EA7200",
+    "STL": "#FCB514",
+    "TBL": "#FFFFFF",
+    "TOR": "#FFFFFF",
+    "UTA": "#041E42",
+    "VAN": "#00843D",
+    "VGK": "#333F42",
+    "WPG": "#A2AAAD",
+    "WSH": "#041E42"
+};
+
+function normalizeTeamAbbr(abbr) {
+    if (!abbr) return '';
     const alias = { "UTAH": "UTA" };
-    const normalized = alias[abbr.toUpperCase()] || abbr.toUpperCase();
+    return alias[abbr.toUpperCase()] || abbr.toUpperCase();
+}
+
+function getTeamColor(abbr) {
+    const normalized = normalizeTeamAbbr(abbr);
     return TEAM_COLORS[normalized] || '#64748b';
+}
+
+function getTeamSecondaryColor(abbr) {
+    const normalized = normalizeTeamAbbr(abbr);
+    return TEAM_SECONDARY_COLORS[normalized] || '#64748b';
+}
+
+function hexToRgb(hex) {
+    const c = hex.replace('#', '');
+    if (c.length !== 6) return { r: 128, g: 128, b: 128 };
+    return {
+        r: parseInt(c.substring(0, 2), 16),
+        g: parseInt(c.substring(2, 4), 16),
+        b: parseInt(c.substring(4, 6), 16),
+    };
+}
+
+function colorLuminance(hex) {
+    const { r, g, b } = hexToRgb(hex);
+    return (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255;
+}
+
+function colorsAreSimilar(a, b) {
+    const threshold = 0.12; // perceptual normalized threshold
+    const colorDist = (hex1, hex2) => {
+        const c1 = hexToRgb(hex1), c2 = hexToRgb(hex2);
+        return Math.sqrt(
+            Math.pow(c1.r - c2.r, 2) +
+            Math.pow(c1.g - c2.g, 2) +
+            Math.pow(c1.b - c2.b, 2)
+        ) / 441.67;
+    };
+    return colorDist(a, b) < threshold;
+}
+
+function resolveTeamColors(homeAbbr, awayAbbr) {
+    const homePrimary = getTeamColor(homeAbbr);
+    const awayPrimary = getTeamColor(awayAbbr);
+
+    if (!colorsAreSimilar(homePrimary, awayPrimary)) {
+        return { home: homePrimary, away: awayPrimary, homeIsSecondary: false, awayIsSecondary: false };
+    }
+
+    // Clash: the team with the brighter primary keeps it; the darker switches to secondary.
+    const homeLum = colorLuminance(homePrimary);
+    const awayLum = colorLuminance(awayPrimary);
+
+    if (homeLum >= awayLum) {
+        return {
+            home: homePrimary,
+            away: getTeamSecondaryColor(awayAbbr),
+            homeIsSecondary: false,
+            awayIsSecondary: true
+        };
+    } else {
+        return {
+            home: getTeamSecondaryColor(homeAbbr),
+            away: awayPrimary,
+            homeIsSecondary: true,
+            awayIsSecondary: false
+        };
+    }
 }
 
 function getContrastColor(hex) {
@@ -990,6 +1093,7 @@ async function showGameDetail(gameId, homeAbbrFallback, awayAbbrFallback) {
             if (!o || isNaN(g)) return 0;
             return (g / o) * 100;
         }
+        const modalColors = resolveTeamColors(homeAbbr, awayAbbr);
         function statCompare(label, awayVal, homeVal, awaySub, homeSub, awayNum, homeNum) {
             let a = parseFloat(awayNum);
             let h = parseFloat(homeNum);
@@ -1004,8 +1108,8 @@ async function showGameDetail(gameId, homeAbbrFallback, awayAbbrFallback) {
                 awayWidth = (a / total) * 100;
                 homeWidth = (h / total) * 100;
             }
-            const awayColor = getTeamColor(awayAbbr);
-            const homeColor = getTeamColor(homeAbbr);
+            const awayColor = modalColors.away;
+            const homeColor = modalColors.home;
             return `<div class="stat-compare">
                 <div class="stat-compare-values">
                     <div class="stat-compare-team left">
