@@ -28,7 +28,7 @@ CACHE_TTL_SECONDS = 6 * 60 * 60
 CACHE_MAX_AGE_DAYS = 7
 
 # ── Season ────────────────────────────────────────────────────────────
-CURRENT_SEASON_YEAR = 2025
+CURRENT_SEASON_YEAR = 2026
 NHL_SEASON_START_MONTH = 10
 
 # ── Team Mapping ────────────────────────────────────────────────────

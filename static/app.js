@@ -1285,7 +1285,7 @@ async function showGameDetail(gameId, homeAbbrFallback, awayAbbrFallback) {
 
 // ── Analytics Tab (PBP Advanced Stats) ────────────────────────────
 async function loadStatsPayload(type) {
-    const season = document.getElementById('statsSeason')?.value || '20252026';
+    const season = document.getElementById('statsSeason')?.value || '20262027';
     const endpoint = `/api/stats/${type}?season=${season}&stype=2`;
     return safeFetchJson(endpoint, { cache: 'no-store' });
 }
