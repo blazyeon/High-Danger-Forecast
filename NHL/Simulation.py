@@ -63,6 +63,7 @@ from NHL.Errors import (
 from NHL.Utils import (
     season_from_date,
     prev_season_key,
+    get_data_season_for_game,
     normalize_name_key,
     get_column_safe,
     normalize_sv_column,
@@ -1870,13 +1871,18 @@ def simulate_matchup(
 
     # AUTOMATIC INJURY IMPACT CALCULATION
     if apply_injury_impact:
-        player_stats_cache, team_stats_cache = _load_player_stats_for_injuries(season)
+        # Injury stats must resolve to a season that actually has data. When the
+        # game falls in a season that hasn't started yet (e.g. the offseason),
+        # fall back to the most recent completed season so injured players still
+        # match their PBP/MoneyPuck records.
+        _, injury_data_season, _ = get_data_season_for_game(game_date)
+        player_stats_cache, team_stats_cache = _load_player_stats_for_injuries(injury_data_season)
 
         home_injury_data = calculate_automatic_injury_impact(
-            home_abbr, season, player_stats_cache, team_stats_cache
+            home_abbr, injury_data_season, player_stats_cache, team_stats_cache
         )
         away_injury_data = calculate_automatic_injury_impact(
-            away_abbr, season, player_stats_cache, team_stats_cache
+            away_abbr, injury_data_season, player_stats_cache, team_stats_cache
         )
 
         injury_impact_home = home_injury_data['offense_impact']
