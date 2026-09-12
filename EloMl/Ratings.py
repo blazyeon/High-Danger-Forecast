@@ -52,7 +52,7 @@ class EloConfig:
     max_rating: float = 2400.0
     
     # Recent form tracking
-    recent_form_window: int = 30  # Track last 30 games
+    recent_form_window: int = 10  # Track last 10 games
 
 
 @dataclass
@@ -73,7 +73,7 @@ class PlayerElo:
     def add_result(self, delta: float):
         """Add a game result delta to recent form"""
         self.recent_form.append(delta)
-        if len(self.recent_form) > 30:
+        if len(self.recent_form) > 10:
             self.recent_form.pop(0)
     
     def update(
@@ -211,7 +211,7 @@ class TeamElo:
     def add_result(self, delta: float):
         """Add a game result delta to recent form"""
         self.recent_form.append(delta)
-        if len(self.recent_form) > 30:
+        if len(self.recent_form) > 10:
             self.recent_form.pop(0)
     
     def update(
