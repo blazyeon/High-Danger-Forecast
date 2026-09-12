@@ -7,7 +7,9 @@ from __future__ import annotations
 
 import json
 import logging
+import math
 import os
+import threading
 import traceback
 from datetime import date as _date, timedelta
 from pathlib import Path
@@ -23,7 +25,7 @@ from NHL.AppState import (
 )
 from NHL.Config import (
     DIVISIONS, TEAM_ABBR_MAPPING, NST_ABBR_TO_FULL, NHL_SEASON_START_MONTH,
-    DEFAULT_SIMULATIONS, DEFAULT_TREND_GAMES, _season_options,
+    DEFAULT_SIMULATIONS, MAX_SIMULATIONS, DEFAULT_TREND_GAMES, _season_options,
 )
 from NHL.MatchupUtils import (
     build_team_options, build_teams_api_data,
@@ -43,9 +45,11 @@ from NHL.GoaliePrediction import predict_starting_goalie
 from NHL.Errors import safe_api_call
 from NHL.Utils import (
     season_from_date, get_data_season_for_game,
-    sanitize_text, format_initial_last,
+    sanitize_text, format_initial_last, league_today,
 )
-from NHL.OddsAPI import fetch_nhl_player_props_by_date, OddsAPIError
+from NHL.OddsAPI import (
+    fetch_nhl_player_props_by_date, OddsAPIError, get_odds_quota_status,
+)
 from NHL.PlayByPlay import count_pp_opportunities, count_faceoffs
 from NHL.BettingEdge import (
     compute_and_cache_edges,
@@ -55,6 +59,8 @@ from NHL.BettingEdge import (
     load_cached_odds,
     load_demo_odds,
     load_demo_schedule,
+    odds_staleness_warning,
+    drop_started_games,
     DEFAULT_DEMO_PATH,
     EDGE_THRESHOLD,
 )
@@ -91,24 +97,65 @@ def _handle_exception(e):
     return jsonify({"error": "Internal server error"}), 500
 
 
+class BadRequestError(Exception):
+    """Raised for malformed user input; mapped to a 400 response."""
+
+
+@app.errorhandler(BadRequestError)
+def _handle_bad_request(e):
+    return jsonify({"error": str(e)}), 400
+
+
+def _parse_date(value: Optional[str]) -> Optional[_date]:
+    """Parse a YYYY-MM-DD query/body param, raising BadRequestError on malformed input."""
+    if not value:
+        return None
+    try:
+        return _date.fromisoformat(value)
+    except ValueError:
+        raise BadRequestError(f"Invalid date '{value}'; expected YYYY-MM-DD.")
+
+
+# Single non-blocking slot for the CPU-heavy simulation. A second concurrent
+# predict on a 1-worker dyno would starve the first, so reject it instead.
+_SIM_SEMAPHORE = threading.Semaphore(1)
+
+
+def _fetch_lineup(abbr: str, game_date: _date, side: str) -> Tuple[Dict[str, Any], bool]:
+    """Fetch a lineup, returning (lineup, ok) so callers can flag degradation."""
+    try:
+        lineup = get_confirmed_or_predicted_lineup(abbr, game_date.isoformat(), None)
+        return lineup, True
+    except Exception as e:
+        logger.warning(f"NHL Lineup API ({side}) failed: {e}")
+        return {"forwards": [], "defense": [], "goalies": []}, False
+
+
 # ── JSON helper ─────────────────────────────────────────────────────────
 
 def _make_json_safe(obj: Any) -> Any:
-    """Recursively convert numpy/pandas types to JSON-safe Python types."""
+    """
+    Recursively convert numpy/pandas types to JSON-safe Python types.
+
+    NaN and +/- infinity are collapsed to None so a single non-finite float in a
+    prediction payload can't make Flask's JSON encoder throw and take down a tab.
+    """
     if isinstance(obj, dict):
         return {k: _make_json_safe(v) for k, v in obj.items()}
     if isinstance(obj, (list, tuple)):
         return [_make_json_safe(v) for v in obj]
+    if isinstance(obj, np.ndarray):
+        return _make_json_safe(obj.tolist())
+    if isinstance(obj, pd.DataFrame):
+        return _make_json_safe(obj.to_dict(orient="records"))
     if isinstance(obj, (np.integer,)):
         return int(obj)
     if isinstance(obj, (np.floating,)):
-        return float(obj)
-    if isinstance(obj, np.ndarray):
-        return obj.tolist()
-    if isinstance(obj, pd.DataFrame):
-        return obj.to_dict(orient="records")
-    if isinstance(obj, float) and (pd.isna(obj) if hasattr(pd, 'isna') else False):
-        return None
+        obj = float(obj)
+    if isinstance(obj, float):
+        if not math.isfinite(obj):
+            return None
+        return obj
     if isinstance(obj, bool):
         return obj
     return obj
@@ -218,6 +265,15 @@ def api_predict():
         "away_b2b": false
     }
     """
+    if not _SIM_SEMAPHORE.acquire(blocking=False):
+        return jsonify({"error": "Server is busy running another simulation. Please retry in a few seconds."}), 429
+    try:
+        return _predict_impl()
+    finally:
+        _SIM_SEMAPHORE.release()
+
+
+def _predict_impl():
     try:
         data = request.get_json(force=True)
         home_abbr = data.get("home_team", "").upper()
@@ -230,10 +286,13 @@ def api_predict():
         away_raw = TEAM_ABBR_MAPPING.get(away_abbr, away_abbr)
 
         date_str = data.get("date")
-        game_date = _date.fromisoformat(date_str) if date_str else _date.today()
+        game_date = _parse_date(date_str) or league_today()
 
         stype = data.get("season_type", 2)
-        sims = data.get("simulations", DEFAULT_SIMULATIONS)
+        try:
+            sims = min(int(data.get("simulations", DEFAULT_SIMULATIONS)), MAX_SIMULATIONS)
+        except (TypeError, ValueError):
+            sims = DEFAULT_SIMULATIONS
         trend_games = data.get("trend_games", DEFAULT_TREND_GAMES)
         nst_days_window = data.get("nst_window")
         home_goalie = data.get("home_goalie") or None
@@ -246,6 +305,8 @@ def api_predict():
             f"goalies={home_goalie}/{away_goalie}, b2b={home_b2b}/{away_b2b}"
         )
 
+        degraded: List[str] = []
+
         game_season, data_season, use_previous = get_data_season_for_game(
             game_date, NHL_SEASON_START_MONTH
         )
@@ -254,7 +315,7 @@ def api_predict():
         if nst_days_window:
             # Use the day before the game as the window end, capped at today so we
             # never request future data. Playoff games in May/June are supported.
-            td_day = min(game_date - timedelta(days=1), _date.today())
+            td_day = min(game_date - timedelta(days=1), league_today())
             fd_day = td_day - timedelta(days=nst_days_window - 1)
             fd_str = fd_day.isoformat()
             td_str = td_day.isoformat()
@@ -273,20 +334,13 @@ def api_predict():
             logger.warning(f"Failed to get Elo ratings: {e}")
             home_elo = home_elo_base = 1500.0
             away_elo = away_elo_base = 1500.0
+            degraded.append("elo_ratings")
 
         # Get lineups
-        away_lineup_full = safe_api_call(
-            get_confirmed_or_predicted_lineup,
-            away_raw, game_date.isoformat(), None,
-            service_name="NHL Lineup API (Away)",
-            fallback={"forwards": [], "defense": [], "goalies": []},
-        )
-        home_lineup_full = safe_api_call(
-            get_confirmed_or_predicted_lineup,
-            home_raw, game_date.isoformat(), None,
-            service_name="NHL Lineup API (Home)",
-            fallback={"forwards": [], "defense": [], "goalies": []},
-        )
+        away_lineup_full, away_ok = _fetch_lineup(away_raw, game_date, "Away")
+        home_lineup_full, home_ok = _fetch_lineup(home_raw, game_date, "Home")
+        if not away_ok or not home_ok:
+            degraded.append("lineups")
 
         away_skaters = away_lineup_full.get("forwards", []) + away_lineup_full.get("defense", [])
         home_skaters = home_lineup_full.get("forwards", []) + home_lineup_full.get("defense", [])
@@ -314,9 +368,11 @@ def api_predict():
             season_skill_cur = load_skater_rates_from_json(data_season_year, stype)
             if not season_skill_cur:
                 logger.warning(f"JSON skater rates empty for {data_season}")
+                degraded.append("skater_rates")
         except Exception as e:
             logger.warning(f"JSON skater rates failed: {e}")
             season_skill_cur = {}
+            degraded.append("skater_rates")
 
         # Run simulation
         sim = simulate_matchup(
@@ -346,9 +402,12 @@ def api_predict():
         result["home_elo_adj"] = float(home_elo)
         result["away_elo_adj"] = float(away_elo)
         result["data_season"] = data_season
+        result["degraded"] = degraded
 
         return jsonify(result)
 
+    except BadRequestError:
+        raise
     except Exception as e:
         logger.error(f"Prediction error: {e}", exc_info=True)
         return jsonify({"error": str(e)}), 500
@@ -422,7 +481,12 @@ def api_state():
     try:
         state_info = get_state_info()
         elo_check = check_elo_data_availability()
-        return jsonify({"state": state_info, "elo": elo_check})
+        return jsonify({
+            "state": state_info,
+            "elo": elo_check,
+            "odds_quota": get_odds_quota_status(),
+            "league_today": league_today().isoformat(),
+        })
     except Exception as e:
         logger.error(f"State API error: {e}")
         return jsonify({"error": str(e)}), 500
@@ -500,6 +564,7 @@ def api_lookup():
     date_str = request.args.get("date")
     if not date_str:
         return jsonify({"error": "date parameter is required (YYYY-MM-DD)"}), 400
+    _parse_date(date_str)  # raises BadRequestError on malformed input
 
     try:
         games = safe_api_call(
@@ -909,7 +974,7 @@ def api_player_props(date_str: str):
     """
     try:
         from NHL.PlayerLinePredictor import (
-            load_player_props_multi_day,
+            load_player_props_multi_day_with_status,
             DEFAULT_PLAYER_MARKETS,
             _shape_player_df,
             _best_prices,
@@ -917,7 +982,7 @@ def api_player_props(date_str: str):
             get_player_pbp_stats,
         )
 
-        game_date = _date.fromisoformat(date_str)
+        game_date = _parse_date(date_str)
         markets = request.args.getlist("markets")
         if not markets:
             markets = list(DEFAULT_PLAYER_MARKETS)
@@ -931,7 +996,7 @@ def api_player_props(date_str: str):
         player_elo = get_player_elo_ratings(season)
         player_stats = get_player_pbp_stats(season)
 
-        raw = load_player_props_multi_day(
+        raw, odds_errors = load_player_props_multi_day_with_status(
             day=game_date,
             regions=regions,
             markets=tuple(markets),
@@ -941,6 +1006,13 @@ def api_player_props(date_str: str):
 
         df = _shape_player_df(raw, odds_format, player_elo, player_stats)
         if df.empty:
+            if odds_errors:
+                return jsonify({
+                    "date": date_str,
+                    "props": [],
+                    "no_live_odds": True,
+                    "warning": "Live odds unavailable: " + "; ".join(odds_errors),
+                })
             return jsonify({"date": date_str, "props": []})
 
         df = _best_prices(df)
@@ -976,6 +1048,8 @@ def api_player_props(date_str: str):
         records = out_df.to_dict(orient="records")
         return jsonify({"date": date_str, "props": _make_json_safe(records)})
 
+    except BadRequestError:
+        raise
     except Exception as e:
         logger.error(f"Player props error: {e}", exc_info=True)
         return jsonify({"error": str(e)}), 500
@@ -996,14 +1070,23 @@ def api_betting_edge():
     """
     try:
         date_str = request.args.get("date")
-        game_date = _date.fromisoformat(date_str) if date_str else _date.today()
+        game_date = _parse_date(date_str) or league_today()
         edge_threshold = float(request.args.get("edge_threshold", "0.03"))
         force_demo = request.args.get("demo", "0").lower() in ("1", "true", "yes")
 
-        # Fast path: serve pre-computed edges when available and fresh.
+        # Fast path: serve pre-computed edges for the requested date.
         if not force_demo:
             cached, warning = load_cached_edges(game_date, max_age_hours=24.0)
-            if cached is not None:
+            if cached is not None and cached.get("date") == game_date.isoformat():
+                # Never serve demo-sourced edges as real recommendations.
+                if cached.get("source") == "demo":
+                    return jsonify({
+                        "date": game_date.isoformat(),
+                        "games": [],
+                        "source": "demo",
+                        "no_live_odds": True,
+                        "warning": "Live odds are unavailable. Set ODDS_API_KEY to see real value bets.",
+                    })
                 # Apply a possibly stricter client threshold to the cached set.
                 games = cached.get("games", [])
                 if edge_threshold != EDGE_THRESHOLD:
@@ -1016,22 +1099,41 @@ def api_betting_edge():
                         g["best_edge"] = max((abs(e.get("edge", 0.0)) for e in g["edges"]), default=0.0)
                 result = dict(cached)
                 result["games"] = _make_json_safe(games)
+                result, started_count = drop_started_games(result)
+                if started_count:
+                    warning = (warning + " " if warning else "") + f"{started_count} game(s) already started; their edges are no longer bettable."
+                staleness = odds_staleness_warning(cached)
+                if staleness:
+                    warning = warning or staleness
                 if warning:
                     result["warning"] = warning
                 return jsonify(result)
 
-        # Slow path: compute and cache edges now.
+        # Slow path: compute and cache edges now. Outside an explicit demo
+        # request, refuse to fall back to the demo fixture (fake odds).
         odds_payload = None
         if force_demo:
             odds_payload = load_demo_odds(DEFAULT_DEMO_PATH)
-        payload = compute_and_cache_edges(
-            day=game_date,
-            odds_payload=odds_payload,
-            edge_threshold=edge_threshold,
-            use_events_schedule=bool(force_demo),
-        )
+        try:
+            payload = compute_and_cache_edges(
+                day=game_date,
+                odds_payload=odds_payload,
+                edge_threshold=edge_threshold,
+                use_events_schedule=bool(force_demo),
+                allow_demo_fallback=bool(force_demo),
+            )
+        except OddsAPIError as e:
+            return jsonify({
+                "date": game_date.isoformat(),
+                "games": [],
+                "source": "none",
+                "no_live_odds": True,
+                "warning": str(e),
+            })
         return jsonify(_make_json_safe(payload))
 
+    except BadRequestError:
+        raise
     except Exception as e:
         logger.error(f"Betting edge error: {e}", exc_info=True)
         return jsonify({"error": str(e)}), 500

@@ -64,6 +64,7 @@ NST_ABBR_TO_FULL: Dict[str, str] = {
 
 # ── Simulation ──────────────────────────────────────────────────────
 DEFAULT_SIMULATIONS = 10000
+MAX_SIMULATIONS = 20000
 DEFAULT_TREND_GAMES = 6
 
 SIMULATION_PARAMS = {

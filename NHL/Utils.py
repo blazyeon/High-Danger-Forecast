@@ -3,8 +3,14 @@ Centralized utility functions to eliminate code duplication across the NHL appli
 """
 import re
 import html
+import os
+import json
+import time
+import tempfile
+from pathlib import Path
 from typing import Any, Optional, Tuple
 from datetime import datetime, date
+from zoneinfo import ZoneInfo
 import logging
 
 logger = logging.getLogger(__name__)
@@ -384,11 +390,11 @@ def safe_numeric(value: Any, default: float = 0.0) -> float:
 def safe_int(value: Any, default: int = 0) -> int:
     """
     Safely convert value to int with fallback.
-    
+
     Args:
         value: Value to convert
         default: Default value if conversion fails
-    
+
     Returns:
         Int value or default
     """
@@ -396,3 +402,71 @@ def safe_int(value: Any, default: int = 0) -> int:
         return int(value)
     except (TypeError, ValueError):
         return default
+
+
+# ===================== LEAGUE TIME =====================
+
+LEAGUE_TZ = "America/New_York"
+
+
+def league_today() -> date:
+    """
+    Return the current calendar date in the league's (Eastern) timezone.
+
+    The NHL schedules its game-day boundary in Eastern time, but Render hosts
+    default to UTC. A game that starts at 10:00 PM ET on the 10th is already
+    2:00 AM UTC on the 11th, so a UTC host asking for "today" would query the
+    wrong league day and return an empty or off-by-one schedule. Falling back to
+    the host's local date keeps dev machines (which may lack a tz database)
+    working correctly.
+    """
+    try:
+        return datetime.now(ZoneInfo(LEAGUE_TZ)).date()
+    except Exception:
+        return date.today()
+
+
+# ===================== ATOMIC JSON IO =====================
+
+def atomic_write_json(path: Any, payload: Any, indent: int = 2) -> None:
+    """
+    Write JSON to `path` atomically (temp file + os.replace).
+
+    Prevents a concurrent reader from observing a half-written file during the
+    daily cache update (odds, edges, and PBP stat exports are all read live by
+    the Flask app while the scheduler refreshes them).
+    """
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    fd, tmp = tempfile.mkstemp(dir=str(path.parent), prefix=path.name + ".", suffix=".tmp")
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8") as f:
+            json.dump(payload, f, default=str, indent=indent)
+        os.replace(tmp, path)
+    except Exception:
+        try:
+            os.unlink(tmp)
+        except OSError:
+            pass
+        raise
+
+
+def read_json_robust(path: Any, retries: int = 1) -> Any:
+    """
+    Read JSON from `path`, retrying once on a transient decode failure.
+
+    Defense-in-depth against a read racing an in-place write; atomic writers make
+    a half-written file impossible, but a decode error from any other transient
+    I/O hiccup is still retried rather than surfacing as a 500.
+    """
+    path = Path(path)
+    last_err: Optional[Exception] = None
+    for attempt in range(retries + 1):
+        try:
+            with open(path, "r", encoding="utf-8") as f:
+                return json.load(f)
+        except (json.JSONDecodeError, ValueError) as e:
+            last_err = e
+            if attempt < retries:
+                time.sleep(0.1)
+    raise last_err

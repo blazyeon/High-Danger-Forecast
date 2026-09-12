@@ -53,6 +53,7 @@ from NHL.StatsFromPBP import (
 )
 from NHL.MoneyPuck import download_shots_zip, MP_CACHE_DIR, parse_mp_shots
 from NHL.Validation import validate_xg_against_money_puck
+from NHL.Utils import atomic_write_json
 
 logger = logging.getLogger("update_pbp_stats")
 
@@ -66,10 +67,10 @@ def _df_to_records(df: pd.DataFrame) -> List[Dict]:
 
 
 def _write_json(out_path: Path, payload: Dict) -> None:
-    """Write a JSON payload with a stable key order and a freshness timestamp."""
+    """Write a JSON payload atomically with a freshness timestamp."""
     ts = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     payload = {**payload, "updated_at": ts}
-    out_path.write_text(json.dumps(payload, indent=2))
+    atomic_write_json(out_path, payload, indent=2)
 
 
 def _current_season_start_year() -> int:

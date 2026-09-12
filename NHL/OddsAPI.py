@@ -12,16 +12,23 @@ Docs: https://api.the-odds-api.com
 from __future__ import annotations
 
 import os
+import random
 import time
+from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 from datetime import date as _date, datetime, timedelta, timezone
 
 import requests
 import logging
 
+from NHL.Utils import atomic_write_json, read_json_robust, LEAGUE_TZ
+
 logger = logging.getLogger(__name__)
 
 DEFAULT_BASE_URL = "https://api.the-odds-api.com/v4"
+
+# Where the last-seen Odds API quota is persisted for the low-quota UI banner.
+QUOTA_CACHE_PATH = Path(__file__).resolve().parent.parent / "static" / "data" / "odds_quota.json"
 
 
 class OddsAPIError(Exception):
@@ -61,11 +68,57 @@ def _iso_utc(dt: datetime) -> str:
     return dt.strftime("%Y-%m-%dT%H:%M:%SZ")
 
 def _log_quota_headers(hdrs: Dict[str, str]) -> None:
-    """Log remaining Odds API quota so we can see usage per call."""
+    """Log remaining Odds API quota and persist it for the low-quota banner."""
     remaining = hdrs.get("x-requests-remaining")
     used = hdrs.get("x-requests-used")
     if remaining is not None or used is not None:
         logger.info(f"Odds API quota — used={used}, remaining={remaining}")
+        try:
+            atomic_write_json(QUOTA_CACHE_PATH, {
+                "remaining": _as_int(remaining),
+                "used": _as_int(used),
+                "updated_at": datetime.now(timezone.utc).isoformat(),
+            })
+        except Exception as e:
+            logger.debug(f"Could not persist Odds API quota: {e}")
+
+
+def _as_int(value: Any) -> Optional[int]:
+    """Coerce a header value to int, returning None when unparseable."""
+    try:
+        return int(value)
+    except (TypeError, ValueError):
+        return None
+
+
+def get_odds_quota_status() -> Dict[str, Any]:
+    """Return the last-known Odds API quota (remaining/used/updated_at)."""
+    try:
+        if QUOTA_CACHE_PATH.exists():
+            return read_json_robust(QUOTA_CACHE_PATH)
+    except Exception:
+        pass
+    return {"remaining": None, "used": None, "updated_at": None}
+
+
+def _check_quota() -> None:
+    """Raise early when the persisted quota is exhausted instead of hammering the API."""
+    quota = get_odds_quota_status()
+    remaining = quota.get("remaining")
+    if remaining is not None and remaining <= 0:
+        raise OddsAPIError("Odds API quota exhausted; try again later.")
+
+def _retry_after_delay(resp: Any, attempt: int, backoff: float) -> float:
+    """Return the sleep delay for a retryable response, honoring Retry-After."""
+    retry_after = resp.headers.get("Retry-After")
+    if retry_after:
+        try:
+            return max(0.0, float(retry_after))
+        except (TypeError, ValueError):
+            pass
+    # Exponential backoff with jitter to avoid a thundering herd under quota pressure.
+    return backoff ** attempt + random.uniform(0, 0.5)
+
 
 def _request_with_retry(
     method: str,
@@ -81,7 +134,7 @@ def _request_with_retry(
             resp = requests.request(method, url, params=params, headers=_headers(), timeout=timeout)
         except Exception as e:
             last_err = e
-            time.sleep(backoff ** attempt)
+            time.sleep(backoff ** attempt + random.uniform(0, 0.5))
             continue
 
         hdrs = {k.lower(): v for k, v in resp.headers.items()}
@@ -90,9 +143,9 @@ def _request_with_retry(
                 return resp.json(), hdrs
             except Exception as e:
                 raise OddsAPIError(f"Failed to parse JSON: {e}")
-        if resp.status_code == 429:
-            # Rate limited
-            time.sleep(backoff ** attempt)
+        if resp.status_code in (429, 503):
+            # Rate limited / temporarily unavailable
+            time.sleep(_retry_after_delay(resp, attempt, backoff))
             continue
         # Other error
         detail = resp.text[:500] if hasattr(resp, "text") else f"status={resp.status_code}"
@@ -100,9 +153,18 @@ def _request_with_retry(
     raise OddsAPIError(f"Exceeded retries: {last_err}")
 
 def _utc_day_window(day: _date) -> Tuple[str, str]:
-    start_dt = datetime(day.year, day.month, day.day, 0, 0, 0, tzinfo=timezone.utc)
-    end_dt = start_dt + timedelta(days=1) - timedelta(seconds=1)
-    return _iso_utc(start_dt), _iso_utc(end_dt)
+    # The NHL schedules its game-day boundary in Eastern time. A game at 10 PM ET
+    # is already past midnight UTC, so a UTC-midnight window would push it onto the
+    # next day and return an off-by-one slate. Build the window from Eastern
+    # midnight boundaries, then convert to UTC for the Odds API commenceTime params.
+    try:
+        from zoneinfo import ZoneInfo
+        tz = ZoneInfo(LEAGUE_TZ)
+    except Exception:
+        tz = timezone.utc
+    start_local = datetime(day.year, day.month, day.day, 0, 0, 0, tzinfo=tz)
+    end_local = start_local + timedelta(days=1) - timedelta(seconds=1)
+    return _iso_utc(start_local), _iso_utc(end_local)
 
 def fetch_nhl_odds_by_date(
     day: _date,
@@ -119,6 +181,7 @@ def fetch_nhl_odds_by_date(
     api_key = _get_api_key()
     if not api_key:
         raise OddsAPIError("Missing API key.")
+    _check_quota()
 
     commence_from, commence_to = _utc_day_window(day)
     params: Dict[str, Any] = {
@@ -182,6 +245,7 @@ def fetch_event_player_odds(
     api_key = _get_api_key()
     if not api_key:
         raise OddsAPIError("Missing API key.")
+    _check_quota()
     params: Dict[str, Any] = {
         "apiKey": api_key,
         "regions": regions,

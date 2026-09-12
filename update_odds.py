@@ -19,7 +19,6 @@ from datetime import date as _date
 from NHL.BettingEdge import (
     fetch_and_cache_odds,
     compute_and_cache_edges,
-    load_demo_odds,
     OddsAPIError,
 )
 
@@ -53,8 +52,11 @@ def main() -> int:
     except OddsAPIError as e:
         err_msg = str(e).lower()
         if "missing api key" in err_msg:
-            logger.warning(f"No Odds API key configured; falling back to demo odds for {game_date}.")
-            payload = load_demo_odds()
+            # Do NOT fabricate edges from the demo fixture in the scheduled
+            # production update — leave the cache untouched so the app reports
+            # "no live odds" instead of demo value bets.
+            logger.warning(f"No Odds API key configured; skipping edge computation for {game_date}.")
+            return 0
         else:
             logger.error(f"Odds API error: {e}")
             return 1

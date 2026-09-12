@@ -36,12 +36,22 @@ class EloDatabase:
         """Ensure connection is closed on garbage collection"""
         self.close()
 
+    def _apply_pragmas(self):
+        """Enable WAL + busy timeout so concurrent readers/writers don't 500 on lock."""
+        try:
+            self.conn.execute("PRAGMA journal_mode=WAL")
+            self.conn.execute("PRAGMA busy_timeout=10000")
+            self.conn.execute("PRAGMA synchronous=NORMAL")
+        except sqlite3.Error as e:
+            logger.warning(f"Could not apply SQLite pragmas: {e}")
+
     def _ensure_connection(self):
         """Reconnect if the connection was closed or is unusable"""
         if self._closed or self.conn is None:
             self._closed = False
             self.conn = sqlite3.connect(self.db_path)
             self.conn.row_factory = sqlite3.Row
+            self._apply_pragmas()
         try:
             # Quick liveness check
             self.conn.execute("SELECT 1")
@@ -49,6 +59,7 @@ class EloDatabase:
             logger.warning("Reconnecting to Elo database (stale connection)")
             self.conn = sqlite3.connect(self.db_path)
             self.conn.row_factory = sqlite3.Row
+            self._apply_pragmas()
 
     def _initialize_db(self):
         """Create database tables if they don't exist"""

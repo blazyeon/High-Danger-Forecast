@@ -14,6 +14,14 @@ function escapeHtml(text) {
     return div.innerHTML;
 }
 
+// Local-calendar "today" (the date picker shows the user's own day, not UTC).
+// `toISOString()` is UTC, which can roll the default date off-by-one for the
+// Americas in the evening and for everyone east of UTC in the early morning.
+function localToday() {
+    const d = new Date();
+    return new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString().split('T')[0];
+}
+
 // ── Minimal offline fallback (used only if /api/teams fails) ─────
 const TEAMS_FALLBACK = {
     Atlantic: [
@@ -99,7 +107,7 @@ function initTabs() {
 }
 
 function initDateDefaults() {
-    const today = new Date().toISOString().split('T')[0];
+    const today = localToday();
     const lookupDate = document.getElementById('lookupDate');
     if (lookupDate) lookupDate.value = today;
     const propsDate = document.getElementById('propsDate');
@@ -591,12 +599,13 @@ async function runPrediction() {
             away_goalie: awayGoalie || null,
             home_b2b: homeB2B,
             away_b2b: awayB2B,
-            date: new Date().toISOString().split('T')[0],
+            date: localToday(),
         };
-        data = await safeFetchJson('/api/predict', {
+        data = await latestFetch('predict', '/api/predict', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(body),
+            timeout: 60000,
         });
         if (data.error) { content.innerHTML = `<div class="error-box">${escapeHtml(data.error)}</div>`; btn.disabled = false; return; }
 
@@ -612,6 +621,7 @@ async function runPrediction() {
         logStep('ENSEMBLE', 'Blended Elo (25%) + simulation (50%) + ML (25%) outcomes');
         logStep('DONE', `Prediction complete. Confidence: ${data.confidence}`);
     } catch (e) {
+        if (e.name === 'AbortError') return; // superseded by a newer request
         console.error('Prediction failed:', e);
         content.innerHTML = `<div class="error-box">Prediction failed: ${escapeHtml(e.message)}</div>`;
         btn.disabled = false;
@@ -635,6 +645,10 @@ function renderResults(sim, homeAbbr, awayAbbr) {
     const winnerColor = homeWin ? homeColor : awayColor;
 
     let html = '';
+
+    if (sim.degraded && sim.degraded.length) {
+        html += `<div class="degraded-notice"><i class="fa-solid fa-triangle-exclamation"></i> Prediction computed with degraded data (${sim.degraded.map(escapeHtml).join(', ')}). Results may be less reliable.</div>`;
+    }
 
     // Banner with explicit HOME / AWAY labels
     html += `<div class="result-banner">`;
@@ -955,13 +969,52 @@ function getContrastColor(hex) {
 }
 
 async function safeFetchJson(url, opts={}) {
-    const resp = await fetch(url, opts);
-    const ct = (resp.headers.get('content-type') || '').toLowerCase();
-    if (!resp.ok || !ct.includes('application/json')) {
-        const text = await resp.text().catch(() => '');
-        throw new Error(`${url} returned ${resp.status} (${ct.split(';')[0] || 'unknown'}): ${text.slice(0, 160)}`);
+    const { timeout = 30000, signal, ...rest } = opts;
+    const controller = new AbortController();
+    let timedOut = false;
+    let timer = null;
+    if (timeout > 0) {
+        timer = setTimeout(() => { timedOut = true; controller.abort(); }, timeout);
     }
-    return resp.json();
+    const onAbort = () => controller.abort();
+    if (signal) {
+        if (signal.aborted) controller.abort();
+        else signal.addEventListener('abort', onAbort, { once: true });
+    }
+    try {
+        const resp = await fetch(url, { ...rest, signal: controller.signal });
+        const ct = (resp.headers.get('content-type') || '').toLowerCase();
+        if (!resp.ok || !ct.includes('application/json')) {
+            const text = await resp.text().catch(() => '');
+            throw new Error(`${url} returned ${resp.status} (${ct.split(';')[0] || 'unknown'}): ${text.slice(0, 160)}`);
+        }
+        return resp.json();
+    } catch (e) {
+        if (timedOut) throw new Error(`Request to ${url} timed out after ${timeout}ms.`);
+        throw e;
+    } finally {
+        if (timer) clearTimeout(timer);
+        if (signal) signal.removeEventListener('abort', onAbort);
+    }
+}
+
+// Request sequencing: only the most recent request for a given key may resolve.
+// A newer request aborts the previous in-flight one, so a slow/stale response
+// can never overwrite a fresh one.
+const _fetchSeq = new Map();
+
+function latestFetch(key, url, opts={}) {
+    const prev = _fetchSeq.get(key);
+    if (prev) prev.controller.abort();
+    const controller = new AbortController();
+    const seq = (prev ? prev.seq : 0) + 1;
+    _fetchSeq.set(key, { seq, controller });
+    return safeFetchJson(url, { ...opts, signal: controller.signal }).then(data => {
+        if (_fetchSeq.get(key)?.seq !== seq) {
+            throw new DOMException('Request superseded', 'AbortError');
+        }
+        return data;
+    });
 }
 
 // ── Schedule Tab ─────────────────────────────────────────────────
@@ -976,12 +1029,13 @@ async function runLookup() {
     let apiWorked = false;
 
     try {
-        const data = await safeFetchJson(`/api/lookup?date=${encodeURIComponent(date)}`);
+        const data = await latestFetch('lookup', `/api/lookup?date=${encodeURIComponent(date)}`);
         if (Array.isArray(data.games)) {
             games = data.games;
             apiWorked = games.length > 0;
         }
     } catch (e) {
+        if (e.name === 'AbortError') return; // superseded by a newer request
         console.warn('Schedule backend fetch failed:', e.message);
     }
 
@@ -1601,30 +1655,32 @@ async function runProps() {
     const container = document.getElementById('propsResults');
     container.innerHTML = '<div class="loading"><div class="spinner"></div><span>Loading props...</span></div>';
 
-    const date = document.getElementById('propsDate')?.value || new Date().toISOString().split('T')[0];
+    const date = document.getElementById('propsDate')?.value || localToday();
     const markets = ["player_points", "player_assists", "player_goals", "player_shots_on_goal"];
-
-    const demoUrl = '/static/data/demo_props.json';
-    async function loadDemo(reason) {
-        console.warn(reason + ', using demo data.');
-        const demo = await safeFetchJson(demoUrl);
-        _lastPropsData = demo.props || [];
-        resetPropsFilters();
-        _propsIsDemo = true;
-        _propsDemoReason = reason;
-        renderProps(_lastPropsData);
-    }
 
     try {
         const url = `/api/player-props/${date}?regions=us&markets=${markets.join(',')}`;
-        const data = await safeFetchJson(url);
+        const data = await latestFetch('props', url);
         if (data.error) {
-            await loadDemo('Props API returned error: ' + data.error);
+            container.innerHTML = `<div class="error-box">${escapeHtml(data.error)}</div>`;
+            return;
+        }
+        if (data.no_live_odds) {
+            _lastPropsData = [];
+            _propsIsDemo = false;
+            _propsDemoReason = null;
+            container.innerHTML = `<div class="demo-notice">
+                <i class="fa-solid fa-tower-broadcast"></i> ${escapeHtml(data.warning || 'Live odds are unavailable.')}
+                Set <code>ODDS_API_KEY</code> for real lines.
+            </div>`;
             return;
         }
         const liveProps = data.props || [];
         if (liveProps.length === 0) {
-            await loadDemo('No live props for ' + date);
+            _lastPropsData = [];
+            _propsIsDemo = false;
+            _propsDemoReason = null;
+            container.innerHTML = `<div class="empty-state"><div class="empty-icon"><i class="fa-solid fa-dice"></i></div><h3 class="empty-title">No props available</h3><p class="empty-text">No player props for ${escapeHtml(date)}. Try a different date.</p></div>`;
             return;
         }
         _lastPropsData = liveProps;
@@ -1633,14 +1689,11 @@ async function runProps() {
         _propsDemoReason = null;
         renderProps(_lastPropsData);
     } catch (e) {
-        try {
-            await loadDemo('Props API unavailable: ' + e.message);
-        } catch (demoErr) {
-            _lastPropsData = [];
-            _propsIsDemo = false;
-            container.innerHTML = `<div class="error-box">Could not load props: ${escapeHtml(e.message)}. Demo data also failed to load: ${escapeHtml(demoErr.message)}.</div>`;
-            console.error('Props load failed:', e, demoErr);
-        }
+        if (e.name === 'AbortError') return; // superseded by a newer request
+        _lastPropsData = [];
+        _propsIsDemo = false;
+        container.innerHTML = `<div class="error-box">Could not load props: ${escapeHtml(e.message)}</div>`;
+        console.error('Props load failed:', e);
     }
 }
 
@@ -1862,7 +1915,7 @@ async function runBettingEdge() {
     if (!container) return;
     container.innerHTML = '<div class="loading"><div class="spinner"></div><span>Crunching model probabilities and odds...</span></div>';
 
-    const date = document.getElementById('bettingEdgeDate')?.value || new Date().toISOString().split('T')[0];
+    const date = document.getElementById('bettingEdgeDate')?.value || localToday();
 
     async function loadDemo(reason) {
         console.warn(reason + ', using demo betting edge cache.');
@@ -1881,7 +1934,7 @@ async function runBettingEdge() {
     }
 
     try {
-        const data = await safeFetchJson(`/api/betting-edge?date=${encodeURIComponent(date)}`);
+        const data = await latestFetch('betting-edge', `/api/betting-edge?date=${encodeURIComponent(date)}`);
         if (data.error) {
             await loadDemo('Betting Edge API returned error: ' + data.error);
             return;
@@ -1892,6 +1945,7 @@ async function runBettingEdge() {
         _bettingEdgeDemoReason = null;
         renderBettingEdge(data, container);
     } catch (e) {
+        if (e.name === 'AbortError') return; // superseded by a newer request
         await loadDemo('Betting Edge API unavailable: ' + e.message);
     }
 }
@@ -1905,12 +1959,38 @@ function setBettingEdgeSort(sort) {
 
 function renderBettingEdge(data, container) {
     const games = data.games || [];
-    if (!games.length) {
-        container.innerHTML = `<div class="empty-state">
-            <div class="empty-icon"><i class="fa-solid fa-bullseye"></i></div>
-            <h3 class="empty-title">No value bets</h3>
-            <p class="empty-desc">No market edges above the 3% threshold for ${escapeHtml(data.date)}. Try a different date or check back after the next odds update.</p>
+
+    // Warnings and provenance always render, even in the empty state, so a
+    // stale snapshot or missing live odds is never shown as a quiet empty table.
+    let html = '';
+    if (data.warning) {
+        html += `<div class="betting-edge-warning"><i class="fa-solid fa-triangle-exclamation"></i> ${escapeHtml(data.warning)}</div>`;
+    }
+    if (data.no_live_odds) {
+        html += `<div class="demo-notice">
+            <i class="fa-solid fa-tower-broadcast"></i> ${escapeHtml(data.warning || 'Live odds are unavailable; no recommendations can be shown.')}
+            Set <code>ODDS_API_KEY</code> for real odds.
         </div>`;
+    } else if (data.source === 'demo' || _bettingEdgeIsDemo) {
+        html += `<div class="demo-notice">
+            <i class="fa-solid fa-tower-broadcast"></i> Showing sample value bets because live odds are unavailable${_bettingEdgeDemoReason ? ': ' + escapeHtml(_bettingEdgeDemoReason) : ''}.
+            Set <code>ODDS_API_KEY</code> for real odds.
+        </div>`;
+    }
+
+    if (!games.length) {
+        html += data.no_games
+            ? `<div class="empty-state">
+                <div class="empty-icon"><i class="fa-solid fa-calendar-xmark"></i></div>
+                <h3 class="empty-title">No games scheduled</h3>
+                <p class="empty-desc">No NHL games scheduled for ${escapeHtml(data.date)}. Check back on a game day.</p>
+            </div>`
+            : `<div class="empty-state">
+                <div class="empty-icon"><i class="fa-solid fa-bullseye"></i></div>
+                <h3 class="empty-title">No value bets</h3>
+                <p class="empty-desc">No market edges above the 3% threshold for ${escapeHtml(data.date)}. Try a different date or check back after the next odds update.</p>
+            </div>`;
+        container.innerHTML = html;
         return;
     }
 
@@ -1938,15 +2018,9 @@ function renderBettingEdge(data, container) {
         rows.sort((a, b) => b.edge - a.edge);
     }
 
-    let html = '';
-    if (data.warning) {
-        html += `<div class="betting-edge-warning"><i class="fa-solid fa-triangle-exclamation"></i> ${escapeHtml(data.warning)}</div>`;
-    }
-    if (_bettingEdgeIsDemo) {
-        html += `<div class="demo-notice">
-            <i class="fa-solid fa-tower-broadcast"></i> Showing sample value bets because live edges are unavailable${_bettingEdgeDemoReason ? ': ' + escapeHtml(_bettingEdgeDemoReason) : ''}.
-            Set <code>ODDS_API_KEY</code> for real odds.
-        </div>`;
+    if (data.scanned !== undefined) {
+        const dropped = data.dropped !== undefined ? data.dropped : (data.scanned - (data.matched || 0));
+        html += `<div class="be-meta-line">${data.scanned} games scanned · ${data.matched || 0} matched to odds · ${data.with_edges || 0} with edges · ${dropped} dropped</div>`;
     }
 
     html += `<div class="betting-edge-toolbar">
@@ -2021,11 +2095,48 @@ async function loadAppState() {
         if (data.state?.is_fallback) { dot.className='status-dot error'; txt.textContent='Fallback'; }
         else if (data.state?.ml_model_trained) { dot.className='status-dot ready'; txt.textContent='Ready'; }
         else { dot.className='status-dot loading'; txt.textContent='Loading...'; }
+        _renderOddsQuotaBanner(data.odds_quota);
+        if (data.league_today) syncDateDefaults(data.league_today);
     } catch (e) {
         console.error('State load failed:', e);
         dot.className='status-dot error';
         txt.textContent='Offline';
     }
+}
+
+// Align the date pickers with the server's league (Eastern) "today" so the
+// client and backend share one notion of game day. Only overrides fields the
+// user hasn't touched (still holding the initial local value).
+function syncDateDefaults(leagueToday) {
+    const initial = localToday();
+    ['lookupDate', 'propsDate', 'bettingEdgeDate'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el && el.value === initial) el.value = leagueToday;
+    });
+}
+
+function _renderOddsQuotaBanner(quota) {
+    const host = document.querySelector('.app-header');
+    let el = document.getElementById('oddsQuotaBanner');
+    const remaining = quota && quota.remaining !== null && quota.remaining !== undefined
+        ? Number(quota.remaining) : null;
+    let msg = null;
+    if (remaining !== null && !Number.isNaN(remaining)) {
+        if (remaining <= 0) {
+            msg = 'Odds API quota exhausted — live odds & player props are unavailable.';
+        } else if (remaining <= 25) {
+            msg = `Odds API quota low (${remaining} requests left) — live odds may stop updating.`;
+        }
+    }
+    if (!msg) { if (el) el.remove(); return; }
+    if (!el) {
+        el = document.createElement('div');
+        el.id = 'oddsQuotaBanner';
+        el.className = 'quota-banner';
+        el.setAttribute('role', 'status');
+        if (host) host.appendChild(el);
+    }
+    el.textContent = msg;
 }
 
 async function loadTeams() {

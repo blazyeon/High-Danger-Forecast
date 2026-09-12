@@ -85,6 +85,47 @@ def implied_probability(decimal_odds: float) -> float:
 
 
 @functools.lru_cache(maxsize=None)
+def _load_player_props_multi_day_uncached(
+    day: _date,
+    regions: str,
+    markets: Tuple[str, ...],
+    bookmakers_csv: Optional[str],
+    odds_format: str = "american",
+) -> Tuple[Tuple[Dict[str, Any], ...], Tuple[str, ...]]:
+    """
+    Fetch player props for the selected day AND the next day to handle timezone issues.
+    This ensures games don't get missed when it's late at night in your timezone
+    but the API considers them "tomorrow" in UTC.
+
+    Returns ``(results, errors)`` so callers can distinguish "no props for this date"
+    from "live odds were unavailable" (quota exhausted / bad key / network failure).
+
+    Note: ``markets`` is accepted as a tuple so that lru_cache can hash it.
+    Callers passing a list should convert via ``tuple(markets)``.
+    """
+    results: List[Dict[str, Any]] = []
+    errors: List[str] = []
+
+    for target in (day, day + timedelta(days=1)):
+        try:
+            props = fetch_nhl_player_props_by_date(
+                day=target,
+                regions=regions,
+                markets=list(markets),
+                bookmakers_csv=bookmakers_csv,
+                odds_format=odds_format,
+            )
+            results.extend(props)
+        except OddsAPIError as e:
+            logger.warning("Odds API error for %s: %s", target, e)
+            errors.append(str(e))
+        except Exception as e:
+            logger.warning("Error fetching props for %s: %s", target, e)
+            errors.append(str(e))
+
+    return tuple(results), tuple(errors)
+
+
 def load_player_props_multi_day(
     day: _date,
     regions: str,
@@ -92,48 +133,24 @@ def load_player_props_multi_day(
     bookmakers_csv: Optional[str],
     odds_format: str = "american",
 ) -> Tuple[Dict[str, Any], ...]:
-    """
-    Fetch player props for the selected day AND the next day to handle timezone issues.
-    This ensures games don't get missed when it's late at night in your timezone
-    but the API considers them "tomorrow" in UTC.
+    """Fetch player props for the selected day and the next day (results only)."""
+    results, _ = _load_player_props_multi_day_uncached(
+        day, regions, markets, bookmakers_csv, odds_format
+    )
+    return results
 
-    Note: ``markets`` is accepted as a tuple so that lru_cache can hash it.
-    Callers passing a list should convert via ``tuple(markets)``.
-    """
-    results: List[Dict[str, Any]] = []
 
-    # Fetch today
-    try:
-        today_props = fetch_nhl_player_props_by_date(
-            day=day,
-            regions=regions,
-            markets=list(markets),
-            bookmakers_csv=bookmakers_csv,
-            odds_format=odds_format,
-        )
-        results.extend(today_props)
-    except OddsAPIError as e:
-        logger.warning("Odds API error for %s: %s", day, e)
-    except Exception as e:
-        logger.warning("Error fetching props for %s: %s", day, e)
-
-    # Fetch tomorrow to catch timezone edge cases
-    try:
-        tomorrow = day + timedelta(days=1)
-        tomorrow_props = fetch_nhl_player_props_by_date(
-            day=tomorrow,
-            regions=regions,
-            markets=list(markets),
-            bookmakers_csv=bookmakers_csv,
-            odds_format=odds_format,
-        )
-        results.extend(tomorrow_props)
-    except OddsAPIError as e:
-        logger.warning("Odds API error for %s: %s", day + timedelta(days=1), e)
-    except Exception as e:
-        logger.warning("Error fetching props for %s: %s", day + timedelta(days=1), e)
-
-    return tuple(results)
+def load_player_props_multi_day_with_status(
+    day: _date,
+    regions: str,
+    markets: Tuple[str, ...],
+    bookmakers_csv: Optional[str],
+    odds_format: str = "american",
+) -> Tuple[Tuple[Dict[str, Any], ...], Tuple[str, ...]]:
+    """Fetch player props and also report any odds-fetch errors encountered."""
+    return _load_player_props_multi_day_uncached(
+        day, regions, markets, bookmakers_csv, odds_format
+    )
 
 
 @functools.lru_cache(maxsize=128)

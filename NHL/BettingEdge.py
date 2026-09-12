@@ -25,6 +25,7 @@ from NHL.Simulation import simulate_slate
 from NHL.Lookup import get_team_full_name, display_abbr_for_game
 from NHL.ApiScrape import get_games_on_date
 from NHL.Errors import safe_api_call
+from NHL.Utils import atomic_write_json, read_json_robust
 
 logger = logging.getLogger(__name__)
 
@@ -34,6 +35,9 @@ DEFAULT_EDGE_CACHE_PATH = Path(__file__).resolve().parent.parent / "static" / "d
 DEFAULT_REGIONS = "us"
 DEFAULT_MARKETS = ["h2h", "spreads", "totals"]
 EDGE_THRESHOLD = 0.03
+# Age at which the underlying odds snapshot is considered too old to power a
+# "bet tonight" recommendation without a prominent staleness warning.
+ODDS_STALENESS_HOURS = 8.0
 
 # Reverse map from full team name (and common variants) to canonical abbreviation.
 _FULL_TO_ABBR: Dict[str, str] = {}
@@ -41,6 +45,37 @@ for _abbr, _full in NST_ABBR_TO_FULL.items():
     _key = str(_full).upper().strip()
     if _key not in _FULL_TO_ABBR:
         _FULL_TO_ABBR[_key] = _abbr
+
+
+def _iso_age_hours(iso_str: Optional[str]) -> Optional[float]:
+    """Return the age in hours of an ISO timestamp, or None if unparseable."""
+    if not iso_str:
+        return None
+    try:
+        dt = datetime.fromisoformat(str(iso_str).replace("Z", "+00:00"))
+        if dt.tzinfo is None:
+            dt = dt.replace(tzinfo=timezone.utc)
+        return (datetime.now(timezone.utc) - dt).total_seconds() / 3600.0
+    except Exception:
+        return None
+
+
+def odds_staleness_warning(
+    payload: Dict[str, Any],
+    threshold_hours: float = ODDS_STALENESS_HOURS,
+) -> Optional[str]:
+    """
+    Warn when the odds snapshot underlying a payload is older than `threshold_hours`.
+
+    Edges are computed against the daily odds snapshot; lines move toward game
+    time, so an edge measured against hours-old lines is systematically
+    overstated. This gives the UI a string to surface before the user bets on it.
+    """
+    fetched_at = payload.get("odds_fetched_at") or payload.get("computed_at")
+    age = _iso_age_hours(fetched_at)
+    if age is not None and age > threshold_hours:
+        return f"Odds snapshot is {age:.1f} hours old; lines may have moved since."
+    return None
 
 
 def implied_probability(decimal_odds: float) -> float:
@@ -412,8 +447,7 @@ def fetch_and_cache_odds(
     }
 
     cache_path.parent.mkdir(parents=True, exist_ok=True)
-    with open(cache_path, "w") as f:
-        json.dump(payload, f, default=str, indent=2)
+    atomic_write_json(cache_path, payload, indent=2)
 
     logger.info(f"Cached odds for {day}: {len(data)} events -> {cache_path}")
     return payload
@@ -433,8 +467,7 @@ def load_cached_odds(
         return None, f"No cached odds found. Run `python update_odds.py --date {day.isoformat()}`."
 
     try:
-        with open(cache_path, "r") as f:
-            payload = json.load(f)
+        payload = read_json_robust(cache_path)
     except Exception as e:
         return None, f"Could not read cached odds: {e}"
 
@@ -496,10 +529,15 @@ def compute_and_cache_edges(
     cache_path: Optional[Path] = None,
     sims: int = 1000,
     use_events_schedule: bool = False,
+    allow_demo_fallback: bool = True,
 ) -> Dict[str, Any]:
     """
     Pre-compute betting edges for a date and write them to a local JSON cache.
     This is designed to run during the daily update so the UI opens instantly.
+
+    ``allow_demo_fallback`` controls whether the demo odds fixture may stand in
+    for missing live odds. Production requests pass False so fake odds are never
+    served as real recommendations.
     """
     cache_path = Path(cache_path or DEFAULT_EDGE_CACHE_PATH)
 
@@ -508,12 +546,15 @@ def compute_and_cache_edges(
     if odds_payload is None:
         odds_payload, warning = load_cached_odds(day, max_age_hours=24.0)
         if odds_payload is None:
+            if not allow_demo_fallback:
+                raise OddsAPIError(f"No live odds available for {day.isoformat()}.")
             odds_payload = load_demo_odds(DEFAULT_DEMO_PATH)
             warning = "Using demo odds (no live odds cached)."
 
     events = odds_payload.get("events", [])
 
-    # 2. Load schedule for the date.
+    # 2. Load schedule for the date. On a no-games day we keep the empty slate
+    #    rather than fabricating a schedule from the demo fixture.
     if use_events_schedule:
         warning = warning or "Using odds event matchups."
         schedule_games = _schedule_from_events(events)
@@ -524,11 +565,12 @@ def compute_and_cache_edges(
         )
         if not schedule_games:
             warning = warning or "No live schedule found; using odds event matchups."
-            schedule_games = load_demo_schedule()
-            if not schedule_games:
-                schedule_games = _schedule_from_events(events)
+            schedule_games = _schedule_from_events(events)
 
-    # 3. Build slate matchups.
+    # 3. Build slate matchups. Track how many schedule games we scanned and how
+    #    many matched an odds event, so silent drops are visible in the payload.
+    scheduled_count = 0
+    matched_count = 0
     slate_matchups: List[Tuple[str, str]] = []
     slate_games: Dict[Tuple[str, str], Dict[str, Any]] = {}
     for game in schedule_games or []:
@@ -542,6 +584,7 @@ def compute_and_cache_edges(
         )
         if not home_abbr or not away_abbr:
             continue
+        scheduled_count += 1
 
         schedule_game = {
             "home": home_abbr,
@@ -553,8 +596,13 @@ def compute_and_cache_edges(
 
         event = find_event_for_game(schedule_game, events)
         if not event:
+            logger.warning(
+                f"No odds event matched schedule game {home_abbr} v {away_abbr} "
+                f"({schedule_game.get('away_name')} @ {schedule_game.get('home_name')}); dropped."
+            )
             continue
 
+        matched_count += 1
         key = (home_abbr, away_abbr)
         slate_matchups.append(key)
         slate_games[key] = {"schedule_game": schedule_game, "event": event}
@@ -610,13 +658,18 @@ def compute_and_cache_edges(
         "date": day.isoformat(),
         "computed_at": datetime.now(timezone.utc).isoformat(),
         "source": odds_payload.get("source", "unknown"),
+        "odds_fetched_at": odds_payload.get("fetched_at"),
         "warning": warning,
+        "no_games": scheduled_count == 0,
+        "scanned": scheduled_count,
+        "matched": matched_count,
+        "with_edges": len(value_games),
+        "dropped": scheduled_count - matched_count,
         "games": value_games,
     }
 
     cache_path.parent.mkdir(parents=True, exist_ok=True)
-    with open(cache_path, "w") as f:
-        json.dump(payload, f, default=str, indent=2)
+    atomic_write_json(cache_path, payload, indent=2)
 
     logger.info(f"Cached betting edges for {day}: {len(value_games)} games -> {cache_path}")
     return payload
@@ -636,8 +689,7 @@ def load_cached_edges(
         return None, f"No cached edges found. Run `python update_odds.py --date {day.isoformat()}`."
 
     try:
-        with open(cache_path, "r") as f:
-            payload = json.load(f)
+        payload = read_json_robust(cache_path)
     except Exception as e:
         return None, f"Could not read cached edges: {e}"
 
@@ -655,3 +707,34 @@ def load_cached_edges(
             pass
 
     return payload, None
+
+
+def _game_started(start_time: Optional[str], now: Optional[datetime] = None) -> bool:
+    """Return True if a game's start time is in the past (market closed)."""
+    if not start_time:
+        return False
+    try:
+        dt = datetime.fromisoformat(str(start_time).replace("Z", "+00:00"))
+        if dt.tzinfo is None:
+            dt = dt.replace(tzinfo=timezone.utc)
+        now = now or datetime.now(timezone.utc)
+        return dt < now
+    except Exception:
+        return False
+
+
+def drop_started_games(payload: Dict[str, Any]) -> Tuple[Dict[str, Any], int]:
+    """
+    Remove games whose start time has already passed from an edge payload.
+
+    Edges are computed against pre-game odds; once a game puck-drops those lines are
+    no longer bettable. Returns ``(filtered_payload, started_count)``.
+    """
+    games = payload.get("games", []) or []
+    started = [g for g in games if _game_started(g.get("start_time"))]
+    if not started:
+        return payload, 0
+    remaining = [g for g in games if not _game_started(g.get("start_time"))]
+    out = dict(payload)
+    out["games"] = remaining
+    return out, len(started)
