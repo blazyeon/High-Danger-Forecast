@@ -18,7 +18,7 @@ from typing import Dict, Any, List, Optional, Tuple
 import difflib
 
 from NHL.OddsAPI import fetch_nhl_player_props_by_date, OddsAPIError
-from NHL.Utils import normalize_name_key
+from NHL.Utils import normalize_name_key, season_from_date
 from NHL.StatsFromPBP import load_skater_rates_from_json
 from NHL.Config import NST_ABBR_TO_FULL, TEAM_ABBR_MAPPING
 from EloMl.Database import EloDatabase
@@ -593,3 +593,74 @@ def _current_filters(day: _date, regions: str, markets: List[str], bookmakers_cs
         "bookmakers_csv": bks,
         "odds_format": odds_format,
     }
+
+
+def compute_player_props_for_date(
+    game_date: _date,
+    markets: Optional[Tuple[str, ...]] = None,
+    regions: str = "us",
+    bookmakers_csv: Optional[str] = None,
+    odds_format: str = "american",
+) -> Tuple[List[Dict[str, Any]], Optional[str]]:
+    """
+    Compute shaped player props (with model edge) for a date.
+
+    Returns ``(records, warning)``. ``records`` is the list of prop dicts the UI
+    consumes; ``warning`` is set when live odds are unavailable. Shared by the
+    player-props endpoint and the Today's Picks pre-computation so both produce
+    identical output.
+    """
+    if markets is None:
+        markets = tuple(DEFAULT_PLAYER_MARKETS)
+    markets = tuple(m.strip().lower().replace(" ", "_") for m in markets)
+
+    season = season_from_date(game_date.isoformat())
+    player_elo = get_player_elo_ratings(season)
+    player_stats = get_player_pbp_stats(season)
+
+    raw, odds_errors = load_player_props_multi_day_with_status(
+        day=game_date,
+        regions=regions,
+        markets=markets,
+        bookmakers_csv=bookmakers_csv,
+        odds_format=odds_format,
+    )
+
+    df = _shape_player_df(raw, odds_format, player_elo, player_stats)
+    if df.empty:
+        if odds_errors:
+            return [], "Live odds unavailable: " + "; ".join(odds_errors)
+        return [], None
+
+    df = _best_prices(df)
+
+    # Calculate model edge vs. book-implied probability (same convention as Betting Edge).
+    def _edge(row):
+        rec = row.get("recommendation")
+        if rec == "Over" and pd.notna(row.get("over_decimal")):
+            model_p = row["prob_over"] / 100.0
+            implied_p = row.get("implied_over", 50.0) / 100.0
+            return model_p - implied_p
+        if rec == "Under" and pd.notna(row.get("under_decimal")):
+            model_p = (100.0 - row["prob_over"]) / 100.0
+            implied_p = row.get("implied_under", 50.0) / 100.0
+            return model_p - implied_p
+        return None
+
+    df["edge"] = df.apply(_edge, axis=1)
+    # Keep only actionable props with a model pick.
+    df = df[df["recommendation"].isin(["Over", "Under"])].copy()
+    df = df.sort_values(["edge", "prob_over"], ascending=False)
+    df = df.reset_index(drop=True)
+
+    # Rename for the UI and convert to records.
+    out_df = df[[
+        "player", "market", "line", "prob_over", "recommendation",
+        "over_american", "under_american", "over_decimal", "under_decimal",
+        "edge", "home_abbr", "away_abbr", "player_team",
+        "implied_over", "implied_under",
+    ]].copy()
+    out_df["market"] = out_df["market"].str.replace("Player ", "")
+
+    records = out_df.to_dict(orient="records")
+    return records, None

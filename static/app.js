@@ -102,6 +102,7 @@ function initTabs() {
             if (btn.dataset.tab === 'elo') runElo();
             if (btn.dataset.tab === 'betting-edge') runBettingEdge();
             if (btn.dataset.tab === 'props') runProps();
+            if (btn.dataset.tab === 'todays-picks') runTodaysPicks();
         });
     });
 }
@@ -114,6 +115,8 @@ function initDateDefaults() {
     if (propsDate) propsDate.value = today;
     const bettingEdgeDate = document.getElementById('bettingEdgeDate');
     if (bettingEdgeDate) bettingEdgeDate.value = today;
+    const todaysPicksDate = document.getElementById('todaysPicksDate');
+    if (todaysPicksDate) todaysPicksDate.value = today;
 }
 
 // ── Custom Calendar Date Picker ─────────────────────────────────────
@@ -541,6 +544,7 @@ function setupEventListeners() {
     document.getElementById('statsBtn').addEventListener('click', runStats);
     document.getElementById('propsBtn').addEventListener('click', runProps);
     document.getElementById('bettingEdgeBtn').addEventListener('click', runBettingEdge);
+    document.getElementById('todaysPicksBtn').addEventListener('click', runTodaysPicks);
     document.getElementById('eloBtn').addEventListener('click', runElo);
 }
 
@@ -628,7 +632,7 @@ async function runPrediction() {
         return;
     }
 
-    renderResults(data, home, away);
+    document.getElementById('resultsContent').innerHTML = renderResults(data, home, away);
     renderLog();
     btn.disabled = false;
 }
@@ -801,7 +805,7 @@ function renderResults(sim, homeAbbr, awayAbbr) {
         html += `</div>`;
     }
 
-    document.getElementById('resultsContent').innerHTML = html;
+    return html;
 }
 
 function getTeamName(abbr) {
@@ -2119,6 +2123,266 @@ function renderBettingEdge(data, container) {
     container.innerHTML = html;
 }
 
+// ── Today's Picks Tab ─────────────────────────────────────────────
+let _todaysPicksDates = null;
+let _lastTodaysPicksData = null;
+
+async function getTodaysPicksDates() {
+    if (_todaysPicksDates) return _todaysPicksDates;
+    try {
+        const res = await safeFetchJson('/api/todays-picks/dates');
+        _todaysPicksDates = (res && res.dates) || [];
+    } catch (e) {
+        _todaysPicksDates = [];
+    }
+    return _todaysPicksDates;
+}
+
+function formatUpdatedAt(isoStr) {
+    if (!isoStr) return 'unknown';
+    try {
+        const d = new Date(isoStr);
+        if (isNaN(d.getTime())) return isoStr;
+        return d.toLocaleString(undefined, {
+            month: 'short', day: 'numeric',
+            hour: 'numeric', minute: '2-digit',
+        });
+    } catch (e) {
+        return isoStr;
+    }
+}
+
+function formatStartTime(isoStr) {
+    if (!isoStr) return '';
+    try {
+        const d = new Date(isoStr);
+        if (isNaN(d.getTime())) return '';
+        return d.toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit' });
+    } catch (e) {
+        return '';
+    }
+}
+
+async function runTodaysPicks() {
+    const container = document.getElementById('todaysPicksResults');
+    if (!container) return;
+    container.innerHTML = '<div class="loading"><div class="spinner"></div><span>Loading pre-computed picks...</span></div>';
+    const updatedEl = document.getElementById('todaysPicksUpdated');
+    if (updatedEl) updatedEl.style.display = 'none';
+
+    const dateInput = document.getElementById('todaysPicksDate');
+    const today = localToday();
+    const dates = await getTodaysPicksDates();
+    if (dateInput && dates.length && !dates.includes(dateInput.value)) {
+        dateInput.value = nearestBettingEdgeDate(dates, today);
+    }
+    const date = dateInput?.value || today;
+
+    try {
+        const data = await latestFetch('todays-picks', `/api/todays-picks?date=${encodeURIComponent(date)}`);
+        if (data.error) {
+            container.innerHTML = `<div class="error-box">${escapeHtml(data.error)}</div>`;
+            return;
+        }
+        _lastTodaysPicksData = data;
+        renderTodaysPicks(data, container);
+    } catch (e) {
+        if (e.name === 'AbortError') return;
+        container.innerHTML = `<div class="error-box">Could not load Today's Picks: ${escapeHtml(e.message)}</div>`;
+    }
+}
+
+function renderTodaysPicks(data, container) {
+    const games = data.games || [];
+
+    // Last-updated timestamp.
+    const updatedEl = document.getElementById('todaysPicksUpdated');
+    if (updatedEl) {
+        updatedEl.innerHTML = `<i class="fa-solid fa-clock-rotate-left"></i> Last updated: <strong>${escapeHtml(formatUpdatedAt(data.computed_at))}</strong> — refreshed each morning (~5 AM)`;
+        updatedEl.style.display = 'block';
+    }
+
+    let html = '';
+    if (data.warning) {
+        html += `<div class="betting-edge-warning"><i class="fa-solid fa-triangle-exclamation"></i> ${escapeHtml(data.warning)}</div>`;
+    }
+
+    if (!games.length) {
+        html += data.no_games
+            ? `<div class="empty-state">
+                <div class="empty-icon"><i class="fa-solid fa-calendar-xmark"></i></div>
+                <h3 class="empty-title">No games scheduled</h3>
+                <p class="empty-desc">No NHL games scheduled for ${escapeHtml(data.date)}. Check back on a game day.</p>
+            </div>`
+            : `<div class="empty-state">
+                <div class="empty-icon"><i class="fa-solid fa-list-check"></i></div>
+                <h3 class="empty-title">No picks yet</h3>
+                <p class="empty-desc">No pre-computed picks for ${escapeHtml(data.date)}. They are generated each morning.</p>
+            </div>`;
+        container.innerHTML = html;
+        return;
+    }
+
+    html += '<div class="picks-list">';
+    games.forEach((g, idx) => {
+        const sim = g.sim || {};
+        const homeAbbr = g.home;
+        const awayAbbr = g.away;
+        const homeWin = parseFloat(sim.home_win_pct) > parseFloat(sim.away_win_pct);
+        const hPct = parseFloat(sim.home_win_pct) || 0;
+        const aPct = parseFloat(sim.away_win_pct) || 0;
+        const clashResolved = resolveTeamColors(homeAbbr, awayAbbr);
+        const homeColor = clashResolved.home;
+        const awayColor = clashResolved.away;
+        const winnerColor = homeWin ? homeColor : awayColor;
+        const startTime = formatStartTime(g.start_time);
+        const bestEdge = parseFloat(g.best_edge) || 0;
+        const edgePct = (bestEdge * 100).toFixed(1);
+
+        html += `<div class="pick-row" data-pick-idx="${idx}">
+            <div class="pick-row-main">
+                <div class="pick-matchup">
+                    <img class="be-row-logo" src="/api/logos/${awayAbbr}.png" alt="${awayAbbr}" onerror="this.style.display='none'">
+                    <span class="be-row-abbr">${awayAbbr}</span>
+                    <span class="be-at">@</span>
+                    <img class="be-row-logo" src="/api/logos/${homeAbbr}.png" alt="${homeAbbr}" onerror="this.style.display='none'">
+                    <span class="be-row-abbr">${homeAbbr}</span>
+                </div>
+                <div class="pick-prediction" style="color:${winnerColor}">${homeWin ? 'HOME WIN' : 'AWAY WIN'}</div>
+                <div class="pick-prob">
+                    <div class="pick-prob-bar">
+                        <div class="pick-prob-home" style="width:${hPct.toFixed(1)}%; background:${homeColor}"></div>
+                        <div class="pick-prob-away" style="width:${aPct.toFixed(1)}%; background:${awayColor}"></div>
+                    </div>
+                    <div class="pick-prob-labels">
+                        <span style="color:${homeColor}">${hPct.toFixed(0)}%</span>
+                        <span style="color:${awayColor}">${aPct.toFixed(0)}%</span>
+                    </div>
+                </div>
+                <div class="pick-meta">
+                    ${startTime ? `<span class="pick-time"><i class="fa-solid fa-clock"></i> ${escapeHtml(startTime)}</span>` : ''}
+                    ${bestEdge > 0 ? `<span class="pick-edge-badge">${edgePct}% edge</span>` : ''}
+                </div>
+                <button class="pick-expand" aria-expanded="false" aria-label="Expand prediction"><i class="fa-solid fa-chevron-down"></i></button>
+            </div>
+            <div class="pick-detail" style="display:none"></div>
+        </div>`;
+    });
+    html += '</div>';
+
+    container.innerHTML = html;
+
+    // Wire up click-to-expand.
+    container.querySelectorAll('.pick-row').forEach(row => {
+        const btn = row.querySelector('.pick-expand');
+        const detail = row.querySelector('.pick-detail');
+        const idx = parseInt(row.dataset.pickIdx, 10);
+        const g = games[idx];
+        const toggle = () => {
+            const isOpen = detail.style.display !== 'none';
+            if (!isOpen && !detail.dataset.rendered) {
+                detail.innerHTML = renderPickDetail(g);
+                detail.dataset.rendered = '1';
+            }
+            detail.style.display = isOpen ? 'none' : 'block';
+            btn.setAttribute('aria-expanded', String(!isOpen));
+            btn.querySelector('i').className = isOpen ? 'fa-solid fa-chevron-down' : 'fa-solid fa-chevron-up';
+        };
+        btn.addEventListener('click', toggle);
+        row.querySelector('.pick-row-main').addEventListener('click', (e) => {
+            if (e.target.closest('.pick-expand')) return;
+            toggle();
+        });
+    });
+}
+
+function renderPickDetail(g) {
+    const sim = g.sim || {};
+    const homeAbbr = g.home;
+    const awayAbbr = g.away;
+    const homeName = g.home_name || getTeamName(homeAbbr) || homeAbbr;
+    const awayName = g.away_name || getTeamName(awayAbbr) || awayAbbr;
+    let html = '<div class="pick-detail-inner">';
+
+    // Full prediction (reuse the predictor's renderer).
+    html += renderResults(sim, homeAbbr, awayAbbr);
+
+    // Static simulation log (reconstructed from the pre-computed sim).
+    html += renderStaticLog(sim, homeAbbr, awayAbbr, homeName, awayName);
+
+    // Best bets (edges) for this game.
+    const edges = g.edges || [];
+    if (edges.length) {
+        html += '<hr class="section-divider"><div class="section-title"><i class="fa-solid fa-bullseye"></i> Best Bets</div>';
+        html += '<div class="pick-edges">';
+        edges.forEach(e => {
+            const edge = parseFloat(e.edge) || 0;
+            const edgePct = (edge * 100).toFixed(1);
+            const edgeSign = edge > 0 ? '+' : '';
+            const odds = e.odds != null ? formatAmerican(e.odds) : '-';
+            html += `<div class="pick-edge-row">
+                <span class="pick-edge-market">${escapeHtml(e.market)}</span>
+                <span class="pick-edge-pick">${escapeHtml(e.pick || e.side || '-')}</span>
+                <span class="pick-edge-odds">${escapeHtml(odds)}</span>
+                <span class="pick-edge-val">${edgeSign}${edgePct}%</span>
+            </div>`;
+        });
+        html += '</div>';
+    }
+
+    // Top props for players in this game.
+    const props = (_lastTodaysPicksData && _lastTodaysPicksData.props) || [];
+    const gameProps = props.filter(p => {
+        const ha = (p.home_abbr || '').toUpperCase();
+        const aa = (p.away_abbr || '').toUpperCase();
+        return (ha === homeAbbr && aa === awayAbbr) || (ha === awayAbbr && aa === homeAbbr);
+    });
+    if (gameProps.length) {
+        html += '<hr class="section-divider"><div class="section-title"><i class="fa-solid fa-sack-dollar"></i> Top Props</div>';
+        html += '<div class="pick-props">';
+        gameProps.slice(0, 8).forEach(p => {
+            const edge = parseFloat(p.edge) || 0;
+            const edgePct = (edge * 100).toFixed(1);
+            const edgeSign = edge > 0 ? '+' : '';
+            html += `<div class="pick-prop-row">
+                <span class="pick-prop-player">${escapeHtml(p.player)}</span>
+                <span class="pick-prop-market">${escapeHtml(p.market)} ${escapeHtml(p.recommendation)} ${escapeHtml(String(p.line))}</span>
+                <span class="pick-prop-edge">${edgeSign}${edgePct}%</span>
+            </div>`;
+        });
+        html += '</div>';
+    }
+
+    html += '</div>';
+    return html;
+}
+
+function renderStaticLog(sim, homeAbbr, awayAbbr, homeName, awayName) {
+    const ts = (_lastTodaysPicksData && _lastTodaysPicksData.computed_at)
+        ? new Date(_lastTodaysPicksData.computed_at).toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit', second: '2-digit' })
+        : '';
+    const steps = [
+        ['INIT', `Matchup: ${homeName} (HOME) vs ${awayName} (AWAY)`],
+        ['ELO', `${homeAbbr} rating: ${Math.round(sim.home_elo_adj || 1500)} | ${awayAbbr} rating: ${Math.round(sim.away_elo_adj || 1500)}`],
+        ['PROB', `Win prob: ${sim.home_win_pct}% home / ${sim.away_win_pct}% away`],
+        ['GOALIE', `Home goalie: ${sim.home_goalie || 'N/A'} | Away goalie: ${sim.away_goalie || 'N/A'}`],
+        ['SIM', `Ran ${sim.sims || 10000} Monte Carlo iterations`],
+        ['ENSEMBLE', 'Blended Elo (25%) + simulation (50%) + ML (25%) outcomes'],
+    ];
+    let html = '<div class="sim-log">';
+    html += `<div class="log-header"><span class="log-title">Simulation Log</span><span class="log-count">${steps.length} steps</span></div>`;
+    html += '<div class="log-body">';
+    steps.forEach((s, i) => {
+        html += `<div class="log-entry ${i % 2 === 0 ? 'even' : ''}">
+            <span class="log-ts">${ts}</span>
+            <span class="log-step">${s[0]}</span>
+            <span class="log-detail">${escapeHtml(s[1])}</span>
+        </div>`;
+    });
+    html += '</div></div>';
+    return html;
+}
+
 // ── Real API stubs (unused in demo) ───────────────────────────────
 async function loadAppState() {
     const dot = document.querySelector('.status-dot');
@@ -2142,7 +2406,7 @@ async function loadAppState() {
 // user hasn't touched (still holding the initial local value).
 function syncDateDefaults(leagueToday) {
     const initial = localToday();
-    ['lookupDate', 'propsDate', 'bettingEdgeDate'].forEach(id => {
+    ['lookupDate', 'propsDate', 'bettingEdgeDate', 'todaysPicksDate'].forEach(id => {
         const el = document.getElementById(id);
         if (el && el.value === initial) el.value = leagueToday;
     });

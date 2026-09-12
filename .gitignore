@@ -26,6 +26,7 @@ nst_cache/
 # Odds API local caches (regenerated on each update; betting_edge_cache.json is committed)
 static/data/odds_cache.json
 static/data/odds_quota.json
+static/data/todays_picks_cache.json
 # Ship aggregated shot stores to Render so predictions don't rebuild from API.
 # Raw per-game PBP JSONs and schedule windows stay local-only.
 pbp_cache/raw/

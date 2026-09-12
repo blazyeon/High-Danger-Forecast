@@ -40,6 +40,13 @@ if %errorlevel% neq 0 (
     echo [OK] update_odds.py completed at %date% %time% >> "%LOG_FILE%"
 )
 
+%PYTHON% update_todays_picks.py >> "%LOG_FILE%" 2>&1
+if %errorlevel% neq 0 (
+    echo [ERROR] update_todays_picks.py failed at %date% %time% >> "%LOG_FILE%"
+) else (
+    echo [OK] update_todays_picks.py completed at %date% %time% >> "%LOG_FILE%"
+)
+
 echo Daily update finished: %date% %time% >> "%LOG_FILE%"
 echo. >> "%LOG_FILE%"
 

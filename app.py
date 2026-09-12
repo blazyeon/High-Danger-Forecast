@@ -44,7 +44,7 @@ from NHL.ApiScrape import (
 from NHL.GoaliePrediction import predict_starting_goalie
 from NHL.Errors import safe_api_call
 from NHL.Utils import (
-    season_from_date, get_data_season_for_game,
+    get_data_season_for_game,
     sanitize_text, format_initial_last, league_today,
 )
 from NHL.OddsAPI import (
@@ -64,6 +64,11 @@ from NHL.BettingEdge import (
     drop_started_games,
     DEFAULT_DEMO_PATH,
     EDGE_THRESHOLD,
+)
+from NHL.TodaysPicks import (
+    compute_and_cache_todays_picks,
+    load_cached_todays_picks,
+    list_cached_todays_picks_dates,
 )
 
 logger = logging.getLogger(__name__)
@@ -974,79 +979,34 @@ def api_player_props(date_str: str):
         bookmakers – comma-separated bookmaker keys (default: all)
     """
     try:
-        from NHL.PlayerLinePredictor import (
-            load_player_props_multi_day_with_status,
-            DEFAULT_PLAYER_MARKETS,
-            _shape_player_df,
-            _best_prices,
-            get_player_elo_ratings,
-            get_player_pbp_stats,
-        )
+        from NHL.PlayerLinePredictor import compute_player_props_for_date
 
         game_date = _parse_date(date_str)
         markets = request.args.getlist("markets")
-        if not markets:
-            markets = list(DEFAULT_PLAYER_MARKETS)
-        markets = [m.strip().lower().replace(" ", "_") for m in markets]
+        if markets:
+            markets = [m.strip().lower().replace(" ", "_") for m in markets]
+        else:
+            markets = None
 
         regions = request.args.get("regions", "us") or "us"
         bookmakers_csv = request.args.get("bookmakers") or None
         odds_format = request.args.get("odds_format", "american") or "american"
 
-        season = season_from_date(date_str)
-        player_elo = get_player_elo_ratings(season)
-        player_stats = get_player_pbp_stats(season)
-
-        raw, odds_errors = load_player_props_multi_day_with_status(
-            day=game_date,
+        records, warning = compute_player_props_for_date(
+            game_date=game_date,
+            markets=tuple(markets) if markets else None,
             regions=regions,
-            markets=tuple(markets),
             bookmakers_csv=bookmakers_csv,
             odds_format=odds_format,
         )
 
-        df = _shape_player_df(raw, odds_format, player_elo, player_stats)
-        if df.empty:
-            if odds_errors:
-                return jsonify({
-                    "date": date_str,
-                    "props": [],
-                    "no_live_odds": True,
-                    "warning": "Live odds unavailable: " + "; ".join(odds_errors),
-                })
-            return jsonify({"date": date_str, "props": []})
-
-        df = _best_prices(df)
-
-        # Calculate model edge vs. book-implied probability (same convention as Betting Edge).
-        def _edge(row):
-            rec = row.get("recommendation")
-            if rec == "Over" and pd.notna(row.get("over_decimal")):
-                model_p = row["prob_over"] / 100.0
-                implied_p = row.get("implied_over", 50.0) / 100.0
-                return model_p - implied_p
-            if rec == "Under" and pd.notna(row.get("under_decimal")):
-                model_p = (100.0 - row["prob_over"]) / 100.0
-                implied_p = row.get("implied_under", 50.0) / 100.0
-                return model_p - implied_p
-            return None
-
-        df["edge"] = df.apply(_edge, axis=1)
-        # Keep only actionable props with a model pick.
-        df = df[df["recommendation"].isin(["Over", "Under"])].copy()
-        df = df.sort_values(["edge", "prob_over"], ascending=False)
-        df = df.reset_index(drop=True)
-
-        # Rename for the UI and convert to records
-        out_df = df[[
-            "player", "market", "line", "prob_over", "recommendation",
-            "over_american", "under_american", "over_decimal", "under_decimal",
-            "edge", "home_abbr", "away_abbr", "player_team",
-            "implied_over", "implied_under",
-        ]].copy()
-        out_df["market"] = out_df["market"].str.replace("Player ", "")
-
-        records = out_df.to_dict(orient="records")
+        if not records and warning:
+            return jsonify({
+                "date": date_str,
+                "props": [],
+                "no_live_odds": True,
+                "warning": warning,
+            })
         return jsonify({"date": date_str, "props": _make_json_safe(records)})
 
     except BadRequestError:
@@ -1143,6 +1103,45 @@ def api_betting_edge():
         raise
     except Exception as e:
         logger.error(f"Betting edge error: {e}", exc_info=True)
+        return jsonify({"error": str(e)}), 500
+
+
+# ── API: Today's Picks ─────────────────────────────────────────────────
+
+@app.route("/api/todays-picks/dates")
+def api_todays_picks_dates():
+    """Return the dates that have pre-computed Today's Picks cached."""
+    return jsonify({"dates": list_cached_todays_picks_dates()})
+
+
+@app.route("/api/todays-picks")
+def api_todays_picks():
+    """
+    Return pre-computed games (full simulations), edges, and props for a date.
+
+    Query params:
+        date – YYYY-MM-DD (default: today)
+    """
+    try:
+        date_str = request.args.get("date")
+        game_date = _parse_date(date_str) or league_today()
+
+        cached, warning = load_cached_todays_picks(game_date, max_age_hours=24.0)
+        if cached is not None and cached.get("date") == game_date.isoformat():
+            result = _make_json_safe(cached)
+            if warning:
+                result["warning"] = warning
+            return jsonify(result)
+
+        # Slow path: compute and cache now (e.g. first run before the scheduler
+        # has produced a cache). This is the same code the daily update runs.
+        payload = compute_and_cache_todays_picks(game_date)
+        return jsonify(_make_json_safe(payload))
+
+    except BadRequestError:
+        raise
+    except Exception as e:
+        logger.error(f"Today's Picks error: {e}", exc_info=True)
         return jsonify({"error": str(e)}), 500
 
 

@@ -2321,6 +2321,8 @@ def simulate_matchup(
     result = {
         "mu_home": float(mu_home),
         "mu_away": float(mu_away),
+        "home_elo_adj": float(home_elo),
+        "away_elo_adj": float(away_elo),
         "home_win_pct": round(100.0 * winner_prob, 1),
         "away_win_pct": round(100.0 * (1 - winner_prob), 1),
         "home_win_2plus_pct": round(100.0 * (int(np.sum((final_home - final_away) >= 2)) / denom), 1),

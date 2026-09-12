@@ -44,6 +44,10 @@
                 <i class="fa-solid fa-crosshairs tab-icon"></i>
                 <span class="tab-label">Predictor</span>
             </button>
+            <button class="tab-btn" data-tab="todays-picks">
+                <i class="fa-solid fa-list-check tab-icon"></i>
+                <span class="tab-label">Today's Picks</span>
+            </button>
             <button class="tab-btn" data-tab="lookup">
                 <i class="fa-solid fa-calendar-days tab-icon"></i>
                 <span class="tab-label">Schedule</span>
@@ -166,6 +170,25 @@
                     </div>
                     <div id="simLog" class="sim-log" style="display:none"></div>
                 </div>
+            </div>
+        </section>
+
+        <!-- TODAY'S PICKS TAB -->
+        <section id="tab-todays-picks" class="tab-panel">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Today's Picks</h2>
+                    <p class="card-subtitle">Pre-computed games, edges, and props — refreshed each morning</p>
+                </div>
+                <div class="lookup-row">
+                    <div class="field">
+                        <label>Date</label>
+                        <input type="date" id="todaysPicksDate" class="param-input">
+                    </div>
+                    <button id="todaysPicksBtn" class="action-btn">Load Picks</button>
+                </div>
+                <div id="todaysPicksUpdated" class="picks-updated" style="display:none"></div>
+                <div id="todaysPicksResults" class="results-area"></div>
             </div>
         </section>
 
