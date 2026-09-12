@@ -59,7 +59,9 @@ _session = create_session()
 def get_games_on_date(date_str: str) -> List[Dict[str, Any]]:
     """Get all games on a specific date with validation and error handling"""
     try:
-        validate_date_range(date_str)
+        # The NHL publishes the full season schedule months in advance, so allow
+        # lookups well beyond the 14-day default (which is sized for odds lines).
+        validate_date_range(date_str, max_future_days=365)
     except Exception as e:
         logger.error(f"Invalid date: {date_str} - {e}")
         raise
