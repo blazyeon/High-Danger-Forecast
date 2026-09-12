@@ -1680,7 +1680,7 @@ async function runProps() {
             _lastPropsData = [];
             _propsIsDemo = false;
             _propsDemoReason = null;
-            container.innerHTML = `<div class="empty-state"><div class="empty-icon"><i class="fa-solid fa-dice"></i></div><h3 class="empty-title">No props available</h3><p class="empty-text">No player props for ${escapeHtml(date)}. Try a different date.</p></div>`;
+            container.innerHTML = `<div class="empty-state"><div class="empty-icon"><i class="fa-solid fa-dice"></i></div><h3 class="empty-title">No props available</h3><p class="empty-text">No player props for ${escapeHtml(date)}. Bookmakers typically post player props 1-3 days before puck drop.</p></div>`;
             return;
         }
         _lastPropsData = liveProps;
