@@ -59,6 +59,7 @@ from NHL.BettingEdge import (
     load_cached_odds,
     load_demo_odds,
     load_demo_schedule,
+    list_cached_edge_dates,
     odds_staleness_warning,
     drop_started_games,
     DEFAULT_DEMO_PATH,
@@ -1057,6 +1058,12 @@ def api_player_props(date_str: str):
 
 
 # ── API: Betting Edge ──────────────────────────────────────────────────
+
+@app.route("/api/betting-edge/dates")
+def api_betting_edge_dates():
+    """Return the dates that have pre-computed betting edges cached."""
+    return jsonify({"dates": list_cached_edge_dates()})
+
 
 @app.route("/api/betting-edge")
 def api_betting_edge():

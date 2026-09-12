@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import json
 import logging
+import unicodedata
 from datetime import date as _date, datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
@@ -107,6 +108,8 @@ def remove_vig_2way(p1: float, p2: float) -> Tuple[float, float]:
 def _normalize_abbr(abbr: str) -> str:
     """Return canonical team abbreviation, accepting either abbr or full name."""
     raw = str(abbr).upper().strip()
+    # Strip diacritics so "Montréal" matches "Montreal" in the team map.
+    raw = unicodedata.normalize("NFKD", raw).encode("ascii", "ignore").decode("ascii")
     # Try abbreviation directly (including historical mappings).
     mapped = TEAM_ABBR_MAPPING.get(raw, raw)
     # Try full-team-name reverse lookup.
@@ -669,10 +672,40 @@ def compute_and_cache_edges(
     }
 
     cache_path.parent.mkdir(parents=True, exist_ok=True)
-    atomic_write_json(cache_path, payload, indent=2)
+    index = _load_edge_cache_index(cache_path)
+    index.setdefault("dates", {})[day.isoformat()] = payload
+    atomic_write_json(cache_path, index, indent=2)
 
     logger.info(f"Cached betting edges for {day}: {len(value_games)} games -> {cache_path}")
     return payload
+
+
+def _load_edge_cache_index(cache_path: Path) -> Dict[str, Any]:
+    """
+    Load the multi-date edge cache file, normalizing a legacy single-date
+    payload into the ``{"dates": {date: payload}}`` shape.
+    """
+    if not cache_path.exists():
+        return {}
+    try:
+        data = read_json_robust(cache_path)
+    except Exception:
+        return {}
+    if not isinstance(data, dict):
+        return {}
+    if "dates" in data:
+        return data
+    # Legacy single-date payload: wrap it so it can be merged into.
+    if "date" in data and "games" in data:
+        return {"dates": {data["date"]: data}}
+    return {}
+
+
+def list_cached_edge_dates(cache_path: Optional[Path] = None) -> List[str]:
+    """Return the sorted list of dates that have cached betting edges."""
+    cache_path = Path(cache_path or DEFAULT_EDGE_CACHE_PATH)
+    index = _load_edge_cache_index(cache_path)
+    return sorted(index.get("dates", {}).keys())
 
 
 def load_cached_edges(
@@ -681,20 +714,18 @@ def load_cached_edges(
     max_age_hours: float = 24.0,
 ) -> Tuple[Optional[Dict[str, Any]], Optional[str]]:
     """
-    Load pre-computed betting edge cache. Returns (payload, warning_message).
-    warning_message is set if the cache is missing, wrong date, or stale.
+    Load pre-computed betting edge cache for a date. Returns (payload, warning).
+    warning_message is set if the cache is missing, has no entry for the date,
+    or the entry is stale.
     """
     cache_path = Path(cache_path or DEFAULT_EDGE_CACHE_PATH)
     if not cache_path.exists():
         return None, f"No cached edges found. Run `python update_odds.py --date {day.isoformat()}`."
 
-    try:
-        payload = read_json_robust(cache_path)
-    except Exception as e:
-        return None, f"Could not read cached edges: {e}"
-
-    if payload.get("date") != day.isoformat():
-        return payload, f"Cached edges are for {payload.get('date')}, not {day.isoformat()}."
+    index = _load_edge_cache_index(cache_path)
+    payload = index.get("dates", {}).get(day.isoformat())
+    if payload is None:
+        return None, f"No cached edges for {day.isoformat()}. Run `python update_odds.py --date {day.isoformat()}`."
 
     computed_at = payload.get("computed_at")
     if computed_at:

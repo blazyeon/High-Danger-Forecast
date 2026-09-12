@@ -23,6 +23,9 @@ Thumbs.db
 # Data files that are auto-generated or too large
 nst_cache/
 *.parquet
+# Odds API local caches (regenerated on each update; betting_edge_cache.json is committed)
+static/data/odds_cache.json
+static/data/odds_quota.json
 # Ship aggregated shot stores to Render so predictions don't rebuild from API.
 # Raw per-game PBP JSONs and schedule windows stay local-only.
 pbp_cache/raw/

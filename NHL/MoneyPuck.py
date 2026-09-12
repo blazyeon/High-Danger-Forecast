@@ -107,10 +107,18 @@ def _get_session() -> requests.Session:
 
 # ── File downloads ──────────────────────────────────────────────────────
 
+# In-memory negative cache: remember URLs that returned 404 so we don't re-hit
+# them on every call (e.g. a season file that doesn't exist yet). Process-local
+# and bypassed by force=True, so it's safe for the short-lived daily update.
+_negative_cache: set = set()
+
+
 def _download(url: str, out_path: Path, force: bool = False) -> bool:
     """Download to out_path, skip if exists and not forcing."""
     if out_path.exists() and out_path.stat().st_size > 0 and not force:
         return True
+    if url in _negative_cache and not force:
+        return False
     out_path.parent.mkdir(parents=True, exist_ok=True)
     try:
         time.sleep(0.5)  # be polite
@@ -123,6 +131,8 @@ def _download(url: str, out_path: Path, force: bool = False) -> bool:
         logger.info(f"Downloaded {url} → {out_path} ({out_path.stat().st_size:,} bytes)")
         return True
     except Exception as e:
+        if getattr(e, "response", None) is not None and getattr(e.response, "status_code", None) == 404:
+            _negative_cache.add(url)
         logger.error(f"Download failed for {url}: {e}")
         return False
 

@@ -1910,17 +1910,50 @@ let _propsMarketFilter = {
 };
 let _propsSideFilter = 'Over'; // 'Over' | 'Under' | 'both'
 
+let _bettingEdgeDates = null;
+
+async function getBettingEdgeDates() {
+    if (_bettingEdgeDates) return _bettingEdgeDates;
+    try {
+        const res = await safeFetchJson('/api/betting-edge/dates');
+        _bettingEdgeDates = (res && res.dates) || [];
+    } catch (e) {
+        _bettingEdgeDates = [];
+    }
+    return _bettingEdgeDates;
+}
+
+function nearestBettingEdgeDate(dates, target) {
+    if (!dates.length) return target;
+    if (dates.includes(target)) return target;
+    const future = dates.filter(d => d >= target);
+    if (future.length) return future[0];
+    return dates[dates.length - 1];
+}
+
 async function runBettingEdge() {
     const container = document.getElementById('bettingEdgeResults');
     if (!container) return;
     container.innerHTML = '<div class="loading"><div class="spinner"></div><span>Crunching model probabilities and odds...</span></div>';
 
-    const date = document.getElementById('bettingEdgeDate')?.value || localToday();
+    const dateInput = document.getElementById('bettingEdgeDate');
+    const today = localToday();
+    const dates = await getBettingEdgeDates();
+    if (dateInput && dates.length && !dates.includes(dateInput.value)) {
+        dateInput.value = nearestBettingEdgeDate(dates, today);
+    }
+    const date = dateInput?.value || today;
 
     async function loadDemo(reason) {
         console.warn(reason + ', using demo betting edge cache.');
         try {
-            const demo = await safeFetchJson('/static/data/betting_edge_cache.json');
+            const raw = await safeFetchJson('/static/data/betting_edge_cache.json');
+            const demo = raw && raw.dates ? (raw.dates[date] || null) : raw;
+            if (!demo) {
+                _lastBettingEdgeData = null;
+                container.innerHTML = `<div class="error-box">No cached betting edge for ${escapeHtml(date)}.</div>`;
+                return;
+            }
             _lastBettingEdgeData = demo;
             _bettingEdgeSort = 'edge';
             _bettingEdgeIsDemo = true;
