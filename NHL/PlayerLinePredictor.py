@@ -280,6 +280,22 @@ def _elo_rate_multiplier(elo_rating: Optional[float]) -> float:
     return 0.97
 
 
+_ROOKIE_PROJECTIONS: Optional[Dict[str, Dict[str, Any]]] = None
+
+
+def _get_rookie_projection(name_key: str) -> Optional[Dict[str, Any]]:
+    """Return a cached rookie projection for a player, or None."""
+    global _ROOKIE_PROJECTIONS
+    if _ROOKIE_PROJECTIONS is None:
+        try:
+            from NHL.Rosters import load_rookie_projections
+            _ROOKIE_PROJECTIONS = load_rookie_projections()
+        except Exception as e:
+            logger.warning(f"Could not load rookie projections: {e}")
+            _ROOKIE_PROJECTIONS = {}
+    return _ROOKIE_PROJECTIONS.get(name_key)
+
+
 def calculate_hit_probability(
     player_name: str,
     market: str,
@@ -306,13 +322,26 @@ def calculate_hit_probability(
     elo_data = player_elo.get(name_key, {})
     stats_data = player_stats.get(name_key, {})
 
+    gp = int(stats_data.get("gp", 0) or 0)
+
+    # Rookies: no trusted NHL sample yet. Fall back to a projected per-game
+    # rate (non-NHL stats proxy) for their first ~10 games.
+    if gp < 10:
+        projection = _get_rookie_projection(name_key)
+        if projection:
+            stats_data = {
+                "gp": max(gp, 1),
+                "points_pg": float(projection.get("points_pg") or 0.0),
+                "goals_pg": float(projection.get("goals_pg") or 0.0),
+                "assists_pg": float(projection.get("assists_pg") or 0.0),
+                "shots_pg": float(projection.get("shots_pg") or 0.0),
+            }
+        elif gp < 5:
+            # Not enough games to trust the per-game rate.
+            return 50.0, "Pass"
+
     if not stats_data:
         return 50.0, "Pass"  # No data
-
-    gp = int(stats_data.get("gp", 0) or 0)
-    if gp < 5:
-        # Not enough games to trust the per-game rate.
-        return 50.0, "Pass"
 
     # Get stat average based on market
     market_lower = market.lower()

@@ -348,15 +348,45 @@ def _split_roster_from_json(roster_json: Dict[str, Any]) -> Tuple[List[Dict[str,
     return _dedup(skaters), _dedup(goalies)
 
 
+def _load_cached_rosters() -> Dict[str, Any]:
+    """Read the daily roster cache (written by update_rosters.py), if present."""
+    if not os.path.exists("rosters.json"):
+        return {}
+    try:
+        with open("rosters.json", "r", encoding="utf-8") as f:
+            data = json.load(f)
+        return data.get("teams", {}) if isinstance(data, dict) else {}
+    except Exception as e:
+        logger.warning(f"Failed to read rosters.json: {e}")
+        return {}
+
+
 def _get_team_roster_by_season_or_current(abbrev: str, season: str) -> Tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
     """Get team roster with multiple endpoint fallbacks"""
+    # Prefer the daily roster cache for the current season (avoids a live API
+    # round-trip); fall back to the live endpoints if absent or for other seasons.
+    if season == season_from_date(date.today().isoformat()):
+        cached_team = _load_cached_rosters().get(abbrev.upper())
+        if cached_team:
+            skaters = [
+                {"name": p.get("name"), "position": p.get("position")}
+                for p in cached_team.get("skaters", []) if p.get("name")
+            ]
+            goalies = [
+                {"name": p.get("name"), "position": p.get("position")}
+                for p in cached_team.get("goalies", []) if p.get("name")
+            ]
+            if skaters or goalies:
+                logger.info(f"Retrieved roster for {abbrev} from rosters.json cache")
+                return skaters, goalies
+
     urls = [
         f"{NHL_API_BASE}/roster/{abbrev}/{season}",
         f"{NHL_API_BASE}/roster/{abbrev}/current",
         f"{NHL_API_BASE}/club-roster/{abbrev}/{season}",
         f"{NHL_API_BASE}/club-roster/{abbrev}/current",
     ]
-    
+
     for url in urls:
         js = _try_get_json(url)
         if js:
@@ -364,7 +394,7 @@ def _get_team_roster_by_season_or_current(abbrev: str, season: str) -> Tuple[Lis
             if sk or gl:
                 logger.info(f"Retrieved roster for {abbrev} from {url}")
                 return sk, gl
-    
+
     logger.warning(f"No roster found for {abbrev} season {season}")
     return [], []
 

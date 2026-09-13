@@ -1,5 +1,11 @@
 [
   {
+    "team": "ANA",
+    "player": "Troy Terry",
+    "status": "out",
+    "injured": true
+  },
+  {
     "team": "BUF",
     "player": "Jiri Kulich",
     "status": "ir",
@@ -8,109 +14,31 @@
   {
     "team": "CGY",
     "player": "Jonathan Huberdeau",
-    "status": "ir",
-    "injured": true
-  },
-  {
-    "team": "CGY",
-    "player": "Samuel Honzek",
-    "status": "ir",
-    "injured": true
-  },
-  {
-    "team": "CGY",
-    "player": "Jake Bean",
-    "status": "ir",
-    "injured": true
-  },
-  {
-    "team": "CGY",
-    "player": "Joel Hanley",
     "status": "out",
-    "injured": true
-  },
-  {
-    "team": "CGY",
-    "player": "Yan Kuznetsov",
-    "status": "out",
-    "injured": true
-  },
-  {
-    "team": "CGY",
-    "player": "Kevin Bahl",
-    "status": "dtd",
-    "injured": true
-  },
-  {
-    "team": "CGY",
-    "player": "Devin Cooley",
-    "status": "dtd",
-    "injured": true
-  },
-  {
-    "team": "CGY",
-    "player": "Connor Zary",
-    "status": "dtd",
     "injured": true
   },
   {
     "team": "CAR",
-    "player": "Frederik Andersen",
-    "status": "dtd",
+    "player": "Seth Jarvis",
+    "status": "out",
     "injured": true
   },
   {
-    "team": "CHI",
-    "player": "Oliver Moore",
+    "team": "CAR",
+    "player": "Eric Robinson",
     "status": "out",
     "injured": true
   },
   {
     "team": "CHI",
-    "player": "Artyom Levshunov",
-    "status": "dtd",
-    "injured": true
-  },
-  {
-    "team": "CHI",
-    "player": "Matt Grzelcyk",
-    "status": "dtd",
-    "injured": true
-  },
-  {
-    "team": "CHI",
-    "player": "Andrew Mangiapane",
-    "status": "dtd",
-    "injured": true
-  },
-  {
-    "team": "CBJ",
-    "player": "Brendan Smith",
-    "status": "ir",
-    "injured": true
-  },
-  {
-    "team": "CBJ",
-    "player": "Damon Severson",
+    "player": "Connor Bedard",
     "status": "out",
     "injured": true
   },
   {
     "team": "CBJ",
-    "player": "Dmitri Voronkov",
+    "player": "Isac Lundestrom",
     "status": "out",
-    "injured": true
-  },
-  {
-    "team": "CBJ",
-    "player": "Mathieu Olivier",
-    "status": "dtd",
-    "injured": true
-  },
-  {
-    "team": "COL",
-    "player": "Valeri Nichushkin",
-    "status": "dtd",
     "injured": true
   },
   {
@@ -120,116 +48,32 @@
     "injured": true
   },
   {
-    "team": "DAL",
-    "player": "Nathan Bastian",
-    "status": "dtd",
-    "injured": true
-  },
-  {
-    "team": "DAL",
-    "player": "Roope Hintz",
+    "team": "EDM",
+    "player": "Alec Regula",
     "status": "out",
     "injured": true
   },
   {
-    "team": "DAL",
-    "player": "Nils Lundkvist",
-    "status": "dtd",
-    "injured": true
-  },
-  {
-    "team": "DAL",
-    "player": "Arttu Hyry",
-    "status": "dtd",
-    "injured": true
-  },
-  {
-    "team": "DET",
-    "player": "Michael Rasmussen",
-    "status": "dtd",
-    "injured": true
-  },
-  {
-    "team": "DET",
-    "player": "Dylan Larkin",
-    "status": "dtd",
+    "team": "EDM",
+    "player": "Frederik Andersen",
+    "status": "out",
     "injured": true
   },
   {
     "team": "EDM",
     "player": "Mattias Janmark",
-    "status": "ir",
-    "injured": true
-  },
-  {
-    "team": "EDM",
-    "player": "Max Jones",
     "status": "out",
     "injured": true
   },
   {
     "team": "EDM",
-    "player": "Adam Henrique",
-    "status": "dtd",
-    "injured": true
-  },
-  {
-    "team": "FLA",
-    "player": "Aleksander Barkov",
-    "status": "ir",
-    "injured": true
-  },
-  {
-    "team": "FLA",
-    "player": "Brad Marchand",
-    "status": "ir",
-    "injured": true
-  },
-  {
-    "team": "FLA",
-    "player": "Dmitry Kulikov",
+    "player": "Matthew Savoie",
     "status": "out",
-    "injured": true
-  },
-  {
-    "team": "FLA",
-    "player": "Evan Rodrigues",
-    "status": "out",
-    "injured": true
-  },
-  {
-    "team": "FLA",
-    "player": "Sam Reinhart",
-    "status": "out",
-    "injured": true
-  },
-  {
-    "team": "FLA",
-    "player": "Anton Lundell",
-    "status": "dtd",
-    "injured": true
-  },
-  {
-    "team": "FLA",
-    "player": "Aaron Ekblad",
-    "status": "out",
-    "injured": true
-  },
-  {
-    "team": "FLA",
-    "player": "Sam Bennett",
-    "status": "dtd",
     "injured": true
   },
   {
     "team": "LAK",
     "player": "Kevin Fiala",
-    "status": "ir",
-    "injured": true
-  },
-  {
-    "team": "MIN",
-    "player": "Jonas Brodin",
     "status": "out",
     "injured": true
   },
@@ -240,57 +84,9 @@
     "injured": true
   },
   {
-    "team": "MIN",
-    "player": "Joel Eriksson Ek",
-    "status": "dtd",
-    "injured": true
-  },
-  {
-    "team": "MTL",
-    "player": "Patrik Laine",
-    "status": "ir",
-    "injured": true
-  },
-  {
-    "team": "NSH",
-    "player": "Nicolas Hague",
-    "status": "dtd",
-    "injured": true
-  },
-  {
-    "team": "NJD",
-    "player": "Zack MacEwen",
-    "status": "ir",
-    "injured": true
-  },
-  {
     "team": "NJD",
     "player": "Stefan Noesen",
-    "status": "ir",
-    "injured": true
-  },
-  {
-    "team": "NJD",
-    "player": "Jacob Markstrom",
     "status": "out",
-    "injured": true
-  },
-  {
-    "team": "NJD",
-    "player": "Arseny Gritsyuk",
-    "status": "out",
-    "injured": true
-  },
-  {
-    "team": "NJD",
-    "player": "Luke Hughes",
-    "status": "out",
-    "injured": true
-  },
-  {
-    "team": "NJD",
-    "player": "Brett Pesce",
-    "status": "dtd",
     "injured": true
   },
   {
@@ -306,48 +102,6 @@
     "injured": true
   },
   {
-    "team": "NYI",
-    "player": "Alexander Romanov",
-    "status": "ir",
-    "injured": true
-  },
-  {
-    "team": "NYI",
-    "player": "Kyle Palmieri",
-    "status": "ir",
-    "injured": true
-  },
-  {
-    "team": "NYI",
-    "player": "Ryan Pulock",
-    "status": "out",
-    "injured": true
-  },
-  {
-    "team": "NYR",
-    "player": "Matt Rempe",
-    "status": "ir",
-    "injured": true
-  },
-  {
-    "team": "OTT",
-    "player": "Nick Jensen",
-    "status": "out",
-    "injured": true
-  },
-  {
-    "team": "OTT",
-    "player": "Jake Sanderson",
-    "status": "dtd",
-    "injured": true
-  },
-  {
-    "team": "OTT",
-    "player": "Artem Zub",
-    "status": "dtd",
-    "injured": true
-  },
-  {
     "team": "PIT",
     "player": "Joel Blomqvist",
     "status": "ir",
@@ -360,153 +114,27 @@
     "injured": true
   },
   {
-    "team": "SJS",
-    "player": "Ryan Reaves",
-    "status": "out",
-    "injured": true
-  },
-  {
-    "team": "SEA",
-    "player": "Shane Wright",
-    "status": "dtd",
-    "injured": true
-  },
-  {
-    "team": "SEA",
-    "player": "Philipp Grubauer",
-    "status": "dtd",
-    "injured": true
-  },
-  {
-    "team": "SEA",
-    "player": "Joey Daccord",
-    "status": "dtd",
-    "injured": true
-  },
-  {
-    "team": "SEA",
-    "player": "Matt Murray",
-    "status": "dtd",
-    "injured": true
-  },
-  {
-    "team": "SEA",
-    "player": "Jared McCann",
-    "status": "out",
-    "injured": true
-  },
-  {
-    "team": "TBL",
-    "player": "Victor Hedman",
-    "status": "out",
-    "injured": true
-  },
-  {
-    "team": "TBL",
-    "player": "Pontus Holmberg",
-    "status": "out",
-    "injured": true
-  },
-  {
     "team": "TOR",
     "player": "Max Domi",
     "status": "out",
     "injured": true
   },
   {
-    "team": "UTA",
-    "player": "Barrett Hayton",
-    "status": "dtd",
-    "injured": true
-  },
-  {
     "team": "VAN",
     "player": "Thatcher Demko",
-    "status": "ir",
-    "injured": true
-  },
-  {
-    "team": "VAN",
-    "player": "Derek Forbort",
-    "status": "ir",
-    "injured": true
-  },
-  {
-    "team": "VAN",
-    "player": "Filip Chytil",
     "status": "out",
-    "injured": true
-  },
-  {
-    "team": "VAN",
-    "player": "Kevin Lankinen",
-    "status": "dtd",
-    "injured": true
-  },
-  {
-    "team": "VAN",
-    "player": "Evander Kane",
-    "status": "dtd",
-    "injured": true
-  },
-  {
-    "team": "VGK",
-    "player": "William Karlsson",
-    "status": "dtd",
-    "injured": true
-  },
-  {
-    "team": "WSH",
-    "player": "Sonny Milano",
-    "status": "out",
-    "injured": true
-  },
-  {
-    "team": "WSH",
-    "player": "Charlie Lindgren",
-    "status": "dtd",
     "injured": true
   },
   {
     "team": "WSH",
     "player": "Rasmus Sandin",
-    "status": "dtd",
-    "injured": true
-  },
-  {
-    "team": "WSH",
-    "player": "Pierre-Luc Dubois",
-    "status": "dtd",
-    "injured": true
-  },
-  {
-    "team": "WPG",
-    "player": "Morgan Barron",
     "status": "out",
     "injured": true
   },
   {
     "team": "WPG",
-    "player": "Vladislav Namestnikov",
-    "status": "dtd",
-    "injured": true
-  },
-  {
-    "team": "WPG",
     "player": "Elias Salomonsson",
-    "status": "dtd",
-    "injured": true
-  },
-  {
-    "team": "WPG",
-    "player": "Alex Iafallo",
-    "status": "dtd",
-    "injured": true
-  },
-  {
-    "team": "WPG",
-    "player": "Neal Pionk",
-    "status": "dtd",
+    "status": "out",
     "injured": true
   }
 ]

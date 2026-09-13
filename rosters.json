@@ -1,0 +1,7925 @@
+{
+  "generated_at": "2026-09-13T02:24:23.398029+00:00",
+  "teams": {
+    "BOS": {
+      "skaters": [
+        {
+          "name": "Attilio Biasca",
+          "id": 8484583,
+          "position": "C",
+          "birthDate": "2003-03-18"
+        },
+        {
+          "name": "Riley Duran",
+          "id": 8482213,
+          "position": "C",
+          "birthDate": "2002-01-25"
+        },
+        {
+          "name": "Michael Eyssimont",
+          "id": 8479591,
+          "position": "C",
+          "birthDate": "1996-09-09"
+        },
+        {
+          "name": "Brendan Gaunce",
+          "id": 8476867,
+          "position": "C",
+          "birthDate": "1994-03-25"
+        },
+        {
+          "name": "Morgan Geekie",
+          "id": 8479987,
+          "position": "C",
+          "birthDate": "1998-07-20"
+        },
+        {
+          "name": "James Hagens",
+          "id": 8485395,
+          "position": "C",
+          "birthDate": "2006-11-03"
+        },
+        {
+          "name": "Brian Halonen",
+          "id": 8483531,
+          "position": "LW",
+          "birthDate": "1999-01-11"
+        },
+        {
+          "name": "Ivan Ivan",
+          "id": 8483930,
+          "position": "C",
+          "birthDate": "2002-08-20"
+        },
+        {
+          "name": "Tanner Jeannot",
+          "id": 8479661,
+          "position": "LW",
+          "birthDate": "1997-05-29"
+        },
+        {
+          "name": "Mark Kastelic",
+          "id": 8480355,
+          "position": "C",
+          "birthDate": "1999-03-11"
+        },
+        {
+          "name": "Marat Khusnutdinov",
+          "id": 8482177,
+          "position": "C",
+          "birthDate": "2002-07-17"
+        },
+        {
+          "name": "Sean Kuraly",
+          "id": 8476374,
+          "position": "C",
+          "birthDate": "1993-01-20"
+        },
+        {
+          "name": "Elias Lindholm",
+          "id": 8477496,
+          "position": "C",
+          "birthDate": "1994-12-02"
+        },
+        {
+          "name": "Dans Locmelis",
+          "id": 8483704,
+          "position": "C",
+          "birthDate": "2004-01-21"
+        },
+        {
+          "name": "Fraser Minten",
+          "id": 8483489,
+          "position": "C",
+          "birthDate": "2004-07-05"
+        },
+        {
+          "name": "Casey Mittelstadt",
+          "id": 8479999,
+          "position": "C",
+          "birthDate": "1998-11-22"
+        },
+        {
+          "name": "Navrin Mutter",
+          "id": 8481817,
+          "position": "LW",
+          "birthDate": "2001-03-15"
+        },
+        {
+          "name": "David Pastrnak",
+          "id": 8477956,
+          "position": "RW",
+          "birthDate": "1996-05-25"
+        },
+        {
+          "name": "JJ Peterka",
+          "id": 8482175,
+          "position": "RW",
+          "birthDate": "2002-01-14"
+        },
+        {
+          "name": "Lukas Reichel",
+          "id": 8482117,
+          "position": "LW",
+          "birthDate": "2002-05-17"
+        },
+        {
+          "name": "Alex Steeves",
+          "id": 8482634,
+          "position": "C",
+          "birthDate": "1999-12-10"
+        },
+        {
+          "name": "Kalle Vaisanen",
+          "id": 8482868,
+          "position": "LW",
+          "birthDate": "2003-01-28"
+        },
+        {
+          "name": "Pavel Zacha",
+          "id": 8478401,
+          "position": "C",
+          "birthDate": "1997-04-06"
+        },
+        {
+          "name": "Jonathan Aspirot",
+          "id": 8481219,
+          "position": "D",
+          "birthDate": "1999-05-16"
+        },
+        {
+          "name": "Will Borgen",
+          "id": 8478840,
+          "position": "D",
+          "birthDate": "1996-12-19"
+        },
+        {
+          "name": "Frederic Brunet",
+          "id": 8483017,
+          "position": "D",
+          "birthDate": "2003-08-21"
+        },
+        {
+          "name": "Connor Clifton",
+          "id": 8477365,
+          "position": "D",
+          "birthDate": "1995-04-28"
+        },
+        {
+          "name": "Maxence Guenette",
+          "id": 8481679,
+          "position": "D",
+          "birthDate": "2001-04-28"
+        },
+        {
+          "name": "Jordan Harris",
+          "id": 8480887,
+          "position": "D",
+          "birthDate": "2000-07-07"
+        },
+        {
+          "name": "Loke Johansson",
+          "id": 8485072,
+          "position": "D",
+          "birthDate": "2005-12-14"
+        },
+        {
+          "name": "Henri Jokiharju",
+          "id": 8480035,
+          "position": "D",
+          "birthDate": "1999-06-17"
+        },
+        {
+          "name": "Hampus Lindholm",
+          "id": 8476854,
+          "position": "D",
+          "birthDate": "1994-01-20"
+        },
+        {
+          "name": "Mason Lohrei",
+          "id": 8482511,
+          "position": "D",
+          "birthDate": "2001-01-17"
+        },
+        {
+          "name": "Charlie McAvoy",
+          "id": 8479325,
+          "position": "D",
+          "birthDate": "1997-12-21"
+        },
+        {
+          "name": "Billy Sweezey",
+          "id": 8482399,
+          "position": "D",
+          "birthDate": "1996-02-06"
+        },
+        {
+          "name": "Nikita Zadorov",
+          "id": 8477507,
+          "position": "D",
+          "birthDate": "1995-04-16"
+        }
+      ],
+      "goalies": [
+        {
+          "name": "Luke Cavallin",
+          "id": 8483654,
+          "position": "G",
+          "birthDate": "2001-04-29"
+        },
+        {
+          "name": "Michael DiPietro",
+          "id": 8480022,
+          "position": "G",
+          "birthDate": "1999-06-09"
+        },
+        {
+          "name": "Max Lundgren",
+          "id": 8486148,
+          "position": "G",
+          "birthDate": "2002-04-03"
+        },
+        {
+          "name": "Jiri Patera",
+          "id": 8480238,
+          "position": "G",
+          "birthDate": "1999-02-24"
+        },
+        {
+          "name": "Jeremy Swayman",
+          "id": 8480280,
+          "position": "G",
+          "birthDate": "1998-11-24"
+        },
+        {
+          "name": "Simon Zajicek",
+          "id": 8485538,
+          "position": "G",
+          "birthDate": "2001-06-25"
+        }
+      ]
+    },
+    "BUF": {
+      "skaters": [
+        {
+          "name": "Zach Benson",
+          "id": 8484145,
+          "position": "LW",
+          "birthDate": "2005-05-12"
+        },
+        {
+          "name": "Sam Carrick",
+          "id": 8475842,
+          "position": "C",
+          "birthDate": "1992-02-04"
+        },
+        {
+          "name": "Justin Danforth",
+          "id": 8479941,
+          "position": "RW",
+          "birthDate": "1993-03-15"
+        },
+        {
+          "name": "Josh Doan",
+          "id": 8482659,
+          "position": "RW",
+          "birthDate": "2002-02-01"
+        },
+        {
+          "name": "Riley Fiddler-Schultz",
+          "id": 8483090,
+          "position": "C",
+          "birthDate": "2002-05-13"
+        },
+        {
+          "name": "Zac Funk",
+          "id": 8484757,
+          "position": "RW",
+          "birthDate": "2003-07-20"
+        },
+        {
+          "name": "Mason Geertsen",
+          "id": 8477419,
+          "position": "LW",
+          "birthDate": "1995-04-19"
+        },
+        {
+          "name": "Konsta Helenius",
+          "id": 8484797,
+          "position": "C",
+          "birthDate": "2006-05-11"
+        },
+        {
+          "name": "Tyson Kozak",
+          "id": 8482896,
+          "position": "C",
+          "birthDate": "2002-12-29"
+        },
+        {
+          "name": "Peyton Krebs",
+          "id": 8481522,
+          "position": "C",
+          "birthDate": "2001-01-26"
+        },
+        {
+          "name": "Jiri Kulich",
+          "id": 8483468,
+          "position": "C",
+          "birthDate": "2004-04-14"
+        },
+        {
+          "name": "Trevor Kuntar",
+          "id": 8482479,
+          "position": "C",
+          "birthDate": "2001-06-20"
+        },
+        {
+          "name": "Beck Malenstyn",
+          "id": 8479359,
+          "position": "LW",
+          "birthDate": "1998-02-04"
+        },
+        {
+          "name": "Aidan McDonough",
+          "id": 8481683,
+          "position": "LW",
+          "birthDate": "1999-11-06"
+        },
+        {
+          "name": "Ryan McLeod",
+          "id": 8480802,
+          "position": "C",
+          "birthDate": "1999-09-21"
+        },
+        {
+          "name": "Carson Meyer",
+          "id": 8480292,
+          "position": "RW",
+          "birthDate": "1997-08-18"
+        },
+        {
+          "name": "Josh Norris",
+          "id": 8480064,
+          "position": "C",
+          "birthDate": "1999-05-05"
+        },
+        {
+          "name": "Noah Ostlund",
+          "id": 8483500,
+          "position": "C",
+          "birthDate": "2004-03-11"
+        },
+        {
+          "name": "Jason Polin",
+          "id": 8484255,
+          "position": "RW",
+          "birthDate": "1999-06-17"
+        },
+        {
+          "name": "Jack Quinn",
+          "id": 8482097,
+          "position": "RW",
+          "birthDate": "2001-09-19"
+        },
+        {
+          "name": "Jake Richard",
+          "id": 8483755,
+          "position": "RW",
+          "birthDate": "2004-08-15"
+        },
+        {
+          "name": "Conor Sheary",
+          "id": 8477839,
+          "position": "LW",
+          "birthDate": "1992-06-08"
+        },
+        {
+          "name": "Tage Thompson",
+          "id": 8479420,
+          "position": "C",
+          "birthDate": "1997-10-30"
+        },
+        {
+          "name": "Jason Zucker",
+          "id": 8475722,
+          "position": "LW",
+          "birthDate": "1992-01-16"
+        },
+        {
+          "name": "Louis Crevier",
+          "id": 8481806,
+          "position": "D",
+          "birthDate": "2001-05-04"
+        },
+        {
+          "name": "Rasmus Dahlin",
+          "id": 8480839,
+          "position": "D",
+          "birthDate": "2000-04-13"
+        },
+        {
+          "name": "Dennis Gilbert",
+          "id": 8478502,
+          "position": "D",
+          "birthDate": "1996-10-30"
+        },
+        {
+          "name": "Ryan Johnson",
+          "id": 8481564,
+          "position": "D",
+          "birthDate": "2001-07-24"
+        },
+        {
+          "name": "Vsevolod Komarov",
+          "id": 8483732,
+          "position": "D",
+          "birthDate": "2004-01-11"
+        },
+        {
+          "name": "Gavin McCarthy",
+          "id": 8484192,
+          "position": "D",
+          "birthDate": "2005-06-02"
+        },
+        {
+          "name": "Zach Metsa",
+          "id": 8484305,
+          "position": "D",
+          "birthDate": "1998-10-19"
+        },
+        {
+          "name": "Radim Mrtka",
+          "id": 8485404,
+          "position": "D",
+          "birthDate": "2007-06-09"
+        },
+        {
+          "name": "Owen Power",
+          "id": 8482671,
+          "position": "D",
+          "birthDate": "2002-11-22"
+        },
+        {
+          "name": "Jack Rathbone",
+          "id": 8480056,
+          "position": "D",
+          "birthDate": "1999-05-20"
+        },
+        {
+          "name": "Mattias Samuelsson",
+          "id": 8480807,
+          "position": "D",
+          "birthDate": "2000-03-14"
+        },
+        {
+          "name": "Maxim Strbak",
+          "id": 8484233,
+          "position": "D",
+          "birthDate": "2005-04-13"
+        },
+        {
+          "name": "Conor Timmins",
+          "id": 8479982,
+          "position": "D",
+          "birthDate": "1998-09-18"
+        },
+        {
+          "name": "Olen Zellweger",
+          "id": 8482803,
+          "position": "D",
+          "birthDate": "2003-09-10"
+        }
+      ],
+      "goalies": [
+        {
+          "name": "Colten Ellis",
+          "id": 8481551,
+          "position": "G",
+          "birthDate": "2000-10-05"
+        },
+        {
+          "name": "Topias Leinonen",
+          "id": 8483475,
+          "position": "G",
+          "birthDate": "2004-01-25"
+        },
+        {
+          "name": "Ukko-Pekka Luukkonen",
+          "id": 8480045,
+          "position": "G",
+          "birthDate": "1999-03-09"
+        },
+        {
+          "name": "Alex Lyon",
+          "id": 8479312,
+          "position": "G",
+          "birthDate": "1992-12-09"
+        },
+        {
+          "name": "Scott Ratzlaff",
+          "id": 8484218,
+          "position": "G",
+          "birthDate": "2005-03-09"
+        },
+        {
+          "name": "Matt Villalta",
+          "id": 8480191,
+          "position": "G",
+          "birthDate": "1999-06-03"
+        }
+      ]
+    },
+    "DET": {
+      "skaters": [
+        {
+          "name": "Mason Appleton",
+          "id": 8478891,
+          "position": "C",
+          "birthDate": "1996-01-15"
+        },
+        {
+          "name": "Viktor Arvidsson",
+          "id": 8478042,
+          "position": "LW",
+          "birthDate": "1993-04-08"
+        },
+        {
+          "name": "Carter Bear",
+          "id": 8485362,
+          "position": "LW",
+          "birthDate": "2006-11-04"
+        },
+        {
+          "name": "Ondrej Becher",
+          "id": 8484836,
+          "position": "C",
+          "birthDate": "2004-02-22"
+        },
+        {
+          "name": "Michael Brandsegg-Nyg\u00e5rd",
+          "id": 8484794,
+          "position": "RW",
+          "birthDate": "2005-10-05"
+        },
+        {
+          "name": "Cameron Butler",
+          "id": 8483045,
+          "position": "RW",
+          "birthDate": "2002-06-09"
+        },
+        {
+          "name": "J.T. Compher",
+          "id": 8477456,
+          "position": "LW",
+          "birthDate": "1995-04-08"
+        },
+        {
+          "name": "Andrew Copp",
+          "id": 8477429,
+          "position": "C",
+          "birthDate": "1994-07-08"
+        },
+        {
+          "name": "Nate Danielson",
+          "id": 8484160,
+          "position": "C",
+          "birthDate": "2004-09-27"
+        },
+        {
+          "name": "Alex DeBrincat",
+          "id": 8479337,
+          "position": "RW",
+          "birthDate": "1997-12-18"
+        },
+        {
+          "name": "Noah Dower Nilsson",
+          "id": 8484161,
+          "position": "LW",
+          "birthDate": "2005-04-25"
+        },
+        {
+          "name": "Sheldon Dries",
+          "id": 8480326,
+          "position": "C",
+          "birthDate": "1994-04-23"
+        },
+        {
+          "name": "Emmitt Finnie",
+          "id": 8484471,
+          "position": "C",
+          "birthDate": "2005-06-27"
+        },
+        {
+          "name": "Dylan James",
+          "id": 8483459,
+          "position": "LW",
+          "birthDate": "2003-10-12"
+        },
+        {
+          "name": "Marco Kasper",
+          "id": 8483464,
+          "position": "C",
+          "birthDate": "2004-04-08"
+        },
+        {
+          "name": "Jesse Kiiskinen",
+          "id": 8484183,
+          "position": "RW",
+          "birthDate": "2005-08-23"
+        },
+        {
+          "name": "Keegan Kolesar",
+          "id": 8478434,
+          "position": "RW",
+          "birthDate": "1997-04-08"
+        },
+        {
+          "name": "Dylan Larkin",
+          "id": 8477946,
+          "position": "C",
+          "birthDate": "1996-07-30"
+        },
+        {
+          "name": "John Leonard",
+          "id": 8481077,
+          "position": "LW",
+          "birthDate": "1998-08-07"
+        },
+        {
+          "name": "Carter Mazur",
+          "id": 8482802,
+          "position": "LW",
+          "birthDate": "2002-03-28"
+        },
+        {
+          "name": "Michael Rasmussen",
+          "id": 8479992,
+          "position": "C",
+          "birthDate": "1999-04-17"
+        },
+        {
+          "name": "Lucas Raymond",
+          "id": 8482078,
+          "position": "LW",
+          "birthDate": "2002-03-28"
+        },
+        {
+          "name": "Theo Rochette",
+          "id": 8482184,
+          "position": "C",
+          "birthDate": "2002-02-20"
+        },
+        {
+          "name": "Dominik Shine",
+          "id": 8479942,
+          "position": "RW",
+          "birthDate": "1993-04-18"
+        },
+        {
+          "name": "Wilmer Skoog",
+          "id": 8484380,
+          "position": "C",
+          "birthDate": "1999-07-17"
+        },
+        {
+          "name": "Chase Stillman",
+          "id": 8482714,
+          "position": "RW",
+          "birthDate": "2003-03-19"
+        },
+        {
+          "name": "Ronnie Attard",
+          "id": 8481521,
+          "position": "D",
+          "birthDate": "1999-03-20"
+        },
+        {
+          "name": "Jacob Bernard-Docker",
+          "id": 8480879,
+          "position": "D",
+          "birthDate": "2000-06-30"
+        },
+        {
+          "name": "Jacob Bryson",
+          "id": 8480196,
+          "position": "D",
+          "birthDate": "1997-11-18"
+        },
+        {
+          "name": "Shai Buium",
+          "id": 8482777,
+          "position": "D",
+          "birthDate": "2003-03-26"
+        },
+        {
+          "name": "Ben Chiarot",
+          "id": 8475279,
+          "position": "D",
+          "birthDate": "1991-05-09"
+        },
+        {
+          "name": "Justin Faulk",
+          "id": 8475753,
+          "position": "D",
+          "birthDate": "1992-03-20"
+        },
+        {
+          "name": "Albert Johansson",
+          "id": 8481607,
+          "position": "D",
+          "birthDate": "2001-01-04"
+        },
+        {
+          "name": "Anton Johansson",
+          "id": 8483679,
+          "position": "D",
+          "birthDate": "2004-06-10"
+        },
+        {
+          "name": "William Lagesson",
+          "id": 8478021,
+          "position": "D",
+          "birthDate": "1996-02-22"
+        },
+        {
+          "name": "Axel Sandin-Pellikka",
+          "id": 8484223,
+          "position": "D",
+          "birthDate": "2005-03-11"
+        },
+        {
+          "name": "Moritz Seider",
+          "id": 8481542,
+          "position": "D",
+          "birthDate": "2001-04-06"
+        },
+        {
+          "name": "William Wallinder",
+          "id": 8482171,
+          "position": "D",
+          "birthDate": "2002-07-28"
+        }
+      ],
+      "goalies": [
+        {
+          "name": "Trey Augustine",
+          "id": 8484141,
+          "position": "G",
+          "birthDate": "2005-02-23"
+        },
+        {
+          "name": "John Gibson",
+          "id": 8476434,
+          "position": "G",
+          "birthDate": "1993-07-14"
+        },
+        {
+          "name": "Carter Gylander",
+          "id": 8481757,
+          "position": "G",
+          "birthDate": "2001-06-05"
+        },
+        {
+          "name": "Michal Postava",
+          "id": 8485545,
+          "position": "G",
+          "birthDate": "2002-02-28"
+        },
+        {
+          "name": "Daniil Tarasov",
+          "id": 8480193,
+          "position": "G",
+          "birthDate": "1999-03-27"
+        }
+      ]
+    },
+    "FLA": {
+      "skaters": [
+        {
+          "name": "Aleksander Barkov",
+          "id": 8477493,
+          "position": "C",
+          "birthDate": "1995-09-02"
+        },
+        {
+          "name": "John Beecher",
+          "id": 8481556,
+          "position": "C",
+          "birthDate": "2001-04-05"
+        },
+        {
+          "name": "Sam Bennett",
+          "id": 8477935,
+          "position": "C",
+          "birthDate": "1996-06-20"
+        },
+        {
+          "name": "Angus Crookshank",
+          "id": 8481065,
+          "position": "C",
+          "birthDate": "1999-10-02"
+        },
+        {
+          "name": "Jack Devine",
+          "id": 8483433,
+          "position": "RW",
+          "birthDate": "2003-10-01"
+        },
+        {
+          "name": "Lars Eller",
+          "id": 8474189,
+          "position": "C",
+          "birthDate": "1989-05-08"
+        },
+        {
+          "name": "MacKenzie Entwistle",
+          "id": 8480025,
+          "position": "RW",
+          "birthDate": "1999-07-14"
+        },
+        {
+          "name": "Jonah Gadjovich",
+          "id": 8479981,
+          "position": "LW",
+          "birthDate": "1998-10-12"
+        },
+        {
+          "name": "Garnet Hathaway",
+          "id": 8477903,
+          "position": "RW",
+          "birthDate": "1991-11-23"
+        },
+        {
+          "name": "Bokondji Imama",
+          "id": 8478147,
+          "position": "LW",
+          "birthDate": "1996-08-03"
+        },
+        {
+          "name": "Sam Lafferty",
+          "id": 8478043,
+          "position": "C",
+          "birthDate": "1995-03-06"
+        },
+        {
+          "name": "Anton Lundell",
+          "id": 8482113,
+          "position": "C",
+          "birthDate": "2001-10-03"
+        },
+        {
+          "name": "Eetu Luostarinen",
+          "id": 8480185,
+          "position": "C",
+          "birthDate": "1998-09-02"
+        },
+        {
+          "name": "Brad Marchand",
+          "id": 8473419,
+          "position": "LW",
+          "birthDate": "1988-05-11"
+        },
+        {
+          "name": "Cole Reinhardt",
+          "id": 8481133,
+          "position": "LW",
+          "birthDate": "2000-02-01"
+        },
+        {
+          "name": "Sam Reinhart",
+          "id": 8477933,
+          "position": "C",
+          "birthDate": "1995-11-06"
+        },
+        {
+          "name": "Gracyn Sawchyn",
+          "id": 8484224,
+          "position": "C",
+          "birthDate": "2005-01-19"
+        },
+        {
+          "name": "Cole Schwindt",
+          "id": 8481655,
+          "position": "C",
+          "birthDate": "2001-04-25"
+        },
+        {
+          "name": "Kai Schwindt",
+          "id": 8483878,
+          "position": "LW",
+          "birthDate": "2003-12-07"
+        },
+        {
+          "name": "Hunter St. Martin",
+          "id": 8485071,
+          "position": "LW",
+          "birthDate": "2005-06-13"
+        },
+        {
+          "name": "Brady Tkachuk",
+          "id": 8480801,
+          "position": "LW",
+          "birthDate": "1999-09-16"
+        },
+        {
+          "name": "Matthew Tkachuk",
+          "id": 8479314,
+          "position": "LW",
+          "birthDate": "1997-12-11"
+        },
+        {
+          "name": "Carter Verhaeghe",
+          "id": 8477409,
+          "position": "C",
+          "birthDate": "1995-08-14"
+        },
+        {
+          "name": "Sandis Vilmanis",
+          "id": 8483771,
+          "position": "LW",
+          "birthDate": "2004-01-23"
+        },
+        {
+          "name": "Marek Alscher",
+          "id": 8483687,
+          "position": "D",
+          "birthDate": "2004-04-07"
+        },
+        {
+          "name": "Uvis Balinskis",
+          "id": 8484304,
+          "position": "D",
+          "birthDate": "1996-08-01"
+        },
+        {
+          "name": "Aaron Ekblad",
+          "id": 8477932,
+          "position": "D",
+          "birthDate": "1996-02-07"
+        },
+        {
+          "name": "Casey Fitzgerald",
+          "id": 8479578,
+          "position": "D",
+          "birthDate": "1997-02-25"
+        },
+        {
+          "name": "Gustav Forsling",
+          "id": 8478055,
+          "position": "D",
+          "birthDate": "1996-06-12"
+        },
+        {
+          "name": "Radko Gudas",
+          "id": 8475462,
+          "position": "D",
+          "birthDate": "1990-06-05"
+        },
+        {
+          "name": "Mikulas Hovorka",
+          "id": 8484933,
+          "position": "D",
+          "birthDate": "2001-07-01"
+        },
+        {
+          "name": "Ludvig Jansson",
+          "id": 8483712,
+          "position": "D",
+          "birthDate": "2003-12-27"
+        },
+        {
+          "name": "Seth Jones",
+          "id": 8477495,
+          "position": "D",
+          "birthDate": "1994-10-03"
+        },
+        {
+          "name": "Dmitry Kulikov",
+          "id": 8475179,
+          "position": "D",
+          "birthDate": "1990-10-29"
+        },
+        {
+          "name": "Niko Mikkola",
+          "id": 8478859,
+          "position": "D",
+          "birthDate": "1996-04-27"
+        },
+        {
+          "name": "Alexander Petrovic",
+          "id": 8475755,
+          "position": "D",
+          "birthDate": "1992-03-03"
+        },
+        {
+          "name": "Emil Pieniniemi",
+          "id": 8484213,
+          "position": "D",
+          "birthDate": "2005-03-02"
+        },
+        {
+          "name": "Donovan Sebrango",
+          "id": 8482131,
+          "position": "D",
+          "birthDate": "2002-01-12"
+        },
+        {
+          "name": "Matvei Shuravin",
+          "id": 8485004,
+          "position": "D",
+          "birthDate": "2006-03-22"
+        }
+      ],
+      "goalies": [
+        {
+          "name": "Cooper Black",
+          "id": 8484900,
+          "position": "G",
+          "birthDate": "2001-06-14"
+        },
+        {
+          "name": "Kirill Gerasimyuk",
+          "id": 8482914,
+          "position": "G",
+          "birthDate": "2003-08-22"
+        },
+        {
+          "name": "Jacob Markstrom",
+          "id": 8474593,
+          "position": "G",
+          "birthDate": "1990-01-31"
+        },
+        {
+          "name": "Tyler Muszelik",
+          "id": 8483736,
+          "position": "G",
+          "birthDate": "2004-07-01"
+        },
+        {
+          "name": "Akira Schmid",
+          "id": 8481033,
+          "position": "G",
+          "birthDate": "2000-05-12"
+        }
+      ]
+    },
+    "MTL": {
+      "skaters": [
+        {
+          "name": "Josh Anderson",
+          "id": 8476981,
+          "position": "RW",
+          "birthDate": "1994-05-07"
+        },
+        {
+          "name": "Owen Beck",
+          "id": 8483424,
+          "position": "C",
+          "birthDate": "2004-02-03"
+        },
+        {
+          "name": "Alex Belzile",
+          "id": 8475968,
+          "position": "RW",
+          "birthDate": "1991-08-31"
+        },
+        {
+          "name": "Brett Berard",
+          "id": 8482132,
+          "position": "LW",
+          "birthDate": "2002-09-09"
+        },
+        {
+          "name": "Zachary Bolduc",
+          "id": 8482737,
+          "position": "RW",
+          "birthDate": "2003-02-24"
+        },
+        {
+          "name": "Cole Caufield",
+          "id": 8481540,
+          "position": "RW",
+          "birthDate": "2001-01-02"
+        },
+        {
+          "name": "Lucas Condotta",
+          "id": 8483549,
+          "position": "LW",
+          "birthDate": "1997-11-06"
+        },
+        {
+          "name": "Kirby Dach",
+          "id": 8481523,
+          "position": "C",
+          "birthDate": "2001-01-21"
+        },
+        {
+          "name": "Phillip Danault",
+          "id": 8476479,
+          "position": "C",
+          "birthDate": "1993-02-24"
+        },
+        {
+          "name": "Jared Davidson",
+          "id": 8483728,
+          "position": "C",
+          "birthDate": "2002-07-07"
+        },
+        {
+          "name": "Ivan Demidov",
+          "id": 8484984,
+          "position": "RW",
+          "birthDate": "2005-12-10"
+        },
+        {
+          "name": "Jake Evans",
+          "id": 8478133,
+          "position": "C",
+          "birthDate": "1996-06-02"
+        },
+        {
+          "name": "Oliver Kapanen",
+          "id": 8482775,
+          "position": "C",
+          "birthDate": "2003-07-29"
+        },
+        {
+          "name": "Hunter McKown",
+          "id": 8484125,
+          "position": "C",
+          "birthDate": "2002-08-18"
+        },
+        {
+          "name": "Filip Mesar",
+          "id": 8483488,
+          "position": "RW",
+          "birthDate": "2004-01-03"
+        },
+        {
+          "name": "Alex Newhook",
+          "id": 8481618,
+          "position": "C",
+          "birthDate": "2001-01-28"
+        },
+        {
+          "name": "Sasha Pastujov",
+          "id": 8482682,
+          "position": "RW",
+          "birthDate": "2003-07-15"
+        },
+        {
+          "name": "Samuel Poulin",
+          "id": 8481591,
+          "position": "RW",
+          "birthDate": "2001-02-25"
+        },
+        {
+          "name": "Juraj Slafkovsk\u00fd",
+          "id": 8483515,
+          "position": "LW",
+          "birthDate": "2004-03-30"
+        },
+        {
+          "name": "Nick Suzuki",
+          "id": 8480018,
+          "position": "C",
+          "birthDate": "1999-08-10"
+        },
+        {
+          "name": "Alexandre Texier",
+          "id": 8480074,
+          "position": "LW",
+          "birthDate": "1999-09-13"
+        },
+        {
+          "name": "Tyler Thorpe",
+          "id": 8484533,
+          "position": "RW",
+          "birthDate": "2005-08-11"
+        },
+        {
+          "name": "Florian Xhekaj",
+          "id": 8484403,
+          "position": "LW",
+          "birthDate": "2004-06-27"
+        },
+        {
+          "name": "Alexandre Carrier",
+          "id": 8478851,
+          "position": "D",
+          "birthDate": "1996-10-08"
+        },
+        {
+          "name": "Noah Dobson",
+          "id": 8480865,
+          "position": "D",
+          "birthDate": "2000-01-07"
+        },
+        {
+          "name": "Adam Engstrom",
+          "id": 8483686,
+          "position": "D",
+          "birthDate": "2003-11-17"
+        },
+        {
+          "name": "Kaiden Guhle",
+          "id": 8482087,
+          "position": "D",
+          "birthDate": "2002-01-18"
+        },
+        {
+          "name": "Lane Hutson",
+          "id": 8483457,
+          "position": "D",
+          "birthDate": "2004-02-14"
+        },
+        {
+          "name": "Mike Matheson",
+          "id": 8476875,
+          "position": "D",
+          "birthDate": "1994-02-27"
+        },
+        {
+          "name": "Luke Mittelstadt",
+          "id": 8482687,
+          "position": "D",
+          "birthDate": "2003-01-22"
+        },
+        {
+          "name": "Bryce Pickford",
+          "id": 8485218,
+          "position": "D",
+          "birthDate": "2006-04-02"
+        },
+        {
+          "name": "Owen Protz",
+          "id": 8485008,
+          "position": "D",
+          "birthDate": "2006-02-07"
+        },
+        {
+          "name": "David Reinbacher",
+          "id": 8484220,
+          "position": "D",
+          "birthDate": "2004-10-25"
+        },
+        {
+          "name": "Ethan Samson",
+          "id": 8482890,
+          "position": "D",
+          "birthDate": "2003-08-23"
+        },
+        {
+          "name": "Jayden Struble",
+          "id": 8481593,
+          "position": "D",
+          "birthDate": "2001-09-08"
+        },
+        {
+          "name": "Maksymilian Szuber",
+          "id": 8483763,
+          "position": "D",
+          "birthDate": "2002-08-25"
+        },
+        {
+          "name": "Reilly Walsh",
+          "id": 8480054,
+          "position": "D",
+          "birthDate": "1999-04-21"
+        },
+        {
+          "name": "Arber Xhekaj",
+          "id": 8482964,
+          "position": "D",
+          "birthDate": "2001-01-30"
+        }
+      ],
+      "goalies": [
+        {
+          "name": "Jakub Dobes",
+          "id": 8482487,
+          "position": "G",
+          "birthDate": "2001-05-27"
+        },
+        {
+          "name": "Jacob Fowler",
+          "id": 8484170,
+          "position": "G",
+          "birthDate": "2004-11-24"
+        },
+        {
+          "name": "Samuel Montembeault",
+          "id": 8478470,
+          "position": "G",
+          "birthDate": "1996-10-30"
+        }
+      ]
+    },
+    "OTT": {
+      "skaters": [
+        {
+          "name": "Michael Amadio",
+          "id": 8478020,
+          "position": "RW",
+          "birthDate": "1996-05-13"
+        },
+        {
+          "name": "Drake Batherson",
+          "id": 8480208,
+          "position": "RW",
+          "birthDate": "1998-04-27"
+        },
+        {
+          "name": "Andre Burakovsky",
+          "id": 8477444,
+          "position": "LW",
+          "birthDate": "1995-02-09"
+        },
+        {
+          "name": "Nick Cousins",
+          "id": 8476393,
+          "position": "C",
+          "birthDate": "1993-07-20"
+        },
+        {
+          "name": "Dylan Cozens",
+          "id": 8481528,
+          "position": "C",
+          "birthDate": "2001-02-09"
+        },
+        {
+          "name": "William Eklund",
+          "id": 8482667,
+          "position": "LW",
+          "birthDate": "2002-10-12"
+        },
+        {
+          "name": "Warren Foegele",
+          "id": 8477998,
+          "position": "LW",
+          "birthDate": "1996-04-01"
+        },
+        {
+          "name": "Claude Giroux",
+          "id": 8473512,
+          "position": "RW",
+          "birthDate": "1988-01-12"
+        },
+        {
+          "name": "Ridly Greig",
+          "id": 8482092,
+          "position": "C",
+          "birthDate": "2002-08-08"
+        },
+        {
+          "name": "Stephen Halliday",
+          "id": 8483676,
+          "position": "C",
+          "birthDate": "2002-07-02"
+        },
+        {
+          "name": "Hayden Hodgson",
+          "id": 8478173,
+          "position": "RW",
+          "birthDate": "1996-03-02"
+        },
+        {
+          "name": "Kurtis MacDermid",
+          "id": 8477073,
+          "position": "LW",
+          "birthDate": "1994-03-25"
+        },
+        {
+          "name": "Shane Pinto",
+          "id": 8481596,
+          "position": "C",
+          "birthDate": "2000-11-12"
+        },
+        {
+          "name": "Tim St\u00fctzle",
+          "id": 8482116,
+          "position": "C",
+          "birthDate": "2002-01-15"
+        },
+        {
+          "name": "Fabian Zetterlund",
+          "id": 8480188,
+          "position": "LW",
+          "birthDate": "1999-08-25"
+        },
+        {
+          "name": "Matthew Andonovski",
+          "id": 8484429,
+          "position": "D",
+          "birthDate": "2005-03-14"
+        },
+        {
+          "name": "Thomas Chabot",
+          "id": 8478469,
+          "position": "D",
+          "birthDate": "1997-01-30"
+        },
+        {
+          "name": "Cameron Crotty",
+          "id": 8480075,
+          "position": "D",
+          "birthDate": "1999-05-05"
+        },
+        {
+          "name": "Tyler Kleven",
+          "id": 8482095,
+          "position": "D",
+          "birthDate": "2002-01-10"
+        },
+        {
+          "name": "Nikolas Matinpalo",
+          "id": 8484321,
+          "position": "D",
+          "birthDate": "1998-10-05"
+        },
+        {
+          "name": "Jake Sanderson",
+          "id": 8482105,
+          "position": "D",
+          "birthDate": "2002-07-08"
+        },
+        {
+          "name": "Jordan Spence",
+          "id": 8481606,
+          "position": "D",
+          "birthDate": "2001-02-24"
+        },
+        {
+          "name": "Carter Yakemchuk",
+          "id": 8484759,
+          "position": "D",
+          "birthDate": "2005-09-29"
+        },
+        {
+          "name": "Artem Zub",
+          "id": 8482245,
+          "position": "D",
+          "birthDate": "1995-10-03"
+        }
+      ],
+      "goalies": [
+        {
+          "name": "Samuel Ersson",
+          "id": 8481035,
+          "position": "G",
+          "birthDate": "1999-10-20"
+        },
+        {
+          "name": "Leevi Meril\u00e4inen",
+          "id": 8482447,
+          "position": "G",
+          "birthDate": "2002-08-13"
+        },
+        {
+          "name": "Linus Ullmark",
+          "id": 8476999,
+          "position": "G",
+          "birthDate": "1993-07-31"
+        }
+      ]
+    },
+    "TBL": {
+      "skaters": [
+        {
+          "name": "Nick Abruzzese",
+          "id": 8481720,
+          "position": "C",
+          "birthDate": "1999-06-04"
+        },
+        {
+          "name": "Tristan Allard",
+          "id": 8484310,
+          "position": "LW",
+          "birthDate": "2002-06-23"
+        },
+        {
+          "name": "Anthony Cirelli",
+          "id": 8478519,
+          "position": "C",
+          "birthDate": "1997-07-15"
+        },
+        {
+          "name": "Ethan Czata",
+          "id": 8485386,
+          "position": "C",
+          "birthDate": "2007-05-29"
+        },
+        {
+          "name": "Dylan Duke",
+          "id": 8482663,
+          "position": "LW",
+          "birthDate": "2003-03-04"
+        },
+        {
+          "name": "Cooper Flinton",
+          "id": 8482951,
+          "position": "LW",
+          "birthDate": "2003-08-16"
+        },
+        {
+          "name": "Ethan Gauthier",
+          "id": 8484173,
+          "position": "RW",
+          "birthDate": "2005-01-26"
+        },
+        {
+          "name": "Conor Geekie",
+          "id": 8483447,
+          "position": "C",
+          "birthDate": "2004-05-05"
+        },
+        {
+          "name": "Zemgus Girgensons",
+          "id": 8476878,
+          "position": "C",
+          "birthDate": "1994-01-05"
+        },
+        {
+          "name": "Gage Goncalves",
+          "id": 8482201,
+          "position": "C",
+          "birthDate": "2001-01-16"
+        },
+        {
+          "name": "Yanni Gourde",
+          "id": 8476826,
+          "position": "C",
+          "birthDate": "1991-12-15"
+        },
+        {
+          "name": "Jake Guentzel",
+          "id": 8477404,
+          "position": "C",
+          "birthDate": "1994-10-06"
+        },
+        {
+          "name": "Brandon Hagel",
+          "id": 8479542,
+          "position": "LW",
+          "birthDate": "1998-08-27"
+        },
+        {
+          "name": "Jansen Harkins",
+          "id": 8478424,
+          "position": "C",
+          "birthDate": "1997-05-23"
+        },
+        {
+          "name": "Pontus Holmberg",
+          "id": 8480995,
+          "position": "RW",
+          "birthDate": "1999-03-09"
+        },
+        {
+          "name": "Dominic James",
+          "id": 8483752,
+          "position": "C",
+          "birthDate": "2002-07-03"
+        },
+        {
+          "name": "Nikita Kucherov",
+          "id": 8476453,
+          "position": "RW",
+          "birthDate": "1993-06-17"
+        },
+        {
+          "name": "Connor Kurth",
+          "id": 8483727,
+          "position": "RW",
+          "birthDate": "2003-07-30"
+        },
+        {
+          "name": "Lucas Mercuri",
+          "id": 8482518,
+          "position": "C",
+          "birthDate": "2002-03-07"
+        },
+        {
+          "name": "Ilya Mikheyev",
+          "id": 8481624,
+          "position": "RW",
+          "birthDate": "1994-10-10"
+        },
+        {
+          "name": "Sam O'Reilly",
+          "id": 8484770,
+          "position": "RW",
+          "birthDate": "2006-03-30"
+        },
+        {
+          "name": "Jakob Pelletier",
+          "id": 8481592,
+          "position": "LW",
+          "birthDate": "2001-03-07"
+        },
+        {
+          "name": "Brayden Point",
+          "id": 8478010,
+          "position": "C",
+          "birthDate": "1996-03-13"
+        },
+        {
+          "name": "Benjamin Rautiainen",
+          "id": 8485587,
+          "position": "C",
+          "birthDate": "2005-06-12"
+        },
+        {
+          "name": "Milo Roelens",
+          "id": 8483921,
+          "position": "C",
+          "birthDate": "2003-01-16"
+        },
+        {
+          "name": "Scott Sabourin",
+          "id": 8477149,
+          "position": "RW",
+          "birthDate": "1992-07-30"
+        },
+        {
+          "name": "Noah Steen",
+          "id": 8485091,
+          "position": "LW",
+          "birthDate": "2004-08-16"
+        },
+        {
+          "name": "Gabriel Szturc",
+          "id": 8484507,
+          "position": "C",
+          "birthDate": "2003-09-24"
+        },
+        {
+          "name": "Jeffrey Viel",
+          "id": 8479705,
+          "position": "LW",
+          "birthDate": "1997-01-28"
+        },
+        {
+          "name": "Michael Callahan",
+          "id": 8480828,
+          "position": "D",
+          "birthDate": "1999-09-23"
+        },
+        {
+          "name": "John Carlson",
+          "id": 8474590,
+          "position": "D",
+          "birthDate": "1990-01-10"
+        },
+        {
+          "name": "Erik Cernak",
+          "id": 8478416,
+          "position": "D",
+          "birthDate": "1997-05-28"
+        },
+        {
+          "name": "Max Crozier",
+          "id": 8481719,
+          "position": "D",
+          "birthDate": "2000-04-19"
+        },
+        {
+          "name": "Charle-Edouard D'Astous",
+          "id": 8480426,
+          "position": "D",
+          "birthDate": "1998-04-21"
+        },
+        {
+          "name": "Dyllan Gill",
+          "id": 8483692,
+          "position": "D",
+          "birthDate": "2004-06-07"
+        },
+        {
+          "name": "Maxim Groshev",
+          "id": 8482168,
+          "position": "D",
+          "birthDate": "2001-12-14"
+        },
+        {
+          "name": "Victor Hedman",
+          "id": 8475167,
+          "position": "D",
+          "birthDate": "1990-12-18"
+        },
+        {
+          "name": "Tomas Kralovic",
+          "id": 8486241,
+          "position": "D",
+          "birthDate": "2005-08-28"
+        },
+        {
+          "name": "Emil Lilleberg",
+          "id": 8482929,
+          "position": "D",
+          "birthDate": "2001-02-02"
+        },
+        {
+          "name": "Simon Lundmark",
+          "id": 8481547,
+          "position": "D",
+          "birthDate": "2000-10-08"
+        },
+        {
+          "name": "Ryan McDonagh",
+          "id": 8474151,
+          "position": "D",
+          "birthDate": "1989-06-13"
+        },
+        {
+          "name": "J.J. Moser",
+          "id": 8482655,
+          "position": "D",
+          "birthDate": "2000-06-06"
+        },
+        {
+          "name": "Steven Santini",
+          "id": 8477463,
+          "position": "D",
+          "birthDate": "1995-03-07"
+        }
+      ],
+      "goalies": [
+        {
+          "name": "Dennis Hildeby",
+          "id": 8483710,
+          "position": "G",
+          "birthDate": "2001-08-19"
+        },
+        {
+          "name": "Jonas Johansson",
+          "id": 8477992,
+          "position": "G",
+          "birthDate": "1995-09-19"
+        },
+        {
+          "name": "Harrison Meneghin",
+          "id": 8484636,
+          "position": "G",
+          "birthDate": "2004-09-13"
+        },
+        {
+          "name": "Olivier Rodrigue",
+          "id": 8480885,
+          "position": "G",
+          "birthDate": "2000-07-06"
+        },
+        {
+          "name": "Mads Sogaard",
+          "id": 8481544,
+          "position": "G",
+          "birthDate": "2000-12-13"
+        },
+        {
+          "name": "Andrei Vasilevskiy",
+          "id": 8476883,
+          "position": "G",
+          "birthDate": "1994-07-25"
+        }
+      ]
+    },
+    "TOR": {
+      "skaters": [
+        {
+          "name": "Teddy Blueger",
+          "id": 8476927,
+          "position": "C",
+          "birthDate": "1994-08-15"
+        },
+        {
+          "name": "Brendan Brisson",
+          "id": 8482153,
+          "position": "C",
+          "birthDate": "2001-10-22"
+        },
+        {
+          "name": "Brandon Buhr",
+          "id": 8486129,
+          "position": "RW",
+          "birthDate": "2002-07-07"
+        },
+        {
+          "name": "Easton Cowan",
+          "id": 8484158,
+          "position": "RW",
+          "birthDate": "2005-05-20"
+        },
+        {
+          "name": "Max Domi",
+          "id": 8477503,
+          "position": "C",
+          "birthDate": "1995-03-02"
+        },
+        {
+          "name": "Brandon Duhaime",
+          "id": 8479520,
+          "position": "RW",
+          "birthDate": "1997-05-22"
+        },
+        {
+          "name": "Bo Groulx",
+          "id": 8480870,
+          "position": "C",
+          "birthDate": "2000-02-06"
+        },
+        {
+          "name": "Luke Haymes",
+          "id": 8485467,
+          "position": "C",
+          "birthDate": "2003-07-28"
+        },
+        {
+          "name": "Miroslav Holinka",
+          "id": 8485049,
+          "position": "C",
+          "birthDate": "2005-11-10"
+        },
+        {
+          "name": "Dakota Joshua",
+          "id": 8478057,
+          "position": "C",
+          "birthDate": "1996-05-15"
+        },
+        {
+          "name": "Matthew Knies",
+          "id": 8482720,
+          "position": "LW",
+          "birthDate": "2002-10-17"
+        },
+        {
+          "name": "Tinus Luc Koblar",
+          "id": 8485564,
+          "position": "C",
+          "birthDate": "2007-07-21"
+        },
+        {
+          "name": "Vinni Lettieri",
+          "id": 8479968,
+          "position": "C",
+          "birthDate": "1995-02-06"
+        },
+        {
+          "name": "Steven Lorentz",
+          "id": 8478904,
+          "position": "C",
+          "birthDate": "1996-04-13"
+        },
+        {
+          "name": "Zack MacEwen",
+          "id": 8479772,
+          "position": "C",
+          "birthDate": "1996-07-08"
+        },
+        {
+          "name": "Auston Matthews",
+          "id": 8479318,
+          "position": "C",
+          "birthDate": "1997-09-17"
+        },
+        {
+          "name": "Gavin McKenna",
+          "id": 8486067,
+          "position": "LW",
+          "birthDate": "2007-12-20"
+        },
+        {
+          "name": "William Nylander",
+          "id": 8477939,
+          "position": "RW",
+          "birthDate": "1996-05-01"
+        },
+        {
+          "name": "Nick Paul",
+          "id": 8477426,
+          "position": "LW",
+          "birthDate": "1995-03-20"
+        },
+        {
+          "name": "Michael Pezzetta",
+          "id": 8479543,
+          "position": "LW",
+          "birthDate": "1998-03-13"
+        },
+        {
+          "name": "Jacob Quillan",
+          "id": 8484901,
+          "position": "C",
+          "birthDate": "2002-02-02"
+        },
+        {
+          "name": "Jack Roslovic",
+          "id": 8478458,
+          "position": "C",
+          "birthDate": "1997-01-29"
+        },
+        {
+          "name": "Henrik Rybinski",
+          "id": 8481662,
+          "position": "RW",
+          "birthDate": "2001-06-26"
+        },
+        {
+          "name": "Landon Sim",
+          "id": 8483741,
+          "position": "RW",
+          "birthDate": "2004-07-17"
+        },
+        {
+          "name": "Colton Sissons",
+          "id": 8476925,
+          "position": "C",
+          "birthDate": "1993-11-05"
+        },
+        {
+          "name": "John Tavares",
+          "id": 8475166,
+          "position": "C",
+          "birthDate": "1990-09-20"
+        },
+        {
+          "name": "Ryan Tverberg",
+          "id": 8482525,
+          "position": "C",
+          "birthDate": "2002-01-30"
+        },
+        {
+          "name": "Borya Valis",
+          "id": 8485115,
+          "position": "RW",
+          "birthDate": "2004-04-08"
+        },
+        {
+          "name": "Emil Andrae",
+          "id": 8482126,
+          "position": "D",
+          "birthDate": "2002-02-23"
+        },
+        {
+          "name": "Vinny Borgesi",
+          "id": 8486125,
+          "position": "D",
+          "birthDate": "2004-03-02"
+        },
+        {
+          "name": "Noah Chadwick",
+          "id": 8484464,
+          "position": "D",
+          "birthDate": "2005-05-10"
+        },
+        {
+          "name": "Ben Danford",
+          "id": 8484805,
+          "position": "D",
+          "birthDate": "2006-02-06"
+        },
+        {
+          "name": "Oliver Ekman-Larsson",
+          "id": 8475171,
+          "position": "D",
+          "birthDate": "1991-07-17"
+        },
+        {
+          "name": "Hayes Hundley",
+          "id": 8486145,
+          "position": "D",
+          "birthDate": "2005-03-22"
+        },
+        {
+          "name": "Jake McCabe",
+          "id": 8476931,
+          "position": "D",
+          "birthDate": "1993-10-12"
+        },
+        {
+          "name": "Cole McWard",
+          "id": 8484287,
+          "position": "D",
+          "birthDate": "2001-06-09"
+        },
+        {
+          "name": "Dakota Mermis",
+          "id": 8477541,
+          "position": "D",
+          "birthDate": "1994-01-05"
+        },
+        {
+          "name": "Philippe Myers",
+          "id": 8479026,
+          "position": "D",
+          "birthDate": "1997-01-25"
+        },
+        {
+          "name": "Darren Raddysh",
+          "id": 8478178,
+          "position": "D",
+          "birthDate": "1996-02-28"
+        },
+        {
+          "name": "Morgan Rielly",
+          "id": 8476853,
+          "position": "D",
+          "birthDate": "1994-03-09"
+        },
+        {
+          "name": "Marshall Rifai",
+          "id": 8483546,
+          "position": "D",
+          "birthDate": "1998-03-16"
+        },
+        {
+          "name": "Blake Smith",
+          "id": 8484540,
+          "position": "D",
+          "birthDate": "2004-10-05"
+        },
+        {
+          "name": "Troy Stecher",
+          "id": 8479442,
+          "position": "D",
+          "birthDate": "1994-04-07"
+        },
+        {
+          "name": "Chris Tanev",
+          "id": 8475690,
+          "position": "D",
+          "birthDate": "1989-12-20"
+        },
+        {
+          "name": "William Villeneuve",
+          "id": 8482174,
+          "position": "D",
+          "birthDate": "2002-03-20"
+        },
+        {
+          "name": "Cade Webber",
+          "id": 8481570,
+          "position": "D",
+          "birthDate": "2001-01-05"
+        }
+      ],
+      "goalies": [
+        {
+          "name": "Artur Akhtyamov",
+          "id": 8482515,
+          "position": "G",
+          "birthDate": "2001-10-31"
+        },
+        {
+          "name": "Sergei Bobrovsky",
+          "id": 8475683,
+          "position": "G",
+          "birthDate": "1988-09-20"
+        },
+        {
+          "name": "Samuel Hlavaj",
+          "id": 8482085,
+          "position": "G",
+          "birthDate": "2001-05-29"
+        },
+        {
+          "name": "Anthony Stolarz",
+          "id": 8476932,
+          "position": "G",
+          "birthDate": "1994-01-20"
+        }
+      ]
+    },
+    "CAR": {
+      "skaters": [
+        {
+          "name": "Sebastian Aho",
+          "id": 8478427,
+          "position": "C",
+          "birthDate": "1997-07-26"
+        },
+        {
+          "name": "Jackson Blake",
+          "id": 8482809,
+          "position": "RW",
+          "birthDate": "2003-08-03"
+        },
+        {
+          "name": "Skyler Brind'Amour",
+          "id": 8480291,
+          "position": "C",
+          "birthDate": "1999-07-27"
+        },
+        {
+          "name": "William Carrier",
+          "id": 8477478,
+          "position": "LW",
+          "birthDate": "1994-12-20"
+        },
+        {
+          "name": "Nicolas Deslauriers",
+          "id": 8475235,
+          "position": "LW",
+          "birthDate": "1991-02-22"
+        },
+        {
+          "name": "Nikolaj Ehlers",
+          "id": 8477940,
+          "position": "LW",
+          "birthDate": "1996-02-14"
+        },
+        {
+          "name": "Taylor Hall",
+          "id": 8475791,
+          "position": "LW",
+          "birthDate": "1991-11-14"
+        },
+        {
+          "name": "Juha Jaaska",
+          "id": 8484929,
+          "position": "LW",
+          "birthDate": "1998-02-09"
+        },
+        {
+          "name": "Mark Jankowski",
+          "id": 8476873,
+          "position": "LW",
+          "birthDate": "1994-09-13"
+        },
+        {
+          "name": "Seth Jarvis",
+          "id": 8482093,
+          "position": "RW",
+          "birthDate": "2002-02-01"
+        },
+        {
+          "name": "Jesperi Kotkaniemi",
+          "id": 8480829,
+          "position": "C",
+          "birthDate": "2000-07-06"
+        },
+        {
+          "name": "Jordan Martinook",
+          "id": 8476921,
+          "position": "LW",
+          "birthDate": "1992-07-25"
+        },
+        {
+          "name": "Bradly Nadeau",
+          "id": 8484203,
+          "position": "LW",
+          "birthDate": "2005-05-05"
+        },
+        {
+          "name": "Viktor Neuchev",
+          "id": 8483496,
+          "position": "LW",
+          "birthDate": "2003-10-25"
+        },
+        {
+          "name": "Justin Robidas",
+          "id": 8482785,
+          "position": "C",
+          "birthDate": "2003-03-13"
+        },
+        {
+          "name": "Eric Robinson",
+          "id": 8480762,
+          "position": "LW",
+          "birthDate": "1995-06-14"
+        },
+        {
+          "name": "Ivan Ryabkin",
+          "id": 8485368,
+          "position": "C",
+          "birthDate": "2007-04-25"
+        },
+        {
+          "name": "Jordan Staal",
+          "id": 8473533,
+          "position": "C",
+          "birthDate": "1988-09-10"
+        },
+        {
+          "name": "Logan Stankoven",
+          "id": 8482702,
+          "position": "C",
+          "birthDate": "2003-02-26"
+        },
+        {
+          "name": "Andrei Svechnikov",
+          "id": 8480830,
+          "position": "RW",
+          "birthDate": "2000-03-26"
+        },
+        {
+          "name": "Gleb Trikozov",
+          "id": 8483519,
+          "position": "LW",
+          "birthDate": "2004-08-12"
+        },
+        {
+          "name": "Felix Unger Sorum",
+          "id": 8484392,
+          "position": "RW",
+          "birthDate": "2005-09-14"
+        },
+        {
+          "name": "Dominik Badinka",
+          "id": 8484781,
+          "position": "D",
+          "birthDate": "2005-11-27"
+        },
+        {
+          "name": "Jalen Chatfield",
+          "id": 8478970,
+          "position": "D",
+          "birthDate": "1996-05-15"
+        },
+        {
+          "name": "Noel Frans\u00e9n",
+          "id": 8484998,
+          "position": "D",
+          "birthDate": "2005-12-07"
+        },
+        {
+          "name": "Shayne Gostisbehere",
+          "id": 8476906,
+          "position": "D",
+          "birthDate": "1993-04-20"
+        },
+        {
+          "name": "William Hakansson",
+          "id": 8486043,
+          "position": "D",
+          "birthDate": "2007-10-08"
+        },
+        {
+          "name": "Aleksi Heimosalmi",
+          "id": 8482860,
+          "position": "D",
+          "birthDate": "2003-05-08"
+        },
+        {
+          "name": "Pierre-Olivier Joseph",
+          "id": 8480058,
+          "position": "D",
+          "birthDate": "1999-07-01"
+        },
+        {
+          "name": "Charles Alexis Legault",
+          "id": 8484428,
+          "position": "D",
+          "birthDate": "2003-09-05"
+        },
+        {
+          "name": "K'Andre Miller",
+          "id": 8480817,
+          "position": "D",
+          "birthDate": "2000-01-21"
+        },
+        {
+          "name": "Bryce Montgomery",
+          "id": 8482888,
+          "position": "D",
+          "birthDate": "2002-11-12"
+        },
+        {
+          "name": "Joel Nystrom",
+          "id": 8482911,
+          "position": "D",
+          "birthDate": "2002-05-14"
+        },
+        {
+          "name": "Mike Reilly",
+          "id": 8476422,
+          "position": "D",
+          "birthDate": "1993-07-13"
+        },
+        {
+          "name": "Ronan Seeley",
+          "id": 8482187,
+          "position": "D",
+          "birthDate": "2002-08-02"
+        },
+        {
+          "name": "Jaccob Slavin",
+          "id": 8476958,
+          "position": "D",
+          "birthDate": "1994-05-01"
+        },
+        {
+          "name": "Juuso V\u00e4lim\u00e4ki",
+          "id": 8479976,
+          "position": "D",
+          "birthDate": "1998-10-06"
+        },
+        {
+          "name": "Sean Walker",
+          "id": 8480336,
+          "position": "D",
+          "birthDate": "1994-11-13"
+        }
+      ],
+      "goalies": [
+        {
+          "name": "Brandon Bussi",
+          "id": 8483548,
+          "position": "G",
+          "birthDate": "1998-06-25"
+        },
+        {
+          "name": "Ruslan Khazheyev",
+          "id": 8484440,
+          "position": "G",
+          "birthDate": "2004-11-20"
+        },
+        {
+          "name": "Pyotr Kochetkov",
+          "id": 8481611,
+          "position": "G",
+          "birthDate": "1999-06-25"
+        },
+        {
+          "name": "Cayden Primeau",
+          "id": 8480051,
+          "position": "G",
+          "birthDate": "1999-08-11"
+        },
+        {
+          "name": "Zach Sawchenko",
+          "id": 8479313,
+          "position": "G",
+          "birthDate": "1997-12-30"
+        }
+      ]
+    },
+    "CBJ": {
+      "skaters": [
+        {
+          "name": "Riley Bezeau",
+          "id": 8483804,
+          "position": "RW",
+          "birthDate": "2002-05-04"
+        },
+        {
+          "name": "Charlie Coyle",
+          "id": 8475745,
+          "position": "C",
+          "birthDate": "1992-03-02"
+        },
+        {
+          "name": "Luca Del Bel Belluz",
+          "id": 8483432,
+          "position": "C",
+          "birthDate": "2003-11-10"
+        },
+        {
+          "name": "Jordan Dumais",
+          "id": 8483688,
+          "position": "RW",
+          "birthDate": "2004-04-15"
+        },
+        {
+          "name": "Josh Eernisse",
+          "id": 8486173,
+          "position": "C",
+          "birthDate": "2001-12-31"
+        },
+        {
+          "name": "Conor Garland",
+          "id": 8478856,
+          "position": "RW",
+          "birthDate": "1996-03-11"
+        },
+        {
+          "name": "Danton Heinen",
+          "id": 8478046,
+          "position": "LW",
+          "birthDate": "1995-07-05"
+        },
+        {
+          "name": "Kent Johnson",
+          "id": 8482660,
+          "position": "C",
+          "birthDate": "2002-10-18"
+        },
+        {
+          "name": "Oiva Keskinen",
+          "id": 8484472,
+          "position": "C",
+          "birthDate": "2004-02-28"
+        },
+        {
+          "name": "Ryan Lomberg",
+          "id": 8479066,
+          "position": "LW",
+          "birthDate": "1994-12-09"
+        },
+        {
+          "name": "Isac Lundestr\u00f6m",
+          "id": 8480806,
+          "position": "C",
+          "birthDate": "1999-11-06"
+        },
+        {
+          "name": "James Malatesta",
+          "id": 8482744,
+          "position": "LW",
+          "birthDate": "2003-05-31"
+        },
+        {
+          "name": "Kirill Marchenko",
+          "id": 8480893,
+          "position": "RW",
+          "birthDate": "2000-07-21"
+        },
+        {
+          "name": "Max McCue",
+          "id": 8482881,
+          "position": "C",
+          "birthDate": "2003-02-10"
+        },
+        {
+          "name": "Sean Monahan",
+          "id": 8477497,
+          "position": "C",
+          "birthDate": "1994-10-12"
+        },
+        {
+          "name": "Valeri Nichushkin",
+          "id": 8477501,
+          "position": "RW",
+          "birthDate": "1995-03-04"
+        },
+        {
+          "name": "Mathieu Olivier",
+          "id": 8479671,
+          "position": "RW",
+          "birthDate": "1997-02-11"
+        },
+        {
+          "name": "Luca Pinelli",
+          "id": 8484214,
+          "position": "C",
+          "birthDate": "2005-04-05"
+        },
+        {
+          "name": "Cole Sillinger",
+          "id": 8482705,
+          "position": "C",
+          "birthDate": "2003-05-16"
+        },
+        {
+          "name": "Owen Sillinger",
+          "id": 8483538,
+          "position": "C",
+          "birthDate": "1997-09-23"
+        },
+        {
+          "name": "Luke Tuch",
+          "id": 8482134,
+          "position": "LW",
+          "birthDate": "2002-03-07"
+        },
+        {
+          "name": "Dmitri Voronkov",
+          "id": 8481716,
+          "position": "LW",
+          "birthDate": "2000-09-10"
+        },
+        {
+          "name": "Jack Williams",
+          "id": 8485469,
+          "position": "RW",
+          "birthDate": "2002-03-02"
+        },
+        {
+          "name": "Miles Wood",
+          "id": 8477425,
+          "position": "LW",
+          "birthDate": "1995-09-13"
+        },
+        {
+          "name": "Boston Buckberger",
+          "id": 8486177,
+          "position": "D",
+          "birthDate": "2003-06-01"
+        },
+        {
+          "name": "Corson Ceulemans",
+          "id": 8482678,
+          "position": "D",
+          "birthDate": "2003-05-05"
+        },
+        {
+          "name": "Jake Christiansen",
+          "id": 8481161,
+          "position": "D",
+          "birthDate": "1999-09-12"
+        },
+        {
+          "name": "Charlie Elick",
+          "id": 8484808,
+          "position": "D",
+          "birthDate": "2006-01-17"
+        },
+        {
+          "name": "Dante Fabbro",
+          "id": 8479371,
+          "position": "D",
+          "birthDate": "1998-06-20"
+        },
+        {
+          "name": "Erik Gudbranson",
+          "id": 8475790,
+          "position": "D",
+          "birthDate": "1992-01-07"
+        },
+        {
+          "name": "Caleb MacDonald",
+          "id": 8485472,
+          "position": "D",
+          "birthDate": "2002-11-29"
+        },
+        {
+          "name": "Luca Marrelli",
+          "id": 8484777,
+          "position": "D",
+          "birthDate": "2005-10-04"
+        },
+        {
+          "name": "Denton Mateychuk",
+          "id": 8483485,
+          "position": "D",
+          "birthDate": "2004-07-12"
+        },
+        {
+          "name": "Ivan Provorov",
+          "id": 8478500,
+          "position": "D",
+          "birthDate": "1997-01-13"
+        },
+        {
+          "name": "Guillaume Richard",
+          "id": 8482692,
+          "position": "D",
+          "birthDate": "2003-02-10"
+        },
+        {
+          "name": "Damon Severson",
+          "id": 8476923,
+          "position": "D",
+          "birthDate": "1994-08-07"
+        },
+        {
+          "name": "Zach Werenski",
+          "id": 8478460,
+          "position": "D",
+          "birthDate": "1997-07-19"
+        },
+        {
+          "name": "Colton White",
+          "id": 8478841,
+          "position": "D",
+          "birthDate": "1997-05-03"
+        }
+      ],
+      "goalies": [
+        {
+          "name": "Pheonix Copley",
+          "id": 8477831,
+          "position": "G",
+          "birthDate": "1992-01-18"
+        },
+        {
+          "name": "Evan Gardner",
+          "id": 8484997,
+          "position": "G",
+          "birthDate": "2006-01-25"
+        },
+        {
+          "name": "Jet Greaves",
+          "id": 8482982,
+          "position": "G",
+          "birthDate": "2001-03-30"
+        },
+        {
+          "name": "Nolan Lalonde",
+          "id": 8483869,
+          "position": "G",
+          "birthDate": "2004-02-14"
+        },
+        {
+          "name": "Elvis Merzlikins",
+          "id": 8478007,
+          "position": "G",
+          "birthDate": "1994-04-13"
+        }
+      ]
+    },
+    "NJD": {
+      "skaters": [
+        {
+          "name": "Nick Bjugstad",
+          "id": 8475760,
+          "position": "C",
+          "birthDate": "1992-07-17"
+        },
+        {
+          "name": "Jesper Boqvist",
+          "id": 8480003,
+          "position": "C",
+          "birthDate": "1998-10-30"
+        },
+        {
+          "name": "Jesper Bratt",
+          "id": 8479407,
+          "position": "LW",
+          "birthDate": "1998-07-30"
+        },
+        {
+          "name": "Connor Brown",
+          "id": 8477015,
+          "position": "RW",
+          "birthDate": "1994-01-14"
+        },
+        {
+          "name": "Luke Evangelista",
+          "id": 8482146,
+          "position": "RW",
+          "birthDate": "2002-02-21"
+        },
+        {
+          "name": "Josh Filmon",
+          "id": 8483439,
+          "position": "LW",
+          "birthDate": "2004-03-18"
+        },
+        {
+          "name": "Cody Glass",
+          "id": 8479996,
+          "position": "C",
+          "birthDate": "1999-04-01"
+        },
+        {
+          "name": "Arseny Gritsyuk",
+          "id": 8481721,
+          "position": "RW",
+          "birthDate": "2001-03-15"
+        },
+        {
+          "name": "Lenni Hameenaho",
+          "id": 8484177,
+          "position": "RW",
+          "birthDate": "2004-11-07"
+        },
+        {
+          "name": "Nico Hischier",
+          "id": 8480002,
+          "position": "C",
+          "birthDate": "1999-01-04"
+        },
+        {
+          "name": "Jack Hughes",
+          "id": 8481559,
+          "position": "C",
+          "birthDate": "2001-05-14"
+        },
+        {
+          "name": "Shane Lachance",
+          "id": 8482941,
+          "position": "LW",
+          "birthDate": "2003-08-30"
+        },
+        {
+          "name": "Amadeus Lombardi",
+          "id": 8483695,
+          "position": "C",
+          "birthDate": "2003-06-05"
+        },
+        {
+          "name": "Anthony Mantha",
+          "id": 8477511,
+          "position": "RW",
+          "birthDate": "1994-09-16"
+        },
+        {
+          "name": "Marc McLaughlin",
+          "id": 8483397,
+          "position": "C",
+          "birthDate": "1999-07-26"
+        },
+        {
+          "name": "Timo Meier",
+          "id": 8478414,
+          "position": "RW",
+          "birthDate": "1996-10-08"
+        },
+        {
+          "name": "Matyas Melovsky",
+          "id": 8484616,
+          "position": "C",
+          "birthDate": "2004-05-25"
+        },
+        {
+          "name": "Dawson Mercer",
+          "id": 8482110,
+          "position": "C",
+          "birthDate": "2001-10-27"
+        },
+        {
+          "name": "Stefan Noesen",
+          "id": 8476474,
+          "position": "RW",
+          "birthDate": "1993-02-12"
+        },
+        {
+          "name": "Xavier Parent",
+          "id": 8483841,
+          "position": "C",
+          "birthDate": "2001-03-23"
+        },
+        {
+          "name": "Evan Rodrigues",
+          "id": 8478542,
+          "position": "C",
+          "birthDate": "1993-07-28"
+        },
+        {
+          "name": "Cam Squires",
+          "id": 8484405,
+          "position": "RW",
+          "birthDate": "2005-04-11"
+        },
+        {
+          "name": "Ben Steeves",
+          "id": 8484834,
+          "position": "LW",
+          "birthDate": "2002-05-10"
+        },
+        {
+          "name": "Riley Tufte",
+          "id": 8479362,
+          "position": "LW",
+          "birthDate": "1998-04-10"
+        },
+        {
+          "name": "Colin White",
+          "id": 8478400,
+          "position": "C",
+          "birthDate": "1997-01-30"
+        },
+        {
+          "name": "Seamus Casey",
+          "id": 8483429,
+          "position": "D",
+          "birthDate": "2004-01-08"
+        },
+        {
+          "name": "Declan Chisholm",
+          "id": 8480990,
+          "position": "D",
+          "birthDate": "2000-01-12"
+        },
+        {
+          "name": "Brenden Dillon",
+          "id": 8475455,
+          "position": "D",
+          "birthDate": "1990-11-13"
+        },
+        {
+          "name": "Mikael Diotte",
+          "id": 8483085,
+          "position": "D",
+          "birthDate": "2003-04-10"
+        },
+        {
+          "name": "Ethan Edwards",
+          "id": 8482194,
+          "position": "D",
+          "birthDate": "2002-06-06"
+        },
+        {
+          "name": "Dougie Hamilton",
+          "id": 8476462,
+          "position": "D",
+          "birthDate": "1993-06-17"
+        },
+        {
+          "name": "Jeremy Hanzel",
+          "id": 8483086,
+          "position": "D",
+          "birthDate": "2003-02-27"
+        },
+        {
+          "name": "Luke Hughes",
+          "id": 8482684,
+          "position": "D",
+          "birthDate": "2003-09-09"
+        },
+        {
+          "name": "Vladislav Kolyachonok",
+          "id": 8481609,
+          "position": "D",
+          "birthDate": "2001-05-26"
+        },
+        {
+          "name": "Johnathan Kovacevic",
+          "id": 8480192,
+          "position": "D",
+          "birthDate": "1997-07-12"
+        },
+        {
+          "name": "Etienne Morin",
+          "id": 8484198,
+          "position": "D",
+          "birthDate": "2005-03-09"
+        },
+        {
+          "name": "Brett Pesce",
+          "id": 8477488,
+          "position": "D",
+          "birthDate": "1994-11-15"
+        },
+        {
+          "name": "Jonas Siegenthaler",
+          "id": 8478399,
+          "position": "D",
+          "birthDate": "1997-05-06"
+        },
+        {
+          "name": "Anton Silaev",
+          "id": 8484987,
+          "position": "D",
+          "birthDate": "2006-04-11"
+        },
+        {
+          "name": "Topias Vilen",
+          "id": 8482873,
+          "position": "D",
+          "birthDate": "2003-04-01"
+        }
+      ],
+      "goalies": [
+        {
+          "name": "Jake Allen",
+          "id": 8474596,
+          "position": "G",
+          "birthDate": "1990-08-07"
+        },
+        {
+          "name": "Nico Daws",
+          "id": 8482076,
+          "position": "G",
+          "birthDate": "2000-12-22"
+        },
+        {
+          "name": "Jakub Malek",
+          "id": 8482867,
+          "position": "G",
+          "birthDate": "2002-04-11"
+        },
+        {
+          "name": "David Rittich",
+          "id": 8479496,
+          "position": "G",
+          "birthDate": "1992-08-19"
+        }
+      ]
+    },
+    "NYI": {
+      "skaters": [
+        {
+          "name": "Mathew Barzal",
+          "id": 8478445,
+          "position": "C",
+          "birthDate": "1997-05-26"
+        },
+        {
+          "name": "Mitchell Chaffee",
+          "id": 8482070,
+          "position": "RW",
+          "birthDate": "1998-01-26"
+        },
+        {
+          "name": "Casey Cizikas",
+          "id": 8475231,
+          "position": "C",
+          "birthDate": "1991-02-27"
+        },
+        {
+          "name": "Anthony Duclair",
+          "id": 8477407,
+          "position": "LW",
+          "birthDate": "1995-08-26"
+        },
+        {
+          "name": "Cole Eiserman",
+          "id": 8484807,
+          "position": "LW",
+          "birthDate": "2006-08-29"
+        },
+        {
+          "name": "Victor Eklund",
+          "id": 8485388,
+          "position": "RW",
+          "birthDate": "2006-10-03"
+        },
+        {
+          "name": "Quinn Finley",
+          "id": 8483441,
+          "position": "LW",
+          "birthDate": "2004-08-08"
+        },
+        {
+          "name": "Liam Foudy",
+          "id": 8480853,
+          "position": "C",
+          "birthDate": "2000-02-04"
+        },
+        {
+          "name": "Emil Heineman",
+          "id": 8482476,
+          "position": "LW",
+          "birthDate": "2001-11-16"
+        },
+        {
+          "name": "Simon Holmstrom",
+          "id": 8481601,
+          "position": "RW",
+          "birthDate": "2001-05-24"
+        },
+        {
+          "name": "Bo Horvat",
+          "id": 8477500,
+          "position": "C",
+          "birthDate": "1995-04-05"
+        },
+        {
+          "name": "Alex Jefferies",
+          "id": 8482154,
+          "position": "LW",
+          "birthDate": "2001-11-08"
+        },
+        {
+          "name": "Daylan Kuefler",
+          "id": 8483104,
+          "position": "LW",
+          "birthDate": "2002-02-10"
+        },
+        {
+          "name": "Joey Larson",
+          "id": 8485490,
+          "position": "RW",
+          "birthDate": "2001-03-27"
+        },
+        {
+          "name": "Matt Luff",
+          "id": 8479644,
+          "position": "RW",
+          "birthDate": "1997-05-05"
+        },
+        {
+          "name": "Matias Maccelli",
+          "id": 8481711,
+          "position": "LW",
+          "birthDate": "2000-10-14"
+        },
+        {
+          "name": "Kyle MacLean",
+          "id": 8481237,
+          "position": "C",
+          "birthDate": "1999-04-29"
+        },
+        {
+          "name": "Jesse Nurmi",
+          "id": 8484208,
+          "position": "LW",
+          "birthDate": "2005-03-07"
+        },
+        {
+          "name": "Jean-Gabriel Pageau",
+          "id": 8476419,
+          "position": "C",
+          "birthDate": "1992-11-11"
+        },
+        {
+          "name": "Ondrej Palat",
+          "id": 8476292,
+          "position": "LW",
+          "birthDate": "1991-03-28"
+        },
+        {
+          "name": "Kyle Palmieri",
+          "id": 8475151,
+          "position": "C",
+          "birthDate": "1991-02-01"
+        },
+        {
+          "name": "Daniil Prokhorov",
+          "id": 8485448,
+          "position": "RW",
+          "birthDate": "2007-04-27"
+        },
+        {
+          "name": "Calum Ritchie",
+          "id": 8484221,
+          "position": "C",
+          "birthDate": "2005-01-21"
+        },
+        {
+          "name": "Brayden Schenn",
+          "id": 8475170,
+          "position": "C",
+          "birthDate": "1991-08-22"
+        },
+        {
+          "name": "Gleb Veremyev",
+          "id": 8485462,
+          "position": "C",
+          "birthDate": "2003-06-28"
+        },
+        {
+          "name": "Kashawn Aitcheson",
+          "id": 8485352,
+          "position": "D",
+          "birthDate": "2006-09-21"
+        },
+        {
+          "name": "Ethan Bear",
+          "id": 8478451,
+          "position": "D",
+          "birthDate": "1997-06-26"
+        },
+        {
+          "name": "Tony DeAngelo",
+          "id": 8477950,
+          "position": "D",
+          "birthDate": "1995-10-24"
+        },
+        {
+          "name": "Isaiah George",
+          "id": 8483448,
+          "position": "D",
+          "birthDate": "2004-02-15"
+        },
+        {
+          "name": "Matthew Kessel",
+          "id": 8482516,
+          "position": "D",
+          "birthDate": "2000-06-23"
+        },
+        {
+          "name": "Scott Mayfield",
+          "id": 8476429,
+          "position": "D",
+          "birthDate": "1992-10-14"
+        },
+        {
+          "name": "Calle Odelius",
+          "id": 8483498,
+          "position": "D",
+          "birthDate": "2004-05-30"
+        },
+        {
+          "name": "Adam Pelech",
+          "id": 8476917,
+          "position": "D",
+          "birthDate": "1994-08-16"
+        },
+        {
+          "name": "Jesse Pulkkinen",
+          "id": 8484766,
+          "position": "D",
+          "birthDate": "2004-12-27"
+        },
+        {
+          "name": "Ryan Pulock",
+          "id": 8477506,
+          "position": "D",
+          "birthDate": "1994-10-06"
+        },
+        {
+          "name": "Alexander Romanov",
+          "id": 8481014,
+          "position": "D",
+          "birthDate": "2000-01-06"
+        },
+        {
+          "name": "Matthew Schaefer",
+          "id": 8485366,
+          "position": "D",
+          "birthDate": "2007-09-05"
+        },
+        {
+          "name": "Marshall Warren",
+          "id": 8481569,
+          "position": "D",
+          "birthDate": "2001-04-20"
+        }
+      ],
+      "goalies": [
+        {
+          "name": "Joshua Kotai",
+          "id": 8486136,
+          "position": "G",
+          "birthDate": "2003-03-13"
+        },
+        {
+          "name": "Ilya Sorokin",
+          "id": 8478009,
+          "position": "G",
+          "birthDate": "1995-08-04"
+        },
+        {
+          "name": "Henrik Tikkanen",
+          "id": 8482472,
+          "position": "G",
+          "birthDate": "2000-09-28"
+        },
+        {
+          "name": "Vitek Vanecek",
+          "id": 8477970,
+          "position": "G",
+          "birthDate": "1996-01-09"
+        },
+        {
+          "name": "Semyon Varlamov",
+          "id": 8473575,
+          "position": "G",
+          "birthDate": "1988-04-27"
+        }
+      ]
+    },
+    "NYR": {
+      "skaters": [
+        {
+          "name": "Oliver Bjorkstrand",
+          "id": 8477416,
+          "position": "RW",
+          "birthDate": "1995-04-10"
+        },
+        {
+          "name": "Jaroslav Chmelar",
+          "id": 8482877,
+          "position": "RW",
+          "birthDate": "2003-07-20"
+        },
+        {
+          "name": "Will Cuylle",
+          "id": 8482157,
+          "position": "LW",
+          "birthDate": "2002-02-05"
+        },
+        {
+          "name": "Pavel Dorofeyev",
+          "id": 8481604,
+          "position": "RW",
+          "birthDate": "2000-10-26"
+        },
+        {
+          "name": "Tye Kartye",
+          "id": 8481789,
+          "position": "LW",
+          "birthDate": "2001-04-30"
+        },
+        {
+          "name": "Noah Laba",
+          "id": 8483690,
+          "position": "C",
+          "birthDate": "2003-08-04"
+        },
+        {
+          "name": "Alexis Lafreni\u00e8re",
+          "id": 8482109,
+          "position": "LW",
+          "birthDate": "2001-10-11"
+        },
+        {
+          "name": "J.T. Miller",
+          "id": 8476468,
+          "position": "C",
+          "birthDate": "1993-03-14"
+        },
+        {
+          "name": "Gabe Perreault",
+          "id": 8484210,
+          "position": "RW",
+          "birthDate": "2005-05-07"
+        },
+        {
+          "name": "Taylor Raddysh",
+          "id": 8479390,
+          "position": "RW",
+          "birthDate": "1998-02-18"
+        },
+        {
+          "name": "Matt Rempe",
+          "id": 8482460,
+          "position": "C",
+          "birthDate": "2002-06-29"
+        },
+        {
+          "name": "Adam Sykora",
+          "id": 8483669,
+          "position": "LW",
+          "birthDate": "2004-09-07"
+        },
+        {
+          "name": "Eeli Tolvanen",
+          "id": 8480009,
+          "position": "RW",
+          "birthDate": "1999-04-22"
+        },
+        {
+          "name": "Joe Veleno",
+          "id": 8480813,
+          "position": "C",
+          "birthDate": "2000-01-13"
+        },
+        {
+          "name": "Mika Zibanejad",
+          "id": 8476459,
+          "position": "C",
+          "birthDate": "1993-04-18"
+        },
+        {
+          "name": "Sean Durzi",
+          "id": 8480434,
+          "position": "D",
+          "birthDate": "1998-10-21"
+        },
+        {
+          "name": "Drew Fortescue",
+          "id": 8484169,
+          "position": "D",
+          "birthDate": "2005-04-28"
+        },
+        {
+          "name": "Adam Fox",
+          "id": 8479323,
+          "position": "D",
+          "birthDate": "1998-02-17"
+        },
+        {
+          "name": "Vladislav Gavrikov",
+          "id": 8478882,
+          "position": "D",
+          "birthDate": "1995-11-21"
+        },
+        {
+          "name": "Vincent Iorio",
+          "id": 8482861,
+          "position": "D",
+          "birthDate": "2002-11-14"
+        },
+        {
+          "name": "Marcus Pettersson",
+          "id": 8477969,
+          "position": "D",
+          "birthDate": "1996-05-08"
+        },
+        {
+          "name": "Matthew Robertson",
+          "id": 8481525,
+          "position": "D",
+          "birthDate": "2001-03-09"
+        },
+        {
+          "name": "Braden Schneider",
+          "id": 8482073,
+          "position": "D",
+          "birthDate": "2001-09-20"
+        },
+        {
+          "name": "Urho Vaakanainen",
+          "id": 8480001,
+          "position": "D",
+          "birthDate": "1999-01-01"
+        }
+      ],
+      "goalies": [
+        {
+          "name": "Dylan Garand",
+          "id": 8482193,
+          "position": "G",
+          "birthDate": "2002-06-07"
+        },
+        {
+          "name": "Joonas Korpisalo",
+          "id": 8476914,
+          "position": "G",
+          "birthDate": "1994-04-28"
+        },
+        {
+          "name": "Igor Shesterkin",
+          "id": 8478048,
+          "position": "G",
+          "birthDate": "1995-12-30"
+        }
+      ]
+    },
+    "PHI": {
+      "skaters": [
+        {
+          "name": "Noel Acciari",
+          "id": 8478569,
+          "position": "C",
+          "birthDate": "1991-12-01"
+        },
+        {
+          "name": "Zachary Aston-Reese",
+          "id": 8479944,
+          "position": "LW",
+          "birthDate": "1994-08-10"
+        },
+        {
+          "name": "Denver Barkey",
+          "id": 8484142,
+          "position": "C",
+          "birthDate": "2005-04-27"
+        },
+        {
+          "name": "Alex Bump",
+          "id": 8483731,
+          "position": "LW",
+          "birthDate": "2003-11-20"
+        },
+        {
+          "name": "Noah Cates",
+          "id": 8480220,
+          "position": "LW",
+          "birthDate": "1999-02-05"
+        },
+        {
+          "name": "Alex Ciernik",
+          "id": 8484156,
+          "position": "LW",
+          "birthDate": "2004-10-08"
+        },
+        {
+          "name": "Sean Couturier",
+          "id": 8476461,
+          "position": "C",
+          "birthDate": "1992-12-07"
+        },
+        {
+          "name": "Christian Dvorak",
+          "id": 8477989,
+          "position": "C",
+          "birthDate": "1996-02-02"
+        },
+        {
+          "name": "Tyson Foerster",
+          "id": 8482159,
+          "position": "RW",
+          "birthDate": "2002-01-18"
+        },
+        {
+          "name": "Nolan Foote",
+          "id": 8481518,
+          "position": "LW",
+          "birthDate": "2000-11-29"
+        },
+        {
+          "name": "Jacob Gaucher",
+          "id": 8481848,
+          "position": "C",
+          "birthDate": "2001-03-09"
+        },
+        {
+          "name": "Nikita Grebenkin",
+          "id": 8483733,
+          "position": "RW",
+          "birthDate": "2003-05-02"
+        },
+        {
+          "name": "Carl Grundstrom",
+          "id": 8479336,
+          "position": "RW",
+          "birthDate": "1997-12-01"
+        },
+        {
+          "name": "Devin Kaplan",
+          "id": 8483461,
+          "position": "RW",
+          "birthDate": "2004-01-10"
+        },
+        {
+          "name": "Danila Klimovich",
+          "id": 8482918,
+          "position": "RW",
+          "birthDate": "2003-01-09"
+        },
+        {
+          "name": "Cole Knuble",
+          "id": 8483787,
+          "position": "RW",
+          "birthDate": "2004-07-01"
+        },
+        {
+          "name": "Travis Konecny",
+          "id": 8478439,
+          "position": "RW",
+          "birthDate": "1997-03-11"
+        },
+        {
+          "name": "Jett Luchanko",
+          "id": 8484779,
+          "position": "C",
+          "birthDate": "2006-08-21"
+        },
+        {
+          "name": "Porter Martone",
+          "id": 8485406,
+          "position": "RW",
+          "birthDate": "2006-10-26"
+        },
+        {
+          "name": "Matvei Michkov",
+          "id": 8484387,
+          "position": "RW",
+          "birthDate": "2004-12-09"
+        },
+        {
+          "name": "Ilya Pautov",
+          "id": 8485073,
+          "position": "RW",
+          "birthDate": "2006-05-03"
+        },
+        {
+          "name": "Noah Powell",
+          "id": 8485045,
+          "position": "RW",
+          "birthDate": "2005-02-02"
+        },
+        {
+          "name": "Jack Studnicka",
+          "id": 8480021,
+          "position": "C",
+          "birthDate": "1999-02-18"
+        },
+        {
+          "name": "Riley Thompson",
+          "id": 8486135,
+          "position": "C",
+          "birthDate": "2002-08-17"
+        },
+        {
+          "name": "Owen Tippett",
+          "id": 8480015,
+          "position": "RW",
+          "birthDate": "1999-02-16"
+        },
+        {
+          "name": "Trevor Zegras",
+          "id": 8481533,
+          "position": "C",
+          "birthDate": "2001-03-20"
+        },
+        {
+          "name": "Simon Benoit",
+          "id": 8481122,
+          "position": "D",
+          "birthDate": "1998-09-19"
+        },
+        {
+          "name": "Oliver Bonk",
+          "id": 8484148,
+          "position": "D",
+          "birthDate": "2005-01-09"
+        },
+        {
+          "name": "Cam Dineen",
+          "id": 8479341,
+          "position": "D",
+          "birthDate": "1998-06-19"
+        },
+        {
+          "name": "Jamie Drysdale",
+          "id": 8482142,
+          "position": "D",
+          "birthDate": "2002-04-08"
+        },
+        {
+          "name": "Jackson Edward",
+          "id": 8483438,
+          "position": "D",
+          "birthDate": "2004-02-27"
+        },
+        {
+          "name": "Spencer Gill",
+          "id": 8484804,
+          "position": "D",
+          "birthDate": "2006-08-17"
+        },
+        {
+          "name": "Helge Grans",
+          "id": 8482169,
+          "position": "D",
+          "birthDate": "2002-05-10"
+        },
+        {
+          "name": "David Jiricek",
+          "id": 8483460,
+          "position": "D",
+          "birthDate": "2003-11-28"
+        },
+        {
+          "name": "Hunter McDonald",
+          "id": 8483760,
+          "position": "D",
+          "birthDate": "2002-05-11"
+        },
+        {
+          "name": "Ty Murchison",
+          "id": 8482804,
+          "position": "D",
+          "birthDate": "2003-02-02"
+        },
+        {
+          "name": "Rasmus Ristolainen",
+          "id": 8477499,
+          "position": "D",
+          "birthDate": "1994-10-27"
+        },
+        {
+          "name": "Travis Sanheim",
+          "id": 8477948,
+          "position": "D",
+          "birthDate": "1996-03-29"
+        },
+        {
+          "name": "Nick Seeler",
+          "id": 8476372,
+          "position": "D",
+          "birthDate": "1993-06-03"
+        },
+        {
+          "name": "Cam York",
+          "id": 8481546,
+          "position": "D",
+          "birthDate": "2001-01-05"
+        }
+      ],
+      "goalies": [
+        {
+          "name": "Carson Bjarnason",
+          "id": 8484147,
+          "position": "G",
+          "birthDate": "2005-06-30"
+        },
+        {
+          "name": "Aleksei Kolosov",
+          "id": 8482783,
+          "position": "G",
+          "birthDate": "2002-01-04"
+        },
+        {
+          "name": "Dan Vladar",
+          "id": 8478435,
+          "position": "G",
+          "birthDate": "1997-08-20"
+        },
+        {
+          "name": "Joseph Woll",
+          "id": 8479361,
+          "position": "G",
+          "birthDate": "1998-07-12"
+        }
+      ]
+    },
+    "PIT": {
+      "skaters": [
+        {
+          "name": "Justin Brazeau",
+          "id": 8479638,
+          "position": "RW",
+          "birthDate": "1998-02-02"
+        },
+        {
+          "name": "Egor Chinakhov",
+          "id": 8482475,
+          "position": "RW",
+          "birthDate": "2001-02-01"
+        },
+        {
+          "name": "Sidney Crosby",
+          "id": 8471675,
+          "position": "C",
+          "birthDate": "1987-08-07"
+        },
+        {
+          "name": "Connor Dewar",
+          "id": 8480980,
+          "position": "C",
+          "birthDate": "1999-06-26"
+        },
+        {
+          "name": "Ben Kindel",
+          "id": 8485414,
+          "position": "C",
+          "birthDate": "2007-04-19"
+        },
+        {
+          "name": "Ville Koivunen",
+          "id": 8482758,
+          "position": "RW",
+          "birthDate": "2003-06-13"
+        },
+        {
+          "name": "Andrei Kuzmenko",
+          "id": 8483808,
+          "position": "LW",
+          "birthDate": "1996-02-04"
+        },
+        {
+          "name": "Hendrix Lapierre",
+          "id": 8482148,
+          "position": "C",
+          "birthDate": "2002-02-09"
+        },
+        {
+          "name": "Blake Lizotte",
+          "id": 8481481,
+          "position": "C",
+          "birthDate": "1997-12-13"
+        },
+        {
+          "name": "Evgeni Malkin",
+          "id": 8471215,
+          "position": "C",
+          "birthDate": "1986-07-31"
+        },
+        {
+          "name": "Tommy Novak",
+          "id": 8478438,
+          "position": "C",
+          "birthDate": "1997-04-28"
+        },
+        {
+          "name": "Rickard Rakell",
+          "id": 8476483,
+          "position": "RW",
+          "birthDate": "1993-05-05"
+        },
+        {
+          "name": "Nick Robertson",
+          "id": 8481582,
+          "position": "LW",
+          "birthDate": "2001-09-11"
+        },
+        {
+          "name": "Bryan Rust",
+          "id": 8475810,
+          "position": "RW",
+          "birthDate": "1992-05-11"
+        },
+        {
+          "name": "Elmer Soderblom",
+          "id": 8481725,
+          "position": "LW",
+          "birthDate": "2001-07-05"
+        },
+        {
+          "name": "Declan Carlile",
+          "id": 8483398,
+          "position": "D",
+          "birthDate": "2000-05-18"
+        },
+        {
+          "name": "Samuel Girard",
+          "id": 8479398,
+          "position": "D",
+          "birthDate": "1998-05-12"
+        },
+        {
+          "name": "Erik Karlsson",
+          "id": 8474578,
+          "position": "D",
+          "birthDate": "1990-05-31"
+        },
+        {
+          "name": "Kaedan Korczak",
+          "id": 8481527,
+          "position": "D",
+          "birthDate": "2001-01-29"
+        },
+        {
+          "name": "Kris Letang",
+          "id": 8471724,
+          "position": "D",
+          "birthDate": "1987-04-24"
+        },
+        {
+          "name": "Trevor van Riemsdyk",
+          "id": 8477845,
+          "position": "D",
+          "birthDate": "1991-07-24"
+        }
+      ],
+      "goalies": [
+        {
+          "name": "Sergei Murashov",
+          "id": 8483703,
+          "position": "G",
+          "birthDate": "2004-04-01"
+        },
+        {
+          "name": "Arturs Silovs",
+          "id": 8481668,
+          "position": "G",
+          "birthDate": "2001-03-22"
+        }
+      ]
+    },
+    "WSH": {
+      "skaters": [
+        {
+          "name": "Anthony Beauvillier",
+          "id": 8478463,
+          "position": "RW",
+          "birthDate": "1997-06-08"
+        },
+        {
+          "name": "Pierre-Luc Dubois",
+          "id": 8479400,
+          "position": "C",
+          "birthDate": "1998-06-24"
+        },
+        {
+          "name": "Ethen Frank",
+          "id": 8483573,
+          "position": "RW",
+          "birthDate": "1998-02-05"
+        },
+        {
+          "name": "Boone Jenner",
+          "id": 8476432,
+          "position": "C",
+          "birthDate": "1993-06-15"
+        },
+        {
+          "name": "Jordan Kyrou",
+          "id": 8479385,
+          "position": "RW",
+          "birthDate": "1998-05-05"
+        },
+        {
+          "name": "Ryan Leonard",
+          "id": 8484186,
+          "position": "RW",
+          "birthDate": "2005-01-21"
+        },
+        {
+          "name": "Ivan Miroshnichenko",
+          "id": 8483491,
+          "position": "LW",
+          "birthDate": "2004-02-04"
+        },
+        {
+          "name": "Alex Ovechkin",
+          "id": 8471214,
+          "position": "LW",
+          "birthDate": "1985-09-17"
+        },
+        {
+          "name": "Aliaksei Protas",
+          "id": 8481656,
+          "position": "LW",
+          "birthDate": "2001-01-06"
+        },
+        {
+          "name": "Ilya Protas",
+          "id": 8484999,
+          "position": "LW",
+          "birthDate": "2006-07-18"
+        },
+        {
+          "name": "Justin Sourdif",
+          "id": 8482088,
+          "position": "C",
+          "birthDate": "2002-03-24"
+        },
+        {
+          "name": "Dylan Strome",
+          "id": 8478440,
+          "position": "C",
+          "birthDate": "1997-03-07"
+        },
+        {
+          "name": "Alex Tuch",
+          "id": 8477949,
+          "position": "RW",
+          "birthDate": "1996-05-10"
+        },
+        {
+          "name": "Tom Wilson",
+          "id": 8476880,
+          "position": "RW",
+          "birthDate": "1994-03-29"
+        },
+        {
+          "name": "Jakob Chychrun",
+          "id": 8479345,
+          "position": "D",
+          "birthDate": "1998-03-31"
+        },
+        {
+          "name": "Vincent Desharnais",
+          "id": 8479576,
+          "position": "D",
+          "birthDate": "1996-05-29"
+        },
+        {
+          "name": "Martin Feh\u00e9rv\u00e1ry",
+          "id": 8480796,
+          "position": "D",
+          "birthDate": "1999-10-06"
+        },
+        {
+          "name": "Cole Hutson",
+          "id": 8484873,
+          "position": "D",
+          "birthDate": "2006-06-28"
+        },
+        {
+          "name": "Timothy Liljegren",
+          "id": 8480043,
+          "position": "D",
+          "birthDate": "1999-04-30"
+        },
+        {
+          "name": "Dylan McIlrath",
+          "id": 8475795,
+          "position": "D",
+          "birthDate": "1992-04-20"
+        },
+        {
+          "name": "Matt Roy",
+          "id": 8478911,
+          "position": "D",
+          "birthDate": "1995-03-01"
+        },
+        {
+          "name": "Rasmus Sandin",
+          "id": 8480873,
+          "position": "D",
+          "birthDate": "2000-03-07"
+        }
+      ],
+      "goalies": [
+        {
+          "name": "Charlie Lindgren",
+          "id": 8479292,
+          "position": "G",
+          "birthDate": "1993-12-18"
+        },
+        {
+          "name": "Clay Stevenson",
+          "id": 8483532,
+          "position": "G",
+          "birthDate": "1999-03-03"
+        },
+        {
+          "name": "Logan Thompson",
+          "id": 8480313,
+          "position": "G",
+          "birthDate": "1997-02-25"
+        }
+      ]
+    },
+    "CHI": {
+      "skaters": [
+        {
+          "name": "Connor Bedard",
+          "id": 8484144,
+          "position": "C",
+          "birthDate": "2005-07-17"
+        },
+        {
+          "name": "Tyler Bertuzzi",
+          "id": 8477479,
+          "position": "LW",
+          "birthDate": "1995-02-24"
+        },
+        {
+          "name": "Sacha Boisvert",
+          "id": 8484793,
+          "position": "C",
+          "birthDate": "2006-03-17"
+        },
+        {
+          "name": "Dillon Boucher",
+          "id": 8485554,
+          "position": "LW",
+          "birthDate": "1997-04-16"
+        },
+        {
+          "name": "Ryan Donato",
+          "id": 8477987,
+          "position": "C",
+          "birthDate": "1996-04-09"
+        },
+        {
+          "name": "Jiri Felcman",
+          "id": 8484400,
+          "position": "C",
+          "birthDate": "2005-04-17"
+        },
+        {
+          "name": "Anton Frondell",
+          "id": 8485391,
+          "position": "C",
+          "birthDate": "2007-05-07"
+        },
+        {
+          "name": "Ryan Greene",
+          "id": 8483450,
+          "position": "C",
+          "birthDate": "2003-10-21"
+        },
+        {
+          "name": "Jordan Greenway",
+          "id": 8478413,
+          "position": "LW",
+          "birthDate": "1997-02-16"
+        },
+        {
+          "name": "Gavin Hayes",
+          "id": 8483453,
+          "position": "LW",
+          "birthDate": "2004-05-14"
+        },
+        {
+          "name": "Patrick Kane",
+          "id": 8474141,
+          "position": "RW",
+          "birthDate": "1988-11-19"
+        },
+        {
+          "name": "Roman Kantserov",
+          "id": 8484390,
+          "position": "RW",
+          "birthDate": "2004-09-20"
+        },
+        {
+          "name": "Nick Lardis",
+          "id": 8484185,
+          "position": "LW",
+          "birthDate": "2005-07-08"
+        },
+        {
+          "name": "Paul Ludwinski",
+          "id": 8483480,
+          "position": "C",
+          "birthDate": "2004-04-23"
+        },
+        {
+          "name": "Andrew Mangiapane",
+          "id": 8478233,
+          "position": "LW",
+          "birthDate": "1996-04-04"
+        },
+        {
+          "name": "Martin Misiak",
+          "id": 8484195,
+          "position": "RW",
+          "birthDate": "2004-09-30"
+        },
+        {
+          "name": "Oliver Moore",
+          "id": 8484197,
+          "position": "C",
+          "birthDate": "2005-01-22"
+        },
+        {
+          "name": "Connor Mylymok",
+          "id": 8485166,
+          "position": "LW",
+          "birthDate": "2000-03-18"
+        },
+        {
+          "name": "Frank Nazar",
+          "id": 8483493,
+          "position": "C",
+          "birthDate": "2004-01-14"
+        },
+        {
+          "name": "Samuel Savoie",
+          "id": 8483677,
+          "position": "LW",
+          "birthDate": "2004-03-25"
+        },
+        {
+          "name": "Landon Slaggert",
+          "id": 8482172,
+          "position": "LW",
+          "birthDate": "2002-06-25"
+        },
+        {
+          "name": "Cole Smith",
+          "id": 8482062,
+          "position": "RW",
+          "birthDate": "1995-10-28"
+        },
+        {
+          "name": "Anthony (AJ) Spellacy",
+          "id": 8484858,
+          "position": "RW",
+          "birthDate": "2006-02-24"
+        },
+        {
+          "name": "Teuvo Teravainen",
+          "id": 8476882,
+          "position": "C",
+          "birthDate": "1994-09-11"
+        },
+        {
+          "name": "Dominic Toninato",
+          "id": 8476952,
+          "position": "C",
+          "birthDate": "1994-03-09"
+        },
+        {
+          "name": "Marek Vanacker",
+          "id": 8484761,
+          "position": "LW",
+          "birthDate": "2006-04-12"
+        },
+        {
+          "name": "Dylan Anhorn",
+          "id": 8484906,
+          "position": "D",
+          "birthDate": "1999-01-21"
+        },
+        {
+          "name": "Bowen Byram",
+          "id": 8481524,
+          "position": "D",
+          "birthDate": "2001-06-13"
+        },
+        {
+          "name": "Ian Cole",
+          "id": 8474013,
+          "position": "D",
+          "birthDate": "1989-02-21"
+        },
+        {
+          "name": "Jake Furlong",
+          "id": 8483745,
+          "position": "D",
+          "birthDate": "2004-03-04"
+        },
+        {
+          "name": "Taige Harding",
+          "id": 8482923,
+          "position": "D",
+          "birthDate": "2002-01-03"
+        },
+        {
+          "name": "Wyatt Kaiser",
+          "id": 8482176,
+          "position": "D",
+          "birthDate": "2002-07-31"
+        },
+        {
+          "name": "Kevin Korchinski",
+          "id": 8483466,
+          "position": "D",
+          "birthDate": "2004-06-21"
+        },
+        {
+          "name": "Artyom Levshunov",
+          "id": 8484783,
+          "position": "D",
+          "birthDate": "2005-10-28"
+        },
+        {
+          "name": "Connor Mackey",
+          "id": 8482067,
+          "position": "D",
+          "birthDate": "1996-09-12"
+        },
+        {
+          "name": "Derrick Pouliot",
+          "id": 8476884,
+          "position": "D",
+          "birthDate": "1994-01-16"
+        },
+        {
+          "name": "Sam Rinzel",
+          "id": 8483506,
+          "position": "D",
+          "birthDate": "2004-06-25"
+        },
+        {
+          "name": "Alex Vlasic",
+          "id": 8481568,
+          "position": "D",
+          "birthDate": "2001-06-05"
+        }
+      ],
+      "goalies": [
+        {
+          "name": "Stanislav Berezhnoy",
+          "id": 8485729,
+          "position": "G",
+          "birthDate": "2003-06-07"
+        },
+        {
+          "name": "Drew Commesso",
+          "id": 8482123,
+          "position": "G",
+          "birthDate": "2002-07-19"
+        },
+        {
+          "name": "Adam Gajan",
+          "id": 8484171,
+          "position": "G",
+          "birthDate": "2004-05-06"
+        },
+        {
+          "name": "Spencer Knight",
+          "id": 8481519,
+          "position": "G",
+          "birthDate": "2001-04-19"
+        },
+        {
+          "name": "Arvid Soderblom",
+          "id": 8482821,
+          "position": "G",
+          "birthDate": "1999-08-19"
+        }
+      ]
+    },
+    "COL": {
+      "skaters": [
+        {
+          "name": "Adam Beckman",
+          "id": 8481550,
+          "position": "LW",
+          "birthDate": "2001-05-10"
+        },
+        {
+          "name": "Gavin Brindley",
+          "id": 8484149,
+          "position": "C",
+          "birthDate": "2004-10-05"
+        },
+        {
+          "name": "Matthew DiMarsico",
+          "id": 8486151,
+          "position": "C",
+          "birthDate": "2004-01-07"
+        },
+        {
+          "name": "Cooper Gay",
+          "id": 8485474,
+          "position": "RW",
+          "birthDate": "2002-03-15"
+        },
+        {
+          "name": "Vinnie Hinostroza",
+          "id": 8476994,
+          "position": "C",
+          "birthDate": "1994-04-03"
+        },
+        {
+          "name": "T.J. Hughes",
+          "id": 8486171,
+          "position": "RW",
+          "birthDate": "2001-11-09"
+        },
+        {
+          "name": "Nazem Kadri",
+          "id": 8475172,
+          "position": "C",
+          "birthDate": "1990-10-06"
+        },
+        {
+          "name": "Parker Kelly",
+          "id": 8480448,
+          "position": "C",
+          "birthDate": "1999-05-14"
+        },
+        {
+          "name": "Zachary L'Heureux",
+          "id": 8482742,
+          "position": "LW",
+          "birthDate": "2003-05-15"
+        },
+        {
+          "name": "Gabriel Landeskog",
+          "id": 8476455,
+          "position": "LW",
+          "birthDate": "1992-11-23"
+        },
+        {
+          "name": "Artturi Lehkonen",
+          "id": 8477476,
+          "position": "LW",
+          "birthDate": "1995-07-04"
+        },
+        {
+          "name": "Fabian Lysell",
+          "id": 8482763,
+          "position": "RW",
+          "birthDate": "2003-01-19"
+        },
+        {
+          "name": "Nathan MacKinnon",
+          "id": 8477492,
+          "position": "C",
+          "birthDate": "1995-09-01"
+        },
+        {
+          "name": "Taylor Makar",
+          "id": 8482953,
+          "position": "LW",
+          "birthDate": "2001-03-13"
+        },
+        {
+          "name": "Georgii Merkulov",
+          "id": 8483567,
+          "position": "C",
+          "birthDate": "2000-10-10"
+        },
+        {
+          "name": "Martin Necas",
+          "id": 8480039,
+          "position": "C",
+          "birthDate": "1999-01-15"
+        },
+        {
+          "name": "Brock Nelson",
+          "id": 8475754,
+          "position": "C",
+          "birthDate": "1991-10-15"
+        },
+        {
+          "name": "Logan O'Connor",
+          "id": 8481186,
+          "position": "RW",
+          "birthDate": "1996-08-14"
+        },
+        {
+          "name": "Nikita Prishchepov",
+          "id": 8485105,
+          "position": "C",
+          "birthDate": "2004-02-20"
+        },
+        {
+          "name": "Nicolas Roy",
+          "id": 8478462,
+          "position": "C",
+          "birthDate": "1997-02-05"
+        },
+        {
+          "name": "Jaden Schwartz",
+          "id": 8475768,
+          "position": "C",
+          "birthDate": "1992-06-25"
+        },
+        {
+          "name": "Fedor Svechkov",
+          "id": 8482768,
+          "position": "C",
+          "birthDate": "2003-04-05"
+        },
+        {
+          "name": "Wyatt Aamodt",
+          "id": 8483569,
+          "position": "D",
+          "birthDate": "1997-11-22"
+        },
+        {
+          "name": "Sean Behrens",
+          "id": 8482676,
+          "position": "D",
+          "birthDate": "2003-03-31"
+        },
+        {
+          "name": "Brent Burns",
+          "id": 8470613,
+          "position": "D",
+          "birthDate": "1985-03-09"
+        },
+        {
+          "name": "Domenick Fensore",
+          "id": 8481562,
+          "position": "D",
+          "birthDate": "2001-09-07"
+        },
+        {
+          "name": "Alex Gagne",
+          "id": 8482942,
+          "position": "D",
+          "birthDate": "2002-08-12"
+        },
+        {
+          "name": "Noah Juulsen",
+          "id": 8478454,
+          "position": "D",
+          "birthDate": "1997-04-02"
+        },
+        {
+          "name": "Brett Kulak",
+          "id": 8476967,
+          "position": "D",
+          "birthDate": "1994-01-06"
+        },
+        {
+          "name": "Cale Makar",
+          "id": 8480069,
+          "position": "D",
+          "birthDate": "1998-10-30"
+        },
+        {
+          "name": "Sam Malinski",
+          "id": 8484258,
+          "position": "D",
+          "birthDate": "1998-07-27"
+        },
+        {
+          "name": "Josh Manson",
+          "id": 8476312,
+          "position": "D",
+          "birthDate": "1991-10-07"
+        },
+        {
+          "name": "Keaton Middleton",
+          "id": 8479387,
+          "position": "D",
+          "birthDate": "1998-02-10"
+        },
+        {
+          "name": "Gustav Stjernberg",
+          "id": 8486118,
+          "position": "D",
+          "birthDate": "2002-10-12"
+        },
+        {
+          "name": "Devon Toews",
+          "id": 8478038,
+          "position": "D",
+          "birthDate": "1994-02-21"
+        },
+        {
+          "name": "Saige Weinstein",
+          "id": 8484556,
+          "position": "D",
+          "birthDate": "2005-05-30"
+        },
+        {
+          "name": "Christian Wolanin",
+          "id": 8478846,
+          "position": "D",
+          "birthDate": "1995-03-17"
+        }
+      ],
+      "goalies": [
+        {
+          "name": "Mackenzie Blackwood",
+          "id": 8478406,
+          "position": "G",
+          "birthDate": "1996-12-09"
+        },
+        {
+          "name": "Trent Miner",
+          "id": 8481529,
+          "position": "G",
+          "birthDate": "2001-02-05"
+        },
+        {
+          "name": "Ilya Nabokov",
+          "id": 8484996,
+          "position": "G",
+          "birthDate": "2003-03-27"
+        },
+        {
+          "name": "Nikita Novosyolov",
+          "id": 8486206,
+          "position": "G",
+          "birthDate": "2004-06-03"
+        },
+        {
+          "name": "Scott Wedgewood",
+          "id": 8475809,
+          "position": "G",
+          "birthDate": "1992-08-14"
+        }
+      ]
+    },
+    "DAL": {
+      "skaters": [
+        {
+          "name": "Jamie Benn",
+          "id": 8473994,
+          "position": "LW",
+          "birthDate": "1989-07-18"
+        },
+        {
+          "name": "Colin Blackwell",
+          "id": 8476278,
+          "position": "C",
+          "birthDate": "1993-03-28"
+        },
+        {
+          "name": "Oskar B\u00e4ck",
+          "id": 8480840,
+          "position": "C",
+          "birthDate": "2000-03-12"
+        },
+        {
+          "name": "Matt Duchene",
+          "id": 8475168,
+          "position": "C",
+          "birthDate": "1991-01-16"
+        },
+        {
+          "name": "Justin Ertel",
+          "id": 8482919,
+          "position": "LW",
+          "birthDate": "2003-05-27"
+        },
+        {
+          "name": "Radek Faksa",
+          "id": 8476889,
+          "position": "C",
+          "birthDate": "1994-01-09"
+        },
+        {
+          "name": "Christian Fitzgerald",
+          "id": 8486174,
+          "position": "C",
+          "birthDate": "2002-05-31"
+        },
+        {
+          "name": "Jaxon Fuder",
+          "id": 8485691,
+          "position": "C",
+          "birthDate": "2006-04-02"
+        },
+        {
+          "name": "Emil Hemming",
+          "id": 8484796,
+          "position": "RW",
+          "birthDate": "2006-06-27"
+        },
+        {
+          "name": "Roope Hintz",
+          "id": 8478449,
+          "position": "C",
+          "birthDate": "1996-11-17"
+        },
+        {
+          "name": "Dylan Hryckowian",
+          "id": 8486130,
+          "position": "RW",
+          "birthDate": "2004-05-19"
+        },
+        {
+          "name": "Justin Hryckowian",
+          "id": 8484829,
+          "position": "C",
+          "birthDate": "2001-02-23"
+        },
+        {
+          "name": "Cameron Hughes",
+          "id": 8478888,
+          "position": "C",
+          "birthDate": "1996-10-09"
+        },
+        {
+          "name": "Arttu Hyry",
+          "id": 8484938,
+          "position": "RW",
+          "birthDate": "2001-04-06"
+        },
+        {
+          "name": "Wyatt Johnston",
+          "id": 8482740,
+          "position": "C",
+          "birthDate": "2003-05-14"
+        },
+        {
+          "name": "Joel Kiviranta",
+          "id": 8481641,
+          "position": "LW",
+          "birthDate": "1996-03-23"
+        },
+        {
+          "name": "Angus MacDonell",
+          "id": 8484468,
+          "position": "C",
+          "birthDate": "2005-05-11"
+        },
+        {
+          "name": "Ayrton Martino",
+          "id": 8482690,
+          "position": "LW",
+          "birthDate": "2002-09-28"
+        },
+        {
+          "name": "Mikko Rantanen",
+          "id": 8478420,
+          "position": "RW",
+          "birthDate": "1996-10-29"
+        },
+        {
+          "name": "Jason Robertson",
+          "id": 8480027,
+          "position": "LW",
+          "birthDate": "1999-07-22"
+        },
+        {
+          "name": "Tyler Seguin",
+          "id": 8475794,
+          "position": "C",
+          "birthDate": "1992-01-31"
+        },
+        {
+          "name": "Matthew Seminoff",
+          "id": 8483514,
+          "position": "RW",
+          "birthDate": "2003-12-27"
+        },
+        {
+          "name": "Artem Shlaine",
+          "id": 8482214,
+          "position": "C",
+          "birthDate": "2002-03-07"
+        },
+        {
+          "name": "Sam Steel",
+          "id": 8479351,
+          "position": "C",
+          "birthDate": "1998-02-03"
+        },
+        {
+          "name": "Jack Anderson",
+          "id": 8486126,
+          "position": "D",
+          "birthDate": "2002-11-14"
+        },
+        {
+          "name": "Tristan Bertucci",
+          "id": 8484146,
+          "position": "D",
+          "birthDate": "2005-07-12"
+        },
+        {
+          "name": "Lian Bichsel",
+          "id": 8483425,
+          "position": "D",
+          "birthDate": "2004-05-18"
+        },
+        {
+          "name": "Kyle Burroughs",
+          "id": 8477335,
+          "position": "D",
+          "birthDate": "1995-07-12"
+        },
+        {
+          "name": "Kyle Capobianco",
+          "id": 8478476,
+          "position": "D",
+          "birthDate": "1997-08-13"
+        },
+        {
+          "name": "Thomas Harley",
+          "id": 8481581,
+          "position": "D",
+          "birthDate": "2001-08-19"
+        },
+        {
+          "name": "Miro Heiskanen",
+          "id": 8480036,
+          "position": "D",
+          "birthDate": "1999-07-18"
+        },
+        {
+          "name": "Luke Krys",
+          "id": 8484822,
+          "position": "D",
+          "birthDate": "2000-09-27"
+        },
+        {
+          "name": "Esa Lindell",
+          "id": 8476902,
+          "position": "D",
+          "birthDate": "1994-05-23"
+        },
+        {
+          "name": "Nils Lundkvist",
+          "id": 8480878,
+          "position": "D",
+          "birthDate": "2000-07-27"
+        },
+        {
+          "name": "Aram Minnetian",
+          "id": 8484194,
+          "position": "D",
+          "birthDate": "2005-03-19"
+        },
+        {
+          "name": "Niilopekka Muhonen",
+          "id": 8485041,
+          "position": "D",
+          "birthDate": "2006-02-28"
+        },
+        {
+          "name": "Tyler Myers",
+          "id": 8474574,
+          "position": "D",
+          "birthDate": "1990-02-01"
+        },
+        {
+          "name": "Connor Punnett",
+          "id": 8484523,
+          "position": "D",
+          "birthDate": "2003-06-16"
+        }
+      ],
+      "goalies": [
+        {
+          "name": "Casey DeSmith",
+          "id": 8479193,
+          "position": "G",
+          "birthDate": "1991-08-13"
+        },
+        {
+          "name": "Brandon Halverson",
+          "id": 8477990,
+          "position": "G",
+          "birthDate": "1996-03-29"
+        },
+        {
+          "name": "Jake Oettinger",
+          "id": 8479979,
+          "position": "G",
+          "birthDate": "1998-12-18"
+        },
+        {
+          "name": "R\u00e9mi Poirier",
+          "id": 8482465,
+          "position": "G",
+          "birthDate": "2001-10-06"
+        },
+        {
+          "name": "Arno Tiefensee",
+          "id": 8484442,
+          "position": "G",
+          "birthDate": "2002-05-01"
+        }
+      ]
+    },
+    "MIN": {
+      "skaters": [
+        {
+          "name": "Caedan Bankier",
+          "id": 8482863,
+          "position": "C",
+          "birthDate": "2003-01-26"
+        },
+        {
+          "name": "Matt Boldy",
+          "id": 8481557,
+          "position": "LW",
+          "birthDate": "2001-04-05"
+        },
+        {
+          "name": "Bobby Brink",
+          "id": 8481553,
+          "position": "RW",
+          "birthDate": "2001-07-08"
+        },
+        {
+          "name": "Blake Coleman",
+          "id": 8476399,
+          "position": "LW",
+          "birthDate": "1991-11-28"
+        },
+        {
+          "name": "Joel Eriksson Ek",
+          "id": 8478493,
+          "position": "C",
+          "birthDate": "1997-01-29"
+        },
+        {
+          "name": "Marcus Foligno",
+          "id": 8475220,
+          "position": "LW",
+          "birthDate": "1991-08-10"
+        },
+        {
+          "name": "Nick Foligno",
+          "id": 8473422,
+          "position": "LW",
+          "birthDate": "1987-10-31"
+        },
+        {
+          "name": "Dylan Gambrell",
+          "id": 8479580,
+          "position": "C",
+          "birthDate": "1996-08-26"
+        },
+        {
+          "name": "Hunter Haight",
+          "id": 8483452,
+          "position": "C",
+          "birthDate": "2004-04-04"
+        },
+        {
+          "name": "Ryan Hartman",
+          "id": 8477451,
+          "position": "RW",
+          "birthDate": "1994-09-20"
+        },
+        {
+          "name": "Riley Heidt",
+          "id": 8484178,
+          "position": "C",
+          "birthDate": "2005-03-25"
+        },
+        {
+          "name": "Jagger Joshua",
+          "id": 8484248,
+          "position": "LW",
+          "birthDate": "1999-03-29"
+        },
+        {
+          "name": "Kirill Kaprizov",
+          "id": 8478864,
+          "position": "LW",
+          "birthDate": "1997-04-26"
+        },
+        {
+          "name": "Justin Kirkland",
+          "id": 8477993,
+          "position": "C",
+          "birthDate": "1996-08-02"
+        },
+        {
+          "name": "Rasmus Kumpulainen",
+          "id": 8484184,
+          "position": "C",
+          "birthDate": "2005-08-08"
+        },
+        {
+          "name": "Rieger Lorenz",
+          "id": 8483478,
+          "position": "LW",
+          "birthDate": "2004-03-30"
+        },
+        {
+          "name": "Michael McCarron",
+          "id": 8477446,
+          "position": "C",
+          "birthDate": "1995-03-07"
+        },
+        {
+          "name": "Tyler Pitlick",
+          "id": 8475752,
+          "position": "C",
+          "birthDate": "1991-11-01"
+        },
+        {
+          "name": "Maxim Shabanov",
+          "id": 8485702,
+          "position": "RW",
+          "birthDate": "2000-10-07"
+        },
+        {
+          "name": "Mason Shaw",
+          "id": 8479972,
+          "position": "C",
+          "birthDate": "1998-11-03"
+        },
+        {
+          "name": "Charlie Stramel",
+          "id": 8484231,
+          "position": "C",
+          "birthDate": "2004-10-15"
+        },
+        {
+          "name": "Nico Sturm",
+          "id": 8481477,
+          "position": "C",
+          "birthDate": "1995-05-03"
+        },
+        {
+          "name": "Yakov Trenin",
+          "id": 8478508,
+          "position": "C",
+          "birthDate": "1997-01-13"
+        },
+        {
+          "name": "Danila Yurov",
+          "id": 8483525,
+          "position": "RW",
+          "birthDate": "2003-12-22"
+        },
+        {
+          "name": "Zach Bogosian",
+          "id": 8474567,
+          "position": "D",
+          "birthDate": "1990-07-15"
+        },
+        {
+          "name": "Jonas Brodin",
+          "id": 8476463,
+          "position": "D",
+          "birthDate": "1993-07-12"
+        },
+        {
+          "name": "Ben Dexheimer",
+          "id": 8486182,
+          "position": "D",
+          "birthDate": "2002-06-21"
+        },
+        {
+          "name": "Brock Faber",
+          "id": 8482122,
+          "position": "D",
+          "birthDate": "2002-08-22"
+        },
+        {
+          "name": "Viking Gustafsson Nyberg",
+          "id": 8486166,
+          "position": "D",
+          "birthDate": "2003-09-21"
+        },
+        {
+          "name": "Quinn Hughes",
+          "id": 8480800,
+          "position": "D",
+          "birthDate": "1999-10-14"
+        },
+        {
+          "name": "Daemon Hunt",
+          "id": 8482094,
+          "position": "D",
+          "birthDate": "2002-05-15"
+        },
+        {
+          "name": "Matt Kiersted",
+          "id": 8482641,
+          "position": "D",
+          "birthDate": "1998-04-14"
+        },
+        {
+          "name": "Carson Lambos",
+          "id": 8482781,
+          "position": "D",
+          "birthDate": "2003-01-14"
+        },
+        {
+          "name": "Stevie Leskovar",
+          "id": 8485074,
+          "position": "D",
+          "birthDate": "2004-09-09"
+        },
+        {
+          "name": "Olli Maatta",
+          "id": 8476874,
+          "position": "D",
+          "birthDate": "1994-08-22"
+        },
+        {
+          "name": "Jack Peart",
+          "id": 8482686,
+          "position": "D",
+          "birthDate": "2003-05-15"
+        },
+        {
+          "name": "Roman Schmidt",
+          "id": 8482693,
+          "position": "D",
+          "birthDate": "2003-02-27"
+        },
+        {
+          "name": "David Spacek",
+          "id": 8483766,
+          "position": "D",
+          "birthDate": "2003-02-18"
+        },
+        {
+          "name": "Jared Spurgeon",
+          "id": 8474716,
+          "position": "D",
+          "birthDate": "1989-11-29"
+        }
+      ],
+      "goalies": [
+        {
+          "name": "Filip Gustavsson",
+          "id": 8479406,
+          "position": "G",
+          "birthDate": "1998-06-07"
+        },
+        {
+          "name": "Riley Mercer",
+          "id": 8483918,
+          "position": "G",
+          "birthDate": "2004-03-31"
+        },
+        {
+          "name": "Calvin Pickard",
+          "id": 8475717,
+          "position": "G",
+          "birthDate": "1992-04-15"
+        },
+        {
+          "name": "Filip Ruzicka",
+          "id": 8486275,
+          "position": "G",
+          "birthDate": "2008-03-24"
+        },
+        {
+          "name": "Jesper Wallstedt",
+          "id": 8482661,
+          "position": "G",
+          "birthDate": "2002-11-14"
+        },
+        {
+          "name": "Chase Wutzke",
+          "id": 8485037,
+          "position": "G",
+          "birthDate": "2006-07-26"
+        }
+      ]
+    },
+    "NSH": {
+      "skaters": [
+        {
+          "name": "Mavrik Bourque",
+          "id": 8482145,
+          "position": "C",
+          "birthDate": "2002-01-08"
+        },
+        {
+          "name": "Chase Bradley",
+          "id": 8482507,
+          "position": "LW",
+          "birthDate": "2002-01-09"
+        },
+        {
+          "name": "Ross Colton",
+          "id": 8479525,
+          "position": "C",
+          "birthDate": "1996-09-11"
+        },
+        {
+          "name": "Jack Drury",
+          "id": 8480835,
+          "position": "C",
+          "birthDate": "2000-02-03"
+        },
+        {
+          "name": "Adam Edstrom",
+          "id": 8481726,
+          "position": "C",
+          "birthDate": "2000-10-12"
+        },
+        {
+          "name": "David Edstrom",
+          "id": 8484165,
+          "position": "C",
+          "birthDate": "2005-02-18"
+        },
+        {
+          "name": "Aiden Fink",
+          "id": 8484494,
+          "position": "RW",
+          "birthDate": "2004-11-24"
+        },
+        {
+          "name": "Filip Forsberg",
+          "id": 8476887,
+          "position": "LW",
+          "birthDate": "1994-08-13"
+        },
+        {
+          "name": "Hiroki Gojsic",
+          "id": 8485005,
+          "position": "RW",
+          "birthDate": "2006-05-01"
+        },
+        {
+          "name": "Nils Hoglander",
+          "id": 8481535,
+          "position": "LW",
+          "birthDate": "2000-12-20"
+        },
+        {
+          "name": "Joakim Kemell",
+          "id": 8483465,
+          "position": "RW",
+          "birthDate": "2004-04-27"
+        },
+        {
+          "name": "Alexander Kerfoot",
+          "id": 8477021,
+          "position": "C",
+          "birthDate": "1994-08-11"
+        },
+        {
+          "name": "Kalan Lind",
+          "id": 8484187,
+          "position": "LW",
+          "birthDate": "2005-01-25"
+        },
+        {
+          "name": "Jake Lucchini",
+          "id": 8481422,
+          "position": "C",
+          "birthDate": "1995-05-09"
+        },
+        {
+          "name": "Jonathan Marchessault",
+          "id": 8476539,
+          "position": "C",
+          "birthDate": "1990-12-27"
+        },
+        {
+          "name": "Brady Martin",
+          "id": 8485405,
+          "position": "C",
+          "birthDate": "2007-03-16"
+        },
+        {
+          "name": "Felix Nilsson",
+          "id": 8484206,
+          "position": "C",
+          "birthDate": "2005-06-22"
+        },
+        {
+          "name": "Cole O'Hara",
+          "id": 8483696,
+          "position": "RW",
+          "birthDate": "2002-06-20"
+        },
+        {
+          "name": "Ryan O'Reilly",
+          "id": 8475158,
+          "position": "C",
+          "birthDate": "1991-02-07"
+        },
+        {
+          "name": "Vitali Pinchuk",
+          "id": 8486189,
+          "position": "C",
+          "birthDate": "2002-01-11"
+        },
+        {
+          "name": "Austin Roest",
+          "id": 8483844,
+          "position": "RW",
+          "birthDate": "2004-01-22"
+        },
+        {
+          "name": "Reid Schaefer",
+          "id": 8483513,
+          "position": "LW",
+          "birthDate": "2003-09-21"
+        },
+        {
+          "name": "Steven Stamkos",
+          "id": 8474564,
+          "position": "C",
+          "birthDate": "1990-02-07"
+        },
+        {
+          "name": "Ozzy Wiesblatt",
+          "id": 8482103,
+          "position": "C",
+          "birthDate": "2002-03-09"
+        },
+        {
+          "name": "Joey Willis",
+          "id": 8484412,
+          "position": "C",
+          "birthDate": "2005-03-14"
+        },
+        {
+          "name": "Matthew Wood",
+          "id": 8484241,
+          "position": "RW",
+          "birthDate": "2005-02-06"
+        },
+        {
+          "name": "Jack Ahcan",
+          "id": 8482072,
+          "position": "D",
+          "birthDate": "1997-05-18"
+        },
+        {
+          "name": "Justin Barron",
+          "id": 8482111,
+          "position": "D",
+          "birthDate": "2001-11-15"
+        },
+        {
+          "name": "Andrew Gibson",
+          "id": 8484174,
+          "position": "D",
+          "birthDate": "2005-02-13"
+        },
+        {
+          "name": "Viggo Gustafsson",
+          "id": 8485000,
+          "position": "D",
+          "birthDate": "2006-09-11"
+        },
+        {
+          "name": "Nicolas Hague",
+          "id": 8479980,
+          "position": "D",
+          "birthDate": "1998-12-05"
+        },
+        {
+          "name": "Roman Josi",
+          "id": 8474600,
+          "position": "D",
+          "birthDate": "1990-06-01"
+        },
+        {
+          "name": "Ilya Lyubushkin",
+          "id": 8480950,
+          "position": "D",
+          "birthDate": "1994-04-06"
+        },
+        {
+          "name": "Tanner Molendyk",
+          "id": 8484196,
+          "position": "D",
+          "birthDate": "2005-02-03"
+        },
+        {
+          "name": "Daniel Nieminen",
+          "id": 8485636,
+          "position": "D",
+          "birthDate": "2006-03-01"
+        },
+        {
+          "name": "Nick Perbix",
+          "id": 8480246,
+          "position": "D",
+          "birthDate": "1998-06-15"
+        },
+        {
+          "name": "Hunter Skinner",
+          "id": 8481715,
+          "position": "D",
+          "birthDate": "2001-04-29"
+        },
+        {
+          "name": "Brady Skjei",
+          "id": 8476869,
+          "position": "D",
+          "birthDate": "1994-03-26"
+        },
+        {
+          "name": "Ryan Ufko",
+          "id": 8482715,
+          "position": "D",
+          "birthDate": "2003-05-07"
+        },
+        {
+          "name": "Adam Wilsby",
+          "id": 8482482,
+          "position": "D",
+          "birthDate": "2000-08-07"
+        }
+      ],
+      "goalies": [
+        {
+          "name": "Justus Annunen",
+          "id": 8481020,
+          "position": "G",
+          "birthDate": "2000-03-11"
+        },
+        {
+          "name": "Matt Murray",
+          "id": 8483575,
+          "position": "G",
+          "birthDate": "1998-02-02"
+        },
+        {
+          "name": "Isak Posch",
+          "id": 8485473,
+          "position": "G",
+          "birthDate": "2002-01-31"
+        },
+        {
+          "name": "Juuse Saros",
+          "id": 8477424,
+          "position": "G",
+          "birthDate": "1995-04-19"
+        }
+      ]
+    },
+    "STL": {
+      "skaters": [
+        {
+          "name": "Jonatan Berggren",
+          "id": 8481013,
+          "position": "RW",
+          "birthDate": "2000-07-16"
+        },
+        {
+          "name": "Pavel Buchnevich",
+          "id": 8477402,
+          "position": "LW",
+          "birthDate": "1995-04-17"
+        },
+        {
+          "name": "Justin Carbonneau",
+          "id": 8485382,
+          "position": "RW",
+          "birthDate": "2006-11-25"
+        },
+        {
+          "name": "Maddox Dagenais",
+          "id": 8486033,
+          "position": "C",
+          "birthDate": "2008-03-27"
+        },
+        {
+          "name": "Zach Dean",
+          "id": 8482784,
+          "position": "C",
+          "birthDate": "2003-01-04"
+        },
+        {
+          "name": "Dillon Dube",
+          "id": 8479346,
+          "position": "C",
+          "birthDate": "1998-07-20"
+        },
+        {
+          "name": "Dalibor Dvorsky",
+          "id": 8484164,
+          "position": "RW",
+          "birthDate": "2005-06-15"
+        },
+        {
+          "name": "Jack Finley",
+          "id": 8482090,
+          "position": "C",
+          "birthDate": "2002-09-02"
+        },
+        {
+          "name": "Dylan Holloway",
+          "id": 8482077,
+          "position": "LW",
+          "birthDate": "2001-09-23"
+        },
+        {
+          "name": "Adam Jecho",
+          "id": 8484792,
+          "position": "C",
+          "birthDate": "2006-03-24"
+        },
+        {
+          "name": "Ross Johnston",
+          "id": 8477527,
+          "position": "LW",
+          "birthDate": "1994-02-18"
+        },
+        {
+          "name": "Aleksanteri Kaskimaki",
+          "id": 8483463,
+          "position": "C",
+          "birthDate": "2004-02-06"
+        },
+        {
+          "name": "Connor McMichael",
+          "id": 8481580,
+          "position": "LW",
+          "birthDate": "2001-01-15"
+        },
+        {
+          "name": "Mason McTavish",
+          "id": 8482745,
+          "position": "C",
+          "birthDate": "2003-01-30"
+        },
+        {
+          "name": "Jake Neighbours",
+          "id": 8482089,
+          "position": "LW",
+          "birthDate": "2002-03-29"
+        },
+        {
+          "name": "Juraj Pekarcik",
+          "id": 8484393,
+          "position": "LW",
+          "birthDate": "2005-09-12"
+        },
+        {
+          "name": "Dylan Peterson",
+          "id": 8482121,
+          "position": "C",
+          "birthDate": "2002-01-08"
+        },
+        {
+          "name": "Simon Robertsson",
+          "id": 8482716,
+          "position": "RW",
+          "birthDate": "2003-02-05"
+        },
+        {
+          "name": "Jimmy Snuggerud",
+          "id": 8483516,
+          "position": "RW",
+          "birthDate": "2004-06-01"
+        },
+        {
+          "name": "Jakub Stancl",
+          "id": 8484229,
+          "position": "C",
+          "birthDate": "2005-04-10"
+        },
+        {
+          "name": "Otto Stenberg",
+          "id": 8484230,
+          "position": "C",
+          "birthDate": "2005-05-29"
+        },
+        {
+          "name": "Oskar Sundqvist",
+          "id": 8476897,
+          "position": "C",
+          "birthDate": "1994-03-23"
+        },
+        {
+          "name": "Nikita Susuev",
+          "id": 8484476,
+          "position": "RW",
+          "birthDate": "2005-02-06"
+        },
+        {
+          "name": "Pius Suter",
+          "id": 8480459,
+          "position": "C",
+          "birthDate": "1996-05-24"
+        },
+        {
+          "name": "Robert Thomas",
+          "id": 8480023,
+          "position": "C",
+          "birthDate": "1999-07-02"
+        },
+        {
+          "name": "Alexey Toropchenko",
+          "id": 8480281,
+          "position": "RW",
+          "birthDate": "1999-06-25"
+        },
+        {
+          "name": "Felix Trudeau",
+          "id": 8486134,
+          "position": "LW",
+          "birthDate": "2002-09-24"
+        },
+        {
+          "name": "Nathan Walker",
+          "id": 8477573,
+          "position": "LW",
+          "birthDate": "1994-02-07"
+        },
+        {
+          "name": "Philip Broberg",
+          "id": 8481598,
+          "position": "D",
+          "birthDate": "2001-06-25"
+        },
+        {
+          "name": "Michael Buchinger",
+          "id": 8483427,
+          "position": "D",
+          "birthDate": "2004-04-25"
+        },
+        {
+          "name": "Quinton Burns",
+          "id": 8484151,
+          "position": "D",
+          "birthDate": "2005-04-14"
+        },
+        {
+          "name": "Brandon Carlo",
+          "id": 8478443,
+          "position": "D",
+          "birthDate": "1996-11-26"
+        },
+        {
+          "name": "Lukas Fischer",
+          "id": 8484810,
+          "position": "D",
+          "birthDate": "2006-09-09"
+        },
+        {
+          "name": "Cam Fowler",
+          "id": 8475764,
+          "position": "D",
+          "birthDate": "1991-12-05"
+        },
+        {
+          "name": "Marc-Andre Gaudet",
+          "id": 8483764,
+          "position": "D",
+          "birthDate": "2003-10-24"
+        },
+        {
+          "name": "Adam Jiricek",
+          "id": 8484790,
+          "position": "D",
+          "birthDate": "2006-06-28"
+        },
+        {
+          "name": "Arseni Koromyslov",
+          "id": 8483705,
+          "position": "D",
+          "birthDate": "2003-11-03"
+        },
+        {
+          "name": "Theo Lindstein",
+          "id": 8484188,
+          "position": "D",
+          "birthDate": "2005-01-05"
+        },
+        {
+          "name": "Logan Mailloux",
+          "id": 8482733,
+          "position": "D",
+          "birthDate": "2003-04-15"
+        },
+        {
+          "name": "Colton Parayko",
+          "id": 8476892,
+          "position": "D",
+          "birthDate": "1993-05-12"
+        },
+        {
+          "name": "Colin Ralph",
+          "id": 8484865,
+          "position": "D",
+          "birthDate": "2005-10-04"
+        },
+        {
+          "name": "Calle Rosen",
+          "id": 8480157,
+          "position": "D",
+          "birthDate": "1994-02-02"
+        },
+        {
+          "name": "Tyler Tucker",
+          "id": 8481006,
+          "position": "D",
+          "birthDate": "2000-03-01"
+        }
+      ],
+      "goalies": [
+        {
+          "name": "Jordan Binnington",
+          "id": 8476412,
+          "position": "G",
+          "birthDate": "1993-07-11"
+        },
+        {
+          "name": "Will Cranley",
+          "id": 8482205,
+          "position": "G",
+          "birthDate": "2002-02-26"
+        },
+        {
+          "name": "Joel Hofer",
+          "id": 8480981,
+          "position": "G",
+          "birthDate": "2000-07-30"
+        },
+        {
+          "name": "Georgii Romanov",
+          "id": 8484312,
+          "position": "G",
+          "birthDate": "1999-12-15"
+        }
+      ]
+    },
+    "UTA": {
+      "skaters": [
+        {
+          "name": "Daniil But",
+          "id": 8484388,
+          "position": "LW",
+          "birthDate": "2005-02-15"
+        },
+        {
+          "name": "Michael Carcone",
+          "id": 8479619,
+          "position": "LW",
+          "birthDate": "1996-05-19"
+        },
+        {
+          "name": "Logan Cooley",
+          "id": 8483431,
+          "position": "C",
+          "birthDate": "2004-05-04"
+        },
+        {
+          "name": "Lawson Crouse",
+          "id": 8478474,
+          "position": "LW",
+          "birthDate": "1997-06-23"
+        },
+        {
+          "name": "Dylan Guenther",
+          "id": 8482699,
+          "position": "RW",
+          "birthDate": "2003-04-10"
+        },
+        {
+          "name": "Barrett Hayton",
+          "id": 8480849,
+          "position": "C",
+          "birthDate": "2000-06-09"
+        },
+        {
+          "name": "Clayton Keller",
+          "id": 8479343,
+          "position": "RW",
+          "birthDate": "1998-07-29"
+        },
+        {
+          "name": "Anders Lee",
+          "id": 8475314,
+          "position": "LW",
+          "birthDate": "1990-07-03"
+        },
+        {
+          "name": "Jack McBain",
+          "id": 8480855,
+          "position": "C",
+          "birthDate": "2000-01-06"
+        },
+        {
+          "name": "Liam O'Brien",
+          "id": 8477070,
+          "position": "C",
+          "birthDate": "1994-07-29"
+        },
+        {
+          "name": "Nick Schmaltz",
+          "id": 8477951,
+          "position": "C",
+          "birthDate": "1996-02-23"
+        },
+        {
+          "name": "Kevin Stenlund",
+          "id": 8478831,
+          "position": "C",
+          "birthDate": "1996-09-20"
+        },
+        {
+          "name": "Brandon Tanev",
+          "id": 8479293,
+          "position": "LW",
+          "birthDate": "1991-12-31"
+        },
+        {
+          "name": "Vincent Trocheck",
+          "id": 8476389,
+          "position": "C",
+          "birthDate": "1993-07-11"
+        },
+        {
+          "name": "Kailer Yamamoto",
+          "id": 8479977,
+          "position": "RW",
+          "birthDate": "1998-09-29"
+        },
+        {
+          "name": "Nick DeSimone",
+          "id": 8480084,
+          "position": "D",
+          "birthDate": "1994-11-21"
+        },
+        {
+          "name": "Maveric Lamoureux",
+          "id": 8483472,
+          "position": "D",
+          "birthDate": "2004-01-13"
+        },
+        {
+          "name": "John Marino",
+          "id": 8478507,
+          "position": "D",
+          "birthDate": "1997-05-21"
+        },
+        {
+          "name": "Andrew Peeke",
+          "id": 8479369,
+          "position": "D",
+          "birthDate": "1998-03-17"
+        },
+        {
+          "name": "Nate Schmidt",
+          "id": 8477220,
+          "position": "D",
+          "birthDate": "1991-07-16"
+        },
+        {
+          "name": "Mikhail Sergachev",
+          "id": 8479410,
+          "position": "D",
+          "birthDate": "1998-06-25"
+        },
+        {
+          "name": "Dmitri Simashev",
+          "id": 8484386,
+          "position": "D",
+          "birthDate": "2005-02-04"
+        },
+        {
+          "name": "MacKenzie Weegar",
+          "id": 8477346,
+          "position": "D",
+          "birthDate": "1994-01-07"
+        }
+      ],
+      "goalies": [
+        {
+          "name": "Sebastian Cossa",
+          "id": 8482657,
+          "position": "G",
+          "birthDate": "2002-11-21"
+        },
+        {
+          "name": "Michael Hrabal",
+          "id": 8484181,
+          "position": "G",
+          "birthDate": "2005-01-20"
+        },
+        {
+          "name": "Karel Vejmelka",
+          "id": 8478872,
+          "position": "G",
+          "birthDate": "1996-05-25"
+        }
+      ]
+    },
+    "WPG": {
+      "skaters": [
+        {
+          "name": "Colby Barlow",
+          "id": 8484143,
+          "position": "LW",
+          "birthDate": "2005-02-14"
+        },
+        {
+          "name": "Morgan Barron",
+          "id": 8480289,
+          "position": "C",
+          "birthDate": "1998-12-02"
+        },
+        {
+          "name": "Viggo Bj\u00f6rck",
+          "id": 8486025,
+          "position": "C",
+          "birthDate": "2008-03-12"
+        },
+        {
+          "name": "Nikita Chibrikov",
+          "id": 8482787,
+          "position": "RW",
+          "birthDate": "2003-02-16"
+        },
+        {
+          "name": "Kyle Connor",
+          "id": 8478398,
+          "position": "LW",
+          "birthDate": "1996-12-09"
+        },
+        {
+          "name": "Walker Duehr",
+          "id": 8482652,
+          "position": "RW",
+          "birthDate": "1997-11-23"
+        },
+        {
+          "name": "Parker Ford",
+          "id": 8484135,
+          "position": "C",
+          "birthDate": "2000-07-20"
+        },
+        {
+          "name": "Noah Gregor",
+          "id": 8479393,
+          "position": "LW",
+          "birthDate": "1998-07-28"
+        },
+        {
+          "name": "Kevin He",
+          "id": 8484864,
+          "position": "LW",
+          "birthDate": "2006-04-30"
+        },
+        {
+          "name": "Alex Iafallo",
+          "id": 8480113,
+          "position": "LW",
+          "birthDate": "1993-12-21"
+        },
+        {
+          "name": "Jacob Julien",
+          "id": 8484430,
+          "position": "C",
+          "birthDate": "2004-09-12"
+        },
+        {
+          "name": "Cole Koepke",
+          "id": 8481043,
+          "position": "LW",
+          "birthDate": "1998-05-17"
+        },
+        {
+          "name": "Brad Lambert",
+          "id": 8483471,
+          "position": "C",
+          "birthDate": "2003-12-19"
+        },
+        {
+          "name": "Adam Lowry",
+          "id": 8476392,
+          "position": "C",
+          "birthDate": "1993-03-29"
+        },
+        {
+          "name": "Vladislav Namestnikov",
+          "id": 8476480,
+          "position": "C",
+          "birthDate": "1992-11-22"
+        },
+        {
+          "name": "Nino Niederreiter",
+          "id": 8475799,
+          "position": "RW",
+          "birthDate": "1992-09-08"
+        },
+        {
+          "name": "Cole Perfetti",
+          "id": 8482149,
+          "position": "C",
+          "birthDate": "2002-01-01"
+        },
+        {
+          "name": "Isak Rosen",
+          "id": 8482765,
+          "position": "RW",
+          "birthDate": "2003-03-15"
+        },
+        {
+          "name": "Mark Scheifele",
+          "id": 8476460,
+          "position": "C",
+          "birthDate": "1993-03-15"
+        },
+        {
+          "name": "Gabriel Vilardi",
+          "id": 8480014,
+          "position": "C",
+          "birthDate": "1999-08-16"
+        },
+        {
+          "name": "Fabian Wagner",
+          "id": 8483520,
+          "position": "C",
+          "birthDate": "2004-05-07"
+        },
+        {
+          "name": "Lucas Wahlin",
+          "id": 8486141,
+          "position": "RW",
+          "birthDate": "2001-05-03"
+        },
+        {
+          "name": "Kieron Walton",
+          "id": 8485070,
+          "position": "C",
+          "birthDate": "2006-04-22"
+        },
+        {
+          "name": "Brayden Yager",
+          "id": 8484242,
+          "position": "C",
+          "birthDate": "2005-01-03"
+        },
+        {
+          "name": "Danil Zhilkin",
+          "id": 8483526,
+          "position": "C",
+          "birthDate": "2003-12-19"
+        },
+        {
+          "name": "Tyrel Bauer",
+          "id": 8482459,
+          "position": "D",
+          "birthDate": "2002-03-23"
+        },
+        {
+          "name": "Garrett Brown",
+          "id": 8483672,
+          "position": "D",
+          "birthDate": "2004-04-04"
+        },
+        {
+          "name": "Dylan DeMelo",
+          "id": 8476331,
+          "position": "D",
+          "birthDate": "1993-05-01"
+        },
+        {
+          "name": "Mario Ferraro",
+          "id": 8479983,
+          "position": "D",
+          "birthDate": "1998-09-17"
+        },
+        {
+          "name": "Haydn Fleury",
+          "id": 8477938,
+          "position": "D",
+          "birthDate": "1996-07-08"
+        },
+        {
+          "name": "Alfons Freij",
+          "id": 8484854,
+          "position": "D",
+          "birthDate": "2006-02-12"
+        },
+        {
+          "name": "Josh Morrissey",
+          "id": 8477504,
+          "position": "D",
+          "birthDate": "1995-03-28"
+        },
+        {
+          "name": "Isaak Phillips",
+          "id": 8482192,
+          "position": "D",
+          "birthDate": "2001-09-28"
+        },
+        {
+          "name": "Neal Pionk",
+          "id": 8480145,
+          "position": "D",
+          "birthDate": "1995-07-29"
+        },
+        {
+          "name": "Elias Salomonsson",
+          "id": 8483510,
+          "position": "D",
+          "birthDate": "2004-08-31"
+        },
+        {
+          "name": "Dylan Samberg",
+          "id": 8480049,
+          "position": "D",
+          "birthDate": "1999-01-24"
+        },
+        {
+          "name": "Jack St. Ivany",
+          "id": 8481030,
+          "position": "D",
+          "birthDate": "1999-07-22"
+        },
+        {
+          "name": "Henry Thrun",
+          "id": 8481567,
+          "position": "D",
+          "birthDate": "2001-03-12"
+        }
+      ],
+      "goalies": [
+        {
+          "name": "Domenic DiVincentiis",
+          "id": 8483711,
+          "position": "G",
+          "birthDate": "2004-03-04"
+        },
+        {
+          "name": "Connor Hellebuyck",
+          "id": 8476945,
+          "position": "G",
+          "birthDate": "1993-05-19"
+        },
+        {
+          "name": "Thomas Milic",
+          "id": 8483114,
+          "position": "G",
+          "birthDate": "2003-04-14"
+        },
+        {
+          "name": "Isaac Poulter",
+          "id": 8483659,
+          "position": "G",
+          "birthDate": "2001-09-12"
+        },
+        {
+          "name": "Stuart Skinner",
+          "id": 8479973,
+          "position": "G",
+          "birthDate": "1998-11-01"
+        }
+      ]
+    },
+    "ANA": {
+      "skaters": [
+        {
+          "name": "Leo Carlsson",
+          "id": 8484153,
+          "position": "C",
+          "birthDate": "2004-12-26"
+        },
+        {
+          "name": "Judd Caulfield",
+          "id": 8481538,
+          "position": "RW",
+          "birthDate": "2001-03-19"
+        },
+        {
+          "name": "Sam Colangelo",
+          "id": 8482118,
+          "position": "RW",
+          "birthDate": "2001-12-26"
+        },
+        {
+          "name": "Sean Farrell",
+          "id": 8482081,
+          "position": "C",
+          "birthDate": "2001-11-02"
+        },
+        {
+          "name": "Nathan Gaucher",
+          "id": 8483444,
+          "position": "C",
+          "birthDate": "2003-11-06"
+        },
+        {
+          "name": "Mikael Granlund",
+          "id": 8475798,
+          "position": "C",
+          "birthDate": "1992-02-26"
+        },
+        {
+          "name": "A.J. Greer",
+          "id": 8478421,
+          "position": "LW",
+          "birthDate": "1996-12-14"
+        },
+        {
+          "name": "James Hamblin",
+          "id": 8480468,
+          "position": "LW",
+          "birthDate": "1999-04-27"
+        },
+        {
+          "name": "Alex Killorn",
+          "id": 8473986,
+          "position": "LW",
+          "birthDate": "1989-09-14"
+        },
+        {
+          "name": "Nikita Klepov",
+          "id": 8486052,
+          "position": "RW",
+          "birthDate": "2008-06-27"
+        },
+        {
+          "name": "Cruz Lucius",
+          "id": 8483479,
+          "position": "RW",
+          "birthDate": "2004-04-05"
+        },
+        {
+          "name": "Jeff Malott",
+          "id": 8482408,
+          "position": "LW",
+          "birthDate": "1996-08-07"
+        },
+        {
+          "name": "Roger McQueen",
+          "id": 8485400,
+          "position": "C",
+          "birthDate": "2006-10-02"
+        },
+        {
+          "name": "Nico Myatovic",
+          "id": 8484201,
+          "position": "LW",
+          "birthDate": "2004-12-01"
+        },
+        {
+          "name": "Nikita Nesterenko",
+          "id": 8481754,
+          "position": "C",
+          "birthDate": "2001-09-10"
+        },
+        {
+          "name": "Marcus Nordmark",
+          "id": 8486072,
+          "position": "LW",
+          "birthDate": "2008-05-04"
+        },
+        {
+          "name": "Lucas Pettersson",
+          "id": 8484767,
+          "position": "C",
+          "birthDate": "2006-04-17"
+        },
+        {
+          "name": "Coulson Pitre",
+          "id": 8484216,
+          "position": "RW",
+          "birthDate": "2004-12-13"
+        },
+        {
+          "name": "Ryan Poehling",
+          "id": 8480068,
+          "position": "C",
+          "birthDate": "1999-01-03"
+        },
+        {
+          "name": "Ethan Procyszyn",
+          "id": 8484867,
+          "position": "C",
+          "birthDate": "2006-07-11"
+        },
+        {
+          "name": "Beckett Sennecke",
+          "id": 8484762,
+          "position": "RW",
+          "birthDate": "2006-01-28"
+        },
+        {
+          "name": "Yegor Sidorov",
+          "id": 8484396,
+          "position": "RW",
+          "birthDate": "2004-06-18"
+        },
+        {
+          "name": "Troy Terry",
+          "id": 8478873,
+          "position": "RW",
+          "birthDate": "1997-09-10"
+        },
+        {
+          "name": "Herman Traff",
+          "id": 8484853,
+          "position": "RW",
+          "birthDate": "2005-12-31"
+        },
+        {
+          "name": "Frank Vatrano",
+          "id": 8478366,
+          "position": "RW",
+          "birthDate": "1994-03-14"
+        },
+        {
+          "name": "Anton Wahlberg",
+          "id": 8484238,
+          "position": "C",
+          "birthDate": "2005-07-04"
+        },
+        {
+          "name": "Tim Washe",
+          "id": 8485512,
+          "position": "C",
+          "birthDate": "2001-08-25"
+        },
+        {
+          "name": "Drew Helleson",
+          "id": 8481563,
+          "position": "D",
+          "birthDate": "2001-03-26"
+        },
+        {
+          "name": "Tyson Hinds",
+          "id": 8482731,
+          "position": "D",
+          "birthDate": "2003-03-12"
+        },
+        {
+          "name": "Nick Jensen",
+          "id": 8475324,
+          "position": "D",
+          "birthDate": "1990-09-21"
+        },
+        {
+          "name": "Jackson LaCombe",
+          "id": 8481605,
+          "position": "D",
+          "birthDate": "2001-01-09"
+        },
+        {
+          "name": "Tristan Luneau",
+          "id": 8483482,
+          "position": "D",
+          "birthDate": "2004-01-12"
+        },
+        {
+          "name": "Pavel Mintyukov",
+          "id": 8483490,
+          "position": "D",
+          "birthDate": "2003-11-25"
+        },
+        {
+          "name": "Travis Mitchell",
+          "id": 8484262,
+          "position": "D",
+          "birthDate": "1999-11-25"
+        },
+        {
+          "name": "Ian Moore",
+          "id": 8482178,
+          "position": "D",
+          "birthDate": "2002-01-04"
+        },
+        {
+          "name": "Corey Schueneman",
+          "id": 8481461,
+          "position": "D",
+          "birthDate": "1995-09-02"
+        },
+        {
+          "name": "Konnor Smith",
+          "id": 8484395,
+          "position": "D",
+          "birthDate": "2004-11-06"
+        },
+        {
+          "name": "Stian Solberg",
+          "id": 8484859,
+          "position": "D",
+          "birthDate": "2005-12-29"
+        },
+        {
+          "name": "Noah Warren",
+          "id": 8483521,
+          "position": "D",
+          "birthDate": "2004-07-15"
+        },
+        {
+          "name": "Jett Woo",
+          "id": 8480808,
+          "position": "D",
+          "birthDate": "2000-07-27"
+        }
+      ],
+      "goalies": [
+        {
+          "name": "Laurent Brossoit",
+          "id": 8476316,
+          "position": "G",
+          "birthDate": "1993-03-23"
+        },
+        {
+          "name": "Damian Clara",
+          "id": 8484391,
+          "position": "G",
+          "birthDate": "2005-01-13"
+        },
+        {
+          "name": "Lukas Dostal",
+          "id": 8480843,
+          "position": "G",
+          "birthDate": "2000-06-22"
+        },
+        {
+          "name": "Ville Husso",
+          "id": 8478024,
+          "position": "G",
+          "birthDate": "1995-02-06"
+        },
+        {
+          "name": "Tomas Suchanek",
+          "id": 8483898,
+          "position": "G",
+          "birthDate": "2003-04-30"
+        }
+      ]
+    },
+    "CGY": {
+      "skaters": [
+        {
+          "name": "Mikael Backlund",
+          "id": 8474150,
+          "position": "C",
+          "birthDate": "1989-03-17"
+        },
+        {
+          "name": "Andrew Basha",
+          "id": 8484782,
+          "position": "LW",
+          "birthDate": "2005-11-08"
+        },
+        {
+          "name": "Jonathan Castagna",
+          "id": 8484154,
+          "position": "C",
+          "birthDate": "2005-04-20"
+        },
+        {
+          "name": "Matt Coronato",
+          "id": 8482679,
+          "position": "RW",
+          "birthDate": "2002-11-14"
+        },
+        {
+          "name": "Joel Farabee",
+          "id": 8480797,
+          "position": "LW",
+          "birthDate": "2000-02-25"
+        },
+        {
+          "name": "Morgan Frost",
+          "id": 8480028,
+          "position": "C",
+          "birthDate": "1999-05-14"
+        },
+        {
+          "name": "Matvei Gridin",
+          "id": 8484860,
+          "position": "RW",
+          "birthDate": "2006-03-01"
+        },
+        {
+          "name": "Tyson Gross",
+          "id": 8486056,
+          "position": "C",
+          "birthDate": "2002-09-23"
+        },
+        {
+          "name": "Samuel Honzek",
+          "id": 8484180,
+          "position": "LW",
+          "birthDate": "2004-11-12"
+        },
+        {
+          "name": "Jonathan Huberdeau",
+          "id": 8476456,
+          "position": "LW",
+          "birthDate": "1993-06-04"
+        },
+        {
+          "name": "Dryden Hunt",
+          "id": 8478211,
+          "position": "LW",
+          "birthDate": "1995-11-24"
+        },
+        {
+          "name": "Ben Jones",
+          "id": 8480259,
+          "position": "C",
+          "birthDate": "1999-02-26"
+        },
+        {
+          "name": "Rory Kerins",
+          "id": 8482209,
+          "position": "C",
+          "birthDate": "2002-04-12"
+        },
+        {
+          "name": "Adam Klapka",
+          "id": 8483609,
+          "position": "RW",
+          "birthDate": "2000-09-14"
+        },
+        {
+          "name": "Sam Morton",
+          "id": 8484821,
+          "position": "C",
+          "birthDate": "1999-07-28"
+        },
+        {
+          "name": "Martin Pospisil",
+          "id": 8481028,
+          "position": "C",
+          "birthDate": "1999-11-19"
+        },
+        {
+          "name": "Yegor Sharangovich",
+          "id": 8481068,
+          "position": "C",
+          "birthDate": "1998-06-06"
+        },
+        {
+          "name": "Ryan Strome",
+          "id": 8476458,
+          "position": "C",
+          "birthDate": "1993-07-11"
+        },
+        {
+          "name": "William Stromgren",
+          "id": 8482766,
+          "position": "LW",
+          "birthDate": "2003-06-07"
+        },
+        {
+          "name": "Aydar Suniev",
+          "id": 8484234,
+          "position": "LW",
+          "birthDate": "2004-11-16"
+        },
+        {
+          "name": "Maxim Tsyplakov",
+          "id": 8484958,
+          "position": "RW",
+          "birthDate": "1998-09-19"
+        },
+        {
+          "name": "Connor Zary",
+          "id": 8482074,
+          "position": "C",
+          "birthDate": "2001-09-25"
+        },
+        {
+          "name": "Kevin Bahl",
+          "id": 8480860,
+          "position": "D",
+          "birthDate": "2000-06-27"
+        },
+        {
+          "name": "Mike Benning",
+          "id": 8482107,
+          "position": "D",
+          "birthDate": "2002-01-05"
+        },
+        {
+          "name": "Hunter Brzustewicz",
+          "id": 8484150,
+          "position": "D",
+          "birthDate": "2004-11-29"
+        },
+        {
+          "name": "Andreas Englund",
+          "id": 8477971,
+          "position": "D",
+          "birthDate": "1996-01-21"
+        },
+        {
+          "name": "Joel Hanley",
+          "id": 8477810,
+          "position": "D",
+          "birthDate": "1991-06-08"
+        },
+        {
+          "name": "Axel Hurtig",
+          "id": 8484481,
+          "position": "D",
+          "birthDate": "2005-06-10"
+        },
+        {
+          "name": "Yan Kuznetsov",
+          "id": 8482165,
+          "position": "D",
+          "birthDate": "2002-03-09"
+        },
+        {
+          "name": "Jake Livingstone",
+          "id": 8484256,
+          "position": "D",
+          "birthDate": "1999-04-16"
+        },
+        {
+          "name": "Jake Middleton",
+          "id": 8478136,
+          "position": "D",
+          "birthDate": "1996-01-02"
+        },
+        {
+          "name": "Simon Nemec",
+          "id": 8483495,
+          "position": "D",
+          "birthDate": "2004-02-15"
+        },
+        {
+          "name": "Brayden Pachal",
+          "id": 8481167,
+          "position": "D",
+          "birthDate": "1999-08-23"
+        },
+        {
+          "name": "Zayne Parekh",
+          "id": 8484768,
+          "position": "D",
+          "birthDate": "2006-02-15"
+        },
+        {
+          "name": "Zach Whitecloud",
+          "id": 8480727,
+          "position": "D",
+          "birthDate": "1996-11-28"
+        },
+        {
+          "name": "Abram Wiebe",
+          "id": 8483709,
+          "position": "D",
+          "birthDate": "2003-08-28"
+        }
+      ],
+      "goalies": [
+        {
+          "name": "Devin Cooley",
+          "id": 8482445,
+          "position": "G",
+          "birthDate": "1997-05-25"
+        },
+        {
+          "name": "Arsenii Sergeev",
+          "id": 8482949,
+          "position": "G",
+          "birthDate": "2002-12-16"
+        },
+        {
+          "name": "Dustin Wolf",
+          "id": 8481692,
+          "position": "G",
+          "birthDate": "2001-04-16"
+        },
+        {
+          "name": "Kirill Zarubin",
+          "id": 8485012,
+          "position": "G",
+          "birthDate": "2005-09-20"
+        }
+      ]
+    },
+    "EDM": {
+      "skaters": [
+        {
+          "name": "Connor Clattenburg",
+          "id": 8484529,
+          "position": "C",
+          "birthDate": "2005-05-02"
+        },
+        {
+          "name": "Colton Dach",
+          "id": 8482703,
+          "position": "C",
+          "birthDate": "2003-01-04"
+        },
+        {
+          "name": "Jason Dickinson",
+          "id": 8477450,
+          "position": "C",
+          "birthDate": "1995-07-04"
+        },
+        {
+          "name": "Leon Draisaitl",
+          "id": 8477934,
+          "position": "C",
+          "birthDate": "1995-10-27"
+        },
+        {
+          "name": "Alex Formenton",
+          "id": 8480029,
+          "position": "LW",
+          "birthDate": "1999-09-13"
+        },
+        {
+          "name": "Trent Frederic",
+          "id": 8479365,
+          "position": "C",
+          "birthDate": "1998-02-11"
+        },
+        {
+          "name": "Isaac Howard",
+          "id": 8483455,
+          "position": "LW",
+          "birthDate": "2004-03-30"
+        },
+        {
+          "name": "Quinn Hutson",
+          "id": 8485511,
+          "position": "RW",
+          "birthDate": "2002-01-01"
+        },
+        {
+          "name": "Zach Hyman",
+          "id": 8475786,
+          "position": "LW",
+          "birthDate": "1992-06-09"
+        },
+        {
+          "name": "Mattias Janmark",
+          "id": 8477406,
+          "position": "C",
+          "birthDate": "1992-12-08"
+        },
+        {
+          "name": "Max Jones",
+          "id": 8479368,
+          "position": "LW",
+          "birthDate": "1998-02-17"
+        },
+        {
+          "name": "Mathieu Joseph",
+          "id": 8478472,
+          "position": "RW",
+          "birthDate": "1997-02-09"
+        },
+        {
+          "name": "Kasperi Kapanen",
+          "id": 8477953,
+          "position": "RW",
+          "birthDate": "1996-07-23"
+        },
+        {
+          "name": "Viljami Marjala",
+          "id": 8482759,
+          "position": "LW",
+          "birthDate": "2003-01-29"
+        },
+        {
+          "name": "Connor McDavid",
+          "id": 8478402,
+          "position": "C",
+          "birthDate": "1997-01-13"
+        },
+        {
+          "name": "Owen Michaels",
+          "id": 8486161,
+          "position": "RW",
+          "birthDate": "2002-05-01"
+        },
+        {
+          "name": "William Nicholl",
+          "id": 8485087,
+          "position": "C",
+          "birthDate": "2006-05-24"
+        },
+        {
+          "name": "Ryan Nugent-Hopkins",
+          "id": 8476454,
+          "position": "C",
+          "birthDate": "1993-04-12"
+        },
+        {
+          "name": "Vasily Podkolzin",
+          "id": 8481617,
+          "position": "RW",
+          "birthDate": "2001-06-24"
+        },
+        {
+          "name": "Aku Raty",
+          "id": 8481699,
+          "position": "RW",
+          "birthDate": "2001-07-05"
+        },
+        {
+          "name": "Josh Samanski",
+          "id": 8484509,
+          "position": "C",
+          "birthDate": "2002-03-22"
+        },
+        {
+          "name": "Matt Savoie",
+          "id": 8483512,
+          "position": "C",
+          "birthDate": "2004-01-01"
+        },
+        {
+          "name": "James Stefan",
+          "id": 8483100,
+          "position": "RW",
+          "birthDate": "2003-08-09"
+        },
+        {
+          "name": "Brady Stonehouse",
+          "id": 8483847,
+          "position": "RW",
+          "birthDate": "2004-08-06"
+        },
+        {
+          "name": "Eduards Tralmaks",
+          "id": 8482631,
+          "position": "RW",
+          "birthDate": "1997-02-17"
+        },
+        {
+          "name": "Beau Akey",
+          "id": 8484139,
+          "position": "D",
+          "birthDate": "2005-02-11"
+        },
+        {
+          "name": "Evan Bouchard",
+          "id": 8480803,
+          "position": "D",
+          "birthDate": "1999-10-20"
+        },
+        {
+          "name": "Joshua Brown",
+          "id": 8477384,
+          "position": "D",
+          "birthDate": "1994-01-21"
+        },
+        {
+          "name": "Tomas Cibulka",
+          "id": 8485163,
+          "position": "D",
+          "birthDate": "2004-04-02"
+        },
+        {
+          "name": "Mattias Ekholm",
+          "id": 8475218,
+          "position": "D",
+          "birthDate": "1990-05-24"
+        },
+        {
+          "name": "Ty Emberson",
+          "id": 8480834,
+          "position": "D",
+          "birthDate": "2000-05-23"
+        },
+        {
+          "name": "Atro Leppanen",
+          "id": 8485509,
+          "position": "D",
+          "birthDate": "1998-12-14"
+        },
+        {
+          "name": "Shakir Mukhamadullin",
+          "id": 8482166,
+          "position": "D",
+          "birthDate": "2002-01-10"
+        },
+        {
+          "name": "Connor Murphy",
+          "id": 8476473,
+          "position": "D",
+          "birthDate": "1993-03-26"
+        },
+        {
+          "name": "Alec Regula",
+          "id": 8480831,
+          "position": "D",
+          "birthDate": "2000-08-06"
+        },
+        {
+          "name": "Ryan Shea",
+          "id": 8478854,
+          "position": "D",
+          "birthDate": "1997-02-11"
+        },
+        {
+          "name": "Spencer Stastney",
+          "id": 8481056,
+          "position": "D",
+          "birthDate": "2000-01-04"
+        },
+        {
+          "name": "Riley Stillman",
+          "id": 8479388,
+          "position": "D",
+          "birthDate": "1998-03-09"
+        },
+        {
+          "name": "Jake Walman",
+          "id": 8478013,
+          "position": "D",
+          "birthDate": "1996-02-20"
+        }
+      ],
+      "goalies": [
+        {
+          "name": "Frederik Andersen",
+          "id": 8475883,
+          "position": "G",
+          "birthDate": "1989-10-02"
+        },
+        {
+          "name": "Nathaniel Day",
+          "id": 8484455,
+          "position": "G",
+          "birthDate": "2005-02-04"
+        },
+        {
+          "name": "Tristan Jarry",
+          "id": 8477465,
+          "position": "G",
+          "birthDate": "1995-04-29"
+        },
+        {
+          "name": "Samuel Jonsson",
+          "id": 8483769,
+          "position": "G",
+          "birthDate": "2003-12-15"
+        },
+        {
+          "name": "Devon Levi",
+          "id": 8482221,
+          "position": "G",
+          "birthDate": "2001-12-27"
+        },
+        {
+          "name": "Matt Tomkins",
+          "id": 8477035,
+          "position": "G",
+          "birthDate": "1994-06-19"
+        }
+      ]
+    },
+    "LAK": {
+      "skaters": [
+        {
+          "name": "Joel Armia",
+          "id": 8476469,
+          "position": "RW",
+          "birthDate": "1993-05-31"
+        },
+        {
+          "name": "Quinton Byfield",
+          "id": 8482124,
+          "position": "RW",
+          "birthDate": "2002-08-19"
+        },
+        {
+          "name": "Martin Chromiak",
+          "id": 8482160,
+          "position": "RW",
+          "birthDate": "2002-08-20"
+        },
+        {
+          "name": "Vojtech Cihar",
+          "id": 8485384,
+          "position": "LW",
+          "birthDate": "2007-03-29"
+        },
+        {
+          "name": "Kenny Connors",
+          "id": 8483675,
+          "position": "C",
+          "birthDate": "2003-03-10"
+        },
+        {
+          "name": "Kevin Fiala",
+          "id": 8477942,
+          "position": "LW",
+          "birthDate": "1996-07-22"
+        },
+        {
+          "name": "Cole Guttman",
+          "id": 8480252,
+          "position": "C",
+          "birthDate": "1999-04-06"
+        },
+        {
+          "name": "Erik Haula",
+          "id": 8475287,
+          "position": "LW",
+          "birthDate": "1991-03-23"
+        },
+        {
+          "name": "Samuel Helenius",
+          "id": 8482726,
+          "position": "C",
+          "birthDate": "2002-11-26"
+        },
+        {
+          "name": "Aatu Jamsen",
+          "id": 8482466,
+          "position": "RW",
+          "birthDate": "2002-07-22"
+        },
+        {
+          "name": "Jan Jenik",
+          "id": 8480890,
+          "position": "C",
+          "birthDate": "2000-09-15"
+        },
+        {
+          "name": "Adrian Kempe",
+          "id": 8477960,
+          "position": "RW",
+          "birthDate": "1996-09-13"
+        },
+        {
+          "name": "Alex Laferriere",
+          "id": 8482155,
+          "position": "RW",
+          "birthDate": "2001-10-28"
+        },
+        {
+          "name": "Scott Laughton",
+          "id": 8476872,
+          "position": "C",
+          "birthDate": "1994-05-30"
+        },
+        {
+          "name": "Kaleb Lawrence",
+          "id": 8483052,
+          "position": "C",
+          "birthDate": "2003-01-10"
+        },
+        {
+          "name": "Jimmy Lombardi",
+          "id": 8485602,
+          "position": "C",
+          "birthDate": "2007-02-16"
+        },
+        {
+          "name": "Trevor Moore",
+          "id": 8479675,
+          "position": "LW",
+          "birthDate": "1995-03-31"
+        },
+        {
+          "name": "Artemi Panarin",
+          "id": 8478550,
+          "position": "LW",
+          "birthDate": "1991-10-30"
+        },
+        {
+          "name": "Lane Pederson",
+          "id": 8478967,
+          "position": "C",
+          "birthDate": "1997-08-04"
+        },
+        {
+          "name": "Corey Perry",
+          "id": 8470621,
+          "position": "RW",
+          "birthDate": "1985-05-16"
+        },
+        {
+          "name": "Francesco Pinelli",
+          "id": 8482748,
+          "position": "C",
+          "birthDate": "2003-04-11"
+        },
+        {
+          "name": "Grant Slukynsky",
+          "id": 8486160,
+          "position": "C",
+          "birthDate": "2002-03-12"
+        },
+        {
+          "name": "Alex Turcotte",
+          "id": 8481532,
+          "position": "C",
+          "birthDate": "2001-02-26"
+        },
+        {
+          "name": "Taylor Ward",
+          "id": 8483406,
+          "position": "RW",
+          "birthDate": "1998-03-31"
+        },
+        {
+          "name": "Jared Wright",
+          "id": 8483756,
+          "position": "RW",
+          "birthDate": "2002-11-22"
+        },
+        {
+          "name": "Koehn Ziemmer",
+          "id": 8484243,
+          "position": "RW",
+          "birthDate": "2004-12-08"
+        },
+        {
+          "name": "Mats Zuccarello",
+          "id": 8475692,
+          "position": "C",
+          "birthDate": "1987-09-01"
+        },
+        {
+          "name": "Mikey Anderson",
+          "id": 8479998,
+          "position": "D",
+          "birthDate": "1999-05-25"
+        },
+        {
+          "name": "Angus Booth",
+          "id": 8483699,
+          "position": "D",
+          "birthDate": "2004-04-27"
+        },
+        {
+          "name": "Henry Brzustewicz",
+          "id": 8485381,
+          "position": "D",
+          "birthDate": "2007-02-09"
+        },
+        {
+          "name": "Cody Ceci",
+          "id": 8476879,
+          "position": "D",
+          "birthDate": "1993-12-21"
+        },
+        {
+          "name": "Brandt Clarke",
+          "id": 8482730,
+          "position": "D",
+          "birthDate": "2003-02-09"
+        },
+        {
+          "name": "Drew Doughty",
+          "id": 8474563,
+          "position": "D",
+          "birthDate": "1989-12-08"
+        },
+        {
+          "name": "Brian Dumoulin",
+          "id": 8475208,
+          "position": "D",
+          "birthDate": "1991-09-06"
+        },
+        {
+          "name": "Jakub Dvorak",
+          "id": 8484163,
+          "position": "D",
+          "birthDate": "2005-05-25"
+        },
+        {
+          "name": "Joel Edmundson",
+          "id": 8476441,
+          "position": "D",
+          "birthDate": "1993-06-28"
+        },
+        {
+          "name": "Erik Gustafsson",
+          "id": 8476979,
+          "position": "D",
+          "birthDate": "1992-03-14"
+        },
+        {
+          "name": "Joe Hicketts",
+          "id": 8478176,
+          "position": "D",
+          "birthDate": "1996-05-04"
+        },
+        {
+          "name": "Kirill Kirsanov",
+          "id": 8482922,
+          "position": "D",
+          "birthDate": "2002-09-19"
+        },
+        {
+          "name": "Scott Perunovich",
+          "id": 8481059,
+          "position": "D",
+          "birthDate": "1998-08-18"
+        },
+        {
+          "name": "Otto Salin",
+          "id": 8483509,
+          "position": "D",
+          "birthDate": "2004-03-07"
+        },
+        {
+          "name": "Jared Woolley",
+          "id": 8484844,
+          "position": "D",
+          "birthDate": "2006-02-27"
+        }
+      ],
+      "goalies": [
+        {
+          "name": "Anton Forsberg",
+          "id": 8476341,
+          "position": "G",
+          "birthDate": "1992-11-27"
+        },
+        {
+          "name": "Carter George",
+          "id": 8484857,
+          "position": "G",
+          "birthDate": "2006-05-20"
+        },
+        {
+          "name": "Darcy Kuemper",
+          "id": 8475311,
+          "position": "G",
+          "birthDate": "1990-05-05"
+        },
+        {
+          "name": "Erik Portillo",
+          "id": 8481707,
+          "position": "G",
+          "birthDate": "2000-09-03"
+        },
+        {
+          "name": "Hampton Slukynsky",
+          "id": 8484417,
+          "position": "G",
+          "birthDate": "2005-07-02"
+        }
+      ]
+    },
+    "SJS": {
+      "skaters": [
+        {
+          "name": "Alex Barr\u00e9-Boulet",
+          "id": 8479718,
+          "position": "C",
+          "birthDate": "1997-05-21"
+        },
+        {
+          "name": "Filip Bystedt",
+          "id": 8483428,
+          "position": "C",
+          "birthDate": "2004-02-04"
+        },
+        {
+          "name": "Ethan Cardwell",
+          "id": 8482206,
+          "position": "RW",
+          "birthDate": "2002-08-30"
+        },
+        {
+          "name": "Macklin Celebrini",
+          "id": 8484801,
+          "position": "C",
+          "birthDate": "2006-06-13"
+        },
+        {
+          "name": "Igor Chernyshov",
+          "id": 8484994,
+          "position": "LW",
+          "birthDate": "2005-11-30"
+        },
+        {
+          "name": "Ty Dellandrea",
+          "id": 8480848,
+          "position": "C",
+          "birthDate": "2000-07-21"
+        },
+        {
+          "name": "Tye Felhaber",
+          "id": 8479746,
+          "position": "LW",
+          "birthDate": "1998-08-05"
+        },
+        {
+          "name": "Andre Gasseau",
+          "id": 8482776,
+          "position": "C",
+          "birthDate": "2003-07-03"
+        },
+        {
+          "name": "Adam Gaudette",
+          "id": 8478874,
+          "position": "RW",
+          "birthDate": "1996-10-03"
+        },
+        {
+          "name": "Patrick Giles",
+          "id": 8480825,
+          "position": "RW",
+          "birthDate": "2000-01-03"
+        },
+        {
+          "name": "Barclay Goodrow",
+          "id": 8476624,
+          "position": "C",
+          "birthDate": "1993-02-26"
+        },
+        {
+          "name": "Collin Graf",
+          "id": 8484911,
+          "position": "RW",
+          "birthDate": "2002-09-21"
+        },
+        {
+          "name": "Jimmy Huntington",
+          "id": 8481228,
+          "position": "C",
+          "birthDate": "1998-11-18"
+        },
+        {
+          "name": "Brett Leason",
+          "id": 8481517,
+          "position": "RW",
+          "birthDate": "1999-04-30"
+        },
+        {
+          "name": "Cam Lund",
+          "id": 8483481,
+          "position": "C",
+          "birthDate": "2004-06-07"
+        },
+        {
+          "name": "Mason Marchment",
+          "id": 8478975,
+          "position": "LW",
+          "birthDate": "1995-06-18"
+        },
+        {
+          "name": "Michael Misa",
+          "id": 8485402,
+          "position": "C",
+          "birthDate": "2007-02-16"
+        },
+        {
+          "name": "Quentin Musty",
+          "id": 8484200,
+          "position": "LW",
+          "birthDate": "2005-07-06"
+        },
+        {
+          "name": "Zack Ostapchuk",
+          "id": 8482859,
+          "position": "C",
+          "birthDate": "2003-05-29"
+        },
+        {
+          "name": "Kiefer Sherwood",
+          "id": 8480748,
+          "position": "LW",
+          "birthDate": "1995-03-31"
+        },
+        {
+          "name": "Will Smith",
+          "id": 8484227,
+          "position": "C",
+          "birthDate": "2005-03-17"
+        },
+        {
+          "name": "Ivar Stenberg",
+          "id": 8486103,
+          "position": "LW",
+          "birthDate": "2007-09-30"
+        },
+        {
+          "name": "Tyler Toffoli",
+          "id": 8475726,
+          "position": "C",
+          "birthDate": "1992-04-24"
+        },
+        {
+          "name": "Alexander Wennberg",
+          "id": 8477505,
+          "position": "C",
+          "birthDate": "1994-09-22"
+        },
+        {
+          "name": "Carson Wetsch",
+          "id": 8484845,
+          "position": "RW",
+          "birthDate": "2006-05-04"
+        },
+        {
+          "name": "Nolan Allan",
+          "id": 8482700,
+          "position": "D",
+          "birthDate": "2003-04-28"
+        },
+        {
+          "name": "Luca Cagnoni",
+          "id": 8484152,
+          "position": "D",
+          "birthDate": "2004-12-21"
+        },
+        {
+          "name": "Sam Dickinson",
+          "id": 8484806,
+          "position": "D",
+          "birthDate": "2006-06-07"
+        },
+        {
+          "name": "Libor Hajek",
+          "id": 8479333,
+          "position": "D",
+          "birthDate": "1998-02-04"
+        },
+        {
+          "name": "Mattias Havelid",
+          "id": 8483666,
+          "position": "D",
+          "birthDate": "2004-01-01"
+        },
+        {
+          "name": "Michael Kesselring",
+          "id": 8480891,
+          "position": "D",
+          "birthDate": "2000-01-13"
+        },
+        {
+          "name": "Darnell Nurse",
+          "id": 8477498,
+          "position": "D",
+          "birthDate": "1995-02-04"
+        },
+        {
+          "name": "Dmitry Orlov",
+          "id": 8475200,
+          "position": "D",
+          "birthDate": "1991-07-23"
+        },
+        {
+          "name": "Eric Pohlkamp",
+          "id": 8484421,
+          "position": "D",
+          "birthDate": "2004-03-23"
+        },
+        {
+          "name": "Leo Sahlin Wallenius",
+          "id": 8484763,
+          "position": "D",
+          "birthDate": "2006-04-10"
+        },
+        {
+          "name": "Phillip Sinn",
+          "id": 8486205,
+          "position": "D",
+          "birthDate": "2004-01-13"
+        },
+        {
+          "name": "Jacob Trouba",
+          "id": 8476885,
+          "position": "D",
+          "birthDate": "1994-02-26"
+        }
+      ],
+      "goalies": [
+        {
+          "name": "Yaroslav Askarov",
+          "id": 8482137,
+          "position": "G",
+          "birthDate": "2002-06-16"
+        },
+        {
+          "name": "Eric Comrie",
+          "id": 8477480,
+          "position": "G",
+          "birthDate": "1995-07-06"
+        },
+        {
+          "name": "Kyle Keyser",
+          "id": 8480356,
+          "position": "G",
+          "birthDate": "1999-03-08"
+        },
+        {
+          "name": "Alex Nedeljkovic",
+          "id": 8477968,
+          "position": "G",
+          "birthDate": "1996-01-07"
+        },
+        {
+          "name": "Ilya Samsonov",
+          "id": 8478492,
+          "position": "G",
+          "birthDate": "1997-02-22"
+        }
+      ]
+    },
+    "SEA": {
+      "skaters": [
+        {
+          "name": "Matty Beniers",
+          "id": 8482665,
+          "position": "C",
+          "birthDate": "2002-11-05"
+        },
+        {
+          "name": "Berkly Catton",
+          "id": 8484800,
+          "position": "C",
+          "birthDate": "2006-01-14"
+        },
+        {
+          "name": "Curtis Douglas",
+          "id": 8480876,
+          "position": "C",
+          "birthDate": "2000-03-06"
+        },
+        {
+          "name": "Jordan Eberle",
+          "id": 8474586,
+          "position": "RW",
+          "birthDate": "1990-05-15"
+        },
+        {
+          "name": "Ryden Evers",
+          "id": 8486009,
+          "position": "LW",
+          "birthDate": "2005-06-22"
+        },
+        {
+          "name": "Frederick Gaudreau",
+          "id": 8477919,
+          "position": "C",
+          "birthDate": "1993-05-01"
+        },
+        {
+          "name": "Kaapo Kakko",
+          "id": 8481554,
+          "position": "RW",
+          "birthDate": "2001-02-13"
+        },
+        {
+          "name": "Jared McCann",
+          "id": 8477955,
+          "position": "LW",
+          "birthDate": "1996-05-31"
+        },
+        {
+          "name": "Bobby McMann",
+          "id": 8482259,
+          "position": "C",
+          "birthDate": "1996-06-15"
+        },
+        {
+          "name": "Ben Meyers",
+          "id": 8483570,
+          "position": "C",
+          "birthDate": "1998-11-15"
+        },
+        {
+          "name": "Julius Miettinen",
+          "id": 8484773,
+          "position": "C",
+          "birthDate": "2006-01-20"
+        },
+        {
+          "name": "Mackie Samoskevich",
+          "id": 8482713,
+          "position": "RW",
+          "birthDate": "2002-11-15"
+        },
+        {
+          "name": "Chandler Stephenson",
+          "id": 8476905,
+          "position": "C",
+          "birthDate": "1994-04-22"
+        },
+        {
+          "name": "Ryan Winterton",
+          "id": 8482751,
+          "position": "C",
+          "birthDate": "2003-09-04"
+        },
+        {
+          "name": "Shane Wright",
+          "id": 8483524,
+          "position": "C",
+          "birthDate": "2004-01-05"
+        },
+        {
+          "name": "Alexis Bernier",
+          "id": 8484838,
+          "position": "D",
+          "birthDate": "2006-06-21"
+        },
+        {
+          "name": "Vince Dunn",
+          "id": 8478407,
+          "position": "D",
+          "birthDate": "1996-10-29"
+        },
+        {
+          "name": "Ryker Evans",
+          "id": 8482858,
+          "position": "D",
+          "birthDate": "2001-12-13"
+        },
+        {
+          "name": "Cale Fleury",
+          "id": 8479985,
+          "position": "D",
+          "birthDate": "1998-11-19"
+        },
+        {
+          "name": "Adam Larsson",
+          "id": 8476457,
+          "position": "D",
+          "birthDate": "1992-11-12"
+        },
+        {
+          "name": "Ryan Lindgren",
+          "id": 8479324,
+          "position": "D",
+          "birthDate": "1998-02-11"
+        },
+        {
+          "name": "Joshua Mahura",
+          "id": 8479372,
+          "position": "D",
+          "birthDate": "1998-05-05"
+        },
+        {
+          "name": "Brandon Montour",
+          "id": 8477986,
+          "position": "D",
+          "birthDate": "1994-04-11"
+        }
+      ],
+      "goalies": [
+        {
+          "name": "Joey Daccord",
+          "id": 8478916,
+          "position": "G",
+          "birthDate": "1996-08-19"
+        },
+        {
+          "name": "Philipp Grubauer",
+          "id": 8475831,
+          "position": "G",
+          "birthDate": "1991-11-25"
+        }
+      ]
+    },
+    "VAN": {
+      "skaters": [
+        {
+          "name": "Vilmer Alriksson",
+          "id": 8484408,
+          "position": "LW",
+          "birthDate": "2005-02-18"
+        },
+        {
+          "name": "Arshdeep Bains",
+          "id": 8483395,
+          "position": "LW",
+          "birthDate": "2001-01-09"
+        },
+        {
+          "name": "Brock Boeser",
+          "id": 8478444,
+          "position": "RW",
+          "birthDate": "1997-02-25"
+        },
+        {
+          "name": "Gabriel Chiarot",
+          "id": 8485635,
+          "position": "RW",
+          "birthDate": "2006-09-17"
+        },
+        {
+          "name": "Filip Chytil",
+          "id": 8480078,
+          "position": "C",
+          "birthDate": "1999-09-05"
+        },
+        {
+          "name": "Braeden Cootes",
+          "id": 8485385,
+          "position": "C",
+          "birthDate": "2007-02-09"
+        },
+        {
+          "name": "Paul Cotter",
+          "id": 8481032,
+          "position": "LW",
+          "birthDate": "1999-11-16"
+        },
+        {
+          "name": "Jake DeBrusk",
+          "id": 8478498,
+          "position": "LW",
+          "birthDate": "1996-10-17"
+        },
+        {
+          "name": "Trey Fix-Wolansky",
+          "id": 8480441,
+          "position": "RW",
+          "birthDate": "1999-05-26"
+        },
+        {
+          "name": "Brendan Gallagher",
+          "id": 8475848,
+          "position": "RW",
+          "birthDate": "1992-05-06"
+        },
+        {
+          "name": "Linus Karlsson",
+          "id": 8481024,
+          "position": "C",
+          "birthDate": "1999-11-16"
+        },
+        {
+          "name": "Jonathan Lekkerim\u00e4ki",
+          "id": 8483476,
+          "position": "RW",
+          "birthDate": "2004-07-24"
+        },
+        {
+          "name": "Mackenzie MacEachern",
+          "id": 8476907,
+          "position": "LW",
+          "birthDate": "1994-03-09"
+        },
+        {
+          "name": "Ty Mueller",
+          "id": 8484406,
+          "position": "C",
+          "birthDate": "2003-02-26"
+        },
+        {
+          "name": "Adam Novotny",
+          "id": 8486074,
+          "position": "LW",
+          "birthDate": "2007-11-13"
+        },
+        {
+          "name": "Drew O'Connor",
+          "id": 8482055,
+          "position": "LW",
+          "birthDate": "1998-06-09"
+        },
+        {
+          "name": "Liam Ohgren",
+          "id": 8483499,
+          "position": "LW",
+          "birthDate": "2004-01-28"
+        },
+        {
+          "name": "Riley Patterson",
+          "id": 8484874,
+          "position": "C",
+          "birthDate": "2006-03-22"
+        },
+        {
+          "name": "Elias Pettersson",
+          "id": 8480012,
+          "position": "C",
+          "birthDate": "1998-11-12"
+        },
+        {
+          "name": "Aatu R\u00e4ty",
+          "id": 8482691,
+          "position": "C",
+          "birthDate": "2002-11-14"
+        },
+        {
+          "name": "Anri Ravinskis",
+          "id": 8483110,
+          "position": "RW",
+          "birthDate": "2003-01-02"
+        },
+        {
+          "name": "Marco Rossi",
+          "id": 8482079,
+          "position": "C",
+          "birthDate": "2001-09-23"
+        },
+        {
+          "name": "Ilya Safonov",
+          "id": 8482915,
+          "position": "C",
+          "birthDate": "2001-05-30"
+        },
+        {
+          "name": "Max Sasson",
+          "id": 8484136,
+          "position": "C",
+          "birthDate": "2000-09-05"
+        },
+        {
+          "name": "Matthew Stienburg",
+          "id": 8481737,
+          "position": "C",
+          "birthDate": "2000-10-07"
+        },
+        {
+          "name": "Akil Thomas",
+          "id": 8480851,
+          "position": "C",
+          "birthDate": "2000-01-02"
+        },
+        {
+          "name": "Chase Wouters",
+          "id": 8481163,
+          "position": "C",
+          "birthDate": "2000-02-08"
+        },
+        {
+          "name": "Guillaume Brisebois",
+          "id": 8478465,
+          "position": "D",
+          "birthDate": "1997-07-21"
+        },
+        {
+          "name": "Zeev Buium",
+          "id": 8484798,
+          "position": "D",
+          "birthDate": "2005-12-07"
+        },
+        {
+          "name": "Cole Clayton",
+          "id": 8482839,
+          "position": "D",
+          "birthDate": "2000-02-29"
+        },
+        {
+          "name": "Filip Hronek",
+          "id": 8479425,
+          "position": "D",
+          "birthDate": "1997-11-02"
+        },
+        {
+          "name": "Kirill Kudryavtsev",
+          "id": 8483467,
+          "position": "D",
+          "birthDate": "2004-02-05"
+        },
+        {
+          "name": "Victor Mancini",
+          "id": 8483768,
+          "position": "D",
+          "birthDate": "2002-05-26"
+        },
+        {
+          "name": "Sawyer Mynio",
+          "id": 8484202,
+          "position": "D",
+          "birthDate": "2005-04-30"
+        },
+        {
+          "name": "Jamie Oleksiak",
+          "id": 8476467,
+          "position": "D",
+          "birthDate": "1992-12-21"
+        },
+        {
+          "name": "Luke Schenn",
+          "id": 8474568,
+          "position": "D",
+          "birthDate": "1989-11-02"
+        },
+        {
+          "name": "Jack Thompson",
+          "id": 8482144,
+          "position": "D",
+          "birthDate": "2002-03-19"
+        },
+        {
+          "name": "Tom Willander",
+          "id": 8484240,
+          "position": "D",
+          "birthDate": "2005-02-09"
+        }
+      ],
+      "goalies": [
+        {
+          "name": "Thatcher Demko",
+          "id": 8477967,
+          "position": "G",
+          "birthDate": "1995-12-08"
+        },
+        {
+          "name": "Aku Koskenvuo",
+          "id": 8482875,
+          "position": "G",
+          "birthDate": "2003-02-26"
+        },
+        {
+          "name": "Kevin Lankinen",
+          "id": 8480947,
+          "position": "G",
+          "birthDate": "1995-04-28"
+        },
+        {
+          "name": "Aleksei Medvedev",
+          "id": 8485401,
+          "position": "G",
+          "birthDate": "2007-09-10"
+        },
+        {
+          "name": "Nikita Tolopilo",
+          "id": 8484268,
+          "position": "G",
+          "birthDate": "2000-04-06"
+        },
+        {
+          "name": "Ty Young",
+          "id": 8483751,
+          "position": "G",
+          "birthDate": "2004-09-11"
+        }
+      ]
+    },
+    "VGK": {
+      "skaters": [
+        {
+          "name": "Ivan Barbashev",
+          "id": 8477964,
+          "position": "LW",
+          "birthDate": "1995-12-14"
+        },
+        {
+          "name": "Braeden Bowman",
+          "id": 8483890,
+          "position": "RW",
+          "birthDate": "2003-06-26"
+        },
+        {
+          "name": "Trevor Connelly",
+          "id": 8484803,
+          "position": "LW",
+          "birthDate": "2006-02-28"
+        },
+        {
+          "name": "Jakub Demek",
+          "id": 8482933,
+          "position": "C",
+          "birthDate": "2003-06-06"
+        },
+        {
+          "name": "Nic Dowd",
+          "id": 8475343,
+          "position": "C",
+          "birthDate": "1990-05-27"
+        },
+        {
+          "name": "Jack Eichel",
+          "id": 8478403,
+          "position": "C",
+          "birthDate": "1996-10-28"
+        },
+        {
+          "name": "Marc Gatcomb",
+          "id": 8483553,
+          "position": "C",
+          "birthDate": "1999-07-22"
+        },
+        {
+          "name": "Tomas Hertl",
+          "id": 8476881,
+          "position": "C",
+          "birthDate": "1993-11-12"
+        },
+        {
+          "name": "Alexander Holtz",
+          "id": 8482125,
+          "position": "RW",
+          "birthDate": "2002-01-23"
+        },
+        {
+          "name": "Brett Howden",
+          "id": 8479353,
+          "position": "C",
+          "birthDate": "1998-03-29"
+        },
+        {
+          "name": "William Karlsson",
+          "id": 8476448,
+          "position": "C",
+          "birthDate": "1993-01-08"
+        },
+        {
+          "name": "Tanner Laczynski",
+          "id": 8479550,
+          "position": "C",
+          "birthDate": "1997-06-01"
+        },
+        {
+          "name": "Raphael Lavoie",
+          "id": 8481534,
+          "position": "C",
+          "birthDate": "2000-09-25"
+        },
+        {
+          "name": "Mitch Marner",
+          "id": 8478483,
+          "position": "RW",
+          "birthDate": "1997-05-05"
+        },
+        {
+          "name": "Victor Olofsson",
+          "id": 8478109,
+          "position": "RW",
+          "birthDate": "1995-07-18"
+        },
+        {
+          "name": "Jonas Rondbjerg",
+          "id": 8480007,
+          "position": "RW",
+          "birthDate": "1999-03-31"
+        },
+        {
+          "name": "Matyas Sapovaliv",
+          "id": 8483511,
+          "position": "C",
+          "birthDate": "2004-02-12"
+        },
+        {
+          "name": "Mark Stone",
+          "id": 8475913,
+          "position": "RW",
+          "birthDate": "1992-05-13"
+        },
+        {
+          "name": "Kai Uchacz",
+          "id": 8485251,
+          "position": "C",
+          "birthDate": "2003-06-24"
+        },
+        {
+          "name": "Rasmus Andersson",
+          "id": 8478397,
+          "position": "D",
+          "birthDate": "1996-10-27"
+        },
+        {
+          "name": "Dylan Coghlan",
+          "id": 8479639,
+          "position": "D",
+          "birthDate": "1998-02-19"
+        },
+        {
+          "name": "Lukas Cormier",
+          "id": 8482141,
+          "position": "D",
+          "birthDate": "2002-03-27"
+        },
+        {
+          "name": "Jeremy Davies",
+          "id": 8479602,
+          "position": "D",
+          "birthDate": "1996-12-04"
+        },
+        {
+          "name": "Adam Ginning",
+          "id": 8480874,
+          "position": "D",
+          "birthDate": "2000-01-13"
+        },
+        {
+          "name": "Noah Hanifin",
+          "id": 8478396,
+          "position": "D",
+          "birthDate": "1997-01-25"
+        },
+        {
+          "name": "Ville Heinola",
+          "id": 8481572,
+          "position": "D",
+          "birthDate": "2001-03-02"
+        },
+        {
+          "name": "Jeremy Lauzon",
+          "id": 8478468,
+          "position": "D",
+          "birthDate": "1997-04-28"
+        },
+        {
+          "name": "Brayden McNabb",
+          "id": 8475188,
+          "position": "D",
+          "birthDate": "1991-01-21"
+        },
+        {
+          "name": "Jaycob Megna",
+          "id": 8477034,
+          "position": "D",
+          "birthDate": "1992-12-10"
+        },
+        {
+          "name": "Shea Theodore",
+          "id": 8477447,
+          "position": "D",
+          "birthDate": "1995-08-03"
+        },
+        {
+          "name": "Antti Tuomisto",
+          "id": 8481587,
+          "position": "D",
+          "birthDate": "2001-01-20"
+        },
+        {
+          "name": "Parker Wotherspoon",
+          "id": 8478450,
+          "position": "D",
+          "birthDate": "1997-08-24"
+        }
+      ],
+      "goalies": [
+        {
+          "name": "Carter Hart",
+          "id": 8479394,
+          "position": "G",
+          "birthDate": "1998-08-13"
+        },
+        {
+          "name": "Adin Hill",
+          "id": 8478499,
+          "position": "G",
+          "birthDate": "1996-05-11"
+        },
+        {
+          "name": "Carl Lindbom",
+          "id": 8482761,
+          "position": "G",
+          "birthDate": "2003-05-20"
+        }
+      ]
+    }
+  }
+}
