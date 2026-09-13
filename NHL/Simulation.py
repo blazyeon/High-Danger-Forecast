@@ -1414,6 +1414,20 @@ def calculate_automatic_injury_impact(
     except Exception as e:
         logger.debug(f"Could not load defensive impact scores: {e}")
 
+    # Fallback position source: MoneyPuck coverage is missing for rookies and
+    # depth players, so pull positions from the daily roster cache instead.
+    roster_positions: Dict[str, str] = {}
+    try:
+        from NHL.Rosters import load_rosters
+        for team_roster in load_rosters().values():
+            for p in (team_roster.get("skaters", []) + team_roster.get("goalies", [])):
+                nm = p.get("name")
+                pos = p.get("position")
+                if nm and pos:
+                    roster_positions.setdefault(normalize_name_key(nm), str(pos).upper())
+    except Exception as e:
+        logger.debug(f"Could not load roster positions: {e}")
+
     team_totals = team_stats_cache.get(team_abbr.upper(), {})
     team_points = team_totals.get('total_points', 700.0)  # League avg fallback
 
@@ -1465,7 +1479,7 @@ def calculate_automatic_injury_impact(
         d_score = defensive_scores.get(player_name_key, {})
         defensive_score = d_score.get("defensive_score", 0.0) or 0.0
         defensive_percentile = d_score.get("defensive_percentile", 50.0) or 50.0
-        position = d_score.get("position", "")
+        position = d_score.get("position", "") or roster_positions.get(player_name_key, "")
         icetime_hours = d_score.get("icetime_hours", 0.0) or 0.0
 
         is_defenseman = str(position).upper().strip() in DEFENSE_POSITIONS
