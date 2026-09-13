@@ -1603,6 +1603,7 @@ function showPlayerDetail(player, type) {
 }
 
 const ELO_PLAYER_SORTS = [
+    { key: 'elo', label: 'Elo', eloLabel: 'Elo' },
     { key: 'goals', label: 'Goals', eloLabel: 'Goal Elo' },
     { key: 'assists', label: 'Assists', eloLabel: 'Assist Elo' },
     { key: 'points', label: 'Points', eloLabel: 'Points Elo' },
@@ -1736,19 +1737,24 @@ async function renderEloPlayers(container) {
         // Only rank players with a real body of work this season.
         const all = (_lastEloPlayers || []).filter(p => (p.games_played || 0) >= 10);
 
-        // Goalies are ranked separately; skater sorts cover skaters only.
+        // Goalies are ranked separately under Goaltending; the Elo sort shows
+        // skaters and goalies together, skater sorts cover skaters only.
         const sort = _eloSort;
         const sortCfg = ELO_PLAYER_SORTS.find(s => s.key === sort) || ELO_PLAYER_SORTS[0];
         let pool;
         if (sort === 'goaltending') {
             pool = all.filter(p => p.position === 'G');
+        } else if (sort === 'elo') {
+            pool = all.slice();
         } else {
             pool = all.filter(p => p.position !== 'G');
         }
 
-        // Each sort ranks by that skill's dedicated Elo: goal scoring Elo,
-        // assist Elo, points Elo, defensive Elo, or goaltending Elo.
+        // Elo sorts by the overall rating; the rest rank by that skill's
+        // dedicated Elo: goal scoring Elo, assist Elo, points Elo, defensive
+        // Elo, or goaltending Elo.
         const sorters = {
+            elo: p => p.rating,
             goals: p => p.goal_elo,
             assists: p => p.assist_elo,
             points: p => p.points_elo,
@@ -1817,14 +1823,13 @@ async function renderEloPlayers(container) {
             html += `<tr>
                 <td><strong class="${rankClass}">${i + 1}</strong></td>
                 <td><div class="elo-player-name"><strong>${name}</strong>${rookie}</div><span class="elo-pos">${pos}</span> <span class="elo-team">${team}</span></td>
-                <td><strong class="${rankClass}">${elo != null ? elo : '—'}</strong></td>
+                <td><strong class="${rankClass}">${elo != null ? Math.round(elo) : '—'}</strong></td>
                 <td>${gp}</td>
                 ${cells}
             </tr>`;
         });
 
         html += '</tbody></table></div>';
-        html += `<div class="cors-notice" style="margin-top:12px"><i class="fa-solid fa-users"></i> Per-stat Elo for ${escapeHtml(statsSeason || 'the current season')}, top 100 shown. Each sort ranks by that skill's dedicated Elo (1500 = league average).</div>`;
         container.innerHTML = html;
     } catch (e) {
         console.error('Player Elo leaderboard failed:', e);
@@ -2118,7 +2123,7 @@ let _bettingEdgeDemoReason = null;
 
 // ── Elo Tab ──────────────────────────────────────────────────────
 let _eloView = 'teams';       // 'teams' | 'players'
-let _eloSort = 'goals';       // 'goals' | 'assists' | 'points' | 'defense' | 'goaltending'
+let _eloSort = 'elo';         // 'elo' | 'goals' | 'assists' | 'points' | 'defense' | 'goaltending'
 let _eloRookieOnly = false;
 let _eloForceRefresh = false;
 let _lastEloTeams = null;
