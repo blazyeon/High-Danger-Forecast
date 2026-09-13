@@ -2118,6 +2118,17 @@ function formatStartTime(isoStr) {
     }
 }
 
+function formatGameDate(isoDate) {
+    if (!isoDate) return '';
+    try {
+        const d = new Date(isoDate + 'T00:00:00');
+        if (isNaN(d.getTime())) return isoDate;
+        return d.toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
+    } catch (e) {
+        return isoDate;
+    }
+}
+
 async function runTodaysPicks() {
     const container = document.getElementById('todaysPicksResults');
     if (!container) return;
@@ -2142,17 +2153,15 @@ async function runTodaysPicks() {
 function renderTodaysPicks(data, container) {
     const games = data.games || [];
 
-    // Last-updated timestamp.
+    // Game date + last-updated timestamp at the top.
+    const dateLabel = formatGameDate(data.date);
     const updatedEl = document.getElementById('todaysPicksUpdated');
     if (updatedEl) {
-        updatedEl.innerHTML = `<i class="fa-solid fa-clock-rotate-left"></i> Last updated: <strong>${escapeHtml(formatUpdatedAt(data.computed_at))}</strong> — refreshed each morning (~5 AM)`;
+        updatedEl.innerHTML = `<i class="fa-solid fa-calendar-day"></i> <strong>${escapeHtml(dateLabel || 'Today')}</strong> · Last updated ${escapeHtml(formatUpdatedAt(data.computed_at))} — refreshed each morning (~5 AM)`;
         updatedEl.style.display = 'block';
     }
 
     let html = '';
-    if (data.warning) {
-        html += `<div class="betting-edge-warning"><i class="fa-solid fa-triangle-exclamation"></i> ${escapeHtml(data.warning)}</div>`;
-    }
 
     if (!games.length) {
         html += data.no_games
