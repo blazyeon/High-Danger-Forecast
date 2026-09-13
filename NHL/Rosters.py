@@ -78,6 +78,46 @@ def _league_factor(league: str) -> float:
     return 0.45
 
 
+# Junior / amateur leagues where age matters: a player putting up a given
+# per-game line a year (or two) before their draft year is far more impressive
+# than a draft-year peer, so these get an age adjustment. Pro leagues (KHL,
+# Liiga, SHL, AHL, ...) are deliberately excluded.
+_JUNIOR_LEAGUES = {
+    "OHL", "WHL", "QMJHL", "USHL", "NCAA", "BCHL", "AJHL", "OJHL", "NAHL",
+    "USPORTS", "CIS", "MHL",
+}
+
+
+def _draft_year(birth_date: Optional[str]) -> Optional[int]:
+    """NHL draft year for a birth date (YYYY-MM-DD)."""
+    if not birth_date:
+        return None
+    try:
+        y, m, d = (int(x) for x in str(birth_date).split("-")[:3])
+    except Exception:
+        return None
+    # A player is draft-eligible the year they turn 18, provided they are 18
+    # by Sept 15 of that draft year.
+    return y + 18 if (m < 9 or (m == 9 and d <= 15)) else y + 19
+
+
+def _age_multiplier(birth_date: Optional[str], source_season: Any, league: str) -> float:
+    """Age adjustment for junior-league production. Younger = more impressive."""
+    lg = (league or "").strip().upper()
+    if lg not in _JUNIOR_LEAGUES and "JR" not in lg:
+        return 1.0
+    draft_year = _draft_year(birth_date)
+    season_start = int(str(source_season)[:4]) if source_season else None
+    if not draft_year or not season_start:
+        return 1.0
+    draft_relative = season_start - (draft_year - 1)  # 0 = draft year, -1 = D-1
+    if draft_relative <= -2:
+        return 1.6
+    if draft_relative == -1:
+        return 1.3
+    return 1.0  # draft year or over-ager: no boost
+
+
 def fetch_team_roster(abbr: str) -> Dict[str, List[Dict[str, Any]]]:
     """Fetch a team's current roster (skaters + goalies) with player IDs."""
     url = f"{NHL_API_BASE}/roster/{abbr}/current"
@@ -130,10 +170,10 @@ def fetch_all_rosters(rate_limit: float = 0.35) -> Dict[str, Dict[str, Any]]:
     return teams
 
 
-def project_rookie_rates(player_id: Optional[int]) -> Optional[Dict[str, Any]]:
+def project_rookie_rates(player_id: Optional[int], birth_date: Optional[str] = None) -> Optional[Dict[str, Any]]:
     """
-    Estimate an NHL per-game pace for a player from their most recent
-    non-NHL regular-season line. Returns None if no usable non-NHL data.
+    Estimate an NHL per-game pace for a player from their most recent non-NHL
+    regular-season lines. Returns None if no usable non-NHL data.
     """
     if not player_id:
         return None
@@ -145,24 +185,48 @@ def project_rookie_rates(player_id: Optional[int]) -> Optional[Dict[str, Any]]:
     reg = [e for e in season_totals if e.get("gameTypeId") == 2]
     # Most recent season first, then largest sample within it.
     reg.sort(key=lambda e: (int(e.get("season") or 0), int(e.get("gamesPlayed") or 0)), reverse=True)
-    # Prefer a reliable sample (>=10 games); fall back to any sample so
-    # short-season players still get a projection rather than nothing.
-    candidates = [e for e in reg if int(e.get("gamesPlayed") or 0) >= 10] or reg
 
-    for e in candidates:
+    # Consider the two most recent distinct non-NHL seasons (draft year + the
+    # year before). A single most-recent line can be a partial or mis-tagged
+    # sample (short schedule, wrong league tag), so the prior season's
+    # production is kept as a candidate too.
+    window: List[Any] = []
+    for e in reg:
         league = (e.get("leagueAbbrev") or "").strip().upper()
         if league in ("", "NHL"):
             continue
+        season = e.get("season")
+        if season not in window:
+            window.append(season)
+        if len(window) >= 2:
+            break
+
+    candidates = [
+        e for e in reg
+        if e.get("season") in window
+        and (e.get("leagueAbbrev") or "").strip().upper() not in ("", "NHL")
+    ]
+    # Prefer a reliable sample (>=10 games); fall back to any sample so
+    # short-season players still get a projection rather than nothing.
+    reliable = [e for e in candidates if int(e.get("gamesPlayed") or 0) >= 10]
+    if reliable:
+        candidates = reliable
+
+    best: Optional[Dict[str, Any]] = None
+    for e in candidates:
+        league = (e.get("leagueAbbrev") or "").strip().upper()
         gp = int(e.get("gamesPlayed") or 0)
         if gp <= 0:
             continue
-        factor = _league_factor(league)
+        factor = _league_factor(league) * _age_multiplier(birth_date, e.get("season"), league)
         goals = float(e.get("goals") or 0)
         assists = float(e.get("assists") or 0)
         points = float(e.get("points") or 0)
+        points_pg = (points / gp) * factor
+        if best is not None and points_pg <= best["points_pg"]:
+            continue
         goals_pg = (goals / gp) * factor
         assists_pg = (assists / gp) * factor
-        points_pg = (points / gp) * factor
         shots = e.get("shots")
         if shots is not None:
             shots_pg = (float(shots) / gp) * factor
@@ -170,7 +234,7 @@ def project_rookie_rates(player_id: Optional[int]) -> Optional[Dict[str, Any]]:
             # League lines often omit shots; back out an estimate from goals
             # using a typical NHL shooting percentage.
             shots_pg = (goals_pg / 0.09) if goals_pg > 0 else 0.0
-        return {
+        best = {
             "points_pg": round(points_pg, 4),
             "goals_pg": round(goals_pg, 4),
             "assists_pg": round(assists_pg, 4),
@@ -179,7 +243,7 @@ def project_rookie_rates(player_id: Optional[int]) -> Optional[Dict[str, Any]]:
             "source_season": e.get("season"),
             "source_games": gp,
         }
-    return None
+    return best
 
 
 def _known_nhl_name_keys(season_start_year: int) -> set:
@@ -214,7 +278,7 @@ def build_rookie_projections(
             if not key or key in known:
                 continue  # established NHL player, or no usable name
             try:
-                proj = project_rookie_rates(skater.get("id"))
+                proj = project_rookie_rates(skater.get("id"), birth_date=skater.get("birthDate"))
             except Exception as e:
                 logger.warning(f"Projection failed for {name} ({abbr}): {e}")
                 proj = None

@@ -11,7 +11,7 @@ import math
 import os
 import threading
 import traceback
-from datetime import date as _date, timedelta
+from datetime import date as _date, datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
@@ -614,104 +614,196 @@ def _roster_positions() -> Dict[str, str]:
     return out
 
 
+def _zscore_elo(values: List[Optional[float]]) -> List[Optional[int]]:
+    """Map values to 1500-centered Elo ratings (z-score * 100). None stays None."""
+    finite = [v for v in values if v is not None and math.isfinite(v)]
+    n = len(finite)
+    if n < 2:
+        return [1500 if v is not None else None for v in values]
+    mean = sum(finite) / n
+    var = sum((v - mean) ** 2 for v in finite) / n
+    std = math.sqrt(var)
+    if std <= 1e-12:
+        return [1500 if v is not None else None for v in values]
+    return [
+        round(1500 + (v - mean) / std * 100) if v is not None else None
+        for v in values
+    ]
+
+
+_ELO_PLAYERS_CACHE_PATH = Path("static/data/elo_players_cache.json")
+_ELO_PLAYERS_CACHE_TTL_HOURS = 24.0
+
+
+def _load_elo_players_cache() -> Optional[Dict[str, Any]]:
+    try:
+        if not _ELO_PLAYERS_CACHE_PATH.exists():
+            return None
+        return json.loads(_ELO_PLAYERS_CACHE_PATH.read_text(encoding="utf-8"))
+    except Exception as e:
+        logger.warning(f"elo-players cache read failed: {e}")
+        return None
+
+
+def _write_elo_players_cache(payload: Dict[str, Any]) -> None:
+    try:
+        _ELO_PLAYERS_CACHE_PATH.write_text(json.dumps(payload), encoding="utf-8")
+    except Exception as e:
+        logger.warning(f"elo-players cache write failed: {e}")
+
+
+def _compute_elo_players(state: Dict[str, Any], stats_year: int) -> Dict[str, Any]:
+    """
+    Build the player Elo leaderboard: joins player_elo ratings with cached
+    skater/goalie stats, defensive impact scores, and rookie projections, and
+    derives a per-stat Elo (goal/assist/points/defense/goaltending) for each.
+    """
+    db = state.get("db")
+    current_season = state.get("current_season")
+
+    skaters = load_cached_stats("skaters", stats_year, 2).get("data") or []
+    goalies = load_cached_stats("goalies", stats_year, 2).get("data") or []
+
+    elo_map = _player_elo_map(db)
+    defensive = compute_defensive_impact_scores(stats_year, "5on5")
+    rookies = load_rookie_projections()
+
+    def _elo_for(name: str) -> float:
+        e = elo_map.get(normalize_name_key(name), {})
+        return e.get("rating", 1500.0)
+
+    def _base_fields(name: str, position: str, team: str, key: str) -> Dict[str, Any]:
+        return {
+            "name": name,
+            "team": team,
+            "position": position,
+            "rating": _elo_for(name),
+            "games_played": 0,
+            "goals": None,
+            "assists": None,
+            "points": None,
+            "shots": None,
+            "defensive_score": None,
+            "sv_pct": None,
+            "gaa": None,
+            "gsax": None,
+            "rookie": key in rookies,
+            "goal_elo": None,
+            "assist_elo": None,
+            "points_elo": None,
+            "defense_elo": None,
+            "goaltending_elo": None,
+        }
+
+    skater_rows: List[Dict[str, Any]] = []
+    for s in skaters:
+        name = str(s.get("name") or "").strip()
+        if not name:
+            continue
+        key = normalize_name_key(name)
+        def_rec = defensive.get(key, {})
+        row = _base_fields(name, str(s.get("position") or "F"), str(s.get("team") or ""), key)
+        row["games_played"] = int(s.get("gp") or 0)
+        row["goals"] = int(s.get("goals") or 0)
+        row["assists"] = int(s.get("assists") or 0)
+        row["points"] = int(s.get("points") or 0)
+        row["shots"] = int(s.get("shots") or 0)
+        row["defensive_score"] = def_rec.get("defensive_score")
+        skater_rows.append(row)
+
+    goalie_rows: List[Dict[str, Any]] = []
+    for g in goalies:
+        name = str(g.get("name") or "").strip()
+        if not name:
+            continue
+        key = normalize_name_key(name)
+        row = _base_fields(name, "G", str(g.get("team") or ""), key)
+        row["games_played"] = int(g.get("gp") or 0)
+        row["sv_pct"] = g.get("sv_pct")
+        row["gaa"] = g.get("gaa")
+        row["gsax"] = g.get("gsax")
+        goalie_rows.append(row)
+
+    # Per-stat Elo for skaters with a real sample (>=10 games), on per-game rates.
+    qualified = [r for r in skater_rows if r["games_played"] >= 10]
+    goal_elos = _zscore_elo([(r["goals"] / r["games_played"]) for r in qualified])
+    assist_elos = _zscore_elo([(r["assists"] / r["games_played"]) for r in qualified])
+    point_elos = _zscore_elo([(r["points"] / r["games_played"]) for r in qualified])
+    for r, ge, ae, pe in zip(qualified, goal_elos, assist_elos, point_elos):
+        r["goal_elo"] = ge
+        r["assist_elo"] = ae
+        r["points_elo"] = pe
+        ds = r["defensive_score"]
+        r["defense_elo"] = round(1500 + float(ds) * 100) if ds is not None else None
+
+    # Per-stat Elo for goalies with a real sample, on save percentage.
+    qgoalies = [r for r in goalie_rows if r["games_played"] >= 10 and r["sv_pct"] is not None]
+    goaltend_elos = _zscore_elo([r["sv_pct"] for r in qgoalies])
+    for r, ge in zip(qgoalies, goaltend_elos):
+        r["goaltending_elo"] = ge
+
+    players = skater_rows + goalie_rows
+
+    position_by_name = _roster_positions()
+    rookie_rows: List[Dict[str, Any]] = []
+    for key, r in rookies.items():
+        name = str(r.get("name") or "").strip()
+        if not name:
+            continue
+        elo = elo_map.get(key, {})
+        rookie_rows.append({
+            "name": name,
+            "team": str(r.get("team") or ""),
+            "position": position_by_name.get(key, "F"),
+            "rating": elo.get("rating", 1500.0),
+            "games_played": elo.get("games_played", 0),
+            "goals_pg": r.get("goals_pg"),
+            "assists_pg": r.get("assists_pg"),
+            "points_pg": r.get("points_pg"),
+            "shots_pg": r.get("shots_pg"),
+            "source_league": r.get("source_league"),
+        })
+    rookie_rows.sort(key=lambda x: -(x["points_pg"] or 0.0))
+
+    return {
+        "season": current_season,
+        "stats_season": f"{stats_year}{stats_year + 1}",
+        "players": _make_json_safe(players),
+        "rookies": _make_json_safe(rookie_rows),
+    }
+
+
 @app.route("/api/elo-players")
 def api_elo_players():
     """
-    Player Elo leaderboard: joins player_elo ratings with cached skater/goalie
-    stats, defensive impact scores, and rookie projections into one flat list.
+    Player Elo leaderboard, served from a disk cache so the heavy defensive
+    impact + stats join only runs once a day (or on explicit refresh).
     """
     try:
         state = get_app_state()
-        db = state.get("db")
         current_season = state.get("current_season")
-
         stats_year = _latest_stats_year(current_season)
+        stats_season = f"{stats_year}{stats_year + 1}"
+        force = request.args.get("refresh") == "1"
 
-        skaters = load_cached_stats("skaters", stats_year, 2).get("data") or []
-        goalies = load_cached_stats("goalies", stats_year, 2).get("data") or []
+        if not force:
+            cached = _load_elo_players_cache()
+            if cached and cached.get("stats_season") == stats_season:
+                fresh = True
+                generated = cached.get("generated_at")
+                if generated:
+                    try:
+                        gen_dt = datetime.fromisoformat(generated.replace("Z", "+00:00"))
+                        fresh = datetime.now(timezone.utc) - gen_dt <= timedelta(hours=_ELO_PLAYERS_CACHE_TTL_HOURS)
+                    except Exception:
+                        fresh = True
+                if fresh:
+                    return jsonify(cached)
 
-        elo_map = _player_elo_map(db)
-        defensive = compute_defensive_impact_scores(stats_year, "5on5")
-        rookies = load_rookie_projections()
-
-        players: List[Dict[str, Any]] = []
-
-        def _elo_for(name: str) -> float:
-            e = elo_map.get(normalize_name_key(name), {})
-            return e.get("rating", 1500.0)
-
-        for s in skaters:
-            name = str(s.get("name") or "").strip()
-            if not name:
-                continue
-            key = normalize_name_key(name)
-            def_rec = defensive.get(key, {})
-            players.append({
-                "name": name,
-                "team": str(s.get("team") or ""),
-                "position": str(s.get("position") or "F"),
-                "rating": _elo_for(name),
-                "games_played": int(s.get("gp") or 0),
-                "goals": int(s.get("goals") or 0),
-                "assists": int(s.get("assists") or 0),
-                "points": int(s.get("points") or 0),
-                "shots": int(s.get("shots") or 0),
-                "defensive_score": def_rec.get("defensive_score"),
-                "sv_pct": None,
-                "gaa": None,
-                "gsax": None,
-                "rookie": key in rookies,
-            })
-
-        for g in goalies:
-            name = str(g.get("name") or "").strip()
-            if not name:
-                continue
-            key = normalize_name_key(name)
-            players.append({
-                "name": name,
-                "team": str(g.get("team") or ""),
-                "position": "G",
-                "rating": _elo_for(name),
-                "games_played": int(g.get("gp") or 0),
-                "goals": None,
-                "assists": None,
-                "points": None,
-                "shots": None,
-                "defensive_score": None,
-                "sv_pct": g.get("sv_pct"),
-                "gaa": g.get("gaa"),
-                "gsax": g.get("gsax"),
-                "rookie": key in rookies,
-            })
-
-        position_by_name = _roster_positions()
-        rookie_rows: List[Dict[str, Any]] = []
-        for key, r in rookies.items():
-            name = str(r.get("name") or "").strip()
-            if not name:
-                continue
-            elo = elo_map.get(key, {})
-            rookie_rows.append({
-                "name": name,
-                "team": str(r.get("team") or ""),
-                "position": position_by_name.get(key, "F"),
-                "rating": elo.get("rating", 1500.0),
-                "games_played": elo.get("games_played", 0),
-                "goals_pg": r.get("goals_pg"),
-                "assists_pg": r.get("assists_pg"),
-                "points_pg": r.get("points_pg"),
-                "shots_pg": r.get("shots_pg"),
-                "source_league": r.get("source_league"),
-            })
-        rookie_rows.sort(key=lambda x: -(x["points_pg"] or 0.0))
-
-        return jsonify({
-            "season": current_season,
-            "stats_season": f"{stats_year}{stats_year + 1}",
-            "players": _make_json_safe(players),
-            "rookies": _make_json_safe(rookie_rows),
-        })
+        payload = _compute_elo_players(state, stats_year)
+        payload["generated_at"] = datetime.now(timezone.utc).isoformat()
+        _write_elo_players_cache(payload)
+        return jsonify(payload)
     except Exception as e:
         logger.error(f"Player Elo leaderboard error: {e}", exc_info=True)
         return jsonify({"error": str(e)}), 500
