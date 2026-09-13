@@ -537,7 +537,7 @@ function setupEventListeners() {
     document.getElementById('predictBtn').addEventListener('click', runPrediction);
     document.getElementById('lookupBtn').addEventListener('click', runLookup);
     document.getElementById('statsBtn').addEventListener('click', runStats);
-    document.getElementById('eloBtn').addEventListener('click', runElo);
+    document.getElementById('eloBtn').addEventListener('click', refreshElo);
 }
 
 // ── Simulation Log ────────────────────────────────────────────────
@@ -1602,15 +1602,78 @@ function showPlayerDetail(player, type) {
     body.innerHTML = `<div class="modal-header"><div class="modal-team-name">${escapeHtml(player.name)}</div><div class="modal-team-abbr">${type === 'skaters' ? 'Skater' : 'Goalie'} Details</div></div><div class="modal-section"><div class="modal-section-title">Season Stats</div>${rows}</div>`;
 }
 
+const ELO_PLAYER_SORTS = [
+    { key: 'elo', label: 'Elo' },
+    { key: 'goals', label: 'Goals' },
+    { key: 'assists', label: 'Assists' },
+    { key: 'points', label: 'Points' },
+    { key: 'defense', label: 'Defense' },
+    { key: 'goaltending', label: 'Goaltending' },
+];
+
+function setEloView(view) {
+    if (_eloView === view) return;
+    _eloView = view;
+    runElo();
+}
+
+function refreshElo() {
+    _lastEloTeams = null;
+    _lastEloPlayers = null;
+    _lastEloRookies = null;
+    _lastEloStatsSeason = '';
+    runElo();
+}
+
+function setEloSort(sort) {
+    _eloSort = sort;
+    renderEloPlayers(document.getElementById('eloResults'));
+}
+
+function setEloRookieOnly(only) {
+    _eloRookieOnly = only;
+    renderEloPlayers(document.getElementById('eloResults'));
+}
+
+function eloToolbarHtml(showPlayerControls) {
+    let html = '<div class="props-toolbar props-filterbar elo-toolbar">';
+    html += '<span class="props-toolbar-label">View:</span>';
+    html += `<button class="props-sort-btn ${_eloView === 'teams' ? 'active' : ''}" onclick="setEloView('teams')">Teams</button>`;
+    html += `<button class="props-sort-btn ${_eloView === 'players' ? 'active' : ''}" onclick="setEloView('players')">Players</button>`;
+    if (showPlayerControls) {
+        if (!_eloRookieOnly) {
+            html += '<span class="props-toolbar-label">Sort:</span>';
+            ELO_PLAYER_SORTS.forEach(s => {
+                html += `<button class="props-sort-btn ${_eloSort === s.key ? 'active' : ''}" onclick="setEloSort('${s.key}')">${s.label}</button>`;
+            });
+        }
+        html += '<span class="props-toolbar-label">Rookie:</span>';
+        html += `<button class="props-market-btn ${_eloRookieOnly ? 'active' : ''}" onclick="setEloRookieOnly(${!_eloRookieOnly})">Only rookies</button>`;
+    }
+    html += '</div>';
+    return html;
+}
+
 async function runElo() {
     const container = document.getElementById('eloResults');
+    if (_eloView === 'players') {
+        await renderEloPlayers(container);
+    } else {
+        await renderEloTeams(container);
+    }
+}
+
+async function renderEloTeams(container) {
     container.innerHTML = '<div class="loading"><div class="spinner"></div><span>Loading Elo leaderboard...</span></div>';
 
     try {
-        const data = await safeFetchJson('/api/elo-leaderboard');
+        if (!_lastEloTeams) {
+            _lastEloTeams = await safeFetchJson('/api/elo-leaderboard');
+        }
+        const data = _lastEloTeams;
         const teams = data.teams || [];
         if (!teams.length) {
-            container.innerHTML = '<div class="empty-state"><div class="empty-icon"><i class="fa-solid fa-trophy"></i></div><h3 class="empty-title">No Elo Data</h3><p class="empty-desc">Team Elo ratings are not available yet. Run <code>python update_elo_ratings.py --current-season --reset</code> to populate them.</p></div>';
+            container.innerHTML = eloToolbarHtml(false) + '<div class="empty-state"><div class="empty-icon"><i class="fa-solid fa-trophy"></i></div><h3 class="empty-title">No Elo Data</h3><p class="empty-desc">Team Elo ratings are not available yet. Run <code>python update_elo_ratings.py --current-season --reset</code> to populate them.</p></div>';
             return;
         }
 
@@ -1618,7 +1681,8 @@ async function runElo() {
         const minRating = Math.min(...teams.map(t => t.rating || 0));
         const range = Math.max(1, maxRating - minRating);
 
-        let html = '<div class="table-wrap"><table class="data-table elo-table"><thead><tr>';
+        let html = eloToolbarHtml(false);
+        html += '<div class="table-wrap"><table class="data-table elo-table"><thead><tr>';
         html += '<th>#</th><th>Team</th><th>Rating</th><th>Games</th><th>Strength</th>';
         html += '</tr></thead><tbody>';
 
@@ -1645,6 +1709,155 @@ async function runElo() {
         console.error('Elo leaderboard failed:', e);
         container.innerHTML = `<div class="error-box">Could not load Elo leaderboard: ${escapeHtml(e.message)}</div>`;
     }
+}
+
+async function renderEloPlayers(container) {
+    container.innerHTML = '<div class="loading"><div class="spinner"></div><span>Loading player Elo...</span></div>';
+
+    try {
+        let statsSeason = '';
+        if (!_lastEloPlayers) {
+            const data = await safeFetchJson('/api/elo-players');
+            if (data.error) throw new Error(data.error);
+            _lastEloPlayers = data.players || [];
+            _lastEloRookies = data.rookies || [];
+            _lastEloStatsSeason = data.stats_season || '';
+        }
+        statsSeason = _lastEloStatsSeason || '';
+
+        if (_eloRookieOnly) {
+            renderEloRookies(container, statsSeason);
+            return;
+        }
+
+        // Small samples produce noisy Elo (a 1-game player can sit at 1900).
+        // Only rank players with a real body of work this season.
+        const all = (_lastEloPlayers || []).filter(p => (p.games_played || 0) >= 10);
+
+        // Goalies are ranked separately; the counting-stat and defense sorts
+        // are skater-only, while Elo shows skaters and goalies together.
+        const sort = _eloSort;
+        let pool;
+        if (sort === 'goaltending') {
+            pool = all.filter(p => p.position === 'G');
+        } else if (sort === 'elo') {
+            pool = all.slice();
+        } else {
+            pool = all.filter(p => p.position !== 'G');
+        }
+
+        const sorters = {
+            elo: p => p.rating || 0,
+            goals: p => p.goals || 0,
+            assists: p => p.assists || 0,
+            points: p => p.points || 0,
+            defense: p => p.defensive_score || 0,
+            goaltending: p => p.sv_pct || 0,
+        };
+        pool = pool.slice().sort((a, b) => (sorters[sort] || sorters.elo)(b) - (sorters[sort] || sorters.elo)(a));
+
+        const top = pool.slice(0, 100);
+
+        let html = eloToolbarHtml(true);
+
+        if (!top.length) {
+            html += '<div class="empty-state"><div class="empty-icon"><i class="fa-solid fa-user"></i></div><h3 class="empty-title">No players found</h3><p class="empty-desc">No players match the current filters. Try switching sort.</p></div>';
+            container.innerHTML = html;
+            return;
+        }
+
+        const isGoalies = sort === 'goaltending';
+        const isDefense = sort === 'defense';
+        const isCount = sort === 'goals' || sort === 'assists' || sort === 'points';
+
+        html += '<div class="table-wrap"><table class="data-table elo-table"><thead><tr>';
+        html += '<th>#</th><th>Player</th><th>Elo</th><th>GP</th>';
+        if (isCount) html += '<th>G</th><th>A</th><th>P</th><th>SOG</th>';
+        if (isDefense) html += '<th>Defense</th>';
+        if (isGoalies) html += '<th>SV%</th><th>GAA</th><th>GSAx</th>';
+        html += '</tr></thead><tbody>';
+
+        top.forEach((p, i) => {
+            const name = escapeHtml(p.name);
+            const team = escapeHtml(p.team || '');
+            const pos = escapeHtml(p.position || '');
+            const rating = Math.round(p.rating || 0);
+            const gp = p.games_played || 0;
+            const rankClass = i < 3 ? 'gold' : '';
+            const rookie = p.rookie ? '<span class="elo-rookie">Rookie</span>' : '';
+
+            let cells = '';
+            if (isCount) {
+                cells += `<td>${p.goals || 0}</td><td>${p.assists || 0}</td><td><strong>${p.points || 0}</strong></td><td>${p.shots || 0}</td>`;
+            }
+            if (isDefense) {
+                const d = p.defensive_score;
+                cells += `<td><strong>${d != null ? d.toFixed(2) : '—'}</strong></td>`;
+            }
+            if (isGoalies) {
+                const sv = p.sv_pct != null ? (p.sv_pct * 100).toFixed(1) + '%' : '—';
+                const gaa = p.gaa != null ? p.gaa.toFixed(2) : '—';
+                const gsax = p.gsax != null ? p.gsax.toFixed(1) : '—';
+                cells += `<td><strong>${sv}</strong></td><td>${gaa}</td><td>${gsax}</td>`;
+            }
+
+            html += `<tr>
+                <td><strong class="${rankClass}">${i + 1}</strong></td>
+                <td><div class="elo-player-name"><strong>${name}</strong>${rookie}</div><span class="elo-pos">${pos}</span> <span class="elo-team">${team}</span></td>
+                <td><strong class="${rankClass}">${rating}</strong></td>
+                <td>${gp}</td>
+                ${cells}
+            </tr>`;
+        });
+
+        html += '</tbody></table></div>';
+        html += `<div class="cors-notice" style="margin-top:12px"><i class="fa-solid fa-users"></i> Player Elo for ${escapeHtml(statsSeason || 'the current season')}, top 100 shown. Goalies are ranked by save percentage under Goaltending.</div>`;
+        container.innerHTML = html;
+    } catch (e) {
+        console.error('Player Elo leaderboard failed:', e);
+        container.innerHTML = `<div class="error-box">Could not load player Elo: ${escapeHtml(e.message)}</div>`;
+    }
+}
+
+function renderEloRookies(container, statsSeason) {
+    const rookies = (_lastEloRookies || []).slice().sort((a, b) => (b.points_pg || 0) - (a.points_pg || 0));
+
+    let html = eloToolbarHtml(true);
+
+    if (!rookies.length) {
+        html += '<div class="empty-state"><div class="empty-icon"><i class="fa-solid fa-seedling"></i></div><h3 class="empty-title">No rookies</h3><p class="empty-desc">No first-year prospect projections are available. Run <code>python update_rosters.py</code> to refresh them.</p></div>';
+        container.innerHTML = html;
+        return;
+    }
+
+    html += '<div class="table-wrap"><table class="data-table elo-table"><thead><tr>';
+    html += '<th>#</th><th>Rookie</th><th>Elo</th><th>League</th><th>P/GP</th><th>G/GP</th><th>A/GP</th><th>S/GP</th>';
+    html += '</tr></thead><tbody>';
+
+    rookies.forEach((p, i) => {
+        const name = escapeHtml(p.name);
+        const team = escapeHtml(p.team || '');
+        const pos = escapeHtml(p.position || '');
+        const rating = Math.round(p.rating || 0);
+        const lg = escapeHtml(p.source_league || '');
+        const fmt = v => v != null ? v.toFixed(2) : '—';
+        const rankClass = i < 3 ? 'gold' : '';
+
+        html += `<tr>
+            <td><strong class="${rankClass}">${i + 1}</strong></td>
+            <td><div class="elo-player-name"><strong>${name}</strong><span class="elo-rookie">Rookie</span></div><span class="elo-pos">${pos}</span> <span class="elo-team">${team}</span></td>
+            <td><strong class="${rankClass}">${rating}</strong></td>
+            <td>${lg}</td>
+            <td><strong>${fmt(p.points_pg)}</strong></td>
+            <td>${fmt(p.goals_pg)}</td>
+            <td>${fmt(p.assists_pg)}</td>
+            <td>${fmt(p.shots_pg)}</td>
+        </tr>`;
+    });
+
+    html += '</tbody></table></div>';
+    html += `<div class="cors-notice" style="margin-top:12px"><i class="fa-solid fa-seedling"></i> First-year prospects with NHLe-style per-game projections from their most recent non-NHL league. Elo starts at 1500 until they play.</div>`;
+    container.innerHTML = html;
 }
 
 async function runProps() {
@@ -1889,6 +2102,15 @@ let _lastBettingEdgeData = null;
 let _bettingEdgeSort = 'edge';
 let _bettingEdgeIsDemo = false;
 let _bettingEdgeDemoReason = null;
+
+// ── Elo Tab ──────────────────────────────────────────────────────
+let _eloView = 'teams';       // 'teams' | 'players'
+let _eloSort = 'elo';         // 'elo' | 'goals' | 'assists' | 'points' | 'defense' | 'goaltending'
+let _eloRookieOnly = false;
+let _lastEloTeams = null;
+let _lastEloPlayers = null;
+let _lastEloRookies = null;
+let _lastEloStatsSeason = '';
 
 // ── Player Props Tab ─────────────────────────────────────────────
 let _lastPropsData = null;
@@ -2208,12 +2430,12 @@ function renderTodaysPicks(data, container) {
                 <div class="pick-prediction" style="color:${winnerColor}">${homeWin ? 'HOME WIN' : 'AWAY WIN'}</div>
                 <div class="pick-prob">
                     <div class="pick-prob-bar">
-                        <div class="pick-prob-home" style="width:${hPct.toFixed(1)}%; background:${homeColor}"></div>
                         <div class="pick-prob-away" style="width:${aPct.toFixed(1)}%; background:${awayColor}"></div>
+                        <div class="pick-prob-home" style="width:${hPct.toFixed(1)}%; background:${homeColor}"></div>
                     </div>
                     <div class="pick-prob-labels">
-                        <span style="color:${homeColor}">${hPct.toFixed(0)}%</span>
                         <span style="color:${awayColor}">${aPct.toFixed(0)}%</span>
+                        <span style="color:${homeColor}">${hPct.toFixed(0)}%</span>
                     </div>
                 </div>
                 <div class="pick-meta">

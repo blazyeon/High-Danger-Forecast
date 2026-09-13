@@ -20,14 +20,24 @@ class EloConfig:
     k_factor_player: float = 32.0
     k_factor_team: float = 20.0
     k_factor_goalie: float = 28.0
-    
+
+    # Early-season "hidden Elo": for the first N games, update purely from
+    # win/loss (no underlying stats) with a boosted K-factor, then switch to
+    # the full stats-driven update.
+    k_factor_team_early: float = 40.0
+    early_season_games: int = 10
+
     # Initial ratings
     initial_player_rating: float = 1500.0
     initial_team_rating: float = 1500.0
-    
+
     # Regression to mean
     regression_factor: float = 0.02  # Pull toward mean each game
     regression_mean: float = 1500.0
+
+    # Season-over-season carryover: seed a new season from the previous
+    # season's rating regressed this fraction toward the mean (soft reset).
+    season_reset_regression: float = 0.5
     
     # Performance weights for players
     goal_weight: float = 1.0
@@ -234,16 +244,22 @@ class TeamElo:
         rating_diff = self.rating - opponent_rating
         expected = 1.0 / (1.0 + 10 ** (-rating_diff / 400.0))
         
-        # Performance adjustment based on underlying stats
-        perf_factor = self._calculate_performance_factor(
-            team_gf, team_ga, team_xgf, team_xga, team_sf, team_sa, config
-        )
-        
-        # Adjusted result (blend actual result with performance)
-        adjusted_result = 0.6 * result + 0.4 * perf_factor
-        
+        # First N games use a "hidden Elo": results-only with a boosted K-factor,
+        # so early ratings move fast on outcomes without unstable stats noise.
+        # After that, switch to the full stats-driven update (abrupt handoff).
+        if self.games_played < config.early_season_games:
+            adjusted_result = result
+            k = config.k_factor_team_early
+        else:
+            perf_factor = self._calculate_performance_factor(
+                team_gf, team_ga, team_xgf, team_xga, team_sf, team_sa, config
+            )
+            # Adjusted result (blend actual result with performance)
+            adjusted_result = 0.6 * result + 0.4 * perf_factor
+            k = config.k_factor_team
+
         # Rating change
-        delta = config.k_factor_team * (adjusted_result - expected)
+        delta = k * (adjusted_result - expected)
         
         # Regression to mean
         regression = config.regression_factor * (config.regression_mean - self.rating)

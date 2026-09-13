@@ -649,6 +649,20 @@ input[type="date"].param-input, input[type="date"].date-input {
 .elo-table th:nth-child(4) { width: 60px; }
 .elo-table th:nth-child(5) { min-width: 120px; }
 
+.elo-toolbar { flex-wrap: wrap; }
+.elo-toolbar .props-toolbar-label { margin-left: 10px; }
+.elo-toolbar .props-toolbar-label:first-child { margin-left: 0; }
+
+.elo-player-name { display: flex; align-items: center; gap: 6px; }
+.elo-pos { font-size: 10px; font-weight: 700; color: var(--text-muted); }
+.elo-team { font-size: 11px; color: var(--text-muted); }
+.elo-rookie {
+    font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;
+    padding: 2px 6px; border-radius: 100px;
+    background: var(--accent-green-dim); color: var(--accent-green);
+    border: 1px solid var(--border-default);
+}
+
 @media (max-width: 560px) {
     .data-table { font-size: 11px; }
     .data-table th, .data-table td { padding: 10px 12px; }

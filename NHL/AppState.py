@@ -69,7 +69,7 @@ def get_app_state() -> Dict[str, Any]:
             pass
 
         # Load CURRENT SEASON ratings from database (with early-season fallback)
-        teams_loaded = _load_team_ratings_from_db(team_elo, db, current_season)
+        teams_loaded = _load_team_ratings_from_db(team_elo, db, current_season, config)
         players_loaded = _load_player_ratings_from_db(player_elo, db, current_season)
 
         if db_missing or (teams_loaded == 0 and players_loaded == 0):
@@ -155,7 +155,8 @@ def get_app_state() -> Dict[str, Any]:
 def _load_team_ratings_from_db(
     team_elo: TeamEloSystem,
     db: EloDatabase,
-    current_season: str
+    current_season: str,
+    config: EloConfig
 ) -> int:
     """
     Load most recent team ratings from database.
@@ -206,7 +207,7 @@ def _load_team_ratings_from_db(
                 )
                 prev_season = _get_previous_season(current_season)
                 fallback_count = _load_previous_season_fallback(
-                    team_elo, cursor, prev_season
+                    team_elo, cursor, prev_season, config
                 )
 
                 if fallback_count > 0:
@@ -220,13 +221,13 @@ def _load_team_ratings_from_db(
             )
             prev_season = _get_previous_season(current_season)
             count = _load_previous_season_fallback(
-                team_elo, cursor, prev_season, full_fallback=True
+                team_elo, cursor, prev_season, config, full_fallback=True
             )
 
             if count > 0:
                 logger.info(
                     f"✓ Loaded {count} teams from previous season ({prev_season}) "
-                    f"with 10% regression to mean"
+                    f"with {config.season_reset_regression*100:.0f}% regression to mean"
                 )
 
         return count
@@ -240,6 +241,7 @@ def _load_previous_season_fallback(
     team_elo: TeamEloSystem,
     cursor,
     prev_season: str,
+    config: EloConfig,
     full_fallback: bool = False
 ) -> int:
     """Load previous season ratings as fallback for missing teams."""
@@ -266,7 +268,8 @@ def _load_previous_season_fallback(
 
             if full_fallback or team_abbr not in team_elo.teams:
                 team = team_elo.get_or_create_team(team_abbr)
-                team.rating = prev_rating * 0.9 + 1500 * 0.1
+                regression = config.season_reset_regression
+                team.rating = prev_rating * (1.0 - regression) + 1500.0 * regression
                 team.games_played = 0
                 team.recent_form = []
                 fallback_count += 1

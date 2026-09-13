@@ -46,7 +46,10 @@ from NHL.Errors import safe_api_call
 from NHL.Utils import (
     get_data_season_for_game,
     sanitize_text, format_initial_last, league_today,
+    normalize_name_key,
 )
+from NHL.DefensiveImpact import compute_defensive_impact_scores
+from NHL.Rosters import load_rookie_projections, load_rosters
 from NHL.OddsAPI import (
     fetch_nhl_player_props_by_date, OddsAPIError, get_odds_quota_status,
 )
@@ -551,6 +554,166 @@ def api_elo_leaderboard():
         })
     except Exception as e:
         logger.error(f"Elo leaderboard error: {e}", exc_info=True)
+        return jsonify({"error": str(e)}), 500
+
+
+# ── API: Player Elo Leaderboard ────────────────────────────────────────
+
+def _latest_stats_year(current_season: str) -> int:
+    """Latest season_year with cached skater/goalie stats on disk (offseason aware)."""
+    start = int(current_season[:4]) if current_season else 2025
+    stats_dir = Path("static/data")
+    for year in (start, start - 1, start - 2):
+        if (stats_dir / f"pbp_skater_stats_{year}{year + 1}.json").exists() or \
+           (stats_dir / f"pbp_goalie_stats_{year}{year + 1}.json").exists():
+            return year
+    return start - 1
+
+
+def _player_elo_map(db) -> Dict[str, Dict[str, Any]]:
+    """Latest Elo rating + games_played per player, keyed by normalized name."""
+    out: Dict[str, Dict[str, Any]] = {}
+    if db is None or not hasattr(db, "conn"):
+        return out
+    cursor = db.conn.cursor()
+    query = """
+        SELECT player_name, rating, games_played
+        FROM (
+            SELECT player_name, rating, games_played,
+                   ROW_NUMBER() OVER (PARTITION BY player_name ORDER BY date DESC, id DESC) as rn
+            FROM player_elo
+        )
+        WHERE rn = 1
+    """
+    try:
+        cursor.execute(query)
+        for row in cursor.fetchall():
+            key = normalize_name_key(row["player_name"])
+            if key:
+                out[key] = {
+                    "rating": float(row["rating"] or 0.0),
+                    "games_played": int(row["games_played"] or 0),
+                }
+    except Exception as e:
+        logger.warning(f"player_elo map query failed: {e}")
+    return out
+
+
+def _roster_positions() -> Dict[str, str]:
+    """Map normalized player name -> position (F/D/G) from rosters.json."""
+    out: Dict[str, str] = {}
+    try:
+        for team in load_rosters().values():
+            for group in ("skaters", "goalies"):
+                for p in team.get(group, []) or []:
+                    key = normalize_name_key(p.get("name"))
+                    if key and key not in out:
+                        out[key] = str(p.get("position") or "")
+    except Exception as e:
+        logger.warning(f"roster position lookup failed: {e}")
+    return out
+
+
+@app.route("/api/elo-players")
+def api_elo_players():
+    """
+    Player Elo leaderboard: joins player_elo ratings with cached skater/goalie
+    stats, defensive impact scores, and rookie projections into one flat list.
+    """
+    try:
+        state = get_app_state()
+        db = state.get("db")
+        current_season = state.get("current_season")
+
+        stats_year = _latest_stats_year(current_season)
+
+        skaters = load_cached_stats("skaters", stats_year, 2).get("data") or []
+        goalies = load_cached_stats("goalies", stats_year, 2).get("data") or []
+
+        elo_map = _player_elo_map(db)
+        defensive = compute_defensive_impact_scores(stats_year, "5on5")
+        rookies = load_rookie_projections()
+
+        players: List[Dict[str, Any]] = []
+
+        def _elo_for(name: str) -> float:
+            e = elo_map.get(normalize_name_key(name), {})
+            return e.get("rating", 1500.0)
+
+        for s in skaters:
+            name = str(s.get("name") or "").strip()
+            if not name:
+                continue
+            key = normalize_name_key(name)
+            def_rec = defensive.get(key, {})
+            players.append({
+                "name": name,
+                "team": str(s.get("team") or ""),
+                "position": str(s.get("position") or "F"),
+                "rating": _elo_for(name),
+                "games_played": int(s.get("gp") or 0),
+                "goals": int(s.get("goals") or 0),
+                "assists": int(s.get("assists") or 0),
+                "points": int(s.get("points") or 0),
+                "shots": int(s.get("shots") or 0),
+                "defensive_score": def_rec.get("defensive_score"),
+                "sv_pct": None,
+                "gaa": None,
+                "gsax": None,
+                "rookie": key in rookies,
+            })
+
+        for g in goalies:
+            name = str(g.get("name") or "").strip()
+            if not name:
+                continue
+            key = normalize_name_key(name)
+            players.append({
+                "name": name,
+                "team": str(g.get("team") or ""),
+                "position": "G",
+                "rating": _elo_for(name),
+                "games_played": int(g.get("gp") or 0),
+                "goals": None,
+                "assists": None,
+                "points": None,
+                "shots": None,
+                "defensive_score": None,
+                "sv_pct": g.get("sv_pct"),
+                "gaa": g.get("gaa"),
+                "gsax": g.get("gsax"),
+                "rookie": key in rookies,
+            })
+
+        position_by_name = _roster_positions()
+        rookie_rows: List[Dict[str, Any]] = []
+        for key, r in rookies.items():
+            name = str(r.get("name") or "").strip()
+            if not name:
+                continue
+            elo = elo_map.get(key, {})
+            rookie_rows.append({
+                "name": name,
+                "team": str(r.get("team") or ""),
+                "position": position_by_name.get(key, "F"),
+                "rating": elo.get("rating", 1500.0),
+                "games_played": elo.get("games_played", 0),
+                "goals_pg": r.get("goals_pg"),
+                "assists_pg": r.get("assists_pg"),
+                "points_pg": r.get("points_pg"),
+                "shots_pg": r.get("shots_pg"),
+                "source_league": r.get("source_league"),
+            })
+        rookie_rows.sort(key=lambda x: -(x["points_pg"] or 0.0))
+
+        return jsonify({
+            "season": current_season,
+            "stats_season": f"{stats_year}{stats_year + 1}",
+            "players": _make_json_safe(players),
+            "rookies": _make_json_safe(rookie_rows),
+        })
+    except Exception as e:
+        logger.error(f"Player Elo leaderboard error: {e}", exc_info=True)
         return jsonify({"error": str(e)}), 500
 
 

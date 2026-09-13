@@ -535,6 +535,53 @@ def _build_game_xg_lookup(
     return shots, lookup
 
 
+def _previous_season(season_str: str) -> str:
+    """Previous season key (e.g. '20262027' -> '20252026')."""
+    start_year = int(season_str[:4])
+    return f"{start_year - 1}{start_year}"
+
+
+def seed_team_elo_from_prev_season(
+    team_elo: TeamEloSystem,
+    db: EloDatabase,
+    season_str: str,
+    config: EloConfig,
+) -> int:
+    """
+    Seed team ratings from the previous season, regressed toward the mean.
+
+    Gives the new season a "soft reset" baseline (regressed prior) instead of a
+    flat 1500, so early-season predictions keep last year's team ordering with
+    a shrunken spread.
+    """
+    prev_season = _previous_season(season_str)
+    cursor = db.conn.cursor()
+    cursor.execute("""
+        SELECT team_abbr, rating
+        FROM (
+            SELECT team_abbr, rating,
+                   ROW_NUMBER() OVER (PARTITION BY team_abbr ORDER BY date DESC) as rn
+            FROM team_elo
+            WHERE season = ?
+        ) t
+        WHERE rn = 1
+    """, (prev_season,))
+
+    regression = config.season_reset_regression
+    seeded = 0
+    for row in cursor.fetchall():
+        team = team_elo.get_or_create_team(row["team_abbr"])
+        team.rating = row["rating"] * (1.0 - regression) + 1500.0 * regression
+        seeded += 1
+
+    if seeded:
+        logger.info(
+            f"↩️  Seeded {seeded} teams from {prev_season} with "
+            f"{regression*100:.0f}% regression to mean"
+        )
+    return seeded
+
+
 def fetch_and_process_games(
     season_str: str,
     start_date: date,
@@ -850,7 +897,12 @@ def main() -> int:
 
     player_elo = PlayerEloSystem(config)
     team_elo = TeamEloSystem(config)
-    
+
+    # Soft reset: seed team Elo from the previous season (regressed toward the
+    # mean) so the new season doesn't start from a flat 1500. Live season only.
+    if db_path == "elo_ratings.db":
+        seed_team_elo_from_prev_season(team_elo, db, season_str, config)
+
     processed = fetch_and_process_games(
         season_str,
         start_date,
