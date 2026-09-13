@@ -57,6 +57,9 @@ _NHLE_FACTORS: Dict[str, float] = {
     "BCHL": 0.15,
     "AJHL": 0.15,
     "OJHL": 0.13,
+    # Swedish junior leagues (U20/U18): below the CHL, well above the pro fallback.
+    "J20 NATIONELL": 0.20,
+    "J18 NATIONELL": 0.12,
     "USPORTS": 0.18,
     "CIS": 0.18,
     "WHC": 0.55,
@@ -71,7 +74,7 @@ def _league_factor(league: str) -> float:
     if lg in _NHLE_FACTORS:
         return _NHLE_FACTORS[lg]
     # Fallback: junior leagues translate lower than pro/European leagues.
-    if any(t in lg for t in ("JR", "OHL", "WHL", "QMJHL", "USHL", "NAHL", "BCHL", "AJHL", "MHL")):
+    if any(t in lg for t in ("JR", "J20", "J18", "U18", "U20", "OHL", "WHL", "QMJHL", "USHL", "NAHL", "BCHL", "AJHL", "MHL", "NATIONELL", "JUNIOR")):
         return 0.25
     if "NCAA" in lg or "USPORT" in lg or "CIS" in lg:
         return 0.40
@@ -84,7 +87,7 @@ def _league_factor(league: str) -> float:
 # Liiga, SHL, AHL, ...) are deliberately excluded.
 _JUNIOR_LEAGUES = {
     "OHL", "WHL", "QMJHL", "USHL", "NCAA", "BCHL", "AJHL", "OJHL", "NAHL",
-    "USPORTS", "CIS", "MHL",
+    "USPORTS", "CIS", "MHL", "J20 NATIONELL", "J18 NATIONELL",
 }
 
 

@@ -614,6 +614,41 @@ def _roster_positions() -> Dict[str, str]:
     return out
 
 
+def _roster_teams() -> Dict[str, str]:
+    """Map normalized player name -> current team from rosters.json."""
+    out: Dict[str, str] = {}
+    try:
+        for team, team_data in load_rosters().items():
+            for group in ("skaters", "goalies"):
+                for p in team_data.get(group, []) or []:
+                    key = normalize_name_key(p.get("name"))
+                    if key and key not in out:
+                        out[key] = str(team or "")
+    except Exception as e:
+        logger.warning(f"roster team lookup failed: {e}")
+    return out
+
+
+def _roster_birth_years() -> Dict[str, int]:
+    """Map normalized player name -> birth year from rosters.json."""
+    out: Dict[str, int] = {}
+    try:
+        for team_data in load_rosters().values():
+            for group in ("skaters", "goalies"):
+                for p in team_data.get(group, []) or []:
+                    key = normalize_name_key(p.get("name"))
+                    bd = str(p.get("birthDate") or "")
+                    try:
+                        year = int(bd.split("-")[0])
+                    except Exception:
+                        continue
+                    if key and key not in out:
+                        out[key] = year
+    except Exception as e:
+        logger.warning(f"roster birth-year lookup failed: {e}")
+    return out
+
+
 def _zscore_elo(values: List[Optional[float]]) -> List[Optional[int]]:
     """Map values to 1500-centered Elo ratings (z-score * 100). None stays None."""
     finite = [v for v in values if v is not None and math.isfinite(v)]
@@ -667,6 +702,8 @@ def _compute_elo_players(state: Dict[str, Any], stats_year: int) -> Dict[str, An
     elo_map = _player_elo_map(db)
     defensive = compute_defensive_impact_scores(stats_year, "5on5")
     rookies = load_rookie_projections()
+    roster_teams = _roster_teams()
+    roster_birth_years = _roster_birth_years()
 
     def _elo_for(name: str) -> float:
         e = elo_map.get(normalize_name_key(name), {})
@@ -702,7 +739,7 @@ def _compute_elo_players(state: Dict[str, Any], stats_year: int) -> Dict[str, An
             continue
         key = normalize_name_key(name)
         def_rec = defensive.get(key, {})
-        row = _base_fields(name, str(s.get("position") or "F"), str(s.get("team") or ""), key)
+        row = _base_fields(name, str(s.get("position") or "F"), roster_teams.get(key, str(s.get("team") or "")), key)
         row["games_played"] = int(s.get("gp") or 0)
         row["goals"] = int(s.get("goals") or 0)
         row["assists"] = int(s.get("assists") or 0)
@@ -717,7 +754,7 @@ def _compute_elo_players(state: Dict[str, Any], stats_year: int) -> Dict[str, An
         if not name:
             continue
         key = normalize_name_key(name)
-        row = _base_fields(name, "G", str(g.get("team") or ""), key)
+        row = _base_fields(name, "G", roster_teams.get(key, str(g.get("team") or "")), key)
         row["games_played"] = int(g.get("gp") or 0)
         row["sv_pct"] = g.get("sv_pct")
         row["gaa"] = g.get("gaa")
@@ -745,15 +782,17 @@ def _compute_elo_players(state: Dict[str, Any], stats_year: int) -> Dict[str, An
     players = skater_rows + goalie_rows
 
     position_by_name = _roster_positions()
-    rookie_rows: List[Dict[str, Any]] = []
+
+    # Prospects with no NHL sample yet (minor-league / junior projections).
+    prospect_rows: List[Dict[str, Any]] = []
     for key, r in rookies.items():
         name = str(r.get("name") or "").strip()
         if not name:
             continue
         elo = elo_map.get(key, {})
-        rookie_rows.append({
+        prospect_rows.append({
             "name": name,
-            "team": str(r.get("team") or ""),
+            "team": roster_teams.get(key, str(r.get("team") or "")),
             "position": position_by_name.get(key, "F"),
             "rating": elo.get("rating", 1500.0),
             "games_played": elo.get("games_played", 0),
@@ -762,14 +801,52 @@ def _compute_elo_players(state: Dict[str, Any], stats_year: int) -> Dict[str, An
             "points_pg": r.get("points_pg"),
             "shots_pg": r.get("shots_pg"),
             "source_league": r.get("source_league"),
+            "source_season": r.get("source_season"),
         })
-    rookie_rows.sort(key=lambda x: -(x["points_pg"] or 0.0))
+    prospect_rows.sort(key=lambda x: -(x["points_pg"] or 0.0))
+
+    # Current-NHL rookies: young skaters with a small season sample. A rookie
+    # is not "zero NHL games" — a first-year player like Martone (10 GP) counts.
+    # Age <= 24 at season start and < 25 GP is a small-sample rookie proxy.
+    nhl_rookie_rows: List[Dict[str, Any]] = []
+    for r in skater_rows:
+        gp = r["games_played"]
+        if gp <= 0 or gp >= 25:
+            continue
+        birth_year = roster_birth_years.get(normalize_name_key(r["name"]))
+        if not birth_year or (stats_year - birth_year) > 24:
+            continue
+        nhl_rookie_rows.append({
+            "name": r["name"],
+            "team": r["team"],
+            "position": r["position"],
+            "rating": r["rating"],
+            "games_played": gp,
+            "goals": r["goals"],
+            "assists": r["assists"],
+            "points": r["points"],
+            "shots": r["shots"],
+            "goal_elo": r["goal_elo"],
+            "assist_elo": r["assist_elo"],
+            "points_elo": r["points_elo"],
+            "defense_elo": r["defense_elo"],
+        })
+    nhl_rookie_rows.sort(key=lambda x: -(x["rating"] or 0.0))
+
+    # Flag current-NHL rookies in the main player list too.
+    nhl_rookie_keys = {normalize_name_key(r["name"]) for r in nhl_rookie_rows}
+    for r in skater_rows:
+        if normalize_name_key(r["name"]) in nhl_rookie_keys:
+            r["rookie"] = True
 
     return {
         "season": current_season,
         "stats_season": f"{stats_year}{stats_year + 1}",
         "players": _make_json_safe(players),
-        "rookies": _make_json_safe(rookie_rows),
+        "rookies": {
+            "nhl": _make_json_safe(nhl_rookie_rows),
+            "prospects": _make_json_safe(prospect_rows),
+        },
     }
 
 

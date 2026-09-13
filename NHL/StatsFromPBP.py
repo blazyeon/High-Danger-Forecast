@@ -498,7 +498,7 @@ def compute_team_rates(
         df["xgf_per_game"] = df["xgf"] / df["gp"]
         df["xga_per_game"] = df["xga"] / df["gp"]
         df["xgf_pct"] = df["xgf"] / (df["xgf"] + df["xga"]).replace(0, 1)
-        df["gsax"] = df["ga"] - df["xga"]
+        df["gsax"] = df["xga"] - df["ga"]
     except FileNotFoundError:
         logger.debug("No xG model trained yet, leaving xg columns NaN")
     except Exception as e:
@@ -724,7 +724,7 @@ def compute_goalie_rates(
                 xga = float(shot_xg.loc[grp.index].sum())
             except Exception as e:
                 logger.debug(f"xG aggregation for goalie {name} failed: {e}")
-        gsax = ga - xga
+        gsax = xga - ga  # Goals Saved Above Expected: positive = outperforming
         gsax_per_60 = gsax / max(gp, 1)
         rows.append({
             "name": str(name),
@@ -851,8 +851,13 @@ def compute_season_skater_stats(
         logger.warning(f"No teams discovered for {season_str}; cannot build skater stats")
         return []
 
-    out: List[Dict[str, Any]] = []
-    seen: Set[str] = set()
+    # Aggregate by player. A player traded mid-season appears on multiple
+    # teams' club-stats rows with counting stats split per team, so summing
+    # them recovers the full season. The former team's `gamesPlayed` is the
+    # full-season total (the current team reports only its own), so gp is the
+    # max across rows and the current team is the min-gp row.
+    out: Dict[str, Dict[str, Any]] = {}
+    order: List[str] = []
 
     # Rate-limit lightly; the schedule/PBP pipeline already throttles itself,
     # but club-stats is a separate endpoint.
@@ -871,47 +876,87 @@ def compute_season_skater_stats(
             if not name:
                 continue
             key = normalize_name_key(name)
-            if key in seen:
+            if not key:
                 continue
-            seen.add(key)
 
             gp = int(s.get("gamesPlayed", 0))
-            goals = int(s.get("goals", 0))
-            assists = int(s.get("assists", 0))
-            points = int(s.get("points", 0))
-            shots = int(s.get("shots", 0))
             toi_sec = float(s.get("avgTimeOnIcePerGame", 0.0))  # seconds per game
-            toi_min = toi_sec / 60.0
 
-            out.append({
-                "name": name,
-                "team": team,
-                "position": str(s.get("positionCode", "")).upper(),
-                "gp": gp,
-                "goals": goals,
-                "assists": assists,
-                "points": points,
-                "shots": shots,
-                "gpg": goals / max(gp, 1),
-                "apg": assists / max(gp, 1),
-                "ppg": points / max(gp, 1),
-                "sogpg": shots / max(gp, 1),
-                "sh_pct": float(s.get("shootingPctg", 0.0)),
-                "plus_minus": int(s.get("plusMinus", 0)),
-                "pim": int(s.get("penaltyMinutes", 0)),
-                "toi_pg": toi_min,
-                "ppg_raw": toi_sec,  # keep raw seconds for detail view
-                "faceoff_pct": float(s.get("faceoffWinPctg", 0.0)) * 100.0,
-                "power_play_goals": int(s.get("powerPlayGoals", 0)),
-                "short_handed_goals": int(s.get("shorthandedGoals", 0)),
-                "game_winning_goals": int(s.get("gameWinningGoals", 0)),
-                # xG per game is not available from club-stats; fill from PBP
-                # rates later if possible.
-                "xgf_pg": 0.0,
-            })
+            if key not in out:
+                out[key] = {
+                    "name": name,
+                    "position": str(s.get("positionCode", "")).upper(),
+                    "gp": 0,
+                    "goals": 0,
+                    "assists": 0,
+                    "points": 0,
+                    "shots": 0,
+                    "plus_minus": 0,
+                    "pim": 0,
+                    "power_play_goals": 0,
+                    "short_handed_goals": 0,
+                    "game_winning_goals": 0,
+                    "toi_weighted": 0.0,
+                    "fo_weighted": 0.0,
+                    "gp_by_team": {},
+                }
+                order.append(key)
 
-    logger.info(f"Built {len(out)} skater stat rows from club-stats for {season_str}")
-    return out
+            rec = out[key]
+            rec["goals"] += int(s.get("goals", 0))
+            rec["assists"] += int(s.get("assists", 0))
+            rec["points"] += int(s.get("points", 0))
+            rec["shots"] += int(s.get("shots", 0))
+            rec["plus_minus"] += int(s.get("plusMinus", 0))
+            rec["pim"] += int(s.get("penaltyMinutes", 0))
+            rec["power_play_goals"] += int(s.get("powerPlayGoals", 0))
+            rec["short_handed_goals"] += int(s.get("shorthandedGoals", 0))
+            rec["game_winning_goals"] += int(s.get("gameWinningGoals", 0))
+            rec["toi_weighted"] += toi_sec * gp
+            rec["fo_weighted"] += float(s.get("faceoffWinPctg", 0.0)) * 100.0 * gp
+            rec["gp"] = max(rec["gp"], gp)
+            rec["gp_by_team"][team] = gp
+
+    result: List[Dict[str, Any]] = []
+    for key in order:
+        rec = out[key]
+        gp = rec["gp"]
+        goals = rec["goals"]
+        assists = rec["assists"]
+        points = rec["points"]
+        shots = rec["shots"]
+        team = min(rec["gp_by_team"], key=lambda t: rec["gp_by_team"][t])
+        toi_pg = (rec["toi_weighted"] / (60.0 * gp)) if gp else 0.0
+        fo_pct = (rec["fo_weighted"] / gp) if gp else 0.0
+        result.append({
+            "name": rec["name"],
+            "team": team,
+            "position": rec["position"],
+            "gp": gp,
+            "goals": goals,
+            "assists": assists,
+            "points": points,
+            "shots": shots,
+            "gpg": goals / max(gp, 1),
+            "apg": assists / max(gp, 1),
+            "ppg": points / max(gp, 1),
+            "sogpg": shots / max(gp, 1),
+            "sh_pct": goals / max(shots, 1),
+            "plus_minus": rec["plus_minus"],
+            "pim": rec["pim"],
+            "toi_pg": toi_pg,
+            "ppg_raw": toi_pg * 60.0,  # raw seconds per game for detail view
+            "faceoff_pct": fo_pct,
+            "power_play_goals": rec["power_play_goals"],
+            "short_handed_goals": rec["short_handed_goals"],
+            "game_winning_goals": rec["game_winning_goals"],
+            # xG per game is not available from club-stats; fill from PBP
+            # rates later if possible.
+            "xgf_pg": 0.0,
+        })
+
+    logger.info(f"Built {len(result)} skater stat rows from club-stats for {season_str}")
+    return result
 
 
 def compute_season_goalie_stats(

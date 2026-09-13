@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-13T04:25:14.498026+00:00",
+  "generated_at": "2026-09-13T05:05:58.633218+00:00",
   "players": {
     "attiliobiasca": {
       "points_pg": 0.282,
@@ -10,17 +10,6 @@
       "source_season": 20252026,
       "source_games": 45,
       "name": "Attilio Biasca",
-      "team": "BOS"
-    },
-    "rileyduran": {
-      "points_pg": 0.1173,
-      "goals_pg": 0.088,
-      "assists_pg": 0.0293,
-      "shots_pg": 0.9778,
-      "source_league": "AHL",
-      "source_season": 20242025,
-      "source_games": 60,
-      "name": "Riley Duran",
       "team": "BOS"
     },
     "danslocmelis": {
@@ -54,17 +43,6 @@
       "source_season": 20242025,
       "source_games": 48,
       "name": "Kalle Vaisanen",
-      "team": "BOS"
-    },
-    "fredericbrunet": {
-      "points_pg": 0.2437,
-      "goals_pg": 0.0812,
-      "assists_pg": 0.1625,
-      "shots_pg": 0.9026,
-      "source_league": "AHL",
-      "source_season": 20252026,
-      "source_games": 65,
-      "name": "Frederic Brunet",
       "team": "BOS"
     },
     "maxenceguenette": {
@@ -331,17 +309,6 @@
       "name": "Anton Johansson",
       "team": "DET"
     },
-    "williamlagesson": {
-      "points_pg": 0.1722,
-      "goals_pg": 0.0574,
-      "assists_pg": 0.1148,
-      "shots_pg": 0.6377,
-      "source_league": "AHL",
-      "source_season": 20242025,
-      "source_games": 23,
-      "name": "William Lagesson",
-      "team": "DET"
-    },
     "williamwallinder": {
       "points_pg": 0.1348,
       "goals_pg": 0.0142,
@@ -352,17 +319,6 @@
       "source_games": 62,
       "name": "William Wallinder",
       "team": "DET"
-    },
-    "aleksanderbarkov": {
-      "points_pg": 0.3,
-      "goals_pg": 0.15,
-      "assists_pg": 0.15,
-      "shots_pg": 1.35,
-      "source_league": "4 NATIONS",
-      "source_season": 20242025,
-      "source_games": 3,
-      "name": "Aleksander Barkov",
-      "team": "FLA"
     },
     "mackenzieentwistle": {
       "points_pg": 0.0988,
@@ -450,17 +406,6 @@
       "source_season": 20252026,
       "source_games": 66,
       "name": "Alex Belzile",
-      "team": "MTL"
-    },
-    "lucascondotta": {
-      "points_pg": 0.2165,
-      "goals_pg": 0.0349,
-      "assists_pg": 0.1816,
-      "shots_pg": 0.388,
-      "source_league": "AHL",
-      "source_season": 20242025,
-      "source_games": 63,
-      "name": "Lucas Condotta",
       "team": "MTL"
     },
     "huntermckown": {
@@ -771,17 +716,6 @@
       "name": "Tinus Luc Koblar",
       "team": "TOR"
     },
-    "vinnilettieri": {
-      "points_pg": 0.4681,
-      "goals_pg": 0.1966,
-      "assists_pg": 0.2715,
-      "shots_pg": 2.1844,
-      "source_league": "AHL",
-      "source_season": 20242025,
-      "source_games": 47,
-      "name": "Vinni Lettieri",
-      "team": "TOR"
-    },
     "gavinmckenna": {
       "points_pg": 0.8684,
       "goals_pg": 0.276,
@@ -892,17 +826,6 @@
       "name": "Cade Webber",
       "team": "TOR"
     },
-    "juhajaaska": {
-      "points_pg": 0.2842,
-      "goals_pg": 0.0947,
-      "assists_pg": 0.1895,
-      "shots_pg": 1.0526,
-      "source_league": "LIIGA",
-      "source_season": 20232024,
-      "source_games": 57,
-      "name": "Juha Jaaska",
-      "team": "CAR"
-    },
     "viktorneuchev": {
       "points_pg": 0.2482,
       "goals_pg": 0.079,
@@ -959,10 +882,10 @@
       "team": "CAR"
     },
     "williamhakansson": {
-      "points_pg": 0.2357,
-      "goals_pg": 0.075,
-      "assists_pg": 0.1607,
-      "shots_pg": 0.8333,
+      "points_pg": 0.1362,
+      "goals_pg": 0.0433,
+      "assists_pg": 0.0929,
+      "shots_pg": 0.4815,
       "source_league": "J20 NATIONELL",
       "source_season": 20242025,
       "source_games": 42,
@@ -989,17 +912,6 @@
       "source_season": 20252026,
       "source_games": 24,
       "name": "Bryce Montgomery",
-      "team": "CAR"
-    },
-    "juusov\u00e4lim\u00e4ki": {
-      "points_pg": 0.44,
-      "goals_pg": 0.1467,
-      "assists_pg": 0.2933,
-      "shots_pg": 1.6296,
-      "source_league": "AHL",
-      "source_season": 20252026,
-      "source_games": 3,
-      "name": "Juuso V\u00e4lim\u00e4ki",
       "team": "CAR"
     },
     "rileybezeau": {
@@ -1046,17 +958,6 @@
       "name": "Oiva Keskinen",
       "team": "CBJ"
     },
-    "jamesmalatesta": {
-      "points_pg": 0.1502,
-      "goals_pg": 0.0859,
-      "assists_pg": 0.0644,
-      "shots_pg": 0.9539,
-      "source_league": "AHL",
-      "source_season": 20242025,
-      "source_games": 41,
-      "name": "James Malatesta",
-      "team": "CBJ"
-    },
     "maxmccue": {
       "points_pg": 0.1354,
       "goals_pg": 0.0338,
@@ -1068,17 +969,6 @@
       "name": "Max McCue",
       "team": "CBJ"
     },
-    "owensillinger": {
-      "points_pg": 0.29,
-      "goals_pg": 0.11,
-      "assists_pg": 0.18,
-      "shots_pg": 1.2222,
-      "source_league": "AHL",
-      "source_season": 20242025,
-      "source_games": 44,
-      "name": "Owen Sillinger",
-      "team": "CBJ"
-    },
     "luketuch": {
       "points_pg": 0.14,
       "goals_pg": 0.06,
@@ -1088,17 +978,6 @@
       "source_season": 20242025,
       "source_games": 44,
       "name": "Luke Tuch",
-      "team": "CBJ"
-    },
-    "jackwilliams": {
-      "points_pg": 0.4543,
-      "goals_pg": 0.1773,
-      "assists_pg": 0.277,
-      "shots_pg": 1.97,
-      "source_league": "NCAA",
-      "source_season": 20242025,
-      "source_games": 37,
-      "name": "Jack Williams",
       "team": "CBJ"
     },
     "bostonbuckberger": {
@@ -1220,17 +1099,6 @@
       "source_season": 20252026,
       "source_games": 72,
       "name": "Ben Steeves",
-      "team": "NJD"
-    },
-    "colinwhite": {
-      "points_pg": 0.4591,
-      "goals_pg": 0.2009,
-      "assists_pg": 0.2583,
-      "shots_pg": 2.2319,
-      "source_league": "AHL",
-      "source_season": 20252026,
-      "source_games": 46,
-      "name": "Colin White",
       "team": "NJD"
     },
     "mikaeldiotte": {
@@ -1431,17 +1299,6 @@
       "name": "Alex Ciernik",
       "team": "PHI"
     },
-    "devinkaplan": {
-      "points_pg": 0.1942,
-      "goals_pg": 0.1079,
-      "assists_pg": 0.0863,
-      "shots_pg": 1.1988,
-      "source_league": "NCAA",
-      "source_season": 20242025,
-      "source_games": 38,
-      "name": "Devin Kaplan",
-      "team": "PHI"
-    },
     "danilaklimovich": {
       "points_pg": 0.2572,
       "goals_pg": 0.1692,
@@ -1497,17 +1354,6 @@
       "name": "Riley Thompson",
       "team": "PHI"
     },
-    "camdineen": {
-      "points_pg": 0.3207,
-      "goals_pg": 0.0671,
-      "assists_pg": 0.2536,
-      "shots_pg": 0.7458,
-      "source_league": "AHL",
-      "source_season": 20242025,
-      "source_games": 59,
-      "name": "Cam Dineen",
-      "team": "PHI"
-    },
     "jacksonedward": {
       "points_pg": 0.0994,
       "goals_pg": 0.0142,
@@ -1528,17 +1374,6 @@
       "source_season": 20252026,
       "source_games": 16,
       "name": "Spencer Gill",
-      "team": "PHI"
-    },
-    "helgegrans": {
-      "points_pg": 0.1533,
-      "goals_pg": 0.0533,
-      "assists_pg": 0.1,
-      "shots_pg": 0.5926,
-      "source_league": "AHL",
-      "source_season": 20242025,
-      "source_games": 66,
-      "name": "Helge Grans",
       "team": "PHI"
     },
     "dillonboucher": {
@@ -1739,39 +1574,6 @@
       "name": "T.J. Hughes",
       "team": "COL"
     },
-    "fabianlysell": {
-      "points_pg": 0.3242,
-      "goals_pg": 0.1312,
-      "assists_pg": 0.193,
-      "shots_pg": 1.4581,
-      "source_league": "AHL",
-      "source_season": 20252026,
-      "source_games": 57,
-      "name": "Fabian Lysell",
-      "team": "COL"
-    },
-    "nikitaprishchepov": {
-      "points_pg": 0.24,
-      "goals_pg": 0.06,
-      "assists_pg": 0.18,
-      "shots_pg": 0.6667,
-      "source_league": "AHL",
-      "source_season": 20252026,
-      "source_games": 22,
-      "name": "Nikita Prishchepov",
-      "team": "COL"
-    },
-    "wyattaamodt": {
-      "points_pg": 0.1625,
-      "goals_pg": 0.0271,
-      "assists_pg": 0.1354,
-      "shots_pg": 0.3009,
-      "source_league": "AHL",
-      "source_season": 20252026,
-      "source_games": 65,
-      "name": "Wyatt Aamodt",
-      "team": "COL"
-    },
     "seanbehrens": {
       "points_pg": 0.2889,
       "goals_pg": 0.0373,
@@ -1946,17 +1748,6 @@
       "source_season": 20242025,
       "source_games": 52,
       "name": "Tristan Bertucci",
-      "team": "DAL"
-    },
-    "kyleburroughs": {
-      "points_pg": 0.1711,
-      "goals_pg": 0.0244,
-      "assists_pg": 0.1467,
-      "shots_pg": 0.2716,
-      "source_league": "AHL",
-      "source_season": 20252026,
-      "source_games": 18,
-      "name": "Kyle Burroughs",
       "team": "DAL"
     },
     "lukekrys": {
@@ -2135,17 +1926,6 @@
       "name": "Roman Schmidt",
       "team": "MIN"
     },
-    "chasebradley": {
-      "points_pg": 0.1561,
-      "goals_pg": 0.0994,
-      "assists_pg": 0.0568,
-      "shots_pg": 1.1039,
-      "source_league": "AHL",
-      "source_season": 20242025,
-      "source_games": 62,
-      "name": "Chase Bradley",
-      "team": "NSH"
-    },
     "davidedstrom": {
       "points_pg": 0.2826,
       "goals_pg": 0.1041,
@@ -2188,17 +1968,6 @@
       "source_season": 20242025,
       "source_games": 37,
       "name": "Kalan Lind",
-      "team": "NSH"
-    },
-    "jakelucchini": {
-      "points_pg": 0.3492,
-      "goals_pg": 0.1187,
-      "assists_pg": 0.2305,
-      "shots_pg": 1.3192,
-      "source_league": "AHL",
-      "source_season": 20252026,
-      "source_games": 63,
-      "name": "Jake Lucchini",
       "team": "NSH"
     },
     "felixnilsson": {
@@ -2257,10 +2026,10 @@
       "team": "NSH"
     },
     "viggogustafsson": {
-      "points_pg": 0.45,
-      "goals_pg": 0.0563,
-      "assists_pg": 0.3937,
-      "shots_pg": 0.625,
+      "points_pg": 0.2,
+      "goals_pg": 0.025,
+      "assists_pg": 0.175,
+      "shots_pg": 0.2778,
       "source_league": "J20 NATIONELL",
       "source_season": 20242025,
       "source_games": 16,
@@ -2510,10 +2279,10 @@
       "team": "WPG"
     },
     "viggobj\u00f6rck": {
-      "points_pg": 0.7929,
-      "goals_pg": 0.2893,
-      "assists_pg": 0.5036,
-      "shots_pg": 3.2143,
+      "points_pg": 0.4581,
+      "goals_pg": 0.1671,
+      "assists_pg": 0.291,
+      "shots_pg": 1.8571,
       "source_league": "J20 NATIONELL",
       "source_season": 20242025,
       "source_games": 42,
@@ -2686,13 +2455,13 @@
       "team": "ANA"
     },
     "marcusnordmark": {
-      "points_pg": 0.7773,
-      "goals_pg": 0.45,
-      "assists_pg": 0.3273,
-      "shots_pg": 5.0,
-      "source_league": "J18 NATIONELL",
+      "points_pg": 0.4219,
+      "goals_pg": 0.1719,
+      "assists_pg": 0.25,
+      "shots_pg": 1.9097,
+      "source_league": "J18 REGION",
       "source_season": 20242025,
-      "source_games": 11,
+      "source_games": 16,
       "name": "Marcus Nordmark",
       "team": "ANA"
     },
@@ -2760,17 +2529,6 @@
       "source_season": 20252026,
       "source_games": 68,
       "name": "Anton Wahlberg",
-      "team": "ANA"
-    },
-    "coreyschueneman": {
-      "points_pg": 0.1397,
-      "goals_pg": 0.0279,
-      "assists_pg": 0.1117,
-      "shots_pg": 0.3104,
-      "source_league": "AHL",
-      "source_season": 20242025,
-      "source_games": 63,
-      "name": "Corey Schueneman",
       "team": "ANA"
     },
     "konnorsmith": {
@@ -2960,17 +2718,6 @@
       "name": "Beau Akey",
       "team": "EDM"
     },
-    "joshuabrown": {
-      "points_pg": 0.1004,
-      "goals_pg": 0.0154,
-      "assists_pg": 0.0849,
-      "shots_pg": 0.1715,
-      "source_league": "AHL",
-      "source_season": 20252026,
-      "source_games": 57,
-      "name": "Joshua Brown",
-      "team": "EDM"
-    },
     "tomascibulka": {
       "points_pg": 0.2387,
       "goals_pg": 0.076,
@@ -3035,17 +2782,6 @@
       "source_season": 20252026,
       "source_games": 59,
       "name": "Aatu Jamsen",
-      "team": "LAK"
-    },
-    "janjenik": {
-      "points_pg": 0.2454,
-      "goals_pg": 0.1015,
-      "assists_pg": 0.1438,
-      "shots_pg": 1.1282,
-      "source_league": "AHL",
-      "source_season": 20242025,
-      "source_games": 52,
-      "name": "Jan Jenik",
       "team": "LAK"
     },
     "kaleblawrence": {
@@ -3147,17 +2883,6 @@
       "name": "Kirill Kirsanov",
       "team": "LAK"
     },
-    "scottperunovich": {
-      "points_pg": 0.44,
-      "goals_pg": 0.055,
-      "assists_pg": 0.385,
-      "shots_pg": 0.6111,
-      "source_league": "WC",
-      "source_season": 20222023,
-      "source_games": 10,
-      "name": "Scott Perunovich",
-      "team": "LAK"
-    },
     "ottosalin": {
       "points_pg": 0.27,
       "goals_pg": 0.0771,
@@ -3191,17 +2916,6 @@
       "name": "Filip Bystedt",
       "team": "SJS"
     },
-    "tyefelhaber": {
-      "points_pg": 0.289,
-      "goals_pg": 0.1445,
-      "assists_pg": 0.1445,
-      "shots_pg": 1.6053,
-      "source_league": "AHL",
-      "source_season": 20242025,
-      "source_games": 67,
-      "name": "Tye Felhaber",
-      "team": "SJS"
-    },
     "andregasseau": {
       "points_pg": 0.41,
       "goals_pg": 0.107,
@@ -3224,17 +2938,6 @@
       "name": "Jimmy Huntington",
       "team": "SJS"
     },
-    "camlund": {
-      "points_pg": 0.4432,
-      "goals_pg": 0.1995,
-      "assists_pg": 0.2438,
-      "shots_pg": 2.2162,
-      "source_league": "NCAA",
-      "source_season": 20242025,
-      "source_games": 37,
-      "name": "Cam Lund",
-      "team": "SJS"
-    },
     "quentinmusty": {
       "points_pg": 0.4827,
       "goals_pg": 0.2455,
@@ -3247,10 +2950,10 @@
       "team": "SJS"
     },
     "ivarstenberg": {
-      "points_pg": 0.8833,
-      "goals_pg": 0.4333,
-      "assists_pg": 0.45,
-      "shots_pg": 4.8148,
+      "points_pg": 0.5104,
+      "goals_pg": 0.2504,
+      "assists_pg": 0.26,
+      "shots_pg": 2.7819,
       "source_league": "J20 NATIONELL",
       "source_season": 20242025,
       "source_games": 27,
@@ -3266,17 +2969,6 @@
       "source_season": 20252026,
       "source_games": 65,
       "name": "Carson Wetsch",
-      "team": "SJS"
-    },
-    "nolanallan": {
-      "points_pg": 0.132,
-      "goals_pg": 0.044,
-      "assists_pg": 0.088,
-      "shots_pg": 0.4889,
-      "source_league": "AHL",
-      "source_season": 20242025,
-      "source_games": 20,
-      "name": "Nolan Allan",
       "team": "SJS"
     },
     "liborhajek": {
@@ -3455,17 +3147,6 @@
       "name": "Matthew Stienburg",
       "team": "VAN"
     },
-    "akilthomas": {
-      "points_pg": 0.3162,
-      "goals_pg": 0.1512,
-      "assists_pg": 0.165,
-      "shots_pg": 1.6806,
-      "source_league": "AHL",
-      "source_season": 20232024,
-      "source_games": 64,
-      "name": "Akil Thomas",
-      "team": "VAN"
-    },
     "chasewouters": {
       "points_pg": 0.1711,
       "goals_pg": 0.0611,
@@ -3475,17 +3156,6 @@
       "source_season": 20242025,
       "source_games": 72,
       "name": "Chase Wouters",
-      "team": "VAN"
-    },
-    "guillaumebrisebois": {
-      "points_pg": 0.0458,
-      "goals_pg": 0.0183,
-      "assists_pg": 0.0275,
-      "shots_pg": 0.2037,
-      "source_league": "AHL",
-      "source_season": 20242025,
-      "source_games": 48,
-      "name": "Guillaume Brisebois",
       "team": "VAN"
     },
     "coleclayton": {
@@ -3508,17 +3178,6 @@
       "source_season": 20242025,
       "source_games": 18,
       "name": "Sawyer Mynio",
-      "team": "VAN"
-    },
-    "jackthompson": {
-      "points_pg": 0.2281,
-      "goals_pg": 0.0489,
-      "assists_pg": 0.1793,
-      "shots_pg": 0.5432,
-      "source_league": "AHL",
-      "source_season": 20242025,
-      "source_games": 27,
-      "name": "Jack Thompson",
       "team": "VAN"
     },
     "trevorconnelly": {
