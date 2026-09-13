@@ -111,12 +111,6 @@ function initDateDefaults() {
     const today = localToday();
     const lookupDate = document.getElementById('lookupDate');
     if (lookupDate) lookupDate.value = today;
-    const propsDate = document.getElementById('propsDate');
-    if (propsDate) propsDate.value = today;
-    const bettingEdgeDate = document.getElementById('bettingEdgeDate');
-    if (bettingEdgeDate) bettingEdgeDate.value = today;
-    const todaysPicksDate = document.getElementById('todaysPicksDate');
-    if (todaysPicksDate) todaysPicksDate.value = today;
 }
 
 // ── Custom Calendar Date Picker ─────────────────────────────────────
@@ -542,9 +536,6 @@ function setupEventListeners() {
     document.getElementById('predictBtn').addEventListener('click', runPrediction);
     document.getElementById('lookupBtn').addEventListener('click', runLookup);
     document.getElementById('statsBtn').addEventListener('click', runStats);
-    document.getElementById('propsBtn').addEventListener('click', runProps);
-    document.getElementById('bettingEdgeBtn').addEventListener('click', runBettingEdge);
-    document.getElementById('todaysPicksBtn').addEventListener('click', runTodaysPicks);
     document.getElementById('eloBtn').addEventListener('click', runElo);
 }
 
@@ -1659,11 +1650,10 @@ async function runProps() {
     const container = document.getElementById('propsResults');
     container.innerHTML = '<div class="loading"><div class="spinner"></div><span>Loading props...</span></div>';
 
-    const date = document.getElementById('propsDate')?.value || localToday();
     const markets = ["player_points", "player_assists", "player_goals", "player_shots_on_goal"];
 
     try {
-        const url = `/api/player-props/${date}?regions=us&markets=${markets.join(',')}`;
+        const url = `/api/player-props?regions=us&markets=${markets.join(',')}`;
         const data = await latestFetch('props', url);
         if (data.error) {
             container.innerHTML = `<div class="error-box">${escapeHtml(data.error)}</div>`;
@@ -1684,7 +1674,7 @@ async function runProps() {
             _lastPropsData = [];
             _propsIsDemo = false;
             _propsDemoReason = null;
-            container.innerHTML = `<div class="empty-state"><div class="empty-icon"><i class="fa-solid fa-dice"></i></div><h3 class="empty-title">No props available</h3><p class="empty-text">No player props for ${escapeHtml(date)}. Bookmakers typically post player props 1-3 days before puck drop.</p></div>`;
+            container.innerHTML = `<div class="empty-state"><div class="empty-icon"><i class="fa-solid fa-dice"></i></div><h3 class="empty-title">No props available</h3><p class="empty-text">No player props for ${escapeHtml(data.date || '')}. Bookmakers typically post player props 1-3 days before puck drop.</p></div>`;
             return;
         }
         _lastPropsData = liveProps;
@@ -1914,48 +1904,25 @@ let _propsMarketFilter = {
 };
 let _propsSideFilter = 'Over'; // 'Over' | 'Under' | 'both'
 
-let _bettingEdgeDates = null;
-
-async function getBettingEdgeDates() {
-    if (_bettingEdgeDates) return _bettingEdgeDates;
-    try {
-        const res = await safeFetchJson('/api/betting-edge/dates');
-        _bettingEdgeDates = (res && res.dates) || [];
-    } catch (e) {
-        _bettingEdgeDates = [];
-    }
-    return _bettingEdgeDates;
-}
-
-function nearestBettingEdgeDate(dates, target) {
-    if (!dates.length) return target;
-    if (dates.includes(target)) return target;
-    const future = dates.filter(d => d >= target);
-    if (future.length) return future[0];
-    return dates[dates.length - 1];
-}
-
 async function runBettingEdge() {
     const container = document.getElementById('bettingEdgeResults');
     if (!container) return;
     container.innerHTML = '<div class="loading"><div class="spinner"></div><span>Crunching model probabilities and odds...</span></div>';
 
-    const dateInput = document.getElementById('bettingEdgeDate');
-    const today = localToday();
-    const dates = await getBettingEdgeDates();
-    if (dateInput && dates.length && !dates.includes(dateInput.value)) {
-        dateInput.value = nearestBettingEdgeDate(dates, today);
-    }
-    const date = dateInput?.value || today;
-
     async function loadDemo(reason) {
         console.warn(reason + ', using demo betting edge cache.');
         try {
             const raw = await safeFetchJson('/static/data/betting_edge_cache.json');
-            const demo = raw && raw.dates ? (raw.dates[date] || null) : raw;
+            let demo = raw;
+            if (raw && raw.dates) {
+                const dates = Object.keys(raw.dates).sort();
+                const target = localToday();
+                const key = raw.dates[target] ? target : (dates.find(d => d >= target) || dates[dates.length - 1] || null);
+                demo = key ? raw.dates[key] : null;
+            }
             if (!demo) {
                 _lastBettingEdgeData = null;
-                container.innerHTML = `<div class="error-box">No cached betting edge for ${escapeHtml(date)}.</div>`;
+                container.innerHTML = '<div class="error-box">No cached betting edge available.</div>';
                 return;
             }
             _lastBettingEdgeData = demo;
@@ -1965,13 +1932,13 @@ async function runBettingEdge() {
             renderBettingEdge(demo, container);
         } catch (demoErr) {
             _lastBettingEdgeData = null;
-            container.innerHTML = `<div class="error-box">Could not load betting edge: ${escapeHtml(e.message)}. Demo cache also failed to load: ${escapeHtml(demoErr.message)}.</div>`;
-            console.error('Betting edge demo load failed:', e, demoErr);
+            container.innerHTML = `<div class="error-box">Could not load betting edge. Demo cache also failed to load: ${escapeHtml(demoErr.message)}.</div>`;
+            console.error('Betting edge demo load failed:', demoErr);
         }
     }
 
     try {
-        const data = await latestFetch('betting-edge', `/api/betting-edge?date=${encodeURIComponent(date)}`);
+        const data = await latestFetch('betting-edge', '/api/betting-edge');
         if (data.error) {
             await loadDemo('Betting Edge API returned error: ' + data.error);
             return;
@@ -2019,8 +1986,8 @@ function renderBettingEdge(data, container) {
         html += data.no_games
             ? `<div class="empty-state">
                 <div class="empty-icon"><i class="fa-solid fa-calendar-xmark"></i></div>
-                <h3 class="empty-title">No games scheduled</h3>
-                <p class="empty-desc">No NHL games scheduled for ${escapeHtml(data.date)}. Check back on a game day.</p>
+                <h3 class="empty-title">No games today</h3>
+                <p class="empty-desc">No NHL games scheduled today — come back tomorrow.</p>
             </div>`
             : `<div class="empty-state">
                 <div class="empty-icon"><i class="fa-solid fa-bullseye"></i></div>
@@ -2124,19 +2091,7 @@ function renderBettingEdge(data, container) {
 }
 
 // ── Today's Picks Tab ─────────────────────────────────────────────
-let _todaysPicksDates = null;
 let _lastTodaysPicksData = null;
-
-async function getTodaysPicksDates() {
-    if (_todaysPicksDates) return _todaysPicksDates;
-    try {
-        const res = await safeFetchJson('/api/todays-picks/dates');
-        _todaysPicksDates = (res && res.dates) || [];
-    } catch (e) {
-        _todaysPicksDates = [];
-    }
-    return _todaysPicksDates;
-}
 
 function formatUpdatedAt(isoStr) {
     if (!isoStr) return 'unknown';
@@ -2170,16 +2125,8 @@ async function runTodaysPicks() {
     const updatedEl = document.getElementById('todaysPicksUpdated');
     if (updatedEl) updatedEl.style.display = 'none';
 
-    const dateInput = document.getElementById('todaysPicksDate');
-    const today = localToday();
-    const dates = await getTodaysPicksDates();
-    if (dateInput && dates.length && !dates.includes(dateInput.value)) {
-        dateInput.value = nearestBettingEdgeDate(dates, today);
-    }
-    const date = dateInput?.value || today;
-
     try {
-        const data = await latestFetch('todays-picks', `/api/todays-picks?date=${encodeURIComponent(date)}`);
+        const data = await latestFetch('todays-picks', '/api/todays-picks');
         if (data.error) {
             container.innerHTML = `<div class="error-box">${escapeHtml(data.error)}</div>`;
             return;
@@ -2211,8 +2158,8 @@ function renderTodaysPicks(data, container) {
         html += data.no_games
             ? `<div class="empty-state">
                 <div class="empty-icon"><i class="fa-solid fa-calendar-xmark"></i></div>
-                <h3 class="empty-title">No games scheduled</h3>
-                <p class="empty-desc">No NHL games scheduled for ${escapeHtml(data.date)}. Check back on a game day.</p>
+                <h3 class="empty-title">No games today</h3>
+                <p class="empty-desc">No NHL games scheduled today — come back tomorrow.</p>
             </div>`
             : `<div class="empty-state">
                 <div class="empty-icon"><i class="fa-solid fa-list-check"></i></div>
@@ -2406,7 +2353,7 @@ async function loadAppState() {
 // user hasn't touched (still holding the initial local value).
 function syncDateDefaults(leagueToday) {
     const initial = localToday();
-    ['lookupDate', 'propsDate', 'bettingEdgeDate', 'todaysPicksDate'].forEach(id => {
+    ['lookupDate'].forEach(id => {
         const el = document.getElementById(id);
         if (el && el.value === initial) el.value = leagueToday;
     });

@@ -17,7 +17,7 @@ import logging
 import sys
 from datetime import date as _date, timedelta
 
-from NHL.TodaysPicks import compute_and_cache_todays_picks
+from NHL.TodaysPicks import compute_and_cache_todays_picks, resolve_next_game_date
 
 logging.basicConfig(
     level=logging.INFO,
@@ -69,7 +69,7 @@ def main() -> int:
             logger.error(f"Invalid date format: {args.date}. Expected YYYY-MM-DD.")
             return 1
     else:
-        game_date = _date.today()
+        game_date = resolve_next_game_date(_date.today())
 
     return _update_one(game_date)
 

@@ -69,6 +69,7 @@ from NHL.TodaysPicks import (
     compute_and_cache_todays_picks,
     load_cached_todays_picks,
     list_cached_todays_picks_dates,
+    resolve_next_game_date,
 )
 
 logger = logging.getLogger(__name__)
@@ -967,10 +968,13 @@ def api_boxscore(game_id: str):
 
 # ── API: Player Props ─────────────────────────────────────────────────
 
+@app.route("/api/player-props", defaults={"date_str": None})
 @app.route("/api/player-props/<date_str>")
-def api_player_props(date_str: str):
+def api_player_props(date_str: Optional[str] = None):
     """
     Return player prop odds + model edge for a given date.
+
+    When no date is given, the next NHL game day is used.
 
     Query params:
         markets   – comma-separated list (default: player_points,player_assists,
@@ -981,7 +985,7 @@ def api_player_props(date_str: str):
     try:
         from NHL.PlayerLinePredictor import compute_player_props_for_date
 
-        game_date = _parse_date(date_str)
+        game_date = _parse_date(date_str) or resolve_next_game_date(league_today())
         markets = request.args.getlist("markets")
         if markets:
             markets = [m.strip().lower().replace(" ", "_") for m in markets]
@@ -1002,12 +1006,12 @@ def api_player_props(date_str: str):
 
         if not records and warning:
             return jsonify({
-                "date": date_str,
+                "date": game_date.isoformat(),
                 "props": [],
                 "no_live_odds": True,
                 "warning": warning,
             })
-        return jsonify({"date": date_str, "props": _make_json_safe(records)})
+        return jsonify({"date": game_date.isoformat(), "props": _make_json_safe(records)})
 
     except BadRequestError:
         raise
@@ -1037,7 +1041,7 @@ def api_betting_edge():
     """
     try:
         date_str = request.args.get("date")
-        game_date = _parse_date(date_str) or league_today()
+        game_date = _parse_date(date_str) or resolve_next_game_date(league_today())
         edge_threshold = float(request.args.get("edge_threshold", "0.03"))
         force_demo = request.args.get("demo", "0").lower() in ("1", "true", "yes")
 
@@ -1124,7 +1128,7 @@ def api_todays_picks():
     """
     try:
         date_str = request.args.get("date")
-        game_date = _parse_date(date_str) or league_today()
+        game_date = _parse_date(date_str) or resolve_next_game_date(league_today())
 
         cached, warning = load_cached_todays_picks(game_date, max_age_hours=24.0)
         if cached is not None and cached.get("date") == game_date.isoformat():

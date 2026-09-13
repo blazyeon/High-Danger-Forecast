@@ -113,6 +113,28 @@ def load_cached_todays_picks(
     return payload, None
 
 
+def resolve_next_game_date(start: _date, max_lookahead: int = 14) -> _date:
+    """
+    Return the next date with NHL games, starting from `start` (inclusive).
+
+    Used so the "Today's Picks" tab always points at a real game day: during the
+    season this is just today, but in the preseason gap (or on an off day) it
+    rolls forward to the next scheduled game.
+    """
+    for offset in range(max_lookahead + 1):
+        d = start + timedelta(days=offset)
+        try:
+            games = safe_api_call(
+                get_games_on_date, d.isoformat(),
+                service_name="NHL Schedule API", fallback=[],
+            )
+        except Exception:
+            games = []
+        if games:
+            return d
+    return start
+
+
 def compute_and_cache_todays_picks(
     day: _date,
     sims: int = DEFAULT_SIMS,
