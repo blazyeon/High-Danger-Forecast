@@ -69,6 +69,7 @@ const TEAMS_FALLBACK = {
 // ── Init ─────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
     initTabs();
+    runTodaysPicks();
     initDateDefaults();
     initDatePickers();
     initSettingsToggle();
