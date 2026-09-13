@@ -38,6 +38,10 @@ pbp_cache/mp/
 # Old training DBs (keep elo_ratings.db and current season)
 training_data_*.db
 
+# SQLite WAL sidecar files (transient; regenerated while the DB is open)
+*.db-shm
+*.db-wal
+
 .env
 
 # Logs
