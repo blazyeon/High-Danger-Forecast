@@ -101,7 +101,6 @@ function initTabs() {
             btn.classList.add('active');
             document.getElementById(`tab-${btn.dataset.tab}`).classList.add('active');
             if (btn.dataset.tab === 'elo') runElo();
-            if (btn.dataset.tab === 'rookies') runRookies();
             if (btn.dataset.tab === 'betting-edge') runBettingEdge();
             if (btn.dataset.tab === 'props') runProps();
             if (btn.dataset.tab === 'todays-picks') runTodaysPicks();
@@ -539,7 +538,6 @@ function setupEventListeners() {
     document.getElementById('lookupBtn').addEventListener('click', runLookup);
     document.getElementById('statsBtn').addEventListener('click', runStats);
     document.getElementById('eloBtn').addEventListener('click', refreshElo);
-    document.getElementById('rookiesBtn').addEventListener('click', refreshRookies);
 }
 
 // ── Simulation Log ────────────────────────────────────────────────
@@ -1638,6 +1636,7 @@ function eloToolbarHtml(showPlayerControls) {
     html += '<span class="props-toolbar-label">View:</span>';
     html += `<button class="props-sort-btn ${_eloView === 'teams' ? 'active' : ''}" onclick="setEloView('teams')">Teams</button>`;
     html += `<button class="props-sort-btn ${_eloView === 'players' ? 'active' : ''}" onclick="setEloView('players')">Players</button>`;
+    html += `<button class="props-sort-btn ${_eloView === 'rookies' ? 'active' : ''}" onclick="setEloView('rookies')">Rookies</button>`;
     if (showPlayerControls) {
         html += '<span class="props-toolbar-label">Sort:</span>';
         ELO_PLAYER_SORTS.forEach(s => {
@@ -1652,6 +1651,8 @@ async function runElo() {
     const container = document.getElementById('eloResults');
     if (_eloView === 'players') {
         await renderEloPlayers(container);
+    } else if (_eloView === 'rookies') {
+        await renderRookies(container);
     } else {
         await renderEloTeams(container);
     }
@@ -1715,7 +1716,7 @@ async function renderEloPlayers(container) {
             const data = await safeFetchJson(url);
             if (data.error) throw new Error(data.error);
             _lastEloPlayers = data.players || [];
-            _lastEloRookies = data.rookies || {};
+            _lastEloRookies = data.rookies || [];
             _lastEloStatsSeason = data.stats_season || '';
         }
         _eloForceRefresh = false;
@@ -1825,20 +1826,6 @@ async function renderEloPlayers(container) {
     }
 }
 
-function refreshRookies() {
-    _lastEloPlayers = null;
-    _lastEloRookies = null;
-    _lastEloStatsSeason = '';
-    _eloForceRefresh = true;
-    runRookies();
-}
-
-async function runRookies() {
-    const container = document.getElementById('rookiesResults');
-    if (!container) return;
-    await renderRookies(container);
-}
-
 async function renderRookies(container) {
     container.innerHTML = '<div class="loading"><div class="spinner"></div><span>Loading rookies...</span></div>';
 
@@ -1848,74 +1835,54 @@ async function renderRookies(container) {
             const data = await safeFetchJson(url);
             if (data.error) throw new Error(data.error);
             _lastEloPlayers = data.players || [];
-            _lastEloRookies = data.rookies || {};
+            _lastEloRookies = data.rookies || [];
             _lastEloStatsSeason = data.stats_season || '';
         }
         _eloForceRefresh = false;
 
-        const rookies = _lastEloRookies || {};
-        const nhl = (rookies.nhl || []).slice().sort((a, b) => (b.rating || 0) - (a.rating || 0));
-        const prospects = (rookies.prospects || []).slice().sort((a, b) => (b.points_pg || 0) - (a.points_pg || 0));
+        const rookies = (_lastEloRookies || []).slice();
 
-        let html = '';
+        let html = eloToolbarHtml(false);
 
-        // ── Current NHL rookies ──
-        html += '<div class="rookie-section-title"><i class="fa-solid fa-hockey-puck"></i> NHL Rookies</div>';
-        if (!nhl.length) {
-            html += '<div class="empty-state"><div class="empty-icon"><i class="fa-solid fa-user"></i></div><h3 class="empty-title">No NHL rookies</h3><p class="empty-desc">No young players with a small NHL sample this season.</p></div>';
-        } else {
-            html += '<div class="table-wrap"><table class="data-table elo-table"><thead><tr>';
-            html += '<th>#</th><th>Rookie</th><th>Elo</th><th>GP</th><th>G</th><th>A</th><th>P</th>';
-            html += '</tr></thead><tbody>';
-            nhl.forEach((p, i) => {
-                const name = escapeHtml(p.name);
-                const team = escapeHtml(p.team || '');
-                const pos = escapeHtml(p.position || '');
-                const rating = Math.round(p.rating || 0);
-                const gp = p.games_played || 0;
-                const rankClass = i < 3 ? 'gold' : '';
-                html += `<tr>
-                    <td><strong class="${rankClass}">${i + 1}</strong></td>
-                    <td><div class="elo-player-name"><strong>${name}</strong><span class="elo-rookie">Rookie</span></div><span class="elo-pos">${pos}</span> <span class="elo-team">${team}</span></td>
-                    <td><strong class="${rankClass}">${rating}</strong></td>
-                    <td>${gp}</td>
-                    <td>${p.goals || 0}</td>
-                    <td>${p.assists || 0}</td>
-                    <td><strong>${p.points || 0}</strong></td>
-                </tr>`;
-            });
-            html += '</tbody></table></div>';
+        if (!rookies.length) {
+            html += '<div class="empty-state"><div class="empty-icon"><i class="fa-solid fa-seedling"></i></div><h3 class="empty-title">No rookies</h3><p class="empty-desc">No rookie-season players or prospects are available yet. Run <code>python update_rosters.py</code> to refresh projections.</p></div>';
+            container.innerHTML = html;
+            return;
         }
 
-        // ── Prospects ──
-        html += '<div class="rookie-section-title"><i class="fa-solid fa-seedling"></i> Prospects</div>';
-        if (!prospects.length) {
-            html += '<div class="empty-state"><div class="empty-icon"><i class="fa-solid fa-seedling"></i></div><h3 class="empty-title">No prospects</h3><p class="empty-desc">No first-year prospect projections are available. Run <code>python update_rosters.py</code> to refresh them.</p></div>';
-        } else {
-            html += '<div class="table-wrap"><table class="data-table elo-table"><thead><tr>';
-            html += '<th>#</th><th>Prospect</th><th>League</th><th>P/GP</th><th>G/GP</th><th>A/GP</th><th>S/GP</th>';
-            html += '</tr></thead><tbody>';
-            prospects.forEach((p, i) => {
-                const name = escapeHtml(p.name);
-                const team = escapeHtml(p.team || '');
-                const pos = escapeHtml(p.position || '');
-                const lg = escapeHtml(p.source_league || '');
-                const fmt = v => v != null ? v.toFixed(2) : '—';
-                const rankClass = i < 3 ? 'gold' : '';
-                html += `<tr>
-                    <td><strong class="${rankClass}">${i + 1}</strong></td>
-                    <td><div class="elo-player-name"><strong>${name}</strong></div><span class="elo-pos">${pos}</span> <span class="elo-team">${team}</span></td>
-                    <td>${lg}</td>
-                    <td><strong>${fmt(p.points_pg)}</strong></td>
-                    <td>${fmt(p.goals_pg)}</td>
-                    <td>${fmt(p.assists_pg)}</td>
-                    <td>${fmt(p.shots_pg)}</td>
-                </tr>`;
-            });
-            html += '</tbody></table></div>';
-            html += `<div class="cors-notice" style="margin-top:12px"><i class="fa-solid fa-seedling"></i> Prospects with NHLe-style per-game projections from their most recent non-NHL league, age-adjusted for junior leagues.</div>`;
-        }
+        html += '<div class="table-wrap"><table class="data-table elo-table"><thead><tr>';
+        html += '<th>#</th><th>Rookie</th><th>Elo</th><th>GP</th><th>G</th><th>A</th><th>P</th><th>P/GP</th><th>League</th>';
+        html += '</tr></thead><tbody>';
 
+        rookies.forEach((p, i) => {
+            const name = escapeHtml(p.name);
+            const team = escapeHtml(p.team || '');
+            const pos = escapeHtml(p.position || '');
+            const lg = escapeHtml(p.source_league || '');
+            const rating = Math.round(p.rating || 0);
+            const isNhl = (p.games_played || 0) > 0;
+            const gp = isNhl ? (p.games_played || 0) : '—';
+            const g = isNhl ? (p.goals || 0) : '—';
+            const a = isNhl ? (p.assists || 0) : '—';
+            const pts = isNhl ? (p.points || 0) : '—';
+            const ppg = p.points_pg != null ? p.points_pg.toFixed(2) : '—';
+            const badge = isNhl ? '<span class="elo-rookie">Rookie</span>' : '';
+            const rankClass = i < 3 ? 'gold' : '';
+            html += `<tr>
+                <td><strong class="${rankClass}">${i + 1}</strong></td>
+                <td><div class="elo-player-name"><strong>${name}</strong>${badge}</div><span class="elo-pos">${pos}</span> <span class="elo-team">${team}</span></td>
+                <td><strong class="${rankClass}">${rating}</strong></td>
+                <td>${gp}</td>
+                <td>${g}</td>
+                <td>${a}</td>
+                <td><strong>${pts}</strong></td>
+                <td>${ppg}</td>
+                <td>${lg}</td>
+            </tr>`;
+        });
+
+        html += '</tbody></table></div>';
+        html += '<div class="cors-notice" style="margin-top:12px"><i class="fa-solid fa-seedling"></i> Rookie-season players (small NHL sample / rookie contract) ranked by Elo, plus projected prospects ranked by their NHLe-style points pace.</div>';
         container.innerHTML = html;
     } catch (e) {
         console.error('Rookies failed:', e);
@@ -2167,7 +2134,7 @@ let _bettingEdgeIsDemo = false;
 let _bettingEdgeDemoReason = null;
 
 // ── Elo Tab ──────────────────────────────────────────────────────
-let _eloView = 'teams';       // 'teams' | 'players'
+let _eloView = 'teams';       // 'teams' | 'players' | 'rookies'
 let _eloSort = 'elo';         // 'elo' | 'goals' | 'assists' | 'points' | 'defense' | 'goaltending'
 let _eloForceRefresh = false;
 let _lastEloTeams = null;

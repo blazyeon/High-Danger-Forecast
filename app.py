@@ -826,6 +826,11 @@ def _compute_elo_players(state: Dict[str, Any], stats_year: int) -> Dict[str, An
             "assists": r["assists"],
             "points": r["points"],
             "shots": r["shots"],
+            "goals_pg": r["goals"] / max(gp, 1),
+            "assists_pg": r["assists"] / max(gp, 1),
+            "points_pg": r["points"] / max(gp, 1),
+            "shots_pg": r["shots"] / max(gp, 1),
+            "source_league": "NHL",
             "goal_elo": r["goal_elo"],
             "assist_elo": r["assist_elo"],
             "points_elo": r["points_elo"],
@@ -839,14 +844,18 @@ def _compute_elo_players(state: Dict[str, Any], stats_year: int) -> Dict[str, An
         if normalize_name_key(r["name"]) in nhl_rookie_keys:
             r["rookie"] = True
 
+    # One combined rookie list: projected prospects (no NHL sample yet) plus
+    # current-NHL players in their rookie season / on a rookie contract. Rank
+    # by Elo first (real Elo for NHL rookies, 1500 default for prospects), then
+    # by projected points pace as the tiebreaker.
+    rookie_rows = prospect_rows + nhl_rookie_rows
+    rookie_rows.sort(key=lambda x: (-(x["rating"] or 0.0), -(x["points_pg"] or 0.0)))
+
     return {
         "season": current_season,
         "stats_season": f"{stats_year}{stats_year + 1}",
         "players": _make_json_safe(players),
-        "rookies": {
-            "nhl": _make_json_safe(nhl_rookie_rows),
-            "prospects": _make_json_safe(prospect_rows),
-        },
+        "rookies": _make_json_safe(rookie_rows),
     }
 
 
