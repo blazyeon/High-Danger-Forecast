@@ -1869,11 +1869,10 @@ async function renderRookies(container) {
             const a = isNhl ? (p.assists || 0) : '—';
             const pts = isNhl ? (p.points || 0) : '—';
             const ppg = p.points_pg != null ? p.points_pg.toFixed(2) : '—';
-            const badge = isNhl ? '<span class="elo-rookie">Rookie</span>' : '';
             const rankClass = i < 3 ? 'gold' : '';
             html += `<tr>
                 <td><strong class="${rankClass}">${i + 1}</strong></td>
-                <td><div class="elo-player-name"><strong>${name}</strong>${badge}</div><span class="elo-pos">${pos}</span> <span class="elo-team">${team}</span></td>
+                <td><div class="elo-player-name"><strong>${name}</strong></div><span class="elo-pos">${pos}</span> <span class="elo-team">${team}</span></td>
                 <td><strong class="${rankClass}">${rating}</strong></td>
                 <td>${gp}</td>
                 <td>${g}</td>
@@ -1921,7 +1920,7 @@ async function runProps() {
             _lastPropsData = [];
             _propsIsDemo = false;
             _propsDemoReason = null;
-            container.innerHTML = `<div class="empty-state"><div class="empty-icon"><i class="fa-solid fa-dice"></i></div><h3 class="empty-title">No props available</h3><p class="empty-text">No player props for ${escapeHtml(data.date || '')}. Bookmakers typically post player props 1-3 days before puck drop.</p></div>`;
+            container.innerHTML = `<div class="empty-state"><div class="empty-icon"><i class="fa-solid fa-dice"></i></div><h3 class="empty-title">No props available</h3><p class="empty-text">No props with a positive edge for ${escapeHtml(data.date || '')}.</p></div>`;
             return;
         }
         _lastPropsData = liveProps;
@@ -2226,12 +2225,7 @@ function renderBettingEdge(data, container) {
     if (data.warning) {
         html += `<div class="betting-edge-warning"><i class="fa-solid fa-triangle-exclamation"></i> ${escapeHtml(data.warning)}</div>`;
     }
-    if (data.no_live_odds) {
-        html += `<div class="demo-notice">
-            <i class="fa-solid fa-tower-broadcast"></i> ${escapeHtml(data.warning || 'Live odds are unavailable; no recommendations can be shown.')}
-            Set <code>ODDS_API_KEY</code> for real odds.
-        </div>`;
-    } else if (data.source === 'demo' || _bettingEdgeIsDemo) {
+    if (data.source === 'demo' || _bettingEdgeIsDemo) {
         html += `<div class="demo-notice">
             <i class="fa-solid fa-tower-broadcast"></i> Showing sample value bets because live odds are unavailable${_bettingEdgeDemoReason ? ': ' + escapeHtml(_bettingEdgeDemoReason) : ''}.
             Set <code>ODDS_API_KEY</code> for real odds.
@@ -2247,8 +2241,7 @@ function renderBettingEdge(data, container) {
             </div>`
             : `<div class="empty-state">
                 <div class="empty-icon"><i class="fa-solid fa-bullseye"></i></div>
-                <h3 class="empty-title">No value bets</h3>
-                <p class="empty-desc">No market edges above the 3% threshold for ${escapeHtml(data.date)}. Try a different date or check back after the next odds update.</p>
+                <h3 class="empty-title">No props available</h3>
             </div>`;
         container.innerHTML = html;
         return;
