@@ -226,7 +226,7 @@ def compute_defensive_impact_scores(
         league_xga60 = float(xga60_series.dropna().median()) or LEAGUE_AVG_XGA60
 
     rows: List[Dict[str, Any]] = []
-    for _, row in df[df["situation"] == situation].iterrows():
+    for _, row in sub.iterrows():
         team = str(row.get("team", "") or "").upper()
         rec = _compute_player_defense_row(
             row,

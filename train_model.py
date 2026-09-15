@@ -632,7 +632,7 @@ def train_model(
                         gamma=float(10.0 ** rng.uniform(-3.0, 0.0)),
                         max_delta_step=float(rng.choice([0.0, 0.0, 0.0, 0.5, 1.0])),
                         scale_pos_weight=float(np.clip(
-                            (np.mean(y) + 1e-6) / (1.0 - np.mean(y) + 1e-6), 0.8, 1.4
+                            (1.0 - np.mean(y) + 1e-6) / (np.mean(y) + 1e-6), 0.8, 1.4
                         )),
                     )
                 )

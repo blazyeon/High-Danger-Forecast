@@ -18,6 +18,7 @@ from typing import Any, Dict, List, Optional, Tuple
 import numpy as np
 import pandas as pd
 from flask import Flask, render_template, jsonify, request, send_from_directory
+from werkzeug.exceptions import HTTPException
 
 from NHL.AppState import (
     get_app_state, get_state_info, check_elo_data_availability,
@@ -103,6 +104,8 @@ def _ensure_state():
 
 @app.errorhandler(Exception)
 def _handle_exception(e):
+    if isinstance(e, HTTPException):
+        return e
     logger.error(f"Unhandled exception: {e}\n{traceback.format_exc()}")
     return jsonify({"error": "Internal server error"}), 500
 

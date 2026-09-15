@@ -236,9 +236,12 @@ def score_combo_distribution(exp_home: float, exp_away: float, total: int) -> Li
         logp = logp_away + logp_home
         log_probs.append(logp)
     max_log = max(log_probs) if log_probs else float("-inf")
+    if not math.isfinite(max_log):
+        n = total + 1
+        return [(i, total - i, 1.0 / n) for i in range(0, total + 1)]
     exp_probs = [math.exp(lp - max_log) for lp in log_probs]
     s = sum(exp_probs)
-    if s <= 0:
+    if s <= 0 or math.isnan(s):
         n = total + 1
         return [(i, total - i, 1.0 / n) for i in range(0, total + 1)]
     normalized = [p / s for p in exp_probs]
@@ -284,6 +287,11 @@ def choose_non_tie_split(total: int, exp_home: float, exp_away: float, prefer_ho
 
     # All combos tie — force based on preference
     prefer_home = prefer_home_win
+
+    if total == 0:
+        # A scoreless game can't produce a non-tie split summing to 0; the
+        # OT/SO winner is represented as a 1-0 score.
+        return (0, 1) if prefer_home else (1, 0)
 
     if exp_home + exp_away <= 0:
         if prefer_home:

@@ -124,10 +124,12 @@ def _download(url: str, out_path: Path, force: bool = False) -> bool:
         time.sleep(0.5)  # be polite
         resp = _get_session().get(url, timeout=120, stream=True)
         resp.raise_for_status()
-        with open(out_path, "wb") as f:
+        tmp_path = out_path.with_suffix(out_path.suffix + ".tmp")
+        with open(tmp_path, "wb") as f:
             for chunk in resp.iter_content(chunk_size=1 << 16):
                 if chunk:
                     f.write(chunk)
+        os.replace(tmp_path, out_path)
         logger.info(f"Downloaded {url} → {out_path} ({out_path.stat().st_size:,} bytes)")
         return True
     except Exception as e:

@@ -137,7 +137,7 @@ def build_features(
     """
     df = shots.copy()
     if df.empty:
-        return pd.DataFrame(columns=ALL_FEATURE_COLS)
+        return pd.DataFrame(columns=ALL_FEATURE_COLS + ["shot_type_other"])
 
     # ── Coordinates → distance, angle, flipped coords
     coords = df[["x", "y"]].astype(float).values
@@ -320,7 +320,7 @@ def predict_xg(shots: pd.DataFrame, model_artifact: Optional[dict] = None) -> np
     if model_artifact is None:
         try:
             model_artifact = load_xg_model()
-        except FileNotFoundError:
+        except Exception:
             logger.warning("No trained xG model found, returning league-average 0.092")
             return np.full(len(shots), 0.092, dtype=float)
 

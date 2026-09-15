@@ -233,30 +233,36 @@ def _model_prob_for_spread(
     """
     Model probability of covering the puck line / spread.
 
-    If the simulation output contains a full margin distribution we use it
-    directly. Otherwise we fall back to the existing win-by-2+ proxy.
+    A favorite (-1.5) covers when it wins by 2+ goals; an underdog (+1.5)
+    covers when it does NOT lose by 2+ goals. ``margin_distribution``, when
+    present, is keyed by the *home* goal margin (home_goals - away_goals).
     """
     margin_dist = sim.get("margin_distribution")
-    if not margin_dist:
-        fallback = "home_win_2plus_pct" if is_home else "away_win_2plus_pct"
-        return float(sim.get(fallback, 25.0)) / 100.0
+    if margin_dist:
+        total = max(1, sum(margin_dist.values()))
+        cover_count = 0
+        for margin, count in margin_dist.items():
+            try:
+                margin = float(margin)
+            except Exception:
+                continue
+            if target_point < 0:
+                # This side is the favorite: must win by more than |point|.
+                covers = margin > abs(target_point) if is_home else margin < -abs(target_point)
+            else:
+                # This side is the underdog: covers unless it loses by > point.
+                covers = margin > -target_point if is_home else margin < target_point
+            cover_count += count if covers else 0
+        return cover_count / total
 
-    total = max(1, sum(margin_dist.values()))
-    # Puck lines in NHL are typically +/- 1.5. A home team covers -1.5 when
-    # home goals - away goals >= 2, and +1.5 when home goals - away goals >= -1.
-    cover_count = 0
-    for margin, count in margin_dist.items():
-        try:
-            margin = float(margin)
-        except Exception:
-            continue
-        if target_point < 0:
-            # Favored team must win by more than the absolute spread.
-            cover_count += count if margin > abs(target_point) else 0
-        else:
-            # Underdog covers if margin is better than the spread (i.e. > -spread).
-            cover_count += count if margin > -target_point else 0
-    return cover_count / total
+    # No margin distribution: fall back to the win-by-2+ summary probabilities.
+    home_win_2plus = float(sim.get("home_win_2plus_pct", 25.0)) / 100.0
+    away_win_2plus = float(sim.get("away_win_2plus_pct", 25.0)) / 100.0
+    if target_point < 0:
+        # Favorite must win by 2+.
+        return home_win_2plus if is_home else away_win_2plus
+    # Underdog covers unless it loses by 2+.
+    return (1.0 - away_win_2plus) if is_home else (1.0 - home_win_2plus)
 
 
 def _edge_dict(**kwargs) -> Dict[str, Any]:

@@ -247,7 +247,7 @@ def get_team_injuries(team_abbr: str) -> Dict[str, str]:
         
         if roster_data:
             # Check all position groups
-            for position_group in ["forwards", "defensemen", "goalies"]:
+            for position_group in ["forwards", "defensemen", "goalies", "skaters"]:
                 players = roster_data.get(position_group, [])
                 if isinstance(players, list):
                     for player in players:

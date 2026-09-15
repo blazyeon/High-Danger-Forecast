@@ -9,9 +9,12 @@ const DIVISION_LABELS = { Atlantic: 'Atlantic', Metropolitan: 'Metro', Central: 
 const FORWARD_POSITIONS = ['C', 'L', 'R', 'LW', 'RW', 'W'];
 
 function escapeHtml(text) {
-    const div = document.createElement('div');
-    div.textContent = text;
-    return div.innerHTML;
+    return String(text ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
 }
 
 // Local-calendar "today" (the date picker shows the user's own day, not UTC).
@@ -463,7 +466,7 @@ async function populateGoalies() {
     const aRow = document.getElementById('awayGoalieRow');
     const hSel = document.getElementById('homeGoalie');
     const aSel = document.getElementById('awayGoalie');
-    const dateStr = new Date().toISOString().split('T')[0];
+    const dateStr = localToday();
 
     // Remember user selections so toggling B2B or refetching doesn't wipe them.
     const prevHomeGoalie = hSel.value;
@@ -2073,7 +2076,7 @@ function renderProps(props) {
         const prob = p.probOver.toFixed(1);
         const implied = p.impliedProb != null ? p.impliedProb.toFixed(1) : null;
         const teamAbbr = p.player_team || '';
-        const matchup = p.matchup || '—';
+        const matchup = (p.home_abbr && p.away_abbr) ? `${p.away_abbr} @ ${p.home_abbr}` : (p.home_team && p.away_team ? `${p.away_team} @ ${p.home_team}` : '—');
 
         html += `<div class="props-row ${rowClass}">
             <div class="props-cell props-player">

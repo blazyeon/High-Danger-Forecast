@@ -478,6 +478,7 @@ def compute_team_rates(
         return df
 
     # Add xG from the model if it's available
+    df["gsax"] = 0.0  # default so the per-game column below is always present
     try:
         from NHL.xGModel import load_xg_model, predict_xg
         model = load_xg_model()
