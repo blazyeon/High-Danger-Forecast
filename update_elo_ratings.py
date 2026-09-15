@@ -260,7 +260,11 @@ def calculate_player_initial_rating(stats: Dict, config: EloConfig) -> float:
         
         elo_adjustment = performance * 100
         elo_adjustment = max(-400, min(450, elo_adjustment))
-        
+        # Small-sample shrinkage: a one-game line is mostly noise, so regress
+        # the adjustment toward the 1500 prior as gp → 0. Without this, a
+        # player who scores in a single game shoots straight to the 1900 cap.
+        elo_adjustment *= min(1.0, gp / 10.0)
+
         initial_rating = config.initial_player_rating + elo_adjustment
         initial_rating = max(1100, min(1900, initial_rating))
         

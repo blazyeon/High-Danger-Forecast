@@ -561,6 +561,11 @@ def compute_skater_rates(
         shots = full_shots
         fd = td = ""
 
+    # Exclude goaltenders from skater rates. A goalie's player id can show up
+    # as a shooter (a rare blocked dump-in) or an assist, which would otherwise
+    # leak them into the skater leaderboard with a tiny gp and inflated rates.
+    goalie_ids = {int(x) for x in shots["goalie_id"].dropna().unique()}
+
     # Group by shooter_id (stable) but expose by shooter_name (what callers
     # will look up). Both can fail — empty shooter_name means we skip the row.
     out: Dict[str, Dict[str, float]] = {}
@@ -588,12 +593,16 @@ def compute_skater_rates(
                 pid_int = int(pid)
             except (TypeError, ValueError):
                 continue
+            if pid_int in goalie_ids:
+                continue
             assists_count[pid_int] = assists_count.get(pid_int, 0) + int(n)
     if "assist2_id" in shots.columns:
         for pid, n in shots["assist2_id"].value_counts().items():
             try:
                 pid_int = int(pid)
             except (TypeError, ValueError):
+                continue
+            if pid_int in goalie_ids:
                 continue
             assists_count[pid_int] = assists_count.get(pid_int, 0) + int(n)
 
@@ -621,6 +630,8 @@ def compute_skater_rates(
         try:
             shooter_id_int = int(shooter_id)
         except (TypeError, ValueError):
+            continue
+        if shooter_id_int in goalie_ids:
             continue
         name = grp["shooter_name"].iloc[0] if "shooter_name" in grp.columns else None
         if not name or str(name).strip() == "" or str(name).lower() == "nan":

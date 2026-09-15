@@ -669,6 +669,31 @@ def _zscore_elo(values: List[Optional[float]]) -> List[Optional[int]]:
     ]
 
 
+def _points_pg_rating(points_pg: Optional[float]) -> float:
+    """Map a projected NHL points-per-game pace to a 1500-centered rating.
+
+    Mirrors the forward curve in update_elo_ratings.calculate_player_initial_rating
+    so a prospect's NHLe projection lands on the same scale as an NHL rookie's
+    initial rating, instead of every prospect defaulting to a flat 1500.
+    """
+    if points_pg is None:
+        return 1500.0
+    if points_pg >= 1.75:
+        performance = 3.0 + (points_pg - 1.75) * 5.0
+    elif points_pg >= 1.4:
+        performance = 2.5 + (points_pg - 1.4) * 1.43
+    elif points_pg >= 1.2:
+        performance = 2.0 + (points_pg - 1.2) * 2.5
+    elif points_pg >= 1.0:
+        performance = 1.5 + (points_pg - 1.0) * 2.5
+    elif points_pg >= 0.7:
+        performance = 0.8 + (points_pg - 0.7) * 2.33
+    else:
+        performance = (points_pg - 0.5) * 1.6
+    rating = 1500.0 + performance * 100.0
+    return float(max(1100.0, min(1900.0, rating)))
+
+
 _ELO_PLAYERS_CACHE_PATH = Path("static/data/elo_players_cache.json")
 _ELO_PLAYERS_CACHE_TTL_HOURS = 24.0
 
@@ -797,7 +822,7 @@ def _compute_elo_players(state: Dict[str, Any], stats_year: int) -> Dict[str, An
             "name": name,
             "team": roster_teams.get(key, str(r.get("team") or "")),
             "position": position_by_name.get(key, "F"),
-            "rating": elo.get("rating", 1500.0),
+            "rating": elo.get("rating", _points_pg_rating(r.get("points_pg"))),
             "games_played": elo.get("games_played", 0),
             "goals_pg": r.get("goals_pg"),
             "assists_pg": r.get("assists_pg"),
