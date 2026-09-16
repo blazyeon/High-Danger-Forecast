@@ -80,7 +80,7 @@ function applyTheme(theme) {
         root.removeAttribute('data-theme');
     }
     const meta = document.querySelector('meta[name="theme-color"]');
-    if (meta) meta.setAttribute('content', theme === 'light' ? '#f4f5f7' : '#0a0a0c');
+    if (meta) meta.setAttribute('content', theme === 'light' ? '#ffffff' : '#05070d');
 }
 
 function initTheme() {
