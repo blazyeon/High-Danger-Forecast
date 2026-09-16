@@ -7,6 +7,14 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <script>
+        // Apply a saved light-mode preference before first paint to avoid a flash.
+        try {
+            if (localStorage.getItem('hdf-theme') === 'light') {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        } catch (e) {}
+    </script>
     <title>High Danger Forecast</title>
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -30,6 +38,10 @@
                 </div>
             </div>
             <div class="header-right">
+                <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle light and dark mode" title="Toggle light and dark mode">
+                    <i class="fa-solid fa-sun theme-icon-sun"></i>
+                    <i class="fa-solid fa-moon theme-icon-moon"></i>
+                </button>
                 <div class="status-pill" id="statusPill">
                     <span class="status-dot ready"></span>
                     <span class="status-label">Live</span>

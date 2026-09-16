@@ -69,8 +69,37 @@ const TEAMS_FALLBACK = {
     ],
 };
 
+// ── Theme (light / dark) ─────────────────────────────────────────
+const THEME_KEY = 'hdf-theme';
+
+function applyTheme(theme) {
+    const root = document.documentElement;
+    if (theme === 'light') {
+        root.setAttribute('data-theme', 'light');
+    } else {
+        root.removeAttribute('data-theme');
+    }
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.setAttribute('content', theme === 'light' ? '#f4f5f7' : '#0a0a0c');
+}
+
+function initTheme() {
+    let theme = 'dark';
+    try { theme = localStorage.getItem(THEME_KEY) === 'light' ? 'light' : 'dark'; } catch (e) {}
+    applyTheme(theme);
+    const btn = document.getElementById('themeToggle');
+    if (btn) {
+        btn.addEventListener('click', () => {
+            const next = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+            applyTheme(next);
+            try { localStorage.setItem(THEME_KEY, next); } catch (e) {}
+        });
+    }
+}
+
 // ── Init ─────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
+    initTheme();
     initTabs();
     runTodaysPicks();
     initDateDefaults();
