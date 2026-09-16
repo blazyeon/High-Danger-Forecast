@@ -84,8 +84,8 @@ function applyTheme(theme) {
 }
 
 function initTheme() {
-    let theme = 'dark';
-    try { theme = localStorage.getItem(THEME_KEY) === 'light' ? 'light' : 'dark'; } catch (e) {}
+    let theme = 'light';
+    try { theme = localStorage.getItem(THEME_KEY) === 'dark' ? 'dark' : 'light'; } catch (e) {}
     applyTheme(theme);
     const btn = document.getElementById('themeToggle');
     if (btn) {

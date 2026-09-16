@@ -3,14 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <meta name="theme-color" content="#05070d">
+    <meta name="theme-color" content="#ffffff">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <script>
-        // Apply a saved light-mode preference before first paint to avoid a flash.
+        // Apply the saved theme before first paint to avoid a flash (light by default).
         try {
-            if (localStorage.getItem('hdf-theme') === 'light') {
+            if (localStorage.getItem('hdf-theme') === 'dark') {
+                document.documentElement.removeAttribute('data-theme');
+            } else {
                 document.documentElement.setAttribute('data-theme', 'light');
             }
         } catch (e) {}
