@@ -39,6 +39,15 @@
     --shadow-glow: 0 0 28px rgba(59,130,246,0.14);
     --transition-fast: 0.15s ease;
     --transition-base: 0.25s ease;
+    --rink-blue: #3b82f6;
+    --rink-red: #d7263d;
+    --rink-board: rgba(255,255,255,0.55);
+    --rink-blue-line-opacity: 0.30;
+    --rink-red-line-opacity: 0.26;
+    --rink-circle-opacity: 0.22;
+    --rink-dot-opacity: 0.34;
+    --rink-crease-opacity: 0.18;
+    --rink-board-opacity: 0.30;
 }
 
 :root[data-theme="light"] {
@@ -69,6 +78,15 @@
     --row-hover: rgba(59,130,246,0.06);
     --shadow-card: 0 2px 4px rgba(15,23,42,0.06), 0 10px 32px rgba(15,23,42,0.10);
     --shadow-glow: 0 0 28px rgba(59,130,246,0.08);
+    --rink-blue: #1d4ed8;
+    --rink-red: #d7263d;
+    --rink-board: rgba(15,23,42,0.40);
+    --rink-blue-line-opacity: 0.20;
+    --rink-red-line-opacity: 0.18;
+    --rink-circle-opacity: 0.16;
+    --rink-dot-opacity: 0.26;
+    --rink-crease-opacity: 0.13;
+    --rink-board-opacity: 0.26;
 }
 
 * { margin:0; padding:0; box-sizing:border-box; }
@@ -112,6 +130,62 @@ button, a, input, select, textarea, .tab-btn, .action-btn, .predict-btn, .be-sor
         radial-gradient(ellipse 95% 75% at 50% -18%, rgba(59,130,246,0.07), transparent 55%),
         radial-gradient(ellipse 60% 50% at 100% 0%, rgba(215,38,61,0.05), transparent 45%),
         radial-gradient(ellipse 60% 50% at 0% 100%, rgba(59,130,246,0.05), transparent 45%);
+}
+
+/* ── Rink Background Layer ─────────────────────────────────────────── */
+.bg-rink {
+    position: fixed; inset: 0; z-index: 0;
+    pointer-events: none;
+}
+
+.rink-svg { width: 100%; height: 100%; display: block; }
+
+.rink-board {
+    fill: none;
+    stroke: var(--rink-board);
+    stroke-width: 18;
+    opacity: var(--rink-board-opacity);
+}
+
+.rink-line-blue { fill: var(--rink-blue); opacity: var(--rink-blue-line-opacity); }
+.rink-line-red  { fill: var(--rink-red);  opacity: var(--rink-red-line-opacity); }
+
+.rink-circle {
+    fill: none;
+    stroke: var(--rink-blue);
+    stroke-width: 6;
+    opacity: var(--rink-circle-opacity);
+}
+
+.rink-dot { fill: var(--rink-red); opacity: var(--rink-dot-opacity); }
+
+.rink-crease {
+    fill: var(--rink-blue);
+    stroke: var(--rink-red);
+    stroke-width: 3;
+    opacity: var(--rink-crease-opacity);
+}
+
+.rink-ref-crease {
+    fill: none;
+    stroke: var(--rink-red);
+    stroke-width: 5;
+    opacity: var(--rink-circle-opacity);
+}
+
+.rink-center-dot {
+    transform-box: fill-box;
+    transform-origin: center;
+}
+
+/* Subtle "live" pulse on the center-ice dot (skipped for reduced motion). */
+@media (prefers-reduced-motion: no-preference) {
+    .rink-center-dot { animation: rinkPulse 5s ease-in-out infinite; }
+}
+
+@keyframes rinkPulse {
+    0%, 100% { transform: scale(1); }
+    50%      { transform: scale(1.5); }
 }
 
 /* ── Header ──────────────────────────────────────────────────────── */
@@ -185,6 +259,7 @@ button, a, input, select, textarea, .tab-btn, .action-btn, .predict-btn, .be-sor
 :root[data-theme="light"] .theme-toggle .theme-icon-moon { display: inline; }
 
 .quota-banner {
+    position: relative; z-index: 1;
     max-width: 1280px; margin: 0 auto;
     padding: 8px calc(28px + env(safe-area-inset-right)) 10px calc(28px + env(safe-area-inset-left));
     background: var(--accent-gold-dim);
@@ -1520,6 +1595,7 @@ input[type="date"].param-input, input[type="date"].date-input {
 
 /* ── Footer ────────────────────────────────────────────────────── */
 .app-footer {
+    position: relative; z-index: 1;
     max-width: 1280px; margin: 0 auto;
     padding: 24px calc(28px + env(safe-area-inset-right)) 24px calc(28px + env(safe-area-inset-left));
     border-top: 1px solid var(--border-subtle);
