@@ -80,12 +80,12 @@ function applyTheme(theme) {
         root.removeAttribute('data-theme');
     }
     const meta = document.querySelector('meta[name="theme-color"]');
-    if (meta) meta.setAttribute('content', theme === 'light' ? '#ffffff' : '#0a0a0c');
+    if (meta) meta.setAttribute('content', theme === 'light' ? '#f4f5f7' : '#0a0a0c');
 }
 
 function initTheme() {
-    let theme = 'light';
-    try { theme = localStorage.getItem(THEME_KEY) === 'dark' ? 'dark' : 'light'; } catch (e) {}
+    let theme = 'dark';
+    try { theme = localStorage.getItem(THEME_KEY) === 'light' ? 'light' : 'dark'; } catch (e) {}
     applyTheme(theme);
     const btn = document.getElementById('themeToggle');
     if (btn) {
@@ -680,25 +680,25 @@ function renderResults(sim, homeAbbr, awayAbbr) {
 
     // Banner with explicit HOME / AWAY labels
     html += `<div class="result-banner">`;
-    html += `<div class="result-team-block">
-        <div class="result-team-head">
-            <span class="result-badge home">HOME</span>
-            <img class="result-team-logo" src="/api/logos/${homeAbbr}.png" alt="${homeName}" onerror="this.style.display='none'">
+    html += `<div class="result-team-block home">
+        <img class="result-team-logo" src="/api/logos/${homeAbbr}.png" alt="${homeName}" onerror="this.style.display='none'">
+        <div class="result-team-text">
+            <div class="result-badge home">HOME</div>
+            <div class="result-team-name" title="${escapeHtml(homeName)}">${homeName}</div>
+            <div class="result-team-abbr">${homeAbbr}</div>
         </div>
-        <div class="result-team-name" title="${escapeHtml(homeName)}">${homeName}</div>
-        <div class="result-team-abbr">${homeAbbr}</div>
     </div>`;
     html += `<div class="result-center">
         <div class="result-prediction-label">Prediction</div>
         <div class="result-prediction-value" style="color:${winnerColor}">${homeWin ? 'HOME WIN' : 'AWAY WIN'}</div>
     </div>`;
-    html += `<div class="result-team-block">
-        <div class="result-team-head">
-            <span class="result-badge away">AWAY</span>
-            <img class="result-team-logo" src="/api/logos/${awayAbbr}.png" alt="${awayName}" onerror="this.style.display='none'">
+    html += `<div class="result-team-block away">
+        <div class="result-team-text">
+            <div class="result-badge away">AWAY</div>
+            <div class="result-team-name" title="${escapeHtml(awayName)}">${awayName}</div>
+            <div class="result-team-abbr">${awayAbbr}</div>
         </div>
-        <div class="result-team-name" title="${escapeHtml(awayName)}">${awayName}</div>
-        <div class="result-team-abbr">${awayAbbr}</div>
+        <img class="result-team-logo" src="/api/logos/${awayAbbr}.png" alt="${awayName}" onerror="this.style.display='none'">
     </div>`;
     html += `</div>`;
 
