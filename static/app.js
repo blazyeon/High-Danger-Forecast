@@ -681,8 +681,10 @@ function renderResults(sim, homeAbbr, awayAbbr) {
     // Banner with explicit HOME / AWAY labels
     html += `<div class="result-banner">`;
     html += `<div class="result-team-block">
-        <div class="result-badge home">HOME</div>
-        <img class="result-team-logo" src="/api/logos/${homeAbbr}.png" alt="${homeName}" onerror="this.style.display='none'">
+        <div class="result-team-head">
+            <span class="result-badge home">HOME</span>
+            <img class="result-team-logo" src="/api/logos/${homeAbbr}.png" alt="${homeName}" onerror="this.style.display='none'">
+        </div>
         <div class="result-team-name" title="${escapeHtml(homeName)}">${homeName}</div>
         <div class="result-team-abbr">${homeAbbr}</div>
     </div>`;
@@ -691,8 +693,10 @@ function renderResults(sim, homeAbbr, awayAbbr) {
         <div class="result-prediction-value" style="color:${winnerColor}">${homeWin ? 'HOME WIN' : 'AWAY WIN'}</div>
     </div>`;
     html += `<div class="result-team-block">
-        <div class="result-badge away">AWAY</div>
-        <img class="result-team-logo" src="/api/logos/${awayAbbr}.png" alt="${awayName}" onerror="this.style.display='none'">
+        <div class="result-team-head">
+            <span class="result-badge away">AWAY</span>
+            <img class="result-team-logo" src="/api/logos/${awayAbbr}.png" alt="${awayName}" onerror="this.style.display='none'">
+        </div>
         <div class="result-team-name" title="${escapeHtml(awayName)}">${awayName}</div>
         <div class="result-team-abbr">${awayAbbr}</div>
     </div>`;

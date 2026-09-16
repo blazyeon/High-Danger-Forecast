@@ -537,11 +537,16 @@ input[type="date"].param-input, input[type="date"].date-input {
 
 .result-team-block { text-align: center; min-width: 140px; }
 
+.result-team-head {
+    display: flex; align-items: center; justify-content: center; gap: 12px;
+    margin-bottom: 12px;
+}
+
 .result-badge {
     display: inline-block;
     font-size: 9px; font-weight: 800; letter-spacing: 1px; padding: 3px 10px;
     border-radius: 100px; text-transform: uppercase;
-    margin-bottom: 10px;
+    white-space: nowrap;
 }
 .result-badge.home {
     background: var(--accent-glow); color: var(--accent); border: 1px solid var(--border-default);
@@ -552,7 +557,7 @@ input[type="date"].param-input, input[type="date"].date-input {
 
 .result-team-logo {
     width: 72px; height: 72px; object-fit: contain;
-    margin: 0 auto 12px; border-radius: var(--radius-md);
+    margin: 0; border-radius: var(--radius-md);
     background: var(--bg-base); padding: 6px;
     border: 1px solid var(--border-subtle);
     transition: var(--transition-fast);
