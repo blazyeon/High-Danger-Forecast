@@ -3,16 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <meta name="theme-color" content="#ffffff">
+    <meta name="theme-color" content="#020306">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <script>
-        // Apply the saved theme before first paint to avoid a flash (light by default).
+        // Apply a saved light-mode preference before first paint to avoid a flash.
         try {
-            if (localStorage.getItem('hdf-theme') === 'dark') {
-                document.documentElement.removeAttribute('data-theme');
-            } else {
+            if (localStorage.getItem('hdf-theme') === 'light') {
                 document.documentElement.setAttribute('data-theme', 'light');
             }
         } catch (e) {}
@@ -27,50 +25,6 @@
 <body>
     <div class="bg-noise"></div>
     <div class="bg-gradient"></div>
-    <div class="bg-rink" aria-hidden="true">
-        <svg class="rink-svg" viewBox="0 -137.5 2000 1125" preserveAspectRatio="xMidYMid slice" focusable="false" role="presentation">
-            <!-- Boards (subtle outer boundary) -->
-            <rect class="rink-board" x="14" y="14" width="1972" height="822" rx="280" />
-
-            <!-- Goal lines (red, thin) -->
-            <rect class="rink-line-red rink-goal-line" x="110" y="0" width="3" height="850" />
-            <rect class="rink-line-red rink-goal-line" x="1887" y="0" width="3" height="850" />
-
-            <!-- Blue lines -->
-            <rect class="rink-line-blue" x="745" y="0" width="10" height="850" />
-            <rect class="rink-line-blue" x="1245" y="0" width="10" height="850" />
-
-            <!-- Center red line -->
-            <rect class="rink-line-red rink-center-line" x="995" y="0" width="10" height="850" />
-
-            <!-- Center ice circle + dot -->
-            <circle class="rink-circle" cx="1000" cy="425" r="150" />
-            <circle class="rink-dot rink-center-dot" cx="1000" cy="425" r="11" />
-
-            <!-- End-zone faceoff circles + dots -->
-            <circle class="rink-circle" cx="310" cy="220" r="150" />
-            <circle class="rink-circle" cx="310" cy="630" r="150" />
-            <circle class="rink-circle" cx="1690" cy="220" r="150" />
-            <circle class="rink-circle" cx="1690" cy="630" r="150" />
-            <circle class="rink-dot" cx="310" cy="220" r="9" />
-            <circle class="rink-dot" cx="310" cy="630" r="9" />
-            <circle class="rink-dot" cx="1690" cy="220" r="9" />
-            <circle class="rink-dot" cx="1690" cy="630" r="9" />
-
-            <!-- Neutral-zone faceoff dots -->
-            <circle class="rink-dot" cx="800" cy="220" r="9" />
-            <circle class="rink-dot" cx="800" cy="630" r="9" />
-            <circle class="rink-dot" cx="1200" cy="220" r="9" />
-            <circle class="rink-dot" cx="1200" cy="630" r="9" />
-
-            <!-- Goal creases (blue, opening toward center ice) -->
-            <path class="rink-crease" d="M 110 365 A 60 60 0 0 1 110 485 Z" />
-            <path class="rink-crease" d="M 1890 365 A 60 60 0 0 0 1890 485 Z" />
-
-            <!-- Referee crease (red semicircle at center ice) -->
-            <path class="rink-ref-crease" d="M 900 425 A 100 100 0 0 0 1100 425 Z" />
-        </svg>
-    </div>
 
     <header class="app-header">
         <div class="header-inner">
