@@ -8,7 +8,6 @@ from __future__ import annotations
 
 import json
 import logging
-import os
 import sys
 from pathlib import Path
 from unittest import mock
@@ -86,7 +85,10 @@ def test_api_player_props_missing_key_is_handled():
     Without an API key the endpoint should return a JSON error rather than crash.
     """
     client = _client()
-    with mock.patch.dict(os.environ, {"ODDS_API_KEY": ""}, clear=False):
+    # Patch the resolver itself rather than the env var: clearing the env var
+    # would still let a local .env file supply a key, so the test would pass
+    # without exercising the missing-key path at all.
+    with mock.patch("NHL.OddsAPI._get_api_key", return_value=None):
         r = client.get("/api/player-props/2025-01-15")
         assert r.status_code in (200, 500)
         d = r.get_json()

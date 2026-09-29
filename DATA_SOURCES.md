@@ -70,7 +70,7 @@ needed:
 | **NHL API** (`api-web.nhle.com/v1`) | Play-by-play, schedule, rosters, boxscores | ✅ Primary, `NHL/PlayByPlay.py`, `NHL/ApiScrape.py` |
 | **MoneyPuck** (`peter-tanner.com/moneypuck`) | xG validation, season aggregates | ✅ Validation only, `NHL/MoneyPuck.py` |
 | **NST** (`naturalstattrick.com`) | Was: advanced stats tables | ❌ Deprecated, `NST/Cache.py` shim only |
-| **The Odds API** (`the-odds-api.com`) | Player prop odds, moneyline | ✅ In use, `NHL/OddsAPI.py` |
+| **SharpAPI** (`sharpapi.io`) | Player prop odds, moneyline | ✅ In use, `NHL/OddsAPI.py` |
 | **Hockey-Reference** | Historical Elo backfill | Not in use; CSV exports work fine for one-off imports |
 | **RapidAPI / API-NHL** | Aggregated | Not used; NHL API covers the need |
 | **Sportradar / Stats Perform** | Enterprise | Not used; $$$ |

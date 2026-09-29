@@ -1,7 +1,7 @@
 """
 Betting Edge module.
 
-Fetches NHL odds from The Odds API, caches them locally, removes vig,
+Fetches NHL odds from SharpAPI, caches them locally, removes vig,
 and compares no-vig implied probabilities to model probabilities to
 surface value bets.
 
@@ -451,7 +451,7 @@ def fetch_and_cache_odds(
     payload = {
         "date": day.isoformat(),
         "fetched_at": datetime.now(timezone.utc).isoformat(),
-        "source": "the-odds-api",
+        "source": "sharpapi",
         "events": data,
     }
 

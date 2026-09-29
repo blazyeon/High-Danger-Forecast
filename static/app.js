@@ -1946,7 +1946,7 @@ async function runProps() {
             _propsDemoReason = null;
             container.innerHTML = `<div class="demo-notice">
                 <i class="fa-solid fa-tower-broadcast"></i> ${escapeHtml(data.warning || 'Live odds are unavailable.')}
-                Set <code>ODDS_API_KEY</code> for real lines.
+                Set <code>SHARPAPI_KEY</code> for real lines.
             </div>`;
             return;
         }
@@ -2014,7 +2014,7 @@ function _canonicalMarketName(prop) {
 function renderProps(props) {
     const container = document.getElementById('propsResults');
     if (!props || props.length === 0) {
-        container.innerHTML = '<div class="empty-state"><div class="empty-icon"><i class="fa-solid fa-dice"></i></div><h3 class="empty-title">No props available</h3><p class="empty-text">Try a different date or check that ODDS_API_KEY is set.</p></div>';
+        container.innerHTML = '<div class="empty-state"><div class="empty-icon"><i class="fa-solid fa-dice"></i></div><h3 class="empty-title">No props available</h3><p class="empty-text">Try a different date or check that SHARPAPI_KEY is set.</p></div>';
         return;
     }
 
@@ -2059,7 +2059,7 @@ function renderProps(props) {
     if (_propsIsDemo) {
         html += `<div class="demo-notice">
             <i class="fa-solid fa-tower-broadcast"></i> Showing sample props because live odds are unavailable${_propsDemoReason ? ': ' + escapeHtml(_propsDemoReason) : ''}.
-            Set <code>ODDS_API_KEY</code> for real lines.
+            Set <code>SHARPAPI_KEY</code> for real lines.
         </div>`;
     }
 
@@ -2248,7 +2248,7 @@ function renderBettingEdge(data, container) {
     if (data.source === 'demo' || _bettingEdgeIsDemo) {
         html += `<div class="demo-notice">
             <i class="fa-solid fa-tower-broadcast"></i> Showing sample value bets because live odds are unavailable${_bettingEdgeDemoReason ? ': ' + escapeHtml(_bettingEdgeDemoReason) : ''}.
-            Set <code>ODDS_API_KEY</code> for real odds.
+            Set <code>SHARPAPI_KEY</code> for real odds.
         </div>`;
     }
 

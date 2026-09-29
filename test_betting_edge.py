@@ -174,7 +174,7 @@ def test_api_betting_edge_demo():
     data = resp.get_json()
     assert "games" in data
     assert "warning" in data
-    assert data.get("source") in ("demo", "the-odds-api")
+    assert data.get("source") in ("demo", "sharpapi")
 
     # Demo odds have 16 games and at least one should produce an edge.
     assert isinstance(data["games"], list)

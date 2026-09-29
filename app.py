@@ -1384,7 +1384,7 @@ def api_player_props(date_str: Optional[str] = None):
                         "date": game_date.isoformat(),
                         "props": [],
                         "no_live_odds": True,
-                        "warning": "Live odds are unavailable. Set ODDS_API_KEY for real lines.",
+                        "warning": "Live odds are unavailable. Set SHARPAPI_KEY for real lines.",
                     })
                 return jsonify({"date": game_date.isoformat(), "props": _make_json_safe(props)})
         except Exception:
@@ -1450,7 +1450,7 @@ def api_betting_edge():
                         "games": [],
                         "source": "demo",
                         "no_live_odds": True,
-                        "warning": "Live odds are unavailable. Set ODDS_API_KEY to see real value bets.",
+                        "warning": "Live odds are unavailable. Set SHARPAPI_KEY to see real value bets.",
                     })
                 # Apply a possibly stricter client threshold to the cached set.
                 games = cached.get("games", [])

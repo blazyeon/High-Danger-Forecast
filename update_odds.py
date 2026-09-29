@@ -1,7 +1,7 @@
 """
 Daily NHL odds update script.
 
-Fetches featured NHL odds (moneyline, puck line, totals) from The Odds API
+Fetches featured NHL odds (moneyline, puck line, totals) from SharpAPI
 and writes them to static/data/odds_cache.json so the web app can serve
 edges without hitting the API on every page load.
 
@@ -51,7 +51,7 @@ def _update_one(game_date: _date) -> int:
         logger.error(f"Unexpected error fetching odds: {e}")
         return 1
 
-    if payload and payload.get("source") == "the-odds-api":
+    if payload and payload.get("source") == "sharpapi":
         logger.info(f"Successfully cached {len(payload.get('events', []))} events.")
 
     if not payload or not payload.get("events"):

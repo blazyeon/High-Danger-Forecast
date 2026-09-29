@@ -52,7 +52,8 @@ python tune_elo.py
 ## Deployment
 
 - Target: Render (auto-deploys from `main` pushes).
-- Required production env var: `ODDS_API_KEY` for live odds / Betting Edge.
+- Required production env var: `SHARPAPI_KEY` for live odds / Betting Edge.
+- Odds provider is SharpAPI (free tier: 12 req/min, 60s delay, DraftKings + FanDuel only).
 - Verify Windows Task Scheduler path if the repo is moved.
 
 ## Things to watch

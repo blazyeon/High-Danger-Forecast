@@ -1,6 +1,6 @@
 """
 Player Line Predictor — hit probability calculations:
-- Fetches NHL player prop lines via The Odds API
+- Fetches NHL player prop lines via SharpAPI
 - Calculates hit probability using player Elo + NST stats
 - Sorts by most likely to hit
 - Returns recommended bets (Over/Under)
