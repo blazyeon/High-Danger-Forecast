@@ -1978,7 +1978,6 @@ function resetPropsFilters() {
         'Points': true,
         'Goals': true,
         'Assists': false,
-        'Shots': true,
         'Power Play Points': false,
         'Blocked Shots': false,
         'Saves': true,
@@ -2018,7 +2017,7 @@ function renderProps(props) {
         return;
     }
 
-    const marketOrder = ['Points', 'Goals', 'Assists', 'Shots', 'Power Play Points', 'Blocked Shots', 'Saves'];
+    const marketOrder = ['Points', 'Goals', 'Assists', 'Power Play Points', 'Blocked Shots', 'Saves'];
 
     let rows = props.map(p => {
         const rec = p.recommendation || 'Pass';
@@ -2041,10 +2040,10 @@ function renderProps(props) {
         };
     });
 
-    // Apply market filters. Goals market is Over-only.
+    // Apply market filters. Skater markets are Over-only; saves keep both sides.
     rows = rows.filter(p => {
-        if (p.canonicalMarket === 'Goals') {
-            return p.isOver && _propsMarketFilter['Goals'];
+        if (p.canonicalMarket !== 'Saves') {
+            return p.isOver && !!(p.canonicalMarket && _propsMarketFilter[p.canonicalMarket]);
         }
         return !!_propsMarketFilter[p.canonicalMarket];
     });

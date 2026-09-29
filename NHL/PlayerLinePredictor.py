@@ -47,7 +47,10 @@ DEFAULT_PLAYER_MARKETS = [
     "player_points",
     "player_assists",
     "player_goals",
-    "player_shots_on_goal",
+    # Books price scoring as "anytime goal scorer" rather than an Over/Under
+    # line, and the plain player_goals market only carries an Over-only 2+/3+
+    # ladder. Without this the goals board can only ever produce Unders.
+    "anytime_goal_scorer",
     "player_power_play_points",
     "player_blocked_shots",
     "player_total_saves",
@@ -280,18 +283,74 @@ def _season_with_player_stats(season: str) -> str:
     return season
 
 
+# Variance-to-mean ratio per market family, fitted against de-vigged
+# DraftKings main-line prices. 1.0 would be a pure Poisson process.
+_COUNT_DISPERSION = {
+    "save": 1.15,
+    "shot": 1.20,
+    "point": 1.20,
+    "goal": 1.20,
+    "assist": 1.20,
+}
+_DEFAULT_DISPERSION = 1.20
+
+
+def _dispersion_for_market(market: str) -> float:
+    """Variance-to-mean ratio for a count market; 1.0 would be Poisson."""
+    market_lower = market.lower()
+    for key, phi in _COUNT_DISPERSION.items():
+        if key in market_lower:
+            return phi
+    return _DEFAULT_DISPERSION
+
+
+def _nb_cdf(mean: float, dispersion: float, k: int) -> float:
+    """
+    P(X <= k) for a count with the given mean and variance-to-mean ratio.
+
+    A count prop is a count, not a normal deviate. The previous normal
+    approximation gave the tail far too much weight at low lines: Radko Gudas
+    (0.20 assists/game) came out at 39% to record one, where Poisson says 17.8%
+    and the book said 16.7%. That single error was the source of most of the
+    implausible "edges" on the props board. The negative binomial falls back to
+    Poisson as dispersion approaches 1 and carries the mild over-dispersion NHL
+    counting stats actually show.
+    """
+    if mean <= 0:
+        return 1.0
+    if k < 0:
+        return 0.0
+    if dispersion <= 1.0:
+        term = math.exp(-mean)
+        total = term
+        for i in range(1, k + 1):
+            term *= mean / i
+            total += term
+        return min(1.0, total)
+    r = mean / (dispersion - 1.0)
+    p = 1.0 / dispersion
+    term = math.exp(r * math.log(p))
+    total = term
+    for i in range(1, k + 1):
+        term *= (i + r - 1) / i * (1.0 - p)
+        total += term
+    return min(1.0, total)
+
+
+def _count_prob_over(mean: float, line: float, dispersion: float) -> float:
+    """P(X > line) in percent for a count with the given per-game mean."""
+    if mean <= 0:
+        return 0.0
+    return 100.0 * (1.0 - _nb_cdf(mean, dispersion, int(math.floor(line))))
+
+
 def _std_for_market(avg: float, market: str) -> float:
     """
-    Return a market-appropriate standard deviation for a per-game average.
+    Market-appropriate standard deviation for a per-game average.
 
-    Count stats (goals, assists, points, shots) are over-dispersed compared
-    to a pure Poisson process. We start with sqrt(mean) (Poisson baseline) and
-    multiply by a market-specific dispersion factor derived from typical NHL
-    season-to-season variance:
-        - Goals/assists are the most volatile (dispersion ~1.6)
-        - Points are slightly more stable than their components (~1.4)
-        - Shots are the most repeatable (~1.2)
-    A floor keeps low-volume players from collapsing to zero variance.
+    Still used for shots and saves: fitted against de-vigged book prices, the
+    normal path beats the negative binomial there (shots 6.25pp vs 9.01pp RMSE),
+    so only the 0.5-line markets use the count distribution.
     """
     market_lower = market.lower()
     if 'save' in market_lower:
@@ -423,14 +482,14 @@ def calculate_hit_probability(
     elo_rating = elo_data.get('elo', 1500)
     adjusted_avg = avg * _elo_rate_multiplier(elo_rating)
 
-    # Standard deviation that respects count-stat over-dispersion.
-    std = _std_for_market(adjusted_avg, market)
-
-    # Z-score: how many standard deviations away is the line
-    z_score = (line - adjusted_avg) / std
-
-    # Logistic CDF approximation of over probability.
-    base_prob = 100.0 / (1.0 + math.exp(z_score))
+    # The count distribution wins clearly on the 0.5-line markets, where the
+    # normal tail is far too heavy; on shots and saves the fitted normal beats it.
+    market_lower = market.lower()
+    if any(k in market_lower for k in ("goal", "assist", "point")):
+        base_prob = _count_prob_over(adjusted_avg, float(line), _dispersion_for_market(market))
+    else:
+        std = _std_for_market(adjusted_avg, market)
+        base_prob = 100.0 / (1.0 + math.exp((line - adjusted_avg) / std))
 
     # Floor/ceiling; never claim 0% or 100% from a noisy per-game estimate.
     prob_over = max(1.0, min(99.0, base_prob))
@@ -492,7 +551,13 @@ def _shape_player_df(
                             "under_american": None,
                             "over_decimal": None,
                             "under_decimal": None,
+                            # None when the feed does not flag main vs alternate.
+                            "is_main_line": None,
                         }
+
+                    flagged = o.get("is_main_line")
+                    if flagged is not None:
+                        by_player[key]["is_main_line"] = bool(by_player[key]["is_main_line"]) or bool(flagged)
 
                     if fmt == "american":
                         amer = None if price is None else int(round(float(price)))
@@ -509,6 +574,12 @@ def _shape_player_df(
                         by_player[key]["under_decimal"] = dec
 
                 for (_, _), rec in by_player.items():
+                    # An alternate line ("2+ points") is quoted Over-only, so it
+                    # is not a two-sided market and cannot be recommended as an
+                    # Under. Drop it at the source.
+                    if rec.get("is_main_line") is False:
+                        continue
+
                     # Calculate hit probability
                     prob_over, recommendation = calculate_hit_probability(
                         rec["player"],
@@ -723,22 +794,37 @@ def compute_player_props_for_date(
 
     df = _best_prices(df)
 
-    # Calculate model edge vs. book-implied probability (same convention as Betting Edge).
+    # Skater props are shown Over-only: the board is for "this player does the
+    # thing", and an Under on a 0.5 line is not what it is for. Goalie saves keep
+    # both sides, since backing a starter under his line is a normal bet.
+    def _side(row):
+        if "save" in str(row.get("market", "")).lower():
+            return row.get("recommendation")
+        return "Over"
+
+    df["side"] = df.apply(_side, axis=1)
+
+    # A pick is only actionable when the side chosen above is actually priced.
+    # Over-only alternate ladders have no Under, so this also drops the rows that
+    # used to appear as Unders with no book behind them.
+    priced = (
+        ((df["side"] == "Over") & df["over_decimal"].notna() & df["implied_over"].notna())
+        | ((df["side"] == "Under") & df["under_decimal"].notna() & df["implied_under"].notna())
+    )
+    df = df[priced].copy()
+
+    # Model edge vs. book-implied probability (same convention as Betting Edge).
     def _edge(row):
-        rec = row.get("recommendation")
-        if rec == "Over" and pd.notna(row.get("over_decimal")):
-            model_p = row["prob_over"] / 100.0
-            implied_p = row.get("implied_over", 50.0) / 100.0
-            return model_p - implied_p
-        if rec == "Under" and pd.notna(row.get("under_decimal")):
-            model_p = (100.0 - row["prob_over"]) / 100.0
-            implied_p = row.get("implied_under", 50.0) / 100.0
-            return model_p - implied_p
-        return None
+        if row["side"] == "Over":
+            return row["prob_over"] / 100.0 - float(row["implied_over"]) / 100.0
+        return (100.0 - row["prob_over"]) / 100.0 - float(row["implied_under"]) / 100.0
 
     df["edge"] = df.apply(_edge, axis=1)
-    # Keep only actionable props with a model pick.
-    df = df[df["recommendation"].isin(["Over", "Under"])].copy()
+    df["recommendation"] = df["side"]
+
+    # An Over that the book already prices above the model is not a pick.
+    df = df[(df["side"] == "Under") | (df["edge"] > 0)].copy()
+    df = df.drop(columns=["side"])
     df = df.sort_values(["edge", "prob_over"], ascending=False)
     df = df.reset_index(drop=True)
 

@@ -508,11 +508,26 @@ def _rows_to_events(rows: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
             market = {"key": market_key, "outcomes": [], "last_update": row.get("timestamp")}
             book["markets"].append(market)
 
+        selection = str(row.get("selection") or "").strip()
+        point = _as_float(row.get("line"))
+
+        # "Does X happen" markets (anytime goal scorer) carry the player's own
+        # name as the selection and no line, and quote only the yes side. Present
+        # them as an Over on a 0.5 line so the Over/Under machinery can price them.
+        if market_key == "anytime_goal_scorer":
+            selection = "Over"
+            point = 0.5
+
         outcome: Dict[str, Any] = {
-            "name": str(row.get("selection") or "").strip(),
+            "name": selection,
             "price": _as_int(row.get("odds_american")),
-            "point": _as_float(row.get("line")),
+            "point": point,
         }
+        # Books quote a two-sided main line plus an Over-only alternate ladder
+        # ("2+ points", "3+ points"). Downstream code needs to tell them apart:
+        # an alternate has no Under, so it can only ever be an Over bet.
+        if row.get("is_main_line") is not None:
+            outcome["is_main_line"] = bool(row.get("is_main_line"))
         if row.get("player_name"):
             outcome["description"] = str(row["player_name"])
         market["outcomes"].append(outcome)
