@@ -20,6 +20,8 @@
     --accent-glow: rgba(255,255,255,0.10);
     --accent-red: #ff4d6d;
     --accent-red-dim: rgba(255,77,109,0.22);
+    --accent-blue: #3d8bfd;
+    --accent-blue-dim: rgba(61,139,253,0.18);
     --accent-gold: #ffc857;
     --accent-gold-dim: rgba(255,200,87,0.22);
     --accent-green: #38e4c8;
@@ -59,6 +61,8 @@
     --accent-glow: rgba(0,0,0,0.06);
     --accent-red: #d7263d;
     --accent-red-dim: rgba(215,38,61,0.12);
+    --accent-blue: #00539b;
+    --accent-blue-dim: rgba(0,83,155,0.12);
     --accent-gold: #8a6d1d;
     --accent-gold-dim: rgba(138,109,29,0.14);
     --accent-green: #0e9f6e;
@@ -702,6 +706,8 @@ input[type="date"].param-input, input[type="date"].date-input {
 .elo-table th:nth-child(3) { width: 70px; }
 .elo-table th:nth-child(4) { width: 60px; }
 .elo-table th:nth-child(5) { min-width: 120px; }
+.elo-bar-fill { height: 100%; background: var(--accent-blue); border-radius: 5px; transition: width 0.7s ease; }
+.elo-top { color: var(--accent-red); }
 
 .elo-toolbar { flex-wrap: wrap; }
 .elo-toolbar .props-toolbar-label { margin-left: 10px; }
@@ -1053,8 +1059,8 @@ input[type="date"].param-input, input[type="date"].date-input {
 }
 
 .props-row.edge-slight { border-left: 2px solid var(--accent); }
-.props-row.edge-good { border-left: 2px solid var(--accent-green); }
-.props-row.edge-strong { border-left: 2px solid var(--accent-gold); }
+.props-row.edge-good { border-left: 2px solid var(--accent-blue); }
+.props-row.edge-strong { border-left: 2px solid var(--accent-red); }
 
 .props-cell { display: flex; flex-direction: column; gap: 4px; }
 
@@ -1097,8 +1103,8 @@ input[type="date"].param-input, input[type="date"].date-input {
 }
 
 .props-row.edge-slight .props-edge-badge { color: var(--accent); border-color: var(--border-default); }
-.props-row.edge-good .props-edge-badge { color: var(--accent-green); border-color: var(--border-default); }
-.props-row.edge-strong .props-edge-badge { color: var(--accent-gold); border-color: var(--border-default); }
+.props-row.edge-good .props-edge-badge { color: var(--accent-blue); border-color: var(--border-default); }
+.props-row.edge-strong .props-edge-badge { color: var(--accent-red); border-color: var(--border-default); }
 
 .props-filterbar { flex-wrap: wrap; }
 .props-side-label, .props-sort-label { margin-left: auto; }
@@ -1227,8 +1233,8 @@ input[type="date"].param-input, input[type="date"].date-input {
 }
 
 .be-card.edge-slight { border-left: 2px solid var(--accent); }
-.be-card.edge-good { border-left: 2px solid var(--accent-green); }
-.be-card.edge-strong { border-left: 2px solid var(--accent-gold); }
+.be-card.edge-good { border-left: 2px solid var(--accent-blue); }
+.be-card.edge-strong { border-left: 2px solid var(--accent-red); }
 
 .be-card-top {
     display: flex;
@@ -1316,8 +1322,8 @@ input[type="date"].param-input, input[type="date"].date-input {
 }
 
 .be-card.edge-slight .be-edge-badge { color: var(--accent); border-color: var(--border-default); }
-.be-card.edge-good .be-edge-badge { color: var(--accent-green); border-color: var(--border-default); }
-.be-card.edge-strong .be-edge-badge { color: var(--accent-gold); border-color: var(--border-default); }
+.be-card.edge-good .be-edge-badge { color: var(--accent-blue); border-color: var(--border-default); }
+.be-card.edge-strong .be-edge-badge { color: var(--accent-red); border-color: var(--border-default); }
 
 .be-probs {
     display: flex;

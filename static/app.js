@@ -1723,13 +1723,13 @@ async function renderEloTeams(container) {
             const rating = t.rating || 0;
             const gp = t.games_played || 0;
             const width = ((rating - minRating) / range * 100).toFixed(1);
-            const rankClass = i < 3 ? 'gold' : '';
+            const rankClass = i < 3 ? 'elo-top' : '';
             html += `<tr>
                 <td><strong class="${rankClass}">${i + 1}</strong></td>
                 <td><strong>${abbr}</strong> <span class="muted">${name}</span></td>
                 <td><strong class="${rankClass}">${Math.round(rating)}</strong></td>
                 <td>${gp}</td>
-                <td><div class="ou-bar-track" style="height:10px"><div class="ou-bar-fill" style="width:${width}%"></div></div></td>
+                <td><div class="ou-bar-track" style="height:10px"><div class="elo-bar-fill" style="width:${width}%"></div></div></td>
             </tr>`;
         });
 
@@ -1820,7 +1820,7 @@ async function renderEloPlayers(container) {
             const pos = escapeHtml(p.position || '');
             const elo = val(p);
             const gp = p.games_played || 0;
-            const rankClass = i < 3 ? 'gold' : '';
+            const rankClass = i < 3 ? 'elo-top' : '';
             const rookie = p.rookie ? '<span class="elo-rookie">Rookie</span>' : '';
             const rate = v => (gp > 0 ? (v / gp).toFixed(2) : '—');
 
@@ -1902,7 +1902,7 @@ async function renderRookies(container) {
             const a = isNhl ? (p.assists || 0) : '—';
             const pts = isNhl ? (p.points || 0) : '—';
             const ppg = p.points_pg != null ? p.points_pg.toFixed(2) : '—';
-            const rankClass = i < 3 ? 'gold' : '';
+            const rankClass = i < 3 ? 'elo-top' : '';
             html += `<tr>
                 <td><strong class="${rankClass}">${i + 1}</strong></td>
                 <td><div class="elo-player-name"><strong>${name}</strong></div><span class="elo-pos">${pos}</span> <span class="elo-team">${team}</span></td>
