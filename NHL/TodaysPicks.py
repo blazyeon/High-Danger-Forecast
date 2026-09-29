@@ -20,6 +20,7 @@ import numpy as np
 
 from NHL.BettingEdge import (
     compute_game_edges,
+    fetch_and_cache_odds,
     find_event_for_game,
     load_cached_odds,
     load_demo_odds,
@@ -151,13 +152,20 @@ def compute_and_cache_todays_picks(
     """
     cache_path = Path(cache_path or DEFAULT_CACHE_PATH)
 
-    # 1. Load odds (cached or demo) for edge computation.
+    # 1. Load odds for edge computation. The on-disk cache is only usable when
+    #    it is actually for this date; Render never receives the gitignored
+    #    odds_cache.json, so fall back to a live fetch before demo odds.
     warning = None
     if odds_payload is None:
         odds_payload, warning = load_cached_odds(day, max_age_hours=24.0)
-        if odds_payload is None:
-            odds_payload = load_demo_odds(DEFAULT_DEMO_PATH)
-            warning = "Using demo odds (no live odds cached)."
+        if not odds_payload or odds_payload.get("date") != day.isoformat():
+            try:
+                odds_payload = fetch_and_cache_odds(day)
+                warning = None
+            except Exception as e:
+                logger.warning(f"Live odds fetch failed for {day}: {e}")
+                odds_payload = load_demo_odds(DEFAULT_DEMO_PATH)
+                warning = "Using demo odds (no live odds cached)."
     events = odds_payload.get("events", [])
 
     # 2. Load schedule for the date.
