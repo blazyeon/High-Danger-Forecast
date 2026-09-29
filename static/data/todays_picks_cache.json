@@ -1015,7 +1015,7 @@
     },
     "2026-09-29": {
       "date": "2026-09-29",
-      "computed_at": "2026-09-29T20:54:38.658188+00:00",
+      "computed_at": "2026-09-29T21:03:25.201911+00:00",
       "source": "sharpapi",
       "warning": null,
       "no_games": false,
@@ -1655,6 +1655,7 @@
       "props": [
         {
           "player": "Sergei Bobrovsky",
+          "position": "G",
           "market": "Total Saves",
           "line": 25.5,
           "prob_over": 29.403913988080703,
@@ -1672,6 +1673,7 @@
         },
         {
           "player": "Kevin Lankinen",
+          "position": "G",
           "market": "Total Saves",
           "line": 27.5,
           "prob_over": 34.02429293924991,
@@ -1689,6 +1691,7 @@
         },
         {
           "player": "Gavin McKenna",
+          "position": "",
           "market": "Assists",
           "line": 0.5,
           "prob_over": 41.727298912577304,
@@ -1706,6 +1709,7 @@
         },
         {
           "player": "Mark Stone",
+          "position": "F",
           "market": "Assists",
           "line": 0.5,
           "prob_over": 51.554376804590895,
@@ -1723,6 +1727,7 @@
         },
         {
           "player": "David Pastrnak",
+          "position": "F",
           "market": "Assists",
           "line": 0.5,
           "prob_over": 58.97579041501124,
@@ -1740,6 +1745,7 @@
         },
         {
           "player": "Brady Tkachuk",
+          "position": "F",
           "market": "Assists",
           "line": 0.5,
           "prob_over": 43.95542767420072,
@@ -1757,6 +1763,7 @@
         },
         {
           "player": "Roman Kantserov",
+          "position": "",
           "market": "Anytime Goal Scorer",
           "line": 0.5,
           "prob_over": 31.99023796931264,
@@ -1774,6 +1781,7 @@
         },
         {
           "player": "Marco Rossi",
+          "position": "F",
           "market": "Assists",
           "line": 0.5,
           "prob_over": 47.02568438569106,
@@ -1791,6 +1799,7 @@
         },
         {
           "player": "Rasmus Andersson",
+          "position": "D",
           "market": "Points",
           "line": 0.5,
           "prob_over": 54.11038421489882,
@@ -1808,6 +1817,7 @@
         },
         {
           "player": "Marco Rossi",
+          "position": "F",
           "market": "Points",
           "line": 0.5,
           "prob_over": 58.245975080269474,
@@ -1825,6 +1835,7 @@
         },
         {
           "player": "Rasmus Andersson",
+          "position": "D",
           "market": "Anytime Goal Scorer",
           "line": 0.5,
           "prob_over": 18.87479347094102,
@@ -1842,6 +1853,7 @@
         },
         {
           "player": "Roman Kantserov",
+          "position": "",
           "market": "Points",
           "line": 0.5,
           "prob_over": 49.60385849137972,
@@ -1859,6 +1871,7 @@
         },
         {
           "player": "Oliver Ekman-Larsson",
+          "position": "D",
           "market": "Points",
           "line": 0.5,
           "prob_over": 36.15885250046799,
@@ -1876,6 +1889,7 @@
         },
         {
           "player": "Zeev Buium",
+          "position": "D",
           "market": "Assists",
           "line": 0.5,
           "prob_over": 32.49741176650131,
@@ -1893,6 +1907,7 @@
         },
         {
           "player": "Frank Nazar",
+          "position": "F",
           "market": "Assists",
           "line": 0.5,
           "prob_over": 30.170820413698728,
@@ -1910,6 +1925,7 @@
         },
         {
           "player": "Elias Lindholm",
+          "position": "F",
           "market": "Assists",
           "line": 0.5,
           "prob_over": 33.605961650905314,
@@ -1927,6 +1943,7 @@
         },
         {
           "player": "Jeremy Swayman",
+          "position": "G",
           "market": "Total Saves",
           "line": 24.5,
           "prob_over": 56.33628490010706,
@@ -1944,6 +1961,7 @@
         },
         {
           "player": "Anton Lundell",
+          "position": "F",
           "market": "Assists",
           "line": 0.5,
           "prob_over": 30.950093638981933,
@@ -1961,6 +1979,7 @@
         },
         {
           "player": "Sandis Vilmanis",
+          "position": "F",
           "market": "Anytime Goal Scorer",
           "line": 0.5,
           "prob_over": 13.995183938436185,
@@ -1978,6 +1997,7 @@
         },
         {
           "player": "Gavin McKenna",
+          "position": "",
           "market": "Points",
           "line": 0.5,
           "prob_over": 54.68989906236135,
@@ -1995,6 +2015,7 @@
         },
         {
           "player": "Matthew Tkachuk",
+          "position": "F",
           "market": "Assists",
           "line": 0.5,
           "prob_over": 47.06296404880117,
@@ -2012,6 +2033,7 @@
         },
         {
           "player": "Oliver Ekman-Larsson",
+          "position": "D",
           "market": "Assists",
           "line": 0.5,
           "prob_over": 30.39304237249697,
@@ -2029,6 +2051,7 @@
         },
         {
           "player": "Teddy Blueger",
+          "position": "F",
           "market": "Anytime Goal Scorer",
           "line": 0.5,
           "prob_over": 17.732993592618087,
@@ -2046,6 +2069,7 @@
         },
         {
           "player": "Elias Lindholm",
+          "position": "F",
           "market": "Points",
           "line": 0.5,
           "prob_over": 45.70737966669805,
@@ -2063,6 +2087,7 @@
         },
         {
           "player": "Cole Smith",
+          "position": "F",
           "market": "Anytime Goal Scorer",
           "line": 0.5,
           "prob_over": 14.989625301473808,
@@ -2080,6 +2105,7 @@
         },
         {
           "player": "Anton Lundell",
+          "position": "F",
           "market": "Points",
           "line": 0.5,
           "prob_over": 44.567219768752,
@@ -2097,6 +2123,7 @@
         },
         {
           "player": "Zeev Buium",
+          "position": "D",
           "market": "Points",
           "line": 0.5,
           "prob_over": 38.653560033430104,
@@ -2114,6 +2141,7 @@
         },
         {
           "player": "Shayne Gostisbehere",
+          "position": "D",
           "market": "Points",
           "line": 0.5,
           "prob_over": 54.6927307364365,
@@ -2131,6 +2159,7 @@
         },
         {
           "player": "Rasmus Andersson",
+          "position": "D",
           "market": "Assists",
           "line": 0.5,
           "prob_over": 43.43359142184303,
@@ -2148,6 +2177,7 @@
         },
         {
           "player": "Shayne Gostisbehere",
+          "position": "D",
           "market": "Assists",
           "line": 0.5,
           "prob_over": 46.82922702935479,
@@ -2165,6 +2195,7 @@
         },
         {
           "player": "Igor Shesterkin",
+          "position": "G",
           "market": "Total Saves",
           "line": 23.5,
           "prob_over": 58.78206979997583,
@@ -2182,6 +2213,7 @@
         },
         {
           "player": "Ivan Barbashev",
+          "position": "F",
           "market": "Assists",
           "line": 0.5,
           "prob_over": 35.281685680749554,
@@ -2199,6 +2231,7 @@
         },
         {
           "player": "William Carrier",
+          "position": "F",
           "market": "Anytime Goal Scorer",
           "line": 0.5,
           "prob_over": 10.686789080743598,
@@ -2216,6 +2249,7 @@
         },
         {
           "player": "Tye Kartye",
+          "position": "F",
           "market": "Anytime Goal Scorer",
           "line": 0.5,
           "prob_over": 15.334061131069433,
@@ -2233,6 +2267,7 @@
         },
         {
           "player": "Darren Raddysh",
+          "position": "D",
           "market": "Points",
           "line": 0.5,
           "prob_over": 56.252158199980286,
@@ -2250,6 +2285,7 @@
         },
         {
           "player": "Jack Eichel",
+          "position": "F",
           "market": "Assists",
           "line": 0.5,
           "prob_over": 56.074028280281105,
@@ -2267,6 +2303,7 @@
         },
         {
           "player": "Alexandre Carrier",
+          "position": "D",
           "market": "Anytime Goal Scorer",
           "line": 0.5,
           "prob_over": 7.666067007998767,
@@ -2284,6 +2321,7 @@
         },
         {
           "player": "Brandon Bussi",
+          "position": "G",
           "market": "Total Saves",
           "line": 22.5,
           "prob_over": 42.228398903276236,
@@ -2301,6 +2339,7 @@
         },
         {
           "player": "Vladislav Gavrikov",
+          "position": "D",
           "market": "Anytime Goal Scorer",
           "line": 0.5,
           "prob_over": 11.715961208382652,
@@ -2318,6 +2357,7 @@
         },
         {
           "player": "Mike Matheson",
+          "position": "D",
           "market": "Assists",
           "line": 0.5,
           "prob_over": 29.574753950413523,
@@ -2335,6 +2375,7 @@
         },
         {
           "player": "Paul Cotter",
+          "position": "F",
           "market": "Anytime Goal Scorer",
           "line": 0.5,
           "prob_over": 11.248910895861153,
@@ -2352,6 +2393,7 @@
         },
         {
           "player": "Mike Matheson",
+          "position": "D",
           "market": "Points",
           "line": 0.5,
           "prob_over": 34.90741138504813,
@@ -2369,6 +2411,7 @@
         },
         {
           "player": "Eeli Tolvanen",
+          "position": "F",
           "market": "Assists",
           "line": 0.5,
           "prob_over": 23.820657943973778,
@@ -2386,6 +2429,7 @@
         },
         {
           "player": "Patrick Kane",
+          "position": "F",
           "market": "Assists",
           "line": 0.5,
           "prob_over": 43.70615746365759,
@@ -2403,6 +2447,7 @@
         },
         {
           "player": "David Pastrnak",
+          "position": "F",
           "market": "Points",
           "line": 1.5,
           "prob_over": 36.442029367609905,
@@ -2420,6 +2465,7 @@
         },
         {
           "player": "Matt Rempe",
+          "position": "F",
           "market": "Anytime Goal Scorer",
           "line": 0.5,
           "prob_over": 10.23550961051357,
@@ -2437,6 +2483,7 @@
         },
         {
           "player": "Ivan Demidov",
+          "position": "F",
           "market": "Assists",
           "line": 0.5,
           "prob_over": 38.882954096259525,
@@ -2454,6 +2501,7 @@
         },
         {
           "player": "Eetu Luostarinen",
+          "position": "F",
           "market": "Assists",
           "line": 0.5,
           "prob_over": 24.022361022712822,
@@ -2471,6 +2519,7 @@
         },
         {
           "player": "Colton Dach",
+          "position": "F",
           "market": "Anytime Goal Scorer",
           "line": 0.5,
           "prob_over": 10.833443757786586,
@@ -2488,6 +2537,7 @@
         },
         {
           "player": "William Nylander",
+          "position": "F",
           "market": "Assists",
           "line": 0.5,
           "prob_over": 51.73409344833326,
@@ -2505,6 +2555,7 @@
         },
         {
           "player": "Marat Khusnutdinov",
+          "position": "F",
           "market": "Points",
           "line": 0.5,
           "prob_over": 31.953607751696133,
@@ -2522,6 +2573,7 @@
         },
         {
           "player": "Sandis Vilmanis",
+          "position": "F",
           "market": "Points",
           "line": 0.5,
           "prob_over": 21.639236014013154,
@@ -2539,6 +2591,7 @@
         },
         {
           "player": "Darren Raddysh",
+          "position": "D",
           "market": "Assists",
           "line": 0.5,
           "prob_over": 46.0652788090468,
@@ -2556,6 +2609,7 @@
         },
         {
           "player": "Marat Khusnutdinov",
+          "position": "F",
           "market": "Anytime Goal Scorer",
           "line": 0.5,
           "prob_over": 15.791755693566111,
@@ -2573,6 +2627,7 @@
         },
         {
           "player": "Carter Verhaeghe",
+          "position": "F",
           "market": "Assists",
           "line": 0.5,
           "prob_over": 29.894705282820944,
@@ -2590,6 +2645,7 @@
         },
         {
           "player": "Jamie Oleksiak",
+          "position": "D",
           "market": "Anytime Goal Scorer",
           "line": 0.5,
           "prob_over": 5.9544952368604465,
@@ -2607,6 +2663,7 @@
         },
         {
           "player": "Oliver Ekman-Larsson",
+          "position": "D",
           "market": "Anytime Goal Scorer",
           "line": 0.5,
           "prob_over": 8.283381898152143,
@@ -2624,6 +2681,7 @@
         },
         {
           "player": "Casey Mittelstadt",
+          "position": "F",
           "market": "Assists",
           "line": 0.5,
           "prob_over": 29.29597958307649,
@@ -2641,6 +2699,7 @@
         },
         {
           "player": "Max Sasson",
+          "position": "F",
           "market": "Anytime Goal Scorer",
           "line": 0.5,
           "prob_over": 15.408646791672421,
@@ -2658,6 +2717,7 @@
         },
         {
           "player": "Jake Evans",
+          "position": "F",
           "market": "Anytime Goal Scorer",
           "line": 0.5,
           "prob_over": 14.448503217163623,
@@ -2675,6 +2735,7 @@
         },
         {
           "player": "Sam Bennett",
+          "position": "F",
           "market": "Assists",
           "line": 0.5,
           "prob_over": 31.87560790416084,
@@ -2692,6 +2753,7 @@
         },
         {
           "player": "Shakir Mukhamadullin",
+          "position": "D",
           "market": "Anytime Goal Scorer",
           "line": 0.5,
           "prob_over": 7.733677669864891,
@@ -2709,6 +2771,7 @@
         },
         {
           "player": "Nicolas Deslauriers",
+          "position": "F",
           "market": "Anytime Goal Scorer",
           "line": 0.5,
           "prob_over": 9.293263639102612,
@@ -2726,6 +2789,7 @@
         },
         {
           "player": "Carter Verhaeghe",
+          "position": "F",
           "market": "Points",
           "line": 0.5,
           "prob_over": 45.39061410927877,
@@ -2743,6 +2807,7 @@
         },
         {
           "player": "Phillip Danault",
+          "position": "F",
           "market": "Anytime Goal Scorer",
           "line": 0.5,
           "prob_over": 12.703439273766692,
@@ -2760,6 +2825,7 @@
         },
         {
           "player": "Anton Frondell",
+          "position": "F",
           "market": "Assists",
           "line": 0.5,
           "prob_over": 36.606185473939114,
@@ -2777,6 +2843,7 @@
         },
         {
           "player": "Marco Rossi",
+          "position": "F",
           "market": "Anytime Goal Scorer",
           "line": 0.5,
           "prob_over": 21.180624165624316,
@@ -2794,6 +2861,7 @@
         },
         {
           "player": "Darren Raddysh",
+          "position": "D",
           "market": "Anytime Goal Scorer",
           "line": 0.5,
           "prob_over": 18.88742384496126,
@@ -2811,6 +2879,7 @@
         },
         {
           "player": "Jayden Struble",
+          "position": "D",
           "market": "Anytime Goal Scorer",
           "line": 0.5,
           "prob_over": 4.531885788690571,
@@ -2828,6 +2897,7 @@
         },
         {
           "player": "Victor Olofsson",
+          "position": "F",
           "market": "Assists",
           "line": 0.5,
           "prob_over": 23.30072001942918,
@@ -2845,6 +2915,7 @@
         },
         {
           "player": "Frank Nazar",
+          "position": "F",
           "market": "Points",
           "line": 0.5,
           "prob_over": 42.23758627995638,
@@ -2862,6 +2933,7 @@
         },
         {
           "player": "Mark Stone",
+          "position": "F",
           "market": "Points",
           "line": 0.5,
           "prob_over": 65.4758130989756,
@@ -2879,6 +2951,7 @@
         },
         {
           "player": "Jonathan Aspirot",
+          "position": "D",
           "market": "Anytime Goal Scorer",
           "line": 0.5,
           "prob_over": 5.277114146343909,
@@ -2896,6 +2969,7 @@
         },
         {
           "player": "Owen Michaels",
+          "position": "",
           "market": "Anytime Goal Scorer",
           "line": 0.5,
           "prob_over": 14.800062663781855,
@@ -2913,6 +2987,7 @@
         },
         {
           "player": "Shayne Gostisbehere",
+          "position": "D",
           "market": "Anytime Goal Scorer",
           "line": 0.5,
           "prob_over": 14.789146871013214,
@@ -2930,6 +3005,7 @@
         },
         {
           "player": "Adam Fox",
+          "position": "D",
           "market": "Assists",
           "line": 0.5,
           "prob_over": 52.818334610143495,
@@ -2947,6 +3023,7 @@
         },
         {
           "player": "Troy Stecher",
+          "position": "D",
           "market": "Anytime Goal Scorer",
           "line": 0.5,
           "prob_over": 5.434188618197233,
@@ -2964,6 +3041,7 @@
         },
         {
           "player": "Arshdeep Bains",
+          "position": "F",
           "market": "Anytime Goal Scorer",
           "line": 0.5,
           "prob_over": 9.949973073480367,
@@ -2981,6 +3059,7 @@
         },
         {
           "player": "Nikolaj Ehlers",
+          "position": "F",
           "market": "Assists",
           "line": 0.5,
           "prob_over": 40.26671249343491,
@@ -2998,6 +3077,7 @@
         },
         {
           "player": "Sebastian Aho",
+          "position": "F",
           "market": "Assists",
           "line": 0.5,
           "prob_over": 46.73722574535996,
@@ -3015,6 +3095,7 @@
         },
         {
           "player": "Tyler Bertuzzi",
+          "position": "F",
           "market": "Anytime Goal Scorer",
           "line": 0.5,
           "prob_over": 25.860248832124842,

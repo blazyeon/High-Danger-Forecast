@@ -1065,6 +1065,14 @@ input[type="date"].param-input, input[type="date"].date-input {
 .props-cell { display: flex; flex-direction: column; gap: 4px; }
 
 .props-name { font-size: 15px; font-weight: 700; color: var(--text-primary); }
+/* F / D / G on a prop row. Not colour-only: the letter carries the meaning, so
+   this reads fine at low contrast and in greyscale. */
+.props-pos {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.5px;
+    color: var(--text-muted); border: 1px solid var(--border-subtle);
+    border-radius: 3px; padding: 0 4px; margin-left: 5px;
+    vertical-align: middle;
+}
 .props-game { font-size: 12px; font-weight: 600; color: var(--text-muted); }
 
 .props-market-name { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; color: var(--text-muted); }

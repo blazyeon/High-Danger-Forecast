@@ -325,6 +325,25 @@ def _season_with_player_stats(season: str) -> str:
     return season
 
 
+def _display_position(player_stats: Dict[str, Dict], player_key: str, market: str) -> str:
+    """
+    F / D / G for the props board.
+
+    Goalies are not in the skater rates at all, and saves is the only market
+    they are priced on, so that market implies G. Otherwise the PBP position
+    code decides; wings and centres are all just "forward" to a reader.
+    """
+    if "save" in str(market).lower():
+        return "G"
+    pos = str((player_stats or {}).get(player_key, {}).get("position") or "").upper()
+    if pos in ("C", "L", "R", "W", "LW", "RW", "F"):
+        return "F"
+    if pos in ("D", "LD", "RD"):
+        return "D"
+    # Prospects carrying an NHLe projection have no PBP position to read.
+    return ""
+
+
 # Variance-to-mean ratio per market family, fitted against de-vigged
 # DraftKings main-line prices. 1.0 would be a pure Poisson process.
 _COUNT_DISPERSION = {
@@ -673,6 +692,7 @@ def _shape_player_df(
                         "market": mkey,
                         "market_last_update": last_upd,
                         "player": rec["player"],
+                        "position": _display_position(player_stats, player_key, mkey),
                         "line": rec["line"],
                         "over_american": rec["over_american"],
                         "over_decimal": rec["over_decimal"],
@@ -772,6 +792,7 @@ def _best_prices(df: pd.DataFrame) -> pd.DataFrame:
             "away_abbr": ctx_row.get("away_abbr") if "away_abbr" in ctx_row else None,
             "player_team": ctx_row.get("player_team") if "player_team" in ctx_row else None,
             "player": player,
+            "position": ctx_row.get("position") if "position" in ctx_row else None,
             "market": market,
             "line": line,
             "prob_over": prob_over,
@@ -921,7 +942,7 @@ def compute_player_props_for_date(
 
     # Rename for the UI and convert to records.
     out_df = df[[
-        "player", "market", "line", "prob_over", "recommendation",
+        "player", "position", "market", "line", "prob_over", "recommendation",
         "over_american", "under_american", "over_decimal", "under_decimal",
         "edge", "home_abbr", "away_abbr", "player_team",
         "implied_over", "implied_under",

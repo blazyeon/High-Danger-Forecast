@@ -2002,6 +2002,13 @@ function setPropsMarketFilter(market, active) {
     if (container) renderProps(_lastPropsData);
 }
 
+// F / D / G suffix for a prop row. Empty when the position is unknown -- that
+// is a real case, not a bug: prospects priced off an NHLe projection have no
+// positional record behind them.
+function _posSuffix(pos) {
+    return pos ? ` <span class="props-pos">${escapeHtml(String(pos))}</span>` : '';
+}
+
 function _canonicalMarketName(prop) {
     const raw = String(prop.market || '').replace(/^Player\s+/i, '').trim();
     if (/saves?/i.test(raw)) return 'Saves';
@@ -2107,7 +2114,7 @@ function renderProps(props) {
             <div class="props-cell props-player">
                 <div class="props-player-header">
                     ${teamAbbr ? `<img class="props-team-logo" src="/api/logos/${teamAbbr}.png" alt="${teamAbbr}" onerror="this.style.display='none'">` : ''}
-                    <div class="props-name">${escapeHtml(p.player)}</div>
+                    <div class="props-name">${escapeHtml(p.player)}${_posSuffix(p.position)}</div>
                 </div>
                 <div class="props-game">${escapeHtml(matchup)}</div>
             </div>
@@ -2576,7 +2583,7 @@ function renderPickDetail(g) {
             const edgePct = (edge * 100).toFixed(1);
             const edgeSign = edge > 0 ? '+' : '';
             html += `<div class="pick-prop-row">
-                <span class="pick-prop-player">${escapeHtml(p.player)}</span>
+                <span class="pick-prop-player">${escapeHtml(p.player)}${_posSuffix(p.position)}</span>
                 <span class="pick-prop-market">${escapeHtml(p.market)} ${escapeHtml(p.recommendation)} ${escapeHtml(String(p.line))}</span>
                 <span class="pick-prop-edge">${edgeSign}${edgePct}%</span>
             </div>`;
