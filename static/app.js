@@ -483,8 +483,10 @@ function currentNHLSeasonKey() {
     const now = new Date();
     const year = now.getFullYear();
     const month = now.getMonth() + 1; // 1-12
-    // NHL season spans two calendar years; start in October.
-    const startYear = month >= 10 ? year : year - 1;
+    // NHL season spans two calendar years. Jan–Jun belong to the just-ended
+    // season; Jul–Dec (including the offseason and October start) belong to the
+    // upcoming season. This matches the backend's NHL.Utils season logic.
+    const startYear = month <= 6 ? year - 1 : year;
     return `${startYear}${startYear + 1}`;
 }
 
@@ -2089,7 +2091,9 @@ function renderProps(props) {
         const recClass = p.isOver ? 'prop-rec-over' : 'prop-rec-under';
         const rowClass = edge < 0 ? 'edge-bad' : edge >= 0.05 ? 'edge-strong' : edge >= 0.02 ? 'edge-good' : 'edge-slight';
         const price = p.recPrice != null ? formatAmerican(p.recPrice) : '-';
-        const prob = p.probOver.toFixed(1);
+        // Show the model's probability of the recommended side (Over or Under),
+        // matching how "Book" already shows the implied prob of that same side.
+        const prob = (p.isOver ? p.probOver : 100 - p.probOver).toFixed(1);
         const implied = p.impliedProb != null ? p.impliedProb.toFixed(1) : null;
         const teamAbbr = p.player_team || '';
         const matchup = (p.home_abbr && p.away_abbr) ? `${p.away_abbr} @ ${p.home_abbr}` : (p.home_team && p.away_team ? `${p.away_team} @ ${p.home_team}` : '—');
@@ -2678,13 +2682,19 @@ async function loadSeasons() {
         sel.innerHTML = '';
         (data.seasons || []).forEach(s => {
             const opt = new Option(s.label, s.key);
-            if (s.has_data === false) {
+            const isCurrent = s.key === currentSeason;
+            // Grey out seasons with no data, but keep the current season
+            // selectable so it can be the default (the backend falls back to
+            // the previous season's data until this one starts).
+            if (s.has_data === false && !isCurrent) {
                 opt.text = `${s.label} (no data)`;
                 opt.disabled = true;
             }
             sel.add(opt);
         });
-        if (data.seasons?.some(s => s.key === currentSeason && s.has_data !== false)) {
+        // Default to the current season; only fall back to the latest season
+        // with data if the current season isn't listed at all.
+        if (data.seasons?.some(s => s.key === currentSeason)) {
             sel.value = currentSeason;
         } else if (data.seasons?.length) {
             // Fall back to the most recent season that actually has data.

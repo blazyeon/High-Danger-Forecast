@@ -1030,6 +1030,12 @@ def _fetch_pbp_stats(table_type: str, season: str, stype: int):
         payload = load_cached_stats(table_type, start_year, stype)
         data = payload.get("data", [])
         if not data:
+            # The requested season may not have started yet (no games), so fall
+            # back to the previous season's data rather than returning an empty
+            # table — mirrors NHL.Utils._get_data_season's offseason handling.
+            payload = load_cached_stats(table_type, start_year - 1, stype)
+            data = payload.get("data", [])
+        if not data:
             return jsonify({"error": f"No {table_type} data available"}), 404
 
         return jsonify({

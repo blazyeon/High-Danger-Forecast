@@ -10,7 +10,7 @@ set "SCRIPT_DIR=%~dp0"
 cd /d "%SCRIPT_DIR%"
 
 set "LOG_FILE=%SCRIPT_DIR%daily_update.log"
-set "PYTHON=python"
+set "PYTHON=py -3"
 
 echo =========================================== >> "%LOG_FILE%"
 echo Daily update started: %date% %time% >> "%LOG_FILE%"
@@ -33,7 +33,7 @@ if %errorlevel% neq 0 (
     echo [OK] update_elo_ratings.py completed at %date% %time% >> "%LOG_FILE%"
 )
 
-%PYTHON% update_odds.py >> "%LOG_FILE%" 2>&1
+%PYTHON% update_odds.py --all >> "%LOG_FILE%" 2>&1
 if %errorlevel% neq 0 (
     echo [ERROR] update_odds.py failed at %date% %time% >> "%LOG_FILE%"
 ) else (
