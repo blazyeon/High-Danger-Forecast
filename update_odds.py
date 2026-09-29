@@ -86,7 +86,11 @@ def main() -> int:
 
     if args.all:
         today = _date.today()
-        for offset in range(31):
+        # fetch_and_cache_odds writes a single-date odds_cache.json, so whichever
+        # date is visited last is the one left on disk. Visit today last: the
+        # current day+30 entry was making update_todays_picks.py read a cache for
+        # a date a month out and produce a slate with no edges.
+        for offset in list(range(1, 31)) + [0]:
             _update_one(today + timedelta(days=offset))
         return 0
 

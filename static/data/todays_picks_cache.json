@@ -1015,9 +1015,9 @@
     },
     "2026-09-29": {
       "date": "2026-09-29",
-      "computed_at": "2026-09-29T05:27:35.958162+00:00",
+      "computed_at": "2026-09-29T05:32:00.917774+00:00",
       "source": "the-odds-api",
-      "warning": "Cached odds are for 2026-10-29, not 2026-09-29.",
+      "warning": null,
       "no_games": false,
       "games": [
         {
@@ -1026,8 +1026,21 @@
           "home_name": "Hurricanes",
           "away_name": "Panthers",
           "start_time": "2026-09-29T21:00:00Z",
-          "best_edge": 0.0,
-          "edges": [],
+          "best_edge": 0.0759,
+          "edges": [
+            {
+              "market": "Total 6.5",
+              "side": "Under",
+              "pick": "Under",
+              "team": null,
+              "odds": -116,
+              "odds_decimal": 1.8620689655172413,
+              "model_prob": 0.5938,
+              "implied_prob": 0.5179,
+              "edge": 0.0759,
+              "book": "betonlineag"
+            }
+          ],
           "sim": {
             "mu_home": 3.0560865613668105,
             "mu_away": 2.977348185887307,
@@ -1157,8 +1170,33 @@
           "home_name": "Maple Leafs",
           "away_name": "Canadiens",
           "start_time": "2026-09-29T23:00:00Z",
-          "best_edge": 0.0,
-          "edges": [],
+          "best_edge": 0.0927,
+          "edges": [
+            {
+              "market": "Total 6.5",
+              "side": "Under",
+              "pick": "Under",
+              "team": null,
+              "odds": -115,
+              "odds_decimal": 1.8695652173913042,
+              "model_prob": 0.6083,
+              "implied_prob": 0.5156,
+              "edge": 0.0927,
+              "book": "betonlineag"
+            },
+            {
+              "market": "Moneyline",
+              "side": "Montr\u00e9al Canadiens",
+              "pick": "Montr\u00e9al Canadiens",
+              "team": "MTL",
+              "odds": -113,
+              "odds_decimal": 1.8849557522123894,
+              "model_prob": 0.595,
+              "implied_prob": 0.5136,
+              "edge": 0.0814,
+              "book": "betonlineag"
+            }
+          ],
           "sim": {
             "mu_home": 2.8308526908395573,
             "mu_away": 3.063555779948152,
@@ -1275,8 +1313,45 @@
           "home_name": "Bruins",
           "away_name": "Rangers",
           "start_time": "2026-09-30T00:00:00Z",
-          "best_edge": 0.0,
-          "edges": [],
+          "best_edge": 0.0907,
+          "edges": [
+            {
+              "market": "Puck Line (-1.5)",
+              "side": "Boston Bruins",
+              "pick": "Boston Bruins",
+              "team": "BOS",
+              "odds": 224,
+              "odds_decimal": 3.24,
+              "model_prob": 0.389,
+              "implied_prob": 0.2983,
+              "edge": 0.0907,
+              "book": "betus"
+            },
+            {
+              "market": "Total 5.5",
+              "side": "Over",
+              "pick": "Over",
+              "team": null,
+              "odds": -130,
+              "odds_decimal": 1.7692307692307692,
+              "model_prob": 0.6309,
+              "implied_prob": 0.5463,
+              "edge": 0.0846,
+              "book": "betonlineag"
+            },
+            {
+              "market": "Moneyline",
+              "side": "Boston Bruins",
+              "pick": "Boston Bruins",
+              "team": "BOS",
+              "odds": -108,
+              "odds_decimal": 1.925925925925926,
+              "model_prob": 0.539,
+              "implied_prob": 0.5023,
+              "edge": 0.0367,
+              "book": "betonlineag"
+            }
+          ],
           "sim": {
             "mu_home": 3.558848413467407,
             "mu_away": 2.9412515865325934,
@@ -1381,8 +1456,33 @@
           "home_name": "Oilers",
           "away_name": "Canucks",
           "start_time": "2026-09-30T02:00:00Z",
-          "best_edge": 0.0,
-          "edges": [],
+          "best_edge": 0.1267,
+          "edges": [
+            {
+              "market": "Moneyline",
+              "side": "Vancouver Canucks",
+              "pick": "Vancouver Canucks",
+              "team": "VAN",
+              "odds": 240,
+              "odds_decimal": 3.4,
+              "model_prob": 0.412,
+              "implied_prob": 0.2853,
+              "edge": 0.1267,
+              "book": "betonlineag"
+            },
+            {
+              "market": "Puck Line (1.5)",
+              "side": "Vancouver Canucks",
+              "pick": "Vancouver Canucks",
+              "team": "VAN",
+              "odds": 105,
+              "odds_decimal": 2.05,
+              "model_prob": 0.565,
+              "implied_prob": 0.4675,
+              "edge": 0.0975,
+              "book": "bovada"
+            }
+          ],
           "sim": {
             "mu_home": 3.916854739323397,
             "mu_away": 2.940281247452234,
@@ -1513,8 +1613,21 @@
           "home_name": "Golden Knights",
           "away_name": "Blackhawks",
           "start_time": "2026-09-30T02:30:00Z",
-          "best_edge": 0.0,
-          "edges": [],
+          "best_edge": 0.1108,
+          "edges": [
+            {
+              "market": "Moneyline",
+              "side": "Chicago Blackhawks",
+              "pick": "Chicago Blackhawks",
+              "team": "CHI",
+              "odds": 220,
+              "odds_decimal": 3.2,
+              "model_prob": 0.414,
+              "implied_prob": 0.3032,
+              "edge": 0.1108,
+              "book": "betonlineag"
+            }
+          ],
           "sim": {
             "mu_home": 3.4500423678402465,
             "mu_away": 2.4967204387965958,
