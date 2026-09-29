@@ -236,7 +236,42 @@ def get_player_nst_stats(season: str) -> Dict[str, Dict]:
             "assists_pg": assists / gp,
             "points_pg": (goals + assists) / gp,
             "shots_pg": shots / gp,
+            "position": d.get("position", ""),
         }
+
+    # Regress each skater's goal rate toward the mean for their position. One
+    # season of goals is a thin sample whose tail is mostly flukes -- a defenceman
+    # who scores 17 in 48 games reads as a ~30% anytime-goal threat off his raw
+    # rate, and a depth forward on a career year reads the same way. Shrinking by
+    # games played pulls the small samples back to realistic levels while leaving
+    # established scorers nearly untouched:
+    #
+    #     rate = (gp * raw_rate + K * positional_mean) / (gp + K)
+    #
+    # K is the prior's weight in games. At K=40 a 48-game sample keeps ~55% of its
+    # own rate, which is roughly how well one season of goals/game predicts the
+    # next. The positional means are games-weighted, so they describe the average
+    # player actually on the ice rather than the average roster entry.
+    if stats:
+        skaters = list(stats.values())
+        total_gp = sum(s["gp"] for s in skaters)
+        overall_mean = (sum(s["goals"] for s in skaters) / total_gp) if total_gp else 0.0
+        priors = {}
+        for group, positions in (("F", ("C", "L", "R")), ("D", ("D",))):
+            members = [s for s in skaters if s.get("position") in positions]
+            group_gp = sum(s["gp"] for s in members)
+            priors[group] = (
+                (sum(s["goals"] for s in members) / group_gp) if group_gp else overall_mean
+            )
+
+        K = 40.0
+        for s in skaters:
+            gp = s["gp"]
+            prior = priors.get(s.get("position"), overall_mean)
+            s["goals_pg"] = (gp * s["goals_pg"] + K * prior) / (gp + K)
+            # Keep goals + assists = points, so the Points market prices the same
+            # goal rate the Goals market does.
+            s["points_pg"] = s["goals_pg"] + (s["assists"] / gp)
 
     # Merge goalie save rates so `player_total_saves` props can be priced.
     try:

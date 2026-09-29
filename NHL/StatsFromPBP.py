@@ -201,6 +201,9 @@ def load_skater_rates_from_json(season_year: int, stype: int = 2) -> Dict[str, D
             "goals": int(rec.get("goals", 0)),
             "assists": int(rec.get("assists", 0)),
             "shots": int(rec.get("shots", 0)),
+            # Position (C/L/R/D) rides along so callers can regress rates against
+            # the right positional mean; it is not used as a rate itself.
+            "position": str(rec.get("position") or "").strip().upper(),
             "gpg": float(rec.get("gpg", 0.0)),
             "apg": float(rec.get("apg", 0.0)),
             "sogpg": float(rec.get("sogpg", 0.0)),

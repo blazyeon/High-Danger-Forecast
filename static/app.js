@@ -1984,8 +1984,6 @@ function resetPropsFilters() {
         'Points': true,
         'Goals': true,
         'Assists': false,
-        'Power Play Points': false,
-        'Blocked Shots': false,
         'Saves': true,
     };
 }
@@ -2006,8 +2004,6 @@ function setPropsMarketFilter(market, active) {
 
 function _canonicalMarketName(prop) {
     const raw = String(prop.market || '').replace(/^Player\s+/i, '').trim();
-    if (/blocked/i.test(raw)) return 'Blocked Shots';
-    if (/power\s*play/i.test(raw)) return 'Power Play Points';
     if (/saves?/i.test(raw)) return 'Saves';
     if (/shots/i.test(raw)) return 'Shots';
     if (/points/i.test(raw)) return 'Points';
@@ -2027,7 +2023,7 @@ function renderProps(props) {
         return;
     }
 
-    const marketOrder = ['Points', 'Goals', 'Assists', 'Power Play Points', 'Blocked Shots', 'Saves'];
+    const marketOrder = ['Points', 'Goals', 'Assists', 'Saves'];
 
     let rows = props.map(p => {
         const rec = p.recommendation || 'Pass';
