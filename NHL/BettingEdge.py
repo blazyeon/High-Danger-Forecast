@@ -164,9 +164,37 @@ def find_event_for_game(game: Dict[str, Any], events: List[Dict[str, Any]]) -> O
     return None
 
 
+def _team_key(name: Any) -> str:
+    """The nickname of a team name, lowercased and stripped of punctuation.
+
+    The feed names one club several different ways inside a single event: the
+    event's own ``home_team``/``away_team`` fields carry "<City> <Nickname>"
+    ("Toronto Maple Leafs", "Chicago Blackhawks"), while that same event's
+    DraftKings markets label the outcomes "<City-ish> <Nickname>" -- "TOR Maple
+    Leafs", "NY Rangers", "CHI Blackhawks". Comparing the strings directly
+    matched only the clubs that happened to coincide between the two forms
+    (MTL Canadiens, VGK Golden Knights), so the moneyline -- which needs BOTH
+    sides to resolve before it is emitted at all -- disappeared from every game
+    on the board, and the puck line silently lost whichever side missed.
+
+    The nickname alone is a safe key: it is unique within the league, so
+    "Rangers" only ever means New York and "Leafs" only ever means Toronto.
+    """
+    tokens = "".join(c if c.isalnum() else " " for c in str(name or "")).lower().split()
+    return tokens[-1] if tokens else ""
+
+
+def _same_team(a: Any, b: Any) -> bool:
+    """True when two team-name strings refer to the same club -- see _team_key."""
+    if str(a or "").strip().lower() == str(b or "").strip().lower():
+        return True
+    ka = _team_key(a)
+    return bool(ka) and ka == _team_key(b)
+
+
 def _best_outcome(outcomes: List[Dict[str, Any]], side: str) -> Optional[Dict[str, Any]]:
     for o in outcomes or []:
-        if str(o.get("name", "")).strip().lower() == side.lower():
+        if _same_team(o.get("name", ""), side):
             return o
     return None
 
@@ -292,15 +320,25 @@ def _edge_dict(**kwargs) -> Dict[str, Any]:
     }
 
 
+def _passes_screen(edge: float, threshold: Optional[float]) -> bool:
+    """``None`` means keep everything -- see ``compute_game_edges``."""
+    return threshold is None or edge > threshold
+
+
 def compute_game_edges(
     game: Dict[str, Any],
     event: Dict[str, Any],
     sim: Dict[str, Any],
-    edge_threshold: float = EDGE_THRESHOLD,
+    edge_threshold: Optional[float] = EDGE_THRESHOLD,
 ) -> List[Dict[str, Any]]:
     """
     Compare model probabilities to no-vig implied probabilities for one game.
     Returns edge dicts sorted by absolute edge descending.
+
+    ``edge_threshold=None`` disables the screen entirely and keeps every line.
+    The Game Bet board is a comparison of model vs. implied probability for every
+    market, not a list of bets, so it passes ``None``; Today's Picks passes
+    ``EDGE_THRESHOLD`` and keeps the value screen.
     """
     edges: List[Dict[str, Any]] = []
 
@@ -335,7 +373,7 @@ def compute_game_edges(
                 side = None
             if side is not None:
                 edge = model_p - imp_p
-                if edge > edge_threshold:
+                if _passes_screen(edge, edge_threshold):
                     edges.append(_edge_dict(
                         market="Moneyline",
                         side=side,
@@ -353,6 +391,10 @@ def compute_game_edges(
     spreads = _best_book_market(event, "spreads")
     if spreads:
         m = spreads["market"]
+        # Compute a candidate row for both sides, then keep only the larger
+        # edge. The two sides are exact complements (model probs sum to 1,
+        # no-vig probs sum to 1), so max-edge is the model's preferred side.
+        best_puck_line = None
         for out in m.get("outcomes", []) or []:
             point = out.get("point")
             price = out.get("price")
@@ -361,8 +403,11 @@ def compute_game_edges(
             if abs(float(point)) != 1.5:
                 continue
             side_name = str(out.get("name", "")).strip()
-            is_home = side_name.lower() == home_name.lower()
-            is_away = side_name.lower() == away_name.lower()
+            # Same "<ABBR> <Nickname>" mismatch as _best_outcome: an unparsed
+            # side is skipped outright, so the surviving side of the pair was
+            # whichever one the feed happened to spell the long way.
+            is_home = _same_team(side_name, home_name)
+            is_away = _same_team(side_name, away_name)
             if not is_home and not is_away:
                 continue
             model_p = _model_prob_for_spread(sim, float(point), is_home)
@@ -377,19 +422,22 @@ def compute_game_edges(
             else:
                 true_p = implied_probability(dec)
             edge = model_p - true_p
-            if edge > edge_threshold:
-                edges.append(_edge_dict(
-                    market=f"Puck Line ({point})",
-                    side=side_name,
-                    pick=side_name,
-                    team=home if is_home else away,
-                    odds=price,
-                    odds_decimal=dec,
-                    model_prob=model_p,
-                    implied_prob=true_p,
-                    edge=edge,
-                    book=spreads.get("book_key"),
-                ))
+            row = _edge_dict(
+                market=f"Puck Line ({point})",
+                side=side_name,
+                pick=side_name,
+                team=home if is_home else away,
+                odds=price,
+                odds_decimal=dec,
+                model_prob=model_p,
+                implied_prob=true_p,
+                edge=edge,
+                book=spreads.get("book_key"),
+            )
+            if best_puck_line is None or row["edge"] > best_puck_line["edge"]:
+                best_puck_line = row
+        if best_puck_line is not None and _passes_screen(best_puck_line["edge"], edge_threshold):
+            edges.append(best_puck_line)
 
     # ── Totals ───────────────────────────────────────────────────────────
     totals = _best_book_market(event, "totals")
@@ -422,24 +470,29 @@ def compute_game_edges(
             model_over, model_under = _model_prob_for_total(totals_dist, line)
             over_edge = model_over - over_imp
             under_edge = model_under - under_imp
-            for side, edge, model_p, imp_p, out in (
-                ("Over", over_edge, model_over, over_imp, over_out),
-                ("Under", under_edge, model_under, under_imp, under_out),
-            ):
-                if edge > edge_threshold:
-                    dec = _decimal_price(out) or american_to_decimal(out.get("price"))
-                    edges.append(_edge_dict(
-                        market=f"Total {line}",
-                        side=side,
-                        pick=side,
-                        team=None,
-                        odds=out.get("price"),
-                        odds_decimal=dec,
-                        model_prob=model_p,
-                        implied_prob=imp_p,
-                        edge=edge,
-                        book=totals.get("book_key"),
-                    ))
+            # Keep only the larger-edge side: one row per line, on the side the
+            # model prefers (Over and Under are exact complements).
+            side, edge, model_p, imp_p, out = max(
+                (
+                    ("Over", over_edge, model_over, over_imp, over_out),
+                    ("Under", under_edge, model_under, under_imp, under_out),
+                ),
+                key=lambda cand: cand[1],
+            )
+            if _passes_screen(edge, edge_threshold):
+                dec = _decimal_price(out) or american_to_decimal(out.get("price"))
+                edges.append(_edge_dict(
+                    market=f"Total {line}",
+                    side=side,
+                    pick=side,
+                    team=None,
+                    odds=out.get("price"),
+                    odds_decimal=dec,
+                    model_prob=model_p,
+                    implied_prob=imp_p,
+                    edge=edge,
+                    book=totals.get("book_key"),
+                ))
 
     edges.sort(key=lambda e: abs(e["edge"]), reverse=True)
     return edges
@@ -514,7 +567,7 @@ def load_cached_odds(
 def compute_and_cache_edges(
     day: _date,
     odds_payload: Optional[Dict[str, Any]] = None,
-    edge_threshold: float = EDGE_THRESHOLD,
+    edge_threshold: Optional[float] = None,
     cache_path: Optional[Path] = None,
     sims: int = 1000,
     use_events_schedule: bool = False,
@@ -522,6 +575,9 @@ def compute_and_cache_edges(
     """
     Pre-compute betting edges for a date and write them to a local JSON cache.
     This is designed to run during the daily update so the UI opens instantly.
+
+    The default is the full board: every matched game with every line. Callers
+    pass ``EDGE_THRESHOLD`` if they want the value screen instead.
 
     There is no fixture fallback: with no live odds this raises rather than
     inventing a slate. Edges are recommendations to stake money, so anything
@@ -556,6 +612,7 @@ def compute_and_cache_edges(
     #    many matched an odds event, so silent drops are visible in the payload.
     scheduled_count = 0
     matched_count = 0
+    no_odds_games: List[Dict[str, Any]] = []
     slate_matchups: List[Tuple[str, str]] = []
     slate_games: Dict[Tuple[str, str], Dict[str, Any]] = {}
     for game in schedule_games or []:
@@ -585,6 +642,13 @@ def compute_and_cache_edges(
                 f"No odds event matched schedule game {home_abbr} v {away_abbr} "
                 f"({schedule_game.get('away_name')} @ {schedule_game.get('home_name')}); dropped."
             )
+            no_odds_games.append({
+                "home": home_abbr,
+                "away": away_abbr,
+                "home_name": schedule_game["home_name"],
+                "away_name": schedule_game["away_name"],
+                "start_time": schedule_game["startTime"],
+            })
             continue
 
         matched_count += 1
@@ -603,7 +667,7 @@ def compute_and_cache_edges(
     )
 
     # 5. Compute edges.
-    value_games = []
+    board_games = []
     for res in slate_results:
         home_abbr = res["home"]
         away_abbr = res["away"]
@@ -622,12 +686,11 @@ def compute_and_cache_edges(
             continue
 
         edges = compute_game_edges(schedule_game, event, sim, edge_threshold=edge_threshold)
-        if not edges:
-            continue
-
+        # A game with no disagreement between model and market still belongs on
+        # the board -- the board compares the two, it is not a list of bets.
         edges.sort(key=lambda e: e.get("edge", 0.0), reverse=True)
-        best_edge = max(edges, key=lambda e: e.get("edge", 0.0))
-        value_games.append({
+        best_edge = max(edges, key=lambda e: e.get("edge", 0.0), default={"edge": 0.0})
+        board_games.append({
             "home": home_abbr,
             "away": away_abbr,
             "home_name": schedule_game["home_name"],
@@ -637,7 +700,7 @@ def compute_and_cache_edges(
             "edges": edges,
         })
 
-    value_games.sort(key=lambda g: abs(g.get("best_edge", 0.0)), reverse=True)
+    board_games.sort(key=lambda g: abs(g.get("best_edge", 0.0)), reverse=True)
 
     payload = {
         "date": day.isoformat(),
@@ -648,9 +711,10 @@ def compute_and_cache_edges(
         "no_games": scheduled_count == 0,
         "scanned": scheduled_count,
         "matched": matched_count,
-        "with_edges": len(value_games),
+        "with_edges": sum(1 for g in board_games if any((e.get("edge") or 0.0) > 0 for e in g.get("edges", []))),
         "dropped": scheduled_count - matched_count,
-        "games": value_games,
+        "games": board_games,
+        "no_odds_games": no_odds_games,
     }
 
     cache_path.parent.mkdir(parents=True, exist_ok=True)
@@ -658,7 +722,7 @@ def compute_and_cache_edges(
     index.setdefault("dates", {})[day.isoformat()] = payload
     atomic_write_json(cache_path, index, indent=2)
 
-    logger.info(f"Cached betting edges for {day}: {len(value_games)} games -> {cache_path}")
+    logger.info(f"Cached betting edges for {day}: {len(board_games)} games -> {cache_path}")
     return payload
 
 

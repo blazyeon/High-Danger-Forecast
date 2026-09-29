@@ -2271,6 +2271,15 @@ function renderBettingEdge(data, container) {
         html += `<div class="be-meta-line">${data.scanned} games scanned · ${data.matched || 0} matched to odds · ${data.with_edges || 0} with edges · ${dropped} dropped</div>`;
     }
 
+    if (Array.isArray(data.no_odds_games) && data.no_odds_games.length) {
+        const noOdds = data.no_odds_games.map(g => {
+            const awayName = g.away_name || getTeamName(g.away) || g.away || '';
+            const homeName = g.home_name || getTeamName(g.home) || g.home || '';
+            return escapeHtml(`${awayName} @ ${homeName}`);
+        });
+        html += `<div class="be-meta-line"><strong>No odds posted:</strong> ${noOdds.join('<br>')}</div>`;
+    }
+
     html += `<div class="betting-edge-toolbar">
         <span class="be-toolbar-label">Sort by:</span>
         <button class="be-sort-btn ${_bettingEdgeSort === 'edge' ? 'active' : ''}" onclick="setBettingEdgeSort('edge')">Best Edge</button>

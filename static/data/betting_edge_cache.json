@@ -2,14 +2,14 @@
   "dates": {
     "2026-09-29": {
       "date": "2026-09-29",
-      "computed_at": "2026-09-29T21:35:17.066311+00:00",
+      "computed_at": "2026-09-29T22:13:39.698607+00:00",
       "source": "sharpapi",
       "odds_fetched_at": "2026-09-29T21:35:00.251778+00:00",
       "warning": null,
       "no_games": false,
       "scanned": 5,
       "matched": 4,
-      "with_edges": 2,
+      "with_edges": 4,
       "dropped": 1,
       "games": [
         {
@@ -18,8 +18,20 @@
           "home_name": "Maple Leafs",
           "away_name": "Canadiens",
           "start_time": "2026-09-29T23:00:00Z",
-          "best_edge": 0.1027,
+          "best_edge": 0.1098,
           "edges": [
+            {
+              "market": "Moneyline",
+              "side": "MTL Canadiens",
+              "pick": "MTL Canadiens",
+              "team": "MTL",
+              "odds": -105,
+              "odds_decimal": 1.9523809523809523,
+              "model_prob": 0.599,
+              "implied_prob": 0.4892,
+              "edge": 0.1098,
+              "book": "draftkings"
+            },
             {
               "market": "Total 6.5",
               "side": "Under",
@@ -30,6 +42,18 @@
               "model_prob": 0.607,
               "implied_prob": 0.5043,
               "edge": 0.1027,
+              "book": "draftkings"
+            },
+            {
+              "market": "Puck Line (1.5)",
+              "side": "MTL Canadiens",
+              "pick": "MTL Canadiens",
+              "team": "MTL",
+              "odds": -258,
+              "odds_decimal": 1.3875968992248062,
+              "model_prob": 0.722,
+              "implied_prob": 0.6908,
+              "edge": 0.0312,
               "book": "draftkings"
             }
           ]
@@ -53,8 +77,133 @@
               "implied_prob": 0.5514,
               "edge": 0.0986,
               "book": "draftkings"
+            },
+            {
+              "market": "Puck Line (-1.5)",
+              "side": "BOS Bruins",
+              "pick": "BOS Bruins",
+              "team": "BOS",
+              "odds": 215,
+              "odds_decimal": 3.15,
+              "model_prob": 0.367,
+              "implied_prob": 0.3042,
+              "edge": 0.0628,
+              "book": "draftkings"
+            },
+            {
+              "market": "Moneyline",
+              "side": "Boston Bruins",
+              "pick": "Boston Bruins",
+              "team": "BOS",
+              "odds": -110,
+              "odds_decimal": 1.9090909090909092,
+              "model_prob": 0.529,
+              "implied_prob": 0.5,
+              "edge": 0.029,
+              "book": "draftkings"
             }
           ]
+        },
+        {
+          "home": "EDM",
+          "away": "VAN",
+          "home_name": "Oilers",
+          "away_name": "Canucks",
+          "start_time": "2026-09-30T02:00:00Z",
+          "best_edge": 0.0901,
+          "edges": [
+            {
+              "market": "Puck Line (1.5)",
+              "side": "VAN Canucks",
+              "pick": "VAN Canucks",
+              "team": "VAN",
+              "odds": 102,
+              "odds_decimal": 2.02,
+              "model_prob": 0.564,
+              "implied_prob": 0.4739,
+              "edge": 0.0901,
+              "book": "draftkings"
+            },
+            {
+              "market": "Total 6.5",
+              "side": "Over",
+              "pick": "Over",
+              "team": null,
+              "odds": -115,
+              "odds_decimal": 1.8695652173913042,
+              "model_prob": 0.527,
+              "implied_prob": 0.5108,
+              "edge": 0.0162,
+              "book": "draftkings"
+            },
+            {
+              "market": "Moneyline",
+              "side": "Edmonton Oilers",
+              "pick": "Edmonton Oilers",
+              "team": "EDM",
+              "odds": -305,
+              "odds_decimal": 1.3278688524590163,
+              "model_prob": 0.595,
+              "implied_prob": 0.7221,
+              "edge": -0.1271,
+              "book": "draftkings"
+            }
+          ]
+        },
+        {
+          "home": "VGK",
+          "away": "CHI",
+          "home_name": "Golden Knights",
+          "away_name": "Blackhawks",
+          "start_time": "2026-09-30T02:30:00Z",
+          "best_edge": 0.0595,
+          "edges": [
+            {
+              "market": "Puck Line (1.5)",
+              "side": "CHI Blackhawks",
+              "pick": "CHI Blackhawks",
+              "team": "CHI",
+              "odds": -125,
+              "odds_decimal": 1.8,
+              "model_prob": 0.592,
+              "implied_prob": 0.5325,
+              "edge": 0.0595,
+              "book": "draftkings"
+            },
+            {
+              "market": "Total 5.5",
+              "side": "Under",
+              "pick": "Under",
+              "team": null,
+              "odds": 120,
+              "odds_decimal": 2.2,
+              "model_prob": 0.441,
+              "implied_prob": 0.4365,
+              "edge": 0.0045,
+              "book": "draftkings"
+            },
+            {
+              "market": "Moneyline",
+              "side": "VGK Golden Knights",
+              "pick": "VGK Golden Knights",
+              "team": "VGK",
+              "odds": -258,
+              "odds_decimal": 1.3875968992248062,
+              "model_prob": 0.582,
+              "implied_prob": 0.6908,
+              "edge": -0.1088,
+              "book": "draftkings"
+            }
+          ]
+        }
+      ],
+      "no_odds_games": [
+        {
+          "home": "CAR",
+          "away": "FLA",
+          "home_name": "Hurricanes",
+          "away_name": "Panthers",
+          "start_time": "2026-09-29T21:00:00Z"
         }
       ]
     },

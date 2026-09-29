@@ -159,6 +159,80 @@ def test_compute_game_edges_finds_value():
     assert ml["edge"] > 0.2
 
 
+def test_compute_game_edges_matches_book_short_team_names():
+    """
+    A book that labels its own markets "<ABBR> <Nickname>" must still resolve.
+
+    The feed disagrees with itself inside a single event: the event fields carry
+    "<City> <Nickname>" ("Toronto Maple Leafs") while that event's DraftKings
+    markets carry "TOR Maple Leafs" / "CHI Blackhawks". Comparing the strings
+    directly resolved only the sides that happened to coincide between the two
+    forms, so the moneyline -- which needs BOTH sides before it is emitted at
+    all -- disappeared from every game on the board, and each puck line silently
+    lost whichever side missed, leaving the surviving side to be shown even when
+    the model preferred the other one.
+    """
+    event = {
+        "home_team": "Toronto Maple Leafs",
+        "away_team": "Chicago Blackhawks",
+        "bookmakers": [
+            {
+                "key": "draftkings",
+                "title": "DraftKings",
+                "markets": [
+                    {
+                        "key": "h2h",
+                        "outcomes": [
+                            {"name": "TOR Maple Leafs", "price": -120},
+                            {"name": "CHI Blackhawks", "price": 100},
+                        ],
+                    },
+                    {
+                        "key": "spreads",
+                        "outcomes": [
+                            {"name": "TOR Maple Leafs", "price": -110, "point": -1.5},
+                            {"name": "CHI Blackhawks", "price": -110, "point": 1.5},
+                        ],
+                    },
+                    {
+                        "key": "totals",
+                        "outcomes": [
+                            {"name": "Over", "price": -110, "point": 6.5},
+                            {"name": "Under", "price": -110, "point": 6.5},
+                        ],
+                    },
+                ],
+            }
+        ],
+    }
+
+    game = {"home": "TOR", "away": "CHI"}
+    sim = {
+        "home_win_pct": 62.0,
+        "away_win_pct": 38.0,
+        "home_win_2plus_pct": 42.0,
+        "away_win_2plus_pct": 20.0,
+        "totals_distribution": {5: 1000, 6: 3000, 7: 4000, 8: 2000},
+    }
+
+    # edge_threshold=None -- the Game Bet board keeps every line.
+    edges = compute_game_edges(game, event, sim, edge_threshold=None)
+    markets = {e["market"] for e in edges}
+    assert markets == {"Moneyline", "Puck Line (1.5)", "Total 6.5"}, markets
+
+    # The moneyline only exists at all when both sides resolved.
+    ml = next(e for e in edges if e["market"] == "Moneyline")
+    assert ml["side"] == "Toronto Maple Leafs"
+    assert abs(ml["model_prob"] - 0.62) < 1e-6
+
+    # Both sides of the puck line resolved, so the surviving row is the model's
+    # preferred side: TOR wins by 2+ only 42% of the time, so +1.5 on the
+    # underdog is the side to keep, not -1.5 on the favourite.
+    pl = next(e for e in edges if e["market"].startswith("Puck Line"))
+    assert pl["side"] == "CHI Blackhawks", pl
+    assert pl["edge"] > 0
+
+
 # ── 4. Flask endpoint ─────────────────────────────────────────────────────
 
 def _run_all():

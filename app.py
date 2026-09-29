@@ -64,7 +64,6 @@ from NHL.BettingEdge import (
     list_cached_edge_dates,
     odds_staleness_warning,
     drop_started_games,
-    EDGE_THRESHOLD,
 )
 from NHL.TodaysPicks import (
     compute_and_cache_todays_picks,
@@ -1432,19 +1431,21 @@ def api_betting_edge():
 
     Query params:
         date           – YYYY-MM-DD (default: today)
-        edge_threshold – minimum absolute edge to surface (default: 0.03)
+        edge_threshold – optional minimum absolute edge to surface; when omitted
+                         the board shows every line and every matched game
     """
     try:
         date_str = request.args.get("date")
         game_date = _parse_date(date_str) or resolve_next_game_date(league_today())
-        edge_threshold = float(request.args.get("edge_threshold", "0.03"))
+        edge_threshold_raw = request.args.get("edge_threshold")
+        edge_threshold = float(edge_threshold_raw) if edge_threshold_raw else None
 
         # Fast path: serve pre-computed edges for the requested date.
         cached, warning = load_cached_edges(game_date, max_age_hours=24.0)
         if cached is not None and cached.get("date") == game_date.isoformat():
             # Apply a possibly stricter client threshold to the cached set.
             games = cached.get("games", [])
-            if edge_threshold != EDGE_THRESHOLD:
+            if edge_threshold is not None:
                 games = [
                     g for g in games
                     if any(abs(e.get("edge", 0.0)) >= edge_threshold for e in g.get("edges", []))
