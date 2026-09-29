@@ -259,6 +259,27 @@ def get_player_nst_stats(season: str) -> Dict[str, Dict]:
 get_player_pbp_stats = get_player_nst_stats
 
 
+def _season_with_player_stats(season: str) -> str:
+    """
+    Season to price props from.
+
+    A September date resolves to the *upcoming* season, whose PBP data does not
+    exist until games are played. With no stats every player abstains, so props
+    collapse to the handful of prospects carrying a rookie projection. Until the
+    season has rates, price off the previous one instead.
+    """
+    if get_player_pbp_stats(season):
+        return season
+    try:
+        previous = f"{int(season[:4]) - 1}{season[:4]}"
+    except (ValueError, TypeError):
+        return season
+    if get_player_pbp_stats(previous):
+        logger.info("No player stats for %s; pricing props from %s.", season, previous)
+        return previous
+    return season
+
+
 def _std_for_market(avg: float, market: str) -> float:
     """
     Return a market-appropriate standard deviation for a per-game average.
@@ -682,7 +703,7 @@ def compute_player_props_for_date(
         markets = tuple(DEFAULT_PLAYER_MARKETS)
     markets = tuple(m.strip().lower().replace(" ", "_") for m in markets)
 
-    season = season_from_date(game_date.isoformat())
+    season = _season_with_player_stats(season_from_date(game_date.isoformat()))
     player_elo = get_player_elo_ratings(season)
     player_stats = get_player_pbp_stats(season)
 

@@ -313,21 +313,24 @@ def compute_game_edges(
         away_dec = _decimal_price(away_out)
         if home_dec and away_dec:
             home_imp, away_imp = remove_vig_2way(implied_probability(home_dec), implied_probability(away_dec))
-            home_edge = home_win_pct - home_imp
-            away_edge = away_win_pct - away_imp
-            for side, edge, model_p, imp_p, out, team in (
-                (home_name, home_edge, home_win_pct, home_imp, home_out, home),
-                (away_name, away_edge, away_win_pct, away_imp, away_out, away),
-            ):
+            # Moneyline is only shown for the side the model gives over 50% to,
+            # even when the underdog carries the larger edge.
+            if home_win_pct > 0.5:
+                side, model_p, imp_p, out, team = home_name, home_win_pct, home_imp, home_out, home
+            elif away_win_pct > 0.5:
+                side, model_p, imp_p, out, team = away_name, away_win_pct, away_imp, away_out, away
+            else:
+                side = None
+            if side is not None:
+                edge = model_p - imp_p
                 if edge > edge_threshold:
-                    dec = _decimal_price(out)
                     edges.append(_edge_dict(
                         market="Moneyline",
                         side=side,
                         pick=side,
                         team=team,
                         odds=out.get("price"),
-                        odds_decimal=dec,
+                        odds_decimal=_decimal_price(out),
                         model_prob=model_p,
                         implied_prob=imp_p,
                         edge=edge,
