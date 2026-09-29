@@ -597,6 +597,9 @@ def _shape_player_df(
                             "under_decimal": None,
                             # None when the feed does not flag main vs alternate.
                             "is_main_line": None,
+                            # Set when two selections collide on this name -- see
+                            # the conflict check below.
+                            "ambiguous": False,
                         }
 
                     flagged = o.get("is_main_line")
@@ -610,14 +613,36 @@ def _shape_player_df(
                         dec = None if price is None else float(price)
                         amer = decimal_to_american(dec) if dec is not None else None
 
+                    # A second, differently-priced selection on the same side and
+                    # line means two players share this name. Both land in this
+                    # one group, so the later price would silently overwrite the
+                    # earlier one.
                     if side == "Over":
+                        prev = by_player[key]["over_decimal"]
+                        if prev is not None and dec is not None and prev != dec:
+                            by_player[key]["ambiguous"] = True
                         by_player[key]["over_american"] = amer
                         by_player[key]["over_decimal"] = dec
                     else:
+                        prev = by_player[key]["under_decimal"]
+                        if prev is not None and dec is not None and prev != dec:
+                            by_player[key]["ambiguous"] = True
                         by_player[key]["under_american"] = amer
                         by_player[key]["under_decimal"] = dec
 
                 for (_, _), rec in by_player.items():
+                    # Two players can share a name -- Vancouver dresses two Elias
+                    # Pettersson, and DraftKings posts both at +290 and +2000 in
+                    # the same anytime-goal-scorer market. The model resolves the
+                    # name the same way this grouping does, so it would price
+                    # whichever selection survived against whichever player's
+                    # rate it looked up first: here a depth defenceman's +2000
+                    # against the forward's scoring rate, a 12.9% edge that does
+                    # not exist. There is no way to tell the two apart from the
+                    # feed, so drop the row rather than guess.
+                    if rec.get("ambiguous"):
+                        continue
+
                     # An alternate line ("2+ points") is quoted Over-only, so it
                     # is not a two-sided market and cannot be recommended as an
                     # Under. Drop it at the source.

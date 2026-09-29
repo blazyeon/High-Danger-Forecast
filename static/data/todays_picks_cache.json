@@ -1015,7 +1015,7 @@
     },
     "2026-09-29": {
       "date": "2026-09-29",
-      "computed_at": "2026-09-29T20:42:47.024227+00:00",
+      "computed_at": "2026-09-29T20:54:38.658188+00:00",
       "source": "sharpapi",
       "warning": null,
       "no_games": false,
@@ -1671,23 +1671,6 @@
           "implied_under": 54.54545454545454
         },
         {
-          "player": "Elias Pettersson",
-          "market": "Anytime Goal Scorer",
-          "line": 0.5,
-          "prob_over": 17.665372482054064,
-          "recommendation": "Over",
-          "over_american": 2000,
-          "under_american": null,
-          "over_decimal": 21.0,
-          "under_decimal": null,
-          "edge": 0.12903467720149303,
-          "home_abbr": "EDM",
-          "away_abbr": "VAN",
-          "player_team": "",
-          "implied_over": 4.761904761904762,
-          "implied_under": null
-        },
-        {
           "player": "Kevin Lankinen",
           "market": "Total Saves",
           "line": 27.5,
@@ -1926,23 +1909,6 @@
           "implied_under": 81.81818181818181
         },
         {
-          "player": "Sandis Vilmanis",
-          "market": "Anytime Goal Scorer",
-          "line": 0.5,
-          "prob_over": 13.995183938436185,
-          "recommendation": "Over",
-          "over_american": 1100,
-          "under_american": null,
-          "over_decimal": 12.0,
-          "under_decimal": null,
-          "edge": 0.05661850605102853,
-          "home_abbr": "CAR",
-          "away_abbr": "FLA",
-          "player_team": "",
-          "implied_over": 8.333333333333332,
-          "implied_under": null
-        },
-        {
           "player": "Elias Lindholm",
           "market": "Assists",
           "line": 0.5,
@@ -1992,6 +1958,23 @@
           "player_team": "",
           "implied_over": 25.97402597402597,
           "implied_under": 80.0
+        },
+        {
+          "player": "Sandis Vilmanis",
+          "market": "Anytime Goal Scorer",
+          "line": 0.5,
+          "prob_over": 13.995183938436185,
+          "recommendation": "Over",
+          "over_american": 1000,
+          "under_american": null,
+          "over_decimal": 11.0,
+          "under_decimal": null,
+          "edge": 0.04904274847527093,
+          "home_abbr": "CAR",
+          "away_abbr": "FLA",
+          "player_team": "",
+          "implied_over": 9.090909090909092,
+          "implied_under": null
         },
         {
           "player": "Gavin McKenna",
@@ -2094,23 +2077,6 @@
           "player_team": "",
           "implied_over": 11.11111111111111,
           "implied_under": null
-        },
-        {
-          "player": "Darren Raddysh",
-          "market": "Points",
-          "line": 0.5,
-          "prob_over": 56.252158199980286,
-          "recommendation": "Over",
-          "over_american": -110,
-          "under_american": -125,
-          "over_decimal": 1.9090909090909092,
-          "under_decimal": 1.8,
-          "edge": 0.03871205819027901,
-          "home_abbr": "TOR",
-          "away_abbr": "MTL CANADIENS",
-          "player_team": "",
-          "implied_over": 52.38095238095239,
-          "implied_under": 55.55555555555556
         },
         {
           "player": "Anton Lundell",
@@ -2232,6 +2198,23 @@
           "implied_under": 74.35897435897436
         },
         {
+          "player": "William Carrier",
+          "market": "Anytime Goal Scorer",
+          "line": 0.5,
+          "prob_over": 10.686789080743598,
+          "recommendation": "Over",
+          "over_american": 1200,
+          "under_american": null,
+          "over_decimal": 13.0,
+          "under_decimal": null,
+          "edge": 0.029944813884359045,
+          "home_abbr": "CAR",
+          "away_abbr": "FLA",
+          "player_team": "",
+          "implied_over": 7.6923076923076925,
+          "implied_under": null
+        },
+        {
           "player": "Tye Kartye",
           "market": "Anytime Goal Scorer",
           "line": 0.5,
@@ -2249,38 +2232,21 @@
           "implied_under": null
         },
         {
-          "player": "Alexandre Carrier",
-          "market": "Anytime Goal Scorer",
-          "line": 0.5,
-          "prob_over": 7.666067007998767,
-          "recommendation": "Over",
-          "over_american": 1900,
-          "under_american": null,
-          "over_decimal": 20.0,
-          "under_decimal": null,
-          "edge": 0.026660670079987667,
-          "home_abbr": "TOR",
-          "away_abbr": "MTL CANADIENS",
-          "player_team": "",
-          "implied_over": 5.0,
-          "implied_under": null
-        },
-        {
           "player": "Darren Raddysh",
-          "market": "Assists",
+          "market": "Points",
           "line": 0.5,
-          "prob_over": 46.0652788090468,
+          "prob_over": 56.252158199980286,
           "recommendation": "Over",
-          "over_american": 130,
-          "under_american": -175,
-          "over_decimal": 2.3,
-          "under_decimal": 1.5714285714285714,
-          "edge": 0.02587017939481584,
+          "over_american": -115,
+          "under_american": -120,
+          "over_decimal": 1.8695652173913042,
+          "under_decimal": 1.8333333333333335,
+          "edge": 0.027637861069570224,
           "home_abbr": "TOR",
           "away_abbr": "MTL CANADIENS",
           "player_team": "",
-          "implied_over": 43.47826086956522,
-          "implied_under": 63.63636363636363
+          "implied_over": 53.48837209302326,
+          "implied_under": 54.54545454545454
         },
         {
           "player": "Jack Eichel",
@@ -2300,20 +2266,20 @@
           "implied_under": 54.54545454545454
         },
         {
-          "player": "William Carrier",
+          "player": "Alexandre Carrier",
           "market": "Anytime Goal Scorer",
           "line": 0.5,
-          "prob_over": 10.686789080743598,
+          "prob_over": 7.666067007998767,
           "recommendation": "Over",
-          "over_american": 1100,
+          "over_american": 1800,
           "under_american": null,
-          "over_decimal": 12.0,
+          "over_decimal": 19.0,
           "under_decimal": null,
-          "edge": 0.023534557474102658,
-          "home_abbr": "CAR",
-          "away_abbr": "FLA",
+          "edge": 0.02402909113261925,
+          "home_abbr": "TOR",
+          "away_abbr": "MTL CANADIENS",
           "player_team": "",
-          "implied_over": 8.333333333333332,
+          "implied_over": 5.263157894736842,
           "implied_under": null
         },
         {
@@ -2434,23 +2400,6 @@
           "player_team": "",
           "implied_over": 41.66666666666667,
           "implied_under": 65.51724137931035
-        },
-        {
-          "player": "Mark Jankowski",
-          "market": "Anytime Goal Scorer",
-          "line": 0.5,
-          "prob_over": 13.745167388881175,
-          "recommendation": "Over",
-          "over_american": 750,
-          "under_american": null,
-          "over_decimal": 8.5,
-          "under_decimal": null,
-          "edge": 0.019804615065282347,
-          "home_abbr": "CAR",
-          "away_abbr": "FLA",
-          "player_team": "",
-          "implied_over": 11.76470588235294,
-          "implied_under": null
         },
         {
           "player": "David Pastrnak",
@@ -2587,6 +2536,23 @@
           "player_team": "",
           "implied_over": 20.0,
           "implied_under": 85.71428571428571
+        },
+        {
+          "player": "Darren Raddysh",
+          "market": "Assists",
+          "line": 0.5,
+          "prob_over": 46.0652788090468,
+          "recommendation": "Over",
+          "over_american": 125,
+          "under_american": -170,
+          "over_decimal": 2.25,
+          "under_decimal": 1.5882352941176472,
+          "edge": 0.016208343646023582,
+          "home_abbr": "TOR",
+          "away_abbr": "MTL CANADIENS",
+          "player_team": "",
+          "implied_over": 44.44444444444444,
+          "implied_under": 62.962962962962955
         },
         {
           "player": "Marat Khusnutdinov",
@@ -2742,6 +2708,23 @@
           "implied_under": null
         },
         {
+          "player": "Nicolas Deslauriers",
+          "market": "Anytime Goal Scorer",
+          "line": 0.5,
+          "prob_over": 9.293263639102612,
+          "recommendation": "Over",
+          "over_american": 1100,
+          "under_american": null,
+          "over_decimal": 12.0,
+          "under_decimal": null,
+          "edge": 0.009599303057692812,
+          "home_abbr": "CAR",
+          "away_abbr": "FLA",
+          "player_team": "",
+          "implied_over": 8.333333333333332,
+          "implied_under": null
+        },
+        {
           "player": "Carter Verhaeghe",
           "market": "Points",
           "line": 0.5,
@@ -2807,6 +2790,23 @@
           "away_abbr": "VAN",
           "player_team": "",
           "implied_over": 20.40816326530612,
+          "implied_under": null
+        },
+        {
+          "player": "Darren Raddysh",
+          "market": "Anytime Goal Scorer",
+          "line": 0.5,
+          "prob_over": 18.88742384496126,
+          "recommendation": "Over",
+          "over_american": 450,
+          "under_american": null,
+          "over_decimal": 5.5,
+          "under_decimal": null,
+          "edge": 0.007056056631430774,
+          "home_abbr": "TOR",
+          "away_abbr": "MTL CANADIENS",
+          "player_team": "",
+          "implied_over": 18.181818181818183,
           "implied_under": null
         },
         {
@@ -2912,6 +2912,23 @@
           "implied_under": null
         },
         {
+          "player": "Shayne Gostisbehere",
+          "market": "Anytime Goal Scorer",
+          "line": 0.5,
+          "prob_over": 14.789146871013214,
+          "recommendation": "Over",
+          "over_american": 600,
+          "under_american": null,
+          "over_decimal": 7.0,
+          "under_decimal": null,
+          "edge": 0.0050343258529892965,
+          "home_abbr": "CAR",
+          "away_abbr": "FLA",
+          "player_team": "",
+          "implied_over": 14.285714285714285,
+          "implied_under": null
+        },
+        {
           "player": "Adam Fox",
           "market": "Assists",
           "line": 0.5,
@@ -3011,40 +3028,6 @@
           "away_abbr": "CHI",
           "player_team": "",
           "implied_over": 25.641025641025646,
-          "implied_under": null
-        },
-        {
-          "player": "Nicolas Deslauriers",
-          "market": "Anytime Goal Scorer",
-          "line": 0.5,
-          "prob_over": 9.293263639102612,
-          "recommendation": "Over",
-          "over_american": 1000,
-          "under_american": null,
-          "over_decimal": 11.0,
-          "under_decimal": null,
-          "edge": 0.0020235454819352156,
-          "home_abbr": "CAR",
-          "away_abbr": "FLA",
-          "player_team": "",
-          "implied_over": 9.090909090909092,
-          "implied_under": null
-        },
-        {
-          "player": "Arber Xhekaj",
-          "market": "Anytime Goal Scorer",
-          "line": 0.5,
-          "prob_over": 3.469020004049672,
-          "recommendation": "Over",
-          "over_american": 2800,
-          "under_american": null,
-          "over_decimal": 29.0,
-          "under_decimal": null,
-          "edge": 0.00020744141980706676,
-          "home_abbr": "TOR",
-          "away_abbr": "MTL CANADIENS",
-          "player_team": "",
-          "implied_over": 3.4482758620689653,
           "implied_under": null
         }
       ]
