@@ -1929,7 +1929,7 @@ async function runProps() {
     const container = document.getElementById('propsResults');
     container.innerHTML = '<div class="loading"><div class="spinner"></div><span>Loading props...</span></div>';
 
-    const markets = ["player_points", "player_assists", "player_goals", "player_shots_on_goal"];
+    const markets = ["player_points", "player_assists", "player_goals", "player_shots_on_goal", "player_power_play_points", "player_blocked_shots", "player_total_saves"];
 
     try {
         const url = `/api/player-props?regions=us&markets=${markets.join(',')}`;
@@ -1977,6 +1977,9 @@ function resetPropsFilters() {
         'Goals': true,
         'Assists': false,
         'Shots': true,
+        'Power Play Points': false,
+        'Blocked Shots': false,
+        'Saves': true,
     };
     _propsSideFilter = 'Over';
 }
@@ -2004,6 +2007,9 @@ function setPropsSideFilter(side) {
 
 function _canonicalMarketName(prop) {
     const raw = String(prop.market || '').replace(/^Player\s+/i, '').trim();
+    if (/blocked/i.test(raw)) return 'Blocked Shots';
+    if (/power\s*play/i.test(raw)) return 'Power Play Points';
+    if (/saves?/i.test(raw)) return 'Saves';
     if (/shots/i.test(raw)) return 'Shots';
     if (/points/i.test(raw)) return 'Points';
     if (/goals/i.test(raw)) return 'Goals';
@@ -2018,7 +2024,7 @@ function renderProps(props) {
         return;
     }
 
-    const marketOrder = ['Points', 'Goals', 'Assists', 'Shots'];
+    const marketOrder = ['Points', 'Goals', 'Assists', 'Shots', 'Power Play Points', 'Blocked Shots', 'Saves'];
 
     let rows = props.map(p => {
         const rec = p.recommendation || 'Pass';
@@ -2103,7 +2109,7 @@ function renderProps(props) {
         const edgePct = (edge * 100).toFixed(1);
         const edgeSign = edge >= 0 ? '+' : '';
         const recClass = p.isOver ? 'prop-rec-over' : 'prop-rec-under';
-        const rowClass = edge >= 0.05 ? 'edge-strong' : edge >= 0.02 ? 'edge-good' : 'edge-slight';
+        const rowClass = edge < 0 ? 'edge-bad' : edge >= 0.05 ? 'edge-strong' : edge >= 0.02 ? 'edge-good' : 'edge-slight';
         const price = p.recPrice != null ? formatAmerican(p.recPrice) : '-';
         const prob = p.probOver.toFixed(1);
         const implied = p.impliedProb != null ? p.impliedProb.toFixed(1) : null;
@@ -2330,7 +2336,7 @@ function renderBettingEdge(data, container) {
         const odds = e.odds != null ? formatAmerican(e.odds) : '-';
         const pick = e.pick || e.side || '-';
         const teamTag = e.team || (e.market.toLowerCase().startsWith('total') ? 'Total' : (r.homeName === pick || pick.includes(r.homeName) ? r.homeAbbr : r.awayAbbr));
-        const cardClass = edge >= 0.05 ? 'edge-strong' : edge >= 0.03 ? 'edge-good' : 'edge-slight';
+        const cardClass = edge < 0 ? 'edge-bad' : edge >= 0.05 ? 'edge-strong' : edge >= 0.03 ? 'edge-good' : 'edge-slight';
 
         html += `<div class="be-card ${cardClass}">
             <div class="be-card-top">

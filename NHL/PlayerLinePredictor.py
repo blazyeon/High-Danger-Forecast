@@ -19,7 +19,7 @@ import difflib
 
 from NHL.OddsAPI import fetch_nhl_player_props_by_date, OddsAPIError
 from NHL.Utils import normalize_name_key, season_from_date
-from NHL.StatsFromPBP import load_skater_rates_from_json
+from NHL.StatsFromPBP import load_skater_rates_from_json, load_goalie_rates_from_json
 from NHL.Config import NST_ABBR_TO_FULL, TEAM_ABBR_MAPPING
 from EloMl.Database import EloDatabase
 # NST import removed — see get_player_pbp_stats below for the new source.
@@ -48,6 +48,9 @@ DEFAULT_PLAYER_MARKETS = [
     "player_assists",
     "player_goals",
     "player_shots_on_goal",
+    "player_power_play_points",
+    "player_blocked_shots",
+    "player_total_saves",
 ]
 
 
@@ -224,6 +227,30 @@ def get_player_nst_stats(season: str) -> Dict[str, Dict]:
             "points_pg": (goals + assists) / gp,
             "shots_pg": shots / gp,
         }
+
+    # Merge goalie save rates so `player_total_saves` props can be priced.
+    try:
+        goalie_rates = load_goalie_rates_from_json(start_year, 2)
+        if goalie_rates is not None and not goalie_rates.empty:
+            for _, g in goalie_rates.iterrows():
+                gname = str(g.get("name", "") or "")
+                gkey = normalize_name_key(gname)
+                if not gkey or gkey in stats:
+                    continue
+                ggp = int(g.get("gp", 0) or 0)
+                if ggp == 0:
+                    continue
+                sv = g.get("saves_per_game", None)
+                if sv is None or pd.isna(sv):
+                    sv = (int(g.get("sv", 0) or 0)) / ggp
+                stats[gkey] = {
+                    "name": gname,
+                    "gp": ggp,
+                    "saves_pg": float(sv or 0.0),
+                }
+    except Exception as e:
+        logger.warning("Could not load goalie rates for %s: %s", season, e)
+
     return stats
 
 
@@ -246,7 +273,9 @@ def _std_for_market(avg: float, market: str) -> float:
     A floor keeps low-volume players from collapsing to zero variance.
     """
     market_lower = market.lower()
-    if 'shot' in market_lower:
+    if 'save' in market_lower:
+        dispersion = 1.1
+    elif 'shot' in market_lower:
         dispersion = 1.2
     elif 'point' in market_lower:
         dispersion = 1.4
@@ -345,7 +374,15 @@ def calculate_hit_probability(
 
     # Get stat average based on market
     market_lower = market.lower()
-    if 'point' in market_lower:
+    if 'save' in market_lower:
+        avg = float(stats_data.get('saves_pg', 0) or 0)
+    elif 'blocked' in market_lower:
+        # Per-player blocked shots are not in the PBP shot store (team-level only).
+        return 50.0, "Pass"
+    elif 'power_play' in market_lower:
+        # Per-player power-play points are not in the PBP shot store.
+        return 50.0, "Pass"
+    elif 'point' in market_lower:
         avg = float(stats_data.get('points_pg', 0) or 0)
     elif 'assist' in market_lower:
         avg = float(stats_data.get('assists_pg', 0) or 0)

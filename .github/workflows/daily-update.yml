@@ -12,7 +12,9 @@ permissions:
 jobs:
   update-data:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 45
+    env:
+      ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
 
     steps:
       - name: Checkout repository
@@ -35,6 +37,12 @@ jobs:
 
       - name: Run Elo ratings update
         run: python update_elo_ratings.py --current-season
+
+      - name: Run odds + betting edge update
+        run: python update_odds.py --all
+
+      - name: Run Today's Picks pre-computation
+        run: python update_todays_picks.py
 
       - name: Commit and push updated data
         run: |

@@ -1346,8 +1346,9 @@ def api_player_props(date_str: Optional[str] = None):
     When no date is given, the next NHL game day is used.
 
     Query params:
-        markets   – comma-separated list (default: player_points,player_assists,
-                    player_goals,player_shots_on_goal)
+        markets   – comma-separated list (default: player_points, player_assists,
+                    player_goals, player_shots_on_goal, player_power_play_points,
+                    player_blocked_shots, player_total_saves)
         regions   – region code for odds (default: us)
         bookmakers – comma-separated bookmaker keys (default: all)
     """
@@ -1364,6 +1365,24 @@ def api_player_props(date_str: Optional[str] = None):
         regions = request.args.get("regions", "us") or "us"
         bookmakers_csv = request.args.get("bookmakers") or None
         odds_format = request.args.get("odds_format", "american") or "american"
+
+        # Fast path: serve pre-computed props from the Today's Picks cache so
+        # the tab opens instantly (no live Odds API call) once the daily update
+        # has run. Falls back to the live fetch when there's no fresh cache.
+        try:
+            cached, _warn = load_cached_todays_picks(game_date, max_age_hours=24.0)
+            if cached is not None and cached.get("date") == game_date.isoformat():
+                props = cached.get("props", []) or []
+                if not props and cached.get("source") == "demo":
+                    return jsonify({
+                        "date": game_date.isoformat(),
+                        "props": [],
+                        "no_live_odds": True,
+                        "warning": "Live odds are unavailable. Set ODDS_API_KEY for real lines.",
+                    })
+                return jsonify({"date": game_date.isoformat(), "props": _make_json_safe(props)})
+        except Exception:
+            pass  # fall through to live fetch
 
         records, warning = compute_player_props_for_date(
             game_date=game_date,
