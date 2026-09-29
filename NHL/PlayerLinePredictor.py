@@ -386,10 +386,12 @@ def calculate_hit_probability(
         avg = float(stats_data.get('points_pg', 0) or 0)
     elif 'assist' in market_lower:
         avg = float(stats_data.get('assists_pg', 0) or 0)
+    elif 'shot' in market_lower:
+        # Check before 'goal': "player_shots_on_goal" contains both "shot"
+        # and "goal", and must map to shots_pg, not goals_pg.
+        avg = float(stats_data.get('shots_pg', 0) or 0)
     elif 'goal' in market_lower:
         avg = float(stats_data.get('goals_pg', 0) or 0)
-    elif 'shot' in market_lower:
-        avg = float(stats_data.get('shots_pg', 0) or 0)
     else:
         return 50.0, "Pass"
 
