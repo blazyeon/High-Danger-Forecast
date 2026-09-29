@@ -248,11 +248,27 @@ def compute_and_cache_todays_picks(
         })
 
     # 6. Pre-compute player props for the date.
+    #
+    # One walk, two products. Today's Picks wants only the rows where the model
+    # disagrees with the book -- a list of bets to make. The props board is a
+    # browser over what is on offer, so it wants every priced row, including the
+    # ones where the book is right. Computing both from a single pass keeps the
+    # second free: the value screen is a filter on the full set, not a rerun.
     props: List[Dict[str, Any]] = []
+    all_props: List[Dict[str, Any]] = []
     if include_props:
         try:
             from NHL.PlayerLinePredictor import compute_player_props_for_date
-            props, props_warning = compute_player_props_for_date(day)
+            all_props, props_warning = compute_player_props_for_date(
+                day, require_positive_edge=False
+            )
+            # Mirrors the screen inside compute_player_props_for_date: skater rows
+            # are forced to Over, so only saves can come back as an Under.
+            props = [
+                r for r in all_props
+                if r.get("recommendation") == "Under" or (r.get("edge") or 0) > 0
+            ]
+            all_props = _json_safe(all_props)
             props = _json_safe(props)
             if props_warning:
                 warning = (warning + " " if warning else "") + props_warning
@@ -267,6 +283,7 @@ def compute_and_cache_todays_picks(
         "no_games": len(games) == 0,
         "games": games,
         "props": props,
+        "all_props": all_props,
     }
 
     cache_path.parent.mkdir(parents=True, exist_ok=True)

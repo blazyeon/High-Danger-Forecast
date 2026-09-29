@@ -1374,8 +1374,17 @@ def api_player_props(date_str: Optional[str] = None):
         try:
             cached, _warn = load_cached_todays_picks(game_date, max_age_hours=24.0)
             if cached is not None and cached.get("date") == game_date.isoformat():
-                props = cached.get("props", []) or []
-                return jsonify({"date": game_date.isoformat(), "props": _make_json_safe(props)})
+                # Serve the full board, not the value-screened subset the picks
+                # tab uses -- `props` drops every row where the book is shorter
+                # than the model, which is most of the top of the market. An
+                # older cache predating `all_props` falls through to the live
+                # compute below rather than quietly serving a screened board.
+                board = cached.get("all_props")
+                if board is not None:
+                    return jsonify({
+                        "date": game_date.isoformat(),
+                        "props": _make_json_safe(board),
+                    })
         except Exception:
             pass  # fall through to live fetch
 
