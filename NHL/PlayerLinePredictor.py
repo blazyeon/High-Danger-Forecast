@@ -868,14 +868,22 @@ def compute_player_props_for_date(
     regions: str = "us",
     bookmakers_csv: Optional[str] = None,
     odds_format: str = "american",
+    require_positive_edge: bool = True,
 ) -> Tuple[List[Dict[str, Any]], Optional[str]]:
     """
     Compute shaped player props (with model edge) for a date.
 
     Returns ``(records, warning)``. ``records`` is the list of prop dicts the UI
     consumes; ``warning`` is set when live odds are unavailable. Shared by the
-    player-props endpoint and the Today's Picks pre-computation so both produce
-    identical output.
+    player-props endpoint and the Today's Picks pre-computation.
+
+    ``require_positive_edge`` drops every row the book prices shorter than the
+    model. That is right for Today's Picks, which is a list of bets to make, and
+    wrong for the props board, which is a browser over what is on offer: the
+    screen is invisible from the UI, so a missing prop reads as a missing
+    market. Top-of-market names are exactly the ones it removes -- Auston
+    Matthews at +145 is a 40.8% implied against a 27.4% model, so he is absent
+    from a board whose cheapest surviving row is +450.
     """
     if markets is None:
         markets = tuple(DEFAULT_PLAYER_MARKETS)
@@ -934,8 +942,10 @@ def compute_player_props_for_date(
     df["edge"] = df.apply(_edge, axis=1)
     df["recommendation"] = df["side"]
 
-    # An Over that the book already prices above the model is not a pick.
-    df = df[(df["side"] == "Under") | (df["edge"] > 0)].copy()
+    # An Over that the book already prices above the model is not a pick. Only a
+    # value screen, though -- see ``require_positive_edge``.
+    if require_positive_edge:
+        df = df[(df["side"] == "Under") | (df["edge"] > 0)].copy()
     df = df.drop(columns=["side"])
     df = df.sort_values(["edge", "prob_over"], ascending=False)
     df = df.reset_index(drop=True)

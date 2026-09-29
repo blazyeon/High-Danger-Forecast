@@ -1395,6 +1395,10 @@ def api_player_props(date_str: Optional[str] = None):
             regions=regions,
             bookmakers_csv=bookmakers_csv,
             odds_format=odds_format,
+            # The props tab is a board of everything on offer, not a list of
+            # picks -- keep the rows whose edge is negative and let the UI show
+            # the edge. Today's Picks keeps the value screen.
+            require_positive_edge=False,
         )
 
         if not records and warning:
