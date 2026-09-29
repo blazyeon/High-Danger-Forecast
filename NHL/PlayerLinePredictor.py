@@ -679,10 +679,27 @@ def _shape_player_df(
     return df
 
 
+# Props are priced off one book, not a best-price-per-side sweep across books.
+# FanDuel posts Over-only rungs and no Unders at all, so shopping the two sides
+# independently stitched its long Over onto a DraftKings Under -- a market that
+# does not exist (the "pair" summed to ~72% where a real two-way sums to ~105%)
+# -- and every edge was then measured against the longest Over in the market,
+# which understated the real price and inflated the edge. DraftKings is the only
+# book here quoting both sides, and the dispersion constants below were fitted
+# against its main lines.
+_PROP_BOOK = "draftkings"
+
+
 def _best_prices(df: pd.DataFrame) -> pd.DataFrame:
-    """Compute best Over/Under price per (player, market, line)."""
+    """Price each (player, market, line) off a single book."""
     if df.empty:
         return df
+
+    if "book_key" in df.columns:
+        primary = df[df["book_key"] == _PROP_BOOK]
+        # Fall back to whatever is on offer if the primary book has no props.
+        if not primary.empty:
+            df = primary
 
     agg_rows: List[Dict[str, Any]] = []
     group_cols = ["player", "market", "line"]
