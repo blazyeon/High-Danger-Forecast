@@ -1981,7 +1981,6 @@ function resetPropsFilters() {
         'Blocked Shots': false,
         'Saves': true,
     };
-    _propsSideFilter = 'Over';
 }
 
 function setPropsSort(sort) {
@@ -1994,13 +1993,6 @@ function setPropsSort(sort) {
 function setPropsMarketFilter(market, active) {
     if (!_lastPropsData) return;
     _propsMarketFilter[market] = active;
-    const container = document.getElementById('propsResults');
-    if (container) renderProps(_lastPropsData);
-}
-
-function setPropsSideFilter(side) {
-    if (!_lastPropsData) return;
-    _propsSideFilter = side || 'Over';
     const container = document.getElementById('propsResults');
     if (container) renderProps(_lastPropsData);
 }
@@ -2047,14 +2039,12 @@ function renderProps(props) {
         };
     });
 
-    // Apply market filters. Goals market is hidden when Under is selected.
+    // Apply market filters. Goals market is Over-only.
     rows = rows.filter(p => {
         if (p.canonicalMarket === 'Goals') {
-            return p.isOver && _propsSideFilter !== 'Under' && _propsMarketFilter['Goals'];
+            return p.isOver && _propsMarketFilter['Goals'];
         }
-        if (!_propsMarketFilter[p.canonicalMarket]) return false;
-        if (_propsSideFilter === 'both') return true;
-        return p.rec === _propsSideFilter;
+        return !!_propsMarketFilter[p.canonicalMarket];
     });
 
     if (_propsSort === 'odds') {
@@ -2077,18 +2067,6 @@ function renderProps(props) {
     marketOrder.forEach(m => {
         const active = !!_propsMarketFilter[m];
         html += `<button class="props-market-btn ${active ? 'active' : ''}" onclick="setPropsMarketFilter('${m}', ${!active})">${m}</button>`;
-    });
-
-    // Side filter toggles. Goals market is always Over-only regardless of this filter.
-    html += `<span class="props-toolbar-label props-side-label">Side:</span>`;
-    const sides = [
-        { key: 'Over', label: 'Over' },
-        { key: 'Under', label: 'Under' },
-        { key: 'both', label: 'Both' },
-    ];
-    sides.forEach(s => {
-        const active = _propsSideFilter === s.key;
-        html += `<button class="props-side-btn ${active ? 'active' : ''}" onclick="setPropsSideFilter('${s.key}')">${s.label}</button>`;
     });
 
     // Sort toggles
@@ -2196,7 +2174,6 @@ let _propsMarketFilter = {
     'Assists': false,
     'Shots': true,
 };
-let _propsSideFilter = 'Over'; // 'Over' | 'Under' | 'both'
 
 async function runBettingEdge() {
     const container = document.getElementById('bettingEdgeResults');

@@ -707,7 +707,6 @@ input[type="date"].param-input, input[type="date"].date-input {
 .elo-table th:nth-child(4) { width: 60px; }
 .elo-table th:nth-child(5) { min-width: 120px; }
 .elo-bar-fill { height: 100%; background: var(--accent-blue); border-radius: 5px; transition: width 0.7s ease; }
-.elo-top { color: var(--accent-blue); }
 
 .elo-toolbar { flex-wrap: wrap; }
 .elo-toolbar .props-toolbar-label { margin-left: 10px; }
@@ -1109,9 +1108,9 @@ input[type="date"].param-input, input[type="date"].date-input {
 .props-row.edge-strong .props-edge-badge { color: var(--accent-blue); border-color: var(--border-default); }
 
 .props-filterbar { flex-wrap: wrap; }
-.props-side-label, .props-sort-label { margin-left: auto; }
+.props-sort-label { margin-left: auto; }
 
-.props-market-btn, .props-side-btn {
+.props-market-btn {
     background: var(--bg-base);
     border: 1px solid var(--border-subtle);
     border-radius: var(--radius-sm);
@@ -1121,11 +1120,11 @@ input[type="date"].param-input, input[type="date"].date-input {
     cursor: pointer;
     transition: var(--transition-fast);
 }
-.props-market-btn:hover, .props-side-btn:hover {
+.props-market-btn:hover {
     border-color: var(--border-default);
     color: var(--text-primary);
 }
-.props-market-btn.active, .props-side-btn.active {
+.props-market-btn.active {
     background: var(--accent);
     border-color: var(--accent);
     color: var(--bg-base);
@@ -1140,7 +1139,7 @@ input[type="date"].param-input, input[type="date"].date-input {
     flex-shrink: 0;
 }
 @media (max-width: 1200px) {
-    .props-side-label, .props-sort-label { margin-left: 0; }
+    .props-sort-label { margin-left: 0; }
 }
 
 @media (max-width: 900px) {
