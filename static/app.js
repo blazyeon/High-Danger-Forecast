@@ -2176,12 +2176,13 @@ let _propsSort = 'edge';
 let _propsIsDemo = false;
 let _propsDemoReason = null;
 
-// Default filters: show Over props for Points, Goals, and Shots; Assists off.
+// Default filters, mirroring resetPropsFilters(): Over props for Points, Goals
+// and Saves; Assists off.
 let _propsMarketFilter = {
     'Points': true,
     'Goals': true,
     'Assists': false,
-    'Shots': true,
+    'Saves': true,
 };
 
 async function runBettingEdge() {
