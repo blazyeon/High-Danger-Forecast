@@ -23,8 +23,6 @@ from NHL.BettingEdge import (
     fetch_and_cache_odds,
     find_event_for_game,
     load_cached_odds,
-    load_demo_odds,
-    DEFAULT_DEMO_PATH,
     EDGE_THRESHOLD,
 )
 from NHL.Simulation import simulate_slate
@@ -154,7 +152,7 @@ def compute_and_cache_todays_picks(
 
     # 1. Load odds for edge computation. The on-disk cache is only usable when
     #    it is actually for this date; Render never receives the gitignored
-    #    odds_cache.json, so fall back to a live fetch before demo odds.
+    #    odds_cache.json, so fall back to a live fetch before giving up.
     warning = None
     if odds_payload is None:
         odds_payload, warning = load_cached_odds(day, max_age_hours=24.0)
@@ -164,8 +162,8 @@ def compute_and_cache_todays_picks(
                 warning = None
             except Exception as e:
                 logger.warning(f"Live odds fetch failed for {day}: {e}")
-                odds_payload = load_demo_odds(DEFAULT_DEMO_PATH)
-                warning = "Using demo odds (no live odds cached)."
+                odds_payload = {"events": [], "source": "none"}
+                warning = "Live odds unavailable; no value bets computed."
     events = odds_payload.get("events", [])
 
     # 2. Load schedule for the date.

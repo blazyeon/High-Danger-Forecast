@@ -1956,9 +1956,7 @@ async function runProps() {
         }
         if (data.no_live_odds) {
             _lastPropsData = [];
-            _propsIsDemo = false;
-            _propsDemoReason = null;
-            container.innerHTML = `<div class="demo-notice">
+            container.innerHTML = `<div class="error-box">
                 <i class="fa-solid fa-tower-broadcast"></i> ${escapeHtml(data.warning || 'Live odds are unavailable.')}
                 Set <code>SHARPAPI_KEY</code> for real lines.
             </div>`;
@@ -1967,20 +1965,15 @@ async function runProps() {
         const liveProps = data.props || [];
         if (liveProps.length === 0) {
             _lastPropsData = [];
-            _propsIsDemo = false;
-            _propsDemoReason = null;
-            container.innerHTML = `<div class="empty-state"><div class="empty-icon"><i class="fa-solid fa-dice"></i></div><h3 class="empty-title">No props available</h3><p class="empty-text">No props with a positive edge for ${escapeHtml(data.date || '')}.</p></div>`;
+            container.innerHTML = `<div class="empty-state"><div class="empty-icon"><i class="fa-solid fa-dice"></i></div><h3 class="empty-title">No props available</h3><p class="empty-text">No props available for ${escapeHtml(data.date || '')}.</p></div>`;
             return;
         }
         _lastPropsData = liveProps;
         resetPropsFilters();
-        _propsIsDemo = false;
-        _propsDemoReason = null;
         renderProps(_lastPropsData);
     } catch (e) {
         if (e.name === 'AbortError') return; // superseded by a newer request
         _lastPropsData = [];
-        _propsIsDemo = false;
         container.innerHTML = `<div class="error-box">Could not load props: ${escapeHtml(e.message)}</div>`;
         console.error('Props load failed:', e);
     }
@@ -2079,12 +2072,6 @@ function renderProps(props) {
     }
 
     let html = '';
-    if (_propsIsDemo) {
-        html += `<div class="demo-notice">
-            <i class="fa-solid fa-tower-broadcast"></i> Showing sample props because live odds are unavailable${_propsDemoReason ? ': ' + escapeHtml(_propsDemoReason) : ''}.
-            Set <code>SHARPAPI_KEY</code> for real lines.
-        </div>`;
-    }
 
     // Market filter toggles
     html += `<div class="props-toolbar props-filterbar">
@@ -2176,8 +2163,6 @@ function formatAmerican(n) {
 // ── Betting Edge Tab ─────────────────────────────────────────────
 let _lastBettingEdgeData = null;
 let _bettingEdgeSort = 'prob';
-let _bettingEdgeIsDemo = false;
-let _bettingEdgeDemoReason = null;
 
 // ── Elo Tab ──────────────────────────────────────────────────────
 let _eloView = 'teams';       // 'teams' | 'players' | 'rookies'
@@ -2191,8 +2176,6 @@ let _lastEloStatsSeason = '';
 // ── Player Props Tab ─────────────────────────────────────────────
 let _lastPropsData = null;
 let _propsSort = 'prob';
-let _propsIsDemo = false;
-let _propsDemoReason = null;
 
 // Default filters, mirroring resetPropsFilters(): Over props for Points, Goals
 // and Saves; Assists off.
@@ -2208,48 +2191,21 @@ async function runBettingEdge() {
     if (!container) return;
     container.innerHTML = '<div class="loading"><div class="spinner"></div><span>Crunching model probabilities and odds...</span></div>';
 
-    async function loadDemo(reason) {
-        console.warn(reason + ', using demo betting edge cache.');
-        try {
-            const raw = await safeFetchJson('/static/data/betting_edge_cache.json');
-            let demo = raw;
-            if (raw && raw.dates) {
-                const dates = Object.keys(raw.dates).sort();
-                const target = localToday();
-                const key = raw.dates[target] ? target : (dates.find(d => d >= target) || dates[dates.length - 1] || null);
-                demo = key ? raw.dates[key] : null;
-            }
-            if (!demo) {
-                _lastBettingEdgeData = null;
-                container.innerHTML = '<div class="error-box">No cached betting edge available.</div>';
-                return;
-            }
-            _lastBettingEdgeData = demo;
-            _bettingEdgeSort = 'prob';
-            _bettingEdgeIsDemo = true;
-            _bettingEdgeDemoReason = reason;
-            renderBettingEdge(demo, container);
-        } catch (demoErr) {
-            _lastBettingEdgeData = null;
-            container.innerHTML = `<div class="error-box">Could not load betting edge. Demo cache also failed to load: ${escapeHtml(demoErr.message)}.</div>`;
-            console.error('Betting edge demo load failed:', demoErr);
-        }
-    }
-
     try {
         const data = await latestFetch('betting-edge', '/api/betting-edge');
         if (data.error) {
-            await loadDemo('Betting Edge API returned error: ' + data.error);
+            _lastBettingEdgeData = null;
+            container.innerHTML = `<div class="error-box">Could not load value bets: ${escapeHtml(data.error)}</div>`;
             return;
         }
         _lastBettingEdgeData = data;
         _bettingEdgeSort = 'prob';
-        _bettingEdgeIsDemo = false;
-        _bettingEdgeDemoReason = null;
         renderBettingEdge(data, container);
     } catch (e) {
         if (e.name === 'AbortError') return; // superseded by a newer request
-        await loadDemo('Betting Edge API unavailable: ' + e.message);
+        _lastBettingEdgeData = null;
+        container.innerHTML = `<div class="error-box">Could not load value bets: ${escapeHtml(e.message)}</div>`;
+        console.error('Betting edge load failed:', e);
     }
 }
 
@@ -2269,13 +2225,6 @@ function renderBettingEdge(data, container) {
     if (data.warning) {
         html += `<div class="betting-edge-warning"><i class="fa-solid fa-triangle-exclamation"></i> ${escapeHtml(data.warning)}</div>`;
     }
-    if (data.source === 'demo' || _bettingEdgeIsDemo) {
-        html += `<div class="demo-notice">
-            <i class="fa-solid fa-tower-broadcast"></i> Showing sample value bets because live odds are unavailable${_bettingEdgeDemoReason ? ': ' + escapeHtml(_bettingEdgeDemoReason) : ''}.
-            Set <code>SHARPAPI_KEY</code> for real odds.
-        </div>`;
-    }
-
     if (!games.length) {
         html += data.no_games
             ? `<div class="empty-state">

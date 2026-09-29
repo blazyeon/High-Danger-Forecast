@@ -31,7 +31,6 @@ from NHL.Utils import atomic_write_json, read_json_robust
 logger = logging.getLogger(__name__)
 
 DEFAULT_CACHE_PATH = Path(__file__).resolve().parent.parent / "static" / "data" / "odds_cache.json"
-DEFAULT_DEMO_PATH = Path(__file__).resolve().parent.parent / "static" / "data" / "demo_odds.json"
 DEFAULT_EDGE_CACHE_PATH = Path(__file__).resolve().parent.parent / "static" / "data" / "betting_edge_cache.json"
 DEFAULT_REGIONS = "us"
 DEFAULT_MARKETS = ["h2h", "spreads", "totals"]
@@ -512,41 +511,6 @@ def load_cached_odds(
     return payload, None
 
 
-def load_demo_odds(demo_path: Optional[Path] = None) -> Dict[str, Any]:
-    demo_path = Path(demo_path or DEFAULT_DEMO_PATH)
-    if not demo_path.exists():
-        return {"date": _date.today().isoformat(), "fetched_at": None, "source": "demo", "events": []}
-    with open(demo_path, "r") as f:
-        return json.load(f)
-
-
-# Path to the shared offseason demo props/odds fixture.
-DEFAULT_DEMO_FIXTURE_PATH = Path(__file__).resolve().parent.parent / "static" / "data" / "demo_props.json"
-
-
-def load_demo_schedule(demo_path: Optional[Path] = None) -> List[Dict[str, Any]]:
-    """Return a synthetic NHL schedule from the demo fixture (offseason testing)."""
-    demo_path = Path(demo_path or DEFAULT_DEMO_FIXTURE_PATH)
-    if not demo_path.exists():
-        return []
-    try:
-        with open(demo_path, "r") as f:
-            data = json.load(f)
-    except Exception:
-        return []
-
-    games = []
-    for g in data.get("games", []):
-        games.append({
-            "id": g.get("event_id"),
-            "homeTeam": {"abbrev": g.get("home_team"), "name": {"default": g.get("home_team")}},
-            "awayTeam": {"abbrev": g.get("away_team"), "name": {"default": g.get("away_team")}},
-            "startTimeUTC": g.get("commence_time"),
-            "gameState": "FUT",
-        })
-    return games
-
-
 def compute_and_cache_edges(
     day: _date,
     odds_payload: Optional[Dict[str, Any]] = None,
@@ -554,32 +518,28 @@ def compute_and_cache_edges(
     cache_path: Optional[Path] = None,
     sims: int = 1000,
     use_events_schedule: bool = False,
-    allow_demo_fallback: bool = True,
 ) -> Dict[str, Any]:
     """
     Pre-compute betting edges for a date and write them to a local JSON cache.
     This is designed to run during the daily update so the UI opens instantly.
 
-    ``allow_demo_fallback`` controls whether the demo odds fixture may stand in
-    for missing live odds. Production requests pass False so fake odds are never
-    served as real recommendations.
+    There is no fixture fallback: with no live odds this raises rather than
+    inventing a slate. Edges are recommendations to stake money, so anything
+    that reaches a caller has to trace back to real prices.
     """
     cache_path = Path(cache_path or DEFAULT_EDGE_CACHE_PATH)
 
-    # 1. Load odds (use provided payload, then cache, then demo).
+    # 1. Load odds (use provided payload, then the on-disk cache).
     warning = None
     if odds_payload is None:
         odds_payload, warning = load_cached_odds(day, max_age_hours=24.0)
         if odds_payload is None:
-            if not allow_demo_fallback:
-                raise OddsAPIError(f"No live odds available for {day.isoformat()}.")
-            odds_payload = load_demo_odds(DEFAULT_DEMO_PATH)
-            warning = "Using demo odds (no live odds cached)."
+            raise OddsAPIError(f"No live odds available for {day.isoformat()}.")
 
     events = odds_payload.get("events", [])
 
     # 2. Load schedule for the date. On a no-games day we keep the empty slate
-    #    rather than fabricating a schedule from the demo fixture.
+    #    rather than fabricating one from the odds events.
     if use_events_schedule:
         warning = warning or "Using odds event matchups."
         schedule_games = _schedule_from_events(events)

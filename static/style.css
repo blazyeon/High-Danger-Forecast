@@ -971,24 +971,6 @@ input[type="date"].param-input, input[type="date"].date-input {
     line-height: 1.5;
 }
 
-.demo-notice {
-    background: var(--accent-gold-dim);
-    border: 1px solid var(--border-default);
-    border-radius: var(--radius-sm);
-    padding: 12px 16px;
-    font-size: 12px;
-    color: var(--accent-gold);
-    line-height: 1.5;
-    margin-bottom: 14px;
-}
-.demo-notice code {
-    background: var(--bg-base);
-    padding: 2px 5px;
-    border-radius: 4px;
-    font-family: var(--font-mono);
-    font-size: 11px;
-}
-
 .degraded-notice {
     background: var(--accent-gold-dim);
     border: 1px solid var(--border-default);
@@ -1760,8 +1742,6 @@ input[type="date"].param-input, input[type="date"].date-input {
     .data-table th.sortable { min-height: 44px; }
     .settings-toggle { min-height: 44px; }
 
-    /* Demo notice */
-    .demo-notice { padding: 10px 12px; font-size: 11px; }
 }
 
 @media (max-width: 480px) {

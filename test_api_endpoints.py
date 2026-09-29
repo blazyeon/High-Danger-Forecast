@@ -97,25 +97,6 @@ def test_api_player_props_missing_key_is_handled():
             assert "error" in d
 
 
-def test_api_player_props_demo_fallback():
-    """
-    When the API returns no props, the frontend-style demo file should still load.
-    This verifies the demo payload format is valid JSON.
-    """
-    demo_path = PROJECT_ROOT / "static" / "data" / "demo_props.json"
-    if not demo_path.exists():
-        pytest.skip("demo_props.json not present")
-    with open(demo_path) as f:
-        payload = json.load(f)
-    assert "props" in payload
-    assert isinstance(payload["props"], list)
-    if payload["props"]:
-        first = payload["props"][0]
-        for key in ("player", "market", "line", "prob_over", "recommendation",
-                    "home_abbr", "away_abbr", "player_team", "implied_over", "implied_under"):
-            assert key in first, f"demo prop missing {key}: {list(first.keys())}"
-
-
 # ── 3. /api/seasons (cached filter) ───────────────────────────────────────
 
 def test_api_seasons_returns_json():

@@ -161,27 +161,6 @@ def test_compute_game_edges_finds_value():
 
 # ── 4. Flask endpoint ─────────────────────────────────────────────────────
 
-def test_api_betting_edge_demo():
-    """Hit the /api/betting-edge endpoint with demo odds forced."""
-    try:
-        import app as app_module
-    except Exception as e:
-        pytest.skip(f"Could not import app: {e}")
-
-    client = app_module.app.test_client()
-    resp = client.get("/api/betting-edge?date=2025-10-28&demo=1")
-    assert resp.status_code == 200
-    data = resp.get_json()
-    assert "games" in data
-    assert "warning" in data
-    assert data.get("source") in ("demo", "sharpapi")
-
-    # Demo odds have 16 games and at least one should produce an edge.
-    assert isinstance(data["games"], list)
-
-
-# ── Runner ────────────────────────────────────────────────────────────────
-
 def _run_all():
     import inspect
     failures = []

@@ -39,9 +39,8 @@ def _update_one(game_date: _date) -> int:
     except OddsAPIError as e:
         err_msg = str(e).lower()
         if "missing api key" in err_msg:
-            # Do NOT fabricate edges from the demo fixture in the scheduled
-            # production update — leave the cache untouched so the app reports
-            # "no live odds" instead of demo value bets.
+            # Leave the cache untouched so the app reports "no live odds"
+            # rather than serving edges computed from nothing.
             logger.warning(f"No Odds API key configured; skipping edge computation for {game_date}.")
             return 0
         else:

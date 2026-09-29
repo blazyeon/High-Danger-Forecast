@@ -61,12 +61,9 @@ from NHL.BettingEdge import (
     find_event_for_game,
     load_cached_edges,
     load_cached_odds,
-    load_demo_odds,
-    load_demo_schedule,
     list_cached_edge_dates,
     odds_staleness_warning,
     drop_started_games,
-    DEFAULT_DEMO_PATH,
     EDGE_THRESHOLD,
 )
 from NHL.TodaysPicks import (
@@ -1378,13 +1375,6 @@ def api_player_props(date_str: Optional[str] = None):
             cached, _warn = load_cached_todays_picks(game_date, max_age_hours=24.0)
             if cached is not None and cached.get("date") == game_date.isoformat():
                 props = cached.get("props", []) or []
-                if not props and cached.get("source") == "demo":
-                    return jsonify({
-                        "date": game_date.isoformat(),
-                        "props": [],
-                        "no_live_odds": True,
-                        "warning": "Live odds are unavailable. Set SHARPAPI_KEY for real lines.",
-                    })
                 return jsonify({"date": game_date.isoformat(), "props": _make_json_safe(props)})
         except Exception:
             pass  # fall through to live fetch
@@ -1434,61 +1424,42 @@ def api_betting_edge():
     Query params:
         date           – YYYY-MM-DD (default: today)
         edge_threshold – minimum absolute edge to surface (default: 0.03)
-        demo           – set to 1 to force a fresh demo computation
     """
     try:
         date_str = request.args.get("date")
         game_date = _parse_date(date_str) or resolve_next_game_date(league_today())
         edge_threshold = float(request.args.get("edge_threshold", "0.03"))
-        force_demo = request.args.get("demo", "0").lower() in ("1", "true", "yes")
 
         # Fast path: serve pre-computed edges for the requested date.
-        if not force_demo:
-            cached, warning = load_cached_edges(game_date, max_age_hours=24.0)
-            if cached is not None and cached.get("date") == game_date.isoformat():
-                # Never serve demo-sourced edges as real recommendations.
-                if cached.get("source") == "demo":
-                    return jsonify({
-                        "date": game_date.isoformat(),
-                        "games": [],
-                        "source": "demo",
-                        "no_live_odds": True,
-                        "warning": "Live odds are unavailable. Set SHARPAPI_KEY to see real value bets.",
-                    })
-                # Apply a possibly stricter client threshold to the cached set.
-                games = cached.get("games", [])
-                if edge_threshold != EDGE_THRESHOLD:
-                    games = [
-                        g for g in games
-                        if any(abs(e.get("edge", 0.0)) >= edge_threshold for e in g.get("edges", []))
-                    ]
-                    for g in games:
-                        g["edges"] = [e for e in g["edges"] if abs(e.get("edge", 0.0)) >= edge_threshold]
-                        g["best_edge"] = max((abs(e.get("edge", 0.0)) for e in g["edges"]), default=0.0)
-                result = dict(cached)
-                result["games"] = _make_json_safe(games)
-                result, started_count = drop_started_games(result)
-                if started_count:
-                    warning = (warning + " " if warning else "") + f"{started_count} game(s) already started; their edges are no longer bettable."
-                staleness = odds_staleness_warning(cached)
-                if staleness:
-                    warning = warning or staleness
-                if warning:
-                    result["warning"] = warning
-                return jsonify(result)
+        cached, warning = load_cached_edges(game_date, max_age_hours=24.0)
+        if cached is not None and cached.get("date") == game_date.isoformat():
+            # Apply a possibly stricter client threshold to the cached set.
+            games = cached.get("games", [])
+            if edge_threshold != EDGE_THRESHOLD:
+                games = [
+                    g for g in games
+                    if any(abs(e.get("edge", 0.0)) >= edge_threshold for e in g.get("edges", []))
+                ]
+                for g in games:
+                    g["edges"] = [e for e in g["edges"] if abs(e.get("edge", 0.0)) >= edge_threshold]
+                    g["best_edge"] = max((abs(e.get("edge", 0.0)) for e in g["edges"]), default=0.0)
+            result = dict(cached)
+            result["games"] = _make_json_safe(games)
+            result, started_count = drop_started_games(result)
+            if started_count:
+                warning = (warning + " " if warning else "") + f"{started_count} game(s) already started; their edges are no longer bettable."
+            staleness = odds_staleness_warning(cached)
+            if staleness:
+                warning = warning or staleness
+            if warning:
+                result["warning"] = warning
+            return jsonify(result)
 
-        # Slow path: compute and cache edges now. Outside an explicit demo
-        # request, refuse to fall back to the demo fixture (fake odds).
-        odds_payload = None
-        if force_demo:
-            odds_payload = load_demo_odds(DEFAULT_DEMO_PATH)
+        # Slow path: compute and cache edges now.
         try:
             payload = compute_and_cache_edges(
                 day=game_date,
-                odds_payload=odds_payload,
                 edge_threshold=edge_threshold,
-                use_events_schedule=bool(force_demo),
-                allow_demo_fallback=bool(force_demo),
             )
         except OddsAPIError as e:
             return jsonify({
