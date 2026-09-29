@@ -136,6 +136,8 @@ function initTabs() {
             if (btn.dataset.tab === 'betting-edge') runBettingEdge();
             if (btn.dataset.tab === 'props') runProps();
             if (btn.dataset.tab === 'todays-picks') runTodaysPicks();
+            if (btn.dataset.tab === 'lookup') runLookup();
+            if (btn.dataset.tab === 'stats') runStats();
         });
     });
 }
@@ -570,7 +572,13 @@ function setupEventListeners() {
     document.getElementById('awayB2B')?.addEventListener('change', populateGoalies);
     document.getElementById('predictBtn').addEventListener('click', runPrediction);
     document.getElementById('lookupBtn').addEventListener('click', runLookup);
+    // Picking a date is the whole intent, so load on it. The Search button stays
+    // for keyboard users and for re-running a fetch that failed.
+    document.getElementById('lookupDate').addEventListener('change', runLookup);
     document.getElementById('statsBtn').addEventListener('click', runStats);
+    // Same for the analytics selectors -- Type and Season both feed the request.
+    document.getElementById('statsType').addEventListener('change', runStats);
+    document.getElementById('statsSeason').addEventListener('change', runStats);
     document.getElementById('eloBtn').addEventListener('click', refreshElo);
 }
 
