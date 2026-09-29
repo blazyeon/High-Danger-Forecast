@@ -2061,8 +2061,11 @@ function renderProps(props) {
         return !!_propsMarketFilter[p.canonicalMarket];
     });
 
-    if (_propsSort === 'odds') {
-        rows.sort((a, b) => (parseFloat(b.recDecimal) || 0) - (parseFloat(a.recDecimal) || 0));
+    // "Best Model %" ranks on the probability of the side the row actually
+    // shows, which for a saves Under is 100 - probOver, not probOver.
+    if (_propsSort === 'prob') {
+        const sideProb = r => (r.isOver ? r.probOver : 100 - r.probOver);
+        rows.sort((a, b) => sideProb(b) - sideProb(a));
     } else {
         rows.sort((a, b) => b.edge - a.edge);
     }
@@ -2086,7 +2089,7 @@ function renderProps(props) {
     // Sort toggles
     html += `<span class="props-toolbar-label props-sort-label">Sort:</span>
         <button class="props-sort-btn ${_propsSort === 'edge' ? 'active' : ''}" onclick="setPropsSort('edge')">Best Edge</button>
-        <button class="props-sort-btn ${_propsSort === 'odds' ? 'active' : ''}" onclick="setPropsSort('odds')">Best Odds</button>
+        <button class="props-sort-btn ${_propsSort === 'prob' ? 'active' : ''}" onclick="setPropsSort('prob')">Best Model %</button>
     </div>`;
 
     if (rows.length === 0) {
@@ -2298,8 +2301,10 @@ function renderBettingEdge(data, container) {
         });
     });
 
-    if (_bettingEdgeSort === 'odds') {
-        rows.sort((a, b) => b.oddsDecimal - a.oddsDecimal);
+    // "Best Model %" ranks on the model's own probability for the pick, not on
+    // how long the price is.
+    if (_bettingEdgeSort === 'prob') {
+        rows.sort((a, b) => (parseFloat(b.e.model_prob) || 0) - (parseFloat(a.e.model_prob) || 0));
     } else {
         rows.sort((a, b) => b.edge - a.edge);
     }
@@ -2312,7 +2317,7 @@ function renderBettingEdge(data, container) {
     html += `<div class="betting-edge-toolbar">
         <span class="be-toolbar-label">Sort by:</span>
         <button class="be-sort-btn ${_bettingEdgeSort === 'edge' ? 'active' : ''}" onclick="setBettingEdgeSort('edge')">Best Edge</button>
-        <button class="be-sort-btn ${_bettingEdgeSort === 'odds' ? 'active' : ''}" onclick="setBettingEdgeSort('odds')">Best Odds</button>
+        <button class="be-sort-btn ${_bettingEdgeSort === 'prob' ? 'active' : ''}" onclick="setBettingEdgeSort('prob')">Best Model %</button>
     </div>`;
 
     html += '<div class="betting-edge-table">';
