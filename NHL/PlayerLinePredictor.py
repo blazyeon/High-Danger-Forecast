@@ -54,8 +54,12 @@ DEFAULT_PLAYER_MARKETS = [
     # against ~1.7% for anytime scorer, with depth defencemen showing as
     # 2-goal threats -- so it is left off entirely.
     "anytime_goal_scorer",
-    "player_power_play_points",
-    "player_blocked_shots",
+    # Blocked shots and power-play points are left off, for different reasons.
+    # DraftKings does post blocked shots (87 rows on a 5-game slate), but the PBP
+    # shot store carries no blocked-shot data, so every row prices as the 50.0
+    # "No Data" sentinel and is filtered out before ranking -- it can never show.
+    # Power-play points is not posted at all (0 rows from DraftKings and FanDuel
+    # across every slate checked), so requesting it only spends rate limit.
     "player_total_saves",
 ]
 
