@@ -1987,7 +1987,7 @@ async function runProps() {
 }
 
 function resetPropsFilters() {
-    _propsSort = 'edge';
+    _propsSort = 'prob';
     _propsMarketFilter = {
         'Points': true,
         'Goals': true,
@@ -2175,7 +2175,7 @@ function formatAmerican(n) {
 
 // ── Betting Edge Tab ─────────────────────────────────────────────
 let _lastBettingEdgeData = null;
-let _bettingEdgeSort = 'edge';
+let _bettingEdgeSort = 'prob';
 let _bettingEdgeIsDemo = false;
 let _bettingEdgeDemoReason = null;
 
@@ -2190,7 +2190,7 @@ let _lastEloStatsSeason = '';
 
 // ── Player Props Tab ─────────────────────────────────────────────
 let _lastPropsData = null;
-let _propsSort = 'edge';
+let _propsSort = 'prob';
 let _propsIsDemo = false;
 let _propsDemoReason = null;
 
@@ -2225,7 +2225,7 @@ async function runBettingEdge() {
                 return;
             }
             _lastBettingEdgeData = demo;
-            _bettingEdgeSort = 'edge';
+            _bettingEdgeSort = 'prob';
             _bettingEdgeIsDemo = true;
             _bettingEdgeDemoReason = reason;
             renderBettingEdge(demo, container);
@@ -2243,7 +2243,7 @@ async function runBettingEdge() {
             return;
         }
         _lastBettingEdgeData = data;
-        _bettingEdgeSort = 'edge';
+        _bettingEdgeSort = 'prob';
         _bettingEdgeIsDemo = false;
         _bettingEdgeDemoReason = null;
         renderBettingEdge(data, container);
