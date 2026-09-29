@@ -1931,7 +1931,11 @@ async function runProps() {
     const container = document.getElementById('propsResults');
     container.innerHTML = '<div class="loading"><div class="spinner"></div><span>Loading props...</span></div>';
 
-    const markets = ["player_points", "player_assists", "player_goals", "player_shots_on_goal", "player_power_play_points", "player_blocked_shots", "player_total_saves"];
+    // Sent explicitly, so this list -- not the backend default -- decides which
+    // markets the board shows. Mirrors DEFAULT_PLAYER_MARKETS: goals come from
+    // anytime_goal_scorer, and player_shots_on_goal / player_goals are excluded
+    // (Over-only ladder rungs the model cannot price honestly).
+    const markets = ["player_points", "player_assists", "anytime_goal_scorer", "player_power_play_points", "player_blocked_shots", "player_total_saves"];
 
     try {
         const url = `/api/player-props?regions=us&markets=${markets.join(',')}`;
@@ -2005,6 +2009,10 @@ function _canonicalMarketName(prop) {
     if (/saves?/i.test(raw)) return 'Saves';
     if (/shots/i.test(raw)) return 'Shots';
     if (/points/i.test(raw)) return 'Points';
+    // "Anytime Goal Scorer" is the goals market, but it reads "Goal" (singular),
+    // so the /goals/ test below misses it and the rows fall through to a name no
+    // filter knows -- dropping every one of them from the board.
+    if (/anytime\s+goal/i.test(raw)) return 'Goals';
     if (/goals/i.test(raw)) return 'Goals';
     if (/assists/i.test(raw)) return 'Assists';
     return raw;

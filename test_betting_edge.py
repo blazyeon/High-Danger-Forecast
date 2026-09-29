@@ -191,9 +191,19 @@ def _run_all():
         try:
             obj()
             print(f"PASS {name}")
-        except Exception as e:
-            failures.append((name, e))
-            print(f"FAIL {name}: {e}")
+        except BaseException as e:
+            # pytest's `Skipped` subclasses BaseException, not Exception, so a
+            # plain `except Exception` lets any skip abort the whole run.
+            cls = type(e).__name__
+            if _HAS_PYTEST and isinstance(e, pytest.skip.Exception):
+                print(f"SKIP {name}: {e}")
+            elif not _HAS_PYTEST and cls == "_SkipTest":
+                print(f"SKIP {name}: {e}")
+            elif not isinstance(e, Exception):
+                raise  # KeyboardInterrupt, SystemExit, genuine aborts
+            else:
+                failures.append((name, e))
+                print(f"FAIL {name}: {e}")
     return failures
 
 

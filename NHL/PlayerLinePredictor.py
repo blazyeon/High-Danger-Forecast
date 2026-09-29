@@ -46,10 +46,13 @@ logger = logging.getLogger(__name__)
 DEFAULT_PLAYER_MARKETS = [
     "player_points",
     "player_assists",
-    "player_goals",
-    # Books price scoring as "anytime goal scorer" rather than an Over/Under
-    # line, and the plain player_goals market only carries an Over-only 2+/3+
-    # ladder. Without this the goals board can only ever produce Unders.
+    # Goals are priced as "anytime goal scorer", not as an Over/Under line.
+    # The plain player_goals market is an Over-only 2+/3+ ladder with no
+    # two-sided rung anywhere (verified: 0 of 179 lines carry an Under), and
+    # DraftKings still stamps is_main_line=True on the 1.5 rung, so that flag
+    # cannot filter it. Its fitted tails are also noise -- median edge ~0.9%
+    # against ~1.7% for anytime scorer, with depth defencemen showing as
+    # 2-goal threats -- so it is left off entirely.
     "anytime_goal_scorer",
     "player_power_play_points",
     "player_blocked_shots",
@@ -423,7 +426,9 @@ def calculate_hit_probability(
     Returns:
         (probability_pct, recommendation)
         - probability_pct: 0-100, probability of OVER hitting
-        - recommendation: "Over", "Under", or "Pass"
+        - recommendation: "Over", "Under", "Pass", or "No Data". "No Data"
+          means no model was produced at all (the 50.0 above is a sentinel,
+          not an estimate); "Pass" means a real estimate near 50%.
     """
     name_key = normalize_name_key(player_name)
 
@@ -447,10 +452,10 @@ def calculate_hit_probability(
             }
         elif gp < 5:
             # Not enough games to trust the per-game rate.
-            return 50.0, "Pass"
+            return 50.0, "No Data"
 
     if not stats_data:
-        return 50.0, "Pass"  # No data
+        return 50.0, "No Data"  # No data
 
     # Get stat average based on market
     market_lower = market.lower()
@@ -458,10 +463,10 @@ def calculate_hit_probability(
         avg = float(stats_data.get('saves_pg', 0) or 0)
     elif 'blocked' in market_lower:
         # Per-player blocked shots are not in the PBP shot store (team-level only).
-        return 50.0, "Pass"
+        return 50.0, "No Data"
     elif 'power_play' in market_lower:
         # Per-player power-play points are not in the PBP shot store.
-        return 50.0, "Pass"
+        return 50.0, "No Data"
     elif 'point' in market_lower:
         avg = float(stats_data.get('points_pg', 0) or 0)
     elif 'assist' in market_lower:
@@ -473,10 +478,10 @@ def calculate_hit_probability(
     elif 'goal' in market_lower:
         avg = float(stats_data.get('goals_pg', 0) or 0)
     else:
-        return 50.0, "Pass"
+        return 50.0, "No Data"
 
     if avg <= 0:
-        return 50.0, "Pass"
+        return 50.0, "No Data"
 
     # Apply Elo as a rate multiplier instead of a flat probability shift.
     elo_rating = elo_data.get('elo', 1500)
@@ -793,6 +798,11 @@ def compute_player_props_for_date(
         return [], None
 
     df = _best_prices(df)
+
+    # Rows the model could not price at all carry a 50.0 sentinel ("No Data"),
+    # not an estimate. Forced to "Over" below, they read as a huge edge against a
+    # long-shot book price and crowd out every real pick, so drop them first.
+    df = df[df["recommendation"] != "No Data"].copy()
 
     # Skater props are shown Over-only: the board is for "this player does the
     # thing", and an Under on a 0.5 line is not what it is for. Goalie saves keep

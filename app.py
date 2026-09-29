@@ -1353,7 +1353,7 @@ def api_player_props(date_str: Optional[str] = None):
 
     Query params:
         markets   – comma-separated list (default: player_points, player_assists,
-                    player_goals, player_shots_on_goal, player_power_play_points,
+                    anytime_goal_scorer, player_power_play_points,
                     player_blocked_shots, player_total_saves)
         regions   – region code for odds (default: us)
         bookmakers – comma-separated bookmaker keys (default: all)

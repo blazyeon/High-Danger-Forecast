@@ -140,7 +140,13 @@ if __name__ == "__main__":
         try:
             t()
             print(f"  PASS  {t.__name__}")
-        except Exception as e:
+        except BaseException as e:
+            # pytest's `Skipped` subclasses BaseException, not Exception, so a
+            # plain `except Exception` lets any skip abort the whole run.
+            if not isinstance(e, Exception) and not (
+                _HAS_PYTEST and isinstance(e, pytest.skip.Exception)
+            ):
+                raise  # KeyboardInterrupt, SystemExit, genuine aborts
             cls = type(e).__name__
             if _HAS_PYTEST and isinstance(e, pytest.skip.Exception):
                 print(f"  SKIP  {t.__name__}: {e}")
