@@ -2,16 +2,38 @@
   "dates": {
     "2026-09-29": {
       "date": "2026-09-29",
-      "computed_at": "2026-09-29T19:42:37.060334+00:00",
+      "computed_at": "2026-09-29T21:35:17.066311+00:00",
       "source": "sharpapi",
-      "odds_fetched_at": "2026-09-29T19:42:27.596652+00:00",
+      "odds_fetched_at": "2026-09-29T21:35:00.251778+00:00",
       "warning": null,
       "no_games": false,
       "scanned": 5,
-      "matched": 3,
+      "matched": 4,
       "with_edges": 2,
-      "dropped": 2,
+      "dropped": 1,
       "games": [
+        {
+          "home": "TOR",
+          "away": "MTL",
+          "home_name": "Maple Leafs",
+          "away_name": "Canadiens",
+          "start_time": "2026-09-29T23:00:00Z",
+          "best_edge": 0.1027,
+          "edges": [
+            {
+              "market": "Total 6.5",
+              "side": "Under",
+              "pick": "Under",
+              "team": null,
+              "odds": -112,
+              "odds_decimal": 1.8928571428571428,
+              "model_prob": 0.607,
+              "implied_prob": 0.5043,
+              "edge": 0.1027,
+              "book": "draftkings"
+            }
+          ]
+        },
         {
           "home": "BOS",
           "away": "NYR",
@@ -30,28 +52,6 @@
               "model_prob": 0.65,
               "implied_prob": 0.5514,
               "edge": 0.0986,
-              "book": "draftkings"
-            }
-          ]
-        },
-        {
-          "home": "CAR",
-          "away": "FLA",
-          "home_name": "Hurricanes",
-          "away_name": "Panthers",
-          "start_time": "2026-09-29T21:00:00Z",
-          "best_edge": 0.0765,
-          "edges": [
-            {
-              "market": "Total 6.5",
-              "side": "Under",
-              "pick": "Under",
-              "team": null,
-              "odds": -125,
-              "odds_decimal": 1.8,
-              "model_prob": 0.609,
-              "implied_prob": 0.5325,
-              "edge": 0.0765,
               "book": "draftkings"
             }
           ]
@@ -447,7 +447,7 @@
     },
     "2025-10-28": {
       "date": "2025-10-28",
-      "computed_at": "2026-09-29T14:08:25.477316+00:00",
+      "computed_at": "2026-09-29T21:38:52.711591+00:00",
       "source": "demo",
       "odds_fetched_at": "2025-10-28T12:00:00+00:00",
       "warning": "Using odds event matchups.",

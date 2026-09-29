@@ -47,6 +47,9 @@ for _abbr, _full in NST_ABBR_TO_FULL.items():
     if _key not in _FULL_TO_ABBR:
         _FULL_TO_ABBR[_key] = _abbr
 
+# Canonical abbreviations, for spotting one embedded in a longer name.
+_KNOWN_ABBRS = set(_FULL_TO_ABBR.values())
+
 
 def _iso_age_hours(iso_str: Optional[str]) -> Optional[float]:
     """Return the age in hours of an ISO timestamp, or None if unparseable."""
@@ -114,6 +117,16 @@ def _normalize_abbr(abbr: str) -> str:
     mapped = TEAM_ABBR_MAPPING.get(raw, raw)
     # Try full-team-name reverse lookup.
     full_abbr = _FULL_TO_ABBR.get(mapped, mapped)
+    # The odds feed is not consistent about how it names a team: most events carry
+    # the full name, but some carry "<ABBR> <Nickname>" -- "MTL Canadiens" and
+    # "VGK Golden Knights" both appear alongside "Montreal Canadiens" and "Vegas
+    # Golden Knights". Neither form resolves above, and an unresolved name means
+    # the game silently never matches an event, so it drops off the board with no
+    # explanation. Fall back to whichever word is itself a known abbreviation.
+    if " " in full_abbr:
+        for token in full_abbr.split():
+            if token in _KNOWN_ABBRS:
+                return TEAM_ABBR_MAPPING.get(token, token)
     # Re-apply historical mapping in case reverse lookup returned an old abbr.
     return TEAM_ABBR_MAPPING.get(full_abbr, full_abbr)
 
