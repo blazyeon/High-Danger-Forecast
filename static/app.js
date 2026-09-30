@@ -733,9 +733,14 @@ function renderResults(sim, homeAbbr, awayAbbr) {
         { label: 'Away Elo', value: Math.round(sim.away_elo_adj || 1500) },
         { label: 'Exp Home G', value: parseFloat(sim.exp_home_goals).toFixed(2) },
         { label: 'Exp Away G', value: parseFloat(sim.exp_away_goals).toFixed(2) },
-        { label: 'Reg Home Win', value: (hPct * (sim.regulation_games_pct || 100) / 100).toFixed(1) + '%' },
-        { label: 'Reg Away Win', value: (aPct * (sim.regulation_games_pct || 100) / 100).toFixed(1) + '%' },
+        // These four cards partition the sims: regulation home win, regulation
+        // away win, OT, shootout. reg_home_win_pct/reg_away_win_pct are the real
+        // regulation split reported by the simulation; the fallback is the older
+        // estimate, kept so cached sims predating those fields still render.
+        { label: 'Reg Home Win', value: (sim.reg_home_win_pct != null ? sim.reg_home_win_pct : hPct * (sim.regulation_games_pct || 100) / 100).toFixed(1) + '%' },
+        { label: 'Reg Away Win', value: (sim.reg_away_win_pct != null ? sim.reg_away_win_pct : aPct * (sim.regulation_games_pct || 100) / 100).toFixed(1) + '%' },
         { label: 'OT %', value: (sim.ot_games_pct || 16).toFixed(1) + '%' },
+        { label: 'SO %', value: (sim.so_games_pct || 0).toFixed(1) + '%' },
         { label: 'Most Likely Score', value: `${sim.mode_home_goals}-${sim.mode_away_goals}`, cls: 'gold' },
     ];
     stats.forEach(s => {

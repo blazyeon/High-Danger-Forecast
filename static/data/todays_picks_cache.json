@@ -1015,7 +1015,7 @@
     },
     "2026-09-29": {
       "date": "2026-09-29",
-      "computed_at": "2026-09-29T21:50:21.451621+00:00",
+      "computed_at": "2026-09-30T02:40:06.633113+00:00",
       "source": "sharpapi",
       "warning": null,
       "no_games": false,
@@ -1029,59 +1029,60 @@
           "best_edge": 0.0,
           "edges": [],
           "sim": {
-            "mu_home": 3.0560865613668105,
-            "mu_away": 2.977348185887307,
+            "mu_home": 2.925164614392449,
+            "mu_away": 2.9747407210969627,
             "home_elo_adj": 1611.3861386138615,
             "away_elo_adj": 1506.0975609756097,
-            "home_win_pct": 51.9,
-            "away_win_pct": 48.1,
-            "home_win_2plus_pct": 30.6,
-            "away_win_2plus_pct": 29.4,
-            "exp_home_goals": 3.1023,
-            "exp_away_goals": 3.0582,
+            "home_win_pct": 50.8,
+            "away_win_pct": 49.2,
+            "home_win_2plus_pct": 29.1,
+            "away_win_2plus_pct": 30.9,
+            "exp_home_goals": 2.9839,
+            "exp_away_goals": 3.053,
             "median_home_goals": 3,
             "median_away_goals": 3,
-            "mode_home_goals": 3,
-            "mode_away_goals": 1,
-            "most_likely_total": 4,
+            "mode_home_goals": 2,
+            "mode_away_goals": 4,
+            "most_likely_total": 6,
             "mode_pair": [
-              3,
-              1
+              2,
+              4
             ],
             "display_pair": [
-              3,
-              1
+              2,
+              4
             ],
             "sims": 10000,
             "exp_home_shots": 30.0,
             "exp_away_shots": 30.0,
             "totals_distribution": {
               "0": 38,
-              "1": 234,
-              "2": 516,
-              "3": 797,
-              "4": 1410,
-              "5": 1318,
-              "6": 1625,
-              "7": 1127,
-              "8": 1048,
-              "9": 652,
-              "10": 556,
-              "11": 295,
-              "12": 182,
-              "13": 90,
-              "14": 65,
-              "15": 23,
-              "16": 11,
-              "17": 5,
-              "18": 2,
-              "19": 4,
-              "20": 2
+              "1": 217,
+              "2": 579,
+              "3": 855,
+              "4": 1475,
+              "5": 1299,
+              "6": 1638,
+              "7": 1120,
+              "8": 1078,
+              "9": 598,
+              "10": 471,
+              "11": 284,
+              "12": 166,
+              "13": 81,
+              "14": 58,
+              "15": 27,
+              "16": 12,
+              "17": 2,
+              "18": 1,
+              "20": 1
             },
-            "regulation_games_pct": 84.8,
-            "ot_games_pct": 9.1,
-            "so_games_pct": 6.1,
-            "confidence": 0.484,
+            "regulation_games_pct": 84.0,
+            "reg_home_win_pct": 41.1,
+            "reg_away_win_pct": 42.9,
+            "ot_games_pct": 9.6,
+            "so_games_pct": 6.4,
+            "confidence": 0.485,
             "home_goalie": "B. Bussi",
             "away_goalie": "A. Schmid",
             "breakdown": {
@@ -1095,7 +1096,7 @@
                 "Momentum adj (mult-1)": 0.0033,
                 "Rest/Travel adj (mult-1)": 0.0,
                 "Score-effects adj (mult-1)": 0.0,
-                "Final mu": 3.056
+                "Final mu": 2.925
               },
               "AWAY": {
                 "Base xGF": 2.25,
@@ -1107,7 +1108,7 @@
                 "Momentum adj (mult-1)": 0.0027,
                 "Rest/Travel adj (mult-1)": 0.0,
                 "Score-effects adj (mult-1)": 0.0,
-                "Final mu": 2.977
+                "Final mu": 2.975
               }
             },
             "home_injuries": {
@@ -1157,7 +1158,7 @@
           "home_name": "Maple Leafs",
           "away_name": "Canadiens",
           "start_time": "2026-09-29T23:00:00Z",
-          "best_edge": 0.104,
+          "best_edge": 0.1385,
           "edges": [
             {
               "market": "Total 6.5",
@@ -1166,65 +1167,91 @@
               "team": null,
               "odds": -112,
               "odds_decimal": 1.8928571428571428,
-              "model_prob": 0.6083,
+              "model_prob": 0.6428,
               "implied_prob": 0.5043,
-              "edge": 0.104,
+              "edge": 0.1385,
+              "book": "draftkings"
+            },
+            {
+              "market": "Moneyline",
+              "side": "MTL Canadiens",
+              "pick": "MTL Canadiens",
+              "team": "MTL",
+              "odds": -105,
+              "odds_decimal": 1.9523809523809523,
+              "model_prob": 0.614,
+              "implied_prob": 0.4892,
+              "edge": 0.1248,
+              "book": "draftkings"
+            },
+            {
+              "market": "Puck Line (1.5)",
+              "side": "MTL Canadiens",
+              "pick": "MTL Canadiens",
+              "team": "MTL",
+              "odds": -258,
+              "odds_decimal": 1.3875968992248062,
+              "model_prob": 0.764,
+              "implied_prob": 0.6908,
+              "edge": 0.0732,
               "book": "draftkings"
             }
           ],
           "sim": {
-            "mu_home": 2.8308526908395573,
-            "mu_away": 3.063555779948152,
+            "mu_home": 2.640284580926013,
+            "mu_away": 3.064696577086366,
             "home_elo_adj": 1487.8048780487804,
             "away_elo_adj": 1566.8316831683169,
-            "home_win_pct": 40.5,
-            "away_win_pct": 59.5,
-            "home_win_2plus_pct": 26.8,
-            "away_win_2plus_pct": 32.9,
-            "exp_home_goals": 2.9075,
-            "exp_away_goals": 3.1237,
-            "median_home_goals": 3,
+            "home_win_pct": 38.6,
+            "away_win_pct": 61.4,
+            "home_win_2plus_pct": 23.6,
+            "away_win_2plus_pct": 35.6,
+            "exp_home_goals": 2.6915,
+            "exp_away_goals": 3.126,
+            "median_home_goals": 2,
             "median_away_goals": 3,
-            "mode_home_goals": 2,
-            "mode_away_goals": 4,
-            "most_likely_total": 6,
+            "mode_home_goals": 1,
+            "mode_away_goals": 3,
+            "most_likely_total": 4,
             "mode_pair": [
-              2,
-              4
+              1,
+              3
             ],
             "display_pair": [
-              2,
-              4
+              1,
+              3
             ],
             "sims": 10000,
             "exp_home_shots": 30.0,
             "exp_away_shots": 30.0,
             "totals_distribution": {
-              "0": 41,
-              "1": 222,
-              "2": 581,
-              "3": 873,
-              "4": 1444,
-              "5": 1296,
-              "6": 1626,
-              "7": 1156,
-              "8": 1064,
-              "9": 602,
-              "10": 507,
-              "11": 233,
-              "12": 168,
-              "13": 79,
-              "14": 60,
-              "15": 25,
+              "0": 51,
+              "1": 247,
+              "2": 661,
+              "3": 924,
+              "4": 1567,
+              "5": 1332,
+              "6": 1646,
+              "7": 1056,
+              "8": 1018,
+              "9": 559,
+              "10": 448,
+              "11": 210,
+              "12": 133,
+              "13": 63,
+              "14": 49,
+              "15": 15,
               "16": 13,
-              "17": 7,
-              "18": 2,
-              "21": 1
+              "17": 6,
+              "18": 1,
+              "19": 1
             },
-            "regulation_games_pct": 84.4,
-            "ot_games_pct": 9.3,
-            "so_games_pct": 6.2,
-            "confidence": 0.489,
+            "regulation_games_pct": 83.6,
+            "reg_home_win_pct": 35.2,
+            "reg_away_win_pct": 48.4,
+            "ot_games_pct": 9.9,
+            "so_games_pct": 6.6,
+            "confidence": 0.49,
             "home_goalie": "S. Bobrovsky",
             "away_goalie": "J. Dobes",
             "breakdown": {
@@ -1238,7 +1265,7 @@
                 "Momentum adj (mult-1)": 0.0018,
                 "Rest/Travel adj (mult-1)": 0.0,
                 "Score-effects adj (mult-1)": 0.0,
-                "Final mu": 2.831
+                "Final mu": 2.64
               },
               "AWAY": {
                 "Base xGF": 2.25,
@@ -1250,7 +1277,7 @@
                 "Momentum adj (mult-1)": 0.0036,
                 "Rest/Travel adj (mult-1)": 0.0,
                 "Score-effects adj (mult-1)": 0.0,
-                "Final mu": 3.064
+                "Final mu": 3.065
               }
             },
             "home_injuries": {
@@ -1288,8 +1315,20 @@
           "home_name": "Bruins",
           "away_name": "Rangers",
           "start_time": "2026-09-30T00:00:00Z",
-          "best_edge": 0.0795,
+          "best_edge": 0.0848,
           "edges": [
+            {
+              "market": "Puck Line (-1.5)",
+              "side": "BOS Bruins",
+              "pick": "BOS Bruins",
+              "team": "BOS",
+              "odds": 215,
+              "odds_decimal": 3.15,
+              "model_prob": 0.389,
+              "implied_prob": 0.3042,
+              "edge": 0.0848,
+              "book": "draftkings"
+            },
             {
               "market": "Total 5.5",
               "side": "Over",
@@ -1300,6 +1339,18 @@
               "model_prob": 0.6309,
               "implied_prob": 0.5514,
               "edge": 0.0795,
+              "book": "draftkings"
+            },
+            {
+              "market": "Moneyline",
+              "side": "Boston Bruins",
+              "pick": "Boston Bruins",
+              "team": "BOS",
+              "odds": -110,
+              "odds_decimal": 1.9090909090909092,
+              "model_prob": 0.539,
+              "implied_prob": 0.5,
+              "edge": 0.039,
               "book": "draftkings"
             }
           ],
@@ -1354,6 +1405,8 @@
               "20": 1
             },
             "regulation_games_pct": 84.7,
+            "reg_home_win_pct": 50.9,
+            "reg_away_win_pct": 33.8,
             "ot_games_pct": 9.2,
             "so_games_pct": 6.1,
             "confidence": 0.476,
@@ -1407,8 +1460,21 @@
           "home_name": "Oilers",
           "away_name": "Canucks",
           "start_time": "2026-09-30T02:00:00Z",
-          "best_edge": 0.0,
-          "edges": [],
+          "best_edge": 0.0911,
+          "edges": [
+            {
+              "market": "Puck Line (1.5)",
+              "side": "VAN Canucks",
+              "pick": "VAN Canucks",
+              "team": "VAN",
+              "odds": 102,
+              "odds_decimal": 2.02,
+              "model_prob": 0.565,
+              "implied_prob": 0.4739,
+              "edge": 0.0911,
+              "book": "draftkings"
+            }
+          ],
           "sim": {
             "mu_home": 3.916854739323397,
             "mu_away": 2.940281247452234,
@@ -1461,6 +1527,8 @@
               "22": 1
             },
             "regulation_games_pct": 86.1,
+            "reg_home_win_pct": 56.0,
+            "reg_away_win_pct": 30.0,
             "ot_games_pct": 8.4,
             "so_games_pct": 5.6,
             "confidence": 0.468,
@@ -1591,6 +1659,8 @@
               "19": 3
             },
             "regulation_games_pct": 84.7,
+            "reg_home_win_pct": 57.1,
+            "reg_away_win_pct": 27.6,
             "ot_games_pct": 9.2,
             "so_games_pct": 6.1,
             "confidence": 0.488,

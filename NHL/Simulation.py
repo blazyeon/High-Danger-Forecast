@@ -2319,6 +2319,16 @@ def simulate_matchup(
     ot_games = int(round(pre_ties * 0.6))
     so_games = int(pre_ties - ot_games)
 
+    # Who actually won the regulation-decided games. Reported directly rather
+    # than derived, because deriving it (overall home win % x share decided in
+    # regulation) assumes that who wins and when the game ends are independent.
+    # They are not: a team that wins 61% overall does not win 61% of the games
+    # that end in regulation, and the gap is not in a fixed direction, so the
+    # product was simply wrong rather than biased. These two plus
+    # ot_games_pct and so_games_pct now partition the sims exactly.
+    reg_home_wins = int(np.sum(pre_final_home > pre_final_away))
+    reg_away_wins = int(np.sum(pre_final_home < pre_final_away))
+
     diff = final_home - final_away
     vol = float(np.std(diff))
     
@@ -2357,6 +2367,8 @@ def simulate_matchup(
         "exp_away_shots": float(0.6 * away_all["SFpg"] + 0.4 * home_all["SApg"]),
         "totals_distribution": totals_dist,
         "regulation_games_pct": round(100.0 * reg_games / denom, 1),
+        "reg_home_win_pct": round(100.0 * reg_home_wins / denom, 1),
+        "reg_away_win_pct": round(100.0 * reg_away_wins / denom, 1),
         "ot_games_pct": round(100.0 * ot_games / denom, 1),
         "so_games_pct": round(100.0 * so_games / denom, 1),
         "confidence": round(conf, 3),
