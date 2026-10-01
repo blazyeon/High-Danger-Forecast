@@ -239,39 +239,13 @@ def get_player_nst_stats(season: str) -> Dict[str, Dict]:
             "position": d.get("position", ""),
         }
 
-    # Regress each skater's goal rate toward the mean for their position. One
-    # season of goals is a thin sample whose tail is mostly flukes -- a defenceman
-    # who scores 17 in 48 games reads as a ~30% anytime-goal threat off his raw
-    # rate, and a depth forward on a career year reads the same way. Shrinking by
-    # games played pulls the small samples back to realistic levels while leaving
-    # established scorers nearly untouched:
-    #
-    #     rate = (gp * raw_rate + K * positional_mean) / (gp + K)
-    #
-    # K is the prior's weight in games. At K=40 a 48-game sample keeps ~55% of its
-    # own rate, which is roughly how well one season of goals/game predicts the
-    # next. The positional means are games-weighted, so they describe the average
-    # player actually on the ice rather than the average roster entry.
-    if stats:
-        skaters = list(stats.values())
-        total_gp = sum(s["gp"] for s in skaters)
-        overall_mean = (sum(s["goals"] for s in skaters) / total_gp) if total_gp else 0.0
-        priors = {}
-        for group, positions in (("F", ("C", "L", "R")), ("D", ("D",))):
-            members = [s for s in skaters if s.get("position") in positions]
-            group_gp = sum(s["gp"] for s in members)
-            priors[group] = (
-                (sum(s["goals"] for s in members) / group_gp) if group_gp else overall_mean
-            )
-
-        K = 40.0
-        for s in skaters:
-            gp = s["gp"]
-            prior = priors.get(s.get("position"), overall_mean)
-            s["goals_pg"] = (gp * s["goals_pg"] + K * prior) / (gp + K)
-            # Keep goals + assists = points, so the Points market prices the same
-            # goal rate the Goals market does.
-            s["points_pg"] = s["goals_pg"] + (s["assists"] / gp)
+    # Goal rates are left at their raw per-game values (goals / gp). Shrinking
+    # them toward the positional mean (previously K=40 games) compressed the whole
+    # board -- Connor McDavid's 0.585 goals/game and a depth forward's 0.10 both
+    # landed near 0.40 -- and the Anytime Goal Scorer market priced into a useless
+    # ~30-35% cluster where every star looked alike. Base the rate on the player's
+    # own production instead: last year's full season, or this year's pace once
+    # the season selector below starts returning the current year.
 
     # Merge goalie save rates so `player_total_saves` props can be priced.
     try:
@@ -735,16 +709,34 @@ def _shape_player_df(
 _PROP_BOOK = "draftkings"
 
 
+def _book_for_market(market: str) -> str:
+    """
+    Preferred book for a market.
+
+    Most props price off DraftKings, but anytime-goal-scorer does not: SharpAPI
+    serves DraftKings' 2+-goal ladder under that market type (Connor McDavid at
+    +450 instead of ~-105), while FanDuel's feed is the real anytime-goal
+    market. It is a one-sided "does he score" market, so the FanDuel-posts-no-
+    Unders problem that keeps the two-sided markets on DraftKings does not apply.
+    """
+    if "goal scorer" in market.lower():
+        return "fanduel"
+    return _PROP_BOOK
+
+
 def _best_prices(df: pd.DataFrame) -> pd.DataFrame:
     """Price each (player, market, line) off a single book."""
     if df.empty:
         return df
 
     if "book_key" in df.columns:
-        primary = df[df["book_key"] == _PROP_BOOK]
-        # Fall back to whatever is on offer if the primary book has no props.
-        if not primary.empty:
-            df = primary
+        # Filter each market to its preferred book, falling back to whatever is
+        # on offer when that book has no rows for the market.
+        kept = []
+        for market, sub in df.groupby("market", sort=False):
+            primary = sub[sub["book_key"] == _book_for_market(str(market))]
+            kept.append(primary if not primary.empty else sub)
+        df = pd.concat(kept, ignore_index=True)
 
     agg_rows: List[Dict[str, Any]] = []
     group_cols = ["player", "market", "line"]
