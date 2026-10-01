@@ -1004,25 +1004,37 @@ def apply_per_sim_shock(
     lam_a = np.clip(mu_away * f_away, SIMULATION_PARAMS["min_goals"], SIMULATION_PARAMS["max_goals"])
     return lam_h, lam_a
 
-def projected_final_score(
-    mu_home: float, mu_away: float, home_win_prob: float = 0.5
+def resolve_score_mode(
+    final_home: np.ndarray, final_away: np.ndarray, home_win_prob: float = 0.5
 ) -> Tuple[int, int]:
-    """Return the projected final score (home, away) from expected goals.
+    """Return the single most likely final score (home, away) from the sim.
 
-    NHL games cannot end in a tie, so this never returns a tied score. The raw
-    modal score of the overdispersed sim is dominated by low-scoring ties
-    (e.g. 1-1), which makes every game's "most likely score" collapse to 1-0.
-    Rounding the model's expected goals instead yields a stable, varied score,
-    and a rounding tie is broken toward the projected favorite.
+    The mode is read straight off the simulated final-score distribution, which
+    already includes blowouts, empty-net goals and shutouts, so the result varies
+    by matchup (a one-goal game, a two-goal empty-net game, or a blowout) instead
+    of being forced to a one-goal margin.
+
+    NHL games cannot end in a tie, so a tied score is never returned: ties are
+    skipped and the most frequent non-tied score is used. Equal-frequency ties
+    are broken toward the team with the higher win probability so the displayed
+    score matches the predicted winner.
     """
-    home = int(round(mu_home))
-    away = int(round(mu_away))
-    if home == away:
-        if home_win_prob >= 0.5:
-            home += 1
-        else:
-            away += 1
-    return home, away
+    pairs = list(zip(final_home.tolist(), final_away.tolist()))
+    counts = Counter(pairs)
+    if not counts:
+        return (1, 0) if home_win_prob >= 0.5 else (0, 1)
+
+    prob_edge = home_win_prob - 0.5
+    sorted_pairs = sorted(
+        counts.items(),
+        key=lambda item: (-item[1], -(item[0][0] - item[0][1]) * prob_edge),
+    )
+    for (h, a), _ in sorted_pairs:
+        if int(h) != int(a):
+            return int(h), int(a)
+
+    # All simulated outcomes were ties (degenerate). Default to the favorite.
+    return (1, 0) if home_win_prob >= 0.5 else (0, 1)
 
 def apply_empty_net_adjustments(
     final_home: np.ndarray, final_away: np.ndarray, mu_home: float, mu_away: float,
@@ -2259,9 +2271,10 @@ def simulate_matchup(
     raw_prob = improved_winner_prediction(final_home, final_away)
     sim_win_prob = max(0.05, min(0.95, raw_prob))
 
-    # Most likely score: a projected final score from expected goals rather than
-    # the modal exact score of the overdispersed sim (which collapses to 1-0).
-    mode_home_goals, mode_away_goals = projected_final_score(mu_home, mu_away, home_win_prob=sim_win_prob)
+    # Most likely score: the modal exact final score from the simulation, so
+    # shutouts, blowouts and empty-net two-goal games all surface here instead
+    # of every game being forced to a one-goal margin.
+    mode_home_goals, mode_away_goals = resolve_score_mode(final_home, final_away, home_win_prob=sim_win_prob)
     most_likely_total = int(mode_home_goals + mode_away_goals)
 
     # Ensemble: blend simulation, Elo, and ML win probabilities.

@@ -12718,7 +12718,7 @@
     },
     "2026-10-01": {
       "date": "2026-10-01",
-      "computed_at": "2026-10-01T23:45:22.644348+00:00",
+      "computed_at": "2026-10-01T23:54:40.717527+00:00",
       "source": "sharpapi",
       "warning": null,
       "no_games": false,
@@ -12745,15 +12745,15 @@
             "median_home_goals": 4,
             "median_away_goals": 3,
             "mode_home_goals": 4,
-            "mode_away_goals": 3,
-            "most_likely_total": 7,
+            "mode_away_goals": 2,
+            "most_likely_total": 6,
             "mode_pair": [
               4,
-              3
+              2
             ],
             "display_pair": [
               4,
-              3
+              2
             ],
             "sims": 10000,
             "exp_home_shots": 28.197560975609754,
@@ -12889,15 +12889,15 @@
             "exp_away_goals": 3.4964,
             "median_home_goals": 3,
             "median_away_goals": 3,
-            "mode_home_goals": 3,
+            "mode_home_goals": 2,
             "mode_away_goals": 4,
-            "most_likely_total": 7,
+            "most_likely_total": 6,
             "mode_pair": [
-              3,
+              2,
               4
             ],
             "display_pair": [
-              3,
+              2,
               4
             ],
             "sims": 10000,
@@ -13023,15 +13023,15 @@
             "median_home_goals": 4,
             "median_away_goals": 3,
             "mode_home_goals": 4,
-            "mode_away_goals": 3,
-            "most_likely_total": 7,
+            "mode_away_goals": 2,
+            "most_likely_total": 6,
             "mode_pair": [
               4,
-              3
+              2
             ],
             "display_pair": [
               4,
-              3
+              2
             ],
             "sims": 10000,
             "exp_home_shots": 29.543902439024386,
@@ -13147,15 +13147,15 @@
             "exp_away_goals": 3.6485,
             "median_home_goals": 3,
             "median_away_goals": 3,
-            "mode_home_goals": 3,
+            "mode_home_goals": 2,
             "mode_away_goals": 4,
-            "most_likely_total": 7,
+            "most_likely_total": 6,
             "mode_pair": [
-              3,
+              2,
               4
             ],
             "display_pair": [
-              3,
+              2,
               4
             ],
             "sims": 10000,
@@ -13281,15 +13281,15 @@
             "exp_away_goals": 3.0895,
             "median_home_goals": 3,
             "median_away_goals": 3,
-            "mode_home_goals": 3,
+            "mode_home_goals": 2,
             "mode_away_goals": 4,
-            "most_likely_total": 7,
+            "most_likely_total": 6,
             "mode_pair": [
-              3,
+              2,
               4
             ],
             "display_pair": [
-              3,
+              2,
               4
             ],
             "sims": 10000,
@@ -13416,15 +13416,15 @@
             "median_home_goals": 4,
             "median_away_goals": 3,
             "mode_home_goals": 4,
-            "mode_away_goals": 3,
-            "most_likely_total": 7,
+            "mode_away_goals": 2,
+            "most_likely_total": 6,
             "mode_pair": [
               4,
-              3
+              2
             ],
             "display_pair": [
               4,
-              3
+              2
             ],
             "sims": 10000,
             "exp_home_shots": 28.7390243902439,
@@ -13538,15 +13538,15 @@
             "exp_away_goals": 3.8445,
             "median_home_goals": 3,
             "median_away_goals": 4,
-            "mode_home_goals": 3,
+            "mode_home_goals": 2,
             "mode_away_goals": 4,
-            "most_likely_total": 7,
+            "most_likely_total": 6,
             "mode_pair": [
-              3,
+              2,
               4
             ],
             "display_pair": [
-              3,
+              2,
               4
             ],
             "sims": 10000,
@@ -13646,15 +13646,15 @@
             "exp_away_goals": 3.5345,
             "median_home_goals": 3,
             "median_away_goals": 3,
-            "mode_home_goals": 3,
+            "mode_home_goals": 2,
             "mode_away_goals": 4,
-            "most_likely_total": 7,
+            "most_likely_total": 6,
             "mode_pair": [
-              3,
+              2,
               4
             ],
             "display_pair": [
-              3,
+              2,
               4
             ],
             "sims": 10000,
@@ -13923,15 +13923,15 @@
           "line": 0.5,
           "prob_over": 77.38779454301998,
           "recommendation": "Over",
-          "over_american": -210,
+          "over_american": -220,
           "under_american": 155,
-          "over_decimal": 1.4761904761904763,
+          "over_decimal": 1.4545454545454546,
           "under_decimal": 2.55,
-          "edge": 0.0964585905914902,
+          "edge": 0.08637794543019983,
           "home_abbr": "NSH",
           "away_abbr": "MIN",
           "player_team": "",
-          "implied_over": 67.74193548387096,
+          "implied_over": 68.75,
           "implied_under": 39.21568627450981
         },
         {
@@ -15535,24 +15535,6 @@
           "player_team": "",
           "implied_over": 32.25806451612903,
           "implied_under": null
-        },
-        {
-          "player": "Joel Eriksson Ek",
-          "position": "F",
-          "market": "Assists",
-          "line": 0.5,
-          "prob_over": 34.08044077726924,
-          "recommendation": "Over",
-          "over_american": 195,
-          "under_american": -270,
-          "over_decimal": 2.95,
-          "under_decimal": 1.3703703703703702,
-          "edge": 0.0018213569252348294,
-          "home_abbr": "NSH",
-          "away_abbr": "MIN",
-          "player_team": "",
-          "implied_over": 33.89830508474576,
-          "implied_under": 72.97297297297298
         },
         {
           "player": "Kirill Kaprizov",
@@ -15851,15 +15833,15 @@
           "line": 0.5,
           "prob_over": 77.38779454301998,
           "recommendation": "Over",
-          "over_american": -210,
+          "over_american": -220,
           "under_american": 155,
-          "over_decimal": 1.4761904761904763,
+          "over_decimal": 1.4545454545454546,
           "under_decimal": 2.55,
-          "edge": 0.0964585905914902,
+          "edge": 0.08637794543019983,
           "home_abbr": "NSH",
           "away_abbr": "MIN",
           "player_team": "",
-          "implied_over": 67.74193548387096,
+          "implied_over": 68.75,
           "implied_under": 39.21568627450981
         },
         {
@@ -17465,24 +17447,6 @@
           "implied_under": null
         },
         {
-          "player": "Joel Eriksson Ek",
-          "position": "F",
-          "market": "Assists",
-          "line": 0.5,
-          "prob_over": 34.08044077726924,
-          "recommendation": "Over",
-          "over_american": 195,
-          "under_american": -270,
-          "over_decimal": 2.95,
-          "under_decimal": 1.3703703703703702,
-          "edge": 0.0018213569252348294,
-          "home_abbr": "NSH",
-          "away_abbr": "MIN",
-          "player_team": "",
-          "implied_over": 33.89830508474576,
-          "implied_under": 72.97297297297298
-        },
-        {
           "player": "Kirill Kaprizov",
           "position": "F",
           "market": "Anytime Goal Scorer",
@@ -17663,24 +17627,6 @@
           "implied_under": null
         },
         {
-          "player": "Ryan O'Reilly",
-          "position": "F",
-          "market": "Assists",
-          "line": 0.5,
-          "prob_over": 43.33482890145098,
-          "recommendation": "Over",
-          "over_american": 130,
-          "under_american": -180,
-          "over_decimal": 2.3,
-          "under_decimal": 1.5555555555555556,
-          "edge": -0.0014343196811423264,
-          "home_abbr": "NSH",
-          "away_abbr": "MIN",
-          "player_team": "",
-          "implied_over": 43.47826086956522,
-          "implied_under": 64.28571428571428
-        },
-        {
           "player": "John Marino",
           "position": "D",
           "market": "Assists",
@@ -17787,6 +17733,24 @@
           "player_team": "",
           "implied_over": 32.25806451612903,
           "implied_under": 74.02597402597402
+        },
+        {
+          "player": "Joel Eriksson Ek",
+          "position": "F",
+          "market": "Assists",
+          "line": 0.5,
+          "prob_over": 34.08044077726924,
+          "recommendation": "Over",
+          "over_american": 190,
+          "under_american": -270,
+          "over_decimal": 2.9,
+          "under_decimal": 1.3703703703703702,
+          "edge": -0.004023178434204189,
+          "home_abbr": "NSH",
+          "away_abbr": "MIN",
+          "player_team": "",
+          "implied_over": 34.48275862068966,
+          "implied_under": 72.97297297297298
         },
         {
           "player": "Adam Larsson",
@@ -18165,6 +18129,24 @@
           "player_team": "",
           "implied_over": 37.03703703703704,
           "implied_under": null
+        },
+        {
+          "player": "Ryan O'Reilly",
+          "position": "F",
+          "market": "Assists",
+          "line": 0.5,
+          "prob_over": 43.33482890145098,
+          "recommendation": "Over",
+          "over_american": 125,
+          "under_american": -170,
+          "over_decimal": 2.25,
+          "under_decimal": 1.5882352941176472,
+          "edge": -0.011096155429934584,
+          "home_abbr": "NSH",
+          "away_abbr": "MIN",
+          "player_team": "",
+          "implied_over": 44.44444444444444,
+          "implied_under": 62.962962962962955
         },
         {
           "player": "Tyler Toffoli",
@@ -19301,24 +19283,6 @@
           "implied_under": null
         },
         {
-          "player": "Kirill Kaprizov",
-          "position": "F",
-          "market": "Points",
-          "line": 0.5,
-          "prob_over": 66.79859286674935,
-          "recommendation": "Over",
-          "over_american": -230,
-          "under_american": 170,
-          "over_decimal": 1.434782608695652,
-          "under_decimal": 2.7,
-          "edge": -0.028983768302203616,
-          "home_abbr": "NSH",
-          "away_abbr": "MIN",
-          "player_team": "",
-          "implied_over": 69.6969696969697,
-          "implied_under": 37.03703703703704
-        },
-        {
           "player": "Zach Whitecloud",
           "position": "D",
           "market": "Anytime Goal Scorer",
@@ -19551,6 +19515,24 @@
           "player_team": "",
           "implied_over": 22.727272727272727,
           "implied_under": null
+        },
+        {
+          "player": "Kirill Kaprizov",
+          "position": "F",
+          "market": "Points",
+          "line": 0.5,
+          "prob_over": 66.79859286674935,
+          "recommendation": "Over",
+          "over_american": -235,
+          "under_american": 170,
+          "over_decimal": 1.425531914893617,
+          "under_decimal": 2.7,
+          "edge": -0.03350660864593957,
+          "home_abbr": "NSH",
+          "away_abbr": "MIN",
+          "player_team": "",
+          "implied_over": 70.1492537313433,
+          "implied_under": 37.03703703703704
         },
         {
           "player": "Sam Bennett",
@@ -20687,24 +20669,6 @@
           "implied_under": null
         },
         {
-          "player": "Joel Eriksson Ek",
-          "position": "F",
-          "market": "Points",
-          "line": 0.5,
-          "prob_over": 48.530016117326845,
-          "recommendation": "Over",
-          "over_american": -115,
-          "under_american": -115,
-          "over_decimal": 1.8695652173913042,
-          "under_decimal": 1.8695652173913042,
-          "edge": -0.04958355975696416,
-          "home_abbr": "NSH",
-          "away_abbr": "MIN",
-          "player_team": "",
-          "implied_over": 53.48837209302326,
-          "implied_under": 53.48837209302326
-        },
-        {
           "player": "Jonathan Marchessault",
           "position": "F",
           "market": "Assists",
@@ -21234,15 +21198,15 @@
           "prob_over": 36.606185473939114,
           "recommendation": "Over",
           "over_american": 135,
-          "under_american": -185,
+          "under_american": -180,
           "over_decimal": 2.35,
-          "under_decimal": 1.5405405405405406,
+          "under_decimal": 1.5555555555555556,
           "edge": -0.0594700601542259,
           "home_abbr": "NSH",
           "away_abbr": "MIN",
           "player_team": "",
           "implied_over": 42.5531914893617,
-          "implied_under": 64.91228070175438
+          "implied_under": 64.28571428571428
         },
         {
           "player": "Roman Josi",
@@ -21279,24 +21243,6 @@
           "player_team": "",
           "implied_over": 9.090909090909092,
           "implied_under": null
-        },
-        {
-          "player": "Filip Forsberg",
-          "position": "F",
-          "market": "Points",
-          "line": 0.5,
-          "prob_over": 57.63303418324852,
-          "recommendation": "Over",
-          "over_american": -175,
-          "under_american": 130,
-          "over_decimal": 1.5714285714285714,
-          "under_decimal": 2.3,
-          "edge": -0.06003329453115114,
-          "home_abbr": "NSH",
-          "away_abbr": "MIN",
-          "player_team": "",
-          "implied_over": 63.63636363636363,
-          "implied_under": 43.47826086956522
         },
         {
           "player": "Jared Spurgeon",
@@ -21441,24 +21387,6 @@
           "player_team": "",
           "implied_over": 10.0,
           "implied_under": null
-        },
-        {
-          "player": "Steven Stamkos",
-          "position": "F",
-          "market": "Points",
-          "line": 0.5,
-          "prob_over": 53.03394537525401,
-          "recommendation": "Over",
-          "over_american": -145,
-          "under_american": 110,
-          "over_decimal": 1.6896551724137931,
-          "under_decimal": 2.1,
-          "edge": -0.06149728094133744,
-          "home_abbr": "NSH",
-          "away_abbr": "MIN",
-          "player_team": "",
-          "implied_over": 59.183673469387756,
-          "implied_under": 47.61904761904761
         },
         {
           "player": "Bowen Byram",
@@ -21893,6 +21821,24 @@
           "implied_under": 41.66666666666667
         },
         {
+          "player": "Steven Stamkos",
+          "position": "F",
+          "market": "Points",
+          "line": 0.5,
+          "prob_over": 53.03394537525401,
+          "recommendation": "Over",
+          "over_american": -150,
+          "under_american": 110,
+          "over_decimal": 1.6666666666666665,
+          "under_decimal": 2.1,
+          "edge": -0.06966054624745999,
+          "home_abbr": "NSH",
+          "away_abbr": "MIN",
+          "player_team": "",
+          "implied_over": 60.00000000000001,
+          "implied_under": 47.61904761904761
+        },
+        {
           "player": "Garnet Hathaway",
           "position": "F",
           "market": "Anytime Goal Scorer",
@@ -21945,6 +21891,24 @@
           "player_team": "",
           "implied_over": 41.66666666666667,
           "implied_under": 65.51724137931035
+        },
+        {
+          "player": "Joel Eriksson Ek",
+          "position": "F",
+          "market": "Points",
+          "line": 0.5,
+          "prob_over": 48.530016117326845,
+          "recommendation": "Over",
+          "over_american": -125,
+          "under_american": -110,
+          "over_decimal": 1.8,
+          "under_decimal": 1.9090909090909092,
+          "edge": -0.07025539438228712,
+          "home_abbr": "NSH",
+          "away_abbr": "MIN",
+          "player_team": "",
+          "implied_over": 55.55555555555556,
+          "implied_under": 52.38095238095239
         },
         {
           "player": "Shane Wright",
@@ -22125,6 +22089,24 @@
           "player_team": "",
           "implied_over": 26.31578947368421,
           "implied_under": null
+        },
+        {
+          "player": "Filip Forsberg",
+          "position": "F",
+          "market": "Points",
+          "line": 0.5,
+          "prob_over": 57.63303418324852,
+          "recommendation": "Over",
+          "over_american": -185,
+          "under_american": 135,
+          "over_decimal": 1.5405405405405406,
+          "under_decimal": 2.35,
+          "edge": -0.07279246518505866,
+          "home_abbr": "NSH",
+          "away_abbr": "MIN",
+          "player_team": "",
+          "implied_over": 64.91228070175438,
+          "implied_under": 42.5531914893617
         },
         {
           "player": "Jordan Greenway",
@@ -22638,15 +22620,15 @@
           "prob_over": 44.006995492594655,
           "recommendation": "Over",
           "over_american": -110,
-          "under_american": -130,
+          "under_american": -125,
           "over_decimal": 1.9090909090909092,
-          "under_decimal": 1.7692307692307692,
+          "under_decimal": 1.8,
           "edge": -0.08373956888357731,
           "home_abbr": "NSH",
           "away_abbr": "MIN",
           "player_team": "",
           "implied_over": 52.38095238095239,
-          "implied_under": 56.52173913043479
+          "implied_under": 55.55555555555556
         },
         {
           "player": "Matty Beniers",
@@ -22800,15 +22782,15 @@
           "prob_over": 42.11574504844964,
           "recommendation": "Over",
           "over_american": -105,
-          "under_american": -135,
+          "under_american": -130,
           "over_decimal": 1.9523809523809523,
-          "under_decimal": 1.7407407407407407,
+          "under_decimal": 1.7692307692307692,
           "edge": -0.09103767146672315,
           "home_abbr": "NSH",
           "away_abbr": "MIN",
           "player_team": "",
           "implied_over": 51.21951219512195,
-          "implied_under": 57.446808510638306
+          "implied_under": 56.52173913043479
         },
         {
           "player": "Kirill Kaprizov",
@@ -23340,15 +23322,15 @@
           "prob_over": 27.095807021538665,
           "recommendation": "Over",
           "over_american": 165,
-          "under_american": -230,
+          "under_american": -220,
           "over_decimal": 2.65,
-          "under_decimal": 1.434782608695652,
+          "under_decimal": 1.4545454545454546,
           "edge": -0.10640042035065111,
           "home_abbr": "VAN",
           "away_abbr": "EDM",
           "player_team": "",
           "implied_over": 37.735849056603776,
-          "implied_under": 69.6969696969697
+          "implied_under": 68.75
         },
         {
           "player": "Emmitt Finnie",
@@ -23657,42 +23639,6 @@
           "implied_under": null
         },
         {
-          "player": "Steven Stamkos",
-          "position": "F",
-          "market": "Assists",
-          "line": 0.5,
-          "prob_over": 24.028840300714037,
-          "recommendation": "Over",
-          "over_american": 165,
-          "under_american": -225,
-          "over_decimal": 2.65,
-          "under_decimal": 1.4444444444444444,
-          "edge": -0.13707008755889738,
-          "home_abbr": "NSH",
-          "away_abbr": "MIN",
-          "player_team": "",
-          "implied_over": 37.735849056603776,
-          "implied_under": 69.23076923076923
-        },
-        {
-          "player": "Jared Spurgeon",
-          "position": "D",
-          "market": "Assists",
-          "line": 0.5,
-          "prob_over": 16.396979976209657,
-          "recommendation": "Over",
-          "over_american": 230,
-          "under_american": -320,
-          "over_decimal": 3.3,
-          "under_decimal": 1.3125,
-          "edge": -0.13906050326820646,
-          "home_abbr": "NSH",
-          "away_abbr": "MIN",
-          "player_team": "",
-          "implied_over": 30.303030303030305,
-          "implied_under": 76.19047619047619
-        },
-        {
           "player": "Maxim Shabanov",
           "position": "F",
           "market": "Anytime Goal Scorer",
@@ -23783,6 +23729,42 @@
           "implied_under": 71.83098591549296
         },
         {
+          "player": "Jared Spurgeon",
+          "position": "D",
+          "market": "Assists",
+          "line": 0.5,
+          "prob_over": 16.396979976209657,
+          "recommendation": "Over",
+          "over_american": 225,
+          "under_american": -320,
+          "over_decimal": 3.25,
+          "under_decimal": 1.3125,
+          "edge": -0.14372250793021113,
+          "home_abbr": "NSH",
+          "away_abbr": "MIN",
+          "player_team": "",
+          "implied_over": 30.76923076923077,
+          "implied_under": 76.19047619047619
+        },
+        {
+          "player": "Steven Stamkos",
+          "position": "F",
+          "market": "Assists",
+          "line": 0.5,
+          "prob_over": 24.028840300714037,
+          "recommendation": "Over",
+          "over_american": 160,
+          "under_american": -225,
+          "over_decimal": 2.6,
+          "under_decimal": 1.4444444444444444,
+          "edge": -0.1443269816082442,
+          "home_abbr": "NSH",
+          "away_abbr": "MIN",
+          "player_team": "",
+          "implied_over": 38.46153846153846,
+          "implied_under": 69.23076923076923
+        },
+        {
           "player": "Matvei Gridin",
           "position": "F",
           "market": "Points",
@@ -23826,51 +23808,15 @@
           "prob_over": 26.808552263069952,
           "recommendation": "Over",
           "over_american": 140,
-          "under_american": -195,
+          "under_american": -190,
           "over_decimal": 2.4,
-          "under_decimal": 1.5128205128205128,
+          "under_decimal": 1.526315789473684,
           "edge": -0.14858114403596723,
           "home_abbr": "VAN",
           "away_abbr": "EDM",
           "player_team": "",
           "implied_over": 41.66666666666667,
-          "implied_under": 66.10169491525424
-        },
-        {
-          "player": "Matthew Wood",
-          "position": "F",
-          "market": "Points",
-          "line": 0.5,
-          "prob_over": 31.17690374238441,
-          "recommendation": "Over",
-          "over_american": 115,
-          "under_american": -160,
-          "over_decimal": 2.15,
-          "under_decimal": 1.625,
-          "edge": -0.15334724164592334,
-          "home_abbr": "NSH",
-          "away_abbr": "MIN",
-          "player_team": "",
-          "implied_over": 46.51162790697674,
-          "implied_under": 61.53846153846154
-        },
-        {
-          "player": "Matthew Wood",
-          "position": "F",
-          "market": "Assists",
-          "line": 0.5,
-          "prob_over": 14.947942709625128,
-          "recommendation": "Over",
-          "over_american": 230,
-          "under_american": -320,
-          "over_decimal": 3.3,
-          "under_decimal": 1.3125,
-          "edge": -0.15355087593405176,
-          "home_abbr": "NSH",
-          "away_abbr": "MIN",
-          "player_team": "",
-          "implied_over": 30.303030303030305,
-          "implied_under": 76.19047619047619
+          "implied_under": 65.51724137931035
         },
         {
           "player": "Morgan Frost",
@@ -23981,24 +23927,6 @@
           "implied_under": null
         },
         {
-          "player": "Jared Spurgeon",
-          "position": "D",
-          "market": "Points",
-          "line": 0.5,
-          "prob_over": 21.82728364742377,
-          "recommendation": "Over",
-          "over_american": 165,
-          "under_american": -225,
-          "over_decimal": 2.65,
-          "under_decimal": 1.4444444444444444,
-          "edge": -0.15908565409180006,
-          "home_abbr": "NSH",
-          "away_abbr": "MIN",
-          "player_team": "",
-          "implied_over": 37.735849056603776,
-          "implied_under": 69.23076923076923
-        },
-        {
           "player": "Vasily Podkolzin",
           "position": "F",
           "market": "Anytime Goal Scorer",
@@ -24015,6 +23943,24 @@
           "player_team": "",
           "implied_over": 34.48275862068966,
           "implied_under": null
+        },
+        {
+          "player": "Matthew Wood",
+          "position": "F",
+          "market": "Assists",
+          "line": 0.5,
+          "prob_over": 14.947942709625128,
+          "recommendation": "Over",
+          "over_american": 220,
+          "under_american": -310,
+          "over_decimal": 3.2,
+          "under_decimal": 1.3225806451612903,
+          "edge": -0.16302057290374872,
+          "home_abbr": "NSH",
+          "away_abbr": "MIN",
+          "player_team": "",
+          "implied_over": 31.25,
+          "implied_under": 75.60975609756098
         },
         {
           "player": "Yegor Sharangovich",
@@ -24035,6 +23981,24 @@
           "implied_under": 62.962962962962955
         },
         {
+          "player": "Matthew Wood",
+          "position": "F",
+          "market": "Points",
+          "line": 0.5,
+          "prob_over": 31.17690374238441,
+          "recommendation": "Over",
+          "over_american": 110,
+          "under_american": -150,
+          "over_decimal": 2.1,
+          "under_decimal": 1.6666666666666665,
+          "edge": -0.164421438766632,
+          "home_abbr": "NSH",
+          "away_abbr": "MIN",
+          "player_team": "",
+          "implied_over": 47.61904761904761,
+          "implied_under": 60.00000000000001
+        },
+        {
           "player": "Andrew Copp",
           "position": "F",
           "market": "Anytime Goal Scorer",
@@ -24051,6 +24015,24 @@
           "player_team": "",
           "implied_over": 26.31578947368421,
           "implied_under": null
+        },
+        {
+          "player": "Jared Spurgeon",
+          "position": "D",
+          "market": "Points",
+          "line": 0.5,
+          "prob_over": 21.82728364742377,
+          "recommendation": "Over",
+          "over_american": 155,
+          "under_american": -215,
+          "over_decimal": 2.55,
+          "under_decimal": 1.4651162790697674,
+          "edge": -0.1738840262708604,
+          "home_abbr": "NSH",
+          "away_abbr": "MIN",
+          "player_team": "",
+          "implied_over": 39.21568627450981,
+          "implied_under": 68.25396825396825
         },
         {
           "player": "Alex Formenton",
