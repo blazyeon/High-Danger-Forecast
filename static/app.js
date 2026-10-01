@@ -2673,8 +2673,8 @@ async function loadSeasons() {
             const opt = new Option(s.label, s.key);
             const isCurrent = s.key === currentSeason;
             // Grey out seasons with no data, but keep the current season
-            // selectable so it can be the default (the backend falls back to
-            // the previous season's data until this one starts).
+            // selectable so it can be the default — it shows "No Data" until
+            // the first games of the season are played.
             if (s.has_data === false && !isCurrent) {
                 opt.text = `${s.label} (no data)`;
                 opt.disabled = true;
