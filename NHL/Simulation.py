@@ -99,6 +99,11 @@ _RATES_CACHE_TTL = 300  # seconds
 _INJURY_CACHE: Dict[str, Tuple[float, Tuple[Dict, Dict]]] = {}
 _INJURY_CACHE_TTL = 300  # seconds
 
+# Early-season guard: a team's per-game rates are meaningless after 1-2 games
+# (e.g. PIT 7.0 GF/game after a 7-0 win). Until the current season's team rates
+# reach a trusted sample, fall back to the previous season's full-season rates.
+_TEAM_RATES_TRUSTED_SAMPLE_GP = 10
+
 
 def _rate_limit_sleep():
     jitter = float(np.random.uniform(0, RATE_LIMIT_JITTER_SECONDS)) if RATE_LIMIT_JITTER_SECONDS > 0 else 0.0
@@ -212,12 +217,32 @@ def _fetch_nst_df(url: str) -> pd.DataFrame:
     return pd.DataFrame()
 
 
+def _rates_mature(df: pd.DataFrame) -> bool:
+    """True once a season's team/goalie rates are based on a trusted sample size.
+
+    Early in a season the exported rates cover only the handful of teams (or
+    goalies) that have played 1-2 games, so their per-game rates are noise and
+    every other row is missing entirely. Require the max games-played to reach
+    a trusted threshold before trusting the current season's numbers.
+    """
+    if df is None or df.empty:
+        return False
+    gp_col = next((c for c in ("gp", "GP") if c in df.columns), None)
+    if gp_col is None:
+        return False
+    gps = pd.to_numeric(df[gp_col], errors="coerce").dropna()
+    return bool(gps.max() >= _TEAM_RATES_TRUSTED_SAMPLE_GP) if not gps.empty else False
+
+
 def get_team_rates_all(season: str, stype: int, fd: str = "", td: str = "") -> pd.DataFrame:
     """Return team rates from the lightweight exported JSON cache only.
 
     We intentionally do NOT fall back to compute_team_rates here because that
     loads the full PBP parquet and can exceed Render's memory on a web request.
     Run `python update_pbp_stats.py` to refresh the cache.
+
+    Early in a season (before enough games have been played) we fall back to the
+    previous season's full-season rates so the simulation isn't fed 1-game noise.
     """
     try:
         season_start = int(season[:4]) if len(str(season)) >= 4 else 2024
@@ -233,6 +258,19 @@ def get_team_rates_all(season: str, stype: int, fd: str = "", td: str = "") -> p
         from NHL.StatsFromPBP import load_team_rates_from_json
         df = load_team_rates_from_json(season_start, stype)
         if not df.empty:
+            if _rates_mature(df):
+                _RATES_CACHE[key] = (now, df.copy())
+                return df.copy()
+            # Early season: current rates are 1-game noise. Use last season.
+            prev_df = load_team_rates_from_json(season_start - 1, stype)
+            if not prev_df.empty:
+                logger.info(
+                    f"Team rates for {season_start}-{season_start + 1} not mature "
+                    f"yet; using {season_start - 1}-{season_start} instead."
+                )
+                _RATES_CACHE[key] = (now, prev_df.copy())
+                return prev_df.copy()
+            # No previous season either; keep the current (partial) rates.
             _RATES_CACHE[key] = (now, df.copy())
             return df.copy()
     except Exception as e:
@@ -268,6 +306,9 @@ def get_goalie_table(season: str, stype: int, fd: str = "", td: str = "") -> pd.
 
     We intentionally do NOT fall back to compute_goalie_rates here because that
     loads the full PBP parquet and can exceed Render's memory on a web request.
+
+    Early in a season (before enough games have been played) we fall back to the
+    previous season's full-season rates so the simulation isn't fed 1-game noise.
     """
     try:
         season_start = int(season[:4]) if len(str(season)) >= 4 else 2024
@@ -283,6 +324,17 @@ def get_goalie_table(season: str, stype: int, fd: str = "", td: str = "") -> pd.
         from NHL.StatsFromPBP import load_goalie_rates_from_json
         df = load_goalie_rates_from_json(season_start, stype)
         if not df.empty:
+            if _rates_mature(df):
+                _RATES_CACHE[key] = (now, df.copy())
+                return df.copy()
+            prev_df = load_goalie_rates_from_json(season_start - 1, stype)
+            if not prev_df.empty:
+                logger.info(
+                    f"Goalie rates for {season_start}-{season_start + 1} not mature "
+                    f"yet; using {season_start - 1}-{season_start} instead."
+                )
+                _RATES_CACHE[key] = (now, prev_df.copy())
+                return prev_df.copy()
             _RATES_CACHE[key] = (now, df.copy())
             return df.copy()
     except Exception as e:

@@ -509,6 +509,24 @@ def api_elo_leaderboard():
     try:
         state = get_app_state()
         current_season = state.get("current_season")
+        team_elo = state.get("team_elo")
+
+        # The in-memory team Elo already carries the early-season fallback to
+        # last season's regressed ratings, so read from it rather than the raw
+        # DB, which may still hold the flat 1500 reset rows.
+        if team_elo is not None and getattr(team_elo, "teams", None):
+            teams = sorted(team_elo.teams.values(), key=lambda t: t.rating, reverse=True)
+            rows = [
+                {
+                    "team_abbr": t.team,
+                    "rating": round(float(t.rating), 1),
+                    "games_played": int(t.games_played or 0),
+                }
+                for t in teams
+            ]
+            return jsonify({"season": current_season, "teams": _make_json_safe(rows)})
+
+        # Fall back to the raw DB when no in-memory team Elo was built.
         db = state.get("db")
         if db is None or not hasattr(db, "conn"):
             return jsonify({"error": "Database unavailable"}), 500

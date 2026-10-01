@@ -56,7 +56,7 @@ def get_current_season() -> Tuple[str, date, date]:
         season_start_year = year - 1
         season_str = f"{year-1}{year}"
 
-    start_date = date(season_start_year, 10, 7)
+    start_date = date(season_start_year, 9, 1)
     end_date = today
 
     return season_str, start_date, end_date
@@ -343,7 +343,7 @@ def populate_team_elo_from_games(season: str, db: EloDatabase) -> int:
     logger.info(f"\n⚙️  Calculating team Elo from game results for {season}...")
     
     config = EloConfig()
-    season_start = date(int(season[:4]), 10, 7)
+    season_start = date(int(season[:4]), 9, 1)
     today = date.today()
     
     team_records = {}
@@ -859,7 +859,7 @@ def main() -> int:
     elif args.training or args.season:
         season_str = args.season
         start_year = int(args.season[:4])
-        start_date = date(start_year, 10, 1)
+        start_date = date(start_year, 9, 1)
         end_date = date(start_year + 1, 6, 30)
         db_path = f"training_data_{season_str}.db"
     else:

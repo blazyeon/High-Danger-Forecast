@@ -201,18 +201,25 @@ def _load_team_ratings_from_db(
             avg_games = sum(t.games_played for t in team_elo.teams.values()) / count
 
             if avg_games < 5:
+                # The new season's team rows exist but carry a flat 1500 reset (or a
+                # couple of noisy games), so "fill in the missing teams" would fill
+                # nothing. Override every team with last season's regressed rating
+                # until enough games have been played for this season's own ratings
+                # to mean anything.
                 logger.warning(
                     f"🔄 Early season detected (avg {avg_games:.1f} games played). "
-                    f"Loading previous season as baseline for missing teams..."
+                    f"Using previous season's team ratings as the baseline..."
                 )
                 prev_season = _get_previous_season(current_season)
                 fallback_count = _load_previous_season_fallback(
-                    team_elo, cursor, prev_season, config
+                    team_elo, cursor, prev_season, config, full_fallback=True
                 )
 
                 if fallback_count > 0:
-                    logger.info(f"✓ Added {fallback_count} teams from previous season ({prev_season})")
-                    count += fallback_count
+                    logger.info(
+                        f"✓ Overrode {fallback_count} teams with previous season ({prev_season}) "
+                        f"regressed {config.season_reset_regression*100:.0f}% to mean"
+                    )
 
         elif count == 0:
             logger.warning(
