@@ -434,10 +434,12 @@ def iter_season_pbp(
     Yield (game_meta, shots_df) for every game in the given season.
 
     season_year is the *start* year of the season (e.g., 2024 for 2024-25).
-    Walks Oct→next-Apr to find regular season (stype=2) games. For
-    playoffs, pass stype=3 and adjust dates externally.
+    Walks Sep→next-Jun to find regular season (stype=2) games. The walk starts
+    Sept 1 because the NHL has opened seasons in late September (2026-27 opened
+    Sep 29); the gameType filter excludes preseason, so an early start is safe.
+    For playoffs, pass stype=3 and adjust dates externally.
     """
-    season_start = date(season_year, 10, 1)
+    season_start = date(season_year, 9, 1)
     season_end = date(season_year + 1, 6, 30)
     games = discover_season_games(season_start, season_end, stype=stype)
     logger.info(f"Discovered {len(games)} games for {season_year}-{season_year+1} stype={stype}")
@@ -532,7 +534,7 @@ def game_date_map(season_year: int, stype: int = 2) -> Dict[int, str]:
     Return {game_id: 'YYYY-MM-DD'} for a season, useful for date-window
     filtering in the stats aggregator.
     """
-    season_start = date(season_year, 10, 1)
+    season_start = date(season_year, 9, 1)
     season_end = date(season_year + 1, 6, 30)
     games = discover_season_games(season_start, season_end, stype=stype)
     return {g["id"]: g["date"] for g in games if g.get("id") is not None}

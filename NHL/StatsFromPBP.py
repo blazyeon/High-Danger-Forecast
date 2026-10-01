@@ -817,7 +817,7 @@ def _season_teams(season_year: int, stype: int = 2) -> List[str]:
     """
     from datetime import date as _date
 
-    season_start = _date(season_year, 10, 1)
+    season_start = _date(season_year, 9, 1)
     season_end = _date(season_year + 1, 6, 30)
     try:
         games = discover_season_games(season_start, season_end, stype=stype)
