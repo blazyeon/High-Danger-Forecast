@@ -278,6 +278,13 @@ def get_player_nst_stats(season: str) -> Dict[str, Dict]:
 get_player_pbp_stats = get_player_nst_stats
 
 
+# A per-game rate is only trusted once the season has played this many games for
+# its leaders. A veteran a couple games into October shows goals_pg = 0 (or 1),
+# which reads as "No Data" and drops every star off the props board. Until the
+# new season's own rates clear this bar, price off the previous one.
+_TRUSTED_SAMPLE_GP = 10
+
+
 def _season_with_player_stats(season: str) -> str:
     """
     Season to price props from.
@@ -286,17 +293,31 @@ def _season_with_player_stats(season: str) -> str:
     exist until games are played. With no stats every player abstains, so props
     collapse to the handful of prospects carrying a rookie projection. Until the
     season has rates, price off the previous one instead.
+
+    Early in a season "has rates" is not enough: the first couple of games leave
+    every player with goals_pg 0 or 1, so the model abstains on the whole board.
+    The new season's own rates are only usable once its best-sampled player has
+    reached a trusted sample; before then, fall back to last season's full rates.
     """
-    if get_player_pbp_stats(season):
+    if _season_rates_mature(season):
         return season
     try:
         previous = f"{int(season[:4]) - 1}{season[:4]}"
     except (ValueError, TypeError):
         return season
     if get_player_pbp_stats(previous):
-        logger.info("No player stats for %s; pricing props from %s.", season, previous)
+        logger.info("Season %s rates not mature yet; pricing props from %s.", season, previous)
         return previous
     return season
+
+
+def _season_rates_mature(season: str) -> bool:
+    """True once the season's own per-game rates are trustworthy enough to price off."""
+    stats = get_player_pbp_stats(season)
+    if not stats:
+        return False
+    gps = [int(d.get("gp", 0) or 0) for d in stats.values()]
+    return bool(gps) and max(gps) >= _TRUSTED_SAMPLE_GP
 
 
 def _display_position(player_stats: Dict[str, Dict], player_key: str, market: str) -> str:

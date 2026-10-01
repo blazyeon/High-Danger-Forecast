@@ -342,7 +342,7 @@ def _fetch_odds_rows(
     base_url: str = DEFAULT_BASE_URL,
     limit: int = 200,
     max_pages: int = 60,
-    max_restarts: int = 3,
+    max_restarts: int = 8,
 ) -> List[Dict[str, Any]]:
     """
     Page /odds with the cursor and return the raw rows.
@@ -372,12 +372,20 @@ def _fetch_odds_rows(
                 sportsbook=sportsbook, allow_markets=allow_markets, base_url=base_url,
                 limit=limit, max_pages=max_pages, collected=collected,
             )
-            break
+            if collected:
+                break
         except _CursorExpired:
             logger.warning(
                 f"SharpAPI pagination cursor expired; restarting walk "
                 f"({attempt + 1}/{max_restarts}, {len(collected)} rows kept so far)"
             )
+        # Nothing collected yet means the *first* page came back empty: either it
+        # expired (400 even with no cursor) or the store served a thin snapshot
+        # while rebuilding (~every 15s). An immediate restart re-fails on the same
+        # rebuild, so wait it out. A walk that already has rows just re-walks from
+        # page 1 right away, so it does not sleep here.
+        if not collected and attempt < max_restarts - 1:
+            time.sleep(15.0)
 
     return list(collected.values())
 
