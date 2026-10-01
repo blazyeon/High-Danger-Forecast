@@ -544,10 +544,14 @@ def team_last_n_metrics(team_abbr: str, date_str: str, n: int = 6) -> Tuple[floa
             gd = dmap.get(int(gid)) if dmap else None
             rows.append({"game_id": gid, "gf": gf, "ga": ga, "sf": sf, "date": gd})
 
-        df = pd.DataFrame(rows)
-        df = df.dropna(subset=["date"]).sort_values("date").tail(n)
+        df = pd.DataFrame(rows).dropna(subset=["date"]).sort_values("date")
         if df.empty:
             raise ValueError("No dated games for last-N")
+        # Early-season guard: a team's last-N is noise after 1-2 games. Fall back
+        # to the (previous season's) full-season rates until a trusted sample.
+        if len(df) < _TEAM_RATES_TRUSTED_SAMPLE_GP:
+            raise ValueError(f"Only {len(df)} games played; recent form unreliable")
+        df = df.tail(n)
 
         gf_pg = float(df["gf"].mean()) if not df["gf"].empty else defaults[0]
         ga_pg = float(df["ga"].mean()) if not df["ga"].empty else defaults[1]
@@ -582,76 +586,18 @@ def _last_n_metrics_for_pair(
 ) -> Tuple[
     Tuple[float, float, float], Tuple[float, float, float], List[int], List[int]
 ]:
+    """Last-N per-game metrics and goal lists for both teams.
+
+    Each team's "last N" is its own last N games, not the last N league-wide
+    games. The per-team loaders fall back to the previous season's full-season
+    rates when the current season has no (or too few) games for a team, so an
+    early-season team is not treated as if it scored zero goals.
     """
-    Load the PBP shot store once and compute last-N metrics + goal lists for both teams.
-    Falls back to league averages / synthetic lists if data is missing.
-    """
-    defaults = (
-        LEAGUE_AVERAGES["goals_per_game"],
-        LEAGUE_AVERAGES["goals_per_game"],
-        LEAGUE_AVERAGES["shots_per_game"],
-    )
-    try:
-        season = season_from_date(date_str)
-        start_year = int(season[:4]) if len(str(season)) >= 4 else 2024
-        shots = load_shot_store(start_year, stype=2)
-        if shots.empty:
-            raise ValueError("Shot store empty")
-
-        home_id = _team_id_from_abbr(home_abbr)
-        away_id = _team_id_from_abbr(away_abbr)
-        if home_id is None or away_id is None:
-            raise ValueError(f"Unknown team abbreviations: {home_abbr}, {away_abbr}")
-
-        dmap = game_date_map(start_year, stype=2)
-
-        # Per-game totals for both teams in one pass over the shot store.
-        game_ids = shots["game_id"].unique()
-        rows = []
-        for gid in game_ids:
-            gid_shots = shots[shots["game_id"] == gid]
-            home_gf = int(gid_shots[(gid_shots["team_id"] == home_id) & (gid_shots["is_goal"] == 1)].shape[0])
-            home_sf = int(gid_shots[(gid_shots["team_id"] == home_id) & (gid_shots["is_shot"] == 1)].shape[0])
-            home_ga = int(gid_shots[(gid_shots["team_id"] == away_id) & (gid_shots["is_goal"] == 1)].shape[0])
-            away_gf = int(gid_shots[(gid_shots["team_id"] == away_id) & (gid_shots["is_goal"] == 1)].shape[0])
-            away_sf = int(gid_shots[(gid_shots["team_id"] == away_id) & (gid_shots["is_shot"] == 1)].shape[0])
-            gd = dmap.get(int(gid)) if dmap else None
-            rows.append({
-                "game_id": gid,
-                "home_gf": home_gf, "home_ga": home_ga, "home_sf": home_sf,
-                "away_gf": away_gf, "away_sf": away_sf,
-                "date": gd,
-            })
-
-        df = pd.DataFrame(rows).dropna(subset=["date"]).sort_values("date")
-        if df.empty:
-            raise ValueError("No dated games")
-
-        home_df = df.tail(n_metrics)
-        away_df = df.tail(n_metrics)
-
-        home_metrics = (
-            max(0.0, float(home_df["home_gf"].mean())),
-            max(0.0, float(home_df["home_ga"].mean())),
-            max(0.0, float(home_df["home_sf"].mean())),
-        )
-        away_metrics = (
-            max(0.0, float(away_df["away_gf"].mean())),
-            max(0.0, float(away_df["home_gf"].mean())),  # goals against away = home goals
-            max(0.0, float(away_df["away_sf"].mean())),
-        )
-
-        home_goals = [int(g) for g in df.tail(n_goals)["home_gf"].tolist()]
-        away_goals = [int(g) for g in df.tail(n_goals)["away_gf"].tolist()]
-
-        return home_metrics, away_metrics, home_goals, away_goals
-    except Exception as e:
-        logger.debug(f"Pair last-N metrics failed: {e}, falling back to per-team loaders")
-        home_m = team_last_n_metrics(home_abbr, date_str, n=n_metrics)
-        away_m = team_last_n_metrics(away_abbr, date_str, n=n_metrics)
-        home_g = team_last_n_goals_list(home_abbr, date_str, n=n_goals)
-        away_g = team_last_n_goals_list(away_abbr, date_str, n=n_goals)
-        return home_m, away_m, home_g, away_g
+    home_metrics = team_last_n_metrics(home_abbr, date_str, n=n_metrics)
+    away_metrics = team_last_n_metrics(away_abbr, date_str, n=n_metrics)
+    home_goals = team_last_n_goals_list(home_abbr, date_str, n=n_goals)
+    away_goals = team_last_n_goals_list(away_abbr, date_str, n=n_goals)
+    return home_metrics, away_metrics, home_goals, away_goals
 
 
 def team_last_n_goals_list(team_abbr: str, date_str: str, n: int = 8) -> List[int]:
