@@ -15,6 +15,23 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+# ===================== NETWORK =====================
+
+# Prefer IPv4 for every requests/urllib3 call. The IPv6 route to both the NHL
+# API and SharpAPI is black-holed from this machine: a host that resolves to an
+# AAAA record first makes each request hang ~20s before falling back (measured
+# 21.3s vs 0.3s with IPv4 forced). For the paginated odds walk that is fatal --
+# it cannot finish inside SharpAPI's ~15s store-rebuild window, so it loops on
+# cursor_expired and never collects a slate. IPv4 is present for every host this
+# app talks to, so the preference is safe on Render too.
+try:
+    import socket as _socket
+    import urllib3.util.connection as _urllib3_connection
+
+    _urllib3_connection.allowed_gai_family = lambda: _socket.AF_INET
+except Exception:  # pragma: no cover - urllib3 always ships with requests
+    pass
+
 # ===================== NAME NORMALIZATION =====================
 
 def normalize_name_key(name: str) -> str:
