@@ -66,7 +66,6 @@ from NHL.BettingEdge import (
     drop_started_games,
 )
 from NHL.TodaysPicks import (
-    compute_and_cache_todays_picks,
     load_cached_todays_picks,
     list_cached_todays_picks_dates,
     resolve_next_game_date,
@@ -1529,10 +1528,23 @@ def api_todays_picks():
                 result["warning"] = warning
             return jsonify(result)
 
-        # Slow path: compute and cache now (e.g. first run before the scheduler
-        # has produced a cache). This is the same code the daily update runs.
-        payload = compute_and_cache_todays_picks(game_date)
-        return jsonify(_make_json_safe(payload))
+        # No cache for this date yet -- the scheduler fills it each morning, so a
+        # freshly-rolled-over league day starts cold. Do NOT compute it here: the
+        # slate takes ~2.5 minutes (43s of simulations + 112s of live prop odds),
+        # far past the UI's 30s timeout and the 120s gunicorn worker timeout, so it
+        # would tie up the single worker and still hand the caller nothing usable.
+        # Serve the "not ready" payload; the UI renders its "generated each
+        # morning" empty state.
+        return jsonify({
+            "date": game_date.isoformat(),
+            "computed_at": None,
+            "source": "none",
+            "warning": warning,
+            "no_games": False,
+            "games": [],
+            "props": [],
+            "all_props": [],
+        })
 
     except BadRequestError:
         raise
