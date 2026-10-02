@@ -126,6 +126,15 @@ def _normalize_abbr(abbr: str) -> str:
         for token in full_abbr.split():
             if token in _KNOWN_ABBRS:
                 return TEAM_ABBR_MAPPING.get(token, token)
+        # The prefix is not a canonical abbreviation either. Some clubs come back
+        # as "<city abbreviation> <Nickname>" with a city abbreviation that
+        # resolves to nothing -- "WAS Capitals" alongside "Washington Capitals",
+        # whose canonical abbreviation is WSH -- so no token matches and the club
+        # silently fails to resolve. Fall back to the nickname, which is unique
+        # within the league (see _team_key and _NICKNAME_TO_ABBR).
+        nick_abbr = _NICKNAME_TO_ABBR.get(_team_key(full_abbr))
+        if nick_abbr:
+            return TEAM_ABBR_MAPPING.get(nick_abbr, nick_abbr)
     # Re-apply historical mapping in case reverse lookup returned an old abbr.
     return TEAM_ABBR_MAPPING.get(full_abbr, full_abbr)
 
@@ -182,6 +191,18 @@ def _team_key(name: Any) -> str:
     """
     tokens = "".join(c if c.isalnum() else " " for c in str(name or "")).lower().split()
     return tokens[-1] if tokens else ""
+
+
+# Reverse map from a team's nickname ("capitals", "leafs") to its canonical
+# abbreviation, built from the same full names _FULL_TO_ABBR uses so the two
+# cannot disagree. Nicknames are unique within the league -- the only repeats in
+# the name table are two spellings of one club, which resolve to the same team --
+# so this is a safe fallback when no part of a name is itself an abbreviation.
+_NICKNAME_TO_ABBR: Dict[str, str] = {}
+for _full, _abbr in _FULL_TO_ABBR.items():
+    _nick = _team_key(_full)
+    if _nick and _nick not in _NICKNAME_TO_ABBR:
+        _NICKNAME_TO_ABBR[_nick] = _abbr
 
 
 def _same_team(a: Any, b: Any) -> bool:
