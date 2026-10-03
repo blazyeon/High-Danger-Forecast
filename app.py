@@ -1370,11 +1370,19 @@ def api_player_props(date_str: Optional[str] = None):
         from NHL.PlayerLinePredictor import compute_player_props_for_date
 
         game_date = _parse_date(date_str) or resolve_next_game_date(league_today())
-        markets = request.args.getlist("markets")
-        if markets:
-            markets = [m.strip().lower().replace(" ", "_") for m in markets]
-        else:
-            markets = None
+        # The UI sends one comma-joined `markets` value, but getlist() returns it
+        # verbatim -- so each entry must still be split. Without this the whole
+        # comma string is treated as a single market name, mapping never runs,
+        # and SharpAPI rejects the raw "player_total_saves" (its name is
+        # "player_saves") with a 400.
+        markets = []
+        for raw in request.args.getlist("markets"):
+            markets.extend(
+                part.strip().lower().replace(" ", "_")
+                for part in raw.split(",")
+                if part.strip()
+            )
+        markets = markets or None
 
         regions = request.args.get("regions", "us") or "us"
         bookmakers_csv = request.args.get("bookmakers") or None

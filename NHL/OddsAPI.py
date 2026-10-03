@@ -160,6 +160,19 @@ def _day_window(day: _date) -> Tuple[datetime, datetime]:
     )
 
 
+def league_date_of_event(commence_time: Any) -> Optional[_date]:
+    """The league's game day (Eastern) an event's commence time belongs to."""
+    dt = _parse_ts(commence_time)
+    if dt is None:
+        return None
+    try:
+        from zoneinfo import ZoneInfo
+        tz = ZoneInfo(LEAGUE_TZ)
+    except Exception:
+        tz = timezone.utc
+    return dt.astimezone(tz).date()
+
+
 def _pace() -> None:
     """
     Block until another request fits in SharpAPI's 12-per-minute window.
@@ -581,6 +594,41 @@ def fetch_nhl_odds_by_date(
     American, decimal and implied probability on every row at once.
     """
     return _fetch_markets(day, markets, ["h2h", "spreads", "totals"], bookmakers_csv, base_url)
+
+
+def fetch_nhl_odds_window(
+    start_day: _date,
+    end_day: _date,
+    regions: str,
+    markets: List[str],
+    bookmakers_csv: Optional[str] = None,
+    odds_format: str = "american",
+    base_url: str = DEFAULT_BASE_URL,
+) -> List[Dict[str, Any]]:
+    """
+    Featured odds for every game day in [start_day, end_day] in ONE paged walk.
+
+    Fetching date-by-date is quadratic: /odds is ordered by event start time, so
+    a walk for a far-off day must page past every earlier game before it gets
+    there -- covering a month costs ~a month of walks over the same board. One
+    windowed walk collects them all in a single pass; callers bucket the events
+    by league day themselves.
+
+    `regions` and `odds_format` are accepted for signature compatibility with
+    fetch_nhl_odds_by_date (SharpAPI has no regions concept).
+    """
+    wanted = _sharpapi_markets(markets, ["h2h", "spreads", "totals"])
+    start_dt, _ = _day_window(start_day)
+    _, end_dt = _day_window(end_day)
+    rows = _fetch_odds_rows(
+        market=",".join(wanted),
+        start_dt=start_dt,
+        end_dt=end_dt,
+        sportsbook=bookmakers_csv,
+        allow_markets=set(wanted),
+        base_url=base_url,
+    )
+    return _rows_to_events(rows)
 
 
 def fetch_nhl_events_by_date(
