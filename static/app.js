@@ -1749,7 +1749,7 @@ async function renderEloTeams(container) {
         });
 
         html += '</tbody></table></div>';
-        html += `<div class="cors-notice" style="margin-top:12px"><i class="fa-solid fa-trophy"></i> Elo ratings for season ${escapeHtml(data.season || 'current')}. League average is 1500; top teams are typically 1600+.</div>`;
+        html += `<div class="cors-notice" style="margin-top:12px"><i class="fa-solid fa-trophy"></i> Elo from each team's last ~30 games (this season and last). League average is 1500; the "Games" column is the sample behind the rating.</div>`;
         container.innerHTML = html;
     } catch (e) {
         console.error('Elo leaderboard failed:', e);

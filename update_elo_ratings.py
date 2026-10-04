@@ -338,96 +338,62 @@ def get_games_on_date(date_str: str) -> list:
         logger.debug(f"Error fetching games for {date_str}: {e}")
         return []
 
-def populate_team_elo_from_games(season: str, db: EloDatabase) -> int:
-    """Calculate team Elo from actual game results."""
-    logger.info(f"\n⚙️  Calculating team Elo from game results for {season}...")
-    
+RECENT_WINDOW_GAMES = 30
+
+
+def _load_all_game_results(db: EloDatabase) -> List[Dict]:
+    """Load every completed game on record, oldest first.
+
+    Ordered by date (not season) so the rolling window naturally spans the
+    season boundary — a team's recent games are what describe its current
+    strength, whether they were filed under last season or this one.
+    """
+    cursor = db.conn.cursor()
+    cursor.execute("""
+        SELECT game_id, game_date, home_team, away_team,
+               home_score, away_score, home_xgf, away_xgf,
+               home_sf, away_sf, is_ot_so
+        FROM game_results
+        WHERE home_score IS NOT NULL AND away_score IS NOT NULL
+        ORDER BY game_date ASC, id ASC
+    """)
+    return [dict(row) for row in cursor.fetchall()]
+
+
+def populate_team_elo_from_games(
+    season: str,
+    db: EloDatabase,
+    window: int = RECENT_WINDOW_GAMES
+) -> int:
+    """
+    Set team Elo from a rolling window of each team's most recent games.
+
+    Every team starts from the 1500 league mean and replays its last `window`
+    games — chronological, spanning this season and the previous one — through
+    the standard Elo update, so ratings reflect recent form against real
+    opponents.
+
+    This replaces the old win-percentage heuristic, which ignored opponent
+    strength and clamped every team into a flat 1200-1800 band.
+    """
+    logger.info(f"\n⚙️  Calculating team Elo from the last {window} games for {season}...")
+
+    # The 1500 starting point is already the prior, so the per-game regression
+    # toward the mean (meant to bound a full-season replay) would double-count
+    # it and halve the spread across a ~30-game window. Use uniform K instead
+    # of the season-opening boost, which would over-weight the oldest games.
     config = EloConfig()
-    season_start = date(int(season[:4]), 9, 1)
-    today = date.today()
-    
-    team_records = {}
-    current_date = season_start
-    games_found = 0
-    
-    logger.info(f"Scanning games from {season_start} to {today}...")
-    
-    while current_date <= today:
-        date_str = current_date.isoformat()
-        
-        try:
-            games = get_games_on_date(date_str)
-            
-            for game in games:
-                game_state = str(game.get('gameState', '')).upper()
-                if game_state not in ('OFF', 'FINAL', 'OVER'):
-                    continue
-                
-                home_team = game.get('homeTeam', {}) or {}
-                away_team = game.get('awayTeam', {}) or {}
-                
-                home_abbr = (home_team.get('abbrev') or '').upper()
-                away_abbr = (away_team.get('abbrev') or '').upper()
-                
-                if not home_abbr or not away_abbr:
-                    continue
-                
-                if home_abbr not in VALID_NHL_TEAMS or away_abbr not in VALID_NHL_TEAMS:
-                    continue
-                
-                home_score = home_team.get('score')
-                away_score = away_team.get('score')
-                
-                if home_score is None or away_score is None:
-                    continue
-                
-                if home_abbr not in team_records:
-                    team_records[home_abbr] = {'wins': 0, 'losses': 0, 'otl': 0, 'points': 0}
-                if away_abbr not in team_records:
-                    team_records[away_abbr] = {'wins': 0, 'losses': 0, 'otl': 0, 'points': 0}
-                
-                was_overtime = False
-                period_descriptor = game.get('periodDescriptor', {}) or {}
-                period_type = period_descriptor.get('periodType', '').upper()
-                
-                if period_type in ('OT', 'SO'):
-                    was_overtime = True
-                
-                home_won = home_score > away_score
-                
-                if home_won:
-                    team_records[home_abbr]['wins'] += 1
-                    team_records[home_abbr]['points'] += 2
-                    
-                    if was_overtime:
-                        team_records[away_abbr]['otl'] += 1
-                        team_records[away_abbr]['points'] += 1
-                    else:
-                        team_records[away_abbr]['losses'] += 1
-                else:
-                    team_records[away_abbr]['wins'] += 1
-                    team_records[away_abbr]['points'] += 2
-                    
-                    if was_overtime:
-                        team_records[home_abbr]['otl'] += 1
-                        team_records[home_abbr]['points'] += 1
-                    else:
-                        team_records[home_abbr]['losses'] += 1
-                
-                games_found += 1
-        
-        except Exception as e:
-            logger.debug(f"Error processing games for {date_str}: {e}")
-        
-        current_date += timedelta(days=1)
-    
-    logger.info(f"\n✓ Found {games_found} completed games")
-    
-    if not team_records:
+    config.regression_factor = 0.0
+    config.early_season_games = 0
+
+    games = _load_all_game_results(db)
+
+    if not games:
+        logger.warning("⚠️  No completed games on record — writing a flat 1500 baseline")
         for team in VALID_NHL_TEAMS:
             db.save_team_elo(
                 team_abbr=team,
-                rating=1500.0,
+                rating=config.initial_team_rating,
                 games_played=0,
                 game_date=date.today(),
                 season=season,
@@ -435,38 +401,93 @@ def populate_team_elo_from_games(season: str, db: EloDatabase) -> int:
                 recent_form=[]
             )
         return len(VALID_NHL_TEAMS)
-    
-    processed = 0
-    team_list = sorted(team_records.items(), key=lambda x: x[1]['points'], reverse=True)
-    
-    logger.info("\n🏆 Team Standings → Elo Ratings:")
-    
-    for team_abbr, record in team_list:
-        gp = record['wins'] + record['losses'] + record['otl']
-        if gp == 0:
-            initial_rating = 1500.0
+
+    # A game is in the window if it is one of the last `window` games for
+    # either team playing it.
+    recent_indices: Dict[str, List[int]] = {}
+    for i, game in enumerate(games):
+        for team_abbr in (game["home_team"], game["away_team"]):
+            recent_indices.setdefault(team_abbr, []).append(i)
+
+    window_indices = set()
+    for indices in recent_indices.values():
+        window_indices.update(indices[-window:])
+
+    logger.info(
+        f"Replaying {len(window_indices)} games across {len(recent_indices)} teams..."
+    )
+
+    team_elo = TeamEloSystem(config)
+
+    for i in sorted(window_indices):
+        game = games[i]
+        home = team_elo.get_or_create_team(game["home_team"])
+        away = team_elo.get_or_create_team(game["away_team"])
+
+        home_score = int(game["home_score"])
+        away_score = int(game["away_score"])
+        is_ot_so = bool(game["is_ot_so"])
+
+        home_xgf = float(game["home_xgf"]) if game["home_xgf"] else float(home_score)
+        away_xgf = float(game["away_xgf"]) if game["away_xgf"] else float(away_score)
+        home_sf = int(game["home_sf"]) if game["home_sf"] else 30
+        away_sf = int(game["away_sf"]) if game["away_sf"] else 30
+
+        if home_score > away_score:
+            home_result = 1.0
+            away_result = 0.25 if is_ot_so else 0.0
+        elif away_score > home_score:
+            home_result = 0.25 if is_ot_so else 0.0
+            away_result = 1.0
         else:
-            win_pct = (record['wins'] + 0.5 * record['otl']) / gp
-            elo_adjustment = (win_pct - 0.50) * 1000
-            elo_adjustment = max(-300, min(300, elo_adjustment))
-            initial_rating = config.initial_team_rating + elo_adjustment
-        
+            home_result = 0.5
+            away_result = 0.5
+
+        home.update(
+            opponent_rating=away.rating,
+            team_gf=home_score,
+            team_ga=away_score,
+            team_xgf=home_xgf,
+            team_xga=away_xgf,
+            team_sf=home_sf,
+            team_sa=away_sf,
+            result=home_result,
+            config=config
+        )
+        away.update(
+            opponent_rating=home.rating,
+            team_gf=away_score,
+            team_ga=home_score,
+            team_xgf=away_xgf,
+            team_xga=home_xgf,
+            team_sf=away_sf,
+            team_sa=home_sf,
+            result=away_result,
+            config=config
+        )
+
+    # Replace this season's snapshot with the freshly computed window ratings.
+    cursor = db.conn.cursor()
+    cursor.execute("DELETE FROM team_elo WHERE season = ?", (season,))
+    db.conn.commit()
+
+    ranked = sorted(team_elo.teams.values(), key=lambda t: t.rating, reverse=True)
+
+    logger.info(f"\n🏆 Team Elo (last {window} games):")
+    for i, team in enumerate(ranked, 1):
         db.save_team_elo(
-            team_abbr=team_abbr,
-            rating=initial_rating,
-            games_played=gp,
+            team_abbr=team.team,
+            rating=team.rating,
+            games_played=team.games_played,
             game_date=date.today(),
             season=season,
             rating_change=0.0,
-            recent_form=[]
+            recent_form=team.recent_form
         )
-        
-        processed += 1
-        record_str = f"{record['wins']}-{record['losses']}-{record['otl']}"
-        logger.info(f"  {processed:2d}. {team_abbr}: {record_str} ({record['points']} pts) → {initial_rating:.0f} Elo")
-    
-    logger.info(f"\n✓ Set initial ratings for {processed} teams")
-    return processed
+        logger.info(f"  {i:2d}. {team.team}: {team.rating:.0f} ({team.games_played} games)")
+
+    logger.info(f"\n✓ Set window ratings for {len(ranked)} teams")
+    return len(ranked)
 
 def _build_abbr_to_team_id() -> Dict[str, int]:
     """Build a best-effort abbreviation -> team_id lookup from the PBP table."""
@@ -887,9 +908,10 @@ def main() -> int:
     else:
         logger.warning("⚠️  PBP player data unavailable. Skipping player Elo init.")
 
-    populate_team_elo_from_games(season_str, db)
-
     if args.initial_only:
+        # Team ratings come from the rolling recent-games window, straight from
+        # the games already on record — no network walk required.
+        populate_team_elo_from_games(season_str, db)
         logger.info("\n" + "=" * 60)
         logger.info("✅ Initial Ratings Set Successfully!")
         logger.info("=" * 60)
@@ -916,7 +938,12 @@ def main() -> int:
         team_elo,
         config
     )
-    
+
+    # Team ratings are a rolling window of recent games (spanning seasons), so
+    # recompute them last — from the full game history just updated above — as
+    # the snapshot the app actually serves.
+    populate_team_elo_from_games(season_str, db)
+
     logger.info(f"\n🎯 Next step:")
     if args.training:
         logger.info(f"   python train_model.py --training-db {db_path}")
