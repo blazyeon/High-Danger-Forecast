@@ -1,9 +1,10 @@
 name: Daily NHL Data Update
 
 on:
-  schedule:
-    # 8:07 AM UTC every day (≈ 4:07 AM Eastern Daylight Time)
-    - cron: '7 8 * * *'
+  # The scheduled run is disabled: the Windows Task Scheduler job
+  # "NHL Daily Data Update" (daily_update.bat) now owns the daily refresh and
+  # its commit + push. Two runners would race on the same caches and double-hit
+  # the SharpAPI quota. Trigger by hand from the Actions tab if ever needed.
   workflow_dispatch:  # Allows manual trigger from GitHub UI
 
 permissions:

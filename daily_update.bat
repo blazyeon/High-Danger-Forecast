@@ -61,6 +61,26 @@ if %errorlevel% neq 0 (
     echo [OK] update_todays_picks.py completed at %date% %time% >> "%LOG_FILE%"
 )
 
+REM Commit and push the refreshed data so it reaches GitHub and Render.
+git add static/data/ pbp_cache/shots/*.parquet elo_ratings.db models/xg_validation.json
+git diff --cached --quiet
+if !errorlevel! neq 0 (
+    git commit -m "🤖 Daily data update: PBP stats + Elo ratings" -m "Triggered by daily_update.bat" >> "%LOG_FILE%" 2>&1
+    git pull --rebase --quiet >> "%LOG_FILE%" 2>&1
+    if !errorlevel! neq 0 (
+        echo [ERROR] git pull --rebase failed; aborting rebase >> "%LOG_FILE%"
+        git rebase --abort >> "%LOG_FILE%" 2>&1
+    )
+    git push >> "%LOG_FILE%" 2>&1
+    if !errorlevel! neq 0 (
+        echo [ERROR] git push failed at %date% %time% >> "%LOG_FILE%"
+    ) else (
+        echo [OK] Pushed daily data update at %date% %time% >> "%LOG_FILE%"
+    )
+) else (
+    echo [OK] No data changes to commit >> "%LOG_FILE%"
+)
+
 echo Daily update finished: %date% %time% >> "%LOG_FILE%"
 echo. >> "%LOG_FILE%"
 
