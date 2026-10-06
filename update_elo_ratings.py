@@ -340,6 +340,18 @@ def get_games_on_date(date_str: str) -> list:
 
 RECENT_WINDOW_GAMES = 30
 
+# Manual, non-model team Elo adjustments, applied after the rolling-window
+# replay. The replay is a pure function of the last RECENT_WINDOW_GAMES results,
+# so a season distorted by injuries is baked in with no way to say "this roster
+# is better than those results". These numbers are judgement, not measurement:
+# they move every simulation, prediction and betting edge for the team, and they
+# are re-applied on every daily rebuild (a direct DB edit is overwritten).
+TEAM_ELO_ADJUSTMENTS: Dict[str, float] = {
+    # Toronto was bottom-three (1454) after an injury-wrecked 2025-26. +60 lifts
+    # them to ~1514, mid-pack, rather than reading last season at face value.
+    "TOR": 60.0,
+}
+
 
 def _load_all_game_results(db: EloDatabase) -> List[Dict]:
     """Load every completed game on record, oldest first.
@@ -470,6 +482,16 @@ def populate_team_elo_from_games(
     cursor = db.conn.cursor()
     cursor.execute("DELETE FROM team_elo WHERE season = ?", (season,))
     db.conn.commit()
+
+    # Manual overrides last, so they survive both the replay above and the
+    # daily rebuild that re-runs it. See TEAM_ELO_ADJUSTMENTS for why.
+    for abbr, delta in TEAM_ELO_ADJUSTMENTS.items():
+        team = team_elo.teams.get(abbr)
+        if team is None:
+            logger.warning(f"⚠️  Elo adjustment for {abbr} ignored: team not in this season's replay")
+            continue
+        team.rating += delta
+        logger.info(f"  ✍️  Manual Elo adjustment: {abbr} {delta:+.0f} → {team.rating:.0f}")
 
     ranked = sorted(team_elo.teams.values(), key=lambda t: t.rating, reverse=True)
 

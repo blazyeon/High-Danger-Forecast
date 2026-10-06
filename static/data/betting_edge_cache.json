@@ -1683,9 +1683,9 @@
     },
     "2026-10-06": {
       "date": "2026-10-06",
-      "computed_at": "2026-10-06T18:03:40.706756+00:00",
+      "computed_at": "2026-10-06T18:35:35.244415+00:00",
       "source": "sharpapi",
-      "odds_fetched_at": "2026-10-06T18:03:04.791794+00:00",
+      "odds_fetched_at": "2026-10-06T18:34:58.306417+00:00",
       "warning": null,
       "no_games": false,
       "scanned": 9,
@@ -1693,52 +1693,6 @@
       "with_edges": 9,
       "dropped": 0,
       "games": [
-        {
-          "home": "TOR",
-          "away": "NSH",
-          "home_name": "Maple Leafs",
-          "away_name": "Predators",
-          "start_time": "2026-10-06T23:00:00Z",
-          "best_edge": 0.166,
-          "edges": [
-            {
-              "market": "Moneyline",
-              "side": "Nashville Predators",
-              "pick": "Nashville Predators",
-              "team": "NSH",
-              "odds": 130,
-              "odds_decimal": 2.3,
-              "model_prob": 0.583,
-              "implied_prob": 0.417,
-              "edge": 0.166,
-              "book": "draftkings"
-            },
-            {
-              "market": "Total 5.5",
-              "side": "Over",
-              "pick": "Over",
-              "team": null,
-              "odds": -135,
-              "odds_decimal": 1.7407407407407407,
-              "model_prob": 0.694,
-              "implied_prob": 0.5514,
-              "edge": 0.1426,
-              "book": "draftkings"
-            },
-            {
-              "market": "Puck Line (1.5)",
-              "side": "NSH Predators",
-              "pick": "NSH Predators",
-              "team": "NSH",
-              "odds": -198,
-              "odds_decimal": 1.5050505050505052,
-              "model_prob": 0.709,
-              "implied_prob": 0.6369,
-              "edge": 0.0721,
-              "book": "draftkings"
-            }
-          ]
-        },
         {
           "home": "DET",
           "away": "OTT",
@@ -1781,6 +1735,52 @@
               "model_prob": 0.495,
               "implied_prob": 0.4486,
               "edge": 0.0464,
+              "book": "draftkings"
+            }
+          ]
+        },
+        {
+          "home": "TOR",
+          "away": "NSH",
+          "home_name": "Maple Leafs",
+          "away_name": "Predators",
+          "start_time": "2026-10-06T23:00:00Z",
+          "best_edge": 0.1256,
+          "edges": [
+            {
+              "market": "Total 5.5",
+              "side": "Over",
+              "pick": "Over",
+              "team": null,
+              "odds": -135,
+              "odds_decimal": 1.7407407407407407,
+              "model_prob": 0.677,
+              "implied_prob": 0.5514,
+              "edge": 0.1256,
+              "book": "draftkings"
+            },
+            {
+              "market": "Moneyline",
+              "side": "Nashville Predators",
+              "pick": "Nashville Predators",
+              "team": "NSH",
+              "odds": 130,
+              "odds_decimal": 2.3,
+              "model_prob": 0.527,
+              "implied_prob": 0.417,
+              "edge": 0.11,
+              "book": "draftkings"
+            },
+            {
+              "market": "Puck Line (1.5)",
+              "side": "NSH Predators",
+              "pick": "NSH Predators",
+              "team": "NSH",
+              "odds": -198,
+              "odds_decimal": 1.5050505050505052,
+              "model_prob": 0.682,
+              "implied_prob": 0.6369,
+              "edge": 0.0451,
               "book": "draftkings"
             }
           ]
@@ -1914,11 +1914,11 @@
               "side": "NJ Devils",
               "pick": "NJ Devils",
               "team": "NJD",
-              "odds": -130,
-              "odds_decimal": 1.7692307692307692,
+              "odds": -125,
+              "odds_decimal": 1.8,
               "model_prob": 0.528,
-              "implied_prob": 0.5427,
-              "edge": -0.0147,
+              "implied_prob": 0.5325,
+              "edge": -0.0045,
               "book": "draftkings"
             }
           ]
@@ -2100,9 +2100,9 @@
     },
     "2026-10-07": {
       "date": "2026-10-07",
-      "computed_at": "2026-10-06T18:03:52.263123+00:00",
+      "computed_at": "2026-10-06T18:35:48.885975+00:00",
       "source": "sharpapi",
-      "odds_fetched_at": "2026-10-06T18:03:04.791794+00:00",
+      "odds_fetched_at": "2026-10-06T18:34:58.306417+00:00",
       "warning": null,
       "no_games": false,
       "scanned": 3,
@@ -2253,9 +2253,9 @@
     },
     "2026-10-08": {
       "date": "2026-10-08",
-      "computed_at": "2026-10-06T18:03:58.646151+00:00",
+      "computed_at": "2026-10-06T18:35:55.567496+00:00",
       "source": "sharpapi",
-      "odds_fetched_at": "2026-10-06T18:03:04.791794+00:00",
+      "odds_fetched_at": "2026-10-06T18:34:58.306417+00:00",
       "warning": null,
       "no_games": false,
       "scanned": 10,
@@ -2417,9 +2417,9 @@
     },
     "2026-10-10": {
       "date": "2026-10-10",
-      "computed_at": "2026-10-06T18:04:02.692680+00:00",
+      "computed_at": "2026-10-06T18:36:00.135112+00:00",
       "source": "sharpapi",
-      "odds_fetched_at": "2026-10-06T18:03:04.791794+00:00",
+      "odds_fetched_at": "2026-10-06T18:34:58.306417+00:00",
       "warning": null,
       "no_games": false,
       "scanned": 14,
