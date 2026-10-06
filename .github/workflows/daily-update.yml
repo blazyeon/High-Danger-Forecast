@@ -1,14 +1,25 @@
 name: Daily NHL Data Update
 
 on:
-  # The scheduled run is disabled: the Windows Task Scheduler job
-  # "NHL Daily Data Update" (daily_update.bat) now owns the daily refresh and
-  # its commit + push. Two runners would race on the same caches and double-hit
-  # the SharpAPI quota. Trigger by hand from the Actions tab if ever needed.
+  # GitHub Actions owns the daily refresh. The Windows Task Scheduler job
+  # "NHL Daily Data Update" (daily_update.bat) is disabled: its task runs only
+  # in an interactive logon session with WakeToRun off, so a machine that is
+  # asleep or signed out at 5 AM silently skips the day. A cloud runner has no
+  # such dependency. Do not re-enable both -- two runners race on the same
+  # caches and double-hit the SharpAPI quota.
+  schedule:
+    # 09:07 UTC = 05:07 ET (EDT) / 04:07 ET (EST). Off the hour because GitHub
+    # delays runs queued at :00 when the fleet is busy.
+    - cron: '7 9 * * *'
   workflow_dispatch:  # Allows manual trigger from GitHub UI
 
 permissions:
   contents: write
+
+# Never let a delayed run overlap the next day's; queue instead of cancelling.
+concurrency:
+  group: daily-update
+  cancel-in-progress: false
 
 jobs:
   update-data:
@@ -33,6 +44,15 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      # update_odds.py treats a missing key as "no live odds" and exits 0, so
+      # without this guard the whole job would succeed and push an empty board.
+      - name: Verify SHARPAPI_KEY is set
+        run: |
+          if [ -z "$SHARPAPI_KEY" ]; then
+            echo "::error::SHARPAPI_KEY secret is not set; odds, edges and props would be empty."
+            exit 1
+          fi
+
       - name: Run PBP stats update
         run: python update_pbp_stats.py
 
@@ -42,6 +62,12 @@ jobs:
       - name: Run odds + betting edge update
         run: python update_odds.py --all
 
+      - name: Run injuries update
+        run: python update_injuries.py
+
+      - name: Run rosters update
+        run: python update_rosters.py
+
       - name: Run Today's Picks pre-computation
         run: python update_todays_picks.py
 
@@ -49,5 +75,14 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add static/data/ pbp_cache/shots/*.parquet elo_ratings.db models/xg_validation.json
-          git diff --cached --quiet || (git commit -m "🤖 Daily data update: PBP stats + Elo ratings" -m "Triggered by GitHub Actions" && git push)
+          git add static/data/ pbp_cache/shots/*.parquet elo_ratings.db models/xg_validation.json \
+                  injuries.json rosters.json rookie_projections.json
+          if git diff --cached --quiet; then
+            echo "No data changes to commit."
+            exit 0
+          fi
+          git commit -m "🤖 Daily data update: PBP stats + Elo ratings" -m "Triggered by GitHub Actions"
+          # A manual push or a previous delayed run may have landed while the
+          # pipeline ran; rebase onto it rather than failing the push.
+          git pull --rebase --autostash origin main
+          git push

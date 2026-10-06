@@ -62,7 +62,7 @@ if %errorlevel% neq 0 (
 )
 
 REM Commit and push the refreshed data so it reaches GitHub and Render.
-git add static/data/ pbp_cache/shots/*.parquet elo_ratings.db models/xg_validation.json
+git add static/data/ pbp_cache/shots/*.parquet elo_ratings.db models/xg_validation.json injuries.json rosters.json rookie_projections.json
 git diff --cached --quiet
 if !errorlevel! neq 0 (
     git commit -m "🤖 Daily data update: PBP stats + Elo ratings" -m "Triggered by daily_update.bat" >> "%LOG_FILE%" 2>&1

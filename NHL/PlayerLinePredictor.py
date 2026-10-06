@@ -13,7 +13,7 @@ import functools
 import logging
 import math
 import pandas as pd
-from datetime import date as _date, timedelta
+from datetime import date as _date
 from typing import Dict, Any, List, Optional, Tuple
 import difflib
 
@@ -98,7 +98,7 @@ def implied_probability(decimal_odds: float) -> float:
 
 
 @functools.lru_cache(maxsize=None)
-def _load_player_props_multi_day_uncached(
+def _load_player_props_for_day_uncached(
     day: _date,
     regions: str,
     markets: Tuple[str, ...],
@@ -106,9 +106,15 @@ def _load_player_props_multi_day_uncached(
     odds_format: str = "american",
 ) -> Tuple[Tuple[Dict[str, Any], ...], Tuple[str, ...]]:
     """
-    Fetch player props for the selected day AND the next day to handle timezone issues.
-    This ensures games don't get missed when it's late at night in your timezone
-    but the API considers them "tomorrow" in UTC.
+    Fetch player props for exactly the requested league day.
+
+    This used to fetch ``day + 1`` as well, as a timezone guard: if a late local
+    game were the API's "tomorrow", today's window would miss it. That guard is
+    obsolete and now actively harmful. The fetch is already windowed to Eastern
+    midnight boundaries (``_day_window``), so a 10 PM ET game belongs to its own
+    league day and tomorrow's games belong to tomorrow. Fetching the next day
+    anyway spliced the next slate into today's board -- the props tab listed
+    games with no matchup on the date it claimed to cover.
 
     Returns ``(results, errors)`` so callers can distinguish "no props for this date"
     from "live odds were unavailable" (quota exhausted / bad key / network failure).
@@ -116,44 +122,39 @@ def _load_player_props_multi_day_uncached(
     Note: ``markets`` is accepted as a tuple so that lru_cache can hash it.
     Callers passing a list should convert via ``tuple(markets)``.
     """
-    results: List[Dict[str, Any]] = []
-    errors: List[str] = []
+    try:
+        props = fetch_nhl_player_props_by_date(
+            day=day,
+            regions=regions,
+            markets=list(markets),
+            bookmakers_csv=bookmakers_csv,
+            odds_format=odds_format,
+        )
+    except OddsAPIError as e:
+        logger.warning("Odds API error for %s: %s", day, e)
+        return (), (str(e),)
+    except Exception as e:
+        logger.warning("Error fetching props for %s: %s", day, e)
+        return (), (str(e),)
 
-    for target in (day, day + timedelta(days=1)):
-        try:
-            props = fetch_nhl_player_props_by_date(
-                day=target,
-                regions=regions,
-                markets=list(markets),
-                bookmakers_csv=bookmakers_csv,
-                odds_format=odds_format,
-            )
-            results.extend(props)
-        except OddsAPIError as e:
-            logger.warning("Odds API error for %s: %s", target, e)
-            errors.append(str(e))
-        except Exception as e:
-            logger.warning("Error fetching props for %s: %s", target, e)
-            errors.append(str(e))
-
-    return tuple(results), tuple(errors)
+    return tuple(props), ()
 
 
-def load_player_props_multi_day(
+def load_player_props_for_day(
     day: _date,
     regions: str,
     markets: Tuple[str, ...],
     bookmakers_csv: Optional[str],
     odds_format: str = "american",
 ) -> Tuple[Dict[str, Any], ...]:
-    """Fetch player props for the selected day and the next day (results only)."""
-    results, _ = _load_player_props_multi_day_uncached(
+    """Fetch player props for the requested day (results only)."""
+    results, _ = _load_player_props_for_day_uncached(
         day, regions, markets, bookmakers_csv, odds_format
     )
     return results
 
 
-def load_player_props_multi_day_with_status(
+def load_player_props_for_day_with_status(
     day: _date,
     regions: str,
     markets: Tuple[str, ...],
@@ -161,7 +162,7 @@ def load_player_props_multi_day_with_status(
     odds_format: str = "american",
 ) -> Tuple[Tuple[Dict[str, Any], ...], Tuple[str, ...]]:
     """Fetch player props and also report any odds-fetch errors encountered."""
-    return _load_player_props_multi_day_uncached(
+    return _load_player_props_for_day_uncached(
         day, regions, markets, bookmakers_csv, odds_format
     )
 
@@ -906,7 +907,7 @@ def compute_player_props_for_date(
     player_elo = get_player_elo_ratings(season)
     player_stats = get_player_pbp_stats(season)
 
-    raw, odds_errors = load_player_props_multi_day_with_status(
+    raw, odds_errors = load_player_props_for_day_with_status(
         day=game_date,
         regions=regions,
         markets=markets,
