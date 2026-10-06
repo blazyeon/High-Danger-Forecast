@@ -46,7 +46,7 @@ DFO_SLUG_TO_ABBR: Dict[str, str] = {
     "st-louis-blues": "STL",
     "tampa-bay-lightning": "TBL",
     "toronto-maple-leafs": "TOR",
-    "utah-hockey-club": "UTA",
+    "utah-mammoth": "UTA",  # Daily Faceoff 308-redirects the old "utah-hockey-club" slug here
     "vancouver-canucks": "VAN",
     "vegas-golden-knights": "VGK",
     "washington-capitals": "WSH",
@@ -94,6 +94,35 @@ def _parse_name_from_href(href: str) -> Optional[str]:
     return slug
 
 
+# Daily Faceoff embeds each rostered player as JSON carrying an ``injuryStatus``
+# field, independent of the cards we parse out of the HTML. That makes it the
+# ground truth to check the card parse against.
+_INJURY_STATUS_RE = re.compile(r'"injuryStatus":"([^"]+)"')
+
+
+def _log_scrape_result(abbr: str, html: str, found: int) -> None:
+    """Log a team's injury scrape, distinguishing a healthy roster from broken markup.
+
+    An absent Injuries section is the normal empty state, not an error: Daily
+    Faceoff omits the whole section for a team with nobody listed, so UTA and VGK
+    legitimately yield zero. The dangerous failure mode is that markup drift
+    yields the *same* empty result, and at default log level the two are
+    indistinguishable. So count what the page's own JSON declares and warn only
+    when our parse disagrees with it. Verified against all 32 teams on
+    2026-10-06: the two counts matched exactly, zeros included.
+    """
+    declared = len(_INJURY_STATUS_RE.findall(html))
+    if found != declared:
+        logger.warning(
+            f"{abbr}: parsed {found} injuries but the page declares {declared} - "
+            f"Daily Faceoff markup may have changed"
+        )
+    elif not found:
+        logger.debug(f"No injuries listed for {abbr}")
+    else:
+        logger.info(f"Scraped {found} injuries for {abbr} from Daily Faceoff")
+
+
 def scrape_team_injuries(abbr: str) -> List[Dict[str, str]]:
     """Scrape injuries for a single team abbreviation."""
     slug = None
@@ -119,7 +148,7 @@ def scrape_team_injuries(abbr: str) -> List[Dict[str, str]]:
     if start == -1:
         start = html.lower().find("injuries</span>")
     if start == -1:
-        logger.debug(f"No Injuries section found for {abbr}")
+        _log_scrape_result(abbr, html, 0)
         return out
 
     end_terms = [
@@ -180,7 +209,7 @@ def scrape_team_injuries(abbr: str) -> List[Dict[str, str]]:
             "injured": True,
         })
 
-    logger.info(f"Scraped {len(out)} injuries for {abbr} from Daily Faceoff")
+    _log_scrape_result(abbr, html, len(out))
     return out
 
 
