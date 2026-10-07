@@ -2100,9 +2100,9 @@
     },
     "2026-10-07": {
       "date": "2026-10-07",
-      "computed_at": "2026-10-07T16:21:17.888040+00:00",
+      "computed_at": "2026-10-07T21:11:37.673701+00:00",
       "source": "sharpapi",
-      "odds_fetched_at": "2026-10-07T16:21:04.840760+00:00",
+      "odds_fetched_at": "2026-10-07T21:11:16.894980+00:00",
       "warning": null,
       "no_games": false,
       "scanned": 3,
@@ -2135,11 +2135,11 @@
               "side": "PIT Penguins",
               "pick": "PIT Penguins",
               "team": "PIT",
-              "odds": -185,
-              "odds_decimal": 1.5405405405405406,
+              "odds": -180,
+              "odds_decimal": 1.5555555555555556,
               "model_prob": 0.643,
-              "implied_prob": 0.6225,
-              "edge": 0.0205,
+              "implied_prob": 0.6164,
+              "edge": 0.0266,
               "book": "draftkings"
             },
             {
@@ -2162,30 +2162,30 @@
           "home_name": "Jets",
           "away_name": "Avalanche",
           "start_time": "2026-10-07T23:30:00Z",
-          "best_edge": 0.1168,
+          "best_edge": 0.1103,
           "edges": [
             {
               "market": "Total 6.5",
               "side": "Over",
               "pick": "Over",
               "team": null,
-              "odds": -105,
-              "odds_decimal": 1.9523809523809523,
+              "odds": -108,
+              "odds_decimal": 1.925925925925926,
               "model_prob": 0.606,
-              "implied_prob": 0.4892,
-              "edge": 0.1168,
-              "book": "fanduel"
+              "implied_prob": 0.4957,
+              "edge": 0.1103,
+              "book": "draftkings"
             },
             {
               "market": "Puck Line (1.5)",
               "side": "WPG Jets",
               "pick": "WPG Jets",
               "team": "WPG",
-              "odds": -162,
-              "odds_decimal": 1.617283950617284,
+              "odds": -155,
+              "odds_decimal": 1.6451612903225805,
               "model_prob": 0.609,
-              "implied_prob": 0.5934,
-              "edge": 0.0156,
+              "implied_prob": 0.583,
+              "edge": 0.026,
               "book": "draftkings"
             },
             {
@@ -2224,14 +2224,14 @@
             },
             {
               "market": "Total 6.5",
-              "side": "Over",
-              "pick": "Over",
+              "side": "Under",
+              "pick": "Under",
               "team": null,
-              "odds": -130,
-              "odds_decimal": 1.7692307692307692,
-              "model_prob": 0.546,
-              "implied_prob": 0.5427,
-              "edge": 0.0033,
+              "odds": 120,
+              "odds_decimal": 2.2,
+              "model_prob": 0.454,
+              "implied_prob": 0.4365,
+              "edge": 0.0175,
               "book": "draftkings"
             },
             {
@@ -2253,9 +2253,9 @@
     },
     "2026-10-08": {
       "date": "2026-10-08",
-      "computed_at": "2026-10-07T16:21:50.576647+00:00",
+      "computed_at": "2026-10-07T21:12:13.282092+00:00",
       "source": "sharpapi",
-      "odds_fetched_at": "2026-10-07T16:21:04.840760+00:00",
+      "odds_fetched_at": "2026-10-07T21:11:16.894980+00:00",
       "warning": null,
       "no_games": false,
       "scanned": 10,
@@ -2264,81 +2264,23 @@
       "dropped": 0,
       "games": [
         {
-          "home": "STL",
-          "away": "SJS",
-          "home_name": "Blues",
-          "away_name": "Sharks",
-          "start_time": "2026-10-09T00:00:00Z",
-          "best_edge": 0.1726,
-          "edges": [
-            {
-              "market": "Puck Line (-1.5)",
-              "side": "STL Blues",
-              "pick": "STL Blues",
-              "team": "STL",
-              "odds": 200,
-              "odds_decimal": 3.0,
-              "model_prob": 0.492,
-              "implied_prob": 0.3194,
-              "edge": 0.1726,
-              "book": "draftkings"
-            },
-            {
-              "market": "Total 5.5",
-              "side": "Under",
-              "pick": "Under",
-              "team": null,
-              "odds": 100,
-              "odds_decimal": 2.0,
-              "model_prob": 0.518,
-              "implied_prob": 0.4783,
-              "edge": 0.0397,
-              "book": "draftkings"
-            },
-            {
-              "market": "Moneyline",
-              "side": "St. Louis Blues",
-              "pick": "St. Louis Blues",
-              "team": "STL",
-              "odds": -125,
-              "odds_decimal": 1.8,
-              "model_prob": 0.565,
-              "implied_prob": 0.5325,
-              "edge": 0.0325,
-              "book": "draftkings"
-            }
-          ]
-        },
-        {
           "home": "BUF",
           "away": "DAL",
           "home_name": "Sabres",
           "away_name": "Stars",
           "start_time": "2026-10-08T23:00:00Z",
-          "best_edge": 0.1584,
+          "best_edge": 0.1638,
           "edges": [
             {
               "market": "Puck Line (-1.5)",
               "side": "BUF Sabres",
               "pick": "BUF Sabres",
               "team": "BUF",
-              "odds": 205,
-              "odds_decimal": 3.05,
+              "odds": 210,
+              "odds_decimal": 3.1,
               "model_prob": 0.473,
-              "implied_prob": 0.3146,
-              "edge": 0.1584,
-              "book": "draftkings"
-            },
-            {
-              "market": "Total 5.5",
-              "side": "Under",
-              "pick": "Under",
-              "team": null,
-              "odds": 114,
-              "odds_decimal": 2.1399999999999997,
-              "model_prob": 0.489,
-              "implied_prob": 0.4486,
-              "edge": 0.0404,
+              "implied_prob": 0.3092,
+              "edge": 0.1638,
               "book": "draftkings"
             },
             {
@@ -2346,103 +2288,69 @@
               "side": "Buffalo Sabres",
               "pick": "Buffalo Sabres",
               "team": "BUF",
-              "odds": -115,
-              "odds_decimal": 1.8695652173913042,
+              "odds": -108,
+              "odds_decimal": 1.925925925925926,
               "model_prob": 0.54,
-              "implied_prob": 0.5144,
-              "edge": 0.0256,
-              "book": "fanduel"
+              "implied_prob": 0.4957,
+              "edge": 0.0443,
+              "book": "draftkings"
+            },
+            {
+              "market": "Total 6.5",
+              "side": "Under",
+              "pick": "Under",
+              "team": null,
+              "odds": -130,
+              "odds_decimal": 1.7692307692307692,
+              "model_prob": 0.583,
+              "implied_prob": 0.5427,
+              "edge": 0.0403,
+              "book": "draftkings"
             }
           ]
         },
         {
-          "home": "OTT",
-          "away": "PHI",
-          "home_name": "Senators",
-          "away_name": "Flyers",
-          "start_time": "2026-10-08T23:00:00Z",
-          "best_edge": 0.0963,
+          "home": "STL",
+          "away": "SJS",
+          "home_name": "Blues",
+          "away_name": "Sharks",
+          "start_time": "2026-10-09T00:00:00Z",
+          "best_edge": 0.1495,
           "edges": [
-            {
-              "market": "Total 5.5",
-              "side": "Over",
-              "pick": "Over",
-              "team": null,
-              "odds": -120,
-              "odds_decimal": 1.8333333333333335,
-              "model_prob": 0.618,
-              "implied_prob": 0.5217,
-              "edge": 0.0963,
-              "book": "draftkings"
-            },
             {
               "market": "Puck Line (-1.5)",
-              "side": "OTT Senators",
-              "pick": "OTT Senators",
-              "team": "OTT",
+              "side": "STL Blues",
+              "pick": "STL Blues",
+              "team": "STL",
               "odds": 180,
               "odds_decimal": 2.8,
-              "model_prob": 0.42,
+              "model_prob": 0.492,
               "implied_prob": 0.3425,
-              "edge": 0.0775,
+              "edge": 0.1495,
               "book": "draftkings"
             },
-            {
-              "market": "Moneyline",
-              "side": "Ottawa Senators",
-              "pick": "Ottawa Senators",
-              "team": "OTT",
-              "odds": -135,
-              "odds_decimal": 1.7407407407407407,
-              "model_prob": 0.557,
-              "implied_prob": 0.5514,
-              "edge": 0.0056,
-              "book": "draftkings"
-            }
-          ]
-        },
-        {
-          "home": "NYI",
-          "away": "CHI",
-          "home_name": "Islanders",
-          "away_name": "Blackhawks",
-          "start_time": "2026-10-08T23:30:00Z",
-          "best_edge": 0.0945,
-          "edges": [
             {
               "market": "Total 5.5",
-              "side": "Over",
-              "pick": "Over",
+              "side": "Under",
+              "pick": "Under",
               "team": null,
-              "odds": -125,
-              "odds_decimal": 1.8,
-              "model_prob": 0.627,
-              "implied_prob": 0.5325,
-              "edge": 0.0945,
-              "book": "draftkings"
-            },
-            {
-              "market": "Puck Line (1.5)",
-              "side": "CHI Blackhawks",
-              "pick": "CHI Blackhawks",
-              "team": "CHI",
-              "odds": -148,
-              "odds_decimal": 1.6756756756756757,
-              "model_prob": 0.61,
-              "implied_prob": 0.5721,
-              "edge": 0.0379,
+              "odds": 105,
+              "odds_decimal": 2.05,
+              "model_prob": 0.518,
+              "implied_prob": 0.4675,
+              "edge": 0.0505,
               "book": "draftkings"
             },
             {
               "market": "Moneyline",
-              "side": "New York Islanders",
-              "pick": "New York Islanders",
-              "team": "NYI",
-              "odds": -192,
-              "odds_decimal": 1.5208333333333335,
-              "model_prob": 0.535,
-              "implied_prob": 0.6309,
-              "edge": -0.0959,
+              "side": "St. Louis Blues",
+              "pick": "St. Louis Blues",
+              "team": "STL",
+              "odds": -142,
+              "odds_decimal": 1.704225352112676,
+              "model_prob": 0.565,
+              "implied_prob": 0.5635,
+              "edge": 0.0015,
               "book": "draftkings"
             }
           ]
@@ -2453,7 +2361,7 @@
           "home_name": "Lightning",
           "away_name": "Wild",
           "start_time": "2026-10-08T23:00:00Z",
-          "best_edge": 0.0943,
+          "best_edge": 0.1393,
           "edges": [
             {
               "market": "Total 5.5",
@@ -2462,9 +2370,9 @@
               "team": null,
               "odds": -130,
               "odds_decimal": 1.7692307692307692,
-              "model_prob": 0.637,
+              "model_prob": 0.682,
               "implied_prob": 0.5427,
-              "edge": 0.0943,
+              "edge": 0.1393,
               "book": "draftkings"
             },
             {
@@ -2472,11 +2380,11 @@
               "side": "TB Lightning",
               "pick": "TB Lightning",
               "team": "TBL",
-              "odds": 170,
-              "odds_decimal": 2.7,
-              "model_prob": 0.403,
-              "implied_prob": 0.3553,
-              "edge": 0.0477,
+              "odds": 154,
+              "odds_decimal": 2.54,
+              "model_prob": 0.382,
+              "implied_prob": 0.3775,
+              "edge": 0.0045,
               "book": "draftkings"
             },
             {
@@ -2486,9 +2394,9 @@
               "team": "TBL",
               "odds": -148,
               "odds_decimal": 1.6756756756756757,
-              "model_prob": 0.524,
+              "model_prob": 0.513,
               "implied_prob": 0.5721,
-              "edge": -0.0481,
+              "edge": -0.0591,
               "book": "draftkings"
             }
           ]
@@ -2499,18 +2407,18 @@
           "home_name": "Hurricanes",
           "away_name": "Canucks",
           "start_time": "2026-10-08T23:00:00Z",
-          "best_edge": 0.0764,
+          "best_edge": 0.1184,
           "edges": [
             {
               "market": "Puck Line (1.5)",
               "side": "VAN Canucks",
               "pick": "VAN Canucks",
               "team": "VAN",
-              "odds": 114,
-              "odds_decimal": 2.1399999999999997,
+              "odds": 136,
+              "odds_decimal": 2.3600000000000003,
               "model_prob": 0.525,
-              "implied_prob": 0.4486,
-              "edge": 0.0764,
+              "implied_prob": 0.4066,
+              "edge": 0.1184,
               "book": "draftkings"
             },
             {
@@ -2540,47 +2448,93 @@
           ]
         },
         {
-          "home": "BOS",
-          "away": "UTA",
-          "home_name": "Bruins",
-          "away_name": "Mammoth",
+          "home": "OTT",
+          "away": "PHI",
+          "home_name": "Senators",
+          "away_name": "Flyers",
           "start_time": "2026-10-08T23:00:00Z",
-          "best_edge": 0.0726,
+          "best_edge": 0.0963,
           "edges": [
             {
               "market": "Total 5.5",
               "side": "Over",
               "pick": "Over",
               "team": null,
-              "odds": -135,
-              "odds_decimal": 1.7407407407407407,
-              "model_prob": 0.624,
-              "implied_prob": 0.5514,
-              "edge": 0.0726,
+              "odds": -120,
+              "odds_decimal": 1.8333333333333335,
+              "model_prob": 0.618,
+              "implied_prob": 0.5217,
+              "edge": 0.0963,
+              "book": "draftkings"
+            },
+            {
+              "market": "Puck Line (-1.5)",
+              "side": "OTT Senators",
+              "pick": "OTT Senators",
+              "team": "OTT",
+              "odds": 170,
+              "odds_decimal": 2.7,
+              "model_prob": 0.42,
+              "implied_prob": 0.3553,
+              "edge": 0.0647,
               "book": "draftkings"
             },
             {
               "market": "Moneyline",
-              "side": "Utah Mammoth",
-              "pick": "Utah Mammoth",
-              "team": "UTA",
-              "odds": -120,
-              "odds_decimal": 1.8333333333333335,
-              "model_prob": 0.548,
-              "implied_prob": 0.5217,
-              "edge": 0.0263,
-              "book": "fanduel"
+              "side": "Ottawa Senators",
+              "pick": "Ottawa Senators",
+              "team": "OTT",
+              "odds": -142,
+              "odds_decimal": 1.704225352112676,
+              "model_prob": 0.557,
+              "implied_prob": 0.5635,
+              "edge": -0.0065,
+              "book": "draftkings"
+            }
+          ]
+        },
+        {
+          "home": "NYI",
+          "away": "CHI",
+          "home_name": "Islanders",
+          "away_name": "Blackhawks",
+          "start_time": "2026-10-08T23:30:00Z",
+          "best_edge": 0.0843,
+          "edges": [
+            {
+              "market": "Total 5.5",
+              "side": "Over",
+              "pick": "Over",
+              "team": null,
+              "odds": -130,
+              "odds_decimal": 1.7692307692307692,
+              "model_prob": 0.627,
+              "implied_prob": 0.5427,
+              "edge": 0.0843,
+              "book": "draftkings"
             },
             {
               "market": "Puck Line (1.5)",
-              "side": "BOS Bruins",
-              "pick": "BOS Bruins",
-              "team": "BOS",
-              "odds": -258,
-              "odds_decimal": 1.3875968992248062,
-              "model_prob": 0.704,
-              "implied_prob": 0.6908,
-              "edge": 0.0132,
+              "side": "CHI Blackhawks",
+              "pick": "CHI Blackhawks",
+              "team": "CHI",
+              "odds": -148,
+              "odds_decimal": 1.6756756756756757,
+              "model_prob": 0.61,
+              "implied_prob": 0.5721,
+              "edge": 0.0379,
+              "book": "draftkings"
+            },
+            {
+              "market": "Moneyline",
+              "side": "New York Islanders",
+              "pick": "New York Islanders",
+              "team": "NYI",
+              "odds": -185,
+              "odds_decimal": 1.5405405405405406,
+              "model_prob": 0.535,
+              "implied_prob": 0.6225,
+              "edge": -0.0875,
               "book": "draftkings"
             }
           ]
@@ -2591,20 +2545,8 @@
           "home_name": "Canadiens",
           "away_name": "Predators",
           "start_time": "2026-10-08T23:00:00Z",
-          "best_edge": 0.07,
+          "best_edge": 0.0675,
           "edges": [
-            {
-              "market": "Puck Line (1.5)",
-              "side": "NSH Predators",
-              "pick": "NSH Predators",
-              "team": "NSH",
-              "odds": -155,
-              "odds_decimal": 1.6451612903225805,
-              "model_prob": 0.653,
-              "implied_prob": 0.583,
-              "edge": 0.07,
-              "book": "draftkings"
-            },
             {
               "market": "Total 6.5",
               "side": "Over",
@@ -2612,9 +2554,21 @@
               "team": null,
               "odds": 105,
               "odds_decimal": 2.05,
-              "model_prob": 0.5,
+              "model_prob": 0.535,
               "implied_prob": 0.4675,
-              "edge": 0.0325,
+              "edge": 0.0675,
+              "book": "draftkings"
+            },
+            {
+              "market": "Puck Line (1.5)",
+              "side": "NSH Predators",
+              "pick": "NSH Predators",
+              "team": "NSH",
+              "odds": -162,
+              "odds_decimal": 1.617283950617284,
+              "model_prob": 0.619,
+              "implied_prob": 0.5934,
+              "edge": 0.0256,
               "book": "draftkings"
             },
             {
@@ -2624,9 +2578,101 @@
               "team": "MTL",
               "odds": -185,
               "odds_decimal": 1.5405405405405406,
-              "model_prob": 0.501,
+              "model_prob": 0.521,
               "implied_prob": 0.6225,
-              "edge": -0.1215,
+              "edge": -0.1015,
+              "book": "draftkings"
+            }
+          ]
+        },
+        {
+          "home": "BOS",
+          "away": "UTA",
+          "home_name": "Bruins",
+          "away_name": "Mammoth",
+          "start_time": "2026-10-08T23:00:00Z",
+          "best_edge": 0.0654,
+          "edges": [
+            {
+              "market": "Puck Line (1.5)",
+              "side": "BOS Bruins",
+              "pick": "BOS Bruins",
+              "team": "BOS",
+              "odds": -245,
+              "odds_decimal": 1.4081632653061225,
+              "model_prob": 0.746,
+              "implied_prob": 0.6806,
+              "edge": 0.0654,
+              "book": "draftkings"
+            },
+            {
+              "market": "Total 5.5",
+              "side": "Over",
+              "pick": "Over",
+              "team": null,
+              "odds": -135,
+              "odds_decimal": 1.7407407407407407,
+              "model_prob": 0.577,
+              "implied_prob": 0.5514,
+              "edge": 0.0256,
+              "book": "draftkings"
+            },
+            {
+              "market": "Moneyline",
+              "side": "Utah Mammoth",
+              "pick": "Utah Mammoth",
+              "team": "UTA",
+              "odds": -126,
+              "odds_decimal": 1.7936507936507935,
+              "model_prob": 0.523,
+              "implied_prob": 0.5333,
+              "edge": -0.0103,
+              "book": "fanduel"
+            }
+          ]
+        },
+        {
+          "home": "CGY",
+          "away": "COL",
+          "home_name": "Flames",
+          "away_name": "Avalanche",
+          "start_time": "2026-10-09T01:00:00Z",
+          "best_edge": 0.0617,
+          "edges": [
+            {
+              "market": "Total 6.5",
+              "side": "Over",
+              "pick": "Over",
+              "team": null,
+              "odds": 100,
+              "odds_decimal": 2.0,
+              "model_prob": 0.54,
+              "implied_prob": 0.4783,
+              "edge": 0.0617,
+              "book": "draftkings"
+            },
+            {
+              "market": "Puck Line (1.5)",
+              "side": "CGY Flames",
+              "pick": "CGY Flames",
+              "team": "CGY",
+              "odds": -118,
+              "odds_decimal": 1.847457627118644,
+              "model_prob": 0.577,
+              "implied_prob": 0.5174,
+              "edge": 0.0596,
+              "book": "draftkings"
+            },
+            {
+              "market": "Moneyline",
+              "side": "Colorado Avalanche",
+              "pick": "Colorado Avalanche",
+              "team": "COL",
+              "odds": -238,
+              "odds_decimal": 1.4201680672268908,
+              "model_prob": 0.641,
+              "implied_prob": 0.675,
+              "edge": -0.034,
               "book": "draftkings"
             }
           ]
@@ -2637,88 +2683,42 @@
           "home_name": "Golden Knights",
           "away_name": "Maple Leafs",
           "start_time": "2026-10-09T02:00:00Z",
-          "best_edge": 0.0647,
+          "best_edge": 0.0194,
           "edges": [
-            {
-              "market": "Total 6.5",
-              "side": "Over",
-              "pick": "Over",
-              "team": null,
-              "odds": 100,
-              "odds_decimal": 2.0,
-              "model_prob": 0.543,
-              "implied_prob": 0.4783,
-              "edge": 0.0647,
-              "book": "draftkings"
-            },
             {
               "market": "Puck Line (-1.5)",
               "side": "VGK Golden Knights",
               "pick": "VGK Golden Knights",
               "team": "VGK",
-              "odds": 154,
-              "odds_decimal": 2.54,
-              "model_prob": 0.438,
-              "implied_prob": 0.3775,
-              "edge": 0.0605,
+              "odds": 150,
+              "odds_decimal": 2.5,
+              "model_prob": 0.403,
+              "implied_prob": 0.3836,
+              "edge": 0.0194,
+              "book": "draftkings"
+            },
+            {
+              "market": "Total 6.5",
+              "side": "Under",
+              "pick": "Under",
+              "team": null,
+              "odds": -120,
+              "odds_decimal": 1.8333333333333335,
+              "model_prob": 0.53,
+              "implied_prob": 0.5217,
+              "edge": 0.0083,
               "book": "draftkings"
             },
             {
               "market": "Moneyline",
-              "side": "VGK Golden Knights",
-              "pick": "VGK Golden Knights",
+              "side": "Vegas Golden Knights",
+              "pick": "Vegas Golden Knights",
               "team": "VGK",
               "odds": -162,
               "odds_decimal": 1.617283950617284,
-              "model_prob": 0.597,
+              "model_prob": 0.578,
               "implied_prob": 0.5934,
-              "edge": 0.0036,
-              "book": "draftkings"
-            }
-          ]
-        },
-        {
-          "home": "CGY",
-          "away": "COL",
-          "home_name": "Flames",
-          "away_name": "Avalanche",
-          "start_time": "2026-10-09T01:00:00Z",
-          "best_edge": 0.04,
-          "edges": [
-            {
-              "market": "Total 6.5",
-              "side": "Over",
-              "pick": "Over",
-              "team": null,
-              "odds": -110,
-              "odds_decimal": 1.9090909090909092,
-              "model_prob": 0.54,
-              "implied_prob": 0.5,
-              "edge": 0.04,
-              "book": "draftkings"
-            },
-            {
-              "market": "Puck Line (1.5)",
-              "side": "CGY Flames",
-              "pick": "CGY Flames",
-              "team": "CGY",
-              "odds": -135,
-              "odds_decimal": 1.7407407407407407,
-              "model_prob": 0.577,
-              "implied_prob": 0.5514,
-              "edge": 0.0256,
-              "book": "draftkings"
-            },
-            {
-              "market": "Moneyline",
-              "side": "Colorado Avalanche",
-              "pick": "Colorado Avalanche",
-              "team": "COL",
-              "odds": -218,
-              "odds_decimal": 1.4587155963302751,
-              "model_prob": 0.641,
-              "implied_prob": 0.6575,
-              "edge": -0.0165,
+              "edge": -0.0154,
               "book": "draftkings"
             }
           ]
@@ -2728,9 +2728,9 @@
     },
     "2026-10-10": {
       "date": "2026-10-10",
-      "computed_at": "2026-10-07T16:21:54.553780+00:00",
+      "computed_at": "2026-10-07T21:12:16.333562+00:00",
       "source": "sharpapi",
-      "odds_fetched_at": "2026-10-07T16:21:04.840760+00:00",
+      "odds_fetched_at": "2026-10-07T21:11:16.894980+00:00",
       "warning": null,
       "no_games": false,
       "scanned": 14,
@@ -2744,7 +2744,7 @@
           "home_name": "Panthers",
           "away_name": "Wild",
           "start_time": "2026-10-10T22:00:00Z",
-          "best_edge": 0.085,
+          "best_edge": 0.1,
           "edges": [
             {
               "market": "Moneyline",
@@ -2753,9 +2753,9 @@
               "team": "MIN",
               "odds": 130,
               "odds_decimal": 2.3,
-              "model_prob": 0.502,
+              "model_prob": 0.517,
               "implied_prob": 0.417,
-              "edge": 0.085,
+              "edge": 0.1,
               "book": "draftkings"
             },
             {
@@ -2765,9 +2765,9 @@
               "team": null,
               "odds": 110,
               "odds_decimal": 2.1,
-              "model_prob": 0.472,
+              "model_prob": 0.51,
               "implied_prob": 0.4573,
-              "edge": 0.0147,
+              "edge": 0.0527,
               "book": "draftkings"
             },
             {
@@ -2777,9 +2777,9 @@
               "team": "MIN",
               "odds": -192,
               "odds_decimal": 1.5208333333333335,
-              "model_prob": 0.643,
+              "model_prob": 0.676,
               "implied_prob": 0.6309,
-              "edge": 0.0121,
+              "edge": 0.0451,
               "book": "draftkings"
             }
           ]
