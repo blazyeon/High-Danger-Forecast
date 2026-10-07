@@ -37,6 +37,12 @@
   },
   {
     "team": "BUF",
+    "player": "Josh Doan",
+    "status": "dtd",
+    "injured": true
+  },
+  {
+    "team": "BUF",
     "player": "Alex Lyon",
     "status": "dtd",
     "injured": true
@@ -108,12 +114,6 @@
     "injured": true
   },
   {
-    "team": "COL",
-    "player": "Zachary L&#x27;Heureux",
-    "status": "dtd",
-    "injured": true
-  },
-  {
     "team": "DAL",
     "player": "Matt Duchene",
     "status": "ir",
@@ -127,14 +127,14 @@
   },
   {
     "team": "DET",
-    "player": "Dylan Larkin",
+    "player": "Marco Kasper",
     "status": "ir",
     "injured": true
   },
   {
     "team": "DET",
-    "player": "Marco Kasper",
-    "status": "dtd",
+    "player": "Mason Appleton",
+    "status": "ir",
     "injured": true
   },
   {
@@ -198,6 +198,12 @@
     "injured": true
   },
   {
+    "team": "FLA",
+    "player": "Brad Marchand",
+    "status": "dtd",
+    "injured": true
+  },
+  {
     "team": "LAK",
     "player": "Kevin Fiala",
     "status": "out",
@@ -216,12 +222,6 @@
     "injured": true
   },
   {
-    "team": "MIN",
-    "player": "Danila Yurov",
-    "status": "dtd",
-    "injured": true
-  },
-  {
     "team": "MTL",
     "player": "Kaiden Guhle",
     "status": "out",
@@ -230,12 +230,6 @@
   {
     "team": "MTL",
     "player": "Oliver Kapanen",
-    "status": "dtd",
-    "injured": true
-  },
-  {
-    "team": "MTL",
-    "player": "Alexandre Carrier",
     "status": "dtd",
     "injured": true
   },
@@ -276,8 +270,20 @@
     "injured": true
   },
   {
+    "team": "NJD",
+    "player": "Jonas Siegenthaler",
+    "status": "dtd",
+    "injured": true
+  },
+  {
     "team": "NYI",
     "player": "Mathew Barzal",
+    "status": "dtd",
+    "injured": true
+  },
+  {
+    "team": "NYI",
+    "player": "Alexander Romanov",
     "status": "dtd",
     "injured": true
   },
@@ -290,7 +296,7 @@
   {
     "team": "NYR",
     "player": "Joe Veleno",
-    "status": "dtd",
+    "status": "ir",
     "injured": true
   },
   {
@@ -360,6 +366,12 @@
     "injured": true
   },
   {
+    "team": "SEA",
+    "player": "Ryan Lindgren",
+    "status": "dtd",
+    "injured": true
+  },
+  {
     "team": "STL",
     "player": "Logan Mailloux",
     "status": "out",
@@ -414,6 +426,12 @@
     "injured": true
   },
   {
+    "team": "UTA",
+    "player": "Mikhail Sergachev",
+    "status": "dtd",
+    "injured": true
+  },
+  {
     "team": "VAN",
     "player": "Thatcher Demko",
     "status": "out",
@@ -428,6 +446,12 @@
   {
     "team": "VAN",
     "player": "Jake DeBrusk",
+    "status": "dtd",
+    "injured": true
+  },
+  {
+    "team": "VGK",
+    "player": "Victor Olofsson",
     "status": "dtd",
     "injured": true
   },

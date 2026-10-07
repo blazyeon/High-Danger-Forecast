@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-06T18:05:00.764268+00:00",
+  "generated_at": "2026-10-07T16:22:43.465315+00:00",
   "teams": {
     "BOS": {
       "skaters": [
@@ -1774,6 +1774,12 @@
     "NYR": {
       "skaters": [
         {
+          "name": "Cole Beaudoin",
+          "id": 8484786,
+          "position": "C",
+          "birthDate": "2006-04-24"
+        },
+        {
           "name": "Oliver Bjorkstrand",
           "id": 8477416,
           "position": "RW",
@@ -1894,12 +1900,6 @@
           "birthDate": "1996-05-08"
         },
         {
-          "name": "Matthew Robertson",
-          "id": 8481525,
-          "position": "D",
-          "birthDate": "2001-03-09"
-        },
-        {
           "name": "Braden Schneider",
           "id": 8482073,
           "position": "D",
@@ -1946,12 +1946,6 @@
           "id": 8484142,
           "position": "C",
           "birthDate": "2005-04-27"
-        },
-        {
-          "name": "Alex Bump",
-          "id": 8483731,
-          "position": "LW",
-          "birthDate": "2003-11-20"
         },
         {
           "name": "Noah Cates",
@@ -3814,12 +3808,6 @@
           "birthDate": "1998-09-19"
         },
         {
-          "name": "Connor Zary",
-          "id": 8482074,
-          "position": "C",
-          "birthDate": "2001-09-25"
-        },
-        {
           "name": "Kevin Bahl",
           "id": 8480860,
           "position": "D",
@@ -3848,12 +3836,6 @@
           "id": 8483495,
           "position": "D",
           "birthDate": "2004-02-15"
-        },
-        {
-          "name": "Brayden Pachal",
-          "id": 8481167,
-          "position": "D",
-          "birthDate": "1999-08-23"
         },
         {
           "name": "Zayne Parekh",
