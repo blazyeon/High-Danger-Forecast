@@ -70,6 +70,7 @@ from NHL.TodaysPicks import (
     list_cached_todays_picks_dates,
     resolve_next_game_date,
     compute_picks_record,
+    attach_final_scores,
 )
 
 logger = logging.getLogger(__name__)
@@ -1542,6 +1543,7 @@ def api_todays_picks():
 
         cached, warning = load_cached_todays_picks(game_date, max_age_hours=24.0)
         if cached is not None and cached.get("date") == game_date.isoformat():
+            attach_final_scores(cached)  # grade past picks with final scores
             result = _make_json_safe(cached)
             if warning:
                 result["warning"] = warning

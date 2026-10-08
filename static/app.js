@@ -2486,6 +2486,21 @@ function renderTodaysPicks(data, container) {
         const bestEdge = parseFloat(g.best_edge) || 0;
         const edgePct = (bestEdge * 100).toFixed(1);
 
+        // Final score for past games (absent while a game is still pending).
+        const hasScore = g.home_score != null && g.away_score != null;
+        let resultHtml = '';
+        if (hasScore) {
+            const hs = Number(g.home_score);
+            const as = Number(g.away_score);
+            const correct = homeWin === (hs > as);
+            resultHtml = `<div class="pick-score">
+                <span class="pick-score-away" style="color:${awayColor}">${as}</span>
+                <span class="pick-score-sep">–</span>
+                <span class="pick-score-home" style="color:${homeColor}">${hs}</span>
+                <span class="pick-result ${correct ? 'hit' : 'miss'}">${correct ? 'HIT' : 'MISS'}</span>
+            </div>`;
+        }
+
         html += `<div class="pick-row" data-pick-idx="${idx}">
             <div class="pick-row-main">
                 <div class="pick-matchup">
@@ -2496,6 +2511,7 @@ function renderTodaysPicks(data, container) {
                     <span class="be-row-abbr">${homeAbbr}</span>
                 </div>
                 <div class="pick-prediction" style="color:${winnerColor}">${homeWin ? 'HOME WIN' : 'AWAY WIN'}</div>
+                ${resultHtml}
                 <div class="pick-prob">
                     <div class="pick-prob-bar">
                         <div class="pick-prob-away" style="width:${aPct.toFixed(1)}%; background:${awayColor}"></div>

@@ -1432,6 +1432,33 @@ input[type="date"].param-input, input[type="date"].date-input {
     white-space: nowrap;
 }
 
+.pick-score {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 800;
+    font-size: 14px;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+}
+.pick-score-sep { color: var(--text-muted); font-weight: 600; }
+.pick-result {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.6px;
+    padding: 3px 8px;
+    border-radius: 100px;
+    text-transform: uppercase;
+}
+.pick-result.hit {
+    color: var(--accent-green);
+    background: var(--accent-green-dim);
+}
+.pick-result.miss {
+    color: var(--accent-red);
+    background: var(--accent-red-dim);
+}
+
 .pick-prob {
     flex: 1;
     min-width: 140px;

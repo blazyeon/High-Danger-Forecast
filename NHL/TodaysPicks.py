@@ -403,6 +403,23 @@ def _load_game_results() -> Dict[Tuple[str, str, str], Tuple[int, int]]:
     return out
 
 
+def attach_final_scores(payload: Dict[str, Any]) -> Dict[str, Any]:
+    """Add ``home_score`` / ``away_score`` to each game that has a final score.
+
+    Past picks are graded inline so the picks tab can show the result (and
+    whether the model's call hit) without a second round-trip. Games still in
+    progress or not yet played simply keep no score fields.
+    """
+    results = _load_game_results()
+    day = payload.get("date")
+    for g in payload.get("games", []):
+        score = results.get((day, _norm_abbr(g.get("home")), _norm_abbr(g.get("away"))))
+        if score is not None:
+            g["home_score"] = score[0]
+            g["away_score"] = score[1]
+    return payload
+
+
 def _regular_season_start() -> Optional[_date]:
     """First regular-season game date, or None if the Elo DB is unavailable.
 
