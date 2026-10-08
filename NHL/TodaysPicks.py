@@ -394,13 +394,44 @@ def _load_game_results() -> Dict[Tuple[str, str, str], Tuple[int, int]]:
     return out
 
 
+def _regular_season_start() -> Optional[_date]:
+    """First regular-season game date, or None if the Elo DB is unavailable.
+
+    The NHL encodes the game type in ``game_id`` (digits 5-6): ``01`` is
+    preseason, ``02`` is regular season. Preseason games are excluded from the
+    ML track record because they don't measure the regular-season predictor.
+    """
+    db_path = Path(__file__).resolve().parent.parent / "elo_ratings.db"
+    if not db_path.exists():
+        return None
+    try:
+        conn = sqlite3.connect(db_path, timeout=10.0)
+        try:
+            cur = conn.cursor()
+            cur.execute(
+                "SELECT MIN(game_date) FROM game_results "
+                "WHERE SUBSTR(game_id, 5, 2) = '02' "
+                "AND season = (SELECT MAX(season) FROM game_results)"
+            )
+            row = cur.fetchone()
+            if row and row[0]:
+                return _date.fromisoformat(str(row[0]))
+        finally:
+            conn.close()
+    except (sqlite3.Error, ValueError) as e:
+        logger.warning(f"Could not determine regular-season start: {e}")
+    return None
+
+
 def compute_picks_record() -> Dict[str, Any]:
     """
     Grade every cached ML pick (the "HOME WIN / AWAY WIN" call) against final
-    scores. Games without a final score yet are counted as ``pending`` and are
-    excluded from the accuracy percentage.
+    scores. Preseason games are excluded (they don't measure the regular-season
+    predictor), and games without a final score yet are counted as ``pending``
+    and excluded from the accuracy percentage.
     """
     results = _load_game_results()
+    season_start = _regular_season_start()
     dates = list_cached_todays_picks_dates()
 
     correct = incorrect = pending = 0
@@ -410,6 +441,8 @@ def compute_picks_record() -> Dict[str, Any]:
             day = _date.fromisoformat(ds)
         except ValueError:
             continue
+        if season_start is not None and day < season_start:
+            continue  # preseason — not graded
         payload, _warn = load_cached_todays_picks(day, max_age_hours=10**6)
         if not payload:
             continue
