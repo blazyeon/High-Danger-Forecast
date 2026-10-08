@@ -108,12 +108,6 @@
     "injured": true
   },
   {
-    "team": "CBJ",
-    "player": "Mikael Pyyhtia",
-    "status": "out",
-    "injured": true
-  },
-  {
     "team": "COL",
     "player": "Logan O&#x27;Connor",
     "status": "dtd",
@@ -127,7 +121,7 @@
   },
   {
     "team": "DET",
-    "player": "Jacob Bernard-Docker",
+    "player": "J.T. Compher",
     "status": "ir",
     "injured": true
   },
@@ -228,6 +222,12 @@
     "injured": true
   },
   {
+    "team": "MIN",
+    "player": "Nick Foligno",
+    "status": "dtd",
+    "injured": true
+  },
+  {
     "team": "MTL",
     "player": "Kaiden Guhle",
     "status": "out",
@@ -296,7 +296,7 @@
   {
     "team": "NYI",
     "player": "Alexander Romanov",
-    "status": "dtd",
+    "status": "ir",
     "injured": true
   },
   {
@@ -336,12 +336,6 @@
     "injured": true
   },
   {
-    "team": "OTT",
-    "player": "Linus Ullmark",
-    "status": "dtd",
-    "injured": true
-  },
-  {
     "team": "PHI",
     "player": "Nikita Grebenkin",
     "status": "ir",
@@ -351,12 +345,6 @@
     "team": "PHI",
     "player": "Rasmus Ristolainen",
     "status": "dtd",
-    "injured": true
-  },
-  {
-    "team": "PIT",
-    "player": "Bryan Rust",
-    "status": "out",
     "injured": true
   },
   {
@@ -458,7 +446,7 @@
   {
     "team": "VGK",
     "player": "Victor Olofsson",
-    "status": "dtd",
+    "status": "out",
     "injured": true
   },
   {
@@ -483,6 +471,12 @@
     "team": "WPG",
     "player": "Connor Hellebuyck",
     "status": "out",
+    "injured": true
+  },
+  {
+    "team": "WPG",
+    "player": "Josh Morrissey",
+    "status": "dtd",
     "injured": true
   }
 ]

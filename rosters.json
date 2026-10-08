@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-08T05:46:43.235419+00:00",
+  "generated_at": "2026-10-08T22:14:38.777938+00:00",
   "teams": {
     "BOS": {
       "skaters": [
@@ -744,6 +744,12 @@
           "birthDate": "2001-05-27"
         },
         {
+          "name": "Jacob Fowler",
+          "id": 8484170,
+          "position": "G",
+          "birthDate": "2004-11-24"
+        },
+        {
           "name": "Samuel Montembeault",
           "id": 8478470,
           "position": "G",
@@ -888,12 +894,6 @@
           "birthDate": "1999-10-20"
         },
         {
-          "name": "Jonas Johansson",
-          "id": 8477992,
-          "position": "G",
-          "birthDate": "1995-09-19"
-        },
-        {
           "name": "Linus Ullmark",
           "id": 8476999,
           "position": "G",
@@ -944,12 +944,6 @@
           "id": 8479542,
           "position": "LW",
           "birthDate": "1998-08-27"
-        },
-        {
-          "name": "Jansen Harkins",
-          "id": 8478424,
-          "position": "C",
-          "birthDate": "1997-05-23"
         },
         {
           "name": "Pontus Holmberg",
@@ -1082,12 +1076,6 @@
           "id": 8480870,
           "position": "C",
           "birthDate": "2000-02-06"
-        },
-        {
-          "name": "Luke Haymes",
-          "id": 8485467,
-          "position": "C",
-          "birthDate": "2003-07-28"
         },
         {
           "name": "Zack MacEwen",
