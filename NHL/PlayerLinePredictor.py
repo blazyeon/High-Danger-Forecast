@@ -10,10 +10,12 @@ Pure computation module; no Streamlit dependency.
 from __future__ import annotations
 
 import functools
+import json
 import logging
 import math
 import pandas as pd
 from datetime import date as _date
+from pathlib import Path
 from typing import Dict, Any, List, Optional, Tuple
 import difflib
 
@@ -462,6 +464,46 @@ def _get_rookie_projection(name_key: str) -> Optional[Dict[str, Any]]:
     return _ROOKIE_PROJECTIONS.get(name_key)
 
 
+# Projected power-play deployment is a mild signal that a player's scoring rate
+# (goals/assists/points) should run above their historical per-game mean, which
+# is averaged over seasons of varying deployment. Deliberately small heuristic
+# multipliers -- a placeholder until the effect is calibrated against PP vs ES
+# production rather than guessed.
+PP1_SCORING_BOOST = 1.08
+PP2_SCORING_BOOST = 1.03
+
+_PP_UNITS: Optional[Dict[str, str]] = None
+
+
+def _load_pp_role_lookup() -> Dict[str, str]:
+    """Return {normalized_name_key: 'pp1'|'pp2'} from lineups.json.
+
+    A name that collides across teams with conflicting roles is dropped, so a
+    shared name (e.g. two Elias Petterssons) never gets the wrong boost.
+    """
+    global _PP_UNITS
+    if _PP_UNITS is None:
+        _PP_UNITS = {}
+        try:
+            path = Path(__file__).resolve().parent.parent / "lineups.json"
+            if not path.exists():
+                return _PP_UNITS
+            data = json.loads(path.read_text(encoding="utf-8"))
+            roles: Dict[str, str] = {}
+            for team in (data.get("teams") or {}).values():
+                for role in ("pp1", "pp2"):
+                    for name in team.get(role) or []:
+                        key = normalize_name_key(name)
+                        if not key:
+                            continue
+                        roles[key] = "conflict" if (key in roles and roles[key] != role) else role
+            _PP_UNITS = {k: v for k, v in roles.items() if v in ("pp1", "pp2")}
+        except Exception as e:
+            logger.warning(f"Could not load lineups.json: {e}")
+            _PP_UNITS = {}
+    return _PP_UNITS
+
+
 def calculate_hit_probability(
     player_name: str,
     market: str,
@@ -540,6 +582,16 @@ def calculate_hit_probability(
     # Apply Elo as a rate multiplier instead of a flat probability shift.
     elo_rating = elo_data.get('elo', 1500)
     adjusted_avg = avg * _elo_rate_multiplier(elo_rating)
+
+    # Power-play deployment: a projected PP1/PP2 role creates more scoring than
+    # the historical mean suggests. Boost only the scoring markets, never shots
+    # or saves.
+    if "shot" not in market_lower and any(k in market_lower for k in ("goal", "assist", "point")):
+        pp_role = _load_pp_role_lookup().get(name_key)
+        if pp_role == "pp1":
+            adjusted_avg *= PP1_SCORING_BOOST
+        elif pp_role == "pp2":
+            adjusted_avg *= PP2_SCORING_BOOST
 
     # The count distribution wins clearly on the 0.5-line markets, where the
     # normal tail is far too heavy; on shots and saves the fitted normal beats it.
