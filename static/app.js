@@ -584,6 +584,7 @@ function setupEventListeners() {
     document.getElementById('statsSeason').addEventListener('change', runStats);
     document.getElementById('shotpropzMetric').addEventListener('change', runShotpropz);
     document.getElementById('shotpropzVenue').addEventListener('change', runShotpropz);
+    _attachShotpropzSortListeners();
     document.querySelectorAll('.stats-subtab').forEach(btn => {
         btn.addEventListener('click', () => activateStatsSubtab(btn.dataset.statstab));
     });
@@ -1464,6 +1465,9 @@ async function runStats() {
 
 // ── Shotpropz Matchups subtab ─────────────────────────────────────
 let _shotpropzPayload = null;
+let _shotpropzRows = [];
+let _shotpropzPositions = [];
+let _shotpropzSort = { key: 'avg', dir: 'desc' };
 
 function activateStatsSubtab(name) {
     document.querySelectorAll('.stats-subtab').forEach(b => {
@@ -1501,22 +1505,52 @@ async function runShotpropz() {
         return;
     }
 
-    const positions = Object.keys(bucket); // C, LW, RW, D
+    _shotpropzPositions = Object.keys(bucket); // C, LW, RW, D
     const teams = new Set();
-    positions.forEach(p => Object.keys(bucket[p] || {}).forEach(t => teams.add(t)));
-    const rows = [...teams].map(t => {
-        const vals = positions.map(p => parseFloat(bucket[p]?.[t]));
+    _shotpropzPositions.forEach(p => Object.keys(bucket[p] || {}).forEach(t => teams.add(t)));
+    _shotpropzRows = [...teams].map(t => {
+        const vals = _shotpropzPositions.map(p => parseFloat(bucket[p]?.[t]));
         const valid = vals.filter(v => !isNaN(v));
         return {
             team: t,
             vals,
             avg: valid.length ? valid.reduce((a, b) => a + b, 0) / valid.length : NaN,
         };
-    }).sort((a, b) => (isNaN(b.avg) ? -1 : b.avg) - (isNaN(a.avg) ? -1 : a.avg));
+    });
+    _shotpropzMeta = { metric, venue, updatedAt };
+    _renderShotpropz();
+}
+
+let _shotpropzMeta = { metric: null, venue: null, updatedAt: null };
+
+function _shotpropzSortValue(row, key) {
+    if (key === 'avg') return row.avg;
+    const idx = _shotpropzPositions.indexOf(key);
+    return idx >= 0 ? row.vals[idx] : NaN;
+}
+
+function _renderShotpropz() {
+    const container = document.getElementById('shotpropzResults');
+    if (!container) return;
+    const rows = [..._shotpropzRows].sort((a, b) => {
+        const av = _shotpropzSortValue(a, _shotpropzSort.key);
+        const bv = _shotpropzSortValue(b, _shotpropzSort.key);
+        // Missing values sink to the bottom in either direction.
+        const aNan = isNaN(av), bNan = isNaN(bv);
+        if (aNan && bNan) return a.team < b.team ? -1 : a.team > b.team ? 1 : 0;
+        if (aNan) return 1;
+        if (bNan) return -1;
+        return _shotpropzSort.dir === 'desc' ? bv - av : av - bv;
+    });
 
     let html = '<div class="table-wrap"><table class="data-table"><thead><tr><th>Team</th>';
-    positions.forEach(p => { html += `<th>${escapeHtml(p)}</th>`; });
-    html += '<th>Avg</th></tr></thead><tbody>';
+    [..._shotpropzPositions, 'avg'].forEach(key => {
+        const label = key === 'avg' ? 'Avg' : key;
+        const isActive = _shotpropzSort.key === key;
+        const arrow = isActive ? (_shotpropzSort.dir === 'desc' ? ' ▼' : ' ▲') : ' ⇅';
+        html += `<th class="sortable" data-key="${key}" title="Click to sort">${label}${arrow}</th>`;
+    });
+    html += '</tr></thead><tbody>';
     rows.forEach(r => {
         html += `<tr><td><div class="stats-team-cell"><img class="stats-team-logo" src="/api/logos/${r.team}.png" alt="${r.team}" onerror="this.style.display='none'"><strong>${escapeHtml(r.team)}</strong></div></td>`;
         r.vals.forEach(v => { html += `<td>${isNaN(v) ? '-' : v.toFixed(2)}</td>`; });
@@ -1524,10 +1558,26 @@ async function runShotpropz() {
     });
     html += '</tbody></table></div>';
 
+    const { metric, venue, updatedAt } = _shotpropzMeta;
     const metricLabel = metric === 'sog_against' ? 'SOG' : 'Goals';
     const venueLabel = venue === 'All' ? 'all games' : `${venue.toLowerCase()} games`;
-    html += `<div class="cors-notice" style="margin-top:12px"><i class="fa-solid fa-chart-simple"></i> ${metricLabel} allowed per game by position (${venueLabel}), sorted easiest matchup first. Higher = softer opponent at that position.${updatedAt ? ' Last updated: ' + updatedAt : ''}</div>`;
+    html += `<div class="cors-notice" style="margin-top:12px"><i class="fa-solid fa-chart-simple"></i> ${metricLabel} allowed per game by position (${venueLabel}). Higher = softer opponent at that position.${updatedAt ? ' Last updated: ' + updatedAt : ''}</div>`;
     container.innerHTML = html;
+}
+
+function _attachShotpropzSortListeners() {
+    const container = document.getElementById('shotpropzResults');
+    if (!container) return;
+    container.addEventListener('click', e => {
+        const th = e.target.closest('th.sortable');
+        if (!th) return;
+        const key = th.dataset.key;
+        _shotpropzSort = {
+            key,
+            dir: _shotpropzSort.key === key && _shotpropzSort.dir === 'desc' ? 'asc' : 'desc',
+        };
+        _renderShotpropz();
+    });
 }
 
 let _currentStatsRows = [];
