@@ -507,13 +507,18 @@ def _load_pp_role_lookup() -> Dict[str, str]:
     return _PP_UNITS
 
 
-# Matchup funnel: shotpropz.com "goals allowed by position" tells us how leaky
-# each team is to opposing centres / wings / defence. A goal scorer facing a
-# team that bleeds goals to his position gets a lift; one facing a shutdown
-# team gets a haircut. Clamped so a ~5-game home/away sample can't swing a rate
-# wildly; a placeholder until it is validated against actual outcomes.
+# Matchup funnel: shotpropz.com "goals/SOG allowed by position" tells us how
+# leaky each team is to opposing centres / wings / defence. A shooter facing a
+# team that bleeds shots to his position gets a small lift; one facing a
+# shutdown team gets a small haircut.
+#
+# Backtested against the 2025-26 PBP shot store (backtest_heuristics.py):
+#   - goals funnel: no signal (Spearman ~0.01) -> not applied.
+#   - SOG funnel: real but weak (~7% actual lift across the raw 0.75-1.35
+#     clamp), so the raw ratio is shrunk toward 1.0 by _MATCHUP_DAMP.
 _MATCHUP_MIN = 0.75
 _MATCHUP_MAX = 1.35
+_MATCHUP_DAMP = 0.2  # SOG-only: shrink the raw ratio toward 1.0 (measured ~7%).
 
 # Raw PBP position code -> shotpropz bucket (their tables are C/LW/RW/D).
 _SHOTPROPZ_POSITION = {
@@ -550,14 +555,17 @@ def _matchup_multiplier(
     home_abbr: Optional[str],
     away_abbr: Optional[str],
     position: Optional[str],
-    metric: str = "goals",
+    metric: str = "sog",
 ) -> Optional[float]:
     """Opponent's allowed-by-position funnel, as a rate multiplier.
 
-    `metric` is "goals" (goal-scoring markets) or "sog" (shots-on-goal), and
-    selects the matching shotpropz table. Returns None when the matchup cannot
-    be resolved (unknown team, venue, or position), which the caller treats as
-    "no adjustment".
+    `metric` selects the matching shotpropz table ("sog" or "goals"). Only SOG
+    is applied today -- the goals funnel was backtested to no signal, so its
+    callers pass None instead. The raw ratio is clamped then shrunk toward 1.0
+    by ``_MATCHUP_DAMP`` because the true SOG effect is far smaller than the raw
+    opponent/league ratio. Returns None when the matchup cannot be resolved
+    (unknown team, venue, or position), which the caller treats as "no
+    adjustment".
     """
     bucket_key = _SHOTPROPZ_POSITION.get(str(position or "").upper())
     if bucket_key is None:
@@ -589,7 +597,8 @@ def _matchup_multiplier(
     league_avg = sum(bucket.values()) / len(bucket)
     if league_avg <= 0:
         return None
-    return max(_MATCHUP_MIN, min(_MATCHUP_MAX, opponent_value / league_avg))
+    raw = max(_MATCHUP_MIN, min(_MATCHUP_MAX, opponent_value / league_avg))
+    return 1.0 + _MATCHUP_DAMP * (raw - 1.0)
 
 
 def calculate_hit_probability(
@@ -815,14 +824,13 @@ def _shape_player_df(
                     away_abbr = _normalize_team_abbr(away) if away else None
 
                     # Matchup funnel: the opponent's allowed-by-position rate vs
-                    # the league average, applied to goal-scoring and shots-on-goal
-                    # markets (the two shotpropz tables). Points/assists have no
-                    # matching table, so they get no matchup adjustment.
+                    # the league average, applied to shots-on-goal only. The
+                    # goals funnel was backtested to no signal, and points /
+                    # assists have no matching shotpropz table, so neither gets
+                    # a matchup adjustment.
                     mkey_lower = str(mkey).lower()
                     if "shot" in mkey_lower:
                         metric = "sog"
-                    elif "goal" in mkey_lower:
-                        metric = "goals"
                     else:
                         metric = None
                     matchup_multiplier = None

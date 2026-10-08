@@ -69,6 +69,7 @@ from NHL.TodaysPicks import (
     load_cached_todays_picks,
     list_cached_todays_picks_dates,
     resolve_next_game_date,
+    compute_picks_record,
 )
 
 logger = logging.getLogger(__name__)
@@ -1515,6 +1516,16 @@ def api_betting_edge():
 def api_todays_picks_dates():
     """Return the dates that have pre-computed Today's Picks cached."""
     return jsonify({"dates": list_cached_todays_picks_dates()})
+
+
+@app.route("/api/todays-picks/record")
+def api_todays_picks_record():
+    """Return the model's ML track record (correct/wrong/pending/%)."""
+    try:
+        return jsonify(compute_picks_record())
+    except Exception as e:
+        logger.error(f"Today's Picks record error: {e}", exc_info=True)
+        return jsonify({"error": str(e)}), 500
 
 
 @app.route("/api/todays-picks")

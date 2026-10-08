@@ -12,6 +12,7 @@ from __future__ import annotations
 
 import logging
 import math
+import sqlite3
 from datetime import date as _date, datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
@@ -34,6 +35,7 @@ from NHL.Utils import atomic_write_json, read_json_robust
 logger = logging.getLogger(__name__)
 
 DEFAULT_CACHE_PATH = Path(__file__).resolve().parent.parent / "static" / "data" / "todays_picks_cache.json"
+HISTORY_DIR = Path(__file__).resolve().parent.parent / "static" / "data" / "picks_history"
 DEFAULT_SIMS = 10000
 
 
@@ -75,10 +77,60 @@ def _load_cache_index(cache_path: Path) -> Dict[str, Any]:
     return {}
 
 
+def _slim_payload(payload: Dict[str, Any]) -> Dict[str, Any]:
+    """History keeps only what the picks tab shows: games + value-screened props.
+
+    ``all_props`` (the full priced board) is large and only ever served for the
+    current day's props board, so it is dropped from archived dates.
+    """
+    return {
+        "date": payload.get("date"),
+        "computed_at": payload.get("computed_at"),
+        "games": payload.get("games", []),
+        "props": payload.get("props", []),
+    }
+
+
+def _history_path(day: _date) -> Path:
+    return HISTORY_DIR / f"{day.isoformat()}.json"
+
+
+def write_picks_history(day: _date, payload: Dict[str, Any]) -> None:
+    """Archive one date's picks as a slim per-date file (written once, never grown)."""
+    HISTORY_DIR.mkdir(parents=True, exist_ok=True)
+    atomic_write_json(_history_path(day), _slim_payload(payload), indent=2)
+
+
+def list_picks_history_dates() -> List[str]:
+    """Sorted dates that have an archived picks file."""
+    if not HISTORY_DIR.exists():
+        return []
+    out = []
+    for p in HISTORY_DIR.glob("*.json"):
+        stem = p.stem
+        if len(stem) == 10 and stem[4] == "-" and stem[7] == "-":
+            out.append(stem)
+    return sorted(out)
+
+
+def load_picks_history(day: _date) -> Optional[Dict[str, Any]]:
+    """Load an archived picks payload for a date, or None."""
+    path = _history_path(day)
+    if not path.exists():
+        return None
+    try:
+        data = read_json_robust(path)
+    except Exception:
+        return None
+    return data if isinstance(data, dict) else None
+
+
 def list_cached_todays_picks_dates(cache_path: Optional[Path] = None) -> List[str]:
-    """Return the sorted list of dates that have cached picks."""
+    """Return the sorted list of dates with cached picks (live cache + archive)."""
     cache_path = Path(cache_path or DEFAULT_CACHE_PATH)
-    return sorted(_load_cache_index(cache_path).get("dates", {}).keys())
+    dates = set(_load_cache_index(cache_path).get("dates", {}).keys())
+    dates.update(list_picks_history_dates())
+    return sorted(dates)
 
 
 def load_cached_todays_picks(
@@ -89,13 +141,21 @@ def load_cached_todays_picks(
     """
     Load pre-computed picks for a date. Returns (payload, warning).
     warning is set if the cache is missing, has no entry for the date, or is stale.
+
+    The live cache holds the current day's full payload (including the props
+    board); older dates are served from the slim per-date archive under
+    ``picks_history/``.
     """
     cache_path = Path(cache_path or DEFAULT_CACHE_PATH)
-    if not cache_path.exists():
-        return None, f"No cached picks found. Run `python update_todays_picks.py --date {day.isoformat()}`."
+    payload = None
 
-    index = _load_cache_index(cache_path)
-    payload = index.get("dates", {}).get(day.isoformat())
+    if cache_path.exists():
+        index = _load_cache_index(cache_path)
+        payload = index.get("dates", {}).get(day.isoformat())
+
+    if payload is None:
+        payload = load_picks_history(day)
+
     if payload is None:
         return None, f"No cached picks for {day.isoformat()}. Run `python update_todays_picks.py --date {day.isoformat()}`."
 
@@ -287,9 +347,112 @@ def compute_and_cache_todays_picks(
     }
 
     cache_path.parent.mkdir(parents=True, exist_ok=True)
-    index = _load_cache_index(cache_path)
-    index.setdefault("dates", {})[day.isoformat()] = payload
-    atomic_write_json(cache_path, index, indent=2)
+
+    # Archive this date's picks as a slim per-date file (games + props, no
+    # all_props). One file per day keeps git from rewriting a growing blob and
+    # lets old picks be browsed without shipping the whole props board forever.
+    write_picks_history(day, payload)
+
+    # The live cache holds only the current day's full payload (including the
+    # props board). Overwrite rather than accumulate so it never grows into a
+    # multi-megabyte file rewritten every run.
+    atomic_write_json(cache_path, {"dates": {day.isoformat(): payload}}, indent=2)
 
     logger.info(f"Cached today's picks for {day}: {len(games)} games, {len(props)} props -> {cache_path}")
     return payload
+
+
+# ── ML track record ────────────────────────────────────────────────────
+
+_ARIZONA_TO_UTAH = {"ARI": "UTA"}
+
+
+def _norm_abbr(abbr: Any) -> str:
+    return _ARIZONA_TO_UTAH.get(str(abbr or "").strip().upper(), str(abbr or "").strip().upper())
+
+
+def _load_game_results() -> Dict[Tuple[str, str, str], Tuple[int, int]]:
+    """{(game_date, home_abbr, away_abbr): (home_score, away_score)} from Elo DB."""
+    db_path = Path(__file__).resolve().parent.parent / "elo_ratings.db"
+    out: Dict[Tuple[str, str, str], Tuple[int, int]] = {}
+    if not db_path.exists():
+        return out
+    try:
+        conn = sqlite3.connect(db_path, timeout=10.0)
+        try:
+            cur = conn.cursor()
+            cur.execute(
+                "SELECT game_date, home_team, away_team, home_score, away_score "
+                "FROM game_results WHERE home_score IS NOT NULL AND away_score IS NOT NULL"
+            )
+            for gd, h, a, hs, aws in cur.fetchall():
+                out[(str(gd), _norm_abbr(h), _norm_abbr(a))] = (int(hs), int(aws))
+        finally:
+            conn.close()
+    except sqlite3.Error as e:
+        logger.warning(f"Could not read game_results for picks record: {e}")
+    return out
+
+
+def compute_picks_record() -> Dict[str, Any]:
+    """
+    Grade every cached ML pick (the "HOME WIN / AWAY WIN" call) against final
+    scores. Games without a final score yet are counted as ``pending`` and are
+    excluded from the accuracy percentage.
+    """
+    results = _load_game_results()
+    dates = list_cached_todays_picks_dates()
+
+    correct = incorrect = pending = 0
+    by_date: List[Dict[str, Any]] = []
+    for ds in dates:
+        try:
+            day = _date.fromisoformat(ds)
+        except ValueError:
+            continue
+        payload, _warn = load_cached_todays_picks(day, max_age_hours=10**6)
+        if not payload:
+            continue
+
+        d_correct = d_incorrect = d_pending = 0
+        for g in payload.get("games", []):
+            sim = g.get("sim") or {}
+            try:
+                h_pct = float(sim.get("home_win_pct"))
+                a_pct = float(sim.get("away_win_pct"))
+            except (TypeError, ValueError):
+                continue
+            if h_pct == a_pct:
+                continue  # no winner called, nothing to grade
+            score = results.get((ds, _norm_abbr(g.get("home")), _norm_abbr(g.get("away"))))
+            if score is None:
+                d_pending += 1
+                continue
+            predicted_home = h_pct > a_pct
+            actual_home_win = score[0] > score[1]
+            if predicted_home == actual_home_win:
+                d_correct += 1
+            else:
+                d_incorrect += 1
+
+        if d_correct or d_incorrect or d_pending:
+            by_date.append({
+                "date": ds,
+                "correct": d_correct,
+                "incorrect": d_incorrect,
+                "pending": d_pending,
+            })
+        correct += d_correct
+        incorrect += d_incorrect
+        pending += d_pending
+
+    graded = correct + incorrect
+    accuracy_pct = round(100.0 * correct / graded, 1) if graded else None
+    return {
+        "graded": graded,
+        "correct": correct,
+        "incorrect": incorrect,
+        "pending": pending,
+        "accuracy_pct": accuracy_pct,
+        "by_date": by_date,
+    }
