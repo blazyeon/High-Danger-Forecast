@@ -85,6 +85,9 @@ jobs:
       - name: Run lineups update (PP units)
         run: python update_lineups.py
 
+      - name: Run shotpropz update (goals/SOG allowed by position)
+        run: python update_shotpropz.py
+
       - name: Run Today's Picks pre-computation
         run: python update_todays_picks.py
 
@@ -93,7 +96,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add static/data/ pbp_cache/shots/*.parquet elo_ratings.db models/xg_validation.json \
-                  injuries.json rosters.json rookie_projections.json lineups.json
+                  injuries.json rosters.json rookie_projections.json lineups.json shotpropz.json
           if git diff --cached --quiet; then
             echo "No data changes to commit."
             exit 0

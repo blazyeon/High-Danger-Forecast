@@ -504,12 +504,94 @@ def _load_pp_role_lookup() -> Dict[str, str]:
     return _PP_UNITS
 
 
+# Matchup funnel: shotpropz.com "goals allowed by position" tells us how leaky
+# each team is to opposing centres / wings / defence. A goal scorer facing a
+# team that bleeds goals to his position gets a lift; one facing a shutdown
+# team gets a haircut. Clamped so a ~5-game home/away sample can't swing a rate
+# wildly; a placeholder until it is validated against actual outcomes.
+_MATCHUP_MIN = 0.75
+_MATCHUP_MAX = 1.35
+
+# Raw PBP position code -> shotpropz bucket (their tables are C/LW/RW/D).
+_SHOTPROPZ_POSITION = {
+    "C": "C",
+    "L": "LW",
+    "R": "RW",
+    "LW": "LW",
+    "RW": "RW",
+    "D": "D",
+    "LD": "D",
+    "RD": "D",
+}
+
+_SHOTPROPZ: Optional[Dict] = None
+
+
+def _load_shotpropz() -> Dict:
+    """Return the parsed shotpropz.json payload, cached for the process."""
+    global _SHOTPROPZ
+    if _SHOTPROPZ is None:
+        _SHOTPROPZ = {}
+        try:
+            path = Path(__file__).resolve().parent.parent / "shotpropz.json"
+            if path.exists():
+                _SHOTPROPZ = json.loads(path.read_text(encoding="utf-8"))
+        except Exception as e:
+            logger.warning(f"Could not load shotpropz.json: {e}")
+            _SHOTPROPZ = {}
+    return _SHOTPROPZ
+
+
+def _goal_matchup_multiplier(
+    player_team: Optional[str],
+    home_abbr: Optional[str],
+    away_abbr: Optional[str],
+    position: Optional[str],
+) -> Optional[float]:
+    """Opponent's goals-allowed-to-position funnel, as a rate multiplier.
+
+    Returns None when the matchup cannot be resolved (unknown team, venue, or
+    position), which the caller treats as "no adjustment".
+    """
+    bucket_key = _SHOTPROPZ_POSITION.get(str(position or "").upper())
+    if bucket_key is None:
+        return None
+
+    team = _normalize_team_abbr(player_team) if player_team else None
+    opponent = None
+    defending_location = None
+    if team and away_abbr and team == home_abbr:
+        # Player's team is home, so the opponent defends on the road.
+        opponent = away_abbr
+        defending_location = "Away"
+    elif team and home_abbr and team == away_abbr:
+        opponent = home_abbr
+        defending_location = "Home"
+    if not opponent or not defending_location:
+        return None
+
+    locations = _load_shotpropz().get("goals_against") or {}
+    bucket = (locations.get(defending_location) or {}).get(bucket_key) or {}
+    if opponent not in bucket:
+        # A team with no recent home/away sample is absent from that split;
+        # fall back to the all-situations number rather than skipping it.
+        bucket = (locations.get("All") or {}).get(bucket_key) or {}
+    opponent_value = bucket.get(opponent)
+    if opponent_value is None or not bucket:
+        return None
+    league_avg = sum(bucket.values()) / len(bucket)
+    if league_avg <= 0:
+        return None
+    return max(_MATCHUP_MIN, min(_MATCHUP_MAX, opponent_value / league_avg))
+
+
 def calculate_hit_probability(
     player_name: str,
     market: str,
     line: float,
     player_elo: Dict[str, Dict],
-    player_stats: Dict[str, Dict]
+    player_stats: Dict[str, Dict],
+    matchup_multiplier: Optional[float] = None,
 ) -> Tuple[float, str]:
     """
     Calculate probability of hitting the line and recommend Over/Under.
@@ -592,6 +674,10 @@ def calculate_hit_probability(
             adjusted_avg *= PP1_SCORING_BOOST
         elif pp_role == "pp2":
             adjusted_avg *= PP2_SCORING_BOOST
+
+    # Matchup funnel (goals allowed by the opponent to this player's position).
+    if matchup_multiplier is not None:
+        adjusted_avg *= matchup_multiplier
 
     # The count distribution wins clearly on the 0.5-line markets, where the
     # normal tail is far too heavy; on shots and saves the fitted normal beats it.
@@ -716,25 +802,37 @@ def _shape_player_df(
                     if rec.get("is_main_line") is False:
                         continue
 
+                    player_key = normalize_name_key(rec["player"])
+                    player_team = player_elo.get(player_key, {}).get("team") if player_elo else None
+                    home_abbr = _normalize_team_abbr(home) if home else None
+                    away_abbr = _normalize_team_abbr(away) if away else None
+
+                    # Matchup funnel applies to goal-scoring markets only: it is
+                    # built from goals allowed by position, not points or assists.
+                    matchup_multiplier = None
+                    if "goal" in str(mkey).lower():
+                        raw_pos = str((player_stats or {}).get(player_key, {}).get("position") or "")
+                        matchup_multiplier = _goal_matchup_multiplier(
+                            player_team, home_abbr, away_abbr, raw_pos
+                        )
+
                     # Calculate hit probability
                     prob_over, recommendation = calculate_hit_probability(
                         rec["player"],
                         mkey,
                         rec["line"],
                         player_elo,
-                        player_stats
+                        player_stats,
+                        matchup_multiplier=matchup_multiplier,
                     )
-
-                    player_key = normalize_name_key(rec["player"])
-                    player_team = player_elo.get(player_key, {}).get("team") if player_elo else None
 
                     rows.append({
                         "event_id": ev_id,
                         "commence_time": ctime,
                         "home_team": home,
                         "away_team": away,
-                        "home_abbr": _normalize_team_abbr(home) if home else None,
-                        "away_abbr": _normalize_team_abbr(away) if away else None,
+                        "home_abbr": home_abbr,
+                        "away_abbr": away_abbr,
                         "player_team": player_team,
                         "book_key": book_key,
                         "market": mkey,
