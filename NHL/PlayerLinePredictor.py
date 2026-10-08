@@ -48,6 +48,9 @@ logger = logging.getLogger(__name__)
 DEFAULT_PLAYER_MARKETS = [
     "player_points",
     "player_assists",
+    # Shots-on-goal is a two-sided market (DraftKings quotes Over AND Under on
+    # its main line), so the model can price it honestly -- unlike player_goals.
+    "player_shots_on_goal",
     # Goals are priced as "anytime goal scorer", not as an Over/Under line.
     # The plain player_goals market is an Over-only 2+/3+ ladder with no
     # two-sided rung anywhere (verified: 0 of 179 lines carry an Under), and
@@ -542,16 +545,19 @@ def _load_shotpropz() -> Dict:
     return _SHOTPROPZ
 
 
-def _goal_matchup_multiplier(
+def _matchup_multiplier(
     player_team: Optional[str],
     home_abbr: Optional[str],
     away_abbr: Optional[str],
     position: Optional[str],
+    metric: str = "goals",
 ) -> Optional[float]:
-    """Opponent's goals-allowed-to-position funnel, as a rate multiplier.
+    """Opponent's allowed-by-position funnel, as a rate multiplier.
 
-    Returns None when the matchup cannot be resolved (unknown team, venue, or
-    position), which the caller treats as "no adjustment".
+    `metric` is "goals" (goal-scoring markets) or "sog" (shots-on-goal), and
+    selects the matching shotpropz table. Returns None when the matchup cannot
+    be resolved (unknown team, venue, or position), which the caller treats as
+    "no adjustment".
     """
     bucket_key = _SHOTPROPZ_POSITION.get(str(position or "").upper())
     if bucket_key is None:
@@ -570,7 +576,8 @@ def _goal_matchup_multiplier(
     if not opponent or not defending_location:
         return None
 
-    locations = _load_shotpropz().get("goals_against") or {}
+    data_key = "sog_against" if metric == "sog" else "goals_against"
+    locations = _load_shotpropz().get(data_key) or {}
     bucket = (locations.get(defending_location) or {}).get(bucket_key) or {}
     if opponent not in bucket:
         # A team with no recent home/away sample is absent from that split;
@@ -807,13 +814,22 @@ def _shape_player_df(
                     home_abbr = _normalize_team_abbr(home) if home else None
                     away_abbr = _normalize_team_abbr(away) if away else None
 
-                    # Matchup funnel applies to goal-scoring markets only: it is
-                    # built from goals allowed by position, not points or assists.
+                    # Matchup funnel: the opponent's allowed-by-position rate vs
+                    # the league average, applied to goal-scoring and shots-on-goal
+                    # markets (the two shotpropz tables). Points/assists have no
+                    # matching table, so they get no matchup adjustment.
+                    mkey_lower = str(mkey).lower()
+                    if "shot" in mkey_lower:
+                        metric = "sog"
+                    elif "goal" in mkey_lower:
+                        metric = "goals"
+                    else:
+                        metric = None
                     matchup_multiplier = None
-                    if "goal" in str(mkey).lower():
+                    if metric:
                         raw_pos = str((player_stats or {}).get(player_key, {}).get("position") or "")
-                        matchup_multiplier = _goal_matchup_multiplier(
-                            player_team, home_abbr, away_abbr, raw_pos
+                        matchup_multiplier = _matchup_multiplier(
+                            player_team, home_abbr, away_abbr, raw_pos, metric=metric
                         )
 
                     # Calculate hit probability

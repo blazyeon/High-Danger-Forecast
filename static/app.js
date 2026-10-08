@@ -1946,11 +1946,12 @@ async function runProps() {
 
     // Sent explicitly, so this list -- not the backend default -- decides which
     // markets the board shows. Mirrors DEFAULT_PLAYER_MARKETS: goals come from
-    // anytime_goal_scorer, and player_shots_on_goal / player_goals are excluded
-    // (Over-only ladder rungs the model cannot price honestly). Blocked shots and
-    // power-play points are excluded too -- the former prices as "No Data" with no
-    // PBP blocked-shot data, the latter is not posted by DraftKings or FanDuel.
-    const markets = ["player_points", "player_assists", "anytime_goal_scorer", "player_total_saves"];
+    // anytime_goal_scorer, and player_shots_on_goal is the two-sided shots line
+    // (DraftKings quotes Over/Under on it, unlike the Over-only player_goals
+    // ladder, which is excluded). Blocked shots and power-play points are
+    // excluded too -- the former prices as "No Data" with no PBP blocked-shot
+    // data, the latter is not posted by DraftKings or FanDuel.
+    const markets = ["player_points", "player_assists", "anytime_goal_scorer", "player_shots_on_goal", "player_total_saves"];
 
     try {
         const url = `/api/player-props?regions=us&markets=${markets.join(',')}`;
