@@ -2253,9 +2253,9 @@
     },
     "2026-10-08": {
       "date": "2026-10-08",
-      "computed_at": "2026-10-08T05:33:04.444443+00:00",
+      "computed_at": "2026-10-08T05:45:47.043991+00:00",
       "source": "sharpapi",
-      "odds_fetched_at": "2026-10-08T05:32:29.785697+00:00",
+      "odds_fetched_at": "2026-10-08T05:45:06.561453+00:00",
       "warning": null,
       "no_games": false,
       "scanned": 10,
@@ -2351,52 +2351,6 @@
               "model_prob": 0.515,
               "implied_prob": 0.5721,
               "edge": -0.0571,
-              "book": "draftkings"
-            }
-          ]
-        },
-        {
-          "home": "NYI",
-          "away": "CHI",
-          "home_name": "Islanders",
-          "away_name": "Blackhawks",
-          "start_time": "2026-10-08T23:30:00Z",
-          "best_edge": 0.0945,
-          "edges": [
-            {
-              "market": "Total 5.5",
-              "side": "Over",
-              "pick": "Over",
-              "team": null,
-              "odds": -125,
-              "odds_decimal": 1.8,
-              "model_prob": 0.627,
-              "implied_prob": 0.5325,
-              "edge": 0.0945,
-              "book": "draftkings"
-            },
-            {
-              "market": "Puck Line (1.5)",
-              "side": "CHI Blackhawks",
-              "pick": "CHI Blackhawks",
-              "team": "CHI",
-              "odds": -162,
-              "odds_decimal": 1.617283950617284,
-              "model_prob": 0.61,
-              "implied_prob": 0.5934,
-              "edge": 0.0166,
-              "book": "draftkings"
-            },
-            {
-              "market": "Moneyline",
-              "side": "New York Islanders",
-              "pick": "New York Islanders",
-              "team": "NYI",
-              "odds": -185,
-              "odds_decimal": 1.5405405405405406,
-              "model_prob": 0.535,
-              "implied_prob": 0.6225,
-              "edge": -0.0875,
               "book": "draftkings"
             }
           ]
@@ -2540,6 +2494,98 @@
           ]
         },
         {
+          "home": "CAR",
+          "away": "VAN",
+          "home_name": "Hurricanes",
+          "away_name": "Canucks",
+          "start_time": "2026-10-08T23:00:00Z",
+          "best_edge": 0.0685,
+          "edges": [
+            {
+              "market": "Puck Line (1.5)",
+              "side": "VAN Canucks",
+              "pick": "VAN Canucks",
+              "team": "VAN",
+              "odds": 105,
+              "odds_decimal": 2.05,
+              "model_prob": 0.536,
+              "implied_prob": 0.4675,
+              "edge": 0.0685,
+              "book": "draftkings"
+            },
+            {
+              "market": "Total 6.5",
+              "side": "Over",
+              "pick": "Over",
+              "team": null,
+              "odds": -102,
+              "odds_decimal": 1.9803921568627452,
+              "model_prob": 0.519,
+              "implied_prob": 0.4826,
+              "edge": 0.0364,
+              "book": "draftkings"
+            },
+            {
+              "market": "Moneyline",
+              "side": "Carolina Hurricanes",
+              "pick": "Carolina Hurricanes",
+              "team": "CAR",
+              "odds": -325,
+              "odds_decimal": 1.3076923076923077,
+              "model_prob": 0.644,
+              "implied_prob": 0.7335,
+              "edge": -0.0895,
+              "book": "draftkings"
+            }
+          ]
+        },
+        {
+          "home": "NYI",
+          "away": "CHI",
+          "home_name": "Islanders",
+          "away_name": "Blackhawks",
+          "start_time": "2026-10-08T23:30:00Z",
+          "best_edge": 0.0675,
+          "edges": [
+            {
+              "market": "Total 5.5",
+              "side": "Over",
+              "pick": "Over",
+              "team": null,
+              "odds": -125,
+              "odds_decimal": 1.8,
+              "model_prob": 0.6,
+              "implied_prob": 0.5325,
+              "edge": 0.0675,
+              "book": "draftkings"
+            },
+            {
+              "market": "Puck Line (-1.5)",
+              "side": "NY Islanders",
+              "pick": "NY Islanders",
+              "team": "NYI",
+              "odds": 136,
+              "odds_decimal": 2.3600000000000003,
+              "model_prob": 0.428,
+              "implied_prob": 0.4066,
+              "edge": 0.0214,
+              "book": "draftkings"
+            },
+            {
+              "market": "Moneyline",
+              "side": "New York Islanders",
+              "pick": "New York Islanders",
+              "team": "NYI",
+              "odds": -185,
+              "odds_decimal": 1.5405405405405406,
+              "model_prob": 0.547,
+              "implied_prob": 0.6225,
+              "edge": -0.0755,
+              "book": "draftkings"
+            }
+          ]
+        },
+        {
           "home": "BUF",
           "away": "DAL",
           "home_name": "Sabres",
@@ -2632,52 +2678,6 @@
           ]
         },
         {
-          "home": "CAR",
-          "away": "VAN",
-          "home_name": "Hurricanes",
-          "away_name": "Canucks",
-          "start_time": "2026-10-08T23:00:00Z",
-          "best_edge": 0.0575,
-          "edges": [
-            {
-              "market": "Puck Line (1.5)",
-              "side": "VAN Canucks",
-              "pick": "VAN Canucks",
-              "team": "VAN",
-              "odds": 105,
-              "odds_decimal": 2.05,
-              "model_prob": 0.525,
-              "implied_prob": 0.4675,
-              "edge": 0.0575,
-              "book": "draftkings"
-            },
-            {
-              "market": "Total 6.5",
-              "side": "Over",
-              "pick": "Over",
-              "team": null,
-              "odds": -102,
-              "odds_decimal": 1.9803921568627452,
-              "model_prob": 0.489,
-              "implied_prob": 0.4826,
-              "edge": 0.0064,
-              "book": "draftkings"
-            },
-            {
-              "market": "Moneyline",
-              "side": "Carolina Hurricanes",
-              "pick": "Carolina Hurricanes",
-              "team": "CAR",
-              "odds": -325,
-              "odds_decimal": 1.3076923076923077,
-              "model_prob": 0.648,
-              "implied_prob": 0.7335,
-              "edge": -0.0855,
-              "book": "draftkings"
-            }
-          ]
-        },
-        {
           "home": "VGK",
           "away": "TOR",
           "home_name": "Golden Knights",
@@ -2728,9 +2728,9 @@
     },
     "2026-10-10": {
       "date": "2026-10-10",
-      "computed_at": "2026-10-08T05:33:08.477052+00:00",
+      "computed_at": "2026-10-08T05:45:51.150543+00:00",
       "source": "sharpapi",
-      "odds_fetched_at": "2026-10-08T05:32:29.785697+00:00",
+      "odds_fetched_at": "2026-10-08T05:45:06.561453+00:00",
       "warning": null,
       "no_games": false,
       "scanned": 14,

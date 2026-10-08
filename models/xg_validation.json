@@ -2,7 +2,7 @@
   "season": 2026,
   "n_joined": 4424,
   "n_valid": 4424,
-  "correlation_ours_vs_mp": 0.5974207514613981,
+  "correlation_ours_vs_mp": 0.5974207514613982,
   "auc_ours": 0.6908853438635729,
   "auc_mp": 0.7863829821312085,
   "brier_ours": 0.068031779515455,
