@@ -8,9 +8,23 @@ on:
   # such dependency. Do not re-enable both -- two runners race on the same
   # caches and double-hit the SharpAPI quota.
   schedule:
-    # 09:07 UTC = 05:07 ET (EDT) / 04:07 ET (EST). Off the hour because GitHub
-    # delays runs queued at :00 when the fleet is busy.
-    - cron: '7 9 * * *'
+    # Two scheduled runs. Both are off the hour because GitHub delays runs
+    # queued at :00 when the fleet is busy.
+    #
+    # GitHub does not fire scheduled workflows on time: these runs have been
+    # starting 4-8h after their cron time (confirmed in the Actions tab), which
+    # pushed the old 05:07 ET run to ~09:00-13:00 ET and left Today's Picks
+    # stale at wake-up. So the overnight run is scheduled hours early to absorb
+    # that delay before it lands.
+    #
+    # 1) Overnight baseline -- 02:07 UTC = 22:07 ET (EDT) / 21:07 ET (EST).
+    #    Even a worst-case 8h delay still finishes by ~06:07 ET, so today's
+    #    picks exist before you wake up.
+    - cron: '7 2 * * *'
+    # 2) Afternoon fresh-odds sweep -- 21:37 UTC = 17:37 ET (EDT) / 16:37 ET
+    #    (EST). Odds move through the day; this re-sweeps them right before
+    #    puck drop so edges and props aren't priced off the overnight snapshot.
+    - cron: '37 21 * * *'
   workflow_dispatch:  # Allows manual trigger from GitHub UI
 
 permissions:
