@@ -228,22 +228,48 @@
                     <h2 class="card-title">Advanced Statistics</h2>
                     <p class="card-subtitle">Natural Stat Trick team and player data</p>
                 </div>
-                <div class="analytics-controls">
-                    <div class="field">
-                        <label>Type</label>
-                        <select id="statsType" class="team-select">
-                            <option value="teams">Teams</option>
-                            <option value="skaters">Skaters</option>
-                            <option value="goalies">Goalies</option>
-                        </select>
-                    </div>
-                    <div class="field">
-                        <label>Season</label>
-                        <select id="statsSeason" class="team-select"></select>
-                    </div>
-                    <button id="statsBtn" class="action-btn">Load</button>
+                <div class="stats-subnav" role="tablist" aria-label="Statistics category">
+                    <button class="stats-subtab active" data-statstab="nst" type="button">NST Stats</button>
+                    <button class="stats-subtab" data-statstab="shotpropz" type="button">Shotpropz Matchups</button>
                 </div>
-                <div id="statsResults" class="results-area"></div>
+                <div id="nstPanel">
+                    <div class="analytics-controls">
+                        <div class="field">
+                            <label>Type</label>
+                            <select id="statsType" class="team-select">
+                                <option value="teams">Teams</option>
+                                <option value="skaters">Skaters</option>
+                                <option value="goalies">Goalies</option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label>Season</label>
+                            <select id="statsSeason" class="team-select"></select>
+                        </div>
+                        <button id="statsBtn" class="action-btn">Load</button>
+                    </div>
+                    <div id="statsResults" class="results-area"></div>
+                </div>
+                <div id="shotpropzPanel" style="display:none">
+                    <div class="analytics-controls">
+                        <div class="field">
+                            <label>Metric</label>
+                            <select id="shotpropzMetric" class="team-select">
+                                <option value="sog_against">SOG Against</option>
+                                <option value="goals_against">Goals Against</option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label>Venue</label>
+                            <select id="shotpropzVenue" class="team-select">
+                                <option value="All">All</option>
+                                <option value="Home">Home</option>
+                                <option value="Away">Away</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="shotpropzResults" class="results-area"></div>
+                </div>
             </div>
         </section>
 

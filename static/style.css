@@ -776,6 +776,25 @@ input[type="date"].param-input, input[type="date"].date-input {
     background: var(--accent-gold-dim); color: var(--accent-gold); border: 1px solid var(--border-default);
 }
 
+/* ── Stats subnav (NST / Shotpropz) ────────────────────────────── */
+.stats-subnav {
+    display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px;
+}
+.stats-subtab {
+    background: var(--bg-surface-elevated); border: 1px solid var(--border-subtle);
+    color: var(--text-secondary);
+    font-size: 12px; font-weight: 700; letter-spacing: 0.4px;
+    padding: 8px 14px; border-radius: 100px; cursor: pointer;
+    transition: border-color var(--transition-fast), background var(--transition-fast), color var(--transition-fast);
+}
+.stats-subtab:hover {
+    border-color: var(--border-default); color: var(--text-primary);
+}
+.stats-subtab.active {
+    background: var(--accent-gold-dim); color: var(--accent-gold);
+    border-color: var(--accent-gold);
+}
+
 /* ── Game Cards ────────────────────────────────────────────────── */
 .game-card {
     background: var(--bg-surface-elevated); border: 1px solid var(--border-subtle);

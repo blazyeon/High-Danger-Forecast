@@ -137,7 +137,10 @@ function initTabs() {
             if (btn.dataset.tab === 'props') runProps();
             if (btn.dataset.tab === 'todays-picks') runTodaysPicks();
             if (btn.dataset.tab === 'lookup') runLookup();
-            if (btn.dataset.tab === 'stats') runStats();
+            if (btn.dataset.tab === 'stats') {
+                const shotpropzActive = document.getElementById('shotpropzPanel').style.display !== 'none';
+                if (shotpropzActive) runShotpropz(); else runStats();
+            }
         });
     });
 }
@@ -579,6 +582,11 @@ function setupEventListeners() {
     // Same for the analytics selectors -- Type and Season both feed the request.
     document.getElementById('statsType').addEventListener('change', runStats);
     document.getElementById('statsSeason').addEventListener('change', runStats);
+    document.getElementById('shotpropzMetric').addEventListener('change', runShotpropz);
+    document.getElementById('shotpropzVenue').addEventListener('change', runShotpropz);
+    document.querySelectorAll('.stats-subtab').forEach(btn => {
+        btn.addEventListener('click', () => activateStatsSubtab(btn.dataset.statstab));
+    });
     document.getElementById('eloBtn').addEventListener('click', refreshElo);
 }
 
@@ -1452,6 +1460,74 @@ async function runStats() {
     html += `<div class="cors-notice" style="margin-top:12px">${notice} ${sourceBadge} • ${updatedText}</div>`;
     container.innerHTML = html;
     _attachStatsSortListeners();
+}
+
+// ── Shotpropz Matchups subtab ─────────────────────────────────────
+let _shotpropzPayload = null;
+
+function activateStatsSubtab(name) {
+    document.querySelectorAll('.stats-subtab').forEach(b => {
+        b.classList.toggle('active', b.dataset.statstab === name);
+    });
+    const isShotpropz = name === 'shotpropz';
+    document.getElementById('nstPanel').style.display = isShotpropz ? 'none' : '';
+    document.getElementById('shotpropzPanel').style.display = isShotpropz ? '' : 'none';
+    if (isShotpropz) runShotpropz();
+}
+
+async function runShotpropz() {
+    const container = document.getElementById('shotpropzResults');
+    if (!container) return;
+    const metric = document.getElementById('shotpropzMetric').value;
+    const venue = document.getElementById('shotpropzVenue').value;
+    container.innerHTML = '<div class="loading"><div class="spinner"></div><span>Loading shotpropz matchups...</span></div>';
+
+    if (!_shotpropzPayload) {
+        try {
+            _shotpropzPayload = await safeFetchJson('/api/shotpropz', { cache: 'no-store' });
+        } catch (e) {
+            console.error('Shotpropz load failed:', e);
+            container.innerHTML = `<div class="error-box">Could not load shotpropz matchups.<br><small>${escapeHtml(e.message)}</small></div>`;
+            return;
+        }
+    }
+
+    const bucket = _shotpropzPayload[metric]?.[venue];
+    const updatedAt = _shotpropzPayload.updated_at
+        ? new Date(_shotpropzPayload.updated_at).toLocaleString()
+        : null;
+    if (!bucket) {
+        container.innerHTML = '<div class="empty-state"><div class="empty-icon"><i class="fa-solid fa-chart-simple"></i></div><h3 class="empty-title">No Data</h3><p class="empty-desc">Shotpropz matchups are not available. Run <code>python update_shotpropz.py</code> to refresh them.</p></div>';
+        return;
+    }
+
+    const positions = Object.keys(bucket); // C, LW, RW, D
+    const teams = new Set();
+    positions.forEach(p => Object.keys(bucket[p] || {}).forEach(t => teams.add(t)));
+    const rows = [...teams].map(t => {
+        const vals = positions.map(p => parseFloat(bucket[p]?.[t]));
+        const valid = vals.filter(v => !isNaN(v));
+        return {
+            team: t,
+            vals,
+            avg: valid.length ? valid.reduce((a, b) => a + b, 0) / valid.length : NaN,
+        };
+    }).sort((a, b) => (isNaN(b.avg) ? -1 : b.avg) - (isNaN(a.avg) ? -1 : a.avg));
+
+    let html = '<div class="table-wrap"><table class="data-table"><thead><tr><th>Team</th>';
+    positions.forEach(p => { html += `<th>${escapeHtml(p)}</th>`; });
+    html += '<th>Avg</th></tr></thead><tbody>';
+    rows.forEach(r => {
+        html += `<tr><td><div class="stats-team-cell"><img class="stats-team-logo" src="/api/logos/${r.team}.png" alt="${r.team}" onerror="this.style.display='none'"><strong>${escapeHtml(r.team)}</strong></div></td>`;
+        r.vals.forEach(v => { html += `<td>${isNaN(v) ? '-' : v.toFixed(2)}</td>`; });
+        html += `<td>${isNaN(r.avg) ? '-' : r.avg.toFixed(2)}</td></tr>`;
+    });
+    html += '</tbody></table></div>';
+
+    const metricLabel = metric === 'sog_against' ? 'SOG' : 'Goals';
+    const venueLabel = venue === 'All' ? 'all games' : `${venue.toLowerCase()} games`;
+    html += `<div class="cors-notice" style="margin-top:12px"><i class="fa-solid fa-chart-simple"></i> ${metricLabel} allowed per game by position (${venueLabel}), sorted easiest matchup first. Higher = softer opponent at that position.${updatedAt ? ' Last updated: ' + updatedAt : ''}</div>`;
+    container.innerHTML = html;
 }
 
 let _currentStatsRows = [];

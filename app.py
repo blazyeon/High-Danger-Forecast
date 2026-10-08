@@ -1064,6 +1064,25 @@ def _fetch_pbp_stats(table_type: str, season: str, stype: int):
         return jsonify({"error": str(e)}), 500
 
 
+@app.route("/api/shotpropz")
+def api_shotpropz():
+    """Return the shotpropz matchup funnel (goals/SOG allowed by position).
+
+    Serves the raw ``shotpropz.json`` payload (``goals_against`` and
+    ``sog_against``, each split by All/Home/Away and C/LW/RW/D). The frontend
+    turns it into a team × position table.
+    """
+    path = Path(__file__).resolve().parent / "shotpropz.json"
+    if not path.exists():
+        return jsonify({"error": "shotpropz.json not found. Run `python update_shotpropz.py`."}), 404
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except Exception as e:
+        logger.error(f"shotpropz API error: {e}")
+        return jsonify({"error": str(e)}), 500
+    return jsonify(_make_json_safe(data))
+
+
 # ── API: Boxscore ──────────────────────────────────────────────────────
 
 @app.route("/api/boxscore/<game_id>")
