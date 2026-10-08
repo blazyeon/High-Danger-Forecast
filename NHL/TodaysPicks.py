@@ -126,10 +126,19 @@ def load_picks_history(day: _date) -> Optional[Dict[str, Any]]:
 
 
 def list_cached_todays_picks_dates(cache_path: Optional[Path] = None) -> List[str]:
-    """Return the sorted list of dates with cached picks (live cache + archive)."""
+    """Return the sorted list of dates with cached picks (live cache + archive).
+
+    Preseason dates are excluded — the picks tab browses regular-season games
+    only, so the handful of preseason picks cached before opening night don't
+    show up.
+    """
     cache_path = Path(cache_path or DEFAULT_CACHE_PATH)
     dates = set(_load_cache_index(cache_path).get("dates", {}).keys())
     dates.update(list_picks_history_dates())
+    season_start = _regular_season_start()
+    if season_start is not None:
+        start_iso = season_start.isoformat()
+        dates = {d for d in dates if d >= start_iso}
     return sorted(dates)
 
 

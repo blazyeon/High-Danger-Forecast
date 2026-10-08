@@ -2390,7 +2390,6 @@ function formatGameDate(isoDate) {
 
 async function runTodaysPicks() {
     const date = await initPicksDateSelector();
-    loadPicksRecord();
     return loadPicksForDate(date);
 }
 
@@ -2440,38 +2439,6 @@ async function loadPicksForDate(date) {
         if (e.name === 'AbortError') return;
         container.innerHTML = `<div class="error-box">Could not load Today's Picks: ${escapeHtml(e.message)}</div>`;
     }
-}
-
-async function loadPicksRecord() {
-    const el = document.getElementById('picksRecord');
-    if (!el) return;
-    try {
-        const data = await safeFetchJson('/api/todays-picks/record');
-        renderPicksRecord(data, el);
-    } catch (e) {
-        el.innerHTML = '';
-    }
-}
-
-function renderPicksRecord(rec, el) {
-    if (!rec || rec.error) { el.innerHTML = ''; return; }
-    const graded = rec.graded || 0;
-    const correct = rec.correct || 0;
-    const incorrect = rec.incorrect || 0;
-    const pending = rec.pending || 0;
-
-    let html = '<div class="picks-record-inner">';
-    html += '<span class="picks-record-label"><i class="fa-solid fa-bullseye"></i> ML Track Record</span>';
-    if (!graded) {
-        html += '<span class="picks-record-none">No graded games yet</span>';
-    } else {
-        html += `<span class="picks-record-stat correct">${correct} correct</span>`;
-        html += `<span class="picks-record-stat wrong">${incorrect} wrong</span>`;
-        html += `<span class="picks-record-pct">${rec.accuracy_pct != null ? rec.accuracy_pct + '%' : '—'}</span>`;
-        if (pending) html += `<span class="picks-record-stat pending">${pending} pending</span>`;
-    }
-    html += '</div>';
-    el.innerHTML = html;
 }
 
 function renderTodaysPicks(data, container) {

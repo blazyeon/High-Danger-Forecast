@@ -1394,40 +1394,6 @@ input[type="date"].param-input, input[type="date"].date-input {
 }
 .picks-date-select:focus { outline: none; border-color: var(--accent); }
 
-.picks-record { display: flex; align-items: center; }
-.picks-record-inner {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    flex-wrap: wrap;
-    background: var(--bg-surface-elevated);
-    border: 1px solid var(--border-subtle);
-    border-radius: var(--radius-sm);
-    padding: 9px 14px;
-    font-size: 13px;
-}
-.picks-record-label {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-weight: 700;
-    color: var(--text-primary);
-}
-.picks-record-label i { color: var(--accent); }
-.picks-record-stat { font-weight: 600; color: var(--text-secondary); }
-.picks-record-stat.correct { color: var(--accent-green); }
-.picks-record-stat.wrong { color: var(--accent-red); }
-.picks-record-stat.pending { color: var(--accent-gold); }
-.picks-record-pct {
-    font-weight: 800;
-    font-size: 15px;
-    color: var(--text-primary);
-    background: var(--bg-input);
-    border-radius: 100px;
-    padding: 3px 10px;
-}
-.picks-record-none { color: var(--text-muted); font-style: italic; }
-
 .picks-list { display: flex; flex-direction: column; gap: 10px; }
 
 .pick-row {
