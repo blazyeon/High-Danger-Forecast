@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-07T16:22:43.465315+00:00",
+  "generated_at": "2026-10-08T05:33:54.640046+00:00",
   "teams": {
     "BOS": {
       "skaters": [
@@ -1948,6 +1948,12 @@
           "birthDate": "2005-04-27"
         },
         {
+          "name": "Michael Bunting",
+          "id": 8478047,
+          "position": "LW",
+          "birthDate": "1995-09-17"
+        },
+        {
           "name": "Noah Cates",
           "id": 8480220,
           "position": "LW",
@@ -2104,12 +2110,6 @@
           "birthDate": "1999-06-26"
         },
         {
-          "name": "Filip Hallander",
-          "id": 8480842,
-          "position": "C",
-          "birthDate": "2000-06-29"
-        },
-        {
           "name": "Ben Kindel",
           "id": 8485414,
           "position": "C",
@@ -2210,6 +2210,12 @@
           "id": 8482470,
           "position": "D",
           "birthDate": "2000-07-20"
+        },
+        {
+          "name": "Spencer Stastney",
+          "id": 8481056,
+          "position": "D",
+          "birthDate": "2000-01-04"
         },
         {
           "name": "Trevor van Riemsdyk",
@@ -2870,6 +2876,12 @@
           "id": 8477446,
           "position": "C",
           "birthDate": "1995-03-07"
+        },
+        {
+          "name": "Tyler Pitlick",
+          "id": 8475752,
+          "position": "C",
+          "birthDate": "1991-11-01"
         },
         {
           "name": "Maxim Shabanov",
@@ -3736,6 +3748,12 @@
           "birthDate": "1989-03-17"
         },
         {
+          "name": "Jonathan Castagna",
+          "id": 8484154,
+          "position": "C",
+          "birthDate": "2005-04-20"
+        },
+        {
           "name": "Matt Coronato",
           "id": 8482679,
           "position": "RW",
@@ -3800,6 +3818,12 @@
           "id": 8476458,
           "position": "C",
           "birthDate": "1993-07-11"
+        },
+        {
+          "name": "Aydar Suniev",
+          "id": 8484234,
+          "position": "LW",
+          "birthDate": "2004-11-16"
         },
         {
           "name": "Maxim Tsyplakov",
@@ -3874,6 +3898,12 @@
           "birthDate": "2003-01-04"
         },
         {
+          "name": "Jason Dickinson",
+          "id": 8477450,
+          "position": "C",
+          "birthDate": "1995-07-04"
+        },
+        {
           "name": "Leon Draisaitl",
           "id": 8477934,
           "position": "C",
@@ -3890,6 +3920,12 @@
           "id": 8479365,
           "position": "C",
           "birthDate": "1998-02-11"
+        },
+        {
+          "name": "Filip Hallander",
+          "id": 8480842,
+          "position": "C",
+          "birthDate": "2000-06-29"
         },
         {
           "name": "Isaac Howard",
@@ -4004,12 +4040,6 @@
           "id": 8478854,
           "position": "D",
           "birthDate": "1997-02-11"
-        },
-        {
-          "name": "Spencer Stastney",
-          "id": 8481056,
-          "position": "D",
-          "birthDate": "2000-01-04"
         },
         {
           "name": "Jake Walman",

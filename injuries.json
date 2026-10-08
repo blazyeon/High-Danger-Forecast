@@ -78,6 +78,12 @@
     "injured": true
   },
   {
+    "team": "CHI",
+    "player": "Teuvo Teravainen",
+    "status": "dtd",
+    "injured": true
+  },
+  {
     "team": "CBJ",
     "player": "Damon Severson",
     "status": "ir",
@@ -163,7 +169,7 @@
   },
   {
     "team": "EDM",
-    "player": "Jason Dickinson",
+    "player": "Colton Dach",
     "status": "ir",
     "injured": true
   },
@@ -237,6 +243,12 @@
     "team": "MTL",
     "player": "Ivan Demidov",
     "status": "out",
+    "injured": true
+  },
+  {
+    "team": "MTL",
+    "player": "Sam Montembeault",
+    "status": "dtd",
     "injured": true
   },
   {
@@ -441,12 +453,6 @@
     "team": "VAN",
     "player": "Filip Chytil",
     "status": "ir",
-    "injured": true
-  },
-  {
-    "team": "VAN",
-    "player": "Jake DeBrusk",
-    "status": "dtd",
     "injured": true
   },
   {
