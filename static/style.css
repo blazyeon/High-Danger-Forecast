@@ -2073,7 +2073,7 @@ input[type="date"].param-input, input[type="date"].date-input {
 }
 
 /* ── Parlay Lab (unlisted /parlay page) ─────────────────────────────── */
-.header-left { cursor: pointer; }
+.logo-link { display: flex; cursor: pointer; }
 .parlay-grid {
     display: grid;
     grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
