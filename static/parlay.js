@@ -264,7 +264,12 @@ function buildParlays() {
             const ev = jointProb * (combinedDecimal - 1) - (1 - jointProb);
             return { legs, combinedDecimal, jointProb, ev };
         })
-        .sort((a, b) => b.ev - a.ev)
+        // Ranking by EV alone crowns the model's longshot tails: two +1300
+        // anytime-scorer defencemen read as a +251% "value" parlay at a 1-2%
+        // hit chance, and they wash out every points/SOG leg. Rank the
+        // positive-EV combos by hit chance instead, most likely first.
+        .filter(p => p.ev > 0)
+        .sort((a, b) => b.jointProb - a.jointProb || b.ev - a.ev)
         .slice(0, MAX_SHOW);
 
     host.innerHTML = scored.length
