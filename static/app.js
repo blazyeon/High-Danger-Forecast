@@ -2117,6 +2117,7 @@ function resetPropsFilters() {
         'Points': true,
         'Goals': true,
         'Assists': false,
+        'Shots': true,
         'Saves': true,
     };
 }
@@ -2163,7 +2164,7 @@ function renderProps(props) {
         return;
     }
 
-    const marketOrder = ['Points', 'Goals', 'Assists', 'Saves'];
+    const marketOrder = ['Points', 'Goals', 'Assists', 'Shots', 'Saves'];
 
     let rows = props.map(p => {
         const rec = p.recommendation || 'Pass';
