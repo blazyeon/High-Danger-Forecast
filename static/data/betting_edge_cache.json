@@ -2728,9 +2728,9 @@
     },
     "2026-10-10": {
       "date": "2026-10-10",
-      "computed_at": "2026-10-08T22:13:36.861679+00:00",
+      "computed_at": "2026-10-09T01:25:16.224063+00:00",
       "source": "sharpapi",
-      "odds_fetched_at": "2026-10-08T22:12:43.240173+00:00",
+      "odds_fetched_at": "2026-10-09T01:24:56.135180+00:00",
       "warning": null,
       "no_games": false,
       "scanned": 14,
@@ -2744,7 +2744,7 @@
           "home_name": "Panthers",
           "away_name": "Wild",
           "start_time": "2026-10-10T22:00:00Z",
-          "best_edge": 0.0755,
+          "best_edge": 0.0705,
           "edges": [
             {
               "market": "Moneyline",
@@ -2753,9 +2753,9 @@
               "team": "MIN",
               "odds": 120,
               "odds_decimal": 2.2,
-              "model_prob": 0.512,
+              "model_prob": 0.507,
               "implied_prob": 0.4365,
-              "edge": 0.0755,
+              "edge": 0.0705,
               "book": "draftkings"
             },
             {
@@ -2765,9 +2765,9 @@
               "team": null,
               "odds": 110,
               "odds_decimal": 2.1,
-              "model_prob": 0.504,
+              "model_prob": 0.473,
               "implied_prob": 0.4573,
-              "edge": 0.0467,
+              "edge": 0.0157,
               "book": "draftkings"
             },
             {
@@ -2777,9 +2777,9 @@
               "team": "MIN",
               "odds": -218,
               "odds_decimal": 1.4587155963302751,
-              "model_prob": 0.674,
+              "model_prob": 0.658,
               "implied_prob": 0.6575,
-              "edge": 0.0165,
+              "edge": 0.0005,
               "book": "draftkings"
             }
           ]
@@ -3734,9 +3734,9 @@
     },
     "2026-10-09": {
       "date": "2026-10-09",
-      "computed_at": "2026-10-08T22:13:33.457361+00:00",
+      "computed_at": "2026-10-09T01:25:12.710035+00:00",
       "source": "sharpapi",
-      "odds_fetched_at": "2026-10-08T22:12:43.240173+00:00",
+      "odds_fetched_at": "2026-10-09T01:24:56.135180+00:00",
       "warning": null,
       "no_games": false,
       "scanned": 4,
@@ -3750,7 +3750,7 @@
           "home_name": "Blue Jackets",
           "away_name": "Penguins",
           "start_time": "2026-10-09T23:00:00Z",
-          "best_edge": 0.1248,
+          "best_edge": 0.1218,
           "edges": [
             {
               "market": "Total 6.5",
@@ -3759,9 +3759,9 @@
               "team": null,
               "odds": -105,
               "odds_decimal": 1.9523809523809523,
-              "model_prob": 0.614,
+              "model_prob": 0.611,
               "implied_prob": 0.4892,
-              "edge": 0.1248,
+              "edge": 0.1218,
               "book": "draftkings"
             },
             {
@@ -3771,9 +3771,9 @@
               "team": "CBJ",
               "odds": 205,
               "odds_decimal": 3.05,
-              "model_prob": 0.395,
+              "model_prob": 0.406,
               "implied_prob": 0.3146,
-              "edge": 0.0804,
+              "edge": 0.0914,
               "book": "draftkings"
             },
             {
@@ -3783,9 +3783,9 @@
               "team": "CBJ",
               "odds": -122,
               "odds_decimal": 1.819672131147541,
-              "model_prob": 0.517,
+              "model_prob": 0.518,
               "implied_prob": 0.5261,
-              "edge": -0.0091,
+              "edge": -0.0081,
               "book": "draftkings"
             }
           ]
@@ -3796,20 +3796,8 @@
           "home_name": "Capitals",
           "away_name": "Rangers",
           "start_time": "2026-10-09T23:00:00Z",
-          "best_edge": 0.1245,
+          "best_edge": 0.112,
           "edges": [
-            {
-              "market": "Total 5.5",
-              "side": "Over",
-              "pick": "Over",
-              "team": null,
-              "odds": -125,
-              "odds_decimal": 1.8,
-              "model_prob": 0.657,
-              "implied_prob": 0.5325,
-              "edge": 0.1245,
-              "book": "draftkings"
-            },
             {
               "market": "Puck Line (-1.5)",
               "side": "WAS Capitals",
@@ -3817,9 +3805,21 @@
               "team": "WSH",
               "odds": 190,
               "odds_decimal": 2.9,
-              "model_prob": 0.435,
+              "model_prob": 0.443,
               "implied_prob": 0.331,
-              "edge": 0.104,
+              "edge": 0.112,
+              "book": "draftkings"
+            },
+            {
+              "market": "Total 5.5",
+              "side": "Over",
+              "pick": "Over",
+              "team": null,
+              "odds": -125,
+              "odds_decimal": 1.8,
+              "model_prob": 0.613,
+              "implied_prob": 0.5325,
+              "edge": 0.0805,
               "book": "draftkings"
             },
             {
@@ -3829,55 +3829,9 @@
               "team": "WSH",
               "odds": -135,
               "odds_decimal": 1.7407407407407407,
-              "model_prob": 0.553,
+              "model_prob": 0.549,
               "implied_prob": 0.5514,
-              "edge": 0.0016,
-              "book": "draftkings"
-            }
-          ]
-        },
-        {
-          "home": "WPG",
-          "away": "ANA",
-          "home_name": "Jets",
-          "away_name": "Ducks",
-          "start_time": "2026-10-10T00:00:00Z",
-          "best_edge": 0.0764,
-          "edges": [
-            {
-              "market": "Total 6.5",
-              "side": "Over",
-              "pick": "Over",
-              "team": null,
-              "odds": -102,
-              "odds_decimal": 1.9803921568627452,
-              "model_prob": 0.559,
-              "implied_prob": 0.4826,
-              "edge": 0.0764,
-              "book": "draftkings"
-            },
-            {
-              "market": "Moneyline",
-              "side": "Anaheim Ducks",
-              "pick": "Anaheim Ducks",
-              "team": "ANA",
-              "odds": -105,
-              "odds_decimal": 1.9523809523809523,
-              "model_prob": 0.523,
-              "implied_prob": 0.4902,
-              "edge": 0.0328,
-              "book": "fanduel"
-            },
-            {
-              "market": "Puck Line (-1.5)",
-              "side": "WPG Jets",
-              "pick": "WPG Jets",
-              "team": "WPG",
-              "odds": 205,
-              "odds_decimal": 3.05,
-              "model_prob": 0.319,
-              "implied_prob": 0.3146,
-              "edge": 0.0044,
+              "edge": -0.0024,
               "book": "draftkings"
             }
           ]
@@ -3888,8 +3842,20 @@
           "home_name": "Red Wings",
           "away_name": "Kraken",
           "start_time": "2026-10-09T23:00:00Z",
-          "best_edge": 0.0113,
+          "best_edge": 0.0725,
           "edges": [
+            {
+              "market": "Moneyline",
+              "side": "Seattle Kraken",
+              "pick": "Seattle Kraken",
+              "team": "SEA",
+              "odds": 120,
+              "odds_decimal": 2.2,
+              "model_prob": 0.509,
+              "implied_prob": 0.4365,
+              "edge": 0.0725,
+              "book": "draftkings"
+            },
             {
               "market": "Total 6.5",
               "side": "Under",
@@ -3897,33 +3863,67 @@
               "team": null,
               "odds": -130,
               "odds_decimal": 1.7692307692307692,
-              "model_prob": 0.554,
+              "model_prob": 0.574,
               "implied_prob": 0.5427,
-              "edge": 0.0113,
+              "edge": 0.0313,
               "book": "draftkings"
             },
             {
-              "market": "Puck Line (-1.5)",
-              "side": "DET Red Wings",
-              "pick": "DET Red Wings",
-              "team": "DET",
-              "odds": 170,
-              "odds_decimal": 2.7,
-              "model_prob": 0.361,
-              "implied_prob": 0.3553,
-              "edge": 0.0057,
+              "market": "Puck Line (1.5)",
+              "side": "SEA Kraken",
+              "pick": "SEA Kraken",
+              "team": "SEA",
+              "odds": -205,
+              "odds_decimal": 1.4878048780487805,
+              "model_prob": 0.647,
+              "implied_prob": 0.6447,
+              "edge": 0.0023,
               "book": "draftkings"
-            },
+            }
+          ]
+        },
+        {
+          "home": "WPG",
+          "away": "ANA",
+          "home_name": "Jets",
+          "away_name": "Ducks",
+          "start_time": "2026-10-10T00:00:00Z",
+          "best_edge": 0.0697,
+          "edges": [
             {
               "market": "Moneyline",
-              "side": "Detroit Red Wings",
-              "pick": "Detroit Red Wings",
-              "team": "DET",
-              "odds": -142,
-              "odds_decimal": 1.704225352112676,
-              "model_prob": 0.512,
-              "implied_prob": 0.5635,
-              "edge": -0.0515,
+              "side": "Anaheim Ducks",
+              "pick": "Anaheim Ducks",
+              "team": "ANA",
+              "odds": 100,
+              "odds_decimal": 2.0,
+              "model_prob": 0.548,
+              "implied_prob": 0.4783,
+              "edge": 0.0697,
+              "book": "draftkings"
+            },
+            {
+              "market": "Puck Line (1.5)",
+              "side": "ANA Ducks",
+              "pick": "ANA Ducks",
+              "team": "ANA",
+              "odds": -250,
+              "odds_decimal": 1.4,
+              "model_prob": 0.713,
+              "implied_prob": 0.6854,
+              "edge": 0.0276,
+              "book": "draftkings"
+            },
+            {
+              "market": "Total 6.5",
+              "side": "Over",
+              "pick": "Over",
+              "team": null,
+              "odds": -102,
+              "odds_decimal": 1.9803921568627452,
+              "model_prob": 0.489,
+              "implied_prob": 0.4826,
+              "edge": 0.0064,
               "book": "draftkings"
             }
           ]

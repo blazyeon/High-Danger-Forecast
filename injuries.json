@@ -37,12 +37,6 @@
   },
   {
     "team": "BUF",
-    "player": "Josh Doan",
-    "status": "dtd",
-    "injured": true
-  },
-  {
-    "team": "BUF",
     "player": "Alex Lyon",
     "status": "dtd",
     "injured": true
@@ -423,12 +417,6 @@
     "team": "TOR",
     "player": "Dakota Joshua",
     "status": "out",
-    "injured": true
-  },
-  {
-    "team": "UTA",
-    "player": "Mikhail Sergachev",
-    "status": "dtd",
     "injured": true
   },
   {

@@ -1,6 +1,6 @@
 {
   "source": "daily_faceoff",
-  "updated_at": "2026-10-08T19:21:07.386Z",
+  "updated_at": "2026-10-09T00:51:59.203Z",
   "teams": {
     "ANA": {
       "pp1": [
@@ -35,8 +35,8 @@
         "Elias Lindholm",
         "Mason Lohrei"
       ],
-      "updated_at": "2026-10-08T15:20:33.802Z",
-      "source": "Jack Studley"
+      "updated_at": "2026-10-08T22:42:20.900Z",
+      "source": "Belle Fraser"
     },
     "BUF": {
       "pp1": [
@@ -53,8 +53,8 @@
         "Owen Power",
         "Olen Zellweger"
       ],
-      "updated_at": "2026-10-07T14:47:21.265Z",
-      "source": "Last Game (2026-10-06)"
+      "updated_at": "2026-10-08T22:44:07.908Z",
+      "source": "Heather Engel"
     },
     "CGY": {
       "pp1": [
@@ -71,8 +71,8 @@
         "Simon Nemec",
         "Yegor Sharangovich"
       ],
-      "updated_at": "2026-10-08T17:36:09.620Z",
-      "source": "Pat Steinberg"
+      "updated_at": "2026-10-09T00:51:59.203Z",
+      "source": "Derek Wills"
     },
     "CAR": {
       "pp1": [
@@ -89,7 +89,7 @@
         "K'Andre Miller",
         "Sean Walker"
       ],
-      "updated_at": "2026-10-08T14:49:39.988Z",
+      "updated_at": "2026-10-08T22:38:58.405Z",
       "source": "Walt Ruff"
     },
     "CHI": {
@@ -107,8 +107,8 @@
         "Oliver Moore",
         "Sam Rinzel"
       ],
-      "updated_at": "2026-10-07T16:28:45.448Z",
-      "source": "Kalen Lumpkins"
+      "updated_at": "2026-10-08T23:08:53.761Z",
+      "source": "Jack Bushman"
     },
     "CBJ": {
       "pp1": [
@@ -161,8 +161,8 @@
         "Esa Lindell",
         "Thomas Harley"
       ],
-      "updated_at": "2026-10-08T17:35:44.681Z",
-      "source": "Robert Tiffin"
+      "updated_at": "2026-10-08T22:50:25.095Z",
+      "source": "Mike Heika"
     },
     "DET": {
       "pp1": [
@@ -269,8 +269,8 @@
         "Noah Dobson",
         "Zack Bolduc"
       ],
-      "updated_at": "2026-10-08T14:40:45.750Z",
-      "source": "Last Game (2026-10-06)"
+      "updated_at": "2026-10-08T22:43:12.211Z",
+      "source": "Anthony Martineau"
     },
     "NSH": {
       "pp1": [
@@ -284,11 +284,11 @@
         "Nils Hoglander",
         "Alex Kerfoot",
         "Mavrik Bourque",
-        "Jack Ahcan",
+        "Brady Skjei",
         "Jonathan Marchessault"
       ],
-      "updated_at": "2026-10-07T13:50:35.291Z",
-      "source": "Last Game (2026-10-06)"
+      "updated_at": "2026-10-08T22:43:36.567Z",
+      "source": "Brooks Bratten"
     },
     "NJD": {
       "pp1": [
@@ -323,7 +323,7 @@
         "Calum Ritchie",
         "Tony DeAngelo"
       ],
-      "updated_at": "2026-10-08T15:06:38.623Z",
+      "updated_at": "2026-10-08T23:06:39.589Z",
       "source": "Stefen Rosner"
     },
     "NYR": {
@@ -359,8 +359,8 @@
         "Thomas Chabot",
         "Claude Giroux"
       ],
-      "updated_at": "2026-10-08T15:05:52.740Z",
-      "source": "Andrew Wilimek"
+      "updated_at": "2026-10-08T22:46:16.024Z",
+      "source": "Graeme Nichols"
     },
     "PHI": {
       "pp1": [
@@ -377,7 +377,7 @@
         "Owen Tippett",
         "Jamie Drysdale"
       ],
-      "updated_at": "2026-10-08T15:52:50.677Z",
+      "updated_at": "2026-10-08T22:38:34.969Z",
       "source": "Gabriela Carroll"
     },
     "PIT": {
@@ -413,7 +413,7 @@
         "Kiefer Sherwood",
         "Dmitry Orlov"
       ],
-      "updated_at": "2026-10-08T02:05:52.282Z",
+      "updated_at": "2026-10-08T23:35:29.175Z",
       "source": "Sheng Peng"
     },
     "SEA": {
@@ -449,8 +449,8 @@
         "Connor McMichael",
         "Cam Fowler"
       ],
-      "updated_at": "2026-10-08T16:13:31.412Z",
-      "source": "Matthew DeFranks"
+      "updated_at": "2026-10-08T23:35:07.038Z",
+      "source": "Lou Korac"
     },
     "TBL": {
       "pp1": [
@@ -467,8 +467,8 @@
         "Brandon Hagel",
         "J.J. Moser"
       ],
-      "updated_at": "2026-10-07T16:27:40.877Z",
-      "source": "Gabby Shirley"
+      "updated_at": "2026-10-08T22:36:59.058Z",
+      "source": "Banjamin Pierce"
     },
     "TOR": {
       "pp1": [
@@ -503,8 +503,8 @@
         "Daniil But",
         "John Marino"
       ],
-      "updated_at": "2026-10-08T15:51:25.795Z",
-      "source": "Cole Bagley"
+      "updated_at": "2026-10-08T22:44:42.756Z",
+      "source": "Utah Mammoth"
     },
     "VAN": {
       "pp1": [
@@ -521,8 +521,8 @@
         "Zeev Buium",
         "Tom Willander"
       ],
-      "updated_at": "2026-10-08T17:06:20.628Z",
-      "source": "Projected"
+      "updated_at": "2026-10-08T22:38:05.331Z",
+      "source": "Thomas Drance"
     },
     "VGK": {
       "pp1": [
