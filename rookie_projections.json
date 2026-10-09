@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-09T01:26:01.723196+00:00",
+  "generated_at": "2026-10-09T08:58:28.619962+00:00",
   "players": {
     "juusov\u00e4lim\u00e4ki": {
       "points_pg": 0.44,
@@ -33,17 +33,6 @@
       "source_games": 65,
       "name": "Vitali Pinchuk",
       "team": "NSH"
-    },
-    "jonathancastagna": {
-      "points_pg": 0.41,
-      "goals_pg": 0.1809,
-      "assists_pg": 0.2291,
-      "shots_pg": 2.0098,
-      "source_league": "NCAA",
-      "source_season": 20252026,
-      "source_games": 34,
-      "name": "Jonathan Castagna",
-      "team": "CGY"
     },
     "jakeobrien": {
       "points_pg": 0.4738,
