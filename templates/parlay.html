@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#020306">
+    <meta name="robots" content="noindex">
+    <script>
+        // Same saved-theme hook as index.html so both pages agree on the mode.
+        try {
+            if (localStorage.getItem('hdf-theme') === 'light') {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        } catch (e) {}
+    </script>
+    <title>Parlay Lab</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="/static/style.css?v=2.6">
+</head>
+<body>
+    <div class="bg-noise"></div>
+    <div class="bg-gradient"></div>
+
+    <header class="app-header">
+        <div class="header-inner">
+            <div class="header-left">
+                <div class="logo-mark">
+                    <a id="parlayHome" href="/" aria-label="Back to High Danger Forecast">
+                        <img src="/Images/logo.png" alt="" width="32" height="32">
+                    </a>
+                </div>
+                <div class="logo-text">
+                    <h1>Parlay Lab</h1>
+                    <span class="tagline">Unlisted parlay builder</span>
+                </div>
+            </div>
+            <div class="header-right">
+                <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle light and dark mode" title="Toggle light and dark mode">
+                    <i class="fa-solid fa-sun theme-icon-sun"></i>
+                    <i class="fa-solid fa-moon theme-icon-moon"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="parlay-grid">
+
+            <!-- Leg pool -->
+            <section class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Available Legs</h2>
+                    <p class="card-subtitle">Priced player props and game bets from today's boards</p>
+                </div>
+                <div class="props-toolbar props-filterbar elo-toolbar">
+                    <label class="props-toolbar-label" for="plSource">Source</label>
+                    <select id="plSource" class="pl-select">
+                        <option value="all">All legs</option>
+                        <option value="props">Player props</option>
+                        <option value="games">Game bets</option>
+                    </select>
+                    <label class="props-toolbar-label" for="plSort">Sort</label>
+                    <select id="plSort" class="pl-select">
+                        <option value="edge">Model edge</option>
+                        <option value="prob">Hit chance</option>
+                        <option value="odds">Best odds</option>
+                    </select>
+                    <input id="plSearch" class="pl-search" type="search" placeholder="Search player or team" aria-label="Search legs">
+                </div>
+                <div id="plLoadState" class="empty-state" hidden>
+                    <p class="empty-desc">Loading legs…</p>
+                </div>
+                <div id="plPool" class="pl-leg-list"></div>
+            </section>
+
+            <!-- Slip + autoplay -->
+            <div class="parlay-side">
+                <section class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Slip</h2>
+                        <p class="card-subtitle">Joint math assumes the legs are independent</p>
+                    </div>
+                    <div id="slipLegs" class="pl-slip-legs"></div>
+                    <div class="pl-summary">
+                        <div class="pl-summary-row">
+                            <label class="props-toolbar-label" for="plStake">Stake</label>
+                            <span class="pl-money-wrap">$<input id="plStake" class="pl-stake" type="number" min="0" step="1" value="10" inputmode="decimal"></span>
+                        </div>
+                        <dl class="pl-totals">
+                            <div class="pl-total-row"><dt>Combined odds</dt><dd id="plCombinedOdds">—</dd></div>
+                            <div class="pl-total-row"><dt>Hit chance</dt><dd id="plJointProb">—</dd></div>
+                            <div class="pl-total-row"><dt>Book implied</dt><dd id="plImplied">—</dd></div>
+                            <div class="pl-total-row"><dt>Value (EV)</dt><dd id="plEV">—</dd></div>
+                            <div class="pl-total-row"><dt>Payout / profit</dt><dd id="plPayout">—</dd></div>
+                        </dl>
+                        <div id="plCorrelationNote" class="pl-warn" hidden>
+                            <i class="fa-solid fa-link"></i> Two legs share a game — the independence math no longer holds.
+                        </div>
+                        <button id="plClear" class="action-btn" type="button"><i class="fa-solid fa-eraser"></i> Clear slip</button>
+                    </div>
+                </section>
+
+                <section class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Auto-built parlays</h2>
+                        <p class="card-subtitle">Highest model value first — one leg per game</p>
+                    </div>
+                    <div class="props-toolbar props-filterbar elo-toolbar">
+                        <label class="props-toolbar-label" for="plBuildSize">Legs</label>
+                        <select id="plBuildSize" class="pl-select">
+                            <option value="2">2-leg</option>
+                            <option value="3">3-leg</option>
+                            <option value="4">4-leg</option>
+                        </select>
+                        <button class="props-sort-btn" id="plBuild" type="button"><i class="fa-solid fa-wand-magic-sparkles"></i> Build</button>
+                    </div>
+                    <div id="plAutoplay" class="pl-autoplay">
+                        <p class="empty-desc">Pick a leg count and build — combos come from today's legs, ranked by EV.</p>
+                    </div>
+                </section>
+            </div>
+
+        </div>
+    </main>
+
+    <script src="/static/parlay.js?v=1.0"></script>
+</body>
+</html>

@@ -178,6 +178,12 @@ def index():
     return render_template("index.html")
 
 
+@app.route("/parlay")
+def parlay_lab():
+    """Unlisted parlay builder page; reached only by clicking the main header's logo."""
+    return render_template("parlay.html")
+
+
 # ── Logo serving ───────────────────────────────────────────────────────
 
 IMAGES_DIR = Path(__file__).parent / "Images"
