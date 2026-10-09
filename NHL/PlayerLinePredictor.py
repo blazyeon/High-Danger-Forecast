@@ -846,8 +846,37 @@ def _shape_player_df(
 
                     # An alternate line ("2+ points") is quoted Over-only, so it
                     # is not a two-sided market and cannot be recommended as an
-                    # Under. Drop it at the source.
+                    # Under. Drop it at the source -- but only when the feed
+                    # actually flags it: SharpAPI omits is_main_line on some
+                    # snapshots, and a flagless ladder rung then has to be caught
+                    # structurally. DraftKings quotes both sides on every main
+                    # line, so on a two-sided market (everything but the
+                    # one-sided by-design anytime-goal-scorer) an Over with no
+                    # Under behind it from the same book at the same line is a
+                    # ladder rung, not a price -- drop it rather than print an
+                    # edge against it.
                     if rec.get("is_main_line") is False:
+                        continue
+                    # At this point the market key is still the raw SharpAPI
+                    # form ("anytime_goal_scorer"), underscored -- normalize
+                    # before testing for the one-sided market.
+                    mkey_lower = str(mkey).lower().replace("_", " ")
+                    # On a two-sided market (everything but the one-sided
+                    # by-design anytime-goal-scorer), an Over with no Under from
+                    # the same book at the same line is either a real main line
+                    # whose Under side the feed omits (DraftKings' shots ladder
+                    # on some snapshots -- the flagged rung is real) or an
+                    # alternate "N+" ladder rung masquerading at full price
+                    # (Mark Scheifele Over 1.5 points at +900). The flag is the
+                    # only way to tell them apart: keep rungs flagged main,
+                    # drop everything one-sided with no flag confirmation.
+                    no_under = rec["under_decimal"] is None and rec["under_american"] is None
+                    if (
+                        "goal scorer" not in mkey_lower
+                        and rec["over_american"] is not None
+                        and no_under
+                        and rec.get("is_main_line") is not True
+                    ):
                         continue
 
                     player_key = normalize_name_key(rec["player"])
@@ -865,7 +894,6 @@ def _shape_player_df(
                     # use the goals table at a heavier damp. Points / assists
                     # have no matching shotpropz table, so neither gets a
                     # matchup adjustment.
-                    mkey_lower = str(mkey).lower()
                     if "shot" in mkey_lower:
                         metric = "sog"
                     elif "goal" in mkey_lower:
@@ -965,12 +993,19 @@ def _best_prices(df: pd.DataFrame) -> pd.DataFrame:
         return df
 
     if "book_key" in df.columns:
-        # Filter each market to its preferred book, falling back to whatever is
-        # on offer when that book has no rows for the market.
+        # Price each market off its preferred book only. A market the preferred
+        # book does not post falls off the board rather than pricing off another
+        # book's feed: FanDuel serves Over-only "N+" ladders on these markets
+        # (no Unders anywhere), so the old fallback priced the board against
+        # phantom lines -- Mark Scheifele Over 1.5 points at +900, a "+30.7%"
+        # edge with no market behind it.
         kept = []
         for market, sub in df.groupby("market", sort=False):
             primary = sub[sub["book_key"] == _book_for_market(str(market))]
-            kept.append(primary if not primary.empty else sub)
+            if primary.empty:
+                logger.info("No %s rows from preferred book; market off the board", market)
+                continue
+            kept.append(primary)
         df = pd.concat(kept, ignore_index=True)
 
     agg_rows: List[Dict[str, Any]] = []
