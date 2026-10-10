@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-09T08:58:28.615246+00:00",
+  "generated_at": "2026-10-10T01:15:14.592455+00:00",
   "teams": {
     "BOS": {
       "skaters": [
@@ -500,6 +500,12 @@
           "id": 8478147,
           "position": "LW",
           "birthDate": "1996-08-03"
+        },
+        {
+          "name": "Sam Lafferty",
+          "id": 8478043,
+          "position": "C",
+          "birthDate": "1995-03-06"
         },
         {
           "name": "Anton Lundell",
@@ -1132,6 +1138,12 @@
           "birthDate": "1990-09-20"
         },
         {
+          "name": "Miles Wood",
+          "id": 8477425,
+          "position": "LW",
+          "birthDate": "1995-09-13"
+        },
+        {
           "name": "Nick Blankenburg",
           "id": 8483565,
           "position": "D",
@@ -1592,6 +1604,12 @@
           "id": 8478399,
           "position": "D",
           "birthDate": "1997-05-06"
+        },
+        {
+          "name": "Anton Silaev",
+          "id": 8484987,
+          "position": "D",
+          "birthDate": "2006-04-11"
         }
       ],
       "goalies": [
@@ -2860,16 +2878,16 @@
           "birthDate": "1997-04-26"
         },
         {
+          "name": "Rieger Lorenz",
+          "id": 8483478,
+          "position": "LW",
+          "birthDate": "2004-03-30"
+        },
+        {
           "name": "Michael McCarron",
           "id": 8477446,
           "position": "C",
           "birthDate": "1995-03-07"
-        },
-        {
-          "name": "Tyler Pitlick",
-          "id": 8475752,
-          "position": "C",
-          "birthDate": "1991-11-01"
         },
         {
           "name": "Maxim Shabanov",
@@ -2914,12 +2932,6 @@
           "birthDate": "2002-08-22"
         },
         {
-          "name": "Viking Gustafsson Nyberg",
-          "id": 8486166,
-          "position": "D",
-          "birthDate": "2003-09-21"
-        },
-        {
           "name": "Quinn Hughes",
           "id": 8480800,
           "position": "D",
@@ -2930,6 +2942,12 @@
           "id": 8482094,
           "position": "D",
           "birthDate": "2002-05-15"
+        },
+        {
+          "name": "Matt Kiersted",
+          "id": 8482641,
+          "position": "D",
+          "birthDate": "1998-04-14"
         },
         {
           "name": "Olli Maatta",
@@ -2951,6 +2969,12 @@
         }
       ],
       "goalies": [
+        {
+          "name": "Filip Gustavsson",
+          "id": 8479406,
+          "position": "G",
+          "birthDate": "1998-06-07"
+        },
         {
           "name": "Calvin Pickard",
           "id": 8475717,
@@ -4138,6 +4162,12 @@
           "birthDate": "2001-02-26"
         },
         {
+          "name": "Jared Wright",
+          "id": 8483756,
+          "position": "RW",
+          "birthDate": "2002-11-22"
+        },
+        {
           "name": "Mats Zuccarello",
           "id": 8475692,
           "position": "RW",
@@ -4244,12 +4274,6 @@
           "id": 8484911,
           "position": "RW",
           "birthDate": "2002-09-21"
-        },
-        {
-          "name": "Brett Leason",
-          "id": 8481517,
-          "position": "RW",
-          "birthDate": "1999-04-30"
         },
         {
           "name": "Mason Marchment",

@@ -79,12 +79,6 @@
   },
   {
     "team": "CBJ",
-    "player": "Damon Severson",
-    "status": "ir",
-    "injured": true
-  },
-  {
-    "team": "CBJ",
     "player": "Isac Lundestrom",
     "status": "ir",
     "injured": true
@@ -187,20 +181,20 @@
   },
   {
     "team": "FLA",
-    "player": "Aaron Ekblad",
-    "status": "dtd",
-    "injured": true
-  },
-  {
-    "team": "FLA",
     "player": "Brad Marchand",
-    "status": "dtd",
+    "status": "out",
     "injured": true
   },
   {
     "team": "LAK",
     "player": "Kevin Fiala",
     "status": "out",
+    "injured": true
+  },
+  {
+    "team": "LAK",
+    "player": "Mats Zuccarello",
+    "status": "dtd",
     "injured": true
   },
   {
@@ -252,6 +246,18 @@
     "injured": true
   },
   {
+    "team": "NSH",
+    "player": "William Trudeau",
+    "status": "dtd",
+    "injured": true
+  },
+  {
+    "team": "NSH",
+    "player": "Mavrik Bourque",
+    "status": "dtd",
+    "injured": true
+  },
+  {
     "team": "NJD",
     "player": "Seamus Casey",
     "status": "ir",
@@ -294,6 +300,12 @@
     "injured": true
   },
   {
+    "team": "NYI",
+    "player": "Bo Horvat",
+    "status": "dtd",
+    "injured": true
+  },
+  {
     "team": "NYR",
     "player": "Joonas Korpisalo",
     "status": "out",
@@ -330,6 +342,12 @@
     "injured": true
   },
   {
+    "team": "OTT",
+    "player": "William Eklund",
+    "status": "dtd",
+    "injured": true
+  },
+  {
     "team": "PHI",
     "player": "Nikita Grebenkin",
     "status": "ir",
@@ -362,7 +380,7 @@
   {
     "team": "SEA",
     "player": "Ryan Lindgren",
-    "status": "dtd",
+    "status": "out",
     "injured": true
   },
   {
@@ -384,14 +402,14 @@
     "injured": true
   },
   {
-    "team": "TBL",
-    "player": "Yanni Gourde",
-    "status": "out",
+    "team": "STL",
+    "player": "Dillon Dube",
+    "status": "dtd",
     "injured": true
   },
   {
     "team": "TBL",
-    "player": "Dominic James",
+    "player": "Yanni Gourde",
     "status": "out",
     "injured": true
   },
@@ -417,6 +435,18 @@
     "team": "TOR",
     "player": "Dakota Joshua",
     "status": "out",
+    "injured": true
+  },
+  {
+    "team": "TOR",
+    "player": "Oliver Ekman-Larsson",
+    "status": "dtd",
+    "injured": true
+  },
+  {
+    "team": "TOR",
+    "player": "John Tavares",
+    "status": "dtd",
     "injured": true
   },
   {

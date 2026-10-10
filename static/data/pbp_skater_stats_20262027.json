@@ -348,7 +348,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.09530389490529768,
+      "xgf_pg": 0.09530389490529767,
       "pbp_goals": 0,
       "pbp_assists": 1,
       "pbp_shots": 1
@@ -375,7 +375,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.10997354074016653,
+      "xgf_pg": 0.1099735407401665,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 3
@@ -483,7 +483,7 @@
       "power_play_goals": 2,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.48194568439814695,
+      "xgf_pg": 0.4819456843981469,
       "pbp_goals": 3,
       "pbp_assists": 1,
       "pbp_shots": 11
@@ -672,7 +672,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.09335164670958987,
+      "xgf_pg": 0.09335164670958988,
       "pbp_goals": 0,
       "pbp_assists": 2,
       "pbp_shots": 5
@@ -753,7 +753,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.024094302535179732,
+      "xgf_pg": 0.024094302535179725,
       "pbp_goals": 0,
       "pbp_assists": 1,
       "pbp_shots": 2
@@ -780,7 +780,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.10847187111379575,
+      "xgf_pg": 0.10847187111379573,
       "pbp_goals": 1,
       "pbp_assists": 0,
       "pbp_shots": 2
@@ -942,7 +942,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.10694712764345503,
+      "xgf_pg": 0.10694712764345501,
       "pbp_goals": 0,
       "pbp_assists": 1,
       "pbp_shots": 2
@@ -1077,7 +1077,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.28202175225542125,
+      "xgf_pg": 0.2820217522554212,
       "pbp_goals": 2,
       "pbp_assists": 1,
       "pbp_shots": 7
@@ -1239,7 +1239,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.1992393662518767,
+      "xgf_pg": 0.19923936625187666,
       "pbp_goals": 0,
       "pbp_assists": 1,
       "pbp_shots": 5
@@ -1401,7 +1401,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.4956413834874147,
+      "xgf_pg": 0.49564138348741477,
       "pbp_goals": 2,
       "pbp_assists": 0,
       "pbp_shots": 12
@@ -1536,7 +1536,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.2857373228340008,
+      "xgf_pg": 0.2857373228340007,
       "pbp_goals": 1,
       "pbp_assists": 2,
       "pbp_shots": 9
@@ -1590,7 +1590,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.021023810189680463,
+      "xgf_pg": 0.021023810189680456,
       "pbp_goals": 0,
       "pbp_assists": 1,
       "pbp_shots": 1
@@ -1617,7 +1617,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.1943405591458914,
+      "xgf_pg": 0.19434055914589138,
       "pbp_goals": 1,
       "pbp_assists": 0,
       "pbp_shots": 6
@@ -1695,7 +1695,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 1,
-      "xgf_pg": 0.1911929905212822,
+      "xgf_pg": 0.19119299052128216,
       "pbp_goals": 2,
       "pbp_assists": 2,
       "pbp_shots": 10
@@ -1789,11 +1789,11 @@
       "goals": 0,
       "assists": 0,
       "points": 0,
-      "shots": 11,
+      "shots": 10,
       "gpg": 0.0,
       "apg": 0.0,
       "ppg": 0.0,
-      "sogpg": 2.2,
+      "sogpg": 2.0,
       "sh_pct": 0.0,
       "plus_minus": -2,
       "pim": 2,
@@ -1806,7 +1806,7 @@
       "xgf_pg": 0.33337861746408093,
       "pbp_goals": 0,
       "pbp_assists": 0,
-      "pbp_shots": 11
+      "pbp_shots": 10
     },
     {
       "name": "Jaccob Slavin",
@@ -1830,7 +1830,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.10055834201518767,
+      "xgf_pg": 0.10055834201518764,
       "pbp_goals": 0,
       "pbp_assists": 2,
       "pbp_shots": 7
@@ -1911,7 +1911,7 @@
       "power_play_goals": 3,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.4218761557737687,
+      "xgf_pg": 0.4218761557737686,
       "pbp_goals": 4,
       "pbp_assists": 4,
       "pbp_shots": 16
@@ -1965,7 +1965,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.1188424799089261,
+      "xgf_pg": 0.11884247990892609,
       "pbp_goals": 0,
       "pbp_assists": 4,
       "pbp_shots": 8
@@ -2019,7 +2019,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.11785874097297666,
+      "xgf_pg": 0.11785874097297665,
       "pbp_goals": 1,
       "pbp_assists": 1,
       "pbp_shots": 4
@@ -2046,7 +2046,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.03837914295313894,
+      "xgf_pg": 0.03837914295313895,
       "pbp_goals": 0,
       "pbp_assists": 1,
       "pbp_shots": 1
@@ -2073,7 +2073,7 @@
       "power_play_goals": 2,
       "short_handed_goals": 0,
       "game_winning_goals": 1,
-      "xgf_pg": 0.5912488805017744,
+      "xgf_pg": 0.5912488805017743,
       "pbp_goals": 3,
       "pbp_assists": 3,
       "pbp_shots": 19
@@ -2181,7 +2181,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.13282354811454555,
+      "xgf_pg": 0.13282354811454553,
       "pbp_goals": 0,
       "pbp_assists": 3,
       "pbp_shots": 1
@@ -2343,7 +2343,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.12541697099443827,
+      "xgf_pg": 0.12541697099443824,
       "pbp_goals": 0,
       "pbp_assists": 2,
       "pbp_shots": 4
@@ -2370,7 +2370,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.046041564364503976,
+      "xgf_pg": 0.04604156436450399,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 0
@@ -2397,7 +2397,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.08201848563583389,
+      "xgf_pg": 0.08201848563583386,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 2
@@ -2586,7 +2586,7 @@
       "power_play_goals": 1,
       "short_handed_goals": 0,
       "game_winning_goals": 1,
-      "xgf_pg": 0.3452794443585491,
+      "xgf_pg": 0.34527944435854907,
       "pbp_goals": 2,
       "pbp_assists": 2,
       "pbp_shots": 5
@@ -2640,7 +2640,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.18428346604302437,
+      "xgf_pg": 0.18428346604302442,
       "pbp_goals": 1,
       "pbp_assists": 0,
       "pbp_shots": 3
@@ -2694,7 +2694,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.20798548012196127,
+      "xgf_pg": 0.20798548012196125,
       "pbp_goals": 1,
       "pbp_assists": 1,
       "pbp_shots": 6
@@ -2802,7 +2802,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.06329483342066267,
+      "xgf_pg": 0.06329483342066265,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 3
@@ -2856,7 +2856,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.07737398241768893,
+      "xgf_pg": 0.07737398241768895,
       "pbp_goals": 1,
       "pbp_assists": 0,
       "pbp_shots": 2
@@ -2937,7 +2937,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.20681752247215432,
+      "xgf_pg": 0.2068175224721543,
       "pbp_goals": 0,
       "pbp_assists": 1,
       "pbp_shots": 2
@@ -3045,7 +3045,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.2127410748272173,
+      "xgf_pg": 0.21274107482721732,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 8
@@ -3150,7 +3150,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.037514928309076497,
+      "xgf_pg": 0.03751492830907651,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 1
@@ -3177,7 +3177,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.28283492057653076,
+      "xgf_pg": 0.28283492057653065,
       "pbp_goals": 0,
       "pbp_assists": 1,
       "pbp_shots": 8
@@ -3393,7 +3393,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.17268742450440558,
+      "xgf_pg": 0.1726874245044056,
       "pbp_goals": 1,
       "pbp_assists": 0,
       "pbp_shots": 4
@@ -3447,7 +3447,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.23724590392322414,
+      "xgf_pg": 0.23724590392322406,
       "pbp_goals": 1,
       "pbp_assists": 0,
       "pbp_shots": 11
@@ -3501,7 +3501,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.07297915563181077,
+      "xgf_pg": 0.07297915563181076,
       "pbp_goals": 0,
       "pbp_assists": 2,
       "pbp_shots": 3
@@ -3656,14 +3656,14 @@
       "sogpg": 1.8,
       "sh_pct": 0.2222222222222222,
       "plus_minus": -5,
-      "pim": 22,
+      "pim": 17,
       "toi_pg": 18.836666666666666,
       "ppg_raw": 1130.2,
       "faceoff_pct": 45.8333,
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.3669163003852063,
+      "xgf_pg": 0.36691630038520623,
       "pbp_goals": 2,
       "pbp_assists": 1,
       "pbp_shots": 9
@@ -3744,7 +3744,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.1490059839678509,
+      "xgf_pg": 0.14900598396785086,
       "pbp_goals": 1,
       "pbp_assists": 0,
       "pbp_shots": 6
@@ -3852,7 +3852,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.10224800958853791,
+      "xgf_pg": 0.10224800958853789,
       "pbp_goals": 0,
       "pbp_assists": 3,
       "pbp_shots": 6
@@ -4041,7 +4041,7 @@
       "power_play_goals": 2,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.24467245556952008,
+      "xgf_pg": 0.24467245556952005,
       "pbp_goals": 3,
       "pbp_assists": 1,
       "pbp_shots": 6
@@ -4122,7 +4122,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.049756825461740976,
+      "xgf_pg": 0.04975682546174097,
       "pbp_goals": 0,
       "pbp_assists": 1,
       "pbp_shots": 1
@@ -4338,7 +4338,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.25339958359571496,
+      "xgf_pg": 0.2533995835957149,
       "pbp_goals": 0,
       "pbp_assists": 1,
       "pbp_shots": 11
@@ -4392,7 +4392,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.04417261490195694,
+      "xgf_pg": 0.044172614901956925,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 2
@@ -4446,7 +4446,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.29226416906458275,
+      "xgf_pg": 0.29226416906458264,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 2
@@ -4473,7 +4473,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.21389184531214814,
+      "xgf_pg": 0.2138918453121481,
       "pbp_goals": 0,
       "pbp_assists": 1,
       "pbp_shots": 4
@@ -4608,7 +4608,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 1,
-      "xgf_pg": 0.37421583937691577,
+      "xgf_pg": 0.3742158393769157,
       "pbp_goals": 2,
       "pbp_assists": 1,
       "pbp_shots": 11
@@ -4851,7 +4851,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.18742189168204984,
+      "xgf_pg": 0.1874218916820498,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 3
@@ -5013,7 +5013,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.00297851238223105,
+      "xgf_pg": 0.002978512382231048,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 0
@@ -5175,7 +5175,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.1851261145968848,
+      "xgf_pg": 0.18512611459688477,
       "pbp_goals": 0,
       "pbp_assists": 1,
       "pbp_shots": 8
@@ -5364,7 +5364,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.1245812514708563,
+      "xgf_pg": 0.12458125147085626,
       "pbp_goals": 0,
       "pbp_assists": 1,
       "pbp_shots": 2
@@ -5688,7 +5688,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.16444916451100136,
+      "xgf_pg": 0.1644491645110013,
       "pbp_goals": 0,
       "pbp_assists": 1,
       "pbp_shots": 3
@@ -5715,7 +5715,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.13477616244960808,
+      "xgf_pg": 0.13477616244960802,
       "pbp_goals": 1,
       "pbp_assists": 2,
       "pbp_shots": 3
@@ -5742,7 +5742,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.13491360425120547,
+      "xgf_pg": 0.13491360425120544,
       "pbp_goals": 1,
       "pbp_assists": 0,
       "pbp_shots": 3
@@ -5877,7 +5877,7 @@
       "power_play_goals": 2,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.6752931776836887,
+      "xgf_pg": 0.6752931776836885,
       "pbp_goals": 4,
       "pbp_assists": 2,
       "pbp_shots": 16
@@ -6012,7 +6012,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.0887483957787045,
+      "xgf_pg": 0.08874839577870448,
       "pbp_goals": 2,
       "pbp_assists": 0,
       "pbp_shots": 5
@@ -6120,7 +6120,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.033522581063931835,
+      "xgf_pg": 0.03352258106393183,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 2
@@ -6174,7 +6174,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.0842344262179452,
+      "xgf_pg": 0.08423442621794516,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 2
@@ -6201,7 +6201,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.23354304652243285,
+      "xgf_pg": 0.2335430465224328,
       "pbp_goals": 1,
       "pbp_assists": 0,
       "pbp_shots": 9
@@ -6525,7 +6525,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.35142394766094887,
+      "xgf_pg": 0.3514239476609488,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 7
@@ -6552,7 +6552,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.03170987078960801,
+      "xgf_pg": 0.031709870789608005,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 2
@@ -6606,7 +6606,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.04936825234563194,
+      "xgf_pg": 0.04936825234563191,
       "pbp_goals": 0,
       "pbp_assists": 1,
       "pbp_shots": 1
@@ -6633,7 +6633,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.07768365736563616,
+      "xgf_pg": 0.07768365736563615,
       "pbp_goals": 1,
       "pbp_assists": 0,
       "pbp_shots": 3
@@ -6660,7 +6660,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.27371866267144324,
+      "xgf_pg": 0.2737186626714432,
       "pbp_goals": 1,
       "pbp_assists": 2,
       "pbp_shots": 8
@@ -6687,7 +6687,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.1038124743157619,
+      "xgf_pg": 0.10381247431576189,
       "pbp_goals": 0,
       "pbp_assists": 1,
       "pbp_shots": 1
@@ -6849,7 +6849,7 @@
       "power_play_goals": 1,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.6277179569915748,
+      "xgf_pg": 0.6277179569915747,
       "pbp_goals": 1,
       "pbp_assists": 1,
       "pbp_shots": 12
@@ -6876,7 +6876,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.3881465928991324,
+      "xgf_pg": 0.38814659289913234,
       "pbp_goals": 2,
       "pbp_assists": 1,
       "pbp_shots": 10
@@ -6903,7 +6903,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 1,
       "game_winning_goals": 0,
-      "xgf_pg": 0.16174600603984673,
+      "xgf_pg": 0.1617460060398467,
       "pbp_goals": 1,
       "pbp_assists": 0,
       "pbp_shots": 6
@@ -6984,7 +6984,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.45272316405861224,
+      "xgf_pg": 0.45272316405861235,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 1
@@ -7011,7 +7011,7 @@
       "power_play_goals": 1,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.26204813438351976,
+      "xgf_pg": 0.26204813438351987,
       "pbp_goals": 1,
       "pbp_assists": 1,
       "pbp_shots": 7
@@ -7632,7 +7632,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.28876004387429743,
+      "xgf_pg": 0.2887600438742973,
       "pbp_goals": 1,
       "pbp_assists": 1,
       "pbp_shots": 5
@@ -7821,7 +7821,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.2941857798629872,
+      "xgf_pg": 0.2941857798629873,
       "pbp_goals": 3,
       "pbp_assists": 4,
       "pbp_shots": 9
@@ -7861,11 +7861,11 @@
       "goals": 0,
       "assists": 1,
       "points": 1,
-      "shots": 7,
+      "shots": 6,
       "gpg": 0.0,
       "apg": 0.25,
       "ppg": 0.25,
-      "sogpg": 1.75,
+      "sogpg": 1.5,
       "sh_pct": 0.0,
       "plus_minus": -2,
       "pim": 8,
@@ -7875,10 +7875,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.16544858749322988,
+      "xgf_pg": 0.15105786241174726,
       "pbp_goals": 0,
       "pbp_assists": 1,
-      "pbp_shots": 7
+      "pbp_shots": 6
     },
     {
       "name": "Kirby Dach",
@@ -7902,7 +7902,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.031113554601134335,
+      "xgf_pg": 0.03111355460113433,
       "pbp_goals": 0,
       "pbp_assists": 1,
       "pbp_shots": 1
@@ -7929,7 +7929,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.35643853312385365,
+      "xgf_pg": 0.3564385331238536,
       "pbp_goals": 2,
       "pbp_assists": 0,
       "pbp_shots": 13
@@ -8010,7 +8010,7 @@
       "power_play_goals": 1,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.2914290320195347,
+      "xgf_pg": 0.2914290320195346,
       "pbp_goals": 3,
       "pbp_assists": 0,
       "pbp_shots": 7
@@ -8091,7 +8091,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.2710566928566649,
+      "xgf_pg": 0.27105669285666484,
       "pbp_goals": 1,
       "pbp_assists": 0,
       "pbp_shots": 10
@@ -8142,7 +8142,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.046174925038373026,
+      "xgf_pg": 0.04617492503837302,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 2
@@ -8304,7 +8304,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.21275748068698852,
+      "xgf_pg": 0.21275748068698846,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 3
@@ -8628,7 +8628,7 @@
       "power_play_goals": 1,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.43696985135069416,
+      "xgf_pg": 0.43696985135069427,
       "pbp_goals": 2,
       "pbp_assists": 1,
       "pbp_shots": 9
@@ -8655,7 +8655,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.317287425976498,
+      "xgf_pg": 0.3172874259764979,
       "pbp_goals": 1,
       "pbp_assists": 0,
       "pbp_shots": 11
@@ -8736,7 +8736,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.09605863281340278,
+      "xgf_pg": 0.09605863281340277,
       "pbp_goals": 1,
       "pbp_assists": 4,
       "pbp_shots": 6
@@ -8844,7 +8844,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.26345223365080783,
+      "xgf_pg": 0.2634522336508078,
       "pbp_goals": 0,
       "pbp_assists": 4,
       "pbp_shots": 8
@@ -8898,7 +8898,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.10352132535881396,
+      "xgf_pg": 0.10352132535881395,
       "pbp_goals": 0,
       "pbp_assists": 1,
       "pbp_shots": 5
@@ -8952,7 +8952,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.12451886600999054,
+      "xgf_pg": 0.12451886600999053,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 3
@@ -9033,7 +9033,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.3250295773393293,
+      "xgf_pg": 0.32502957733932925,
       "pbp_goals": 2,
       "pbp_assists": 0,
       "pbp_shots": 10
@@ -9141,7 +9141,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.047618453223451,
+      "xgf_pg": 0.047618453223450985,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 1
@@ -9195,7 +9195,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.08804361858004785,
+      "xgf_pg": 0.08804361858004783,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 3
@@ -9276,7 +9276,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.21933176787175193,
+      "xgf_pg": 0.2193317678717519,
       "pbp_goals": 1,
       "pbp_assists": 3,
       "pbp_shots": 8
@@ -9435,7 +9435,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.30457786548718463,
+      "xgf_pg": 0.3045778654871847,
       "pbp_goals": 1,
       "pbp_assists": 0,
       "pbp_shots": 6
@@ -9462,7 +9462,7 @@
       "power_play_goals": 3,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.43372707306382824,
+      "xgf_pg": 0.4337270730638283,
       "pbp_goals": 4,
       "pbp_assists": 1,
       "pbp_shots": 14
@@ -9516,7 +9516,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.08010874339280558,
+      "xgf_pg": 0.08010874339280556,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 4
@@ -9570,7 +9570,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.0679628201942905,
+      "xgf_pg": 0.06796282019429048,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 3
@@ -9624,7 +9624,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.18012275642109965,
+      "xgf_pg": 0.18012275642109962,
       "pbp_goals": 0,
       "pbp_assists": 2,
       "pbp_shots": 6
@@ -9651,7 +9651,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 1,
       "game_winning_goals": 1,
-      "xgf_pg": 0.24508878514554183,
+      "xgf_pg": 0.24508878514554178,
       "pbp_goals": 2,
       "pbp_assists": 0,
       "pbp_shots": 3
@@ -9705,7 +9705,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.17462936892427122,
+      "xgf_pg": 0.17462936892427117,
       "pbp_goals": 0,
       "pbp_assists": 3,
       "pbp_shots": 11
@@ -9813,7 +9813,7 @@
       "power_play_goals": 1,
       "short_handed_goals": 0,
       "game_winning_goals": 1,
-      "xgf_pg": 0.1991974011658931,
+      "xgf_pg": 0.19919740116589307,
       "pbp_goals": 2,
       "pbp_assists": 1,
       "pbp_shots": 8
@@ -9867,7 +9867,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.07862739833943602,
+      "xgf_pg": 0.07862739833943601,
       "pbp_goals": 1,
       "pbp_assists": 3,
       "pbp_shots": 7
@@ -10137,7 +10137,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.19963562737098073,
+      "xgf_pg": 0.19963562737098065,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 1
@@ -10164,7 +10164,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.09475661077146472,
+      "xgf_pg": 0.09475661077146469,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 2
@@ -10191,7 +10191,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.08165237606240013,
+      "xgf_pg": 0.08165237606240011,
       "pbp_goals": 0,
       "pbp_assists": 1,
       "pbp_shots": 3
@@ -10272,7 +10272,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.05824918877091964,
+      "xgf_pg": 0.058249188770919634,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 1
@@ -10434,7 +10434,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.18148727874965892,
+      "xgf_pg": 0.1814872787496589,
       "pbp_goals": 1,
       "pbp_assists": 1,
       "pbp_shots": 12
@@ -10515,7 +10515,7 @@
       "power_play_goals": 1,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.22752013811609784,
+      "xgf_pg": 0.2275201381160978,
       "pbp_goals": 2,
       "pbp_assists": 1,
       "pbp_shots": 9
@@ -10569,7 +10569,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.39030928787596353,
+      "xgf_pg": 0.3903092878759634,
       "pbp_goals": 0,
       "pbp_assists": 3,
       "pbp_shots": 9
@@ -10623,7 +10623,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.18720504576374022,
+      "xgf_pg": 0.18720504576374025,
       "pbp_goals": 0,
       "pbp_assists": 1,
       "pbp_shots": 5
@@ -10650,7 +10650,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.034501620347836465,
+      "xgf_pg": 0.03450162034783646,
       "pbp_goals": 0,
       "pbp_assists": 1,
       "pbp_shots": 4
@@ -10782,7 +10782,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.0409673852922882,
+      "xgf_pg": 0.040967385292288196,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 4
@@ -10833,7 +10833,7 @@
       "power_play_goals": 1,
       "short_handed_goals": 0,
       "game_winning_goals": 1,
-      "xgf_pg": 0.10297493708971739,
+      "xgf_pg": 0.10297493708971737,
       "pbp_goals": 1,
       "pbp_assists": 1,
       "pbp_shots": 6
@@ -10968,7 +10968,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.14887131488519056,
+      "xgf_pg": 0.1488713148851906,
       "pbp_goals": 0,
       "pbp_assists": 1,
       "pbp_shots": 5
@@ -10995,7 +10995,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.1854404931646313,
+      "xgf_pg": 0.18544049316463124,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 2
@@ -11049,7 +11049,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.16436578535108068,
+      "xgf_pg": 0.16436578535108065,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 2
@@ -11076,7 +11076,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.12036304319013304,
+      "xgf_pg": 0.12036304319013301,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 4
@@ -11103,7 +11103,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.26770528836374546,
+      "xgf_pg": 0.2677052883637454,
       "pbp_goals": 1,
       "pbp_assists": 0,
       "pbp_shots": 13
@@ -11130,7 +11130,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.06644553640988274,
+      "xgf_pg": 0.06644553640988272,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 4
@@ -11238,7 +11238,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.07235629265631598,
+      "xgf_pg": 0.07235629265631599,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 4
@@ -11292,7 +11292,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.08640038875859862,
+      "xgf_pg": 0.08640038875859861,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 4
@@ -11454,7 +11454,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.40665840825550187,
+      "xgf_pg": 0.4066584082555018,
       "pbp_goals": 0,
       "pbp_assists": 2,
       "pbp_shots": 12
@@ -11481,7 +11481,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.15235613964513503,
+      "xgf_pg": 0.152356139645135,
       "pbp_goals": 0,
       "pbp_assists": 3,
       "pbp_shots": 12
@@ -11562,7 +11562,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.310511610411629,
+      "xgf_pg": 0.31051161041162906,
       "pbp_goals": 0,
       "pbp_assists": 2,
       "pbp_shots": 9
@@ -11643,7 +11643,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.24173536546224883,
+      "xgf_pg": 0.2417353654622488,
       "pbp_goals": 1,
       "pbp_assists": 3,
       "pbp_shots": 7
@@ -11859,7 +11859,7 @@
       "power_play_goals": 1,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.2830920852654091,
+      "xgf_pg": 0.283092085265409,
       "pbp_goals": 1,
       "pbp_assists": 1,
       "pbp_shots": 7
@@ -12021,7 +12021,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.04208376767303107,
+      "xgf_pg": 0.04208376767303106,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 4
@@ -12048,7 +12048,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.124774461566334,
+      "xgf_pg": 0.12477446156633398,
       "pbp_goals": 1,
       "pbp_assists": 3,
       "pbp_shots": 4
@@ -12210,7 +12210,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.03702910120745505,
+      "xgf_pg": 0.03702910120745506,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 0
@@ -12264,7 +12264,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.06484730020784871,
+      "xgf_pg": 0.06484730020784868,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 1
@@ -12480,7 +12480,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.24452557466084948,
+      "xgf_pg": 0.24452557466084943,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 1
@@ -12612,7 +12612,7 @@
       "power_play_goals": 1,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.3197835667749711,
+      "xgf_pg": 0.31978356677497105,
       "pbp_goals": 2,
       "pbp_assists": 2,
       "pbp_shots": 11
@@ -12720,7 +12720,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.18040656587971304,
+      "xgf_pg": 0.18040656587971302,
       "pbp_goals": 0,
       "pbp_assists": 1,
       "pbp_shots": 6
@@ -12774,7 +12774,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.18182731654006498,
+      "xgf_pg": 0.18182731654006493,
       "pbp_goals": 1,
       "pbp_assists": 0,
       "pbp_shots": 5
@@ -12801,7 +12801,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.07071791216936238,
+      "xgf_pg": 0.07071791216936239,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 1
@@ -12828,7 +12828,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.029951267432159187,
+      "xgf_pg": 0.029951267432159184,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 4
@@ -13017,7 +13017,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.18336233857712775,
+      "xgf_pg": 0.18336233857712772,
       "pbp_goals": 1,
       "pbp_assists": 0,
       "pbp_shots": 4
@@ -13044,7 +13044,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 1,
-      "xgf_pg": 0.09410526752980565,
+      "xgf_pg": 0.09410526752980564,
       "pbp_goals": 2,
       "pbp_assists": 1,
       "pbp_shots": 3
@@ -13098,7 +13098,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.16646758246757645,
+      "xgf_pg": 0.16646758246757642,
       "pbp_goals": 0,
       "pbp_assists": 2,
       "pbp_shots": 3
@@ -13206,7 +13206,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.22435100198458738,
+      "xgf_pg": 0.22435100198458735,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 2
@@ -13395,7 +13395,7 @@
       "power_play_goals": 1,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.32391888650621925,
+      "xgf_pg": 0.3239188865062192,
       "pbp_goals": 2,
       "pbp_assists": 2,
       "pbp_shots": 10
@@ -13422,7 +13422,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.14700826052168417,
+      "xgf_pg": 0.14700826052168414,
       "pbp_goals": 0,
       "pbp_assists": 2,
       "pbp_shots": 7
@@ -13608,7 +13608,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.24147177481720067,
+      "xgf_pg": 0.2414717748172006,
       "pbp_goals": 2,
       "pbp_assists": 0,
       "pbp_shots": 8
@@ -13635,7 +13635,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.030715866646160356,
+      "xgf_pg": 0.030715866646160345,
       "pbp_goals": 0,
       "pbp_assists": 1,
       "pbp_shots": 2
@@ -13662,7 +13662,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.14534634063429397,
+      "xgf_pg": 0.14534634063429394,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 6
@@ -13770,7 +13770,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.24647579165470787,
+      "xgf_pg": 0.24647579165470782,
       "pbp_goals": 1,
       "pbp_assists": 5,
       "pbp_shots": 6
@@ -13797,7 +13797,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.07577384930916585,
+      "xgf_pg": 0.07577384930916584,
       "pbp_goals": 0,
       "pbp_assists": 1,
       "pbp_shots": 2
@@ -13959,7 +13959,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.6060669770475697,
+      "xgf_pg": 0.6060669770475696,
       "pbp_goals": 1,
       "pbp_assists": 3,
       "pbp_shots": 20
@@ -14013,7 +14013,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.06976921105739563,
+      "xgf_pg": 0.06976921105739561,
       "pbp_goals": 1,
       "pbp_assists": 0,
       "pbp_shots": 6
@@ -14094,7 +14094,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.1371398843780444,
+      "xgf_pg": 0.13713988437804436,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 4
@@ -14256,7 +14256,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.05249336243255533,
+      "xgf_pg": 0.052493362432555334,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 3
@@ -14310,7 +14310,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.11124836878220427,
+      "xgf_pg": 0.1112483687822043,
       "pbp_goals": 0,
       "pbp_assists": 3,
       "pbp_shots": 6
@@ -14337,7 +14337,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.254625183303582,
+      "xgf_pg": 0.25462518330358197,
       "pbp_goals": 1,
       "pbp_assists": 0,
       "pbp_shots": 8
@@ -14445,7 +14445,7 @@
       "power_play_goals": 1,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.6132753619001055,
+      "xgf_pg": 0.6132753619001053,
       "pbp_goals": 3,
       "pbp_assists": 3,
       "pbp_shots": 15
@@ -14499,7 +14499,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.3045968187501728,
+      "xgf_pg": 0.30459681875017286,
       "pbp_goals": 2,
       "pbp_assists": 2,
       "pbp_shots": 13
@@ -14685,7 +14685,7 @@
       "power_play_goals": 1,
       "short_handed_goals": 0,
       "game_winning_goals": 1,
-      "xgf_pg": 0.20380350980605644,
+      "xgf_pg": 0.20380350980605638,
       "pbp_goals": 2,
       "pbp_assists": 2,
       "pbp_shots": 11
@@ -14712,7 +14712,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.22623033701583792,
+      "xgf_pg": 0.22623033701583797,
       "pbp_goals": 1,
       "pbp_assists": 2,
       "pbp_shots": 8
@@ -14793,7 +14793,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.13383502349349433,
+      "xgf_pg": 0.1338350234934943,
       "pbp_goals": 0,
       "pbp_assists": 1,
       "pbp_shots": 7
@@ -14874,7 +14874,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 1,
-      "xgf_pg": 0.20200980702633126,
+      "xgf_pg": 0.2020098070263312,
       "pbp_goals": 1,
       "pbp_assists": 1,
       "pbp_shots": 10
@@ -15036,7 +15036,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.35642954997321297,
+      "xgf_pg": 0.3564295499732129,
       "pbp_goals": 1,
       "pbp_assists": 1,
       "pbp_shots": 17
@@ -15063,7 +15063,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.447803334286595,
+      "xgf_pg": 0.4478033342865949,
       "pbp_goals": 0,
       "pbp_assists": 2,
       "pbp_shots": 10
@@ -15090,7 +15090,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.24666779871684735,
+      "xgf_pg": 0.2466677987168473,
       "pbp_goals": 1,
       "pbp_assists": 0,
       "pbp_shots": 6
@@ -15117,7 +15117,7 @@
       "power_play_goals": 3,
       "short_handed_goals": 0,
       "game_winning_goals": 1,
-      "xgf_pg": 0.38902782797741614,
+      "xgf_pg": 0.3890278279774161,
       "pbp_goals": 3,
       "pbp_assists": 3,
       "pbp_shots": 17
@@ -15144,7 +15144,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.1643919678344763,
+      "xgf_pg": 0.16439196783447627,
       "pbp_goals": 0,
       "pbp_assists": 4,
       "pbp_shots": 2
@@ -15198,7 +15198,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.26921117884438567,
+      "xgf_pg": 0.2692111788443856,
       "pbp_goals": 1,
       "pbp_assists": 0,
       "pbp_shots": 4
@@ -15252,7 +15252,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.2327753989548514,
+      "xgf_pg": 0.23277539895485136,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 4
@@ -15360,7 +15360,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.0569420690442761,
+      "xgf_pg": 0.05694206904427609,
       "pbp_goals": 0,
       "pbp_assists": 5,
       "pbp_shots": 6
@@ -15387,7 +15387,7 @@
       "power_play_goals": 2,
       "short_handed_goals": 0,
       "game_winning_goals": 1,
-      "xgf_pg": 0.08787925322435412,
+      "xgf_pg": 0.08787925322435411,
       "pbp_goals": 1,
       "pbp_assists": 0,
       "pbp_shots": 6
@@ -15441,7 +15441,7 @@
       "power_play_goals": 1,
       "short_handed_goals": 1,
       "game_winning_goals": 1,
-      "xgf_pg": 0.22390949548576716,
+      "xgf_pg": 0.22390949548576713,
       "pbp_goals": 4,
       "pbp_assists": 2,
       "pbp_shots": 7
@@ -15549,7 +15549,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.13070462745763864,
+      "xgf_pg": 0.1307046274576386,
       "pbp_goals": 1,
       "pbp_assists": 1,
       "pbp_shots": 3
@@ -15711,7 +15711,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.11663290197921924,
+      "xgf_pg": 0.11663290197921923,
       "pbp_goals": 0,
       "pbp_assists": 1,
       "pbp_shots": 5
@@ -15900,7 +15900,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.21357008653178483,
+      "xgf_pg": 0.21357008653178478,
       "pbp_goals": 0,
       "pbp_assists": 4,
       "pbp_shots": 8
@@ -15927,7 +15927,7 @@
       "power_play_goals": 2,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.21148276151747697,
+      "xgf_pg": 0.21148276151747694,
       "pbp_goals": 4,
       "pbp_assists": 1,
       "pbp_shots": 9
@@ -16062,7 +16062,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.06646197897048023,
+      "xgf_pg": 0.06646197897048021,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 8
@@ -16170,7 +16170,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 1,
-      "xgf_pg": 0.1395916692651964,
+      "xgf_pg": 0.13959166926519642,
       "pbp_goals": 1,
       "pbp_assists": 1,
       "pbp_shots": 9
@@ -16224,7 +16224,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.39866637071682065,
+      "xgf_pg": 0.3986663707168206,
       "pbp_goals": 2,
       "pbp_assists": 1,
       "pbp_shots": 10
@@ -16275,7 +16275,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.02237952333639184,
+      "xgf_pg": 0.022379523336391836,
       "pbp_goals": 1,
       "pbp_assists": 1,
       "pbp_shots": 2
@@ -16329,7 +16329,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.29996603175543457,
+      "xgf_pg": 0.29996603175543446,
       "pbp_goals": 0,
       "pbp_assists": 2,
       "pbp_shots": 6
@@ -16410,7 +16410,7 @@
       "power_play_goals": 3,
       "short_handed_goals": 0,
       "game_winning_goals": 2,
-      "xgf_pg": 0.7016213028737568,
+      "xgf_pg": 0.7016213028737567,
       "pbp_goals": 5,
       "pbp_assists": 2,
       "pbp_shots": 24
@@ -16437,7 +16437,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.07659868578391268,
+      "xgf_pg": 0.07659868578391267,
       "pbp_goals": 1,
       "pbp_assists": 0,
       "pbp_shots": 5
@@ -16491,7 +16491,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.06961807677197977,
+      "xgf_pg": 0.06961807677197976,
       "pbp_goals": 0,
       "pbp_assists": 2,
       "pbp_shots": 4
@@ -16545,7 +16545,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.11489556874024162,
+      "xgf_pg": 0.1148955687402416,
       "pbp_goals": 0,
       "pbp_assists": 1,
       "pbp_shots": 8
@@ -16653,7 +16653,7 @@
       "power_play_goals": 1,
       "short_handed_goals": 0,
       "game_winning_goals": 1,
-      "xgf_pg": 0.4515690446411958,
+      "xgf_pg": 0.45156904464119574,
       "pbp_goals": 3,
       "pbp_assists": 3,
       "pbp_shots": 12
@@ -16707,7 +16707,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.07426475103213842,
+      "xgf_pg": 0.0742647510321384,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 3
@@ -16977,7 +16977,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.0656095888025468,
+      "xgf_pg": 0.06560958880254678,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 0
@@ -17058,7 +17058,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.21410998008868012,
+      "xgf_pg": 0.2141099800886801,
       "pbp_goals": 1,
       "pbp_assists": 3,
       "pbp_shots": 5
@@ -17139,7 +17139,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.10646397987915282,
+      "xgf_pg": 0.10646397987915276,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 1
@@ -17280,5 +17280,5 @@
       "pbp_shots": 1
     }
   ],
-  "updated_at": "2026-10-09T08:57:00Z"
+  "updated_at": "2026-10-10T01:13:08Z"
 }

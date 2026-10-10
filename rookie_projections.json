@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-09T08:58:28.619962+00:00",
+  "generated_at": "2026-10-10T01:15:14.597459+00:00",
   "players": {
     "juusov\u00e4lim\u00e4ki": {
       "points_pg": 0.44,
@@ -12,6 +12,17 @@
       "name": "Juuso V\u00e4lim\u00e4ki",
       "team": "CAR"
     },
+    "antonsilaev": {
+      "points_pg": 0.0364,
+      "goals_pg": 0.0121,
+      "assists_pg": 0.0243,
+      "shots_pg": 0.1348,
+      "source_league": "KHL",
+      "source_season": 20252026,
+      "source_games": 61,
+      "name": "Anton Silaev",
+      "team": "NJD"
+    },
     "kyleburroughs": {
       "points_pg": 0.1711,
       "goals_pg": 0.0244,
@@ -22,6 +33,17 @@
       "source_games": 18,
       "name": "Kyle Burroughs",
       "team": "DAL"
+    },
+    "riegerlorenz": {
+      "points_pg": 0.3337,
+      "goals_pg": 0.1621,
+      "assists_pg": 0.1716,
+      "shots_pg": 1.801,
+      "source_league": "NCAA",
+      "source_season": 20252026,
+      "source_games": 43,
+      "name": "Rieger Lorenz",
+      "team": "MIN"
     },
     "vitalipinchuk": {
       "points_pg": 0.7514,
