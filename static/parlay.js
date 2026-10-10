@@ -658,6 +658,7 @@ document.addEventListener('click', e => {
     if (load) {
         _slip = load.getAttribute('data-load').split('|');
         renderSlip();
+        document.querySelector('.pl-hero').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         return;
     }
     const preset = e.target.closest('[data-american]');

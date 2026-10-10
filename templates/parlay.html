@@ -84,8 +84,45 @@
                 <div id="plPool" class="pl-leg-list"></div>
             </section>
 
-            <!-- Finder + slip -->
+            <!-- Slip + finder -->
             <div class="parlay-side">
+
+                <section class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Slip</h2>
+                        <p class="card-subtitle">Joint math assumes the legs are independent</p>
+                    </div>
+                    <div class="pl-hero">
+                        <div class="pl-hero-main">
+                            <div id="plCombinedOdds" class="pl-hero-odds">—</div>
+                            <div class="pl-hero-label">combined odds</div>
+                        </div>
+                        <div class="pl-hero-side">
+                            <div id="plJointProb" class="pl-hero-prob">—</div>
+                            <div class="pl-meter" aria-hidden="true"><div id="plMeterFill" class="pl-meter-fill"></div></div>
+                            <div class="pl-hero-label">hit chance</div>
+                        </div>
+                    </div>
+                    <div id="slipLegs" class="pl-slip-legs"></div>
+                    <div class="pl-summary">
+                        <div class="pl-summary-row">
+                            <label class="props-toolbar-label" for="plStake">Stake</label>
+                            <span class="pl-money-wrap">$<input id="plStake" class="pl-stake" type="number" min="0" step="1" value="10" inputmode="decimal"></span>
+                        </div>
+                        <dl class="pl-totals">
+                            <div class="pl-total-row"><dt>Book implied</dt><dd id="plImplied">—</dd></div>
+                            <div class="pl-total-row"><dt>Value (EV)</dt><dd id="plEV">—</dd></div>
+                            <div class="pl-total-row"><dt>Payout / profit</dt><dd id="plPayout">—</dd></div>
+                        </dl>
+                        <div id="plCorrelationNote" class="pl-warn" hidden>
+                            <i class="fa-solid fa-link"></i> Two legs share a game — the independence math no longer holds.
+                        </div>
+                        <div class="pl-summary-actions">
+                            <button id="plCopy" class="action-btn" type="button"><i class="fa-solid fa-copy"></i> Copy slip</button>
+                            <button id="plClear" class="action-btn" type="button"><i class="fa-solid fa-eraser"></i> Clear slip</button>
+                        </div>
+                    </div>
+                </section>
 
                 <section class="card">
                     <div class="card-header">
@@ -136,48 +173,11 @@
                     </div>
                 </section>
 
-                <section class="card">
-                    <div class="card-header">
-                        <h2 class="card-title">Slip</h2>
-                        <p class="card-subtitle">Joint math assumes the legs are independent</p>
-                    </div>
-                    <div class="pl-hero">
-                        <div class="pl-hero-main">
-                            <div id="plCombinedOdds" class="pl-hero-odds">—</div>
-                            <div class="pl-hero-label">combined odds</div>
-                        </div>
-                        <div class="pl-hero-side">
-                            <div id="plJointProb" class="pl-hero-prob">—</div>
-                            <div class="pl-meter" aria-hidden="true"><div id="plMeterFill" class="pl-meter-fill"></div></div>
-                            <div class="pl-hero-label">hit chance</div>
-                        </div>
-                    </div>
-                    <div id="slipLegs" class="pl-slip-legs"></div>
-                    <div class="pl-summary">
-                        <div class="pl-summary-row">
-                            <label class="props-toolbar-label" for="plStake">Stake</label>
-                            <span class="pl-money-wrap">$<input id="plStake" class="pl-stake" type="number" min="0" step="1" value="10" inputmode="decimal"></span>
-                        </div>
-                        <dl class="pl-totals">
-                            <div class="pl-total-row"><dt>Book implied</dt><dd id="plImplied">—</dd></div>
-                            <div class="pl-total-row"><dt>Value (EV)</dt><dd id="plEV">—</dd></div>
-                            <div class="pl-total-row"><dt>Payout / profit</dt><dd id="plPayout">—</dd></div>
-                        </dl>
-                        <div id="plCorrelationNote" class="pl-warn" hidden>
-                            <i class="fa-solid fa-link"></i> Two legs share a game — the independence math no longer holds.
-                        </div>
-                        <div class="pl-summary-actions">
-                            <button id="plCopy" class="action-btn" type="button"><i class="fa-solid fa-copy"></i> Copy slip</button>
-                            <button id="plClear" class="action-btn" type="button"><i class="fa-solid fa-eraser"></i> Clear slip</button>
-                        </div>
-                    </div>
-                </section>
-
             </div>
 
         </div>
     </main>
 
-    <script src="/static/parlay.js?v=2.3"></script>
+    <script src="/static/parlay.js?v=2.4"></script>
 </body>
 </html>
