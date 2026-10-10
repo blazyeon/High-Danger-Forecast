@@ -1213,12 +1213,26 @@ def compute_player_props_for_date(
     df = df.reset_index(drop=True)
 
     # Rename for the UI and convert to records.
-    out_df = df[[
+    out_cols = [
         "player", "position", "market", "line", "prob_over", "recommendation",
         "over_american", "under_american", "over_decimal", "under_decimal",
         "edge", "home_abbr", "away_abbr", "player_team",
         "implied_over", "implied_under",
-    ]].copy()
+    ]
+    # Game start in UTC so clients can drop legs from games that already
+    # kicked off; rows from caches computed before this existed lack it and
+    # are omitted rather than filled with NaT.
+    if "commence_time" in df.columns:
+        try:
+            df["commence_time"] = pd.to_datetime(
+                df["commence_time"], utc=True, errors="coerce"
+            )
+            out_cols.append("commence_time")
+        except Exception:
+            pass
+    out_df = df[out_cols].copy()
+    if "commence_time" in out_df.columns:
+        out_df["commence_time"] = out_df["commence_time"].dt.strftime("%Y-%m-%dT%H:%M:%SZ")
     out_df["market"] = out_df["market"].str.replace("Player ", "")
 
     records = out_df.to_dict(orient="records")

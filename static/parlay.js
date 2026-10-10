@@ -76,7 +76,9 @@ function familyOfGame(market) {
 //       gameKey, label, detail, american, decimal, modelProb, edge}
 let _legs = [];
 let _slip = [];              // leg keys, in insertion order
-let _gameTimes = {};         // gameKey -> Date (from the game-bet feed; props-only games have no time)
+let _gameTimes = {};         // gameKey -> Date (game-bet feed start_time or props commence_time)
+let _knownGames = new Set(); // gameKeys present on the served game-bet board
+let _hiddenGames = new Set(); // props games the betting board already dropped as started
 
 const SETTINGS_KEY = 'pl2-settings';
 const DEFAULTS = {
@@ -129,12 +131,14 @@ function addPropLegs(payload) {
         const family = familyOfProp(p.market);
         const recSide = p.recommendation === 'Under' ? 'Under'
             : p.recommendation === 'Over' ? 'Over' : null;
+        const gk = gameKey(p.away_abbr, p.home_abbr);
+        if (p.commence_time) recordGameTime(gk, p.commence_time);
         const gameLabel = gameLabelFrom(abbrName(p.home_abbr), abbrName(p.away_abbr));
         const base = {
             source: 'props',
             family: family,
             gameLabel: gameLabel,
-            gameKey: gameKey(p.away_abbr, p.home_abbr),
+            gameKey: gk,
             detail: p.player_team ? p.player_team.toUpperCase() : '',
         };
 
@@ -177,10 +181,9 @@ function addPropLegs(payload) {
 
 function addGameLegs(payload) {
     (payload.games || []).forEach(g => {
-        if (g.start_time) {
-            const t = new Date(g.start_time);
-            if (!isNaN(t)) _gameTimes[gameKey(g.away, g.home)] = t;
-        }
+        const gk = gameKey(g.away, g.home);
+        _knownGames.add(gk);
+        if (g.start_time) recordGameTime(gk, g.start_time);
         (g.edges || []).forEach(e => {
             const american = e.odds;
             if (american == null) return;
@@ -191,7 +194,7 @@ function addGameLegs(payload) {
                 recommended: true,
                 side: e.side || e.pick || '',
                 gameLabel: gameLabelFrom(abbrName(g.home), abbrName(g.away)),
-                gameKey: gameKey(g.away, g.home),
+                gameKey: gk,
                 label: `${e.pick} ${e.market || ''}`.trim(),
                 detail: e.book || '',
                 american: american,
@@ -209,18 +212,35 @@ function abbrName(abbr) {
     return String(abbr || '').split(' ')[0].toUpperCase();
 }
 
+// SharpAPI props and the game-bet board abbreviate a few teams differently
+// (LA/LAK, NJ/NJD, SJS/SJ) -- canonicalize so the two feeds agree on keys.
+const ABBR_ALIAS = { NJ: 'NJD', LA: 'LAK', SJS: 'SJ', UTAH: 'UTA' };
+
+function canonAbbr(abbr) {
+    const a = abbrName(abbr);
+    return ABBR_ALIAS[a] || a;
+}
+
 function gameLabelFrom(home, away) {
-    return `${away} @ ${home}`;
+    return `${canonAbbr(away)} @ ${canonAbbr(home)}`;
 }
 
 function gameKey(away, home) {
-    return `${abbrName(away)}@${abbrName(home)}`;
+    return `${canonAbbr(away)}@${canonAbbr(home)}`;
+}
+
+function recordGameTime(key, raw) {
+    const t = new Date(raw);
+    if (!isNaN(t)) _gameTimes[key] = t;
 }
 
 // ── Filtering ─────────────────────────────────────────────────────────
 function gameStarted(gameKey2) {
     const t = _gameTimes[gameKey2];
-    return !!t && t.getTime() <= Date.now();
+    if (t) return t.getTime() <= Date.now();
+    // A props game the game-bet board no longer lists (same slate date) was
+    // dropped server-side as already started -- hide it too.
+    return _hiddenGames.has(gameKey2);
 }
 
 function legAllowed(l) {
@@ -809,6 +829,22 @@ async function boot() {
     }
     if (gamesRes.status === 'fulfilled' && gamesRes.value && gamesRes.value.games) {
         addGameLegs(gamesRes.value);
+    }
+
+    // Props games absent from the game-bet board are games the server already
+    // dropped as started (the betting feed strips them). Only trust that signal
+    // when both boards agree on the slate date and the betting feed is non-empty.
+    if (
+        propsRes.status === 'fulfilled' && gamesRes.status === 'fulfilled' &&
+        propsRes.value && gamesRes.value &&
+        propsRes.value.date && propsRes.value.date === gamesRes.value.date &&
+        _knownGames.size
+    ) {
+        _legs.forEach(l => {
+            if (l.source === 'props' && !_gameTimes[l.gameKey] && !_knownGames.has(l.gameKey)) {
+                _hiddenGames.add(l.gameKey);
+            }
+        });
     }
 
     if (!_legs.length) {
