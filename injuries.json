@@ -48,6 +48,12 @@
     "injured": true
   },
   {
+    "team": "CGY",
+    "player": "Samuel Honzek",
+    "status": "dtd",
+    "injured": true
+  },
+  {
     "team": "CAR",
     "player": "Seth Jarvis",
     "status": "out",
@@ -248,7 +254,7 @@
   {
     "team": "NSH",
     "player": "William Trudeau",
-    "status": "dtd",
+    "status": "ir",
     "injured": true
   },
   {
@@ -344,7 +350,7 @@
   {
     "team": "OTT",
     "player": "William Eklund",
-    "status": "dtd",
+    "status": "out",
     "injured": true
   },
   {
@@ -368,6 +374,12 @@
   {
     "team": "SJS",
     "player": "Macklin Celebrini",
+    "status": "dtd",
+    "injured": true
+  },
+  {
+    "team": "SJS",
+    "player": "Kiefer Sherwood",
     "status": "dtd",
     "injured": true
   },
@@ -446,6 +458,12 @@
   {
     "team": "TOR",
     "player": "John Tavares",
+    "status": "dtd",
+    "injured": true
+  },
+  {
+    "team": "UTA",
+    "player": "Michael Carcone",
     "status": "dtd",
     "injured": true
   },

@@ -1,6 +1,6 @@
 {
   "source": "daily_faceoff",
-  "updated_at": "2026-10-09T23:52:48.103Z",
+  "updated_at": "2026-10-10T02:45:24.835Z",
   "teams": {
     "ANA": {
       "pp1": [
@@ -71,8 +71,8 @@
         "Simon Nemec",
         "Yegor Sharangovich"
       ],
-      "updated_at": "2026-10-09T14:02:40.888Z",
-      "source": "Last Game (2026-10-08)"
+      "updated_at": "2026-10-10T02:35:55.508Z",
+      "source": "Danny Austin"
     },
     "CAR": {
       "pp1": [
@@ -281,14 +281,14 @@
         "Roman Josi"
       ],
       "pp2": [
-        "Nils Hoglander",
         "Alex Kerfoot",
-        "Mavrik Bourque",
+        "Vitali Pinchuk",
+        "Nils Hoglander",
         "Brady Skjei",
         "Jonathan Marchessault"
       ],
-      "updated_at": "2026-10-09T11:36:03.482Z",
-      "source": "Last Game (2026-10-08)"
+      "updated_at": "2026-10-10T02:45:24.835Z",
+      "source": "Projected"
     },
     "NJD": {
       "pp1": [
@@ -346,21 +346,21 @@
     },
     "OTT": {
       "pp1": [
-        "William Eklund",
+        "Stephen Halliday",
         "Tim St\u00fctzle",
         "Dylan Cozens",
         "Drake Batherson",
-        "Carter Yakemchuk"
+        "Thomas Chabot"
       ],
       "pp2": [
-        "Stephen Halliday",
+        "Claude Giroux",
         "Shane Pinto",
+        "Andre Burakovsky",
         "Fabian Zetterlund",
-        "Thomas Chabot",
-        "Claude Giroux"
+        "Carter Yakemchuk"
       ],
-      "updated_at": "2026-10-09T11:43:03.936Z",
-      "source": "Last Game (2026-10-08)"
+      "updated_at": "2026-10-10T02:43:05.490Z",
+      "source": "Projected"
     },
     "PHI": {
       "pp1": [
@@ -413,8 +413,8 @@
         "Kiefer Sherwood",
         "Jacob Trouba"
       ],
-      "updated_at": "2026-10-09T14:00:04.722Z",
-      "source": "Last Game (2026-10-08)"
+      "updated_at": "2026-10-10T02:36:30.393Z",
+      "source": "Sheng Peng"
     },
     "SEA": {
       "pp1": [
@@ -499,7 +499,7 @@
       "pp2": [
         "Anders Lee",
         "Vincent Trocheck",
-        "Michael Carcone",
+        "Kailer Yamamoto",
         "Daniil But",
         "John Marino"
       ],
