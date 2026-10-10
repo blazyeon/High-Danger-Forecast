@@ -598,8 +598,14 @@ function parlayRow(p) {
         const meta = FAMILY_META[l.family] || FAMILY_META.other;
         const style = meta.accent ? `style="--chip-accent:${meta.accent}"` : '';
         return `<span class="pl-combo-leg"><span class="pl-fam-dot" ${style}></span>
-            <span class="pl-leg-label">${escapeHtml(l.label)}</span>
-            <span class="pl-leg-odds">${fmtAmerican(l.american)}</span></span>`;
+            <span class="pl-combo-leg-col">
+                <span class="pl-combo-leg-row">
+                    <span class="pl-leg-label">${escapeHtml(l.label)}</span>
+                    <span class="pl-leg-odds">${fmtAmerican(l.american)}</span>
+                </span>
+                <span class="pl-leg-sub">${escapeHtml(l.gameLabel)}</span>
+            </span>
+        </span>`;
     }).join('');
     const targetPill = _settings.mode === 'target'
         ? `<span class="pl-dist">${(p.ratio >= 1 ? '+' : '') + ((p.ratio - 1) * 100).toFixed(0)}% vs target</span>`

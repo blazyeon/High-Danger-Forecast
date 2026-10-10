@@ -2305,9 +2305,22 @@ input[type="date"].param-input, input[type="date"].date-input {
 
 .pl-combo-leg {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 6px;
     font-size: 0.85rem;
+    min-width: 0;
+}
+
+.pl-combo-leg-col {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.pl-combo-leg-row {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
     min-width: 0;
 }
 
