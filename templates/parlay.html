@@ -18,7 +18,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
-    <link rel="stylesheet" href="/static/style.css?v=2.7">
+    <link rel="stylesheet" href="/static/style.css?v=2.8">
 </head>
 <body>
     <div class="bg-noise"></div>
@@ -55,7 +55,6 @@
                     <h2 class="card-title">Leg pool</h2>
                     <p class="card-subtitle">Pick the games and markets you want — the pool and the finder both follow</p>
                 </div>
-                <div id="plGames" class="pl-chip-row" role="group" aria-label="Games to include"></div>
                 <div id="plChips" class="pl-chip-row" role="group" aria-label="Markets to include"></div>
                 <div class="props-toolbar props-filterbar elo-toolbar">
                     <label class="props-toolbar-label" for="plSort">Sort</label>
@@ -64,7 +63,16 @@
                         <option value="prob">Hit chance</option>
                         <option value="odds">Odds</option>
                     </select>
-                    <button id="plSides" class="pl-chip" type="button" aria-pressed="false"
+                    <div class="pl-dd" id="plGamesDD">
+                        <button id="plGamesBtn" class="pl-select pl-dd-btn" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Choose games">
+                            <i class="fa-solid fa-calendar-days"></i> <span id="plGamesLabel">All games</span> <i class="fa-solid fa-chevron-down pl-dd-caret"></i>
+                        </button>
+                        <div id="plGamesPanel" class="pl-dd-panel" hidden>
+                            <label class="pl-dd-item pl-dd-all"><input type="checkbox" id="plGamesAll"> All games</label>
+                            <div id="plGamesItems"></div>
+                        </div>
+                    </div>
+                    <button id="plSides" class="pl-chip pl-chip-inbar" type="button" aria-pressed="false"
                             title="Also price Unders as their own legs (with the model's implied probability)">
                         <i class="fa-solid fa-right-left"></i> Both sides
                     </button>
@@ -170,6 +178,6 @@
         </div>
     </main>
 
-    <script src="/static/parlay.js?v=2.1"></script>
+    <script src="/static/parlay.js?v=2.2"></script>
 </body>
 </html>

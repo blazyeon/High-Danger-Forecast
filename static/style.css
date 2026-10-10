@@ -2342,6 +2342,50 @@ input[type="date"].param-input, input[type="date"].date-input {
     white-space: nowrap;
 }
 
+/* Game dropdown */
+.pl-dd { position: relative; }
+.pl-dd-btn { display: inline-flex; align-items: center; gap: 8px; cursor: pointer; }
+.pl-dd-caret { font-size: 0.7rem; color: var(--text-muted); }
+.pl-dd-panel {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    z-index: 40;
+    min-width: 230px;
+    max-height: 320px;
+    overflow: auto;
+    display: grid;
+    gap: 2px;
+    padding: 6px;
+    background: var(--bg-surface-elevated);
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-card);
+}
+
+.pl-dd-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 10px;
+    border-radius: var(--radius-sm);
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    cursor: pointer;
+    user-select: none;
+}
+
+.pl-dd-item:hover { background: var(--row-hover); color: var(--text-primary); }
+.pl-dd-item input { accent-color: var(--accent-dim); }
+.pl-dd-item .pl-chip-count { margin-left: auto; }
+
+.pl-dd-all {
+    border-bottom: 1px solid var(--border-subtle);
+    margin-bottom: 2px;
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
 /* Slip hero */
 .pl-hero {
     display: flex;

@@ -82,7 +82,6 @@ const SETTINGS_KEY = 'pl2-settings';
 const DEFAULTS = {
     markets: ['ags', 'points', 'assists', 'sog', 'saves', 'moneyline', 'total', 'puckline'],
     games: null,                       // null = all games; else a Set of gameKeys
-    hideStarted: false,
     sides: 'rec',
     mode: 'target',
     size: 3,
@@ -111,6 +110,7 @@ function loadSettings() {
         if (s && typeof s === 'object') {
             const { markets, ...rest } = s;
             Object.assign(_settings, rest);
+            delete _settings.hideStarted; // superseded: started games always hide now
             if (Array.isArray(markets)) {
                 _settings.markets = new Set(markets.filter(id => FAMILY_META[id]));
             }
@@ -218,13 +218,15 @@ function gameKey(away, home) {
 }
 
 // ── Filtering ─────────────────────────────────────────────────────────
+function gameStarted(gameKey2) {
+    const t = _gameTimes[gameKey2];
+    return !!t && t.getTime() <= Date.now();
+}
+
 function legAllowed(l) {
     if (!_settings.markets.has(l.family)) return false;
+    if (gameStarted(l.gameKey)) return false; // started games drop automatically
     if (_settings.games && !_settings.games.has(l.gameKey)) return false;
-    if (_settings.hideStarted) {
-        const t = _gameTimes[l.gameKey];
-        if (t && t.getTime() <= Date.now()) return false;
-    }
     if (l.source === 'props' && _settings.sides !== 'both' && !l.recommended) return false;
     return true;
 }
@@ -273,12 +275,13 @@ function renderChips() {
         }).join('');
 }
 
-// ── Game chips ────────────────────────────────────────────────────────
+// ── Game dropdown ─────────────────────────────────────────────────────
 function gameList() {
-    // Games with at least one visible leg under the current market/side
-    // filters, oldest start time first, unknown times last.
+    // Upcoming games with at least one visible leg under the current
+    // market/side filters — started games are excluded, oldest start first.
     const counts = {};
     _legs.forEach(l => {
+        if (gameStarted(l.gameKey)) return;
         if (!_settings.markets.has(l.family)) return;
         if (l.source === 'props' && _settings.sides !== 'both' && !l.recommended) return;
         counts[l.gameKey] = (counts[l.gameKey] || 0) + 1;
@@ -301,25 +304,31 @@ function fmtGameTime(d) {
     }
 }
 
-function renderGameChips() {
-    const host = document.getElementById('plGames');
+function renderGamesDD() {
+    const label = document.getElementById('plGamesLabel');
+    const allBox = document.getElementById('plGamesAll');
+    const items = document.getElementById('plGamesItems');
     const list = gameList();
-    if (!list.length) { host.innerHTML = '<p class="empty-desc">No games loaded yet.</p>'; return; }
 
-    const all = _settings.games === null;
-    host.innerHTML =
-        `<button type="button" class="pl-chip pl-chip-all" data-allgames aria-pressed="${all}">
-            <i class="fa-solid fa-calendar-days"></i> All games
-        </button>` +
-        list.map(g =>
-            `<button type="button" class="pl-chip" data-game="${escapeAttr(g.key)}" aria-pressed="${!all && _settings.games.has(g.key)}">
-                ${escapeHtml(gameChipLabel(g.key))}
-                ${g.time ? `<span class="pl-chip-count">${fmtGameTime(g.time)}</span>` : ''}
-            </button>`).join('') +
-        `<button type="button" id="plHideStarted" class="pl-chip" aria-pressed="${_settings.hideStarted}"
-            title="Drop legs from games that have already started">
-            <i class="fa-solid fa-clock-rotate-left"></i> Hide started
-        </button>`;
+    if (!list.length) {
+        label.textContent = 'All games';
+        allBox.checked = true;
+        allBox.disabled = true;
+        items.innerHTML = '<p class="empty-desc">No upcoming games left — every game has started.</p>';
+        return;
+    }
+
+    allBox.disabled = false;
+    allBox.checked = _settings.games === null;
+    const sel = k => _settings.games === null || _settings.games.has(k);
+    items.innerHTML = list.map(g =>
+        `<label class="pl-dd-item"><input type="checkbox" data-game="${escapeAttr(g.key)}" ${sel(g.key) ? 'checked' : ''}>
+            ${escapeHtml(gameChipLabel(g.key))}
+            ${g.time ? `<span class="pl-chip-count">${fmtGameTime(g.time)}</span>` : ''}
+        </label>`).join('');
+    label.textContent = _settings.games === null
+        ? `All games (${list.length})`
+        : `${_settings.games.size} of ${list.length} games`;
 }
 
 // ── Leg pool rendering ────────────────────────────────────────────────
@@ -593,33 +602,6 @@ function parlayRow(p) {
 
 // ── Events ────────────────────────────────────────────────────────────
 document.addEventListener('click', e => {
-    const allGames = e.target.closest('[data-allgames]');
-    if (allGames) {
-        _settings.games = null;
-        saveSettings();
-        renderGameChips();
-        renderPool();
-        return;
-    }
-    const gameChip = e.target.closest('[data-game]');
-    if (gameChip) {
-        const k = gameChip.getAttribute('data-game');
-        if (!_settings.games) _settings.games = new Set(gameList().map(g => g.key));
-        if (gameChip.getAttribute('aria-pressed') === 'true') _settings.games.delete(k);
-        else _settings.games.add(k);
-        saveSettings();
-        renderGameChips();
-        renderPool();
-        return;
-    }
-    const hideStarted = e.target.closest('#plHideStarted');
-    if (hideStarted) {
-        _settings.hideStarted = !_settings.hideStarted;
-        saveSettings();
-        renderGameChips();
-        renderPool();
-        return;
-    }
     const chip = e.target.closest('[data-chip]');
     if (chip) {
         const id = chip.getAttribute('data-chip');
@@ -634,7 +616,7 @@ document.addEventListener('click', e => {
         }
         saveSettings();
         renderChips();
-        renderGameChips();
+        renderGamesDD();
         renderPool();
         return;
     }
@@ -697,9 +679,54 @@ document.getElementById('plSides').addEventListener('click', () => {
     btn.setAttribute('aria-pressed', String(_settings.sides === 'both'));
     saveSettings();
     renderChips();
-    renderGameChips();
+    renderGamesDD();
     renderPool();
 });
+
+// Game dropdown: open/close, checkbox changes, close on outside click.
+document.getElementById('plGamesBtn').addEventListener('click', () => {
+    const panel = document.getElementById('plGamesPanel');
+    panel.hidden = !panel.hidden;
+    document.getElementById('plGamesBtn').setAttribute('aria-expanded', String(!panel.hidden));
+});
+
+document.addEventListener('click', e => {
+    if (!e.target.closest('#plGamesDD')) {
+        document.getElementById('plGamesPanel').hidden = true;
+        document.getElementById('plGamesBtn').setAttribute('aria-expanded', 'false');
+    }
+});
+
+document.addEventListener('change', e => {
+    if (e.target.id === 'plGamesAll') {
+        // Unchecking "All" selects every listed game; you then narrow from there.
+        _settings.games = e.target.checked ? null : new Set(gameList().map(g => g.key));
+        saveSettings();
+        renderGamesDD();
+        renderPool();
+        return;
+    }
+    const gameBox = e.target.closest('[data-game]');
+    if (gameBox) {
+        const k = gameBox.getAttribute('data-game');
+        const keys = gameList().map(g => g.key);
+        if (!_settings.games) _settings.games = new Set(keys);
+        if (gameBox.checked) _settings.games.add(k);
+        else _settings.games.delete(k);
+        if (_settings.games.size === keys.length) _settings.games = null; // all ticked == all
+        saveSettings();
+        renderGamesDD();
+        renderPool();
+    }
+});
+
+// Started games leave the pool automatically; recheck about once a minute.
+setInterval(() => {
+    if (_legs.length) {
+        renderGamesDD();
+        renderPool();
+    }
+}, 60000);
 
 document.getElementById('plEvOnly').addEventListener('click', () => {
     const btn = document.getElementById('plEvOnly');
@@ -801,7 +828,7 @@ async function boot() {
         _settings.games = new Set([..._settings.games].filter(k => today.has(k)));
         if (!_settings.games.size) _settings.games = null;
     }
-    renderGameChips();
+    renderGamesDD();
     renderChips();
     renderPool();
     renderSlip();
