@@ -518,6 +518,32 @@ function comboScore(legs) {
     return { legs, combinedDecimal, jointProb, ev };
 }
 
+// Greedy diversity: walk the ranked list and only take combos whose legs are
+// all unused so far -- the same star's prop shouldn't headline every result.
+// When disjoint combos run out, backfill prefers the ones sharing the fewest
+// legs with what's already shown (ties keep the original rank order).
+function pickDisjoint(sorted, count) {
+    const used = new Set();
+    const out = [];
+    const rest = [];
+    for (const p of sorted) {
+        if (out.length >= count) break;
+        if (p.legs.every(l => !used.has(l.key))) {
+            p.legs.forEach(l => used.add(l.key));
+            out.push(p);
+        } else {
+            rest.push(p);
+        }
+    }
+    const overlap = p => p.legs.filter(l => used.has(l.key)).length;
+    rest.sort((a, b) => overlap(a) - overlap(b));
+    for (const p of rest) {
+        if (out.length >= count) break;
+        out.push(p);
+    }
+    return out;
+}
+
 function buildParlays() {
     const size = _settings.size;
     const pool = builderPool();
@@ -572,17 +598,20 @@ function buildParlays() {
         if (within.length) {
             // Rank: most likely to hit first. Each row shows how far off the
             // target it lands.
-            results = within.sort((a, b) => b.jointProb - a.jointProb || a.dist - b.dist).slice(0, MAX_SHOW);
-            note = `${within.length} of ${checked.toLocaleString()} independent combos landed within ${Math.round(_settings.tolerance * 100)}% of ${fmtAmerican(decimalToAmerican(target))}.`;
+            results = pickDisjoint(within.sort((a, b) => b.jointProb - a.jointProb || a.dist - b.dist), MAX_SHOW);
+            const disjoint = results.every((p, i) => results.slice(0, i).every(q =>
+                !p.legs.some(l => q.legs.some(m => m.key === l.key))));
+            note = `${within.length} of ${checked.toLocaleString()} independent combos landed within ${Math.round(_settings.tolerance * 100)}% of ${fmtAmerican(decimalToAmerican(target))}` +
+                (disjoint ? ' — and no leg repeats across these picks.' : ', ranked by hit chance.');
         } else {
             // Nothing near the target — show the closest shots instead.
             // Closest first, most likely among equals.
-            results = scored.sort((a, b) => a.dist - b.dist || b.jointProb - a.jointProb).slice(0, MAX_SHOW);
+            results = pickDisjoint(scored.sort((a, b) => a.dist - b.dist || b.jointProb - a.jointProb), MAX_SHOW);
             note = `Nothing within ${Math.round(_settings.tolerance * 100)}% of ${fmtAmerican(decimalToAmerican(target))} — closest combos below.`;
         }
     } else {
         // Safest: rank by hit chance, best odds-breaker last.
-        results = scored.sort((a, b) => b.jointProb - a.jointProb || b.ev - a.ev).slice(0, MAX_SHOW);
+        results = pickDisjoint(scored.sort((a, b) => b.jointProb - a.jointProb || b.ev - a.ev), MAX_SHOW);
         note = `Top ${results.length} of ${checked.toLocaleString()} independent combos by hit chance.`;
     }
 
