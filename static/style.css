@@ -2072,7 +2072,7 @@ input[type="date"].param-input, input[type="date"].date-input {
     }
 }
 
-/* ── Parlay Lab (unlisted /parlay page) ─────────────────────────────── */
+/* ── Parlay Lab v2 (unlisted /parlay page) ──────────────────────────── */
 .logo-link { display: flex; cursor: pointer; }
 .parlay-grid {
     display: grid;
@@ -2107,6 +2107,44 @@ input[type="date"].param-input, input[type="date"].date-input {
     flex: 1;
 }
 
+/* Market/filter chips */
+.pl-chip-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+
+.pl-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--bg-input);
+    border: 1px solid var(--border-subtle);
+    color: var(--text-secondary);
+    border-radius: 999px;
+    padding: 6px 12px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.pl-chip:hover { border-color: var(--border-default); color: var(--text-primary); }
+
+.pl-chip[aria-pressed="true"] {
+    color: var(--chip-accent, var(--accent-dim));
+    border-color: var(--chip-accent, var(--border-default));
+    background: var(--chip-accent-dim, var(--accent-glow));
+}
+
+.pl-chip-count {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--text-muted);
+}
+
+.pl-chip[aria-pressed="true"] .pl-chip-count { color: inherit; opacity: 0.75; }
+
+.pl-preset-row { margin: 0; }
+.pl-preset-row .pl-chip { padding: 4px 10px; font-family: var(--font-mono); }
+
+/* Leg rows */
 .pl-leg-list { display: grid; gap: 2px; }
 
 .pl-leg {
@@ -2124,6 +2162,25 @@ input[type="date"].param-input, input[type="date"].date-input {
 .pl-leg-added { border-color: var(--accent-green); background: var(--accent-green-dim); }
 
 .pl-leg-main { display: flex; flex-direction: column; min-width: 0; }
+.pl-leg-titleline {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+}
+.pl-leg-badge {
+    flex-shrink: 0;
+    font-size: 0.66rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 2px 8px;
+    border-radius: 999px;
+    border: 1px solid var(--border-subtle);
+    color: var(--chip-accent, var(--text-muted));
+    background: var(--chip-accent-dim, transparent);
+    white-space: nowrap;
+}
 .pl-leg-label { color: var(--text-primary); font-size: 0.95rem; }
 .pl-leg-sub {
     color: var(--text-muted);
@@ -2175,6 +2232,180 @@ input[type="date"].param-input, input[type="date"].date-input {
     padding: 10px 12px;
 }
 
+/* Finder controls */
+.pl-finder-controls { display: grid; gap: 12px; margin-bottom: 12px; }
+.pl-control-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+
+.pl-seg {
+    display: inline-flex;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+}
+
+.pl-seg button {
+    background: var(--bg-input);
+    color: var(--text-secondary);
+    border: none;
+    padding: 7px 12px;
+    font-size: 0.82rem;
+    font-weight: 500;
+    cursor: pointer;
+    border-right: 1px solid var(--border-subtle);
+    transition: background var(--transition-fast), color var(--transition-fast);
+}
+
+.pl-seg button:last-child { border-right: none; }
+.pl-seg button:hover { color: var(--text-primary); }
+.pl-seg button[aria-pressed="true"] {
+    background: var(--bg-surface-elevated);
+    color: var(--text-primary);
+    box-shadow: inset 0 -2px 0 var(--accent);
+}
+
+.pl-target-wrap {
+    display: grid;
+    gap: 10px;
+    padding: 12px;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    background: var(--bg-input);
+}
+
+.pl-target-input { width: 96px; text-align: right; }
+.pl-target-hint {
+    color: var(--text-muted);
+    font-size: 0.78rem;
+    font-family: var(--font-mono);
+}
+
+.pl-range { width: 100%; accent-color: var(--accent-dim); cursor: pointer; }
+
+.pl-build-btn { width: 100%; justify-content: center; }
+
+/* Finder results */
+.pl-autoplay { display: grid; gap: 8px; }
+.pl-autoplay-note { color: var(--text-muted); font-size: 0.78rem; }
+
+.pl-combo {
+    display: grid;
+    gap: 8px;
+    padding: 10px 12px;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-sm);
+    background: var(--bg-surface-elevated);
+}
+
+.pl-combo-body {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 14px;
+    min-width: 0;
+}
+
+.pl-combo-leg {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.85rem;
+    min-width: 0;
+}
+
+.pl-fam-dot {
+    flex-shrink: 0;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--chip-accent, var(--accent));
+}
+
+.pl-combo-leg .pl-leg-label { color: var(--text-secondary); }
+.pl-combo-leg .pl-leg-odds { min-width: 0; font-size: 0.8rem; }
+
+.pl-combo-nums {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.pl-combo-odds { font-size: 0.9rem; min-width: 0; }
+.pl-combo-odds small { color: var(--text-muted); font-weight: 400; }
+
+.pl-dist {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--text-secondary);
+    border: 1px solid var(--border-subtle);
+    border-radius: 999px;
+    padding: 2px 8px;
+    white-space: nowrap;
+}
+
+/* Slip hero */
+.pl-hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 14px 16px;
+    margin-bottom: 12px;
+    background: var(--bg-input);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+}
+
+.pl-hero-odds {
+    font-family: var(--font-heading);
+    font-size: 2.1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.1;
+}
+
+.pl-hero-label {
+    color: var(--text-muted);
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-top: 2px;
+}
+
+.pl-hero-side {
+    display: grid;
+    justify-items: end;
+    gap: 5px;
+    text-align: right;
+}
+
+.pl-hero-prob {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.1;
+}
+
+.pl-meter {
+    width: 132px;
+    height: 6px;
+    border-radius: 999px;
+    background: var(--bg-surface-hover);
+    overflow: hidden;
+}
+
+.pl-meter-fill {
+    height: 100%;
+    width: 0%;
+    border-radius: 999px;
+    background: var(--accent-green);
+    transition: width var(--transition-base);
+}
+
+.pl-meter-fill.mid { background: var(--accent-gold); }
+.pl-meter-fill.low { background: var(--accent-red); }
+
+/* Slip legs + summary */
 .pl-slip-legs { display: grid; gap: 6px; margin-bottom: 14px; }
 
 .pl-slip-leg {
@@ -2214,6 +2445,13 @@ input[type="date"].param-input, input[type="date"].date-input {
     align-items: center;
     justify-content: space-between;
 }
+
+.pl-summary-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+.pl-summary-actions .action-btn { flex: 1; justify-content: center; }
 
 .pl-money-wrap {
     display: flex;
@@ -2262,45 +2500,7 @@ input[type="date"].param-input, input[type="date"].date-input {
     font-size: 0.82rem;
 }
 
-.pl-autoplay { display: grid; gap: 6px; }
-
-.pl-combo {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 14px;
-    padding: 10px 12px;
-    border: 1px solid var(--border-subtle);
-    border-radius: var(--radius-sm);
-    background: var(--bg-surface-elevated);
-}
-
-.pl-combo-legs {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 4px 14px;
-    min-width: 0;
-}
-
-.pl-combo-leg {
-    display: flex;
-    align-items: baseline;
-    gap: 6px;
-    font-size: 0.85rem;
-}
-
-.pl-combo-leg .pl-leg-label { color: var(--text-secondary); }
-.pl-combo-leg .pl-leg-odds { min-width: 0; font-size: 0.8rem; }
-
-.pl-combo-nums {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    flex-shrink: 0;
-}
-
-.pl-combo-odds { font-size: 0.85rem; min-width: 0; }
-
 @media (max-width: 900px) {
     .parlay-grid { grid-template-columns: 1fr; }
+    .pl-hero-odds { font-size: 1.7rem; }
 }

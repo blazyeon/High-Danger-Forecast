@@ -18,7 +18,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
-    <link rel="stylesheet" href="/static/style.css?v=2.6">
+    <link rel="stylesheet" href="/static/style.css?v=2.7">
 </head>
 <body>
     <div class="bg-noise"></div>
@@ -34,7 +34,7 @@
                 </div>
                 <div class="logo-text">
                     <h1>Parlay Lab</h1>
-                    <span class="tagline">Unlisted parlay builder</span>
+                    <span class="tagline">Pick your markets, set your target odds</span>
                 </div>
             </div>
             <div class="header-right">
@@ -52,23 +52,22 @@
             <!-- Leg pool -->
             <section class="card">
                 <div class="card-header">
-                    <h2 class="card-title">Available Legs</h2>
-                    <p class="card-subtitle">Priced player props and game bets from today's boards</p>
+                    <h2 class="card-title">Leg pool</h2>
+                    <p class="card-subtitle">Toggle the markets you want — the pool and the finder both follow</p>
                 </div>
+                <div id="plChips" class="pl-chip-row" role="group" aria-label="Markets to include"></div>
                 <div class="props-toolbar props-filterbar elo-toolbar">
-                    <label class="props-toolbar-label" for="plSource">Source</label>
-                    <select id="plSource" class="pl-select">
-                        <option value="all">All legs</option>
-                        <option value="props">Player props</option>
-                        <option value="games">Game bets</option>
-                    </select>
                     <label class="props-toolbar-label" for="plSort">Sort</label>
                     <select id="plSort" class="pl-select">
                         <option value="edge">Model edge</option>
                         <option value="prob">Hit chance</option>
-                        <option value="odds">Best odds</option>
+                        <option value="odds">Odds</option>
                     </select>
-                    <input id="plSearch" class="pl-search" type="search" placeholder="Search player or team" aria-label="Search legs">
+                    <button id="plSides" class="pl-chip" type="button" aria-pressed="false"
+                            title="Also price Unders as their own legs (with the model's implied probability)">
+                        <i class="fa-solid fa-right-left"></i> Both sides
+                    </button>
+                    <input id="plSearch" class="pl-search" type="search" placeholder="Search player, team or game" aria-label="Search legs">
                 </div>
                 <div id="plLoadState" class="empty-state" hidden>
                     <p class="empty-desc">Loading legs…</p>
@@ -76,12 +75,73 @@
                 <div id="plPool" class="pl-leg-list"></div>
             </section>
 
-            <!-- Slip + autoplay -->
+            <!-- Finder + slip -->
             <div class="parlay-side">
+
+                <section class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Parlay finder</h2>
+                        <p class="card-subtitle">One leg per game, built only from the markets checked above</p>
+                    </div>
+                    <div class="pl-finder-controls">
+                        <div class="pl-control-row">
+                            <span class="props-toolbar-label">Goal</span>
+                            <div id="plMode" class="pl-seg" role="group" aria-label="Finder goal">
+                                <button type="button" data-mode="target" aria-pressed="true"><i class="fa-solid fa-bullseye"></i> Hit my odds</button>
+                                <button type="button" data-mode="chance" aria-pressed="false"><i class="fa-solid fa-shield-halved"></i> Safest</button>
+                            </div>
+                        </div>
+                        <div class="pl-control-row">
+                            <span class="props-toolbar-label">Legs</span>
+                            <div id="plSize" class="pl-seg" role="group" aria-label="Leg count">
+                                <button type="button" data-size="2" aria-pressed="false">2</button>
+                                <button type="button" data-size="3" aria-pressed="true">3</button>
+                                <button type="button" data-size="4" aria-pressed="false">4</button>
+                                <button type="button" data-size="5" aria-pressed="false">5</button>
+                                <button type="button" data-size="6" aria-pressed="false">6</button>
+                            </div>
+                        </div>
+                        <div id="plTargetWrap" class="pl-target-wrap">
+                            <div class="pl-control-row">
+                                <span class="props-toolbar-label">Target odds</span>
+                                <input id="plTargetInput" class="pl-stake pl-target-input" type="number" step="5" value="350" aria-label="Target American odds">
+                                <span class="pl-target-hint">american · decimal <span id="plTargetDec">4.50</span></span>
+                            </div>
+                            <input id="plTargetRange" class="pl-range" type="range" min="0" max="100" step="0.5" value="50" aria-label="Target odds slider">
+                            <div id="plPresets" class="pl-chip-row pl-preset-row" role="group" aria-label="Target odds presets"></div>
+                        </div>
+                        <div class="pl-control-row" id="plFinderOpts">
+                            <div id="plTol" class="pl-seg" role="group" aria-label="Target tolerance">
+                                <button type="button" data-tol="0.1" aria-pressed="false">±10%</button>
+                                <button type="button" data-tol="0.2" aria-pressed="true">±20%</button>
+                                <button type="button" data-tol="0.35" aria-pressed="false">±35%</button>
+                            </div>
+                            <button id="plEvOnly" class="pl-chip" type="button" aria-pressed="false" title="Only show combos the model rates as +EV">
+                                <i class="fa-solid fa-arrow-trend-up"></i> +EV only
+                            </button>
+                        </div>
+                        <button id="plBuild" class="action-btn pl-build-btn" type="button"><i class="fa-solid fa-wand-magic-sparkles"></i> Build parlays</button>
+                    </div>
+                    <div id="plAutoplay" class="pl-autoplay">
+                        <p class="empty-desc">Set the goal and leg count, then build — combos come from today's legs.</p>
+                    </div>
+                </section>
+
                 <section class="card">
                     <div class="card-header">
                         <h2 class="card-title">Slip</h2>
                         <p class="card-subtitle">Joint math assumes the legs are independent</p>
+                    </div>
+                    <div class="pl-hero">
+                        <div class="pl-hero-main">
+                            <div id="plCombinedOdds" class="pl-hero-odds">—</div>
+                            <div class="pl-hero-label">combined odds</div>
+                        </div>
+                        <div class="pl-hero-side">
+                            <div id="plJointProb" class="pl-hero-prob">—</div>
+                            <div class="pl-meter" aria-hidden="true"><div id="plMeterFill" class="pl-meter-fill"></div></div>
+                            <div class="pl-hero-label">hit chance</div>
+                        </div>
                     </div>
                     <div id="slipLegs" class="pl-slip-legs"></div>
                     <div class="pl-summary">
@@ -90,8 +150,6 @@
                             <span class="pl-money-wrap">$<input id="plStake" class="pl-stake" type="number" min="0" step="1" value="10" inputmode="decimal"></span>
                         </div>
                         <dl class="pl-totals">
-                            <div class="pl-total-row"><dt>Combined odds</dt><dd id="plCombinedOdds">—</dd></div>
-                            <div class="pl-total-row"><dt>Hit chance</dt><dd id="plJointProb">—</dd></div>
                             <div class="pl-total-row"><dt>Book implied</dt><dd id="plImplied">—</dd></div>
                             <div class="pl-total-row"><dt>Value (EV)</dt><dd id="plEV">—</dd></div>
                             <div class="pl-total-row"><dt>Payout / profit</dt><dd id="plPayout">—</dd></div>
@@ -99,33 +157,18 @@
                         <div id="plCorrelationNote" class="pl-warn" hidden>
                             <i class="fa-solid fa-link"></i> Two legs share a game — the independence math no longer holds.
                         </div>
-                        <button id="plClear" class="action-btn" type="button"><i class="fa-solid fa-eraser"></i> Clear slip</button>
+                        <div class="pl-summary-actions">
+                            <button id="plCopy" class="action-btn" type="button"><i class="fa-solid fa-copy"></i> Copy slip</button>
+                            <button id="plClear" class="action-btn" type="button"><i class="fa-solid fa-eraser"></i> Clear slip</button>
+                        </div>
                     </div>
                 </section>
 
-                <section class="card">
-                    <div class="card-header">
-                        <h2 class="card-title">Auto-built parlays</h2>
-                        <p class="card-subtitle">Positive-EV combos, most likely to hit first — one leg per game</p>
-                    </div>
-                    <div class="props-toolbar props-filterbar elo-toolbar">
-                        <label class="props-toolbar-label" for="plBuildSize">Legs</label>
-                        <select id="plBuildSize" class="pl-select">
-                            <option value="2">2-leg</option>
-                            <option value="3">3-leg</option>
-                            <option value="4">4-leg</option>
-                        </select>
-                        <button class="props-sort-btn" id="plBuild" type="button"><i class="fa-solid fa-wand-magic-sparkles"></i> Build</button>
-                    </div>
-                    <div id="plAutoplay" class="pl-autoplay">
-                        <p class="empty-desc">Pick a leg count and build — combos come from today's legs, ranked by EV.</p>
-                    </div>
-                </section>
             </div>
 
         </div>
     </main>
 
-    <script src="/static/parlay.js?v=1.1"></script>
+    <script src="/static/parlay.js?v=2.0"></script>
 </body>
 </html>

@@ -1,7 +1,12 @@
-/* Parlay Lab — unlisted parlay builder.
+/* Parlay Lab v2 — unlisted parlay builder.
    Loads priced legs from the existing props and game-bet boards, then does all
    parlay math client-side: combined decimal odds, joint hit probability under
-   independence, and EV vs the book's combined implied probability. */
+   independence, and EV vs the book's combined implied probability.
+
+   v2: market chips drive both the pool and the finder; both prop sides can be
+   exposed as legs; the finder can aim at a user-set target odds (within a
+   tolerance band) instead of just maximizing hit chance; settings persist in
+   localStorage. */
 'use strict';
 
 // ── Odds helpers (same conversions as the server) ─────────────────────
@@ -32,43 +37,132 @@ function money(v) {
     return (neg ? '-$' : '$') + s;
 }
 
+// ── Market families ───────────────────────────────────────────────────
+const PROP_FAMILIES = {
+    'Anytime Goal Scorer': 'ags',
+    'Points': 'points',
+    'Assists': 'assists',
+    'Shots On Goal': 'sog',
+    'Total Saves': 'saves',
+};
+
+const FAMILY_META = {
+    ags:       { label: 'Anytime Goal',  accent: 'var(--accent-gold)',   dim: 'var(--accent-gold-dim)' },
+    points:    { label: 'Points',        accent: 'var(--accent-purple)', dim: 'var(--accent-purple-dim)' },
+    assists:   { label: 'Assists',       accent: 'var(--accent-blue)',   dim: 'var(--accent-blue-dim)' },
+    sog:       { label: 'Shots on Goal', accent: 'var(--accent-green)',  dim: 'var(--accent-green-dim)' },
+    saves:     { label: 'Goalie Saves',  accent: 'var(--accent-red)',    dim: 'var(--accent-red-dim)' },
+    moneyline: { label: 'Moneyline',     accent: null,                   dim: null },
+    total:     { label: 'Total',         accent: null,                   dim: null },
+    puckline:  { label: 'Puck Line',     accent: null,                   dim: null },
+    other:     { label: 'Other',         accent: null,                   dim: null },
+};
+const CHIP_ORDER = ['ags', 'points', 'assists', 'sog', 'saves', 'moneyline', 'total', 'puckline', 'other'];
+
+function familyOfProp(market) {
+    return PROP_FAMILIES[market] || 'other';
+}
+
+function familyOfGame(market) {
+    const m = String(market || '');
+    if (m.startsWith('Moneyline')) return 'moneyline';
+    if (m.startsWith('Total')) return 'total';
+    if (m.startsWith('Puck Line')) return 'puckline';
+    return 'other';
+}
+
 // ── State ─────────────────────────────────────────────────────────────
-let _legs = [];              // priced legs: {key, source, gameLabel, gameKey, label, detail, american, decimal, modelProb, edge}
+// Leg: {key, source('props'|'games'), family, recommended, side, gameLabel,
+//       gameKey, label, detail, american, decimal, modelProb, edge}
+let _legs = [];
 let _slip = [];              // leg keys, in insertion order
+
+const SETTINGS_KEY = 'pl2-settings';
+const DEFAULTS = {
+    markets: ['ags', 'points', 'assists', 'sog', 'saves', 'moneyline', 'total', 'puckline'],
+    sides: 'rec',
+    mode: 'target',
+    size: 3,
+    target: 350,                       // American odds the finder aims at
+    tolerance: 0.2,                    // +/-% band around the target (on decimal odds)
+    evOnly: false,
+    stake: 10,
+};
+let _settings = { ...DEFAULTS, markets: new Set(DEFAULTS.markets) };
+
+function saveSettings() {
+    try {
+        localStorage.setItem(SETTINGS_KEY, JSON.stringify({
+            ..._settings,
+            markets: [..._settings.markets],
+        }));
+    } catch (e) {}
+}
+
+function loadSettings() {
+    try {
+        const raw = localStorage.getItem(SETTINGS_KEY);
+        if (!raw) return;
+        const s = JSON.parse(raw);
+        if (s && typeof s === 'object') {
+            const { markets, ...rest } = s;
+            Object.assign(_settings, rest);
+            if (Array.isArray(markets)) {
+                _settings.markets = new Set(markets.filter(id => FAMILY_META[id]));
+            }
+        }
+    } catch (e) {}
+}
 
 // ── Leg construction ──────────────────────────────────────────────────
 function addPropLegs(payload) {
     (payload.props || []).forEach(p => {
-        let american, decimal, modelProb;
-        if (p.recommendation === 'Under') {
-            // Goalie saves keeps both sides; the Under is priced against the
-            // complement of the model's over probability.
-            american = p.under_american;
-            decimal = p.under_decimal;
-            modelProb = 1 - p.prob_over / 100;
-        } else if (p.recommendation === 'Over') {
-            american = p.over_american;
-            decimal = p.over_decimal;
-            modelProb = p.prob_over / 100;
-        } else {
-            return; // Pass — the model has no position on it.
-        }
-        if (american == null && decimal == null) return;
-        if (decimal == null) decimal = americanToDecimal(american);
-
+        const family = familyOfProp(p.market);
+        const recSide = p.recommendation === 'Under' ? 'Under'
+            : p.recommendation === 'Over' ? 'Over' : null;
         const gameLabel = gameLabelFrom(abbrName(p.home_abbr), abbrName(p.away_abbr));
-        _legs.push({
-            key: `prop:${p.player}:${p.market}:${p.line}`,
+        const base = {
             source: 'props',
+            family: family,
             gameLabel: gameLabel,
             gameKey: gameKey(p.away_abbr, p.home_abbr),
-            label: `${p.player} — ${p.market} ${p.line > 0 ? '+' : ''}${p.line}`,
             detail: p.player_team ? p.player_team.toUpperCase() : '',
-            american: american != null ? american : decimalToAmerican(decimal),
-            decimal: decimal,
-            modelProb: modelProb,
-            edge: p.edge || 0,
-        });
+        };
+
+        const lineTxt = `${p.line > 0 ? '+' : ''}${p.line}`;
+        // Over side.
+        if (p.over_american != null || p.over_decimal != null) {
+            const decimal = p.over_decimal || americanToDecimal(p.over_american);
+            const implied = p.implied_over != null ? p.implied_over / 100 : 1 / decimal;
+            _legs.push({
+                ...base,
+                key: `prop:${p.player}::${p.market}::${p.line}::Over`,
+                recommended: recSide === 'Over',
+                side: 'Over',
+                label: `${p.player} — ${p.market} ${lineTxt} (Over)`,
+                american: p.over_american != null ? p.over_american : decimalToAmerican(decimal),
+                decimal: decimal,
+                modelProb: p.prob_over / 100,
+                edge: (p.prob_over / 100) - implied,
+            });
+        }
+        // Under side (the feed keeps Under prices for most markets; AGS is Over-only).
+        if (p.under_american != null || p.under_decimal != null) {
+            const decimal = p.under_decimal || americanToDecimal(p.under_american);
+            const probUnder = 1 - p.prob_over / 100;
+            const implied = p.implied_under != null ? p.implied_under / 100 : 1 / decimal;
+            _legs.push({
+                ...base,
+                key: `prop:${p.player}::${p.market}::${p.line}::Under`,
+                recommended: recSide === 'Under',
+                side: 'Under',
+                label: `${p.player} — ${p.market} ${lineTxt} (Under)`,
+                american: p.under_american != null ? p.under_american : decimalToAmerican(decimal),
+                decimal: decimal,
+                modelProb: probUnder,
+                edge: probUnder - implied,
+            });
+        }
     });
 }
 
@@ -80,6 +174,9 @@ function addGameLegs(payload) {
             _legs.push({
                 key: `game:${g.away}@${g.home}:${e.market}:${e.side || e.pick}`,
                 source: 'games',
+                family: familyOfGame(e.market),
+                recommended: true,
+                side: e.side || e.pick || '',
                 gameLabel: gameLabelFrom(abbrName(g.home), abbrName(g.away)),
                 gameKey: gameKey(g.away, g.home),
                 label: `${e.pick} ${e.market || ''}`.trim(),
@@ -107,17 +204,18 @@ function gameKey(away, home) {
     return `${abbrName(away)}@${abbrName(home)}`;
 }
 
-// ── Leg pool rendering ────────────────────────────────────────────────
-function currentSource() {
-    return document.getElementById('plSource').value || 'all';
+// ── Filtering ─────────────────────────────────────────────────────────
+function legAllowed(l) {
+    if (!_settings.markets.has(l.family)) return false;
+    if (l.source === 'props' && _settings.sides !== 'both' && !l.recommended) return false;
+    return true;
 }
 
 function filteredLegs() {
-    const src = currentSource();
     const q = (document.getElementById('plSearch').value || '').trim().toLowerCase();
     const sort = document.getElementById('plSort').value;
 
-    let out = _legs.filter(l => src === 'all' || l.source === src);
+    let out = _legs.filter(legAllowed);
     if (q) out = out.filter(l => l.label.toLowerCase().includes(q) || l.gameLabel.toLowerCase().includes(q));
 
     if (sort === 'prob') out.sort((a, b) => b.modelProb - a.modelProb);
@@ -126,18 +224,53 @@ function filteredLegs() {
     return out;
 }
 
+// ── Market chips ──────────────────────────────────────────────────────
+function familyCounts() {
+    const counts = {};
+    _legs.forEach(l => {
+        if (l.source === 'props' && _settings.sides !== 'both' && !l.recommended) return;
+        counts[l.family] = (counts[l.family] || 0) + 1;
+    });
+    return counts;
+}
+
+function renderChips() {
+    const host = document.getElementById('plChips');
+    const counts = familyCounts();
+    const present = CHIP_ORDER.filter(id => counts[id]);
+    _settings.markets = new Set([..._settings.markets].filter(id => counts[id]));
+    if (!present.length) { host.innerHTML = '<p class="empty-desc">No markets loaded yet.</p>'; return; }
+
+    const allOn = present.every(id => _settings.markets.has(id));
+    host.innerHTML =
+        `<button type="button" class="pl-chip pl-chip-all" data-chip="__all" aria-pressed="${allOn}">
+            <i class="fa-solid fa-layer-group"></i> All markets
+        </button>` +
+        present.map(id => {
+            const meta = FAMILY_META[id];
+            const style = meta.accent ? `style="--chip-accent:${meta.accent};--chip-accent-dim:${meta.dim}"` : '';
+            return `<button type="button" class="pl-chip" ${style} data-chip="${id}" aria-pressed="${_settings.markets.has(id)}">
+                ${escapeHtml(meta.label)} <span class="pl-chip-count">${counts[id]}</span>
+            </button>`;
+        }).join('');
+}
+
+// ── Leg pool rendering ────────────────────────────────────────────────
 const MAX_POOL_ROWS = 80;
 
 function renderPool() {
     const host = document.getElementById('plPool');
     const legs = filteredLegs();
 
+    if (!_legs.length) return; // boot error already rendered
     if (!legs.length) {
         host.innerHTML = `
             <div class="empty-state">
-                <i class="fa-solid fa-inbox empty-icon"></i>
-                <p class="empty-title">No legs match</p>
-                <p class="empty-desc">Loosen the search or check back after the daily update.</p>
+                <i class="fa-solid fa-sliders empty-icon"></i>
+                <p class="empty-title">${_settings.markets.size ? 'No legs match' : 'No markets selected'}</p>
+                <p class="empty-desc">${_settings.markets.size
+                    ? 'Loosen the search, check Both sides, or re-enable a market.'
+                    : 'Toggle at least one market chip above.'}</p>
             </div>`;
         return;
     }
@@ -151,10 +284,15 @@ function renderPool() {
 
 function legRow(l) {
     const inSlip = _slip.includes(l.key);
+    const meta = FAMILY_META[l.family] || FAMILY_META.other;
+    const style = meta.accent ? `style="--chip-accent:${meta.accent};--chip-accent-dim:${meta.dim}"` : '';
     return `
         <div class="pl-leg${inSlip ? ' pl-leg-added' : ''}" data-key="${escapeAttr(l.key)}">
             <div class="pl-leg-main">
-                <span class="pl-leg-label">${escapeHtml(l.label)}</span>
+                <span class="pl-leg-titleline">
+                    <span class="pl-leg-badge" ${style}>${escapeHtml(meta.label)}</span>
+                    <span class="pl-leg-label">${escapeHtml(l.label)}</span>
+                </span>
                 <span class="pl-leg-sub">${escapeHtml(l.gameLabel)}${l.detail ? ' · ' + escapeHtml(l.detail) : ''}</span>
             </div>
             <div class="pl-leg-nums">
@@ -186,7 +324,7 @@ function renderSlip() {
                     <i class="fa-solid fa-xmark"></i>
                 </button>
             </div>`).join('')
-        : '<p class="empty-desc">Add legs from the left — combined odds and EV show up here.</p>';
+        : '<p class="empty-desc">Add legs from the left — combined odds and hit chance show up here.</p>';
 
     renderSlipTotals(legs);
     renderPool(); // reflect the added marks
@@ -202,8 +340,13 @@ function renderSlipTotals(legs) {
     const payout = stake * combinedDecimal;
 
     document.getElementById('plCombinedOdds').textContent = legs.length
-        ? `${fmtAmerican(american)} (${combinedDecimal.toFixed(2)})` : '—';
+        ? fmtAmerican(american) : '—';
     document.getElementById('plJointProb').textContent = legs.length ? pct(jointProb) : '—';
+
+    const fill = document.getElementById('plMeterFill');
+    fill.style.width = legs.length ? `${Math.min(100, jointProb * 100).toFixed(1)}%` : '0%';
+    fill.className = 'pl-meter-fill ' + (jointProb >= 0.2 ? '' : jointProb >= 0.05 ? 'mid' : 'low');
+
     document.getElementById('plImplied').textContent = legs.length ? pct(implied) : '—';
 
     const evEl = document.getElementById('plEV');
@@ -219,32 +362,89 @@ function renderSlipTotals(legs) {
     document.getElementById('plCorrelationNote').hidden = !clash;
 }
 
+// ── Finder controls ───────────────────────────────────────────────────
+const RANGE_MIN = 1.3, RANGE_MAX = 12;
+
+function targetDecimal() {
+    // The number input wins when valid; otherwise the slider drives.
+    const num = parseFloat(document.getElementById('plTargetInput').value);
+    if (!isNaN(num) && num !== 0 && americanToDecimal(num)) return americanToDecimal(num);
+    return slideToDecimal(parseFloat(document.getElementById('plTargetRange').value) || 50);
+}
+
+function slideToDecimal(pos) {
+    const t = Math.min(1, Math.max(0, pos / 100));
+    return Math.exp(Math.log(RANGE_MIN) + t * (Math.log(RANGE_MAX) - Math.log(RANGE_MIN)));
+}
+
+function decimalToSlide(d) {
+    const t = (Math.log(Math.min(RANGE_MAX, Math.max(RANGE_MIN, d))) - Math.log(RANGE_MIN))
+        / (Math.log(RANGE_MAX) - Math.log(RANGE_MIN));
+    return t * 100;
+}
+
+function syncTargetUI(fromRange) {
+    const num = document.getElementById('plTargetInput');
+    const range = document.getElementById('plTargetRange');
+    if (fromRange) {
+        num.value = fmtAmerican(decimalToAmerican(slideToDecimal(parseFloat(range.value)))).replace('+', '');
+    } else {
+        range.value = decimalToSlide(targetDecimal());
+    }
+    document.getElementById('plTargetDec').textContent = targetDecimal().toFixed(2);
+    document.getElementById('plTargetWrap').hidden = _settings.mode !== 'target';
+    document.getElementById('plTol').style.display = _settings.mode === 'target' ? '' : 'none';
+}
+
+function syncSegButtons(hostId, attr, value) {
+    document.querySelectorAll(`#${hostId} button`).forEach(b =>
+        b.setAttribute('aria-pressed', String(b.dataset[attr] === String(value))));
+}
+
 // ── Auto-builder ──────────────────────────────────────────────────────
-const BUILD_POOL_CAP = 36;
+const BUILD_POOL_CAP = 30;
 const MAX_SHOW = 12;
 
-function buildParlays() {
-    const size = parseInt(document.getElementById('plBuildSize').value, 10) || 2;
-    // Candidates: legs the model actually likes, ranked by per-leg edge.
-    const pool = [..._legs].sort((a, b) => b.edge - a.edge).slice(0, BUILD_POOL_CAP);
+function builderPool() {
+    const pool = _legs.filter(legAllowed).sort((a, b) => b.edge - a.edge);
+    return pool.slice(0, BUILD_POOL_CAP);
+}
 
+function comboScore(legs) {
+    const combinedDecimal = legs.reduce((a, l) => a * l.decimal, 1);
+    const jointProb = legs.reduce((a, l) => a * l.modelProb, 1);
+    const ev = jointProb * (combinedDecimal - 1) - (1 - jointProb);
+    return { legs, combinedDecimal, jointProb, ev };
+}
+
+function buildParlays() {
+    const size = _settings.size;
+    const pool = builderPool();
     const host = document.getElementById('plAutoplay');
+
     if (pool.length < size) {
-        host.innerHTML = `<p class="empty-desc">Only ${pool.length} priced legs available — need at least ${size}.</p>`;
+        host.innerHTML = `<p class="empty-desc">Only ${pool.length} legs in the selected markets — check more markets or lower the leg count.</p>`;
+        return;
+    }
+
+    if (!_settings.markets.size) {
+        host.innerHTML = `<p class="empty-desc">No markets selected — toggle a market chip above.</p>`;
         return;
     }
 
     const combos = [];
     const idx = [];
+    let checked = 0;
     (function rec(start, depth) {
-        if (depth === size) { combos.push([...idx]); return; }
+        if (depth === size) { combos.push([...idx]); checked++; return; }
         for (let i = start; i < pool.length; i++) {
             idx[depth] = i;
             rec(i + 1, depth + 1);
-            if (combos.length > 250000) break; // hard stop, never hit at cap 36
+            if (combos.length > 400000) return; // hard stop
         }
     })(0, 0);
 
+    const target = _settings.mode === 'target' ? targetDecimal() : null;
     const games = new Set();
 
     const scored = combos
@@ -257,38 +457,61 @@ function buildParlays() {
             }
             return true;
         })
-        .map(idxs => {
-            const legs = idxs.map(i => pool[i]);
-            const combinedDecimal = legs.reduce((a, l) => a * l.decimal, 1);
-            const jointProb = legs.reduce((a, l) => a * l.modelProb, 1);
-            const ev = jointProb * (combinedDecimal - 1) - (1 - jointProb);
-            return { legs, combinedDecimal, jointProb, ev };
-        })
-        // Ranking by EV alone crowns the model's longshot tails: two +1300
-        // anytime-scorer defencemen read as a +251% "value" parlay at a 1-2%
-        // hit chance, and they wash out every points/SOG leg. Rank the
-        // positive-EV combos by hit chance instead, most likely first.
-        .filter(p => p.ev > 0)
-        .sort((a, b) => b.jointProb - a.jointProb || b.ev - a.ev)
-        .slice(0, MAX_SHOW);
+        .map(idxs => comboScore(idxs.map(i => pool[i])))
+        .map(p => ({
+            ...p,
+            ratio: target ? p.combinedDecimal / target : 1,
+            dist: target ? Math.abs(p.combinedDecimal / target - 1) : 0,
+        }))
+        .filter(p => !_settings.evOnly || p.ev > 0);
 
-    host.innerHTML = scored.length
-        ? scored.map(p => parlayRow(p)).join('')
-        : '<p class="empty-desc">No independent combo among the top legs — raise the leg count or widen the pool.</p>';
+    let results, note;
+    if (_settings.mode === 'target') {
+        const within = scored.filter(p => p.dist <= _settings.tolerance);
+        if (within.length) {
+            // Rank: most likely to hit first. Each row shows how far off the
+            // target it lands.
+            results = within.sort((a, b) => b.jointProb - a.jointProb || a.dist - b.dist).slice(0, MAX_SHOW);
+            note = `${within.length} of ${checked.toLocaleString()} independent combos landed within ${Math.round(_settings.tolerance * 100)}% of ${fmtAmerican(decimalToAmerican(target))}.`;
+        } else {
+            // Nothing near the target — show the closest shots instead.
+            // Closest first, most likely among equals.
+            results = scored.sort((a, b) => a.dist - b.dist || b.jointProb - a.jointProb).slice(0, MAX_SHOW);
+            note = `Nothing within ${Math.round(_settings.tolerance * 100)}% of ${fmtAmerican(decimalToAmerican(target))} — closest combos below.`;
+        }
+    } else {
+        // Safest: rank by hit chance, best odds-breaker last.
+        results = scored.sort((a, b) => b.jointProb - a.jointProb || b.ev - a.ev).slice(0, MAX_SHOW);
+        note = `Top ${results.length} of ${checked.toLocaleString()} independent combos by hit chance.`;
+    }
+
+    host.innerHTML =
+        `<p class="pl-autoplay-note">${escapeHtml(note)}</p>` +
+        (results.length
+            ? results.map(p => parlayRow(p)).join('')
+            : '<p class="empty-desc">No qualifying combo — widen the tolerance, drop the +EV filter, or change markets.</p>');
 }
 
 function parlayRow(p) {
-    const legsHtml = p.legs.map(l => `
-        <span class="pl-combo-leg"><span class="pl-leg-label">${escapeHtml(l.label)}</span>
-        <span class="pl-leg-odds">${fmtAmerican(l.american)}</span></span>`).join('');
-    const ev = p.ev;
+    const legsHtml = p.legs.map(l => {
+        const meta = FAMILY_META[l.family] || FAMILY_META.other;
+        const style = meta.accent ? `style="--chip-accent:${meta.accent}"` : '';
+        return `<span class="pl-combo-leg"><span class="pl-fam-dot" ${style}></span>
+            <span class="pl-leg-label">${escapeHtml(l.label)}</span>
+            <span class="pl-leg-odds">${fmtAmerican(l.american)}</span></span>`;
+    }).join('');
+    const targetPill = _settings.mode === 'target'
+        ? `<span class="pl-dist">${(p.ratio >= 1 ? '+' : '') + ((p.ratio - 1) * 100).toFixed(0)}% vs target</span>`
+        : '';
+    const american = decimalToAmerican(p.combinedDecimal);
     return `
         <div class="pl-combo">
-            <div class="pl-combo-legs">${legsHtml}</div>
+            <div class="pl-combo-body">${legsHtml}</div>
             <div class="pl-combo-nums">
-                <span class="pl-leg-odds pl-combo-odds">${decimalToAmerican(p.combinedDecimal) != null ? fmtAmerican(decimalToAmerican(p.combinedDecimal)) : ''} (${p.combinedDecimal.toFixed(2)})</span>
+                ${targetPill}
+                <span class="pl-leg-odds pl-combo-odds">${fmtAmerican(american)} <small>(${p.combinedDecimal.toFixed(2)})</small></span>
                 <span class="pl-leg-prob">${pct(p.jointProb)}</span>
-                <span class="pl-leg-edge ${ev > 0 ? 'pos' : 'neg'}">${(ev * 100).toFixed(1)}%</span>
+                <span class="pl-leg-edge ${p.ev > 0 ? 'pos' : 'neg'}">${(p.ev * 100).toFixed(1)}%</span>
                 <button class="props-sort-btn pl-add" type="button" data-load="${escapeAttr(p.legs.map(l => l.key).join('|'))}" aria-label="Load this parlay into the slip">
                     <i class="fa-solid fa-download"></i>
                 </button>
@@ -298,6 +521,23 @@ function parlayRow(p) {
 
 // ── Events ────────────────────────────────────────────────────────────
 document.addEventListener('click', e => {
+    const chip = e.target.closest('[data-chip]');
+    if (chip) {
+        const id = chip.getAttribute('data-chip');
+        const counts = familyCounts();
+        const present = CHIP_ORDER.filter(fid => counts[fid]);
+        if (id === '__all') {
+            _settings.markets = new Set(present);
+        } else if (chip.getAttribute('aria-pressed') === 'true') {
+            _settings.markets.delete(id);
+        } else {
+            _settings.markets.add(id);
+        }
+        saveSettings();
+        renderChips();
+        renderPool();
+        return;
+    }
     const add = e.target.closest('[data-add]');
     if (add) {
         const key = add.getAttribute('data-add');
@@ -316,15 +556,88 @@ document.addEventListener('click', e => {
     if (load) {
         _slip = load.getAttribute('data-load').split('|');
         renderSlip();
+        return;
+    }
+    const preset = e.target.closest('[data-american]');
+    if (preset) {
+        const a = parseInt(preset.getAttribute('data-american'), 10);
+        document.getElementById('plTargetInput').value = a;
+        syncTargetUI(false);
+        _settings.target = a;
+        saveSettings();
+        return;
+    }
+    const modeBtn = e.target.closest('#plMode button');
+    if (modeBtn) {
+        _settings.mode = modeBtn.dataset.mode;
+        syncSegButtons('plMode', 'mode', _settings.mode);
+        syncTargetUI(false);
+        saveSettings();
+        return;
+    }
+    const sizeBtn = e.target.closest('#plSize button');
+    if (sizeBtn) {
+        _settings.size = parseInt(sizeBtn.dataset.size, 10) || 3;
+        syncSegButtons('plSize', 'size', _settings.size);
+        saveSettings();
+        return;
+    }
+    const tolBtn = e.target.closest('#plTol button');
+    if (tolBtn) {
+        _settings.tolerance = parseFloat(tolBtn.dataset.tol) || 0.2;
+        syncSegButtons('plTol', 'tol', _settings.tolerance);
+        saveSettings();
+        return;
     }
 });
 
-document.getElementById('plSource').addEventListener('change', renderPool);
+document.getElementById('plSides').addEventListener('click', () => {
+    const btn = document.getElementById('plSides');
+    _settings.sides = _settings.sides === 'both' ? 'rec' : 'both';
+    btn.setAttribute('aria-pressed', String(_settings.sides === 'both'));
+    saveSettings();
+    renderChips();
+    renderPool();
+});
+
+document.getElementById('plEvOnly').addEventListener('click', () => {
+    const btn = document.getElementById('plEvOnly');
+    _settings.evOnly = !_settings.evOnly;
+    btn.setAttribute('aria-pressed', String(_settings.evOnly));
+    saveSettings();
+});
+
 document.getElementById('plSort').addEventListener('change', renderPool);
 document.getElementById('plSearch').addEventListener('input', renderPool);
-document.getElementById('plStake').addEventListener('input', () => renderSlipTotals(slipLegs()));
+document.getElementById('plTargetRange').addEventListener('input', () => syncTargetUI(true));
+document.getElementById('plTargetInput').addEventListener('input', () => syncTargetUI(false));
+document.getElementById('plStake').addEventListener('input', () => {
+    _settings.stake = Math.max(0, parseFloat(document.getElementById('plStake').value) || 0);
+    saveSettings();
+    renderSlipTotals(slipLegs());
+});
 document.getElementById('plBuild').addEventListener('click', buildParlays);
 document.getElementById('plClear').addEventListener('click', () => { _slip = []; renderSlip(); });
+
+document.getElementById('plCopy').addEventListener('click', () => {
+    const legs = slipLegs();
+    if (!legs.length) return;
+    const stake = Math.max(0, parseFloat(document.getElementById('plStake').value) || 0);
+    const combinedDecimal = legs.reduce((acc, l) => acc * (l.decimal || 1), 1);
+    const text = [
+        'Parlay Lab slip',
+        ...legs.map(l => `${l.label} @ ${l.gameLabel} (${fmtAmerican(l.american)})`),
+        `Combined: ${fmtAmerican(decimalToAmerican(combinedDecimal))} (${combinedDecimal.toFixed(2)})`,
+        stake ? `Stake: $${stake.toFixed(2)} → $${(stake * combinedDecimal).toFixed(2)}` : '',
+    ].filter(Boolean).join('\n');
+    const btn = document.getElementById('plCopy');
+    try {
+        navigator.clipboard.writeText(text).then(() => {
+            btn.innerHTML = '<i class="fa-solid fa-check"></i> Copied';
+            setTimeout(() => { btn.innerHTML = '<i class="fa-solid fa-copy"></i> Copy slip'; }, 1500);
+        }).catch(() => {});
+    } catch (err) {}
+});
 
 // Same theme toggle behavior as index.html.
 document.getElementById('themeToggle').addEventListener('click', () => {
@@ -335,8 +648,29 @@ document.getElementById('themeToggle').addEventListener('click', () => {
 });
 
 // ── Boot ──────────────────────────────────────────────────────────────
+function renderPresets() {
+    const host = document.getElementById('plPresets');
+    host.innerHTML = [130, 200, 350, 600, 1200].map(a =>
+        `<button type="button" class="pl-chip pl-preset" data-american="${a}">${fmtAmerican(a)}</button>`).join('');
+}
+
+function restoreControls() {
+    syncSegButtons('plMode', 'mode', _settings.mode);
+    syncSegButtons('plSize', 'size', _settings.size);
+    syncSegButtons('plTol', 'tol', _settings.tolerance);
+    document.getElementById('plSides').setAttribute('aria-pressed', String(_settings.sides === 'both'));
+    document.getElementById('plEvOnly').setAttribute('aria-pressed', String(_settings.evOnly));
+    document.getElementById('plTargetInput').value = _settings.target;
+    syncTargetUI(false);
+    document.getElementById('plStake').value = _settings.stake;
+}
+
 async function boot() {
+    loadSettings();
+    renderPresets();
+    restoreControls();
     document.getElementById('plLoadState').hidden = false;
+
     const [propsRes, gamesRes] = await Promise.allSettled([
         fetch('/api/player-props').then(r => r.json()),
         fetch('/api/betting-edge').then(r => r.json()),
@@ -359,6 +693,7 @@ async function boot() {
     } else {
         document.getElementById('plLoadState').hidden = true;
     }
+    renderChips();
     renderPool();
     renderSlip();
 }
