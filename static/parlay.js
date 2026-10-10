@@ -89,6 +89,7 @@ const DEFAULTS = {
     size: 3,
     target: 350,                       // American odds the finder aims at
     tolerance: 0.2,                    // +/-% band around the target (on decimal odds)
+    variety: 2,                        // max times one leg may appear across shown results
     evOnly: false,
     stake: 10,
 };
@@ -518,31 +519,42 @@ function comboScore(legs) {
     return { legs, combinedDecimal, jointProb, ev };
 }
 
-// Greedy diversity: walk the ranked list and only take combos whose legs are
-// all unused so far -- the same star's prop shouldn't headline every result.
-// When disjoint combos run out, backfill prefers the ones sharing the fewest
-// legs with what's already shown (ties keep the original rank order).
-function pickDisjoint(sorted, count) {
-    const used = new Set();
+// Diversity picker: repeatedly take the best-ranked combo whose legs are all
+// under the per-leg usage cap, scoring candidates by how often their legs have
+// already been picked. Top-ranked fresh combos win; reused legs only reappear
+// when nothing fresher qualifies. The same star prop can't headline the list.
+function pickDiverse(sorted, count, cap) {
+    const scan = sorted.slice(0, 4000); // worst-ranked tail isn't worth the scan
+    const usage = new Map();            // leg key -> times already picked
+    const taken = new Array(scan.length).fill(false);
     const out = [];
-    const rest = [];
-    for (const p of sorted) {
-        if (out.length >= count) break;
-        if (p.legs.every(l => !used.has(l.key))) {
-            p.legs.forEach(l => used.add(l.key));
-            out.push(p);
-        } else {
-            rest.push(p);
+    while (out.length < count) {
+        let best = -1, bestScore = Infinity;
+        for (let i = 0; i < scan.length; i++) {
+            if (taken[i]) continue;
+            const p = scan[i];
+            let score = 0, ok = true;
+            for (const l of p.legs) {
+                const u = usage.get(l.key) || 0;
+                if (u >= cap) { ok = false; break; }
+                score += u;
+            }
+            if (ok && score < bestScore) {
+                bestScore = score;
+                best = i;
+                if (bestScore === 0) break; // fully fresh combo, can't beat it
+            }
         }
-    }
-    const overlap = p => p.legs.filter(l => used.has(l.key)).length;
-    rest.sort((a, b) => overlap(a) - overlap(b));
-    for (const p of rest) {
-        if (out.length >= count) break;
-        out.push(p);
+        if (best === -1) break; // every remaining combo exceeds the cap
+        taken[best] = true;
+        scan[best].legs.forEach(l => usage.set(l.key, (usage.get(l.key) || 0) + 1));
+        out.push(scan[best]);
     }
     return out;
 }
+
+const VARIETY_CAP = { 1: 1, 2: 2, 3: 3 };
+const VARIETY_TEXT = { 1: 'no leg repeats', 2: 'no leg appears more than twice', 3: 'no leg appears more than three times' };
 
 function buildParlays() {
     const size = _settings.size;
@@ -592,27 +604,26 @@ function buildParlays() {
         }))
         .filter(p => !_settings.evOnly || p.ev > 0);
 
+    const cap = VARIETY_CAP[_settings.variety] || 2;
     let results, note;
+    const varietyBit = ` · ${VARIETY_TEXT[cap] || 'diversity off'} across these picks`;
     if (_settings.mode === 'target') {
         const within = scored.filter(p => p.dist <= _settings.tolerance);
         if (within.length) {
             // Rank: most likely to hit first. Each row shows how far off the
             // target it lands.
-            results = pickDisjoint(within.sort((a, b) => b.jointProb - a.jointProb || a.dist - b.dist), MAX_SHOW);
-            const disjoint = results.every((p, i) => results.slice(0, i).every(q =>
-                !p.legs.some(l => q.legs.some(m => m.key === l.key))));
-            note = `${within.length} of ${checked.toLocaleString()} independent combos landed within ${Math.round(_settings.tolerance * 100)}% of ${fmtAmerican(decimalToAmerican(target))}` +
-                (disjoint ? ' — and no leg repeats across these picks.' : ', ranked by hit chance.');
+            results = pickDiverse(within.sort((a, b) => b.jointProb - a.jointProb || a.dist - b.dist), MAX_SHOW, cap);
+            note = `${within.length} of ${checked.toLocaleString()} independent combos landed within ${Math.round(_settings.tolerance * 100)}% of ${fmtAmerican(decimalToAmerican(target))}` + varietyBit;
         } else {
             // Nothing near the target — show the closest shots instead.
             // Closest first, most likely among equals.
-            results = pickDisjoint(scored.sort((a, b) => a.dist - b.dist || b.jointProb - a.jointProb), MAX_SHOW);
-            note = `Nothing within ${Math.round(_settings.tolerance * 100)}% of ${fmtAmerican(decimalToAmerican(target))} — closest combos below.`;
+            results = pickDiverse(scored.sort((a, b) => a.dist - b.dist || b.jointProb - a.jointProb), MAX_SHOW, cap);
+            note = `Nothing within ${Math.round(_settings.tolerance * 100)}% of ${fmtAmerican(decimalToAmerican(target))} — closest combos below.` + varietyBit;
         }
     } else {
         // Safest: rank by hit chance, best odds-breaker last.
-        results = pickDisjoint(scored.sort((a, b) => b.jointProb - a.jointProb || b.ev - a.ev), MAX_SHOW);
-        note = `Top ${results.length} of ${checked.toLocaleString()} independent combos by hit chance.`;
+        results = pickDiverse(scored.sort((a, b) => b.jointProb - a.jointProb || b.ev - a.ev), MAX_SHOW, cap);
+        note = `Top ${results.length} of ${checked.toLocaleString()} independent combos by hit chance` + varietyBit;
     }
 
     host.innerHTML =
@@ -724,6 +735,13 @@ document.addEventListener('click', e => {
     if (tolBtn) {
         _settings.tolerance = parseFloat(tolBtn.dataset.tol) || 0.2;
         syncSegButtons('plTol', 'tol', _settings.tolerance);
+        saveSettings();
+        return;
+    }
+    const varBtn = e.target.closest('#plVariety button');
+    if (varBtn) {
+        _settings.variety = parseInt(varBtn.dataset.var, 10) || 2;
+        syncSegButtons('plVariety', 'var', _settings.variety);
         saveSettings();
         return;
     }
@@ -842,6 +860,7 @@ function restoreControls() {
     syncSegButtons('plMode', 'mode', _settings.mode);
     syncSegButtons('plSize', 'size', _settings.size);
     syncSegButtons('plTol', 'tol', _settings.tolerance);
+    syncSegButtons('plVariety', 'var', _settings.variety);
     document.getElementById('plSides').setAttribute('aria-pressed', String(_settings.sides === 'both'));
     document.getElementById('plEvOnly').setAttribute('aria-pressed', String(_settings.evOnly));
     document.getElementById('plTargetInput').value = _settings.target;
