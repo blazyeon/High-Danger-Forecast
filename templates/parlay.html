@@ -53,8 +53,9 @@
             <section class="card">
                 <div class="card-header">
                     <h2 class="card-title">Leg pool</h2>
-                    <p class="card-subtitle">Toggle the markets you want — the pool and the finder both follow</p>
+                    <p class="card-subtitle">Pick the games and markets you want — the pool and the finder both follow</p>
                 </div>
+                <div id="plGames" class="pl-chip-row" role="group" aria-label="Games to include"></div>
                 <div id="plChips" class="pl-chip-row" role="group" aria-label="Markets to include"></div>
                 <div class="props-toolbar props-filterbar elo-toolbar">
                     <label class="props-toolbar-label" for="plSort">Sort</label>
@@ -81,7 +82,7 @@
                 <section class="card">
                     <div class="card-header">
                         <h2 class="card-title">Parlay finder</h2>
-                        <p class="card-subtitle">One leg per game, built only from the markets checked above</p>
+                        <p class="card-subtitle">One leg per game, built only from the games and markets chosen on the left</p>
                     </div>
                     <div class="pl-finder-controls">
                         <div class="pl-control-row">
@@ -169,6 +170,6 @@
         </div>
     </main>
 
-    <script src="/static/parlay.js?v=2.0"></script>
+    <script src="/static/parlay.js?v=2.1"></script>
 </body>
 </html>

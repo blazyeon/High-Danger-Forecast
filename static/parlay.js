@@ -76,10 +76,13 @@ function familyOfGame(market) {
 //       gameKey, label, detail, american, decimal, modelProb, edge}
 let _legs = [];
 let _slip = [];              // leg keys, in insertion order
+let _gameTimes = {};         // gameKey -> Date (from the game-bet feed; props-only games have no time)
 
 const SETTINGS_KEY = 'pl2-settings';
 const DEFAULTS = {
     markets: ['ags', 'points', 'assists', 'sog', 'saves', 'moneyline', 'total', 'puckline'],
+    games: null,                       // null = all games; else a Set of gameKeys
+    hideStarted: false,
     sides: 'rec',
     mode: 'target',
     size: 3,
@@ -95,6 +98,7 @@ function saveSettings() {
         localStorage.setItem(SETTINGS_KEY, JSON.stringify({
             ..._settings,
             markets: [..._settings.markets],
+            games: _settings.games ? [..._settings.games] : null,
         }));
     } catch (e) {}
 }
@@ -109,6 +113,11 @@ function loadSettings() {
             Object.assign(_settings, rest);
             if (Array.isArray(markets)) {
                 _settings.markets = new Set(markets.filter(id => FAMILY_META[id]));
+            }
+            if (Array.isArray(s.games)) {
+                _settings.games = new Set(s.games.filter(k => typeof k === 'string'));
+            } else if (s.games === null) {
+                _settings.games = null;
             }
         }
     } catch (e) {}
@@ -168,6 +177,10 @@ function addPropLegs(payload) {
 
 function addGameLegs(payload) {
     (payload.games || []).forEach(g => {
+        if (g.start_time) {
+            const t = new Date(g.start_time);
+            if (!isNaN(t)) _gameTimes[gameKey(g.away, g.home)] = t;
+        }
         (g.edges || []).forEach(e => {
             const american = e.odds;
             if (american == null) return;
@@ -207,6 +220,11 @@ function gameKey(away, home) {
 // ── Filtering ─────────────────────────────────────────────────────────
 function legAllowed(l) {
     if (!_settings.markets.has(l.family)) return false;
+    if (_settings.games && !_settings.games.has(l.gameKey)) return false;
+    if (_settings.hideStarted) {
+        const t = _gameTimes[l.gameKey];
+        if (t && t.getTime() <= Date.now()) return false;
+    }
     if (l.source === 'props' && _settings.sides !== 'both' && !l.recommended) return false;
     return true;
 }
@@ -255,6 +273,55 @@ function renderChips() {
         }).join('');
 }
 
+// ── Game chips ────────────────────────────────────────────────────────
+function gameList() {
+    // Games with at least one visible leg under the current market/side
+    // filters, oldest start time first, unknown times last.
+    const counts = {};
+    _legs.forEach(l => {
+        if (!_settings.markets.has(l.family)) return;
+        if (l.source === 'props' && _settings.sides !== 'both' && !l.recommended) return;
+        counts[l.gameKey] = (counts[l.gameKey] || 0) + 1;
+    });
+    return Object.keys(counts)
+        .map(k => ({ key: k, count: counts[k], time: _gameTimes[k] || null }))
+        .sort((a, b) => (a.time ? a.time.getTime() : Infinity) - (b.time ? b.time.getTime() : Infinity)
+            || a.key.localeCompare(b.key));
+}
+
+function gameChipLabel(key) {
+    return key.replace('@', ' @ ');
+}
+
+function fmtGameTime(d) {
+    try {
+        return d.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+    } catch (e) {
+        return '';
+    }
+}
+
+function renderGameChips() {
+    const host = document.getElementById('plGames');
+    const list = gameList();
+    if (!list.length) { host.innerHTML = '<p class="empty-desc">No games loaded yet.</p>'; return; }
+
+    const all = _settings.games === null;
+    host.innerHTML =
+        `<button type="button" class="pl-chip pl-chip-all" data-allgames aria-pressed="${all}">
+            <i class="fa-solid fa-calendar-days"></i> All games
+        </button>` +
+        list.map(g =>
+            `<button type="button" class="pl-chip" data-game="${escapeAttr(g.key)}" aria-pressed="${!all && _settings.games.has(g.key)}">
+                ${escapeHtml(gameChipLabel(g.key))}
+                ${g.time ? `<span class="pl-chip-count">${fmtGameTime(g.time)}</span>` : ''}
+            </button>`).join('') +
+        `<button type="button" id="plHideStarted" class="pl-chip" aria-pressed="${_settings.hideStarted}"
+            title="Drop legs from games that have already started">
+            <i class="fa-solid fa-clock-rotate-left"></i> Hide started
+        </button>`;
+}
+
 // ── Leg pool rendering ────────────────────────────────────────────────
 const MAX_POOL_ROWS = 80;
 
@@ -264,13 +331,18 @@ function renderPool() {
 
     if (!_legs.length) return; // boot error already rendered
     if (!legs.length) {
+        const noMarkets = !_settings.markets.size;
+        const noGames = _settings.games && !_settings.games.size;
+        const title = noMarkets ? 'No markets selected'
+            : noGames ? 'No games selected' : 'No legs match';
+        const desc = noMarkets ? 'Toggle at least one market chip above.'
+            : noGames ? 'Select at least one game chip above.'
+            : 'Loosen the search, check Both sides, or re-enable a market.';
         host.innerHTML = `
             <div class="empty-state">
                 <i class="fa-solid fa-sliders empty-icon"></i>
-                <p class="empty-title">${_settings.markets.size ? 'No legs match' : 'No markets selected'}</p>
-                <p class="empty-desc">${_settings.markets.size
-                    ? 'Loosen the search, check Both sides, or re-enable a market.'
-                    : 'Toggle at least one market chip above.'}</p>
+                <p class="empty-title">${title}</p>
+                <p class="empty-desc">${desc}</p>
             </div>`;
         return;
     }
@@ -521,6 +593,33 @@ function parlayRow(p) {
 
 // ── Events ────────────────────────────────────────────────────────────
 document.addEventListener('click', e => {
+    const allGames = e.target.closest('[data-allgames]');
+    if (allGames) {
+        _settings.games = null;
+        saveSettings();
+        renderGameChips();
+        renderPool();
+        return;
+    }
+    const gameChip = e.target.closest('[data-game]');
+    if (gameChip) {
+        const k = gameChip.getAttribute('data-game');
+        if (!_settings.games) _settings.games = new Set(gameList().map(g => g.key));
+        if (gameChip.getAttribute('aria-pressed') === 'true') _settings.games.delete(k);
+        else _settings.games.add(k);
+        saveSettings();
+        renderGameChips();
+        renderPool();
+        return;
+    }
+    const hideStarted = e.target.closest('#plHideStarted');
+    if (hideStarted) {
+        _settings.hideStarted = !_settings.hideStarted;
+        saveSettings();
+        renderGameChips();
+        renderPool();
+        return;
+    }
     const chip = e.target.closest('[data-chip]');
     if (chip) {
         const id = chip.getAttribute('data-chip');
@@ -535,6 +634,7 @@ document.addEventListener('click', e => {
         }
         saveSettings();
         renderChips();
+        renderGameChips();
         renderPool();
         return;
     }
@@ -597,6 +697,7 @@ document.getElementById('plSides').addEventListener('click', () => {
     btn.setAttribute('aria-pressed', String(_settings.sides === 'both'));
     saveSettings();
     renderChips();
+    renderGameChips();
     renderPool();
 });
 
@@ -693,6 +794,14 @@ async function boot() {
     } else {
         document.getElementById('plLoadState').hidden = true;
     }
+    // Yesterday's persisted game selections are stale on a new slate — if none
+    // of them exist today, start from "all games".
+    if (_settings.games) {
+        const today = new Set(_legs.map(l => l.gameKey));
+        _settings.games = new Set([..._settings.games].filter(k => today.has(k)));
+        if (!_settings.games.size) _settings.games = null;
+    }
+    renderGameChips();
     renderChips();
     renderPool();
     renderSlip();
