@@ -1095,6 +1095,18 @@ async function safeFetchJson(url, opts={}) {
     }
 }
 
+// ── Loading skeletons ────────────────────────────────────────────
+// Big boards replace their own innerHTML wholesale, so the loading state gets
+// shape-appropriate shimmer blocks instead of a lone spinner. The Predictor's
+// simulation keeps its spinner (the wait is a known long single operation).
+function skeletonBoard(rows = 6, label = 'Loading data') {
+    let html = `<div class="skeleton-board" role="status"><span class="sr-only">${label}…</span>`;
+    for (let i = 0; i < rows; i++) {
+        html += '<div class="sk-card"><div class="sk-line sk-title"></div><div class="sk-line"></div></div>';
+    }
+    return html + '</div>';
+}
+
 // Request sequencing: only the most recent request for a given key may resolve.
 // A newer request aborts the previous in-flight one, so a slow/stale response
 // can never overwrite a fresh one.
@@ -1120,7 +1132,7 @@ async function runLookup() {
     const date = document.getElementById('lookupDate').value;
     if (!date) { container.innerHTML = '<div class="error-box">Pick a date first.</div>'; return; }
 
-    container.innerHTML = '<div class="loading"><div class="spinner"></div><span>Fetching NHL schedule...</span></div>';
+    container.innerHTML = skeletonBoard(5, 'schedule');
 
     let games = [];
     let apiWorked = false;
@@ -1408,7 +1420,7 @@ async function runStats() {
     const type = document.getElementById('statsType').value;
     const season = document.getElementById('statsSeason')?.value || '';
     const seasonLabel = season ? `${season.slice(0, 4)}-${season.slice(4)}` : 'selected season';
-    container.innerHTML = '<div class="loading"><div class="spinner"></div><span>Loading advanced stats...</span></div>';
+    container.innerHTML = skeletonBoard(5, 'statistics');
 
     let payload;
     try {
@@ -1525,7 +1537,7 @@ async function runShotpropz() {
     if (!container) return;
     const metric = document.getElementById('shotpropzMetric').value;
     const venue = document.getElementById('shotpropzVenue').value;
-    container.innerHTML = '<div class="loading"><div class="spinner"></div><span>Loading shotpropz matchups...</span></div>';
+    container.innerHTML = skeletonBoard(5, 'shotpropz matchups');
 
     if (!_shotpropzPayload) {
         try {
@@ -1882,7 +1894,7 @@ async function runElo() {
 }
 
 async function renderEloTeams(container) {
-    container.innerHTML = '<div class="loading"><div class="spinner"></div><span>Loading Elo leaderboard...</span></div>';
+    container.innerHTML = skeletonBoard(6, 'team Elo');
 
     try {
         if (!_lastEloTeams) {
@@ -1930,7 +1942,7 @@ async function renderEloTeams(container) {
 }
 
 async function renderEloPlayers(container) {
-    container.innerHTML = '<div class="loading"><div class="spinner"></div><span>Loading player Elo...</span></div>';
+    container.innerHTML = skeletonBoard(6, 'player Elo');
 
     try {
         let statsSeason = '';
@@ -2050,7 +2062,7 @@ async function renderEloPlayers(container) {
 }
 
 async function renderRookies(container) {
-    container.innerHTML = '<div class="loading"><div class="spinner"></div><span>Loading rookies...</span></div>';
+    container.innerHTML = skeletonBoard(4, 'rookie projections');
 
     try {
         if (!_lastEloPlayers) {
@@ -2114,7 +2126,7 @@ async function renderRookies(container) {
 
 async function runProps() {
     const container = document.getElementById('propsResults');
-    container.innerHTML = '<div class="loading"><div class="spinner"></div><span>Loading props...</span></div>';
+    container.innerHTML = skeletonBoard(6, 'prop lines');
 
     // Sent explicitly, so this list -- not the backend default -- decides which
     // markets the board shows. Mirrors DEFAULT_PLAYER_MARKETS: goals come from
@@ -2368,7 +2380,7 @@ let _propsMarketFilter = {
 async function runBettingEdge() {
     const container = document.getElementById('bettingEdgeResults');
     if (!container) return;
-    container.innerHTML = '<div class="loading"><div class="spinner"></div><span>Crunching model probabilities and odds...</span></div>';
+    container.innerHTML = skeletonBoard(5, 'game bets');
 
     try {
         const data = await latestFetch('betting-edge', '/api/betting-edge');
@@ -2595,7 +2607,7 @@ async function initPicksDateSelector() {
 async function loadPicksForDate(date) {
     const container = document.getElementById('todaysPicksResults');
     if (!container) return;
-    container.innerHTML = '<div class="loading"><div class="spinner"></div><span>Loading pre-computed picks...</span></div>';
+    container.innerHTML = skeletonBoard(5, "Today's Picks");
     const updatedEl = document.getElementById('todaysPicksUpdated');
     if (updatedEl) updatedEl.style.display = 'none';
 
