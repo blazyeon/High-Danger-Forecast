@@ -17,7 +17,7 @@ from typing import Any, Dict, List, Optional, Tuple
 
 import numpy as np
 import pandas as pd
-from flask import Flask, render_template, jsonify, request, send_from_directory
+from flask import Flask, render_template, jsonify, request, send_from_directory, redirect
 from werkzeug.exceptions import HTTPException
 
 from NHL.AppState import (
@@ -180,8 +180,8 @@ def index():
 
 @app.route("/parlay")
 def parlay_lab():
-    """Unlisted parlay builder page; reached only by clicking the main header's logo."""
-    return render_template("parlay.html")
+    """Parlay Lab is now a tab in the main app; keep old links working."""
+    return redirect("/#tab=parlay")
 
 
 # ── Logo serving ───────────────────────────────────────────────────────

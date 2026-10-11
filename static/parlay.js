@@ -794,12 +794,14 @@ document.addEventListener('change', e => {
     }
 });
 
-// Started games leave the pool automatically; recheck about once a minute.
+// Started games leave the pool automatically; recheck about once a minute,
+// but only while the Parlay tab is actually on screen.
 setInterval(() => {
-    if (_legs.length) {
-        renderGamesDD();
-        renderPool();
-    }
+    if (!_legs.length) return;
+    const panel = document.getElementById('tab-parlay');
+    if (!panel || !panel.classList.contains('active')) return;
+    renderGamesDD();
+    renderPool();
 }, 60000);
 
 document.getElementById('plEvOnly').addEventListener('click', () => {
@@ -868,6 +870,8 @@ function restoreControls() {
     document.getElementById('plStake').value = _settings.stake;
 }
 
+// Fetched via the main app's abort-aware latestFetch helper so a slow first
+// Parlay activation can never race the fresh one.
 async function boot() {
     loadSettings();
     renderPresets();
@@ -875,8 +879,8 @@ async function boot() {
     document.getElementById('plLoadState').hidden = false;
 
     const [propsRes, gamesRes] = await Promise.allSettled([
-        fetch('/api/player-props').then(r => r.json()),
-        fetch('/api/betting-edge').then(r => r.json()),
+        latestFetch('parlay-props', '/api/player-props'),
+        latestFetch('parlay-games', '/api/betting-edge'),
     ]);
 
     if (propsRes.status === 'fulfilled' && propsRes.value && propsRes.value.props) {
@@ -925,15 +929,17 @@ async function boot() {
     renderSlip();
 }
 
-// Minimal escaping so book/feed strings can't inject markup.
-function escapeHtml(s) {
-    return String(s ?? '').replace(/[&<>"']/g, c => ({
-        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
-    })[c]);
-}
-
+// Minimal escaping so book/feed strings can't inject markup; escapeHtml is
+// app.js's shared helper (this script loads after it). Kept escapeAttr as the
+// parlay-side name for attribute values.
 function escapeAttr(s) {
     return escapeHtml(s);
 }
 
-boot();
+// Runs the first Parlay-tab activation once; later activations re-use the
+// loaded legs (the interval above keeps started games out).
+let _bootPromise = null;
+function runParlay() {
+    if (!_bootPromise) _bootPromise = boot();
+    return _bootPromise;
+}

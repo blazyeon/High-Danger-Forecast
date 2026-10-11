@@ -131,6 +131,7 @@ function runDataFor(tab) {
     if (tab === 'props') runProps();
     if (tab === 'todays-picks') runTodaysPicks();
     if (tab === 'lookup') runLookup();
+    if (tab === 'parlay') runParlay();
     if (tab === 'stats') {
         const shotpropzActive = document.getElementById('shotpropzPanel').style.display !== 'none';
         if (shotpropzActive) runShotpropz(); else runStats();
