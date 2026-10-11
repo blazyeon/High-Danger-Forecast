@@ -79,8 +79,8 @@
   },
   {
     "team": "CHI",
-    "player": "Teuvo Teravainen",
-    "status": "dtd",
+    "player": "Frank Nazar",
+    "status": "out",
     "injured": true
   },
   {
@@ -170,7 +170,13 @@
   {
     "team": "EDM",
     "player": "Zach Hyman",
-    "status": "out",
+    "status": "dtd",
+    "injured": true
+  },
+  {
+    "team": "EDM",
+    "player": "Jake Walman",
+    "status": "dtd",
     "injured": true
   },
   {
@@ -193,14 +199,20 @@
   },
   {
     "team": "LAK",
-    "player": "Kevin Fiala",
-    "status": "out",
+    "player": "Alex Turcotte",
+    "status": "ir",
     "injured": true
   },
   {
     "team": "LAK",
     "player": "Mats Zuccarello",
-    "status": "dtd",
+    "status": "ir",
+    "injured": true
+  },
+  {
+    "team": "LAK",
+    "player": "Kevin Fiala",
+    "status": "out",
     "injured": true
   },
   {
@@ -222,9 +234,15 @@
     "injured": true
   },
   {
-    "team": "MTL",
-    "player": "Kaiden Guhle",
-    "status": "out",
+    "team": "MIN",
+    "player": "Zach Bogosian",
+    "status": "dtd",
+    "injured": true
+  },
+  {
+    "team": "MIN",
+    "player": "Marcus Foligno",
+    "status": "dtd",
     "injured": true
   },
   {
@@ -288,12 +306,6 @@
     "injured": true
   },
   {
-    "team": "NJD",
-    "player": "Jonas Siegenthaler",
-    "status": "dtd",
-    "injured": true
-  },
-  {
     "team": "NYI",
     "player": "Mathew Barzal",
     "status": "dtd",
@@ -303,12 +315,6 @@
     "team": "NYI",
     "player": "Alexander Romanov",
     "status": "ir",
-    "injured": true
-  },
-  {
-    "team": "NYI",
-    "player": "Bo Horvat",
-    "status": "dtd",
     "injured": true
   },
   {
@@ -331,7 +337,7 @@
   },
   {
     "team": "OTT",
-    "player": "Andre Burakovsky",
+    "player": "William Eklund",
     "status": "ir",
     "injured": true
   },
@@ -348,12 +354,6 @@
     "injured": true
   },
   {
-    "team": "OTT",
-    "player": "William Eklund",
-    "status": "out",
-    "injured": true
-  },
-  {
     "team": "PHI",
     "player": "Nikita Grebenkin",
     "status": "ir",
@@ -362,24 +362,24 @@
   {
     "team": "PHI",
     "player": "Rasmus Ristolainen",
+    "status": "ir",
+    "injured": true
+  },
+  {
+    "team": "PHI",
+    "player": "Travis Konecny",
+    "status": "dtd",
+    "injured": true
+  },
+  {
+    "team": "PHI",
+    "player": "Cam York",
     "status": "dtd",
     "injured": true
   },
   {
     "team": "PIT",
     "player": "Justin Brazeau",
-    "status": "dtd",
-    "injured": true
-  },
-  {
-    "team": "SJS",
-    "player": "Macklin Celebrini",
-    "status": "dtd",
-    "injured": true
-  },
-  {
-    "team": "SJS",
-    "player": "Kiefer Sherwood",
     "status": "dtd",
     "injured": true
   },
@@ -451,7 +451,7 @@
   },
   {
     "team": "TOR",
-    "player": "Oliver Ekman-Larsson",
+    "player": "Chris Tanev",
     "status": "dtd",
     "injured": true
   },
@@ -464,7 +464,7 @@
   {
     "team": "UTA",
     "player": "Michael Carcone",
-    "status": "dtd",
+    "status": "out",
     "injured": true
   },
   {

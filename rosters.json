@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-10T08:28:31.433682+00:00",
+  "generated_at": "2026-10-11T00:27:38.324422+00:00",
   "teams": {
     "BOS": {
       "skaters": [
@@ -718,6 +718,12 @@
           "birthDate": "2003-11-17"
         },
         {
+          "name": "Kaiden Guhle",
+          "id": 8482087,
+          "position": "D",
+          "birthDate": "2002-01-18"
+        },
+        {
           "name": "Lane Hutson",
           "id": 8483457,
           "position": "D",
@@ -728,12 +734,6 @@
           "id": 8476875,
           "position": "D",
           "birthDate": "1994-02-27"
-        },
-        {
-          "name": "Jayden Struble",
-          "id": 8481593,
-          "position": "D",
-          "birthDate": "2001-09-08"
         },
         {
           "name": "Arber Xhekaj",
@@ -1594,6 +1594,12 @@
           "birthDate": "2003-09-09"
         },
         {
+          "name": "Johnathan Kovacevic",
+          "id": 8480192,
+          "position": "D",
+          "birthDate": "1997-07-12"
+        },
+        {
           "name": "Brett Pesce",
           "id": 8477488,
           "position": "D",
@@ -1604,12 +1610,6 @@
           "id": 8478399,
           "position": "D",
           "birthDate": "1997-05-06"
-        },
-        {
-          "name": "Anton Silaev",
-          "id": 8484987,
-          "position": "D",
-          "birthDate": "2006-04-11"
         }
       ],
       "goalies": [
@@ -2044,6 +2044,12 @@
           "birthDate": "2002-04-08"
         },
         {
+          "name": "Helge Grans",
+          "id": 8482169,
+          "position": "D",
+          "birthDate": "2002-05-10"
+        },
+        {
           "name": "David Jiricek",
           "id": 8483460,
           "position": "D",
@@ -2210,12 +2216,6 @@
           "id": 8471724,
           "position": "D",
           "birthDate": "1987-04-24"
-        },
-        {
-          "name": "Ilya Solovyov",
-          "id": 8482470,
-          "position": "D",
-          "birthDate": "2000-07-20"
         },
         {
           "name": "Spencer Stastney",
@@ -3104,6 +3104,12 @@
           "id": 8476869,
           "position": "D",
           "birthDate": "1994-03-26"
+        },
+        {
+          "name": "Jayden Struble",
+          "id": 8481593,
+          "position": "D",
+          "birthDate": "2001-09-08"
         },
         {
           "name": "William Trudeau",
