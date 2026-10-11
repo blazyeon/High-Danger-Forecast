@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <meta name="theme-color" content="#0b0d12">
+    <meta name="theme-color" content="#020306">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -18,12 +18,11 @@
     <title>High Danger Forecast</title>
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@500;600;700&family=Spline+Sans+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
-    <link rel="stylesheet" href="../static/style.css?v=4.1">
+    <link rel="stylesheet" href="../static/style.css?v=2.8">
 </head>
-<body class="forecast-body">
+<body>
     <div class="bg-noise"></div>
     <div class="bg-gradient"></div>
 
@@ -31,13 +30,13 @@
         <div class="header-inner">
             <div class="header-left">
                 <div class="logo-mark">
-                    <a class="logo-link" href="/" aria-label="High Danger Forecast home">
+                    <a class="logo-link" href="/parlay" target="_blank" rel="noopener">
                         <img src="/Images/logo.png" alt="High Danger Forecast" width="32" height="32">
                     </a>
                 </div>
                 <div class="logo-text">
-                    <h1>High <span class="hdf-accent">Danger</span> Forecast</h1>
-                    <span class="tagline">NHL Predictions · Prop Edges · Every Night</span>
+                    <h1>High Danger Forecast</h1>
+                    <span class="tagline">Elo & ML-Powered Matchup Engine</span>
                 </div>
             </div>
             <div class="header-right">
@@ -57,7 +56,7 @@
         <div class="tab-nav-inner">
             <button class="tab-btn active" data-tab="todays-picks">
                 <i class="fa-solid fa-list-check tab-icon"></i>
-                <span class="tab-label">Picks</span>
+                <span class="tab-label">Today's Picks</span>
             </button>
             <button class="tab-btn" data-tab="predictor">
                 <i class="fa-solid fa-crosshairs tab-icon"></i>
@@ -82,10 +81,6 @@
             <button class="tab-btn" data-tab="elo">
                 <i class="fa-solid fa-trophy tab-icon"></i>
                 <span class="tab-label">Elo</span>
-            </button>
-            <button class="tab-btn" data-tab="parlay">
-                <i class="fa-solid fa-dice tab-icon"></i>
-                <span class="tab-label">Parlay</span>
             </button>
         </div>
     </nav>
@@ -121,14 +116,14 @@
 
                     <div class="matchup-row">
                         <div class="team-picker">
-                            <label class="picker-label" for="homeTeam">Home</label>
+                            <label class="picker-label">Home</label>
                             <div class="team-select-wrap">
-                                <img id="homeLogo" class="team-logo-preview" alt="" style="display:none">
-                                <select id="homeTeam" class="team-select" aria-label="Home team"></select>
+                                <img id="homeLogo" class="team-logo-preview" src="" alt="" style="display:none">
+                                <select id="homeTeam" class="team-select"></select>
                             </div>
                             <div class="goalie-row" id="homeGoalieRow" style="display:none">
-                                <label class="sub-label" for="homeGoalie">Goalie</label>
-                                <select id="homeGoalie" class="goalie-select" aria-label="Home starting goalie">
+                                <label class="sub-label">Goalie</label>
+                                <select id="homeGoalie" class="goalie-select">
                                     <option value="">Auto-select</option>
                                 </select>
                             </div>
@@ -144,14 +139,14 @@
                         </div>
 
                         <div class="team-picker">
-                            <label class="picker-label" for="awayTeam">Away</label>
+                            <label class="picker-label">Away</label>
                             <div class="team-select-wrap">
-                                <img id="awayLogo" class="team-logo-preview" alt="" style="display:none">
-                                <select id="awayTeam" class="team-select" aria-label="Away team"></select>
+                                <img id="awayLogo" class="team-logo-preview" src="" alt="" style="display:none">
+                                <select id="awayTeam" class="team-select"></select>
                             </div>
                             <div class="goalie-row" id="awayGoalieRow" style="display:none">
-                                <label class="sub-label" for="awayGoalie">Goalie</label>
-                                <select id="awayGoalie" class="goalie-select" aria-label="Away starting goalie">
+                                <label class="sub-label">Goalie</label>
+                                <select id="awayGoalie" class="goalie-select">
                                     <option value="">Auto-select</option>
                                 </select>
                             </div>
@@ -189,13 +184,12 @@
                         </div>
                     </div>
 
-                    <button id="predictBtn" class="predict-btn" disabled aria-describedby="predictHint">
+                    <button id="predictBtn" class="predict-btn" disabled>
                         <span>Run Simulation</span>
                         <svg width="18" height="18" viewBox="0 0 18 18" fill="none" class="btn-arrow">
                             <path d="M3 9H15M15 9L10 4M15 9L10 14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                     </button>
-                    <p id="predictHint" class="predict-hint" role="status">Select both teams to run the simulation</p>
                 </div>
 
                 <div class="card results-card" id="resultsPanel">
@@ -220,9 +214,10 @@
                 </div>
                 <div class="lookup-row">
                     <div class="field date-field">
-                        <label for="lookupDate">Date</label>
+                        <label>Date</label>
                         <input type="date" id="lookupDate" class="param-input date-input" placeholder="Select date">
                     </div>
+                    <button id="lookupBtn" class="action-btn">Search</button>
                 </div>
                 <div id="lookupResults" class="results-area"></div>
             </div>
@@ -236,8 +231,8 @@
                     <p class="card-subtitle">Natural Stat Trick team and player data</p>
                 </div>
                 <div class="stats-subnav" role="tablist" aria-label="Statistics category">
-                    <button class="stats-subtab active" data-statstab="nst" type="button" role="tab" aria-selected="true">NST Stats</button>
-                    <button class="stats-subtab" data-statstab="shotpropz" type="button" role="tab" aria-selected="false">Shotpropz Matchups</button>
+                    <button class="stats-subtab active" data-statstab="nst" type="button">NST Stats</button>
+                    <button class="stats-subtab" data-statstab="shotpropz" type="button">Shotpropz Matchups</button>
                 </div>
                 <div id="nstPanel">
                     <div class="analytics-controls">
@@ -305,155 +300,14 @@
         <!-- ELO LEADERBOARD TAB -->
         <section id="tab-elo" class="tab-panel">
             <div class="card">
-                <div class="card-header card-header-row">
-                    <div>
-                        <h2 class="card-title">Elo Leaderboard</h2>
-                        <p class="card-subtitle">Highest-rated teams by current Elo rating</p>
-                    </div>
-                    <button id="eloBtn" class="action-btn action-btn-icon" type="button" aria-label="Refresh Elo leaderboard" title="Refresh leaderboard">
-                        <i class="fa-solid fa-arrows-rotate"></i>
-                    </button>
+                <div class="card-header">
+                    <h2 class="card-title">Elo Leaderboard</h2>
+                    <p class="card-subtitle">Highest-rated teams by current Elo rating</p>
+                </div>
+                <div class="lookup-row">
+                    <button id="eloBtn" class="action-btn">Refresh Leaderboard</button>
                 </div>
                 <div id="eloResults" class="results-area"></div>
-            </div>
-        </section>
-
-        <!-- PARLAY LAB TAB -->
-        <section id="tab-parlay" class="tab-panel">
-            <div class="parlay-tab">
-
-                <!-- Builder (Parlay finder) at the top, full width -->
-                <section class="card">
-                    <div class="card-header">
-                        <h2 class="card-title">Parlay builder</h2>
-                        <p class="card-subtitle">One leg per game, built from the games and markets picked in the leg pool below</p>
-                    </div>
-                    <div class="pl-finder-controls">
-                        <div class="pl-control-row">
-                            <span class="props-toolbar-label">Goal</span>
-                            <div id="plMode" class="pl-seg" role="group" aria-label="Finder goal">
-                                <button type="button" data-mode="target" aria-pressed="true"><i class="fa-solid fa-bullseye"></i> Hit my odds</button>
-                                <button type="button" data-mode="chance" aria-pressed="false"><i class="fa-solid fa-shield-halved"></i> Safest</button>
-                            </div>
-                        </div>
-                        <div class="pl-control-row">
-                            <span class="props-toolbar-label">Legs</span>
-                            <div id="plSize" class="pl-seg" role="group" aria-label="Leg count">
-                                <button type="button" data-size="2" aria-pressed="false">2</button>
-                                <button type="button" data-size="3" aria-pressed="true">3</button>
-                                <button type="button" data-size="4" aria-pressed="false">4</button>
-                                <button type="button" data-size="5" aria-pressed="false">5</button>
-                                <button type="button" data-size="6" aria-pressed="false">6</button>
-                            </div>
-                        </div>
-                        <div id="plTargetWrap" class="pl-target-wrap">
-                            <div class="pl-control-row">
-                                <span class="props-toolbar-label">Target odds</span>
-                                <input id="plTargetInput" class="pl-stake pl-target-input" type="number" step="5" value="350" aria-label="Target American odds">
-                                <span class="pl-target-hint">american · decimal <span id="plTargetDec">4.50</span></span>
-                            </div>
-                            <input id="plTargetRange" class="pl-range" type="range" min="0" max="100" step="0.5" value="50" aria-label="Target odds slider">
-                            <div id="plPresets" class="pl-chip-row pl-preset-row" role="group" aria-label="Target odds presets"></div>
-                        </div>
-                        <div class="pl-control-row" id="plFinderOpts">
-                            <div id="plTol" class="pl-seg" role="group" aria-label="Target tolerance">
-                                <button type="button" data-tol="0.1" aria-pressed="false">±10%</button>
-                                <button type="button" data-tol="0.2" aria-pressed="true">±20%</button>
-                                <button type="button" data-tol="0.35" aria-pressed="false">±35%</button>
-                            </div>
-                            <div id="plVariety" class="pl-seg" role="group" aria-label="Result variety"
-                                 title="How often one leg may reappear across the shown parlays">
-                                <button type="button" data-var="1" aria-pressed="false">Strict</button>
-                                <button type="button" data-var="2" aria-pressed="true">Balanced</button>
-                                <button type="button" data-var="3" aria-pressed="false">Relaxed</button>
-                            </div>
-                            <button id="plEvOnly" class="pl-chip" type="button" aria-pressed="false" title="Only show combos the model rates as +EV">
-                                <i class="fa-solid fa-arrow-trend-up"></i> +EV only
-                            </button>
-                        </div>
-                        <button id="plBuild" class="action-btn pl-build-btn" type="button"><i class="fa-solid fa-wand-magic-sparkles"></i> Build parlays</button>
-                    </div>
-                    <div id="plAutoplay" class="pl-autoplay">
-                        <p class="empty-desc">Set the goal and leg count, then build — combos come from today's legs.</p>
-                    </div>
-                </section>
-
-                <div class="parlay-grid">
-
-                    <!-- Leg pool -->
-                    <section class="card">
-                        <div class="card-header">
-                            <h2 class="card-title">Leg pool</h2>
-                            <p class="card-subtitle">Pick the games and markets you want — the builder follows</p>
-                        </div>
-                        <div id="plChips" class="pl-chip-row" role="group" aria-label="Markets to include"></div>
-                        <div class="props-toolbar props-filterbar elo-toolbar">
-                            <label class="props-toolbar-label" for="plSort">Sort</label>
-                            <select id="plSort" class="pl-select">
-                                <option value="edge">Model edge</option>
-                                <option value="prob">Hit chance</option>
-                                <option value="odds">Odds</option>
-                            </select>
-                            <div class="pl-dd" id="plGamesDD">
-                                <button id="plGamesBtn" class="pl-select pl-dd-btn" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Choose games">
-                                    <i class="fa-solid fa-calendar-days"></i> <span id="plGamesLabel">All games</span> <i class="fa-solid fa-chevron-down pl-dd-caret"></i>
-                                </button>
-                                <div id="plGamesPanel" class="pl-dd-panel" hidden>
-                                    <label class="pl-dd-item pl-dd-all"><input type="checkbox" id="plGamesAll"> All games</label>
-                                    <div id="plGamesItems"></div>
-                                </div>
-                            </div>
-                            <button id="plSides" class="pl-chip pl-chip-inbar" type="button" aria-pressed="false"
-                                    title="Also price Unders as their own legs (with the model's implied probability)">
-                                <i class="fa-solid fa-right-left"></i> Both sides
-                            </button>
-                            <input id="plSearch" class="pl-search" type="search" placeholder="Search player, team or game" aria-label="Search legs">
-                        </div>
-                        <div id="plLoadState" class="empty-state" hidden>
-                            <p class="empty-desc">Loading legs…</p>
-                        </div>
-                        <div id="plPool" class="pl-leg-list"></div>
-                    </section>
-
-                    <!-- Slip -->
-                    <section class="card">
-                        <div class="card-header">
-                            <h2 class="card-title">Slip</h2>
-                            <p class="card-subtitle">Joint math assumes the legs are independent</p>
-                        </div>
-                        <div class="pl-hero">
-                            <div class="pl-hero-main">
-                                <div id="plCombinedOdds" class="pl-hero-odds">—</div>
-                                <div class="pl-hero-label">combined odds</div>
-                            </div>
-                            <div class="pl-hero-side">
-                                <div id="plJointProb" class="pl-hero-prob">—</div>
-                                <div class="pl-meter" aria-hidden="true"><div id="plMeterFill" class="pl-meter-fill"></div></div>
-                                <div class="pl-hero-label">hit chance</div>
-                            </div>
-                        </div>
-                        <div id="slipLegs" class="pl-slip-legs"></div>
-                        <div class="pl-summary">
-                            <div class="pl-summary-row">
-                                <label class="props-toolbar-label" for="plStake">Stake</label>
-                                <span class="pl-money-wrap">$<input id="plStake" class="pl-stake" type="number" min="0" step="1" value="10" inputmode="decimal"></span>
-                            </div>
-                            <dl class="pl-totals">
-                                <div class="pl-total-row"><dt>Book implied</dt><dd id="plImplied">—</dd></div>
-                                <div class="pl-total-row"><dt>Value (EV)</dt><dd id="plEV">—</dd></div>
-                                <div class="pl-total-row"><dt>Payout / profit</dt><dd id="plPayout">—</dd></div>
-                            </dl>
-                            <div id="plCorrelationNote" class="pl-warn" hidden>
-                                <i class="fa-solid fa-link"></i> Two legs share a game — the independence math no longer holds.
-                            </div>
-                            <div class="pl-summary-actions">
-                                <button id="plCopy" class="action-btn" type="button"><i class="fa-solid fa-copy"></i> Copy slip</button>
-                                <button id="plClear" class="action-btn" type="button"><i class="fa-solid fa-eraser"></i> Clear slip</button>
-                            </div>
-                        </div>
-                    </section>
-
-                </div>
             </div>
         </section>
 
@@ -472,7 +326,6 @@
         </div>
     </div>
 
-    <script src="../static/app.js?v=2.9"></script>
-    <script src="../static/parlay.js?v=2.8"></script>
+    <script src="../static/app.js?v=2.8"></script>
 </body>
 </html>

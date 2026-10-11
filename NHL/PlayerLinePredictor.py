@@ -1006,10 +1006,6 @@ def _best_prices(df: pd.DataFrame) -> pd.DataFrame:
                 logger.info("No %s rows from preferred book; market off the board", market)
                 continue
             kept.append(primary)
-        # A slate where the preferred book posts nothing (thin preseason boards,
-        # or the sweep caught the store mid-refresh) must not crash the concat.
-        if not kept:
-            return pd.DataFrame()
         df = pd.concat(kept, ignore_index=True)
 
     agg_rows: List[Dict[str, Any]] = []
@@ -1084,6 +1080,14 @@ def _best_prices(df: pd.DataFrame) -> pd.DataFrame:
         agg_rows.append(row)
 
     out = pd.DataFrame(agg_rows)
+    # The keys above are emitted per side only when that side is priced; a board
+    # where nothing carries an Under (e.g. an Over-only market is the day's only
+    # priced one) would otherwise drop the under_* columns and crash the later
+    # df["under_decimal"] filter with a KeyError. Guarantee the columns instead.
+    for c in ("over_american", "under_american", "over_decimal", "under_decimal",
+              "implied_over", "implied_under"):
+        if c not in out.columns:
+            out[c] = pd.NA
     if not out.empty:
         out = out.sort_values(["player", "market", "line"]).reset_index(drop=True)
         for c in ("over_american", "under_american"):
@@ -1174,14 +1178,11 @@ def compute_player_props_for_date(
         return [], None
 
     df = _best_prices(df)
-
-    # Days the feed ships a partial side (e.g. only Over-only AGS ladders, no
-    # Under rows and thus no under columns anywhere) still need the columns
-    # the priced-pick screen and the output shaping below read.
-    for col in ("over_decimal", "over_american", "implied_over",
-                "under_decimal", "under_american", "implied_under"):
-        if col not in df.columns:
-            df[col] = pd.NA
+    if df.empty:
+        # Every market went off the board (e.g. the day's player lines are not
+        # posted yet); return the "no props yet" state rather than crash on
+        # column access below.
+        return [], None
 
     # Rows the model could not price at all carry a 50.0 sentinel ("No Data"),
     # not an estimate. Forced to "Over" below, they read as a huge edge against a

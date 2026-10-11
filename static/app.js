@@ -100,8 +100,8 @@ function initTheme() {
 // ── Init ─────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
     initTheme();
-    const initialTab = initTabs();
-    runDataFor(initialTab);
+    initTabs();
+    runTodaysPicks();
     initDateDefaults();
     initDatePickers();
     initSettingsToggle();
@@ -125,13 +125,25 @@ document.addEventListener('DOMContentLoaded', () => {
     updatePredictBtn();
 });
 
-function runDataFor(tab) {
+function activateTab(tab) {
+    const btn = document.querySelector(`.tab-btn[data-tab="${tab}"]`);
+    if (!btn) return false;
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(`tab-${tab}`).classList.add('active');
+    // Keep the active pill visible inside the phone's scrollable tab rail.
+    btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    loadTab(tab);
+    return true;
+}
+
+function loadTab(tab) {
     if (tab === 'elo') runElo();
     if (tab === 'betting-edge') runBettingEdge();
     if (tab === 'props') runProps();
     if (tab === 'todays-picks') runTodaysPicks();
     if (tab === 'lookup') runLookup();
-    if (tab === 'parlay') runParlay();
     if (tab === 'stats') {
         const shotpropzActive = document.getElementById('shotpropzPanel').style.display !== 'none';
         if (shotpropzActive) runShotpropz(); else runStats();
@@ -139,34 +151,25 @@ function runDataFor(tab) {
 }
 
 function initTabs() {
-    const btns = Array.from(document.querySelectorAll('.tab-btn'));
-    const activate = (btn, { scroll = false, fetch = true } = {}) => {
-        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-        document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-        btn.classList.add('active');
-        document.getElementById(`tab-${btn.dataset.tab}`).classList.add('active');
-        if (fetch) runDataFor(btn.dataset.tab);
-        // Deep-link + remember the tab so refresh and Back land where the user was.
-        history.replaceState(null, '', `#tab=${btn.dataset.tab}`);
-        try { localStorage.setItem('hdf-last-tab', btn.dataset.tab); } catch (e) { /* storage may be blocked */ }
-        if (scroll) btn.scrollIntoView({ inline: 'center', block: 'nearest', behavior: 'smooth' });
-    };
-
-    btns.forEach(btn => btn.addEventListener('click', () => activate(btn, { scroll: true })));
-
-    // Initial tab: #tab=<name> hash (so in-page links and refreshes keep the
-    // view), else the tab last used in this browser, else the default.
-    // The caller fetches the initial tab's data, so this activation is silent.
-    const fromHash = location.hash.startsWith('#tab=') ? decodeURIComponent(location.hash.slice(5)) : null;
-    let initial = btns.find(b => b.dataset.tab === fromHash);
-    if (!initial) {
-        try {
-            initial = btns.find(b => b.dataset.tab === localStorage.getItem('hdf-last-tab'));
-        } catch (e) { /* storage may be blocked */ }
-    }
-    initial = initial || btns[0];
-    activate(initial, { fetch: false });
-    return initial.dataset.tab;
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            activateTab(btn.dataset.tab);
+            // Deep-linkable tabs: #props opens the props tab, the back
+            // button returns to the previous tab.
+            history.replaceState(null, '', `#${btn.dataset.tab}`);
+        });
+    });
+    // Open the tab named in the URL hash (e.g. /#props) before first paint
+    // content loads, so a shared link lands on the right panel.
+    const initial = (location.hash || '').replace('#', '');
+    if (initial) activateTab(initial);
+    window.addEventListener('hashchange', () => {
+        const tab = (location.hash || '').replace('#', '');
+        if (!document.getElementById(`tab-${tab}`)) return;
+        const isActive = document.querySelector(`.tab-btn[data-tab="${tab}"]`)?.classList.contains('active');
+        if (isActive) return; // our own replaceState echo
+        activateTab(tab);
+    });
 }
 
 function initDateDefaults() {
@@ -589,12 +592,7 @@ function updateLogos() {
 function updatePredictBtn() {
     const home = document.getElementById('homeTeam').value;
     const away = document.getElementById('awayTeam').value;
-    const ready = !!(home && away);
-    document.getElementById('predictBtn').disabled = !ready;
-    // A disabled button with no reason is a dead end on a new visit; say what
-    // is missing, then clear the hint so it doesn't read as a warning forever.
-    const hint = document.getElementById('predictHint');
-    if (hint) hint.hidden = ready;
+    document.getElementById('predictBtn').disabled = !(home && away);
 }
 
 function setupEventListeners() {
@@ -603,13 +601,10 @@ function setupEventListeners() {
     document.getElementById('homeB2B')?.addEventListener('change', populateGoalies);
     document.getElementById('awayB2B')?.addEventListener('change', populateGoalies);
     document.getElementById('predictBtn').addEventListener('click', runPrediction);
-    // Picking a date is the whole intent, so load on it; Enter re-runs for
-    // keyboard users and refetching after a failure. (The old Search button
-    // duplicated the change listener and is gone.)
+    document.getElementById('lookupBtn').addEventListener('click', runLookup);
+    // Picking a date is the whole intent, so load on it. The Search button stays
+    // for keyboard users and for re-running a fetch that failed.
     document.getElementById('lookupDate').addEventListener('change', runLookup);
-    document.getElementById('lookupDate').addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') runLookup();
-    });
     document.getElementById('statsBtn').addEventListener('click', runStats);
     // Same for the analytics selectors -- Type and Season both feed the request.
     document.getElementById('statsType').addEventListener('change', runStats);
@@ -709,17 +704,7 @@ async function runPrediction() {
 
     document.getElementById('resultsContent').innerHTML = renderResults(data, home, away);
     renderLog();
-    // On phones the results render below the fold after setup inputs; bring
-    // them to the user instead of leaving them to hunt.
-    scrollResultsIntoView();
     btn.disabled = false;
-}
-
-function scrollResultsIntoView() {
-    const panel = document.getElementById('resultsPanel');
-    if (!panel) return;
-    const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    panel.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' });
 }
 
 function renderResults(sim, homeAbbr, awayAbbr) {
@@ -1096,18 +1081,6 @@ async function safeFetchJson(url, opts={}) {
     }
 }
 
-// ── Loading skeletons ────────────────────────────────────────────
-// Big boards replace their own innerHTML wholesale, so the loading state gets
-// shape-appropriate shimmer blocks instead of a lone spinner. The Predictor's
-// simulation keeps its spinner (the wait is a known long single operation).
-function skeletonBoard(rows = 6, label = 'Loading data') {
-    let html = `<div class="skeleton-board" role="status"><span class="sr-only">${label}…</span>`;
-    for (let i = 0; i < rows; i++) {
-        html += '<div class="sk-card"><div class="sk-line sk-title"></div><div class="sk-line"></div></div>';
-    }
-    return html + '</div>';
-}
-
 // Request sequencing: only the most recent request for a given key may resolve.
 // A newer request aborts the previous in-flight one, so a slow/stale response
 // can never overwrite a fresh one.
@@ -1133,7 +1106,7 @@ async function runLookup() {
     const date = document.getElementById('lookupDate').value;
     if (!date) { container.innerHTML = '<div class="error-box">Pick a date first.</div>'; return; }
 
-    container.innerHTML = skeletonBoard(5, 'schedule');
+    container.innerHTML = '<div class="loading"><div class="spinner"></div><span>Fetching NHL schedule...</span></div>';
 
     let games = [];
     let apiWorked = false;
@@ -1150,7 +1123,7 @@ async function runLookup() {
     }
 
     if (!games.length) {
-        container.innerHTML = `<div class="empty-state"><div class="empty-icon"><i class="fa-solid fa-calendar-xmark"></i></div><h3 class="empty-title">No Games</h3><p class="empty-desc">No NHL games scheduled for ${date}. Pick another date, or press Enter on the date field to retry.</p></div>`;
+        container.innerHTML = `<div class="empty-state"><div class="empty-icon"><i class="fa-solid fa-calendar-xmark"></i></div><h3 class="empty-title">No Games</h3><p class="empty-desc">No NHL games scheduled for ${date}.</p></div>`;
         return;
     }
 
@@ -1421,7 +1394,7 @@ async function runStats() {
     const type = document.getElementById('statsType').value;
     const season = document.getElementById('statsSeason')?.value || '';
     const seasonLabel = season ? `${season.slice(0, 4)}-${season.slice(4)}` : 'selected season';
-    container.innerHTML = skeletonBoard(5, 'statistics');
+    container.innerHTML = '<div class="loading"><div class="spinner"></div><span>Loading advanced stats...</span></div>';
 
     let payload;
     try {
@@ -1525,9 +1498,7 @@ let _shotpropzSort = { key: 'avg', dir: 'desc' };
 
 function activateStatsSubtab(name) {
     document.querySelectorAll('.stats-subtab').forEach(b => {
-        const active = b.dataset.statstab === name;
-        b.classList.toggle('active', active);
-        b.setAttribute('aria-selected', String(active));
+        b.classList.toggle('active', b.dataset.statstab === name);
     });
     const isShotpropz = name === 'shotpropz';
     document.getElementById('nstPanel').style.display = isShotpropz ? 'none' : '';
@@ -1540,7 +1511,7 @@ async function runShotpropz() {
     if (!container) return;
     const metric = document.getElementById('shotpropzMetric').value;
     const venue = document.getElementById('shotpropzVenue').value;
-    container.innerHTML = skeletonBoard(5, 'shotpropz matchups');
+    container.innerHTML = '<div class="loading"><div class="spinner"></div><span>Loading shotpropz matchups...</span></div>';
 
     if (!_shotpropzPayload) {
         try {
@@ -1608,13 +1579,9 @@ function _renderShotpropz() {
     });
     html += '</tr></thead><tbody>';
     rows.forEach(r => {
-        html += `<tr><td data-label=""><div class="stats-team-cell"><img class="stats-team-logo" src="/api/logos/${r.team}.png" alt="${r.team}" onerror="this.style.display='none'"><strong>${escapeHtml(r.team)}</strong></div></td>`;
-        [..._shotpropzPositions, 'avg'].forEach((key, i) => {
-            const label = key === 'avg' ? 'Avg' : key;
-            const v = i < r.vals.length ? r.vals[i] : r.avg;
-            html += `<td data-label="${label}">${isNaN(v) ? '-' : v.toFixed(2)}</td>`;
-        });
-        html += '</tr>';
+        html += `<tr><td><div class="stats-team-cell"><img class="stats-team-logo" src="/api/logos/${r.team}.png" alt="${r.team}" onerror="this.style.display='none'"><strong>${escapeHtml(r.team)}</strong></div></td>`;
+        r.vals.forEach(v => { html += `<td>${isNaN(v) ? '-' : v.toFixed(2)}</td>`; });
+        html += `<td>${isNaN(r.avg) ? '-' : r.avg.toFixed(2)}</td></tr>`;
     });
     html += '</tbody></table></div>';
 
@@ -1738,8 +1705,7 @@ function _buildStatsTable(cols, rows, opts = {}) {
         html += `<tr class="stats-row" data-player="${playerName}" data-team="${team}" data-position="${position}" data-gp="${gp}" data-type="${type || ''}" data-idx="${idx}" title="Click for details">`;
         cols.forEach(c => {
             const raw = row[c.key];
-            // data-label drives the <=640px table-to-card CSS transform.
-            html += `<td data-label="${c.label}">${c.fmt ? c.fmt(raw) : (raw ?? '-')}</td>`;
+            html += `<td>${c.fmt ? c.fmt(raw) : (raw ?? '-')}</td>`;
         });
         html += '</tr>';
     });
@@ -1897,7 +1863,7 @@ async function runElo() {
 }
 
 async function renderEloTeams(container) {
-    container.innerHTML = skeletonBoard(6, 'team Elo');
+    container.innerHTML = '<div class="loading"><div class="spinner"></div><span>Loading Elo leaderboard...</span></div>';
 
     try {
         if (!_lastEloTeams) {
@@ -1927,11 +1893,11 @@ async function renderEloTeams(container) {
             const width = ((rating - minRating) / range * 100).toFixed(1);
             const rankClass = i < 3 ? 'elo-top' : '';
             html += `<tr>
-                <td data-label="#"><strong class="${rankClass}">${i + 1}</strong></td>
-                <td data-label="Team"><strong>${abbr}</strong> <span class="muted">${name}</span></td>
-                <td data-label="Rating"><strong class="${rankClass}">${Math.round(rating)}</strong></td>
-                <td data-label="Games">${gp}</td>
-                <td data-label="Strength"><div class="ou-bar-track" style="height:10px"><div class="elo-bar-fill" style="width:${width}%"></div></div></td>
+                <td><strong class="${rankClass}">${i + 1}</strong></td>
+                <td><strong>${abbr}</strong> <span class="muted">${name}</span></td>
+                <td><strong class="${rankClass}">${Math.round(rating)}</strong></td>
+                <td>${gp}</td>
+                <td><div class="ou-bar-track" style="height:10px"><div class="elo-bar-fill" style="width:${width}%"></div></div></td>
             </tr>`;
         });
 
@@ -1945,7 +1911,7 @@ async function renderEloTeams(container) {
 }
 
 async function renderEloPlayers(container) {
-    container.innerHTML = skeletonBoard(6, 'player Elo');
+    container.innerHTML = '<div class="loading"><div class="spinner"></div><span>Loading player Elo...</span></div>';
 
     try {
         let statsSeason = '';
@@ -2028,30 +1994,30 @@ async function renderEloPlayers(container) {
 
             let cells = '';
             if (isGoals) {
-                cells += `<td data-label="G">${p.goals || 0}</td><td data-label="G/GP"><strong>${rate(p.goals || 0)}</strong></td>`;
+                cells += `<td>${p.goals || 0}</td><td><strong>${rate(p.goals || 0)}</strong></td>`;
             }
             if (isAssists) {
-                cells += `<td data-label="A">${p.assists || 0}</td><td data-label="A/GP"><strong>${rate(p.assists || 0)}</strong></td>`;
+                cells += `<td>${p.assists || 0}</td><td><strong>${rate(p.assists || 0)}</strong></td>`;
             }
             if (isPoints) {
-                cells += `<td data-label="P">${p.points || 0}</td><td data-label="P/GP"><strong>${rate(p.points || 0)}</strong></td>`;
+                cells += `<td>${p.points || 0}</td><td><strong>${rate(p.points || 0)}</strong></td>`;
             }
             if (isDefense) {
                 const d = p.defensive_score;
-                cells += `<td data-label="D Score"><strong>${d != null ? d.toFixed(2) : '—'}</strong></td>`;
+                cells += `<td><strong>${d != null ? d.toFixed(2) : '—'}</strong></td>`;
             }
             if (isGoalies) {
                 const sv = p.sv_pct != null ? (p.sv_pct * 100).toFixed(1) + '%' : '—';
                 const gaa = p.gaa != null ? p.gaa.toFixed(2) : '—';
                 const gsax = p.gsax != null ? p.gsax.toFixed(1) : '—';
-                cells += `<td data-label="SV%"><strong>${sv}</strong></td><td data-label="GAA">${gaa}</td><td data-label="GSAx">${gsax}</td>`;
+                cells += `<td><strong>${sv}</strong></td><td>${gaa}</td><td>${gsax}</td>`;
             }
 
             html += `<tr>
-                <td data-label="#"><strong class="${rankClass}">${i + 1}</strong></td>
-                <td data-label="Player"><div class="elo-player-name"><strong>${name}</strong>${rookie}</div><span class="elo-pos">${pos}</span> <span class="elo-team">${team}</span></td>
-                <td data-label="${sortCfg.eloLabel}"><strong class="${rankClass}">${elo != null ? Math.round(elo) : '—'}</strong></td>
-                <td data-label="GP">${gp}</td>
+                <td><strong class="${rankClass}">${i + 1}</strong></td>
+                <td><div class="elo-player-name"><strong>${name}</strong>${rookie}</div><span class="elo-pos">${pos}</span> <span class="elo-team">${team}</span></td>
+                <td><strong class="${rankClass}">${elo != null ? Math.round(elo) : '—'}</strong></td>
+                <td>${gp}</td>
                 ${cells}
             </tr>`;
         });
@@ -2065,7 +2031,7 @@ async function renderEloPlayers(container) {
 }
 
 async function renderRookies(container) {
-    container.innerHTML = skeletonBoard(4, 'rookie projections');
+    container.innerHTML = '<div class="loading"><div class="spinner"></div><span>Loading rookies...</span></div>';
 
     try {
         if (!_lastEloPlayers) {
@@ -2106,15 +2072,15 @@ async function renderRookies(container) {
             const ppg = p.points_pg != null ? p.points_pg.toFixed(2) : '—';
             const rankClass = i < 3 ? 'elo-top' : '';
             html += `<tr>
-                <td data-label="#"><strong class="${rankClass}">${i + 1}</strong></td>
-                <td data-label="Rookie"><div class="elo-player-name"><strong>${name}</strong></div><span class="elo-pos">${pos}</span> <span class="elo-team">${team}</span></td>
-                <td data-label="Elo"><strong class="${rankClass}">${rating}</strong></td>
-                <td data-label="GP">${gp}</td>
-                <td data-label="G">${g}</td>
-                <td data-label="A">${a}</td>
-                <td data-label="P"><strong>${pts}</strong></td>
-                <td data-label="P/GP">${ppg}</td>
-                <td data-label="League">${lg}</td>
+                <td><strong class="${rankClass}">${i + 1}</strong></td>
+                <td><div class="elo-player-name"><strong>${name}</strong></div><span class="elo-pos">${pos}</span> <span class="elo-team">${team}</span></td>
+                <td><strong class="${rankClass}">${rating}</strong></td>
+                <td>${gp}</td>
+                <td>${g}</td>
+                <td>${a}</td>
+                <td><strong>${pts}</strong></td>
+                <td>${ppg}</td>
+                <td>${lg}</td>
             </tr>`;
         });
 
@@ -2127,17 +2093,9 @@ async function renderRookies(container) {
     }
 }
 
-// Shared so the Parlay tab's leg pool requests exactly the same board as the
-// props tab (the markets param only bites on the live-fetch fallback path,
-// where the backend default omits shots on goal).
-function playerPropsUrl() {
-    const markets = ["player_points", "player_assists", "anytime_goal_scorer", "player_shots_on_goal", "player_total_saves"];
-    return `/api/player-props?regions=us&markets=${markets.join(',')}`;
-}
-
 async function runProps() {
     const container = document.getElementById('propsResults');
-    container.innerHTML = skeletonBoard(6, 'prop lines');
+    container.innerHTML = '<div class="loading"><div class="spinner"></div><span>Loading props...</span></div>';
 
     // Sent explicitly, so this list -- not the backend default -- decides which
     // markets the board shows. Mirrors DEFAULT_PLAYER_MARKETS: goals come from
@@ -2149,7 +2107,7 @@ async function runProps() {
     const markets = ["player_points", "player_assists", "anytime_goal_scorer", "player_shots_on_goal", "player_total_saves"];
 
     try {
-        const url = playerPropsUrl();
+        const url = `/api/player-props?regions=us&markets=${markets.join(',')}`;
         const data = await latestFetch('props', url);
         if (data.error) {
             container.innerHTML = `<div class="error-box">${escapeHtml(data.error)}</div>`;
@@ -2166,7 +2124,13 @@ async function runProps() {
         const liveProps = data.props || [];
         if (liveProps.length === 0) {
             _lastPropsData = [];
-            container.innerHTML = `<div class="empty-state"><div class="empty-icon"><i class="fa-solid fa-dice"></i></div><h3 class="empty-title">No props available</h3><p class="empty-text">No props available for ${escapeHtml(data.date || '')}.</p></div>`;
+            container.innerHTML = `<div class="empty-state">
+                <div class="empty-icon"><i class="fa-solid fa-hourglass-half"></i></div>
+                <h3 class="empty-title">No lines posted yet</h3>
+                <p class="empty-text">Sportsbooks post player props on the day of the game, usually a few hours before puck drop. Check back closer to game time, or try another date.</p>
+                <button class="action-btn props-retry-btn" type="button">Retry now</button>
+            </div>`;
+            container.querySelector('.props-retry-btn').addEventListener('click', runProps);
             return;
         }
         _lastPropsData = liveProps;
@@ -2296,7 +2260,6 @@ function renderProps(props) {
     }
 
     html += '<div class="props-table">';
-    html += '<div class="props-table-head"><span>Player</span><span>Market</span><span>Pick</span><span>Model</span><span>Edge</span></div>';
     rows.forEach(p => {
         const edge = p.edge;
         const edgePct = (edge * 100).toFixed(1);
@@ -2392,7 +2355,7 @@ let _propsMarketFilter = {
 async function runBettingEdge() {
     const container = document.getElementById('bettingEdgeResults');
     if (!container) return;
-    container.innerHTML = skeletonBoard(5, 'game bets');
+    container.innerHTML = '<div class="loading"><div class="spinner"></div><span>Crunching model probabilities and odds...</span></div>';
 
     try {
         const data = await latestFetch('betting-edge', '/api/betting-edge');
@@ -2619,7 +2582,7 @@ async function initPicksDateSelector() {
 async function loadPicksForDate(date) {
     const container = document.getElementById('todaysPicksResults');
     if (!container) return;
-    container.innerHTML = skeletonBoard(5, "Today's Picks");
+    container.innerHTML = '<div class="loading"><div class="spinner"></div><span>Loading pre-computed picks...</span></div>';
     const updatedEl = document.getElementById('todaysPicksUpdated');
     if (updatedEl) updatedEl.style.display = 'none';
 
@@ -2640,11 +2603,6 @@ async function loadPicksForDate(date) {
 
 function renderTodaysPicks(data, container) {
     const games = data.games || [];
-
-    // The day's top edge gets the featured lower-third treatment.
-    const featuredIdx = games.reduce(
-        (best, g, i, arr) => (parseFloat(g.best_edge) || 0) > (parseFloat(arr[best].best_edge) || 0) ? i : best, 0
-    );
 
     // Game date + last-updated timestamp at the top.
     const dateLabel = formatGameDate(data.date);
@@ -2703,7 +2661,7 @@ function renderTodaysPicks(data, container) {
             </div>`;
         }
 
-        html += `<div class="pick-row${bestEdge > 0 && idx === featuredIdx ? ' pick-featured' : ''}" data-pick-idx="${idx}">
+        html += `<div class="pick-row" data-pick-idx="${idx}">
             <div class="pick-row-main">
                 <div class="pick-matchup">
                     <img class="be-row-logo" src="/api/logos/${awayAbbr}.png" alt="${awayAbbr}" onerror="this.style.display='none'">
