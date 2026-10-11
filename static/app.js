@@ -2125,6 +2125,14 @@ async function renderRookies(container) {
     }
 }
 
+// Shared so the Parlay tab's leg pool requests exactly the same board as the
+// props tab (the markets param only bites on the live-fetch fallback path,
+// where the backend default omits shots on goal).
+function playerPropsUrl() {
+    const markets = ["player_points", "player_assists", "anytime_goal_scorer", "player_shots_on_goal", "player_total_saves"];
+    return `/api/player-props?regions=us&markets=${markets.join(',')}`;
+}
+
 async function runProps() {
     const container = document.getElementById('propsResults');
     container.innerHTML = skeletonBoard(6, 'prop lines');
@@ -2139,7 +2147,7 @@ async function runProps() {
     const markets = ["player_points", "player_assists", "anytime_goal_scorer", "player_shots_on_goal", "player_total_saves"];
 
     try {
-        const url = `/api/player-props?regions=us&markets=${markets.join(',')}`;
+        const url = playerPropsUrl();
         const data = await latestFetch('props', url);
         if (data.error) {
             container.innerHTML = `<div class="error-box">${escapeHtml(data.error)}</div>`;

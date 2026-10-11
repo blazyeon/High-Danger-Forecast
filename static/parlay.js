@@ -505,7 +505,9 @@ function syncSegButtons(hostId, attr, value) {
 
 // ── Auto-builder ──────────────────────────────────────────────────────
 const BUILD_POOL_CAP = 30;
-const MAX_SHOW = 12;
+const MAX_SHOW = 24;       // rows shown on the first build
+const SHOW_STEP = 12;      // rows added per "Show more" tap
+const ROW_CEILING = 60;    // hard ceiling so the uncapped pass can't run away
 
 function builderPool() {
     const pool = _legs.filter(legAllowed).sort((a, b) => b.edge - a.edge);
@@ -523,11 +525,19 @@ function comboScore(legs) {
 // under the per-leg usage cap, scoring candidates by how often their legs have
 // already been picked. Top-ranked fresh combos win; reused legs only reappear
 // when nothing fresher qualifies. The same star prop can't headline the list.
-function pickDiverse(sorted, count, cap) {
+//
+// Once every remaining combo is over the cap, `strict` relaxes instead of
+// stopping short: scoring still prefers the least-reused legs, so repeats
+// only enter after the freshest pool is spent. `stat.extended` tells the
+// renderer the list filled past the variety limit. Running with a larger
+// `count` repeats the smaller run's prefix exactly, which keeps "Show more"
+// stable.
+function pickDiverse(sorted, count, cap, stat) {
     const scan = sorted.slice(0, 4000); // worst-ranked tail isn't worth the scan
     const usage = new Map();            // leg key -> times already picked
     const taken = new Array(scan.length).fill(false);
     const out = [];
+    let strict = true;
     while (out.length < count) {
         let best = -1, bestScore = Infinity;
         for (let i = 0; i < scan.length; i++) {
@@ -536,7 +546,7 @@ function pickDiverse(sorted, count, cap) {
             let score = 0, ok = true;
             for (const l of p.legs) {
                 const u = usage.get(l.key) || 0;
-                if (u >= cap) { ok = false; break; }
+                if (strict && u >= cap) { ok = false; break; }
                 score += u;
             }
             if (ok && score < bestScore) {
@@ -545,7 +555,14 @@ function pickDiverse(sorted, count, cap) {
                 if (bestScore === 0) break; // fully fresh combo, can't beat it
             }
         }
-        if (best === -1) break; // every remaining combo exceeds the cap
+        if (best === -1) {
+            if (strict) {
+                strict = false;
+                if (stat) stat.extended = true;
+                continue;
+            }
+            break; // scan exhausted
+        }
         taken[best] = true;
         scan[best].legs.forEach(l => usage.set(l.key, (usage.get(l.key) || 0) + 1));
         out.push(scan[best]);
@@ -553,8 +570,8 @@ function pickDiverse(sorted, count, cap) {
     return out;
 }
 
-const VARIETY_CAP = { 1: 1, 2: 2, 3: 3 };
-const VARIETY_TEXT = { 1: 'no leg repeats', 2: 'no leg appears more than twice', 3: 'no leg appears more than three times' };
+const VARIETY_CAP = { 1: 1, 2: 2, 3: 4 };
+const VARIETY_TEXT = { 1: 'no leg repeats', 2: 'no leg appears more than twice', 3: 'no leg appears more than four times' };
 
 function buildParlays() {
     const size = _settings.size;
@@ -605,32 +622,59 @@ function buildParlays() {
         .filter(p => !_settings.evOnly || p.ev > 0);
 
     const cap = VARIETY_CAP[_settings.variety] || 2;
-    let results, note;
+    let ranked, note;
     const varietyBit = ` · ${VARIETY_TEXT[cap] || 'diversity off'} across these picks`;
     if (_settings.mode === 'target') {
         const within = scored.filter(p => p.dist <= _settings.tolerance);
         if (within.length) {
             // Rank: most likely to hit first. Each row shows how far off the
             // target it lands.
-            results = pickDiverse(within.sort((a, b) => b.jointProb - a.jointProb || a.dist - b.dist), MAX_SHOW, cap);
+            ranked = within.sort((a, b) => b.jointProb - a.jointProb || a.dist - b.dist);
             note = `${within.length} of ${checked.toLocaleString()} independent combos landed within ${Math.round(_settings.tolerance * 100)}% of ${fmtAmerican(decimalToAmerican(target))}` + varietyBit;
         } else {
             // Nothing near the target — show the closest shots instead.
             // Closest first, most likely among equals.
-            results = pickDiverse(scored.sort((a, b) => a.dist - b.dist || b.jointProb - a.jointProb), MAX_SHOW, cap);
+            ranked = scored.sort((a, b) => a.dist - b.dist || b.jointProb - a.jointProb);
             note = `Nothing within ${Math.round(_settings.tolerance * 100)}% of ${fmtAmerican(decimalToAmerican(target))} — closest combos below.` + varietyBit;
         }
     } else {
         // Safest: rank by hit chance, best odds-breaker last.
-        results = pickDiverse(scored.sort((a, b) => b.jointProb - a.jointProb || b.ev - a.ev), MAX_SHOW, cap);
-        note = `Top ${results.length} of ${checked.toLocaleString()} independent combos by hit chance` + varietyBit;
+        ranked = scored.sort((a, b) => b.jointProb - a.jointProb || b.ev - a.ev);
+        note = `Best independent combos by hit chance · ${checked.toLocaleString()} checked` + varietyBit;
+    }
+
+    _find = { ranked, cap, note };
+    _shown = MAX_SHOW;
+    renderFind();
+}
+
+// The finder renders `shown` rows and a "Show more" control; the ranked list
+// is stable, so extending always repeats the smaller result's prefix.
+let _find = null;
+let _shown = 0;
+
+function renderFind() {
+    if (!_find) return;
+    const host = document.getElementById('plAutoplay');
+    const stat = { extended: false };
+    const results = pickDiverse(_find.ranked, _shown, _find.cap, stat);
+
+    let tail = '';
+    if (results.length >= _shown && _shown < ROW_CEILING) {
+        const add = Math.min(SHOW_STEP, ROW_CEILING - _shown);
+        tail = `<button type="button" class="pl-more-btn" data-more="1">Show ${add} more</button>`;
+    } else if (stat.extended) {
+        tail = `<p class="pl-pool-more">The list filled past the variety limit so it isn't cut short — set Variety to Balanced or Strict to keep repeats down.</p>`;
+    } else if (results.length < _shown) {
+        tail = `<p class="pl-pool-more">That's every qualifying combo — relax Variety to see more.</p>`;
     }
 
     host.innerHTML =
-        `<p class="pl-autoplay-note">${escapeHtml(note)}</p>` +
+        `<p class="pl-autoplay-note">${escapeHtml(_find.note)}</p>` +
         (results.length
             ? results.map(p => parlayRow(p)).join('')
-            : '<p class="empty-desc">No qualifying combo — widen the tolerance, drop the +EV filter, or change markets.</p>');
+            : '<p class="empty-desc">No qualifying combo — widen the tolerance, drop the +EV filter, or change markets.</p>') +
+        tail;
 }
 
 function parlayRow(p) {
@@ -684,6 +728,12 @@ document.addEventListener('click', e => {
         renderChips();
         renderGamesDD();
         renderPool();
+        return;
+    }
+    const more = e.target.closest('[data-more]');
+    if (more) {
+        _shown = Math.min(ROW_CEILING, _shown + SHOW_STEP);
+        renderFind();
         return;
     }
     const add = e.target.closest('[data-add]');
@@ -879,7 +929,7 @@ async function boot() {
     document.getElementById('plLoadState').hidden = false;
 
     const [propsRes, gamesRes] = await Promise.allSettled([
-        latestFetch('parlay-props', '/api/player-props'),
+        latestFetch('parlay-props', playerPropsUrl()),
         latestFetch('parlay-games', '/api/betting-edge'),
     ]);
 
@@ -927,6 +977,9 @@ async function boot() {
     renderChips();
     renderPool();
     renderSlip();
+    // Empty boards (e.g. caches lag behind a new day) allow a retry on the
+    // next tab activation instead of staying blank forever.
+    if (!_legs.length) _bootPromise = null;
 }
 
 // Minimal escaping so book/feed strings can't inject markup; escapeHtml is
@@ -937,9 +990,14 @@ function escapeAttr(s) {
 }
 
 // Runs the first Parlay-tab activation once; later activations re-use the
-// loaded legs (the interval above keeps started games out).
+// loaded legs (the interval above keeps started games out). A boot that came
+// back with no legs clears its promise so the next activation retries the
+// two board fetches.
 let _bootPromise = null;
 function runParlay() {
-    if (!_bootPromise) _bootPromise = boot();
+    if (!_bootPromise) {
+        _bootPromise = boot();
+        _bootPromise.catch(() => { _bootPromise = null; });
+    }
     return _bootPromise;
 }
