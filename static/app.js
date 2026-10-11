@@ -588,7 +588,12 @@ function updateLogos() {
 function updatePredictBtn() {
     const home = document.getElementById('homeTeam').value;
     const away = document.getElementById('awayTeam').value;
-    document.getElementById('predictBtn').disabled = !(home && away);
+    const ready = !!(home && away);
+    document.getElementById('predictBtn').disabled = !ready;
+    // A disabled button with no reason is a dead end on a new visit; say what
+    // is missing, then clear the hint so it doesn't read as a warning forever.
+    const hint = document.getElementById('predictHint');
+    if (hint) hint.hidden = ready;
 }
 
 function setupEventListeners() {
@@ -700,7 +705,17 @@ async function runPrediction() {
 
     document.getElementById('resultsContent').innerHTML = renderResults(data, home, away);
     renderLog();
+    // On phones the results render below the fold after setup inputs; bring
+    // them to the user instead of leaving them to hunt.
+    scrollResultsIntoView();
     btn.disabled = false;
+}
+
+function scrollResultsIntoView() {
+    const panel = document.getElementById('resultsPanel');
+    if (!panel) return;
+    const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    panel.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' });
 }
 
 function renderResults(sim, homeAbbr, awayAbbr) {

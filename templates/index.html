@@ -118,14 +118,19 @@
 
                     <div class="matchup-row">
                         <div class="team-picker">
-                            <label class="picker-label">Home</label>
+                            <label class="picker-label" for="homeTeam">Home</label>
                             <div class="team-select-wrap">
+<<<<<<< HEAD
                                 <img id="homeLogo" class="team-logo-preview" alt="" style="display:none">
                                 <select id="homeTeam" class="team-select"></select>
+=======
+                                <img id="homeLogo" class="team-logo-preview" src="" alt="" style="display:none">
+                                <select id="homeTeam" class="team-select" aria-label="Home team"></select>
+>>>>>>> 2045f83 (Predictor: say why the button is disabled, scroll results into view)
                             </div>
                             <div class="goalie-row" id="homeGoalieRow" style="display:none">
                                 <label class="sub-label">Goalie</label>
-                                <select id="homeGoalie" class="goalie-select">
+                                <select id="homeGoalie" class="goalie-select" aria-label="Home starting goalie">
                                     <option value="">Auto-select</option>
                                 </select>
                             </div>
@@ -141,14 +146,19 @@
                         </div>
 
                         <div class="team-picker">
-                            <label class="picker-label">Away</label>
+                            <label class="picker-label" for="awayTeam">Away</label>
                             <div class="team-select-wrap">
+<<<<<<< HEAD
                                 <img id="awayLogo" class="team-logo-preview" alt="" style="display:none">
                                 <select id="awayTeam" class="team-select"></select>
+=======
+                                <img id="awayLogo" class="team-logo-preview" src="" alt="" style="display:none">
+                                <select id="awayTeam" class="team-select" aria-label="Away team"></select>
+>>>>>>> 2045f83 (Predictor: say why the button is disabled, scroll results into view)
                             </div>
                             <div class="goalie-row" id="awayGoalieRow" style="display:none">
                                 <label class="sub-label">Goalie</label>
-                                <select id="awayGoalie" class="goalie-select">
+                                <select id="awayGoalie" class="goalie-select" aria-label="Away starting goalie">
                                     <option value="">Auto-select</option>
                                 </select>
                             </div>
@@ -186,12 +196,13 @@
                         </div>
                     </div>
 
-                    <button id="predictBtn" class="predict-btn" disabled>
+                    <button id="predictBtn" class="predict-btn" disabled aria-describedby="predictHint">
                         <span>Run Simulation</span>
                         <svg width="18" height="18" viewBox="0 0 18 18" fill="none" class="btn-arrow">
                             <path d="M3 9H15M15 9L10 4M15 9L10 14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                     </button>
+                    <p id="predictHint" class="predict-hint" role="status">Select both teams to run the simulation</p>
                 </div>
 
                 <div class="card results-card" id="resultsPanel">
