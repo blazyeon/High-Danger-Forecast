@@ -1593,9 +1593,13 @@ function _renderShotpropz() {
     });
     html += '</tr></thead><tbody>';
     rows.forEach(r => {
-        html += `<tr><td><div class="stats-team-cell"><img class="stats-team-logo" src="/api/logos/${r.team}.png" alt="${r.team}" onerror="this.style.display='none'"><strong>${escapeHtml(r.team)}</strong></div></td>`;
-        r.vals.forEach(v => { html += `<td>${isNaN(v) ? '-' : v.toFixed(2)}</td>`; });
-        html += `<td>${isNaN(r.avg) ? '-' : r.avg.toFixed(2)}</td></tr>`;
+        html += `<tr><td data-label=""><div class="stats-team-cell"><img class="stats-team-logo" src="/api/logos/${r.team}.png" alt="${r.team}" onerror="this.style.display='none'"><strong>${escapeHtml(r.team)}</strong></div></td>`;
+        [..._shotpropzPositions, 'avg'].forEach((key, i) => {
+            const label = key === 'avg' ? 'Avg' : key;
+            const v = i < r.vals.length ? r.vals[i] : r.avg;
+            html += `<td data-label="${label}">${isNaN(v) ? '-' : v.toFixed(2)}</td>`;
+        });
+        html += '</tr>';
     });
     html += '</tbody></table></div>';
 
@@ -1719,7 +1723,8 @@ function _buildStatsTable(cols, rows, opts = {}) {
         html += `<tr class="stats-row" data-player="${playerName}" data-team="${team}" data-position="${position}" data-gp="${gp}" data-type="${type || ''}" data-idx="${idx}" title="Click for details">`;
         cols.forEach(c => {
             const raw = row[c.key];
-            html += `<td>${c.fmt ? c.fmt(raw) : (raw ?? '-')}</td>`;
+            // data-label drives the <=640px table-to-card CSS transform.
+            html += `<td data-label="${c.label}">${c.fmt ? c.fmt(raw) : (raw ?? '-')}</td>`;
         });
         html += '</tr>';
     });
@@ -1907,11 +1912,11 @@ async function renderEloTeams(container) {
             const width = ((rating - minRating) / range * 100).toFixed(1);
             const rankClass = i < 3 ? 'elo-top' : '';
             html += `<tr>
-                <td><strong class="${rankClass}">${i + 1}</strong></td>
-                <td><strong>${abbr}</strong> <span class="muted">${name}</span></td>
-                <td><strong class="${rankClass}">${Math.round(rating)}</strong></td>
-                <td>${gp}</td>
-                <td><div class="ou-bar-track" style="height:10px"><div class="elo-bar-fill" style="width:${width}%"></div></div></td>
+                <td data-label="#"><strong class="${rankClass}">${i + 1}</strong></td>
+                <td data-label="Team"><strong>${abbr}</strong> <span class="muted">${name}</span></td>
+                <td data-label="Rating"><strong class="${rankClass}">${Math.round(rating)}</strong></td>
+                <td data-label="Games">${gp}</td>
+                <td data-label="Strength"><div class="ou-bar-track" style="height:10px"><div class="elo-bar-fill" style="width:${width}%"></div></div></td>
             </tr>`;
         });
 
@@ -2008,30 +2013,30 @@ async function renderEloPlayers(container) {
 
             let cells = '';
             if (isGoals) {
-                cells += `<td>${p.goals || 0}</td><td><strong>${rate(p.goals || 0)}</strong></td>`;
+                cells += `<td data-label="G">${p.goals || 0}</td><td data-label="G/GP"><strong>${rate(p.goals || 0)}</strong></td>`;
             }
             if (isAssists) {
-                cells += `<td>${p.assists || 0}</td><td><strong>${rate(p.assists || 0)}</strong></td>`;
+                cells += `<td data-label="A">${p.assists || 0}</td><td data-label="A/GP"><strong>${rate(p.assists || 0)}</strong></td>`;
             }
             if (isPoints) {
-                cells += `<td>${p.points || 0}</td><td><strong>${rate(p.points || 0)}</strong></td>`;
+                cells += `<td data-label="P">${p.points || 0}</td><td data-label="P/GP"><strong>${rate(p.points || 0)}</strong></td>`;
             }
             if (isDefense) {
                 const d = p.defensive_score;
-                cells += `<td><strong>${d != null ? d.toFixed(2) : '—'}</strong></td>`;
+                cells += `<td data-label="D Score"><strong>${d != null ? d.toFixed(2) : '—'}</strong></td>`;
             }
             if (isGoalies) {
                 const sv = p.sv_pct != null ? (p.sv_pct * 100).toFixed(1) + '%' : '—';
                 const gaa = p.gaa != null ? p.gaa.toFixed(2) : '—';
                 const gsax = p.gsax != null ? p.gsax.toFixed(1) : '—';
-                cells += `<td><strong>${sv}</strong></td><td>${gaa}</td><td>${gsax}</td>`;
+                cells += `<td data-label="SV%"><strong>${sv}</strong></td><td data-label="GAA">${gaa}</td><td data-label="GSAx">${gsax}</td>`;
             }
 
             html += `<tr>
-                <td><strong class="${rankClass}">${i + 1}</strong></td>
-                <td><div class="elo-player-name"><strong>${name}</strong>${rookie}</div><span class="elo-pos">${pos}</span> <span class="elo-team">${team}</span></td>
-                <td><strong class="${rankClass}">${elo != null ? Math.round(elo) : '—'}</strong></td>
-                <td>${gp}</td>
+                <td data-label="#"><strong class="${rankClass}">${i + 1}</strong></td>
+                <td data-label="Player"><div class="elo-player-name"><strong>${name}</strong>${rookie}</div><span class="elo-pos">${pos}</span> <span class="elo-team">${team}</span></td>
+                <td data-label="${sortCfg.eloLabel}"><strong class="${rankClass}">${elo != null ? Math.round(elo) : '—'}</strong></td>
+                <td data-label="GP">${gp}</td>
                 ${cells}
             </tr>`;
         });
@@ -2086,15 +2091,15 @@ async function renderRookies(container) {
             const ppg = p.points_pg != null ? p.points_pg.toFixed(2) : '—';
             const rankClass = i < 3 ? 'elo-top' : '';
             html += `<tr>
-                <td><strong class="${rankClass}">${i + 1}</strong></td>
-                <td><div class="elo-player-name"><strong>${name}</strong></div><span class="elo-pos">${pos}</span> <span class="elo-team">${team}</span></td>
-                <td><strong class="${rankClass}">${rating}</strong></td>
-                <td>${gp}</td>
-                <td>${g}</td>
-                <td>${a}</td>
-                <td><strong>${pts}</strong></td>
-                <td>${ppg}</td>
-                <td>${lg}</td>
+                <td data-label="#"><strong class="${rankClass}">${i + 1}</strong></td>
+                <td data-label="Rookie"><div class="elo-player-name"><strong>${name}</strong></div><span class="elo-pos">${pos}</span> <span class="elo-team">${team}</span></td>
+                <td data-label="Elo"><strong class="${rankClass}">${rating}</strong></td>
+                <td data-label="GP">${gp}</td>
+                <td data-label="G">${g}</td>
+                <td data-label="A">${a}</td>
+                <td data-label="P"><strong>${pts}</strong></td>
+                <td data-label="P/GP">${ppg}</td>
+                <td data-label="League">${lg}</td>
             </tr>`;
         });
 
