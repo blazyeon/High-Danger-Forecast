@@ -100,8 +100,8 @@ function initTheme() {
 // ── Init ─────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
     initTheme();
-    initTabs();
-    runTodaysPicks();
+    const initialTab = initTabs();
+    runDataFor(initialTab);
     initDateDefaults();
     initDatePickers();
     initSettingsToggle();
@@ -125,24 +125,47 @@ document.addEventListener('DOMContentLoaded', () => {
     updatePredictBtn();
 });
 
+function runDataFor(tab) {
+    if (tab === 'elo') runElo();
+    if (tab === 'betting-edge') runBettingEdge();
+    if (tab === 'props') runProps();
+    if (tab === 'todays-picks') runTodaysPicks();
+    if (tab === 'lookup') runLookup();
+    if (tab === 'stats') {
+        const shotpropzActive = document.getElementById('shotpropzPanel').style.display !== 'none';
+        if (shotpropzActive) runShotpropz(); else runStats();
+    }
+}
+
 function initTabs() {
-    document.querySelectorAll('.tab-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-            document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-            btn.classList.add('active');
-            document.getElementById(`tab-${btn.dataset.tab}`).classList.add('active');
-            if (btn.dataset.tab === 'elo') runElo();
-            if (btn.dataset.tab === 'betting-edge') runBettingEdge();
-            if (btn.dataset.tab === 'props') runProps();
-            if (btn.dataset.tab === 'todays-picks') runTodaysPicks();
-            if (btn.dataset.tab === 'lookup') runLookup();
-            if (btn.dataset.tab === 'stats') {
-                const shotpropzActive = document.getElementById('shotpropzPanel').style.display !== 'none';
-                if (shotpropzActive) runShotpropz(); else runStats();
-            }
-        });
-    });
+    const btns = Array.from(document.querySelectorAll('.tab-btn'));
+    const activate = (btn, { scroll = false, fetch = true } = {}) => {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById(`tab-${btn.dataset.tab}`).classList.add('active');
+        if (fetch) runDataFor(btn.dataset.tab);
+        // Deep-link + remember the tab so refresh and Back land where the user was.
+        history.replaceState(null, '', `#tab=${btn.dataset.tab}`);
+        try { localStorage.setItem('hdf-last-tab', btn.dataset.tab); } catch (e) { /* storage may be blocked */ }
+        if (scroll) btn.scrollIntoView({ inline: 'center', block: 'nearest', behavior: 'smooth' });
+    };
+
+    btns.forEach(btn => btn.addEventListener('click', () => activate(btn, { scroll: true })));
+
+    // Initial tab: #tab=<name> hash (so in-page links and refreshes keep the
+    // view), else the tab last used in this browser, else the default.
+    // The caller fetches the initial tab's data, so this activation is silent.
+    const fromHash = location.hash.startsWith('#tab=') ? decodeURIComponent(location.hash.slice(5)) : null;
+    let initial = btns.find(b => b.dataset.tab === fromHash);
+    if (!initial) {
+        try {
+            initial = btns.find(b => b.dataset.tab === localStorage.getItem('hdf-last-tab'));
+        } catch (e) { /* storage may be blocked */ }
+    }
+    initial = initial || btns[0];
+    activate(initial, { fetch: false });
+    return initial.dataset.tab;
 }
 
 function initDateDefaults() {
@@ -1471,9 +1494,7 @@ let _shotpropzSort = { key: 'avg', dir: 'desc' };
 
 function activateStatsSubtab(name) {
     document.querySelectorAll('.stats-subtab').forEach(b => {
-        const active = b.dataset.statstab === name;
-        b.classList.toggle('active', active);
-        b.setAttribute('aria-selected', String(active));
+        b.classList.toggle('active', b.dataset.statstab === name);
     });
     const isShotpropz = name === 'shotpropz';
     document.getElementById('nstPanel').style.display = isShotpropz ? 'none' : '';
@@ -2229,7 +2250,6 @@ function renderProps(props) {
     }
 
     html += '<div class="props-table">';
-    html += '<div class="props-table-head"><span>Player</span><span>Market</span><span>Pick</span><span>Model</span><span>Edge</span></div>';
     rows.forEach(p => {
         const edge = p.edge;
         const edgePct = (edge * 100).toFixed(1);
@@ -2574,11 +2594,6 @@ async function loadPicksForDate(date) {
 function renderTodaysPicks(data, container) {
     const games = data.games || [];
 
-    // The day's top edge gets the featured lower-third treatment.
-    const featuredIdx = games.reduce(
-        (best, g, i, arr) => (parseFloat(g.best_edge) || 0) > (parseFloat(arr[best].best_edge) || 0) ? i : best, 0
-    );
-
     // Game date + last-updated timestamp at the top.
     const dateLabel = formatGameDate(data.date);
     const updatedEl = document.getElementById('todaysPicksUpdated');
@@ -2636,7 +2651,7 @@ function renderTodaysPicks(data, container) {
             </div>`;
         }
 
-        html += `<div class="pick-row${bestEdge > 0 && idx === featuredIdx ? ' pick-featured' : ''}" data-pick-idx="${idx}">
+        html += `<div class="pick-row" data-pick-idx="${idx}">
             <div class="pick-row-main">
                 <div class="pick-matchup">
                     <img class="be-row-logo" src="/api/logos/${awayAbbr}.png" alt="${awayAbbr}" onerror="this.style.display='none'">
