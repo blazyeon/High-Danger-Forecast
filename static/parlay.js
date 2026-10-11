@@ -504,12 +504,26 @@ function syncSegButtons(hostId, attr, value) {
 }
 
 // ── Auto-builder ──────────────────────────────────────────────────────
-const BUILD_POOL_CAP = 30;
-const MAX_SHOW = 12;
+const BUILD_POOL_CAP = 36;
+const MAX_SHOW = 24;
 
 function builderPool() {
-    const pool = _legs.filter(legAllowed).sort((a, b) => b.edge - a.edge);
-    return pool.slice(0, BUILD_POOL_CAP);
+    // The old top-30-by-edge cut could lock a whole game out of the pool, and
+    // a combo of N legs needs a leg from N distinct games -- with that game
+    // missing, every N-leg combo scored out and the finder returned nothing.
+    // Allocate the pool per game instead so every game contributes.
+    const allowed = _legs.filter(legAllowed).sort((a, b) => b.edge - a.edge);
+    const numGames = new Set(allowed.map(l => l.gameKey)).size;
+    const per = Math.max(3, Math.ceil(BUILD_POOL_CAP / Math.max(1, numGames)));
+    const used = new Map();
+    const out = [];
+    for (const leg of allowed) {
+        if ((used.get(leg.gameKey) || 0) >= per) continue;
+        used.set(leg.gameKey, (used.get(leg.gameKey) || 0) + 1);
+        out.push(leg);
+        if (out.length >= BUILD_POOL_CAP) break;
+    }
+    return out;
 }
 
 function comboScore(legs) {
@@ -553,16 +567,28 @@ function pickDiverse(sorted, count, cap) {
     return out;
 }
 
-const VARIETY_CAP = { 1: 1, 2: 2, 3: 3 };
-const VARIETY_TEXT = { 1: 'no leg repeats', 2: 'no leg appears more than twice', 3: 'no leg appears more than three times' };
-
 function buildParlays() {
-    const size = _settings.size;
     const pool = builderPool();
     const host = document.getElementById('plAutoplay');
 
+    // Combos take one leg per game, so the leg count can never exceed the
+    // playable-game count — clamp and say so instead of quietly returning
+    // nothing.
+    const playableGames = new Set(pool.map(l => l.gameKey)).size;
+    const size = Math.min(_settings.size, playableGames);
+    let notePrefix = '';
+    if (size < _settings.size) {
+        notePrefix = `Only ${playableGames} playable game${playableGames === 1 ? '' : 's'} (started ones drop) — showing ${size}-leg parlays. `;
+    }
+
+    if (size < 1) {
+        host.innerHTML = `<p class="empty-desc">No playable games in the selected markets — clear the search or pick more markets.</p>`;
+        return;
+    }
+
     if (pool.length < size) {
-        host.innerHTML = `<p class="empty-desc">Only ${pool.length} legs in the selected markets — check more markets or lower the leg count.</p>`;
+        host.innerHTML = `<p class="empty-desc">${notePrefix}Only ${pool.length} ${
+            size === 1 ? 'leg' : 'legs'} in the selected markets — check more markets or lower the leg count.</p>`;
         return;
     }
 
@@ -604,26 +630,28 @@ function buildParlays() {
         }))
         .filter(p => !_settings.evOnly || p.ev > 0);
 
-    const cap = VARIETY_CAP[_settings.variety] || 2;
+    // No reuse, ever: each prop may appear in at most one of the shown
+    // parlays, so the list reads as a menu of distinct bets.
+    const cap = 1;
     let results, note;
-    const varietyBit = ` · ${VARIETY_TEXT[cap] || 'diversity off'} across these picks`;
+    const varietyBit = ` · no prop repeats across these picks`;
     if (_settings.mode === 'target') {
         const within = scored.filter(p => p.dist <= _settings.tolerance);
         if (within.length) {
             // Rank: most likely to hit first. Each row shows how far off the
             // target it lands.
             results = pickDiverse(within.sort((a, b) => b.jointProb - a.jointProb || a.dist - b.dist), MAX_SHOW, cap);
-            note = `${within.length} of ${checked.toLocaleString()} independent combos landed within ${Math.round(_settings.tolerance * 100)}% of ${fmtAmerican(decimalToAmerican(target))}` + varietyBit;
+            note = `${notePrefix}${within.length} of ${checked.toLocaleString()} independent combos landed within ${Math.round(_settings.tolerance * 100)}% of ${fmtAmerican(decimalToAmerican(target))}` + varietyBit;
         } else {
             // Nothing near the target — show the closest shots instead.
             // Closest first, most likely among equals.
             results = pickDiverse(scored.sort((a, b) => a.dist - b.dist || b.jointProb - a.jointProb), MAX_SHOW, cap);
-            note = `Nothing within ${Math.round(_settings.tolerance * 100)}% of ${fmtAmerican(decimalToAmerican(target))} — closest combos below.` + varietyBit;
+            note = `${notePrefix}Nothing within ${Math.round(_settings.tolerance * 100)}% of ${fmtAmerican(decimalToAmerican(target))} — closest combos below.` + varietyBit;
         }
     } else {
         // Safest: rank by hit chance, best odds-breaker last.
         results = pickDiverse(scored.sort((a, b) => b.jointProb - a.jointProb || b.ev - a.ev), MAX_SHOW, cap);
-        note = `Top ${results.length} of ${checked.toLocaleString()} independent combos by hit chance` + varietyBit;
+        note = `${notePrefix}Top ${results.length} of ${checked.toLocaleString()} independent combos by hit chance` + varietyBit;
     }
 
     host.innerHTML =
@@ -735,13 +763,6 @@ document.addEventListener('click', e => {
     if (tolBtn) {
         _settings.tolerance = parseFloat(tolBtn.dataset.tol) || 0.2;
         syncSegButtons('plTol', 'tol', _settings.tolerance);
-        saveSettings();
-        return;
-    }
-    const varBtn = e.target.closest('#plVariety button');
-    if (varBtn) {
-        _settings.variety = parseInt(varBtn.dataset.var, 10) || 2;
-        syncSegButtons('plVariety', 'var', _settings.variety);
         saveSettings();
         return;
     }
@@ -860,7 +881,6 @@ function restoreControls() {
     syncSegButtons('plMode', 'mode', _settings.mode);
     syncSegButtons('plSize', 'size', _settings.size);
     syncSegButtons('plTol', 'tol', _settings.tolerance);
-    syncSegButtons('plVariety', 'var', _settings.variety);
     document.getElementById('plSides').setAttribute('aria-pressed', String(_settings.sides === 'both'));
     document.getElementById('plEvOnly').setAttribute('aria-pressed', String(_settings.evOnly));
     document.getElementById('plTargetInput').value = _settings.target;
