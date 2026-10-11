@@ -602,10 +602,13 @@ function setupEventListeners() {
     document.getElementById('homeB2B')?.addEventListener('change', populateGoalies);
     document.getElementById('awayB2B')?.addEventListener('change', populateGoalies);
     document.getElementById('predictBtn').addEventListener('click', runPrediction);
-    document.getElementById('lookupBtn').addEventListener('click', runLookup);
-    // Picking a date is the whole intent, so load on it. The Search button stays
-    // for keyboard users and for re-running a fetch that failed.
+    // Picking a date is the whole intent, so load on it; Enter re-runs for
+    // keyboard users and refetching after a failure. (The old Search button
+    // duplicated the change listener and is gone.)
     document.getElementById('lookupDate').addEventListener('change', runLookup);
+    document.getElementById('lookupDate').addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') runLookup();
+    });
     document.getElementById('statsBtn').addEventListener('click', runStats);
     // Same for the analytics selectors -- Type and Season both feed the request.
     document.getElementById('statsType').addEventListener('change', runStats);
@@ -1134,7 +1137,7 @@ async function runLookup() {
     }
 
     if (!games.length) {
-        container.innerHTML = `<div class="empty-state"><div class="empty-icon"><i class="fa-solid fa-calendar-xmark"></i></div><h3 class="empty-title">No Games</h3><p class="empty-desc">No NHL games scheduled for ${date}.</p></div>`;
+        container.innerHTML = `<div class="empty-state"><div class="empty-icon"><i class="fa-solid fa-calendar-xmark"></i></div><h3 class="empty-title">No Games</h3><p class="empty-desc">No NHL games scheduled for ${date}. Pick another date, or press Enter on the date field to retry.</p></div>`;
         return;
     }
 

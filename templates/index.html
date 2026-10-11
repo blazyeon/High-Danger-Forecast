@@ -227,10 +227,9 @@
                 </div>
                 <div class="lookup-row">
                     <div class="field date-field">
-                        <label>Date</label>
+                        <label for="lookupDate">Date</label>
                         <input type="date" id="lookupDate" class="param-input date-input" placeholder="Select date">
                     </div>
-                    <button id="lookupBtn" class="action-btn">Search</button>
                 </div>
                 <div id="lookupResults" class="results-area"></div>
             </div>
@@ -313,12 +312,14 @@
         <!-- ELO LEADERBOARD TAB -->
         <section id="tab-elo" class="tab-panel">
             <div class="card">
-                <div class="card-header">
-                    <h2 class="card-title">Elo Leaderboard</h2>
-                    <p class="card-subtitle">Highest-rated teams by current Elo rating</p>
-                </div>
-                <div class="lookup-row">
-                    <button id="eloBtn" class="action-btn">Refresh Leaderboard</button>
+                <div class="card-header card-header-row">
+                    <div>
+                        <h2 class="card-title">Elo Leaderboard</h2>
+                        <p class="card-subtitle">Highest-rated teams by current Elo rating</p>
+                    </div>
+                    <button id="eloBtn" class="action-btn action-btn-icon" type="button" aria-label="Refresh Elo leaderboard" title="Refresh leaderboard">
+                        <i class="fa-solid fa-arrows-rotate"></i>
+                    </button>
                 </div>
                 <div id="eloResults" class="results-area"></div>
             </div>
