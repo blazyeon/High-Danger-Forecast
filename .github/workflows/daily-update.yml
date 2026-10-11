@@ -41,6 +41,9 @@ jobs:
     timeout-minutes: 45
     env:
       SHARPAPI_KEY: ${{ secrets.SHARPAPI_KEY }}
+      # Optional second key: each is metered separately (12 req/min), so two
+      # keys double the sweep rate. Empty when the secret is not configured.
+      SHARPAPI_KEY_2: ${{ secrets.SHARPAPI_KEY_2 }}
 
     steps:
       - name: Checkout repository

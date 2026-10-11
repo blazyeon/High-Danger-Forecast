@@ -87,7 +87,7 @@ def test_api_player_props_missing_key_is_handled():
     # Patch the resolver itself rather than the env var: clearing the env var
     # would still let a local .env file supply a key, so the test would pass
     # without exercising the missing-key path at all.
-    with mock.patch("NHL.OddsAPI._get_api_key", return_value=None):
+    with mock.patch("NHL.OddsAPI._get_api_keys", return_value=[]):
         r = client.get("/api/player-props/2025-01-15")
         assert r.status_code in (200, 500)
         d = r.get_json()

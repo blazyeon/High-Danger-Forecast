@@ -15,12 +15,16 @@ those rows back into the tree shape the rest of the app expects:
                          {"name", "price", "point"[, "description"]}]}]}]}
 
 Free tier limits handled here:
-  - 12 requests per minute  -> `_pace()` throttles to 11 so a retry cannot
-    tip the window over. There is no monthly quota, so no credit budgeting.
+  - 12 requests per minute per key  -> `_pace_keys()` throttles to 11 per key
+    so a retry cannot tip a window over, and rotates across every configured
+    key (SHARPAPI_KEY may be comma-separated, or add SHARPAPI_KEY_2). Two
+    keys share the load and double the effective request rate. There is no
+    monthly quota, so no credit budgeting.
   - 60s data delay          -> irrelevant for pregame lines.
   - DraftKings + FanDuel    -> only books the key can see.
 
-API key comes from env SHARPAPI_KEY or a .env file. No embedded key.
+API keys come from env SHARPAPI_KEY / SHARPAPI_KEY_2 or a .env file. No
+embedded key.
 """
 from __future__ import annotations
 
@@ -44,7 +48,7 @@ DEFAULT_BASE_URL = "https://api.sharpapi.io/api/v1"
 # Where the last-seen rate-limit state is persisted for the UI banner.
 QUOTA_CACHE_PATH = Path(__file__).resolve().parent.parent / "static" / "data" / "odds_quota.json"
 
-# SharpAPI's free tier allows 12 requests per rolling minute.
+# SharpAPI's free tier allows 12 requests per rolling minute, metered per key.
 _RATE_LIMIT_PER_MIN = 12
 # Hold one request back so a retry or a concurrent process cannot exhaust the window.
 _RATE_LIMIT_BUDGET = _RATE_LIMIT_PER_MIN - 1
@@ -64,9 +68,13 @@ _TO_INTERNAL_MARKET = {
     "player_saves": "player_total_saves",
 }
 
-# Request timestamps inside the current rolling minute, guarded by _rate_lock.
+# Request timestamps inside the current rolling minute, keyed by API key
+# (each key gets its own window), guarded by _rate_lock.
 _rate_lock = threading.Lock()
-_request_times: List[float] = []
+_request_times: Dict[str, List[float]] = {}
+# Rotates the starting candidate each request so configured keys share the
+# load evenly instead of saturating one until its window fills.
+_key_rotation = 0
 
 
 class OddsAPIError(Exception):
@@ -83,28 +91,56 @@ class _CursorExpired(Exception):
     """
 
 
-def _get_api_key() -> Optional[str]:
-    """Get the SharpAPI key from the environment or a .env file."""
-    key = os.getenv("SHARPAPI_KEY")
-    if key:
-        return key
+def _read_dotenv_pairs() -> List[Tuple[str, str]]:
+    """(name, value) pairs set in the .env file beside run_app.py."""
     try:
         env_path = Path(__file__).resolve().parent.parent / ".env"
         if env_path.exists():
+            pairs = []
             for line in env_path.read_text().splitlines():
                 line = line.strip()
-                if line.startswith("SHARPAPI_KEY="):
-                    return line.split("=", 1)[1].strip().strip('"').strip("'")
+                for name in ("SHARPAPI_KEY", "SHARPAPI_KEY_2"):
+                    if line.startswith(name + "="):
+                        value = line.split("=", 1)[1].strip().strip('"').strip("'")
+                        if value:
+                            pairs.append((name, value))
+            return pairs
     except Exception:
         pass
-    return None
+    return []
 
 
-def _headers() -> Dict[str, str]:
+def _get_api_keys() -> List[str]:
+    """
+    Every SharpAPI key available, de-duplicated in load order.
+
+    `SHARPAPI_KEY` may hold one key or several comma/whitespace-separated ones;
+    `SHARPAPI_KEY_2` is the conventional second key. Each key is metered by
+    SharpAPI independently, so listing both doubles the requests-per-minute.
+    """
+    names = ["SHARPAPI_KEY", "SHARPAPI_KEY_2"]
+    env_pairs = [(n, os.getenv(n)) for n in names if os.getenv(n)]
+    pairs = env_pairs or _read_dotenv_pairs()
+
+    keys: List[str] = []
+    for _name, value in pairs:
+        for part in value.replace(",", " ").replace(";", " ").split():
+            if part and part not in keys:
+                keys.append(part)
+    return keys
+
+
+def _get_api_key() -> Optional[str]:
+    """Primary SharpAPI key, or None when none is configured."""
+    keys = _get_api_keys()
+    return keys[0] if keys else None
+
+
+def _headers(api_key: str) -> Dict[str, str]:
     return {
         "Accept": "application/json",
         "User-Agent": "NHLGamePredictor/1.0",
-        "X-API-Key": _get_api_key() or "",
+        "X-API-Key": api_key,
     }
 
 
@@ -173,23 +209,38 @@ def league_date_of_event(commence_time: Any) -> Optional[_date]:
     return dt.astimezone(tz).date()
 
 
-def _pace() -> None:
+def _pace_keys(keys: List[str]) -> str:
     """
-    Block until another request fits in SharpAPI's 12-per-minute window.
+    Block until one of the keys has budget left in its per-minute window and
+    return that key, so the caller sends its request under it.
 
-    Uses a rolling window of request timestamps rather than a fixed sleep so a
-    long paging loop costs exactly as much wall-clock as the limit requires.
+    Uses per-key rolling windows of request timestamps rather than a fixed
+    sleep so a long paging loop costs exactly as much wall-clock as SharpAPI's
+    limit requires, and with several keys rotates across them for double the
+    rate. A single configured key behaves exactly like the old pacing.
     """
+    global _key_rotation
+    keys = [k for k in keys if k] or [""]
     while True:
         with _rate_lock:
             now = time.monotonic()
-            while _request_times and now - _request_times[0] >= 60.0:
-                _request_times.pop(0)
-            if len(_request_times) < _RATE_LIMIT_BUDGET:
-                _request_times.append(now)
-                return
-            wait = 60.0 - (now - _request_times[0]) + 0.05
-        logger.info(f"SharpAPI rate limit reached ({_RATE_LIMIT_BUDGET}/min); pacing for {wait:.1f}s")
+            for key in keys:
+                window = _request_times.setdefault(key, [])
+                while window and now - window[0] >= 60.0:
+                    window.pop(0)
+            # Rotate the starting candidate every request.
+            for offset in range(len(keys)):
+                key = keys[(offset + _key_rotation) % len(keys)]
+                window = _request_times[key]
+                if len(window) < _RATE_LIMIT_BUDGET:
+                    window.append(now)
+                    _key_rotation = (_key_rotation + 1) % len(keys)
+                    return key
+            wait = min(
+                60.0 - (now - _request_times[k][0]) + 0.05 for k in keys
+            )
+        rate = len(keys) * _RATE_LIMIT_BUDGET
+        logger.info(f"SharpAPI rate limit reached ({rate}/min); pacing for {wait:.1f}s")
         time.sleep(max(0.1, wait))
 
 
@@ -266,15 +317,18 @@ def _request_with_retry(
     method: str,
     url: str,
     params: Dict[str, Any],
-    max_retries: int = 4,
+    keys: List[str],
+    max_retries: int = 8,
     timeout: int = 30,
 ) -> Tuple[Any, Dict[str, str]]:
     backoff = 1.7
     last_err: Any = None
     for attempt in range(max_retries):
-        _pace()
+        # Each attempt re-picks whichever key has budget, so a 429 on one key
+        # hands the retry to the other rather than waiting out the same window.
+        api_key = _pace_keys(keys)
         try:
-            resp = requests.request(method, url, params=params, headers=_headers(), timeout=timeout)
+            resp = requests.request(method, url, params=params, headers=_headers(api_key), timeout=timeout)
         except Exception as e:
             last_err = e
             time.sleep(backoff ** attempt + random.uniform(0, 0.5))
@@ -300,6 +354,12 @@ def _request_with_retry(
                 )
             if delay is None:
                 delay = backoff ** attempt + random.uniform(0, 0.5)
+            else:
+                # A 429 that keeps returning on a 1s retry_after means the
+                # server's window is fuller than it advertises (e.g. another
+                # process spent the same key's quota). Escalate so persistent
+                # throttling is slept out instead of burned through.
+                delay = max(delay, min(backoff ** attempt, 20.0))
             logger.warning(f"SharpAPI rate limited; sleeping {delay:.1f}s")
             time.sleep(delay)
             continue
@@ -316,7 +376,7 @@ def _request_with_retry(
             if err.get("code") == "cursor_expired":
                 raise _CursorExpired(str(err.get("message") or "pagination cursor expired"))
         if resp.status_code == 401:
-            raise OddsAPIError("SharpAPI rejected the API key (401). Check SHARPAPI_KEY.")
+            raise OddsAPIError("SharpAPI rejected the API key (401). Check SHARPAPI_KEY / SHARPAPI_KEY_2.")
         if resp.status_code == 403:
             detail = resp.text[:300]
             raise OddsAPIError(f"SharpAPI tier restriction (403): {detail}")
@@ -372,8 +432,14 @@ def _fetch_odds_rows(
     Cursors expire whenever SharpAPI rebuilds its store, so a long walk restarts
     from the first page on that error. Rows are keyed by identity, so a restart
     cannot double-count what was already collected.
+
+    A walk that ends early is otherwise indistinguishable from a complete one:
+    SharpAPI's pagination block carries `has_more` but no row total. The one
+    tell is market-count asymmetry (see `_props_count_mismatch`), so a board
+    that looks truncated re-walks and merges before it is returned.
     """
-    if not _get_api_key():
+    keys = _get_api_keys()
+    if not keys:
         raise OddsAPIError("Missing API key.")
 
     collected: Dict[tuple, Dict[str, Any]] = {}  # insertion-ordered
@@ -383,15 +449,31 @@ def _fetch_odds_rows(
             _walk_odds(
                 market=market, start_dt=start_dt, end_dt=end_dt, event_ids=event_ids,
                 sportsbook=sportsbook, allow_markets=allow_markets, base_url=base_url,
-                limit=limit, max_pages=max_pages, collected=collected,
+                limit=limit, max_pages=max_pages, collected=collected, keys=keys,
             )
-            if collected:
-                break
         except _CursorExpired:
             logger.warning(
                 f"SharpAPI pagination cursor expired; restarting walk "
                 f"({attempt + 1}/{max_restarts}, {len(collected)} rows kept so far)"
             )
+        else:
+            if not collected:
+                pass  # Empty first page: sleep-wait below before re-walking.
+            else:
+                mismatch = _props_count_mismatch(list(collected.values()))
+                if mismatch is None:
+                    break
+                if attempt >= max_restarts - 1:
+                    logger.warning(
+                        f"SharpAPI sweep still looks truncated after "
+                        f"{max_restarts} walks ({mismatch}); board may be "
+                        f"missing props."
+                    )
+                    break
+                logger.info(
+                    f"SharpAPI sweep looks truncated ({mismatch}); re-walking "
+                    f"to recover the missing props ({attempt + 1}/{max_restarts})"
+                )
         # Nothing collected yet means the *first* page came back empty: either it
         # expired (400 even with no cursor) or the store served a thin snapshot
         # while rebuilding (~every 15s). An immediate restart re-fails on the same
@@ -401,6 +483,44 @@ def _fetch_odds_rows(
             time.sleep(15.0)
 
     return list(collected.values())
+
+
+def _props_count_mismatch(rows: List[Dict[str, Any]]) -> Optional[str]:
+    """
+    Where the player_points / player_assists twin markets are absent for one
+    another — the signature of a truncated sweep — described as a string, else
+    None.
+
+    Both markets price the same player set, so on a complete board a book that
+    quotes one for an event quotes both. A walk truncated mid-pagination drops
+    whole (event, book) blocks of one market, which is the incident that
+    motivated this check (DraftKings' entire NYR@DET block vanished on
+    2026-10-02). SharpAPI's pagination block carries no row total, so there is
+    no completeness signal beyond this.
+
+    Only *absence* counts, not unequal totals: books move their alternate
+    ladders independently, so day-level totals like 140 points vs 159 assists
+    are normal and must not trigger re-walks.
+    """
+    points_mk, assists_mk = "player_points", "player_assists"
+    present: Dict[Tuple[Any, Any], set] = {}  # (event_id, book) -> {market, ...}
+    markets_on_day: set = set()
+    for row in rows:
+        mk = str(row.get("market_type") or "")
+        markets_on_day.add(mk)
+        present.setdefault((row.get("event_id"), str(row.get("sportsbook") or "")), set()).add(mk)
+
+    # Whole-market absence for the day (one twin on the board, the other gone).
+    if (points_mk in markets_on_day) != (assists_mk in markets_on_day):
+        only = points_mk if points_mk in markets_on_day else assists_mk
+        return f"day has {only} but no {'assists' if only == points_mk else 'points'} at all"
+
+    for (event_id, book), pmarket in present.items():
+        has_p, has_a = points_mk in pmarket, assists_mk in pmarket
+        if has_p != has_a:
+            missing = assists_mk if has_p else points_mk
+            return f"event {event_id} ({book}) has no {missing} rows"
+    return None
 
 
 def _walk_odds(
@@ -414,6 +534,7 @@ def _walk_odds(
     limit: int,
     max_pages: int,
     collected: Dict[tuple, Dict[str, Any]],
+    keys: List[str],
 ) -> None:
     """One pass of the cursor walk, accumulating rows into `collected`."""
     url = f"{base_url}/odds"
@@ -432,7 +553,7 @@ def _walk_odds(
         # Exclude in-game prices: every caller wants pregame lines.
         params["is_live"] = "false"
 
-        data, hdrs = _request_with_retry("GET", url, params=params)
+        data, hdrs = _request_with_retry("GET", url, params=params, keys=keys)
         _note_rate_limit(hdrs)
 
         page_rows = data.get("data") or []
