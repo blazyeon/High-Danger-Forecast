@@ -21,7 +21,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@500;600;700&family=Spline+Sans+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
-    <link rel="stylesheet" href="../static/style.css?v=4.0">
+    <link rel="stylesheet" href="../static/style.css?v=4.1">
 </head>
 <body class="forecast-body">
     <div class="bg-noise"></div>
@@ -31,13 +31,9 @@
         <div class="header-inner">
             <div class="header-left">
                 <div class="logo-mark">
-<<<<<<< HEAD
                     <a class="logo-link" href="/" aria-label="High Danger Forecast home">
                         <img src="/Images/logo.png" alt="High Danger Forecast" width="32" height="32">
                     </a>
-=======
-                    <img src="/Images/logo.png" alt="High Danger Forecast" width="32" height="32">
->>>>>>> 76ddad5 (Parlay Lab becomes a tab in the main app)
                 </div>
                 <div class="logo-text">
                     <h1>High <span class="hdf-accent">Danger</span> Forecast</h1>
@@ -45,7 +41,6 @@
                 </div>
             </div>
             <div class="header-right">
-                <a class="header-link" href="/parlay"><i class="fa-solid fa-dice"></i> <span>Parlay Lab</span></a>
                 <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle light and dark mode" title="Toggle light and dark mode">
                     <i class="fa-solid fa-sun theme-icon-sun"></i>
                     <i class="fa-solid fa-moon theme-icon-moon"></i>
@@ -89,7 +84,7 @@
                 <span class="tab-label">Elo</span>
             </button>
             <button class="tab-btn" data-tab="parlay">
-                <i class="fa-solid fa-layer-group tab-icon"></i>
+                <i class="fa-solid fa-dice tab-icon"></i>
                 <span class="tab-label">Parlay</span>
             </button>
         </div>
@@ -128,16 +123,11 @@
                         <div class="team-picker">
                             <label class="picker-label" for="homeTeam">Home</label>
                             <div class="team-select-wrap">
-<<<<<<< HEAD
                                 <img id="homeLogo" class="team-logo-preview" alt="" style="display:none">
-                                <select id="homeTeam" class="team-select"></select>
-=======
-                                <img id="homeLogo" class="team-logo-preview" src="" alt="" style="display:none">
                                 <select id="homeTeam" class="team-select" aria-label="Home team"></select>
->>>>>>> 2045f83 (Predictor: say why the button is disabled, scroll results into view)
                             </div>
                             <div class="goalie-row" id="homeGoalieRow" style="display:none">
-                                <label class="sub-label">Goalie</label>
+                                <label class="sub-label" for="homeGoalie">Goalie</label>
                                 <select id="homeGoalie" class="goalie-select" aria-label="Home starting goalie">
                                     <option value="">Auto-select</option>
                                 </select>
@@ -156,16 +146,11 @@
                         <div class="team-picker">
                             <label class="picker-label" for="awayTeam">Away</label>
                             <div class="team-select-wrap">
-<<<<<<< HEAD
                                 <img id="awayLogo" class="team-logo-preview" alt="" style="display:none">
-                                <select id="awayTeam" class="team-select"></select>
-=======
-                                <img id="awayLogo" class="team-logo-preview" src="" alt="" style="display:none">
                                 <select id="awayTeam" class="team-select" aria-label="Away team"></select>
->>>>>>> 2045f83 (Predictor: say why the button is disabled, scroll results into view)
                             </div>
                             <div class="goalie-row" id="awayGoalieRow" style="display:none">
-                                <label class="sub-label">Goalie</label>
+                                <label class="sub-label" for="awayGoalie">Goalie</label>
                                 <select id="awayGoalie" class="goalie-select" aria-label="Away starting goalie">
                                     <option value="">Auto-select</option>
                                 </select>
@@ -487,11 +472,7 @@
         </div>
     </div>
 
-<<<<<<< HEAD
-    <script src="../static/app.js?v=2.7"></script>
-=======
     <script src="../static/app.js?v=2.9"></script>
     <script src="../static/parlay.js?v=2.8"></script>
->>>>>>> 76ddad5 (Parlay Lab becomes a tab in the main app)
 </body>
 </html>

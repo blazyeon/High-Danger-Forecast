@@ -1525,7 +1525,9 @@ let _shotpropzSort = { key: 'avg', dir: 'desc' };
 
 function activateStatsSubtab(name) {
     document.querySelectorAll('.stats-subtab').forEach(b => {
-        b.classList.toggle('active', b.dataset.statstab === name);
+        const active = b.dataset.statstab === name;
+        b.classList.toggle('active', active);
+        b.setAttribute('aria-selected', String(active));
     });
     const isShotpropz = name === 'shotpropz';
     document.getElementById('nstPanel').style.display = isShotpropz ? 'none' : '';
@@ -2294,6 +2296,7 @@ function renderProps(props) {
     }
 
     html += '<div class="props-table">';
+    html += '<div class="props-table-head"><span>Player</span><span>Market</span><span>Pick</span><span>Model</span><span>Edge</span></div>';
     rows.forEach(p => {
         const edge = p.edge;
         const edgePct = (edge * 100).toFixed(1);
@@ -2638,6 +2641,11 @@ async function loadPicksForDate(date) {
 function renderTodaysPicks(data, container) {
     const games = data.games || [];
 
+    // The day's top edge gets the featured lower-third treatment.
+    const featuredIdx = games.reduce(
+        (best, g, i, arr) => (parseFloat(g.best_edge) || 0) > (parseFloat(arr[best].best_edge) || 0) ? i : best, 0
+    );
+
     // Game date + last-updated timestamp at the top.
     const dateLabel = formatGameDate(data.date);
     const updatedEl = document.getElementById('todaysPicksUpdated');
@@ -2695,7 +2703,7 @@ function renderTodaysPicks(data, container) {
             </div>`;
         }
 
-        html += `<div class="pick-row" data-pick-idx="${idx}">
+        html += `<div class="pick-row${bestEdge > 0 && idx === featuredIdx ? ' pick-featured' : ''}" data-pick-idx="${idx}">
             <div class="pick-row-main">
                 <div class="pick-matchup">
                     <img class="be-row-logo" src="/api/logos/${awayAbbr}.png" alt="${awayAbbr}" onerror="this.style.display='none'">
