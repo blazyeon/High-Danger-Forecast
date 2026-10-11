@@ -1006,6 +1006,10 @@ def _best_prices(df: pd.DataFrame) -> pd.DataFrame:
                 logger.info("No %s rows from preferred book; market off the board", market)
                 continue
             kept.append(primary)
+        # A slate where the preferred book posts nothing (thin preseason boards,
+        # or the sweep caught the store mid-refresh) must not crash the concat.
+        if not kept:
+            return pd.DataFrame()
         df = pd.concat(kept, ignore_index=True)
 
     agg_rows: List[Dict[str, Any]] = []
@@ -1170,6 +1174,14 @@ def compute_player_props_for_date(
         return [], None
 
     df = _best_prices(df)
+
+    # Days the feed ships a partial side (e.g. only Over-only AGS ladders, no
+    # Under rows and thus no under columns anywhere) still need the columns
+    # the priced-pick screen and the output shaping below read.
+    for col in ("over_decimal", "over_american", "implied_over",
+                "under_decimal", "under_american", "implied_under"):
+        if col not in df.columns:
+            df[col] = pd.NA
 
     # Rows the model could not price at all carry a 50.0 sentinel ("No Data"),
     # not an estimate. Forced to "Over" below, they read as a huge edge against a
