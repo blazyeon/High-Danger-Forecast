@@ -1,6 +1,6 @@
 {
   "source": "daily_faceoff",
-  "updated_at": "2026-10-11T00:17:05.089Z",
+  "updated_at": "2026-10-11T03:26:38.646Z",
   "teams": {
     "ANA": {
       "pp1": [
@@ -17,7 +17,7 @@
         "Tristan Luneau",
         "Pavel Mintyukov"
       ],
-      "updated_at": "2026-10-09T23:52:48.103Z",
+      "updated_at": "2026-10-11T03:26:38.646Z",
       "source": "@AnaheimDucks"
     },
     "BOS": {
@@ -71,8 +71,8 @@
         "Simon Nemec",
         "Yegor Sharangovich"
       ],
-      "updated_at": "2026-10-10T18:08:51.185Z",
-      "source": "Danny Austin"
+      "updated_at": "2026-10-11T01:40:39.154Z",
+      "source": "Pat Steinberg"
     },
     "CAR": {
       "pp1": [
@@ -230,11 +230,11 @@
         "Alex Laferriere",
         "Erik Haula",
         "Trevor Moore",
-        "Erik Gustafsson",
+        "Scott Laughton",
         "Drew Doughty"
       ],
-      "updated_at": "2026-10-09T19:44:40.989Z",
-      "source": "Alexander Legget"
+      "updated_at": "2026-10-11T01:38:00.435Z",
+      "source": "Zach Dooley"
     },
     "MIN": {
       "pp1": [
@@ -539,8 +539,8 @@
         "Rasmus Andersson",
         "Shea Theodore"
       ],
-      "updated_at": "2026-10-09T01:46:12.884Z",
-      "source": "VGK PR"
+      "updated_at": "2026-10-11T01:33:26.092Z",
+      "source": "Hannah Kirkell"
     },
     "WSH": {
       "pp1": [

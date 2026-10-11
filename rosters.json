@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-11T00:27:38.324422+00:00",
+  "generated_at": "2026-10-11T08:45:55.936789+00:00",
   "teams": {
     "BOS": {
       "skaters": [
@@ -3206,6 +3206,12 @@
           "id": 8482089,
           "position": "LW",
           "birthDate": "2002-03-29"
+        },
+        {
+          "name": "Dylan Peterson",
+          "id": 8482121,
+          "position": "C",
+          "birthDate": "2002-01-08"
         },
         {
           "name": "Jimmy Snuggerud",

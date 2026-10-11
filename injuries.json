@@ -18,6 +18,12 @@
     "injured": true
   },
   {
+    "team": "ANA",
+    "player": "Cutter Gauthier",
+    "status": "dtd",
+    "injured": true
+  },
+  {
     "team": "BOS",
     "player": "Charlie McAvoy",
     "status": "out",
@@ -319,13 +325,19 @@
   },
   {
     "team": "NYR",
-    "player": "Joonas Korpisalo",
+    "player": "Igor Shesterkin",
     "status": "out",
     "injured": true
   },
   {
     "team": "NYR",
     "player": "Joe Veleno",
+    "status": "ir",
+    "injured": true
+  },
+  {
+    "team": "NYR",
+    "player": "Joonas Korpisalo",
     "status": "ir",
     "injured": true
   },

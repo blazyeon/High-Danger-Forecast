@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-11T00:27:38.327392+00:00",
+  "generated_at": "2026-10-11T08:45:55.941528+00:00",
   "players": {
     "juusov\u00e4lim\u00e4ki": {
       "points_pg": 0.44,
@@ -23,27 +23,16 @@
       "name": "Kyle Burroughs",
       "team": "DAL"
     },
-    "riegerlorenz": {
-      "points_pg": 0.3337,
-      "goals_pg": 0.1621,
-      "assists_pg": 0.1716,
-      "shots_pg": 1.801,
-      "source_league": "NCAA",
+    "dylanpeterson": {
+      "points_pg": 0.1853,
+      "goals_pg": 0.0926,
+      "assists_pg": 0.0926,
+      "shots_pg": 1.0292,
+      "source_league": "AHL",
       "source_season": 20252026,
-      "source_games": 43,
-      "name": "Rieger Lorenz",
-      "team": "MIN"
-    },
-    "vitalipinchuk": {
-      "points_pg": 0.7514,
-      "goals_pg": 0.3529,
-      "assists_pg": 0.3985,
-      "shots_pg": 3.9214,
-      "source_league": "KHL",
-      "source_season": 20252026,
-      "source_games": 65,
-      "name": "Vitali Pinchuk",
-      "team": "NSH"
+      "source_games": 57,
+      "name": "Dylan Peterson",
+      "team": "STL"
     },
     "jakeobrien": {
       "points_pg": 0.4738,
