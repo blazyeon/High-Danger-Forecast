@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <meta name="theme-color" content="#020306">
+    <meta name="theme-color" content="#0b0d12">
     <meta name="robots" content="noindex">
     <script>
         // Same saved-theme hook as index.html so both pages agree on the mode.
@@ -16,9 +16,10 @@
     <title>Parlay Lab</title>
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@500;600;700&family=Spline+Sans+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
-    <link rel="stylesheet" href="/static/style.css?v=3.0">
+    <link rel="stylesheet" href="/static/style.css?v=4.0">
 </head>
 <body>
     <div class="bg-noise"></div>
@@ -33,11 +34,12 @@
                     </a>
                 </div>
                 <div class="logo-text">
-                    <h1>Parlay Lab</h1>
+                    <h1>Parlay <span class="hdf-accent">Lab</span></h1>
                     <span class="tagline">Pick your markets, set your target odds</span>
                 </div>
             </div>
             <div class="header-right">
+                <a class="header-link" href="/"><i class="fa-solid fa-list-check"></i> <span>Back to Forecast</span></a>
                 <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle light and dark mode" title="Toggle light and dark mode">
                     <i class="fa-solid fa-sun theme-icon-sun"></i>
                     <i class="fa-solid fa-moon theme-icon-moon"></i>
@@ -53,7 +55,7 @@
             <section class="card">
                 <div class="card-header">
                     <h2 class="card-title">Leg pool</h2>
-                    <p class="card-subtitle">Pick the games and markets you want — the pool and the finder both follow</p>
+                    <p class="card-subtitle">Pick the games and markets you want; the pool and the finder both follow</p>
                 </div>
                 <div id="plChips" class="pl-chip-row" role="group" aria-label="Markets to include"></div>
                 <div class="props-toolbar props-filterbar elo-toolbar">
@@ -115,7 +117,7 @@
                             <div class="pl-total-row"><dt>Payout / profit</dt><dd id="plPayout">—</dd></div>
                         </dl>
                         <div id="plCorrelationNote" class="pl-warn" hidden>
-                            <i class="fa-solid fa-link"></i> Two legs share a game — the independence math no longer holds.
+                            <i class="fa-solid fa-link"></i> Two legs share a game: the independence math no longer holds.
                         </div>
                         <div class="pl-summary-actions">
                             <button id="plCopy" class="action-btn" type="button"><i class="fa-solid fa-copy"></i> Copy slip</button>
@@ -175,7 +177,7 @@
                         <button id="plBuild" class="action-btn pl-build-btn" type="button"><i class="fa-solid fa-wand-magic-sparkles"></i> Build parlays</button>
                     </div>
                     <div id="plAutoplay" class="pl-autoplay">
-                        <p class="empty-desc">Set the goal and leg count, then build — combos come from today's legs.</p>
+                        <p class="empty-desc">Set the goal and leg count, then build; combos come from today's legs.</p>
                     </div>
                 </section>
 

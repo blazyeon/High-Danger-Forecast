@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <meta name="theme-color" content="#020306">
+    <meta name="theme-color" content="#0b0d12">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -18,11 +18,12 @@
     <title>High Danger Forecast</title>
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@500;600;700&family=Spline+Sans+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
-    <link rel="stylesheet" href="../static/style.css?v=2.6">
+    <link rel="stylesheet" href="../static/style.css?v=4.0">
 </head>
-<body>
+<body class="forecast-body">
     <div class="bg-noise"></div>
     <div class="bg-gradient"></div>
 
@@ -30,16 +31,17 @@
         <div class="header-inner">
             <div class="header-left">
                 <div class="logo-mark">
-                    <a class="logo-link" href="/parlay" target="_blank" rel="noopener">
+                    <a class="logo-link" href="/" aria-label="High Danger Forecast home">
                         <img src="/Images/logo.png" alt="High Danger Forecast" width="32" height="32">
                     </a>
                 </div>
                 <div class="logo-text">
-                    <h1>High Danger Forecast</h1>
-                    <span class="tagline">Elo & ML-Powered Matchup Engine</span>
+                    <h1>High <span class="hdf-accent">Danger</span> Forecast</h1>
+                    <span class="tagline">NHL Predictions · Prop Edges · Every Night</span>
                 </div>
             </div>
             <div class="header-right">
+                <a class="header-link" href="/parlay"><i class="fa-solid fa-dice"></i> <span>Parlay Lab</span></a>
                 <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle light and dark mode" title="Toggle light and dark mode">
                     <i class="fa-solid fa-sun theme-icon-sun"></i>
                     <i class="fa-solid fa-moon theme-icon-moon"></i>
@@ -118,7 +120,7 @@
                         <div class="team-picker">
                             <label class="picker-label">Home</label>
                             <div class="team-select-wrap">
-                                <img id="homeLogo" class="team-logo-preview" src="" alt="" style="display:none">
+                                <img id="homeLogo" class="team-logo-preview" alt="" style="display:none">
                                 <select id="homeTeam" class="team-select"></select>
                             </div>
                             <div class="goalie-row" id="homeGoalieRow" style="display:none">
@@ -141,7 +143,7 @@
                         <div class="team-picker">
                             <label class="picker-label">Away</label>
                             <div class="team-select-wrap">
-                                <img id="awayLogo" class="team-logo-preview" src="" alt="" style="display:none">
+                                <img id="awayLogo" class="team-logo-preview" alt="" style="display:none">
                                 <select id="awayTeam" class="team-select"></select>
                             </div>
                             <div class="goalie-row" id="awayGoalieRow" style="display:none">
@@ -231,8 +233,8 @@
                     <p class="card-subtitle">Natural Stat Trick team and player data</p>
                 </div>
                 <div class="stats-subnav" role="tablist" aria-label="Statistics category">
-                    <button class="stats-subtab active" data-statstab="nst" type="button">NST Stats</button>
-                    <button class="stats-subtab" data-statstab="shotpropz" type="button">Shotpropz Matchups</button>
+                    <button class="stats-subtab active" data-statstab="nst" type="button" role="tab" aria-selected="true">NST Stats</button>
+                    <button class="stats-subtab" data-statstab="shotpropz" type="button" role="tab" aria-selected="false">Shotpropz Matchups</button>
                 </div>
                 <div id="nstPanel">
                     <div class="analytics-controls">
