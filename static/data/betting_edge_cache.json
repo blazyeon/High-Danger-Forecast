@@ -4592,9 +4592,9 @@
     },
     "2026-10-12": {
       "date": "2026-10-12",
-      "computed_at": "2026-10-11T21:09:08.450109+00:00",
+      "computed_at": "2026-10-12T00:44:46.338916+00:00",
       "source": "sharpapi",
-      "odds_fetched_at": "2026-10-11T21:08:32.598522+00:00",
+      "odds_fetched_at": "2026-10-12T00:44:33.868868+00:00",
       "warning": null,
       "no_games": false,
       "scanned": 3,
@@ -4608,7 +4608,7 @@
           "home_name": "Devils",
           "away_name": "Senators",
           "start_time": "2026-10-12T23:00:00Z",
-          "best_edge": 0.1485,
+          "best_edge": 0.1185,
           "edges": [
             {
               "market": "Total 5.5",
@@ -4617,9 +4617,9 @@
               "team": null,
               "odds": -125,
               "odds_decimal": 1.8,
-              "model_prob": 0.681,
+              "model_prob": 0.651,
               "implied_prob": 0.5325,
-              "edge": 0.1485,
+              "edge": 0.1185,
               "book": "draftkings"
             },
             {
@@ -4629,9 +4629,9 @@
               "team": "NJD",
               "odds": 185,
               "odds_decimal": 2.85,
-              "model_prob": 0.458,
+              "model_prob": 0.44,
               "implied_prob": 0.3364,
-              "edge": 0.1216,
+              "edge": 0.1036,
               "book": "draftkings"
             },
             {
@@ -4641,9 +4641,9 @@
               "team": "NJD",
               "odds": -130,
               "odds_decimal": 1.7692307692307692,
-              "model_prob": 0.542,
+              "model_prob": 0.534,
               "implied_prob": 0.5427,
-              "edge": -0.0007,
+              "edge": -0.0087,
               "book": "draftkings"
             }
           ]
@@ -4654,7 +4654,7 @@
           "home_name": "Wild",
           "away_name": "Golden Knights",
           "start_time": "2026-10-13T00:00:00Z",
-          "best_edge": 0.0927,
+          "best_edge": 0.0907,
           "edges": [
             {
               "market": "Moneyline",
@@ -4663,9 +4663,9 @@
               "team": "VGK",
               "odds": 100,
               "odds_decimal": 2.0,
-              "model_prob": 0.571,
+              "model_prob": 0.569,
               "implied_prob": 0.4783,
-              "edge": 0.0927,
+              "edge": 0.0907,
               "book": "fanduel"
             },
             {
@@ -4673,23 +4673,23 @@
               "side": "Over",
               "pick": "Over",
               "team": null,
-              "odds": -135,
-              "odds_decimal": 1.7407407407407407,
-              "model_prob": 0.601,
-              "implied_prob": 0.5514,
-              "edge": 0.0496,
+              "odds": -130,
+              "odds_decimal": 1.7692307692307692,
+              "model_prob": 0.61,
+              "implied_prob": 0.5427,
+              "edge": 0.0673,
               "book": "draftkings"
             },
             {
-              "market": "Puck Line (1.5)",
-              "side": "VGK Golden Knights",
-              "pick": "VGK Golden Knights",
-              "team": "VGK",
-              "odds": -258,
-              "odds_decimal": 1.3875968992248062,
-              "model_prob": 0.697,
-              "implied_prob": 0.6908,
-              "edge": 0.0062,
+              "market": "Puck Line (-1.5)",
+              "side": "MIN Wild",
+              "pick": "MIN Wild",
+              "team": "MIN",
+              "odds": 210,
+              "odds_decimal": 3.1,
+              "model_prob": 0.312,
+              "implied_prob": 0.3092,
+              "edge": 0.0028,
               "book": "draftkings"
             }
           ]
@@ -4700,18 +4700,18 @@
           "home_name": "Sabres",
           "away_name": "Panthers",
           "start_time": "2026-10-12T17:00:00Z",
-          "best_edge": 0.0088,
+          "best_edge": 0.0296,
           "edges": [
             {
-              "market": "Puck Line (1.5)",
+              "market": "Puck Line (-1.5)",
               "side": "BUF Sabres",
               "pick": "BUF Sabres",
               "team": "BUF",
-              "odds": -270,
-              "odds_decimal": 1.3703703703703702,
-              "model_prob": 0.709,
-              "implied_prob": 0.7002,
-              "edge": 0.0088,
+              "odds": 235,
+              "odds_decimal": 3.35,
+              "model_prob": 0.316,
+              "implied_prob": 0.2864,
+              "edge": 0.0296,
               "book": "draftkings"
             },
             {
@@ -4719,11 +4719,11 @@
               "side": "Florida Panthers",
               "pick": "Florida Panthers",
               "team": "FLA",
-              "odds": -118,
-              "odds_decimal": 1.847457627118644,
-              "model_prob": 0.523,
-              "implied_prob": 0.5174,
-              "edge": 0.0056,
+              "odds": -111,
+              "odds_decimal": 1.900900900900901,
+              "model_prob": 0.52,
+              "implied_prob": 0.5033,
+              "edge": 0.0167,
               "book": "fanduel"
             },
             {
@@ -4733,9 +4733,9 @@
               "team": null,
               "odds": -135,
               "odds_decimal": 1.7407407407407407,
-              "model_prob": 0.557,
+              "model_prob": 0.554,
               "implied_prob": 0.5514,
-              "edge": 0.0056,
+              "edge": 0.0026,
               "book": "draftkings"
             }
           ]

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-11T08:45:55.936789+00:00",
+  "generated_at": "2026-10-12T00:45:29.687837+00:00",
   "teams": {
     "BOS": {
       "skaters": [
@@ -1174,6 +1174,12 @@
           "birthDate": "1994-03-09"
         },
         {
+          "name": "Marshall Rifai",
+          "id": 8483546,
+          "position": "D",
+          "birthDate": "1998-03-16"
+        },
+        {
           "name": "Troy Stecher",
           "id": 8479442,
           "position": "D",
@@ -2036,6 +2042,12 @@
           "id": 8481122,
           "position": "D",
           "birthDate": "1998-09-19"
+        },
+        {
+          "name": "Oliver Bonk",
+          "id": 8484148,
+          "position": "D",
+          "birthDate": "2005-01-09"
         },
         {
           "name": "Jamie Drysdale",
@@ -4796,6 +4808,12 @@
           "id": 8478396,
           "position": "D",
           "birthDate": "1997-01-25"
+        },
+        {
+          "name": "Ville Heinola",
+          "id": 8481572,
+          "position": "D",
+          "birthDate": "2001-03-02"
         },
         {
           "name": "Jeremy Lauzon",

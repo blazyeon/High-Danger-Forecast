@@ -24,6 +24,12 @@
     "injured": true
   },
   {
+    "team": "ANA",
+    "player": "Ryan Poehling",
+    "status": "dtd",
+    "injured": true
+  },
+  {
     "team": "BOS",
     "player": "Charlie McAvoy",
     "status": "out",
@@ -69,6 +75,12 @@
     "team": "CAR",
     "player": "Alexander Nikishin",
     "status": "out",
+    "injured": true
+  },
+  {
+    "team": "CAR",
+    "player": "Jordan Staal",
+    "status": "dtd",
     "injured": true
   },
   {
@@ -361,6 +373,12 @@
   },
   {
     "team": "OTT",
+    "player": "Cameron Crotty",
+    "status": "ir",
+    "injured": true
+  },
+  {
+    "team": "OTT",
     "player": "Jake Sanderson",
     "status": "dtd",
     "injured": true
@@ -506,6 +524,12 @@
   {
     "team": "WSH",
     "player": "Matt Roy",
+    "status": "dtd",
+    "injured": true
+  },
+  {
+    "team": "WSH",
+    "player": "Pierre-Luc Dubois",
     "status": "dtd",
     "injured": true
   },

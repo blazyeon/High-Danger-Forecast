@@ -1,6 +1,6 @@
 {
   "source": "daily_faceoff",
-  "updated_at": "2026-10-11T03:26:38.646Z",
+  "updated_at": "2026-10-11T22:52:29.475Z",
   "teams": {
     "ANA": {
       "pp1": [
@@ -84,13 +84,13 @@
       ],
       "pp2": [
         "Taylor Hall",
-        "Jordan Staal",
+        "Jesperi Kotkaniemi",
         "Logan Stankoven",
         "K'Andre Miller",
         "Sean Walker"
       ],
-      "updated_at": "2026-10-10T22:47:22.145Z",
-      "source": "Walt Ruff"
+      "updated_at": "2026-10-11T22:52:29.475Z",
+      "source": "Projected"
     },
     "CHI": {
       "pp1": [
@@ -215,8 +215,8 @@
         "Gustav Forsling",
         "Aaron Ekblad"
       ],
-      "updated_at": "2026-10-10T21:37:02.249Z",
-      "source": "Jameson Olive"
+      "updated_at": "2026-10-11T16:16:55.413Z",
+      "source": "Jordan McPherson"
     },
     "LAK": {
       "pp1": [
@@ -341,8 +341,8 @@
         "Eeli Tolvanen",
         "Sean Durzi"
       ],
-      "updated_at": "2026-10-10T18:08:33.061Z",
-      "source": "Vince Mercogliano"
+      "updated_at": "2026-10-11T21:35:57.445Z",
+      "source": "Peter Baugh"
     },
     "OTT": {
       "pp1": [
@@ -377,7 +377,7 @@
         "Owen Tippett",
         "Jamie Drysdale"
       ],
-      "updated_at": "2026-10-10T16:40:27.694Z",
+      "updated_at": "2026-10-11T22:46:23.026Z",
       "source": "Gabriela Carroll"
     },
     "PIT": {
@@ -521,7 +521,7 @@
         "Zeev Buium",
         "Tom Willander"
       ],
-      "updated_at": "2026-10-10T19:09:37.868Z",
+      "updated_at": "2026-10-11T21:39:19.923Z",
       "source": "Thomas Drance"
     },
     "VGK": {
@@ -546,19 +546,19 @@
       "pp1": [
         "Tom Wilson",
         "Dylan Strome",
-        "Pierre-Luc Dubois",
+        "Ryan Leonard",
         "Alex Ovechkin",
         "Jakob Chychrun"
       ],
       "pp2": [
         "Alex Tuch",
         "Ilya Protas",
-        "Ryan Leonard",
+        "Ethen Frank",
         "Cole Hutson",
         "Jordan Kyrou"
       ],
-      "updated_at": "2026-10-09T22:39:58.335Z",
-      "source": "Tom Gulitti"
+      "updated_at": "2026-10-11T20:38:41.915Z",
+      "source": "Sammi Silber"
     },
     "WPG": {
       "pp1": [
