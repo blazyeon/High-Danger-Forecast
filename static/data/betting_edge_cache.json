@@ -4592,9 +4592,9 @@
     },
     "2026-10-12": {
       "date": "2026-10-12",
-      "computed_at": "2026-10-12T00:44:46.338916+00:00",
+      "computed_at": "2026-10-12T09:07:14.114855+00:00",
       "source": "sharpapi",
-      "odds_fetched_at": "2026-10-12T00:44:33.868868+00:00",
+      "odds_fetched_at": "2026-10-12T09:07:03.034090+00:00",
       "warning": null,
       "no_games": false,
       "scanned": 3,
@@ -4639,11 +4639,11 @@
               "side": "New Jersey Devils",
               "pick": "New Jersey Devils",
               "team": "NJD",
-              "odds": -130,
-              "odds_decimal": 1.7692307692307692,
+              "odds": -135,
+              "odds_decimal": 1.7407407407407407,
               "model_prob": 0.534,
-              "implied_prob": 0.5427,
-              "edge": -0.0087,
+              "implied_prob": 0.5514,
+              "edge": -0.0174,
               "book": "draftkings"
             }
           ]
@@ -4654,18 +4654,18 @@
           "home_name": "Wild",
           "away_name": "Golden Knights",
           "start_time": "2026-10-13T00:00:00Z",
-          "best_edge": 0.0907,
+          "best_edge": 0.081,
           "edges": [
             {
               "market": "Moneyline",
               "side": "Vegas Golden Knights",
               "pick": "Vegas Golden Knights",
               "team": "VGK",
-              "odds": 100,
-              "odds_decimal": 2.0,
+              "odds": -104,
+              "odds_decimal": 1.9615384615384617,
               "model_prob": 0.569,
-              "implied_prob": 0.4783,
-              "edge": 0.0907,
+              "implied_prob": 0.488,
+              "edge": 0.081,
               "book": "fanduel"
             },
             {
@@ -4673,11 +4673,11 @@
               "side": "Over",
               "pick": "Over",
               "team": null,
-              "odds": -130,
-              "odds_decimal": 1.7692307692307692,
+              "odds": -135,
+              "odds_decimal": 1.7407407407407407,
               "model_prob": 0.61,
-              "implied_prob": 0.5427,
-              "edge": 0.0673,
+              "implied_prob": 0.5514,
+              "edge": 0.0586,
               "book": "draftkings"
             },
             {
@@ -4685,11 +4685,11 @@
               "side": "MIN Wild",
               "pick": "MIN Wild",
               "team": "MIN",
-              "odds": 210,
-              "odds_decimal": 3.1,
+              "odds": 220,
+              "odds_decimal": 3.2,
               "model_prob": 0.312,
-              "implied_prob": 0.3092,
-              "edge": 0.0028,
+              "implied_prob": 0.2998,
+              "edge": 0.0122,
               "book": "draftkings"
             }
           ]
@@ -4700,18 +4700,18 @@
           "home_name": "Sabres",
           "away_name": "Panthers",
           "start_time": "2026-10-12T17:00:00Z",
-          "best_edge": 0.0296,
+          "best_edge": 0.021,
           "edges": [
             {
               "market": "Puck Line (-1.5)",
               "side": "BUF Sabres",
               "pick": "BUF Sabres",
               "team": "BUF",
-              "odds": 235,
-              "odds_decimal": 3.35,
+              "odds": 225,
+              "odds_decimal": 3.25,
               "model_prob": 0.316,
-              "implied_prob": 0.2864,
-              "edge": 0.0296,
+              "implied_prob": 0.295,
+              "edge": 0.021,
               "book": "draftkings"
             },
             {
@@ -4719,23 +4719,23 @@
               "side": "Florida Panthers",
               "pick": "Florida Panthers",
               "team": "FLA",
-              "odds": -111,
-              "odds_decimal": 1.900900900900901,
+              "odds": -112,
+              "odds_decimal": 1.8928571428571428,
               "model_prob": 0.52,
-              "implied_prob": 0.5033,
-              "edge": 0.0167,
-              "book": "fanduel"
+              "implied_prob": 0.5043,
+              "edge": 0.0157,
+              "book": "draftkings"
             },
             {
               "market": "Total 6.5",
               "side": "Under",
               "pick": "Under",
               "team": null,
-              "odds": -135,
-              "odds_decimal": 1.7407407407407407,
+              "odds": -130,
+              "odds_decimal": 1.7692307692307692,
               "model_prob": 0.554,
-              "implied_prob": 0.5514,
-              "edge": 0.0026,
+              "implied_prob": 0.5427,
+              "edge": 0.0113,
               "book": "draftkings"
             }
           ]

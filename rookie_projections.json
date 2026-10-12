@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-12T00:45:29.692413+00:00",
+  "generated_at": "2026-10-12T09:07:57.083339+00:00",
   "players": {
     "juusov\u00e4lim\u00e4ki": {
       "points_pg": 0.44,
@@ -44,17 +44,6 @@
       "source_games": 53,
       "name": "Jake O'Brien",
       "team": "SEA"
-    },
-    "guillaumebrisebois": {
-      "points_pg": 0.0458,
-      "goals_pg": 0.0183,
-      "assists_pg": 0.0275,
-      "shots_pg": 0.2037,
-      "source_league": "AHL",
-      "source_season": 20242025,
-      "source_games": 48,
-      "name": "Guillaume Brisebois",
-      "team": "VAN"
     }
   }
 }
