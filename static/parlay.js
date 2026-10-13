@@ -1199,17 +1199,23 @@ document.getElementById('plClear').addEventListener('click', () => { pushUndo();
 document.getElementById('plCopy').addEventListener('click', () => {
     const legs = slipLegs();
     if (!legs.length) return;
-    const stake = Math.max(0, parseFloat(document.getElementById('plStake').value) || 0);
     const combinedDecimal = legs.reduce((acc, l) => acc * (l.decimal || 1), 1);
     const jointProb = legs.reduce((acc, l) => acc * l.modelProb, 1);
     const ev = evOf(jointProb, combinedDecimal);
+    // Discord-flavored markdown: bold legs, blank lines between them. The
+    // countdown ("in 5h 26m") goes stale the moment it's pasted, so the copy
+    // carries the actual start time instead. Plain text — no HTML escaping,
+    // or O'Reilly-style names paste with entities in them.
     const text = [
-        'Parlay Lab slip',
-        ...legs.map(l => `${l.label} @ ${l.gameLabel} (${escapeHtml(timeChip(l.gameKey) || '')}) (${fmtAmerican(l.american)})`),
-        `Combined: ${fmtAmerican(decimalToAmerican(combinedDecimal))} (${combinedDecimal.toFixed(2)})`,
-        `Hit chance (indep. legs): ${pct(jointProb)} · EV ${(ev * 100).toFixed(1)}%`,
-        stake ? `Stake: $${stake.toFixed(2)} → $${(stake * combinedDecimal).toFixed(2)}` : '',
-    ].filter(Boolean).join('\n');
+        `**NHL Parlay — ${legs.length} leg${legs.length === 1 ? '' : 's'}**`,
+        ...legs.map((l, i) => {
+            const t = _gameTimes[l.gameKey] ? fmtGameTime(_gameTimes[l.gameKey]) : '';
+            return `**${i + 1}. ${l.label}** ${l.gameLabel}${t ? ` · **${t}**` : ''} · ${fmtAmerican(l.american)}`;
+        }),
+        '',
+        `**Combined:** ${fmtAmerican(decimalToAmerican(combinedDecimal))} (${combinedDecimal.toFixed(2)}x)`,
+        `**Hit chance:** ${pct(jointProb)} · **EV:** ${(ev * 100).toFixed(1)}%`,
+    ].join('\n');
     const btn = document.getElementById('plCopy');
     try {
         navigator.clipboard.writeText(text).then(() => {
