@@ -1202,15 +1202,21 @@ document.getElementById('plCopy').addEventListener('click', () => {
     const combinedDecimal = legs.reduce((acc, l) => acc * (l.decimal || 1), 1);
     const jointProb = legs.reduce((acc, l) => acc * l.modelProb, 1);
     const ev = evOf(jointProb, combinedDecimal);
-    // Discord-flavored markdown: bold legs, blank lines between them. The
-    // countdown ("in 5h 26m") goes stale the moment it's pasted, so the copy
-    // carries the actual start time instead. Plain text — no HTML escaping,
-    // or O'Reilly-style names paste with entities in them.
+    // Discord-flavored markdown: bold legs, blank lines between them. Game
+    // times are Discord dynamic timestamps (<t:unix:style>) — they render in
+    // each reader's timezone, and the :R counterpart stays a live countdown
+    // after pasting. Plain text — no HTML escaping, or O'Reilly-style names
+    // paste with entities in them.
     const text = [
         `**NHL Parlay — ${legs.length} leg${legs.length === 1 ? '' : 's'}**`,
-        ...legs.map((l, i) => {
-            const t = _gameTimes[l.gameKey] ? fmtGameTime(_gameTimes[l.gameKey]) : '';
-            return `**${i + 1}. ${l.label}** ${l.gameLabel}${t ? ` · **${t}**` : ''} · ${fmtAmerican(l.american)}`;
+        ...legs.map(l => {
+            const d = _gameTimes[l.gameKey];
+            let time = '';
+            if (d) {
+                const u = Math.floor(d.getTime() / 1000);
+                time = `<t:${u}:${d.toDateString() === BOOT_DAY ? 't' : 'f'}> (<t:${u}:R>)`;
+            }
+            return `**${l.label}** ${l.gameLabel}${time ? ' · ' + time : ''} · ${fmtAmerican(l.american)}`;
         }),
         '',
         `**Combined:** ${fmtAmerican(decimalToAmerican(combinedDecimal))} (${combinedDecimal.toFixed(2)}x)`,
