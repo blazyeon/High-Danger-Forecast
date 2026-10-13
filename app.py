@@ -743,6 +743,40 @@ def _points_pg_rating(points_pg: Optional[float]) -> float:
 
 
 _ELO_PLAYERS_CACHE_PATH = Path("static/data/elo_players_cache.json")
+
+
+def _prior_nhl_gp_map(current_stats_year: int) -> Dict[str, int]:
+    """Career NHL games before `current_stats_year`, summed from the history caches.
+
+    `player_elo.games_played` is stale (0 for everyone), so the only usable
+    record of who has actually accumulated NHL games is the per-season skater
+    stats cache chain. Excludes the current and later seasons. Players whose
+    career started before the oldest cached season may be slightly
+    undercounted, but everyone near the 25-game rookie threshold has their
+    whole career inside the available history.
+    """
+    out: Dict[str, int] = {}
+    for path in Path("static/data").glob("pbp_skater_stats_*.json"):
+        stem = path.stem.replace("pbp_skater_stats_", "")
+        if not stem.isdigit() or len(stem) != 8:
+            continue
+        if int(stem[:4]) >= current_stats_year:
+            continue
+        try:
+            rows = json.loads(path.read_text(encoding="utf-8")).get("data") or []
+        except Exception as e:
+            logger.warning(f"prior-gp cache read failed for {path.name}: {e}")
+            continue
+        for r in rows:
+            if not isinstance(r, dict) or not r.get("name"):
+                continue
+            key = normalize_name_key(str(r["name"]))
+            if key:
+                try:
+                    out[key] = out.get(key, 0) + int(r.get("gp", 0) or 0)
+                except (TypeError, ValueError):
+                    continue
+    return out
 _ELO_PLAYERS_CACHE_TTL_HOURS = 24.0
 
 
@@ -881,36 +915,56 @@ def _compute_elo_players(state: Dict[str, Any], stats_year: int) -> Dict[str, An
         })
     prospect_rows.sort(key=lambda x: -(x["points_pg"] or 0.0))
 
-    # Current-NHL rookies: young skaters with a small season sample. A rookie
-    # is not "zero NHL games" — a first-year player like Martone (10 GP) counts.
-    # Age <= 24 at season start and < 25 GP is a small-sample rookie proxy.
+    # Current-NHL rookies: young skaters with a small sample in the CURRENT
+    # season only. Reading the rookie proxy off the leaderboard's stats year
+    # (the previous season while the current one is immature) would promote
+    # second-year players — a 9-game call-up from last spring is not a rookie
+    # now. A rookie is not "zero NHL games" — a first-year player with a few
+    # games this season counts. Eligibility: < 25 career NHL games before this
+    # season (so an early-October 6-gp Stützle or Celebrini stays off the list
+    # while Martone's 9-game call-up is still rookie-eligible), age <= 24 at
+    # season start, and < 25 GP this season.
+    current_stats_year = int(str(current_season)[:4]) if current_season else stats_year
+    prior_gp = _prior_nhl_gp_map(current_stats_year)
+    cur_rookie_source = (
+        load_cached_stats("skaters", current_stats_year, 2).get("data") or []
+        if current_stats_year != stats_year
+        else skaters
+    )
     nhl_rookie_rows: List[Dict[str, Any]] = []
-    for r in skater_rows:
-        gp = r["games_played"]
-        if gp <= 0 or gp >= 25:
+    for s in cur_rookie_source:
+        name = str(s.get("name") or "").strip()
+        if not name:
             continue
-        birth_year = roster_birth_years.get(normalize_name_key(r["name"]))
-        if not birth_year or (stats_year - birth_year) > 24:
+        key = normalize_name_key(name)
+        gp = int(s.get("gp") or 0)
+        if gp <= 0 or gp >= 25 or prior_gp.get(key, 0) >= 25:
             continue
+        birth_year = roster_birth_years.get(key)
+        if not birth_year or (current_stats_year - birth_year) > 24:
+            continue
+        goals, assists = int(s.get("goals") or 0), int(s.get("assists") or 0)
         nhl_rookie_rows.append({
-            "name": r["name"],
-            "team": r["team"],
-            "position": r["position"],
-            "rating": r["rating"],
+            "name": name,
+            "team": roster_teams.get(normalize_name_key(name), str(s.get("team") or "")),
+            "position": str(s.get("position") or "F"),
+            "rating": _elo_for(name),
             "games_played": gp,
-            "goals": r["goals"],
-            "assists": r["assists"],
-            "points": r["points"],
-            "shots": r["shots"],
-            "goals_pg": r["goals"] / max(gp, 1),
-            "assists_pg": r["assists"] / max(gp, 1),
-            "points_pg": r["points"] / max(gp, 1),
-            "shots_pg": r["shots"] / max(gp, 1),
+            "goals": goals,
+            "assists": assists,
+            "points": goals + assists,
+            "shots": int(s.get("shots") or 0),
+            "goals_pg": goals / max(gp, 1),
+            "assists_pg": assists / max(gp, 1),
+            "points_pg": (goals + assists) / max(gp, 1),
+            "shots_pg": int(s.get("shots") or 0) / max(gp, 1),
             "source_league": "NHL",
-            "goal_elo": r["goal_elo"],
-            "assist_elo": r["assist_elo"],
-            "points_elo": r["points_elo"],
-            "defense_elo": r["defense_elo"],
+            # Per-stat Elo is computed over the leaderboard's stats year; a
+            # rookie priced off this season's few games has none yet.
+            "goal_elo": None,
+            "assist_elo": None,
+            "points_elo": None,
+            "defense_elo": None,
         })
     nhl_rookie_rows.sort(key=lambda x: -(x["rating"] or 0.0))
 
