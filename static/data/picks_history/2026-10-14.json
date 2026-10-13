@@ -1,6 +1,6 @@
 {
   "date": "2026-10-14",
-  "computed_at": "2026-10-13T09:37:55.420225+00:00",
+  "computed_at": "2026-10-13T19:28:06.719544+00:00",
   "games": [
     {
       "home": "WSH",
@@ -8,8 +8,33 @@
       "home_name": "Capitals",
       "away_name": "Canadiens",
       "start_time": "2026-10-14T23:30:00Z",
-      "best_edge": 0.0,
-      "edges": [],
+      "best_edge": 0.0493,
+      "edges": [
+        {
+          "market": "Total 6.5",
+          "side": "Under",
+          "pick": "Under",
+          "team": null,
+          "odds": -105,
+          "odds_decimal": 1.9523809523809523,
+          "model_prob": 0.5385,
+          "implied_prob": 0.4892,
+          "edge": 0.0493,
+          "book": "draftkings"
+        },
+        {
+          "market": "Puck Line (-1.5)",
+          "side": "WAS Capitals",
+          "pick": "WAS Capitals",
+          "team": "WSH",
+          "odds": 190,
+          "odds_decimal": 2.9,
+          "model_prob": 0.373,
+          "implied_prob": 0.331,
+          "edge": 0.042,
+          "book": "draftkings"
+        }
+      ],
       "sim": {
         "mu_home": 3.4828028849633044,
         "mu_away": 2.941435077179395,
@@ -154,8 +179,33 @@
       "home_name": "Avalanche",
       "away_name": "Stars",
       "start_time": "2026-10-15T00:30:00Z",
-      "best_edge": 0.0,
-      "edges": [],
+      "best_edge": 0.1119,
+      "edges": [
+        {
+          "market": "Total 5.5",
+          "side": "Over",
+          "pick": "Over",
+          "team": null,
+          "odds": -130,
+          "odds_decimal": 1.7692307692307692,
+          "model_prob": 0.6546,
+          "implied_prob": 0.5427,
+          "edge": 0.1119,
+          "book": "draftkings"
+        },
+        {
+          "market": "Puck Line (-1.5)",
+          "side": "COL Avalanche",
+          "pick": "COL Avalanche",
+          "team": "COL",
+          "odds": 170,
+          "odds_decimal": 2.7,
+          "model_prob": 0.461,
+          "implied_prob": 0.3553,
+          "edge": 0.1057,
+          "book": "draftkings"
+        }
+      ],
       "sim": {
         "mu_home": 4.07803008786048,
         "mu_away": 3.043040839305279,
