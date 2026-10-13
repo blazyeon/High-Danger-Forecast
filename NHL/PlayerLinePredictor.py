@@ -21,7 +21,7 @@ import difflib
 
 from NHL.OddsAPI import fetch_nhl_player_props_by_date, OddsAPIError
 from NHL.Utils import normalize_name_key, season_from_date
-from NHL.StatsFromPBP import load_skater_rates_from_json, load_goalie_rates_from_json
+from NHL.StatsFromPBP import load_skater_rates_from_json, load_goalie_rates_from_json, prior_career_gp_map
 from NHL.Config import NST_ABBR_TO_FULL, TEAM_ABBR_MAPPING
 from EloMl.Database import EloDatabase
 # NST import removed — see get_player_pbp_stats below for the new source.
@@ -1200,6 +1200,33 @@ def compute_player_props_for_date(
     season = _season_with_player_stats(season_from_date(game_date.isoformat()))
     player_elo = get_player_elo_ratings(season)
     player_stats = get_player_pbp_stats(season)
+
+    # Rookies price off this season's own rates only. While the board falls
+    # back to the previous season (until its rates mature), a rookie has no
+    # previous-NHL season to price off: Martone would keep his 9-game 2025-26
+    # cameo and McKenna (this season's games, no prior sample) would show as
+    # "No Data" — both ignoring how they actually play now. Overlay the
+    # current season's (already small-sample-blended) rates for anyone with
+    # < 25 career NHL games behind them; those are the same eligibility rules
+    # the Elo leaderboard's rookie list uses. A rookie with no this-season
+    # games gets nothing (and their last-season cameo no longer prices).
+    current_season_name = season_from_date(game_date.isoformat())
+    if season != current_season_name:
+        try:
+            current_stats = get_player_pbp_stats(current_season_name)
+        except Exception as e:
+            logger.warning("Could not load current-season stats for rookie overlay: %s", e)
+            current_stats = {}
+        if current_stats:
+            try:
+                prior_gp = prior_career_gp_map(int(str(current_season_name)[:4]))
+            except Exception as e:
+                logger.warning("Could not load prior-career gp map: %s", e)
+                prior_gp = {}
+            for key, row in current_stats.items():
+                gp = int(row.get("gp", 0) or 0)
+                if 0 < gp < 25 and prior_gp.get(key, 0) < 25:
+                    player_stats[key] = row
 
     raw, odds_errors = load_player_props_for_day_with_status(
         day=game_date,

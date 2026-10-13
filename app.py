@@ -35,7 +35,7 @@ from NHL.MatchupUtils import (
     detect_game_type,
 )
 from NHL.Simulation import simulate_matchup, simulate_slate
-from NHL.StatsFromPBP import load_skater_rates_from_json, load_cached_stats
+from NHL.StatsFromPBP import load_skater_rates_from_json, load_cached_stats, prior_career_gp_map
 from NHL.ApiScrape import (
     get_confirmed_or_predicted_lineup,
     get_roster_goalies_for_override,
@@ -743,40 +743,6 @@ def _points_pg_rating(points_pg: Optional[float]) -> float:
 
 
 _ELO_PLAYERS_CACHE_PATH = Path("static/data/elo_players_cache.json")
-
-
-def _prior_nhl_gp_map(current_stats_year: int) -> Dict[str, int]:
-    """Career NHL games before `current_stats_year`, summed from the history caches.
-
-    `player_elo.games_played` is stale (0 for everyone), so the only usable
-    record of who has actually accumulated NHL games is the per-season skater
-    stats cache chain. Excludes the current and later seasons. Players whose
-    career started before the oldest cached season may be slightly
-    undercounted, but everyone near the 25-game rookie threshold has their
-    whole career inside the available history.
-    """
-    out: Dict[str, int] = {}
-    for path in Path("static/data").glob("pbp_skater_stats_*.json"):
-        stem = path.stem.replace("pbp_skater_stats_", "")
-        if not stem.isdigit() or len(stem) != 8:
-            continue
-        if int(stem[:4]) >= current_stats_year:
-            continue
-        try:
-            rows = json.loads(path.read_text(encoding="utf-8")).get("data") or []
-        except Exception as e:
-            logger.warning(f"prior-gp cache read failed for {path.name}: {e}")
-            continue
-        for r in rows:
-            if not isinstance(r, dict) or not r.get("name"):
-                continue
-            key = normalize_name_key(str(r["name"]))
-            if key:
-                try:
-                    out[key] = out.get(key, 0) + int(r.get("gp", 0) or 0)
-                except (TypeError, ValueError):
-                    continue
-    return out
 _ELO_PLAYERS_CACHE_TTL_HOURS = 24.0
 
 
@@ -925,7 +891,7 @@ def _compute_elo_players(state: Dict[str, Any], stats_year: int) -> Dict[str, An
     # while Martone's 9-game call-up is still rookie-eligible), age <= 24 at
     # season start, and < 25 GP this season.
     current_stats_year = int(str(current_season)[:4]) if current_season else stats_year
-    prior_gp = _prior_nhl_gp_map(current_stats_year)
+    prior_gp = prior_career_gp_map(current_stats_year)
     cur_rookie_source = (
         load_cached_stats("skaters", current_stats_year, 2).get("data") or []
         if current_stats_year != stats_year

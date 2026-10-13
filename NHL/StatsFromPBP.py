@@ -170,6 +170,45 @@ def _load_json_rates(
         return None
 
 
+def prior_career_gp_map(current_stats_year: int) -> Dict[str, int]:
+    """Career NHL games before `current_stats_year`, summed from the history caches.
+
+    `player_elo.games_played` is stale (0 for everyone), so the only usable
+    record of who has actually accumulated NHL games is the per-season skater
+    stats cache chain. Excludes the current and later seasons. Shared by the
+    Elo leaderboard's rookie-eligibility check and the props pipeline's
+    "rookies price off this season only" overlay.
+
+    Players whose career started before the oldest cached season may be
+    slightly undercounted, but everyone near the 25-game rookie threshold has
+    their whole career inside the available history.
+    """
+    out: Dict[str, int] = {}
+    for path in Path("static/data").glob("pbp_skater_stats_*.json"):
+        stem = path.stem.replace("pbp_skater_stats_", "")
+        if not stem.isdigit() or len(stem) != 8:
+            continue
+        if int(stem[:4]) >= current_stats_year:
+            continue
+        try:
+            rows = Path(path).read_text(encoding="utf-8")
+            rows = json.loads(rows).get("data") or []
+        except Exception as e:
+            logger.warning(f"prior-gp cache read failed for {path.name}: {e}")
+            continue
+        for rec in rows:
+            if not isinstance(rec, dict) or not rec.get("name"):
+                continue
+            key = normalize_name_key(str(rec["name"]))
+            if not key:
+                continue
+            try:
+                out[key] = out.get(key, 0) + int(rec.get("gp", 0) or 0)
+            except (TypeError, ValueError):
+                continue
+    return out
+
+
 def load_skater_rates_from_json(season_year: int, stype: int = 2) -> Dict[str, Dict[str, float]]:
     """
     Load pre-computed full-season skater rates from JSON.
