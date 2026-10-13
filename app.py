@@ -584,14 +584,41 @@ def api_elo_leaderboard():
 # ── API: Player Elo Leaderboard ────────────────────────────────────────
 
 def _latest_stats_year(current_season: str) -> int:
-    """Latest season_year with cached skater/goalie stats on disk (offseason aware)."""
+    """Latest season_year with cached skater/goalie stats on disk (offseason aware).
+
+    Existence is not enough: early in a season the current year's cache covers
+    only a handful of games, and the leaderboard's consumers all read noise from
+    it — the per-stat Elo needs >=10 gp, the rookie proxy flags gp<25 (so every
+    young player became a "rookie"), and the UI filters gp>=10 (so the Players
+    tab went empty). Mirror the simulation's trust gate: only hand back a season
+    whose sample has reached the trusted games played; otherwise fall back.
+    """
     start = int(current_season[:4]) if current_season else 2025
-    stats_dir = Path("static/data")
     for year in (start, start - 1, start - 2):
-        if (stats_dir / f"pbp_skater_stats_{year}{year + 1}.json").exists() or \
-           (stats_dir / f"pbp_goalie_stats_{year}{year + 1}.json").exists():
+        if _stats_year_mature(year):
             return year
     return start - 1
+
+
+_LEADERBOARD_TRUSTED_SAMPLE_GP = 10
+
+
+def _stats_year_mature(year: int) -> bool:
+    """True once a stats year's cache holds a trusted sample (max gp >= 10)."""
+    stats_dir = Path("static/data")
+    for kind in ("skater", "goalie"):
+        path = stats_dir / f"pbp_{kind}_stats_{year}{year + 1}.json"
+        if not path.exists():
+            continue
+        try:
+            rows = json.loads(path.read_text(encoding="utf-8")).get("data") or []
+        except Exception as e:
+            logger.warning(f"elo stats cache read failed for {year}: {e}")
+            continue
+        gps = [int(r.get("gp", 0) or 0) for r in rows if isinstance(r, dict)]
+        if gps and max(gps) >= _LEADERBOARD_TRUSTED_SAMPLE_GP:
+            return True
+    return False
 
 
 def _player_elo_map(db) -> Dict[str, Dict[str, Any]]:

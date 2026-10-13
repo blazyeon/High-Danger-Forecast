@@ -253,6 +253,44 @@ def get_player_nst_stats(season: str) -> Dict[str, Dict]:
     # own production instead: last year's full season, or this year's pace once
     # the season selector below starts returning the current year.
 
+    # Full-season players keep raw rates, but a tiny sample must not. A 9-game
+    # call-up cameo (Porter Martone, 2025-26) read as 1.11 points/gn and 3.56
+    # shots/gn and priced SOG O2.5 at 69% vs the market's 42% -- a fabricated
+    # 27% edge. Blend toward the positional mean with a weight decaying in
+    # games played: ~half pull at 9 gp, ~18% at 20 gp, ~1% at 50 gp, so the
+    # fix never touches the stars the blanket K=40 shrinkage flattened.
+    rate_halflife = 8.0
+    forward_pos = {"C", "L", "R", "W", "F"}
+
+    def pos_group(pos: str) -> Optional[str]:
+        p = str(pos).upper()
+        if p in forward_pos:
+            return "F"
+        return "D" if p == "D" else None
+
+    group_rates: Dict[str, Dict[str, List[float]]] = {"F": {}, "D": {}}
+    for d in stats.values():
+        group = pos_group(d.get("position", ""))
+        if group and d.get("gp", 0) > 0:
+            for key in ("goals_pg", "assists_pg", "points_pg", "shots_pg"):
+                group_rates[group].setdefault(key, []).append(d[key])
+
+    pos_means: Dict[str, Dict[str, Optional[float]]] = {}
+    for group, keys in group_rates.items():
+        pos_means[group] = {
+            key: (sum(vals) / len(vals) if vals else None) for key, vals in keys.items()
+        }
+
+    for d in stats.values():
+        group = pos_group(d.get("position", ""))
+        means = pos_means.get(group)
+        if not means:
+            continue
+        pull = 2.0 ** (-d["gp"] / rate_halflife)
+        for key, mean in means.items():
+            if mean is not None:
+                d[key] = d[key] + (mean - d[key]) * pull
+
     # Merge goalie save rates so `player_total_saves` props can be priced.
     try:
         goalie_rates = load_goalie_rates_from_json(start_year, 2)
