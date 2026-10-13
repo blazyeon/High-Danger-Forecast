@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-12T09:07:57.078579+00:00",
+  "generated_at": "2026-10-13T02:46:18.551811+00:00",
   "teams": {
     "BOS": {
       "skaters": [
@@ -1996,12 +1996,6 @@
           "birthDate": "2003-05-02"
         },
         {
-          "name": "Carl Grundstrom",
-          "id": 8479336,
-          "position": "RW",
-          "birthDate": "1997-12-01"
-        },
-        {
           "name": "Travis Konecny",
           "id": 8478439,
           "position": "RW",
@@ -2900,6 +2894,12 @@
           "id": 8477446,
           "position": "C",
           "birthDate": "1995-03-07"
+        },
+        {
+          "name": "Tyler Pitlick",
+          "id": 8475752,
+          "position": "C",
+          "birthDate": "1991-11-01"
         },
         {
           "name": "Maxim Shabanov",
@@ -4184,12 +4184,6 @@
           "id": 8481532,
           "position": "C",
           "birthDate": "2001-02-26"
-        },
-        {
-          "name": "Jared Wright",
-          "id": 8483756,
-          "position": "RW",
-          "birthDate": "2002-11-22"
         },
         {
           "name": "Mats Zuccarello",
