@@ -18,7 +18,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
-    <link rel="stylesheet" href="/static/style.css?v=3.1">
+    <link rel="stylesheet" href="/static/style.css?v=3.2">
 </head>
 <body>
     <div class="bg-noise"></div>
@@ -34,7 +34,7 @@
                 </div>
                 <div class="logo-text">
                     <h1>Parlay Lab</h1>
-                    <span class="tagline">Pick your markets, set your target odds</span>
+                    <span class="tagline">Model-priced legs, sorted by value or hit chance</span>
                 </div>
             </div>
             <div class="header-right">
@@ -81,6 +81,9 @@
                 <div id="plLoadState" class="empty-state" hidden>
                     <p class="empty-desc">Loading legs…</p>
                 </div>
+                <div id="plDayNote" class="pl-pool-more" hidden>
+                    <i class="fa-solid fa-spinner fa-spin"></i> Today's slate is live — loading Tuesday's games in the background…
+                </div>
                 <div id="plPool" class="pl-leg-list"></div>
             </section>
 
@@ -90,7 +93,7 @@
                 <section class="card">
                     <div class="card-header">
                         <h2 class="card-title">Slip</h2>
-                        <p class="card-subtitle">Joint math assumes the legs are independent</p>
+                        <p class="card-subtitle">Joint math assumes the legs are independent — same-game pairs get an honest range</p>
                     </div>
                     <div class="pl-hero">
                         <div class="pl-hero-main">
@@ -106,18 +109,31 @@
                     <div id="slipLegs" class="pl-slip-legs"></div>
                     <div class="pl-summary">
                         <div class="pl-summary-row">
-                            <label class="props-toolbar-label" for="plStake">Stake</label>
-                            <span class="pl-money-wrap">$<input id="plStake" class="pl-stake" type="number" min="0" step="1" value="10" inputmode="decimal"></span>
+                            <div class="pl-money-row">
+                                <label class="props-toolbar-label" for="plStake">Stake</label>
+                                <span class="pl-money-wrap">$<input id="plStake" class="pl-stake" type="number" min="0" step="1" value="10" inputmode="decimal"></span>
+                            </div>
+                            <div class="pl-money-row">
+                                <label class="props-toolbar-label" for="plBankroll">Bankroll</label>
+                                <span class="pl-money-wrap">$<input id="plBankroll" class="pl-stake" type="number" min="0" step="10" value="500" inputmode="decimal"></span>
+                            </div>
                         </div>
                         <dl class="pl-totals">
                             <div class="pl-total-row"><dt>Book implied</dt><dd id="plImplied">—</dd></div>
                             <div class="pl-total-row"><dt>Value (EV)</dt><dd id="plEV">—</dd></div>
+                            <div class="pl-total-row">
+                                <dt>Kelly <button id="plUseKelly" type="button" class="pl-kelly-btn" hidden title="Set the stake to a quarter-Kelly bet">use ¼</button></dt>
+                                <dd id="plKelly">—</dd>
+                            </div>
                             <div class="pl-total-row"><dt>Payout / profit</dt><dd id="plPayout">—</dd></div>
                         </dl>
                         <div id="plCorrelationNote" class="pl-warn" hidden>
-                            <i class="fa-solid fa-link"></i> Two legs share a game — the independence math no longer holds.
+                            <i class="fa-solid fa-link"></i> Legs share a game — independence no longer holds.
+                            True hit chance sits somewhere inside <span id="plCorrRange">—</span>.
                         </div>
+                        <div id="plSuggest" class="pl-suggest" hidden></div>
                         <div class="pl-summary-actions">
+                            <button id="plUndo" class="action-btn" type="button"><i class="fa-solid fa-rotate-left"></i> Undo</button>
                             <button id="plCopy" class="action-btn" type="button"><i class="fa-solid fa-copy"></i> Copy slip</button>
                             <button id="plClear" class="action-btn" type="button"><i class="fa-solid fa-eraser"></i> Clear slip</button>
                         </div>
@@ -127,49 +143,38 @@
                 <section class="card">
                     <div class="card-header">
                         <h2 class="card-title">Parlay finder</h2>
-                        <p class="card-subtitle">One leg per game, built only from the games and markets chosen on the left</p>
+                        <p class="card-subtitle">Picks combos from the markets and games you chose above — pick a leg count, it does the rest</p>
                     </div>
                     <div class="pl-finder-controls">
                         <div class="pl-control-row">
-                            <span class="props-toolbar-label">Goal</span>
-                            <div id="plMode" class="pl-seg" role="group" aria-label="Finder goal">
-                                <button type="button" data-mode="target" aria-pressed="true"><i class="fa-solid fa-bullseye"></i> Hit my odds</button>
-                                <button type="button" data-mode="chance" aria-pressed="false"><i class="fa-solid fa-shield-halved"></i> Safest</button>
+                            <span class="props-toolbar-label">Sort</span>
+                            <div id="plMode" class="pl-seg" role="group" aria-label="Sort parlays by">
+                                <button type="button" data-mode="ev" aria-pressed="true"><i class="fa-solid fa-chart-line"></i> Best value</button>
+                                <button type="button" data-mode="chance" aria-pressed="false"><i class="fa-solid fa-shield-halved"></i> Most likely</button>
                             </div>
                         </div>
                         <div class="pl-control-row">
                             <span class="props-toolbar-label">Legs</span>
-                            <div id="plSize" class="pl-seg" role="group" aria-label="Leg count">
+                            <div id="plSize" class="pl-seg" role="group" aria-label="Legs per parlay">
                                 <button type="button" data-size="2" aria-pressed="false">2</button>
                                 <button type="button" data-size="3" aria-pressed="true">3</button>
                                 <button type="button" data-size="4" aria-pressed="false">4</button>
                                 <button type="button" data-size="5" aria-pressed="false">5</button>
-                                <button type="button" data-size="6" aria-pressed="false">6</button>
                             </div>
                         </div>
-                        <div id="plTargetWrap" class="pl-target-wrap">
-                            <div class="pl-control-row">
-                                <span class="props-toolbar-label">Target odds</span>
-                                <input id="plTargetInput" class="pl-stake pl-target-input" type="number" step="5" value="350" aria-label="Target American odds">
-                                <span class="pl-target-hint">american · decimal <span id="plTargetDec">4.50</span></span>
+                        <div class="pl-control-row">
+                            <span class="props-toolbar-label">Odds</span>
+                            <div id="plOddsCap" class="pl-seg" role="group" aria-label="Max combined odds">
+                                <button type="button" data-odds="any" aria-pressed="true" title="No odds limit">Any</button>
+                                <button type="button" data-odds="200" aria-pressed="false" title="Only parlays paying +200 (3.00) or less">≤ +200</button>
+                                <button type="button" data-odds="500" aria-pressed="false" title="Only parlays paying +500 (6.00) or less">≤ +500</button>
+                                <button type="button" data-odds="1000" aria-pressed="false" title="Only parlays paying +1000 (11.00) or less">≤ +1000</button>
                             </div>
-                            <input id="plTargetRange" class="pl-range" type="range" min="0" max="100" step="0.5" value="50" aria-label="Target odds slider">
-                            <div id="plPresets" class="pl-chip-row pl-preset-row" role="group" aria-label="Target odds presets"></div>
                         </div>
-                        <div class="pl-control-row" id="plFinderOpts">
-                            <div id="plTol" class="pl-seg" role="group" aria-label="Target tolerance">
-                                <button type="button" data-tol="0.1" aria-pressed="false">±10%</button>
-                                <button type="button" data-tol="0.2" aria-pressed="true">±20%</button>
-                                <button type="button" data-tol="0.35" aria-pressed="false">±35%</button>
-                            </div>
-                            <button id="plEvOnly" class="pl-chip" type="button" aria-pressed="false" title="Only show combos the model rates as +EV">
-                                <i class="fa-solid fa-arrow-trend-up"></i> +EV only
-                            </button>
-                        </div>
-                        <button id="plBuild" class="action-btn pl-build-btn" type="button"><i class="fa-solid fa-wand-magic-sparkles"></i> Build parlays</button>
+                        <button id="plBuild" class="action-btn pl-build-btn" type="button"><i class="fa-solid fa-wand-magic-sparkles"></i> Show my parlays</button>
                     </div>
                     <div id="plAutoplay" class="pl-autoplay">
-                        <p class="empty-desc">Set the goal and leg count, then build — combos come from today's legs.</p>
+                        <p class="empty-desc">Loading today's legs, then the finder runs itself…</p>
                     </div>
                 </section>
 
@@ -178,6 +183,6 @@
         </div>
     </main>
 
-    <script src="/static/parlay.js?v=2.8"></script>
+    <script src="/static/parlay.js?v=3.5"></script>
 </body>
 </html>

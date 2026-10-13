@@ -71,7 +71,19 @@ def main() -> int:
     else:
         game_date = resolve_next_game_date(_date.today())
 
-    return _update_one(game_date)
+    rc = _update_one(game_date)
+    if not args.date:
+        # The parlay builder loads the next two league days; without a cached
+        # board for the second day, every visitor re-computes it live — a
+        # multi-minute fetch+sim that also blocks the single web worker.
+        try:
+            nxt = resolve_next_game_date(game_date + timedelta(days=1))
+            if nxt != game_date:
+                logger.info(f"Also pre-computing the next league day ({nxt}) for the parlay builder...")
+                _update_one(nxt)
+        except Exception as e:
+            logger.warning(f"Next league day pre-compute failed (non-fatal): {e}")
+    return rc
 
 
 if __name__ == "__main__":
