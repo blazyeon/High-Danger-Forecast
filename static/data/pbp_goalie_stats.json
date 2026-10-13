@@ -16,17 +16,17 @@
       "gsax_per_60": -2.0153447258
     },
     {
-      "name": "Linus Ullmark",
-      "goalie_id": 8476999,
-      "gp": 5,
-      "ga": 7,
-      "gaa": 1.4,
-      "sa": 119,
-      "sv": 112,
-      "sv_pct": 0.9411764706,
-      "xga": 14.9560107132,
-      "gsax": 7.9560107132,
-      "gsax_per_60": 1.5912021426
+      "name": "Jesper Wallstedt",
+      "goalie_id": 8482661,
+      "gp": 6,
+      "ga": 11,
+      "gaa": 1.8333333333,
+      "sa": 163,
+      "sv": 152,
+      "sv_pct": 0.9325153374,
+      "xga": 20.560710085,
+      "gsax": 9.560710085,
+      "gsax_per_60": 1.5934516808
     },
     {
       "name": "Jacob Markstrom",
@@ -55,30 +55,30 @@
       "gsax_per_60": 0.5751741188
     },
     {
-      "name": "Jesper Wallstedt",
-      "goalie_id": 8482661,
+      "name": "Carter Hart",
+      "goalie_id": 8479394,
       "gp": 5,
-      "ga": 9,
-      "gaa": 1.8,
-      "sa": 140,
-      "sv": 131,
-      "sv_pct": 0.9357142857,
-      "xga": 17.1509416392,
-      "gsax": 8.1509416392,
-      "gsax_per_60": 1.6301883278
+      "ga": 12,
+      "gaa": 2.4,
+      "sa": 127,
+      "sv": 115,
+      "sv_pct": 0.905511811,
+      "xga": 13.4930041439,
+      "gsax": 1.4930041439,
+      "gsax_per_60": 0.2986008288
     },
     {
-      "name": "Jeremy Swayman",
-      "goalie_id": 8480280,
+      "name": "Linus Ullmark",
+      "goalie_id": 8476999,
       "gp": 5,
-      "ga": 9,
-      "gaa": 1.8,
-      "sa": 133,
-      "sv": 124,
-      "sv_pct": 0.9323308271,
-      "xga": 15.2140919957,
-      "gsax": 6.2140919957,
-      "gsax_per_60": 1.2428183991
+      "ga": 7,
+      "gaa": 1.4,
+      "sa": 119,
+      "sv": 112,
+      "sv_pct": 0.9411764706,
+      "xga": 14.9560107132,
+      "gsax": 7.9560107132,
+      "gsax_per_60": 1.5912021426
     },
     {
       "name": "Igor Shesterkin",
@@ -94,6 +94,19 @@
       "gsax_per_60": 1.3452458198
     },
     {
+      "name": "Jeremy Swayman",
+      "goalie_id": 8480280,
+      "gp": 5,
+      "ga": 9,
+      "gaa": 1.8,
+      "sa": 133,
+      "sv": 124,
+      "sv_pct": 0.9323308271,
+      "xga": 15.2140919957,
+      "gsax": 6.2140919957,
+      "gsax_per_60": 1.2428183991
+    },
+    {
       "name": "Jake Oettinger",
       "goalie_id": 8479979,
       "gp": 4,
@@ -105,32 +118,6 @@
       "xga": 11.8175008632,
       "gsax": 5.8175008632,
       "gsax_per_60": 1.4543752158
-    },
-    {
-      "name": "Joey Daccord",
-      "goalie_id": 8478916,
-      "gp": 4,
-      "ga": 10,
-      "gaa": 2.5,
-      "sa": 115,
-      "sv": 105,
-      "sv_pct": 0.9130434783,
-      "xga": 12.9412837968,
-      "gsax": 2.9412837968,
-      "gsax_per_60": 0.7353209492
-    },
-    {
-      "name": "Carter Hart",
-      "goalie_id": 8479394,
-      "gp": 4,
-      "ga": 9,
-      "gaa": 2.25,
-      "sa": 100,
-      "sv": 91,
-      "sv_pct": 0.91,
-      "xga": 9.4964527838,
-      "gsax": 0.4964527838,
-      "gsax_per_60": 0.1241131959
     },
     {
       "name": "Joseph Woll",
@@ -146,6 +133,19 @@
       "gsax_per_60": 0.8073097199
     },
     {
+      "name": "Joey Daccord",
+      "goalie_id": 8478916,
+      "gp": 4,
+      "ga": 10,
+      "gaa": 2.5,
+      "sa": 115,
+      "sv": 105,
+      "sv_pct": 0.9130434783,
+      "xga": 12.9412837968,
+      "gsax": 2.9412837968,
+      "gsax_per_60": 0.7353209492
+    },
+    {
       "name": "Ilya Sorokin",
       "goalie_id": 8478009,
       "gp": 4,
@@ -159,17 +159,17 @@
       "gsax_per_60": 1.1817584402
     },
     {
-      "name": "Andrei Vasilevskiy",
-      "goalie_id": 8476883,
+      "name": "Mackenzie Blackwood",
+      "goalie_id": 8478406,
       "gp": 4,
-      "ga": 9,
-      "gaa": 2.25,
-      "sa": 83,
-      "sv": 74,
-      "sv_pct": 0.8915662651,
-      "xga": 9.4863303474,
-      "gsax": 0.4863303474,
-      "gsax_per_60": 0.1215825869
+      "ga": 13,
+      "gaa": 3.25,
+      "sa": 98,
+      "sv": 85,
+      "sv_pct": 0.8673469388,
+      "xga": 10.7588322593,
+      "gsax": -2.2411677407,
+      "gsax_per_60": -0.5602919352
     },
     {
       "name": "Juuse Saros",
@@ -315,17 +315,17 @@
       "gsax_per_60": -0.5803863745
     },
     {
-      "name": "Mackenzie Blackwood",
-      "goalie_id": 8478406,
+      "name": "Andrei Vasilevskiy",
+      "goalie_id": 8476883,
       "gp": 4,
-      "ga": 13,
-      "gaa": 3.25,
-      "sa": 98,
-      "sv": 85,
-      "sv_pct": 0.8673469388,
-      "xga": 10.7588322593,
-      "gsax": -2.2411677407,
-      "gsax_per_60": -0.5602919352
+      "ga": 9,
+      "gaa": 2.25,
+      "sa": 83,
+      "sv": 74,
+      "sv_pct": 0.8915662651,
+      "xga": 9.4863303474,
+      "gsax": 0.4863303474,
+      "gsax_per_60": 0.1215825869
     },
     {
       "name": "Dan Vladar",
@@ -822,5 +822,5 @@
       "gsax_per_60": 1.4712603825
     }
   ],
-  "updated_at": "2026-10-13T02:44:13Z"
+  "updated_at": "2026-10-13T09:21:22Z"
 }
