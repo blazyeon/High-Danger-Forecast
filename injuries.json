@@ -26,7 +26,7 @@
   {
     "team": "ANA",
     "player": "Ryan Poehling",
-    "status": "dtd",
+    "status": "ir",
     "injured": true
   },
   {
@@ -44,6 +44,18 @@
   {
     "team": "BUF",
     "player": "Alex Lyon",
+    "status": "out",
+    "injured": true
+  },
+  {
+    "team": "BUF",
+    "player": "Matt Grzelcyk",
+    "status": "ir",
+    "injured": true
+  },
+  {
+    "team": "BUF",
+    "player": "Rasmus Dahlin",
     "status": "dtd",
     "injured": true
   },
@@ -79,14 +91,8 @@
   },
   {
     "team": "CHI",
-    "player": "Connor Bedard",
-    "status": "out",
-    "injured": true
-  },
-  {
-    "team": "CHI",
     "player": "Andrew Mangiapane",
-    "status": "dtd",
+    "status": "out",
     "injured": true
   },
   {
@@ -116,6 +122,12 @@
   {
     "team": "COL",
     "player": "Logan O&#x27;Connor",
+    "status": "dtd",
+    "injured": true
+  },
+  {
+    "team": "COL",
+    "player": "Cale Makar",
     "status": "dtd",
     "injured": true
   },
@@ -200,13 +212,19 @@
   {
     "team": "FLA",
     "player": "Jonah Gadjovich",
-    "status": "out",
+    "status": "ir",
     "injured": true
   },
   {
     "team": "FLA",
     "player": "Brad Marchand",
     "status": "ir",
+    "injured": true
+  },
+  {
+    "team": "FLA",
+    "player": "Jacob Markstrom",
+    "status": "dtd",
     "injured": true
   },
   {
@@ -260,18 +278,30 @@
   {
     "team": "MTL",
     "player": "Oliver Kapanen",
-    "status": "dtd",
+    "status": "ir",
     "injured": true
   },
   {
     "team": "MTL",
     "player": "Ivan Demidov",
-    "status": "out",
+    "status": "ir",
     "injured": true
   },
   {
     "team": "MTL",
     "player": "Sam Montembeault",
+    "status": "ir",
+    "injured": true
+  },
+  {
+    "team": "MTL",
+    "player": "Florian Xhekaj",
+    "status": "dtd",
+    "injured": true
+  },
+  {
+    "team": "MTL",
+    "player": "Mike Matheson",
     "status": "dtd",
     "injured": true
   },
@@ -309,6 +339,12 @@
     "team": "NJD",
     "player": "Connor Brown",
     "status": "ir",
+    "injured": true
+  },
+  {
+    "team": "NJD",
+    "player": "Luke Evangelista",
+    "status": "dtd",
     "injured": true
   },
   {
@@ -386,7 +422,7 @@
   {
     "team": "PHI",
     "player": "Travis Konecny",
-    "status": "dtd",
+    "status": "ir",
     "injured": true
   },
   {
@@ -416,25 +452,25 @@
   {
     "team": "STL",
     "player": "Logan Mailloux",
-    "status": "out",
+    "status": "ir",
     "injured": true
   },
   {
     "team": "STL",
     "player": "Tyler Tucker",
-    "status": "out",
+    "status": "ir",
     "injured": true
   },
   {
     "team": "STL",
     "player": "Alexey Toropchenko",
-    "status": "out",
+    "status": "ir",
     "injured": true
   },
   {
     "team": "STL",
     "player": "Dillon Dube",
-    "status": "dtd",
+    "status": "ir",
     "injured": true
   },
   {
@@ -446,6 +482,12 @@
   {
     "team": "TBL",
     "player": "Emil Lilleberg",
+    "status": "dtd",
+    "injured": true
+  },
+  {
+    "team": "TBL",
+    "player": "Dennis Hildeby",
     "status": "dtd",
     "injured": true
   },

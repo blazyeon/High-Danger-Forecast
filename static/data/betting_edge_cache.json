@@ -5496,32 +5496,110 @@
     },
     "2026-10-14": {
       "date": "2026-10-14",
-      "computed_at": "2026-10-13T07:57:25.239615+00:00",
+      "computed_at": "2026-10-14T00:36:05.269686+00:00",
       "source": "sharpapi",
-      "odds_fetched_at": "2026-10-11T21:08:32.598522+00:00",
-      "warning": "Cached odds are for 2026-10-11, not 2026-10-14.",
+      "odds_fetched_at": "2026-10-14T00:35:54.276552+00:00",
+      "warning": null,
       "no_games": false,
       "scanned": 2,
-      "matched": 0,
-      "with_edges": 0,
-      "dropped": 2,
-      "games": [],
-      "no_odds_games": [
-        {
-          "home": "WSH",
-          "away": "MTL",
-          "home_name": "Capitals",
-          "away_name": "Canadiens",
-          "start_time": "2026-10-14T23:30:00Z"
-        },
+      "matched": 2,
+      "with_edges": 2,
+      "dropped": 0,
+      "games": [
         {
           "home": "COL",
           "away": "DAL",
           "home_name": "Avalanche",
           "away_name": "Stars",
-          "start_time": "2026-10-15T00:30:00Z"
+          "start_time": "2026-10-15T00:30:00Z",
+          "best_edge": 0.1143,
+          "edges": [
+            {
+              "market": "Total 5.5",
+              "side": "Over",
+              "pick": "Over",
+              "team": null,
+              "odds": -130,
+              "odds_decimal": 1.7692307692307692,
+              "model_prob": 0.657,
+              "implied_prob": 0.5427,
+              "edge": 0.1143,
+              "book": "draftkings"
+            },
+            {
+              "market": "Puck Line (-1.5)",
+              "side": "COL Avalanche",
+              "pick": "COL Avalanche",
+              "team": "COL",
+              "odds": 164,
+              "odds_decimal": 2.6399999999999997,
+              "model_prob": 0.438,
+              "implied_prob": 0.3631,
+              "edge": 0.0749,
+              "book": "draftkings"
+            },
+            {
+              "market": "Moneyline",
+              "side": "Colorado Avalanche",
+              "pick": "Colorado Avalanche",
+              "team": "COL",
+              "odds": -142,
+              "odds_decimal": 1.704225352112676,
+              "model_prob": 0.545,
+              "implied_prob": 0.5635,
+              "edge": -0.0185,
+              "book": "draftkings"
+            }
+          ]
+        },
+        {
+          "home": "WSH",
+          "away": "MTL",
+          "home_name": "Capitals",
+          "away_name": "Canadiens",
+          "start_time": "2026-10-14T23:30:00Z",
+          "best_edge": 0.0143,
+          "edges": [
+            {
+              "market": "Total 6.5",
+              "side": "Over",
+              "pick": "Over",
+              "team": null,
+              "odds": -108,
+              "odds_decimal": 1.925925925925926,
+              "model_prob": 0.51,
+              "implied_prob": 0.4957,
+              "edge": 0.0143,
+              "book": "fanduel"
+            },
+            {
+              "market": "Puck Line (1.5)",
+              "side": "MTL Canadiens",
+              "pick": "MTL Canadiens",
+              "team": "MTL",
+              "odds": -198,
+              "odds_decimal": 1.5050505050505052,
+              "model_prob": 0.645,
+              "implied_prob": 0.6369,
+              "edge": 0.0081,
+              "book": "draftkings"
+            },
+            {
+              "market": "Moneyline",
+              "side": "Washington Capitals",
+              "pick": "Washington Capitals",
+              "team": "WSH",
+              "odds": -135,
+              "odds_decimal": 1.7407407407407407,
+              "model_prob": 0.521,
+              "implied_prob": 0.5514,
+              "edge": -0.0304,
+              "book": "draftkings"
+            }
+          ]
         }
-      ]
+      ],
+      "no_odds_games": []
     }
   }
 }

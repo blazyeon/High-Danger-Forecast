@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-13T09:23:09.029975+00:00",
+  "generated_at": "2026-10-14T00:36:52.960468+00:00",
   "teams": {
     "BOS": {
       "skaters": [
@@ -242,6 +242,12 @@
           "id": 8480839,
           "position": "D",
           "birthDate": "2000-04-13"
+        },
+        {
+          "name": "Dennis Gilbert",
+          "id": 8478502,
+          "position": "D",
+          "birthDate": "1996-10-30"
         },
         {
           "name": "Matt Grzelcyk",
@@ -600,6 +606,12 @@
       ],
       "goalies": [
         {
+          "name": "Cooper Black",
+          "id": 8484900,
+          "position": "G",
+          "birthDate": "2001-06-14"
+        },
+        {
           "name": "Jacob Markstrom",
           "id": 8474593,
           "position": "G",
@@ -620,6 +632,12 @@
           "id": 8476981,
           "position": "RW",
           "birthDate": "1994-05-07"
+        },
+        {
+          "name": "Owen Beck",
+          "id": 8483424,
+          "position": "C",
+          "birthDate": "2004-02-03"
         },
         {
           "name": "Zachary Bolduc",
@@ -1048,6 +1066,12 @@
           "id": 8483710,
           "position": "G",
           "birthDate": "2001-08-19"
+        },
+        {
+          "name": "Mads Sogaard",
+          "id": 8481544,
+          "position": "G",
+          "birthDate": "2000-12-13"
         },
         {
           "name": "Andrei Vasilevskiy",
@@ -1938,6 +1962,12 @@
           "birthDate": "1994-04-28"
         },
         {
+          "name": "Spencer Martin",
+          "id": 8477484,
+          "position": "G",
+          "birthDate": "1995-06-08"
+        },
+        {
           "name": "Igor Shesterkin",
           "id": 8478048,
           "position": "G",
@@ -2012,6 +2042,12 @@
           "id": 8484387,
           "position": "RW",
           "birthDate": "2004-12-09"
+        },
+        {
+          "name": "Jack Studnicka",
+          "id": 8480021,
+          "position": "C",
+          "birthDate": "1999-02-18"
         },
         {
           "name": "Owen Tippett",
@@ -2204,6 +2240,12 @@
           "id": 8479398,
           "position": "D",
           "birthDate": "1998-05-12"
+        },
+        {
+          "name": "Ryan Johnson",
+          "id": 8481564,
+          "position": "D",
+          "birthDate": "2001-07-24"
         },
         {
           "name": "Erik Karlsson",
@@ -2446,12 +2488,6 @@
           "birthDate": "2004-09-20"
         },
         {
-          "name": "Nick Lardis",
-          "id": 8484185,
-          "position": "LW",
-          "birthDate": "2005-07-08"
-        },
-        {
           "name": "Andrew Mangiapane",
           "id": 8478233,
           "position": "LW",
@@ -2480,6 +2516,12 @@
           "id": 8476882,
           "position": "C",
           "birthDate": "1994-09-11"
+        },
+        {
+          "name": "Dominic Toninato",
+          "id": 8476952,
+          "position": "C",
+          "birthDate": "1994-03-09"
         },
         {
           "name": "Bowen Byram",
@@ -2882,6 +2924,12 @@
           "id": 8478864,
           "position": "LW",
           "birthDate": "1997-04-26"
+        },
+        {
+          "name": "Justin Kirkland",
+          "id": 8477993,
+          "position": "C",
+          "birthDate": "1996-08-02"
         },
         {
           "name": "Rieger Lorenz",
