@@ -70,7 +70,11 @@ DEFAULT_TREND_GAMES = 6
 SIMULATION_PARAMS = {
     "min_goals": 0.05,
     "max_goals": 10.0,
-    "shock_sigma": 0.22,
+    # 2026-10-14 audit: sim win probs ran ~60% sharper-compressed vs the no-vig
+    # market (slope devig~sim 0.58) — per-sim shocks stacked with the gamma
+    # layer and the ensemble average flattened every favorite. 0.22 -> 0.15,
+    # and the gamma layer now needs 8+ recent games before it fires.
+    "shock_sigma": 0.15,
     "empty_net_probability": 0.28,     # dynamic in code; this is the ceiling
     "empty_net_2goal_probability": 0.15,
     "blowout_probability": 0.06,

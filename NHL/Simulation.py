@@ -974,7 +974,13 @@ def _build_ml_features(
 
 
 def estimate_gamma_shape_from_recent(goals: List[int]) -> Optional[float]:
-    if not goals or len(goals) < 3:
+    # 2026-10-14 audit: estimated off 3-5 recent games, this fired on ~1/3 of
+    # teams with CV~0.45 noise, stacking on top of the per-sim lognormal shock
+    # (which already models game-to-game form variance) and compressing all
+    # win probabilities toward coin-flip. A variance estimate is only credible
+    # from 8+ games, so the layer stays dormant until then; k=6 floors the
+    # noise (CV <= 0.41) for when it does fire.
+    if not goals or len(goals) < 8:
         return None
     try:
         m = float(np.mean(goals))
@@ -984,7 +990,7 @@ def estimate_gamma_shape_from_recent(goals: List[int]) -> Optional[float]:
         k = safe_division(m * m, v - m, default=None)
         if k is None or k <= 0 or not np.isfinite(k):
             return None
-        return max(0.5, min(10.0, k))
+        return max(6.0, min(10.0, k))
     except Exception as e:
         logger.debug(f"Could not estimate gamma shape: {e}")
         return None
