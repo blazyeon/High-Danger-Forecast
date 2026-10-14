@@ -2146,11 +2146,12 @@ async function runProps() {
 
 function resetPropsFilters() {
     _propsSort = 'prob';
+    // All markets on by default except Shots (SOG) — user rule, 2026-10-14.
     _propsMarketFilter = {
         'Points': true,
         'Goals': true,
-        'Assists': false,
-        'Shots': true,
+        'Assists': true,
+        'Shots': false,
         'Saves': true,
     };
 }
@@ -2343,12 +2344,13 @@ let _lastEloStatsSeason = '';
 let _lastPropsData = null;
 let _propsSort = 'prob';
 
-// Default filters, mirroring resetPropsFilters(): Over props for Points, Goals
-// and Saves; Assists off.
+// Default filters, mirroring resetPropsFilters(): every market on except
+// Shots (SOG), which starts off by user rule.
 let _propsMarketFilter = {
     'Points': true,
     'Goals': true,
-    'Assists': false,
+    'Assists': true,
+    'Shots': false,
     'Saves': true,
 };
 
