@@ -1,6 +1,6 @@
 {
   "source": "daily_faceoff",
-  "updated_at": "2026-10-14T00:23:41.827Z",
+  "updated_at": "2026-10-14T02:46:32.158Z",
   "teams": {
     "ANA": {
       "pp1": [
@@ -17,8 +17,8 @@
         "Tristan Luneau",
         "Pavel Mintyukov"
       ],
-      "updated_at": "2026-10-13T16:34:52.608Z",
-      "source": "Patrick Present"
+      "updated_at": "2026-10-14T01:21:44.505Z",
+      "source": "Derek Lee"
     },
     "BOS": {
       "pp1": [
@@ -35,7 +35,7 @@
         "Mason Lohrei",
         "JJ Peterka"
       ],
-      "updated_at": "2026-10-12T22:24:39.463Z",
+      "updated_at": "2026-10-14T02:46:32.158Z",
       "source": "Belle Fraser"
     },
     "BUF": {
@@ -71,8 +71,8 @@
         "Simon Nemec",
         "Yegor Sharangovich"
       ],
-      "updated_at": "2026-10-12T17:12:03.968Z",
-      "source": "Pat Steinberg"
+      "updated_at": "2026-10-14T01:26:12.645Z",
+      "source": "Derek Wills"
     },
     "CAR": {
       "pp1": [
@@ -148,7 +148,7 @@
     },
     "DAL": {
       "pp1": [
-        "Wyatt Johnston",
+        "Tyler Seguin",
         "Roope Hintz",
         "Mikko Rantanen",
         "Miro Heiskanen",
@@ -157,12 +157,12 @@
       "pp2": [
         "Jamie Benn",
         "Justin Hryckowian",
-        "Tyler Seguin",
+        "Sam Steel",
         "Esa Lindell",
         "Thomas Harley"
       ],
-      "updated_at": "2026-10-13T15:48:38.530Z",
-      "source": "Sam Nestler"
+      "updated_at": "2026-10-14T00:42:51.729Z",
+      "source": "Robert Tiffin"
     },
     "DET": {
       "pp1": [
@@ -233,7 +233,7 @@
         "Scott Laughton",
         "Drew Doughty"
       ],
-      "updated_at": "2026-10-11T01:38:00.435Z",
+      "updated_at": "2026-10-14T02:11:16.966Z",
       "source": "Zach Dooley"
     },
     "MIN": {
@@ -249,10 +249,10 @@
         "Ryan Hartman",
         "Danila Yurov",
         "Bobby Brink",
-        "Jared Spurgeon"
+        "David Spacek"
       ],
-      "updated_at": "2026-10-13T02:22:29.872Z",
-      "source": "Dylan Loucks"
+      "updated_at": "2026-10-14T00:47:12.426Z",
+      "source": "@WpgJetsPR"
     },
     "MTL": {
       "pp1": [
@@ -413,8 +413,8 @@
         "Igor Chernyshov",
         "Jacob Trouba"
       ],
-      "updated_at": "2026-10-13T18:05:17.352Z",
-      "source": "Curtis Pashelka"
+      "updated_at": "2026-10-14T02:44:36.574Z",
+      "source": "Max Miller"
     },
     "SEA": {
       "pp1": [
@@ -485,7 +485,7 @@
         "Nick Blankenburg",
         "Morgan Rielly"
       ],
-      "updated_at": "2026-10-13T17:10:16.872Z",
+      "updated_at": "2026-10-14T00:40:06.912Z",
       "source": "David Alter"
     },
     "UTA": {
@@ -503,8 +503,8 @@
         "Daniil But",
         "John Marino"
       ],
-      "updated_at": "2026-10-12T17:58:54.307Z",
-      "source": "Brogan Houston"
+      "updated_at": "2026-10-14T00:41:40.650Z",
+      "source": "Utah Mammoth"
     },
     "VAN": {
       "pp1": [

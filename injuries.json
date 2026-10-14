@@ -13,12 +13,6 @@
   },
   {
     "team": "ANA",
-    "player": "Drew Helleson",
-    "status": "ir",
-    "injured": true
-  },
-  {
-    "team": "ANA",
     "player": "Cutter Gauthier",
     "status": "dtd",
     "injured": true
@@ -135,6 +129,12 @@
     "team": "DAL",
     "player": "Matt Duchene",
     "status": "ir",
+    "injured": true
+  },
+  {
+    "team": "DAL",
+    "player": "Wyatt Johnston",
+    "status": "dtd",
     "injured": true
   },
   {
@@ -272,6 +272,12 @@
   {
     "team": "MIN",
     "player": "Marcus Foligno",
+    "status": "dtd",
+    "injured": true
+  },
+  {
+    "team": "MIN",
+    "player": "Jared Spurgeon",
     "status": "dtd",
     "injured": true
   },

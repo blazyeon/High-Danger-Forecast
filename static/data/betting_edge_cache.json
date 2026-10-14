@@ -5496,9 +5496,9 @@
     },
     "2026-10-14": {
       "date": "2026-10-14",
-      "computed_at": "2026-10-14T00:36:05.269686+00:00",
+      "computed_at": "2026-10-14T07:32:42.996119+00:00",
       "source": "sharpapi",
-      "odds_fetched_at": "2026-10-14T00:35:54.276552+00:00",
+      "odds_fetched_at": "2026-10-14T07:32:34.093003+00:00",
       "warning": null,
       "no_games": false,
       "scanned": 2,
@@ -5512,18 +5512,18 @@
           "home_name": "Avalanche",
           "away_name": "Stars",
           "start_time": "2026-10-15T00:30:00Z",
-          "best_edge": 0.1143,
+          "best_edge": 0.1006,
           "edges": [
             {
               "market": "Total 5.5",
               "side": "Over",
               "pick": "Over",
               "team": null,
-              "odds": -130,
-              "odds_decimal": 1.7692307692307692,
-              "model_prob": 0.657,
-              "implied_prob": 0.5427,
-              "edge": 0.1143,
+              "odds": -135,
+              "odds_decimal": 1.7407407407407407,
+              "model_prob": 0.652,
+              "implied_prob": 0.5514,
+              "edge": 0.1006,
               "book": "draftkings"
             },
             {
@@ -5533,9 +5533,9 @@
               "team": "COL",
               "odds": 164,
               "odds_decimal": 2.6399999999999997,
-              "model_prob": 0.438,
+              "model_prob": 0.415,
               "implied_prob": 0.3631,
-              "edge": 0.0749,
+              "edge": 0.0519,
               "book": "draftkings"
             },
             {
@@ -5543,11 +5543,11 @@
               "side": "Colorado Avalanche",
               "pick": "Colorado Avalanche",
               "team": "COL",
-              "odds": -142,
-              "odds_decimal": 1.704225352112676,
-              "model_prob": 0.545,
-              "implied_prob": 0.5635,
-              "edge": -0.0185,
+              "odds": -148,
+              "odds_decimal": 1.6756756756756757,
+              "model_prob": 0.532,
+              "implied_prob": 0.5721,
+              "edge": -0.0401,
               "book": "draftkings"
             }
           ]
@@ -5558,30 +5558,30 @@
           "home_name": "Capitals",
           "away_name": "Canadiens",
           "start_time": "2026-10-14T23:30:00Z",
-          "best_edge": 0.0143,
+          "best_edge": 0.0196,
           "edges": [
             {
-              "market": "Total 6.5",
-              "side": "Over",
-              "pick": "Over",
-              "team": null,
-              "odds": -108,
-              "odds_decimal": 1.925925925925926,
-              "model_prob": 0.51,
-              "implied_prob": 0.4957,
-              "edge": 0.0143,
-              "book": "fanduel"
+              "market": "Puck Line (-1.5)",
+              "side": "WAS Capitals",
+              "pick": "WAS Capitals",
+              "team": "WSH",
+              "odds": 185,
+              "odds_decimal": 2.85,
+              "model_prob": 0.356,
+              "implied_prob": 0.3364,
+              "edge": 0.0196,
+              "book": "draftkings"
             },
             {
-              "market": "Puck Line (1.5)",
-              "side": "MTL Canadiens",
-              "pick": "MTL Canadiens",
-              "team": "MTL",
-              "odds": -198,
-              "odds_decimal": 1.5050505050505052,
-              "model_prob": 0.645,
-              "implied_prob": 0.6369,
-              "edge": 0.0081,
+              "market": "Total 6.5",
+              "side": "Under",
+              "pick": "Under",
+              "team": null,
+              "odds": -105,
+              "odds_decimal": 1.9523809523809523,
+              "model_prob": 0.49,
+              "implied_prob": 0.4892,
+              "edge": 0.0008,
               "book": "draftkings"
             },
             {
@@ -5589,11 +5589,11 @@
               "side": "Washington Capitals",
               "pick": "Washington Capitals",
               "team": "WSH",
-              "odds": -135,
-              "odds_decimal": 1.7407407407407407,
-              "model_prob": 0.521,
-              "implied_prob": 0.5514,
-              "edge": -0.0304,
+              "odds": -130,
+              "odds_decimal": 1.7692307692307692,
+              "model_prob": 0.507,
+              "implied_prob": 0.5427,
+              "edge": -0.0357,
               "book": "draftkings"
             }
           ]
