@@ -1273,11 +1273,25 @@ def compute_player_props_for_date(
     )
     df = df[priced].copy()
 
-    # Model edge vs. book-implied probability (same convention as Betting Edge).
+    # Model edge vs. book probability. When the opposite side is also priced by
+    # the same book, compare against the two-way no-vig probability (same vig
+    # removal as the Game Bet board); Over-only ladders keep the raw implied,
+    # since there is no counterpart side to strip the vig with. Both implied
+    # columns are stored in percent (0-100).
     def _edge(row):
         if row["side"] == "Over":
-            return row["prob_over"] / 100.0 - float(row["implied_over"]) / 100.0
-        return (100.0 - row["prob_over"]) / 100.0 - float(row["implied_under"]) / 100.0
+            model_p = row["prob_over"] / 100.0
+            imp = float(row["implied_over"]) / 100.0
+            opposite = row.get("implied_under")
+        else:
+            model_p = (100.0 - row["prob_over"]) / 100.0
+            imp = float(row["implied_under"]) / 100.0
+            opposite = row.get("implied_over")
+        if pd.notna(opposite):
+            total = imp + float(opposite) / 100.0
+            if total > 0:
+                imp = imp / total
+        return model_p - imp
 
     df["edge"] = df.apply(_edge, axis=1)
     df["recommendation"] = df["side"]
