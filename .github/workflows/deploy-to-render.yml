@@ -10,9 +10,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Trigger Render deploy hook
+        # -f: a non-2xx hook response (e.g. Render's "Internal Server Error")
+        # must fail the run — a green run that skipped the deploy is worse than
+        # a red one, because it looks deployed.
         run: |
           if [ -n "$RENDER_DEPLOY_HOOK" ]; then
-            curl -X POST "$RENDER_DEPLOY_HOOK"
+            curl -fsS --retry 2 -X POST "$RENDER_DEPLOY_HOOK"
           else
             echo "RENDER_DEPLOY_HOOK secret not set. Skipping Render deploy trigger."
           fi
