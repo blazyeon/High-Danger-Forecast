@@ -82,6 +82,22 @@ SIMULATION_PARAMS = {
     "correlation_rho": 0.38,
 }
 
+# ── Totals calibration ─────────────────────────────────────────────
+# 2026-10-14 mu backtest: re-ran this code path over the 105 played 2026-27
+# games; predicted totals overshot actuals by +0.44 goals/game on average
+# (t=2.1 excluding the freak 7-9 EDM@VAN game, which otherwise dominates any
+# per-game slope fit). Slope below is the outlier-excluded OLS of actual on
+# predicted total; it is applied ONE-SIDED (never raises a prediction) and
+# split evenly between the two teams, so win probabilities are untouched.
+# Refit once the season has 200+ games — the intercept/slope move a lot with
+# early-season samples.
+TOTALS_CALIBRATION = {
+    "center": 6.26,    # measured mean actual goals/game, 2026-27 through 2026-10-13
+    "slope": 0.663,
+    "intercept": 1.786,
+    "enabled": True,
+}
+
 # ── League Baseline (2025-26) ─────────────────────────────────────
 LEAGUE_AVERAGES = {
     "sv_pct": 0.905,

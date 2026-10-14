@@ -53,6 +53,7 @@ from NHL.Config import (
     VENUE_ADV_PARAMS,
     DEFENSIVE_INJURY_PARAMS,
     DEFENSE_POSITIONS,
+    TOTALS_CALIBRATION,
 )
 from NHL.Errors import (
     retry_on_failure,
@@ -2227,6 +2228,27 @@ def simulate_matchup(
     # on projected goal differential rather than actual score state.
     mu_home = max(0.4, min(8.0, mu_home))
     mu_away = max(0.4, min(8.0, mu_away))
+
+    # Totals calibration: predicted totals overshot actuals by ~+0.44
+    # goals/game in the 2026-10-14 mu backtest (see Config.TOTALS_CALIBRATION),
+    # which manufactured big Over edges. Shrink the game total toward the
+    # fitted actual-vs-predicted line, split evenly so the winner gap — and
+    # therefore the win probability — is unchanged. One-sided: never raises
+    # a total.
+    if TOTALS_CALIBRATION.get("enabled"):
+        mu_total = mu_home + mu_away
+        calibrated_total = (
+            TOTALS_CALIBRATION["intercept"]
+            + TOTALS_CALIBRATION["slope"] * mu_total
+        )
+        excess = max(0.0, mu_total - calibrated_total)
+        if excess > 0:
+            half = excess / 2.0
+            mu_home -= half
+            mu_away -= half
+            logger.debug(
+                f"Totals calibration: {mu_total:.2f} -> {mu_total - excess:.2f}"
+            )
     br_home["Score-effects adj (mult-1)"] = 0.0
     br_away["Score-effects adj (mult-1)"] = 0.0
     br_home["Final mu"] = round(mu_home, 3)
