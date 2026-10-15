@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-15T07:24:09.096982+00:00",
+  "generated_at": "2026-10-15T23:51:47.663198+00:00",
   "teams": {
     "BOS": {
       "skaters": [
@@ -914,6 +914,12 @@
           "id": 8484759,
           "position": "D",
           "birthDate": "2005-09-29"
+        },
+        {
+          "name": "Artem Zub",
+          "id": 8482245,
+          "position": "D",
+          "birthDate": "1995-10-03"
         }
       ],
       "goalies": [
@@ -2398,6 +2404,12 @@
           "birthDate": "1999-10-06"
         },
         {
+          "name": "Justin Holl",
+          "id": 8475718,
+          "position": "D",
+          "birthDate": "1992-01-30"
+        },
+        {
           "name": "Cole Hutson",
           "id": 8484873,
           "position": "D",
@@ -2932,12 +2944,6 @@
           "birthDate": "1997-04-26"
         },
         {
-          "name": "Justin Kirkland",
-          "id": 8477993,
-          "position": "C",
-          "birthDate": "1996-08-02"
-        },
-        {
           "name": "Rieger Lorenz",
           "id": 8483478,
           "position": "LW",
@@ -3014,6 +3020,12 @@
           "id": 8482641,
           "position": "D",
           "birthDate": "1998-04-14"
+        },
+        {
+          "name": "Carson Lambos",
+          "id": 8482781,
+          "position": "D",
+          "birthDate": "2003-01-14"
         },
         {
           "name": "Olli Maatta",
@@ -3196,12 +3208,6 @@
           "id": 8481020,
           "position": "G",
           "birthDate": "2000-03-11"
-        },
-        {
-          "name": "Matt Murray",
-          "id": 8483575,
-          "position": "G",
-          "birthDate": "1998-02-02"
         },
         {
           "name": "Juuse Saros",
@@ -4240,6 +4246,12 @@
           "birthDate": "2001-02-26"
         },
         {
+          "name": "Jared Wright",
+          "id": 8483756,
+          "position": "RW",
+          "birthDate": "2002-11-22"
+        },
+        {
           "name": "Mats Zuccarello",
           "id": 8475692,
           "position": "RW",
@@ -4305,12 +4317,6 @@
     },
     "SJS": {
       "skaters": [
-        {
-          "name": "Alex Barr\u00e9-Boulet",
-          "id": 8479718,
-          "position": "C",
-          "birthDate": "1997-05-21"
-        },
         {
           "name": "Macklin Celebrini",
           "id": 8484801,
@@ -4678,12 +4684,6 @@
           "birthDate": "1998-11-12"
         },
         {
-          "name": "Aatu R\u00e4ty",
-          "id": 8482691,
-          "position": "C",
-          "birthDate": "2002-11-14"
-        },
-        {
           "name": "Marco Rossi",
           "id": 8482079,
           "position": "C",
@@ -4856,6 +4856,12 @@
           "id": 8478396,
           "position": "D",
           "birthDate": "1997-01-25"
+        },
+        {
+          "name": "Ville Heinola",
+          "id": 8481572,
+          "position": "D",
+          "birthDate": "2001-03-02"
         },
         {
           "name": "Jeremy Lauzon",

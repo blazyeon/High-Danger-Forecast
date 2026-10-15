@@ -24,6 +24,12 @@
     "injured": true
   },
   {
+    "team": "ANA",
+    "player": "Mikael Granlund",
+    "status": "dtd",
+    "injured": true
+  },
+  {
     "team": "BUF",
     "player": "Jason Zucker",
     "status": "ir",
@@ -80,7 +86,7 @@
   {
     "team": "CAR",
     "player": "Jordan Staal",
-    "status": "dtd",
+    "status": "ir",
     "injured": true
   },
   {
@@ -97,8 +103,8 @@
   },
   {
     "team": "CHI",
-    "player": "Frank Nazar",
-    "status": "out",
+    "player": "Bowen Byram",
+    "status": "dtd",
     "injured": true
   },
   {
@@ -140,6 +146,12 @@
   {
     "team": "DAL",
     "player": "Wyatt Johnston",
+    "status": "dtd",
+    "injured": true
+  },
+  {
+    "team": "DAL",
+    "player": "Oskar Back",
     "status": "dtd",
     "injured": true
   },
@@ -210,6 +222,12 @@
     "injured": true
   },
   {
+    "team": "EDM",
+    "player": "Jason Dickinson",
+    "status": "dtd",
+    "injured": true
+  },
+  {
     "team": "FLA",
     "player": "Aleksander Barkov",
     "status": "ir",
@@ -266,25 +284,31 @@
   {
     "team": "MIN",
     "player": "Nick Foligno",
-    "status": "dtd",
+    "status": "out",
     "injured": true
   },
   {
     "team": "MIN",
     "player": "Nico Sturm",
-    "status": "dtd",
+    "status": "out",
     "injured": true
   },
   {
     "team": "MIN",
     "player": "Marcus Foligno",
-    "status": "dtd",
+    "status": "out",
     "injured": true
   },
   {
     "team": "MIN",
     "player": "Jared Spurgeon",
-    "status": "dtd",
+    "status": "out",
+    "injured": true
+  },
+  {
+    "team": "MIN",
+    "player": "Olli Maatta",
+    "status": "none",
     "injured": true
   },
   {
@@ -315,12 +339,6 @@
     "team": "MTL",
     "player": "Mike Matheson",
     "status": "dtd",
-    "injured": true
-  },
-  {
-    "team": "NSH",
-    "player": "Justus Annunen",
-    "status": "ir",
     "injured": true
   },
   {
@@ -391,12 +409,6 @@
   },
   {
     "team": "OTT",
-    "player": "Artem Zub",
-    "status": "ir",
-    "injured": true
-  },
-  {
-    "team": "OTT",
     "player": "William Eklund",
     "status": "ir",
     "injured": true
@@ -404,12 +416,6 @@
   {
     "team": "OTT",
     "player": "Kurtis MacDermid",
-    "status": "ir",
-    "injured": true
-  },
-  {
-    "team": "OTT",
-    "player": "Cameron Crotty",
     "status": "ir",
     "injured": true
   },
@@ -450,6 +456,12 @@
     "injured": true
   },
   {
+    "team": "SJS",
+    "player": "Darnell Nurse",
+    "status": "dtd",
+    "injured": true
+  },
+  {
     "team": "SEA",
     "player": "Jacob Melanson",
     "status": "ir",
@@ -486,21 +498,15 @@
     "injured": true
   },
   {
+    "team": "STL",
+    "player": "Pavel Buchnevich",
+    "status": "dtd",
+    "injured": true
+  },
+  {
     "team": "TBL",
     "player": "Yanni Gourde",
     "status": "out",
-    "injured": true
-  },
-  {
-    "team": "TBL",
-    "player": "Emil Lilleberg",
-    "status": "dtd",
-    "injured": true
-  },
-  {
-    "team": "TBL",
-    "player": "Dennis Hildeby",
-    "status": "dtd",
     "injured": true
   },
   {
@@ -537,12 +543,6 @@
     "team": "VAN",
     "player": "Thatcher Demko",
     "status": "out",
-    "injured": true
-  },
-  {
-    "team": "VAN",
-    "player": "Filip Chytil",
-    "status": "ir",
     "injured": true
   },
   {
@@ -590,6 +590,12 @@
   {
     "team": "WPG",
     "player": "Josh Morrissey",
+    "status": "out",
+    "injured": true
+  },
+  {
+    "team": "WPG",
+    "player": "Vladislav Namestnikov",
     "status": "dtd",
     "injured": true
   }
