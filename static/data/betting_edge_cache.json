@@ -5603,9 +5603,9 @@
     },
     "2026-10-15": {
       "date": "2026-10-15",
-      "computed_at": "2026-10-14T19:58:10.127103+00:00",
+      "computed_at": "2026-10-15T00:06:02.938053+00:00",
       "source": "sharpapi",
-      "odds_fetched_at": "2026-10-14T19:57:18.774118+00:00",
+      "odds_fetched_at": "2026-10-15T00:05:22.502766+00:00",
       "warning": null,
       "no_games": false,
       "scanned": 11,
@@ -5650,11 +5650,11 @@
               "side": "Detroit Red Wings",
               "pick": "Detroit Red Wings",
               "team": "DET",
-              "odds": -135,
-              "odds_decimal": 1.7407407407407407,
+              "odds": -142,
+              "odds_decimal": 1.704225352112676,
               "model_prob": 0.543,
-              "implied_prob": 0.5514,
-              "edge": -0.0084,
+              "implied_prob": 0.5635,
+              "edge": -0.0205,
               "book": "draftkings"
             }
           ]
@@ -5865,26 +5865,26 @@
             },
             {
               "market": "Total 6.5",
-              "side": "Under",
-              "pick": "Under",
+              "side": "Over",
+              "pick": "Over",
               "team": null,
-              "odds": -125,
-              "odds_decimal": 1.8,
-              "model_prob": 0.535,
-              "implied_prob": 0.5325,
-              "edge": 0.0025,
+              "odds": 110,
+              "odds_decimal": 2.1,
+              "model_prob": 0.465,
+              "implied_prob": 0.4573,
+              "edge": 0.0077,
               "book": "draftkings"
             },
             {
               "market": "Moneyline",
-              "side": "VGK Golden Knights",
-              "pick": "VGK Golden Knights",
+              "side": "Vegas Golden Knights",
+              "pick": "Vegas Golden Knights",
               "team": "VGK",
-              "odds": -290,
-              "odds_decimal": 1.3448275862068966,
+              "odds": -305,
+              "odds_decimal": 1.3278688524590163,
               "model_prob": 0.66,
-              "implied_prob": 0.7136,
-              "edge": -0.0536,
+              "implied_prob": 0.7221,
+              "edge": -0.0621,
               "book": "draftkings"
             }
           ]
@@ -5914,11 +5914,11 @@
               "side": "OTT Senators",
               "pick": "OTT Senators",
               "team": "OTT",
-              "odds": 150,
-              "odds_decimal": 2.5,
+              "odds": 154,
+              "odds_decimal": 2.54,
               "model_prob": 0.401,
-              "implied_prob": 0.3836,
-              "edge": 0.0174,
+              "implied_prob": 0.3775,
+              "edge": 0.0235,
               "book": "draftkings"
             },
             {
@@ -5931,52 +5931,6 @@
               "model_prob": 0.574,
               "implied_prob": 0.5996,
               "edge": -0.0256,
-              "book": "draftkings"
-            }
-          ]
-        },
-        {
-          "home": "EDM",
-          "away": "UTA",
-          "home_name": "Oilers",
-          "away_name": "Mammoth",
-          "start_time": "2026-10-16T01:00:00Z",
-          "best_edge": 0.0544,
-          "edges": [
-            {
-              "market": "Moneyline",
-              "side": "Utah Mammoth",
-              "pick": "Utah Mammoth",
-              "team": "UTA",
-              "odds": 114,
-              "odds_decimal": 2.1399999999999997,
-              "model_prob": 0.503,
-              "implied_prob": 0.4486,
-              "edge": 0.0544,
-              "book": "draftkings"
-            },
-            {
-              "market": "Puck Line (1.5)",
-              "side": "UTA Mammoth",
-              "pick": "UTA Mammoth",
-              "team": "UTA",
-              "odds": -198,
-              "odds_decimal": 1.5050505050505052,
-              "model_prob": 0.674,
-              "implied_prob": 0.6369,
-              "edge": 0.0371,
-              "book": "draftkings"
-            },
-            {
-              "market": "Total 6.5",
-              "side": "Under",
-              "pick": "Under",
-              "team": null,
-              "odds": -108,
-              "odds_decimal": 1.925925925925926,
-              "model_prob": 0.503,
-              "implied_prob": 0.4957,
-              "edge": 0.0073,
               "book": "draftkings"
             }
           ]
@@ -6024,6 +5978,52 @@
               "implied_prob": 0.718,
               "edge": -0.101,
               "book": "draftkings"
+            }
+          ]
+        },
+        {
+          "home": "EDM",
+          "away": "UTA",
+          "home_name": "Oilers",
+          "away_name": "Mammoth",
+          "start_time": "2026-10-16T01:00:00Z",
+          "best_edge": 0.0457,
+          "edges": [
+            {
+              "market": "Moneyline",
+              "side": "Utah Mammoth",
+              "pick": "Utah Mammoth",
+              "team": "UTA",
+              "odds": 110,
+              "odds_decimal": 2.1,
+              "model_prob": 0.503,
+              "implied_prob": 0.4573,
+              "edge": 0.0457,
+              "book": "draftkings"
+            },
+            {
+              "market": "Puck Line (1.5)",
+              "side": "UTA Mammoth",
+              "pick": "UTA Mammoth",
+              "team": "UTA",
+              "odds": -218,
+              "odds_decimal": 1.4587155963302751,
+              "model_prob": 0.674,
+              "implied_prob": 0.6575,
+              "edge": 0.0165,
+              "book": "draftkings"
+            },
+            {
+              "market": "Total 6.5",
+              "side": "Under",
+              "pick": "Under",
+              "team": null,
+              "odds": -105,
+              "odds_decimal": 1.9523809523809523,
+              "model_prob": 0.503,
+              "implied_prob": 0.4892,
+              "edge": 0.0138,
+              "book": "fanduel"
             }
           ]
         },
@@ -6079,18 +6079,18 @@
           "home_name": "Wild",
           "away_name": "Blues",
           "start_time": "2026-10-16T00:00:00Z",
-          "best_edge": 0.0268,
+          "best_edge": 0.0087,
           "edges": [
             {
-              "market": "Puck Line (1.5)",
-              "side": "STL Blues",
-              "pick": "STL Blues",
-              "team": "STL",
-              "odds": -175,
-              "odds_decimal": 1.5714285714285714,
-              "model_prob": 0.636,
-              "implied_prob": 0.6092,
-              "edge": 0.0268,
+              "market": "Puck Line (-1.5)",
+              "side": "MIN Wild",
+              "pick": "MIN Wild",
+              "team": "MIN",
+              "odds": 170,
+              "odds_decimal": 2.7,
+              "model_prob": 0.364,
+              "implied_prob": 0.3553,
+              "edge": 0.0087,
               "book": "draftkings"
             },
             {
@@ -6110,11 +6110,11 @@
               "side": "Minnesota Wild",
               "pick": "Minnesota Wild",
               "team": "MIN",
-              "odds": -155,
-              "odds_decimal": 1.6451612903225805,
+              "odds": -148,
+              "odds_decimal": 1.6756756756756757,
               "model_prob": 0.523,
-              "implied_prob": 0.583,
-              "edge": -0.06,
+              "implied_prob": 0.5721,
+              "edge": -0.0491,
               "book": "draftkings"
             }
           ]

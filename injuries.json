@@ -84,6 +84,12 @@
     "injured": true
   },
   {
+    "team": "CAR",
+    "player": "Taylor Hall",
+    "status": "dtd",
+    "injured": true
+  },
+  {
     "team": "CHI",
     "player": "Andrew Mangiapane",
     "status": "out",
@@ -116,12 +122,6 @@
   {
     "team": "COL",
     "player": "Logan O&#x27;Connor",
-    "status": "dtd",
-    "injured": true
-  },
-  {
-    "team": "COL",
-    "player": "Cale Makar",
     "status": "dtd",
     "injured": true
   },
@@ -368,7 +368,7 @@
   {
     "team": "NYR",
     "player": "Igor Shesterkin",
-    "status": "out",
+    "status": "ir",
     "injured": true
   },
   {

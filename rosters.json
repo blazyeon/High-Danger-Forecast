@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-14T07:33:27.244970+00:00",
+  "generated_at": "2026-10-15T00:06:45.751224+00:00",
   "teams": {
     "BOS": {
       "skaters": [
@@ -754,6 +754,12 @@
           "birthDate": "1994-02-27"
         },
         {
+          "name": "David Reinbacher",
+          "id": 8484220,
+          "position": "D",
+          "birthDate": "2004-10-25"
+        },
+        {
           "name": "Arber Xhekaj",
           "id": 8482964,
           "position": "D",
@@ -1068,12 +1074,6 @@
           "birthDate": "2001-08-19"
         },
         {
-          "name": "Mads Sogaard",
-          "id": 8481544,
-          "position": "G",
-          "birthDate": "2000-12-13"
-        },
-        {
           "name": "Andrei Vasilevskiy",
           "id": 8476883,
           "position": "G",
@@ -1286,6 +1286,12 @@
           "id": 8476921,
           "position": "LW",
           "birthDate": "1992-07-25"
+        },
+        {
+          "name": "Bradly Nadeau",
+          "id": 8484203,
+          "position": "LW",
+          "birthDate": "2005-05-05"
         },
         {
           "name": "Eric Robinson",
@@ -1810,12 +1816,6 @@
     "NYR": {
       "skaters": [
         {
-          "name": "Cole Beaudoin",
-          "id": 8484786,
-          "position": "C",
-          "birthDate": "2006-04-24"
-        },
-        {
           "name": "Oliver Bjorkstrand",
           "id": 8477416,
           "position": "RW",
@@ -1838,6 +1838,12 @@
           "id": 8481604,
           "position": "RW",
           "birthDate": "2000-10-26"
+        },
+        {
+          "name": "Justin Dowling",
+          "id": 8475413,
+          "position": "C",
+          "birthDate": "1990-10-01"
         },
         {
           "name": "Tye Kartye",
@@ -1916,12 +1922,6 @@
           "id": 8478882,
           "position": "D",
           "birthDate": "1995-11-21"
-        },
-        {
-          "name": "Vincent Iorio",
-          "id": 8482861,
-          "position": "D",
-          "birthDate": "2002-11-14"
         },
         {
           "name": "Scott Morrow",
@@ -2589,6 +2589,12 @@
     },
     "COL": {
       "skaters": [
+        {
+          "name": "Gavin Brindley",
+          "id": 8484149,
+          "position": "C",
+          "birthDate": "2004-10-05"
+        },
         {
           "name": "T.J. Hughes",
           "id": 8486171,
@@ -4850,12 +4856,6 @@
           "id": 8478396,
           "position": "D",
           "birthDate": "1997-01-25"
-        },
-        {
-          "name": "Ville Heinola",
-          "id": 8481572,
-          "position": "D",
-          "birthDate": "2001-03-02"
         },
         {
           "name": "Jeremy Lauzon",
