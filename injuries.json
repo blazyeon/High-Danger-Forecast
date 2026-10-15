@@ -126,6 +126,12 @@
     "injured": true
   },
   {
+    "team": "COL",
+    "player": "Nicolas Roy",
+    "status": "dtd",
+    "injured": true
+  },
+  {
     "team": "DAL",
     "player": "Matt Duchene",
     "status": "ir",
