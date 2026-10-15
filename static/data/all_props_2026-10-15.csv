@@ -1,0 +1,743 @@
+game,commence_utc,team,player,pos,market,line,model_prob_%,rec,over_american,under_american,edge_%,implied_over_%,implied_under_%
+WPG @ CHI,2026-10-16T00:10:00Z,CHI,Alex Vlasic,D,Assists,0.5,18.7,Over,600,-1000,5.2,14.3,90.9
+WPG @ CHI,2026-10-16T00:10:00Z,CHI,Anton Frondell,F,Assists,0.5,36.2,Over,195,-270,4.5,33.9,73.0
+WPG @ CHI,2026-10-16T00:10:00Z,CHI,Patrick Kane,F,Assists,0.5,46.2,Over,120,-165,4.0,45.5,62.3
+WPG @ CHI,2026-10-16T00:10:00Z,WPG,Mark Scheifele,F,Assists,0.5,57.4,Over,-140,105,2.9,58.3,48.8
+WPG @ CHI,2026-10-16T00:10:00Z,CHI,Ian Cole,D,Assists,0.5,19.4,Over,450,-650,2.1,18.2,86.7
+WPG @ CHI,2026-10-16T00:10:00Z,CHI,Artyom Levshunov,D,Assists,0.5,24.9,Over,310,-450,1.9,24.4,81.8
+WPG @ CHI,2026-10-16T00:10:00Z,CHI,Frank Nazar,F,Assists,0.5,30.1,Over,220,-310,0.9,31.2,75.6
+WPG @ CHI,2026-10-16T00:10:00Z,CHI,Connor Bedard,F,Assists,0.5,48.3,Over,-110,-125,-0.2,52.4,55.6
+WPG @ CHI,2026-10-16T00:10:00Z,WPG,Mario Ferraro,D,Assists,0.5,15.8,Over,475,-750,-0.6,17.4,88.2
+WPG @ CHI,2026-10-16T00:10:00Z,WPG,Gabriel Vilardi,F,Assists,0.5,38.3,Over,140,-190,-0.6,41.7,65.5
+WPG @ CHI,2026-10-16T00:10:00Z,WPG,Dylan DeMelo,D,Assists,0.5,15.8,Over,450,-700,-1.4,18.2,87.5
+WPG @ CHI,2026-10-16T00:10:00Z,WPG,Kyle Connor,F,Assists,0.5,48.1,Over,-115,-120,-1.4,53.5,54.5
+WPG @ CHI,2026-10-16T00:10:00Z,WPG,Adam Lowry,F,Assists,0.5,18.3,Over,370,-550,-1.8,21.3,84.6
+WPG @ CHI,2026-10-16T00:10:00Z,CHI,Oliver Moore,F,Assists,0.5,22.1,Over,270,-380,-3.3,27.0,79.2
+WPG @ CHI,2026-10-16T00:10:00Z,CHI,Tyler Bertuzzi,F,Assists,0.5,27.7,Over,185,-255,-5.1,35.1,71.8
+WPG @ CHI,2026-10-16T00:10:00Z,WPG,Isak Rosen,F,Assists,0.5,16.7,Over,320,-475,-5.7,23.8,82.6
+WPG @ CHI,2026-10-16T00:10:00Z,WPG,Alex Iafallo,F,Assists,0.5,16.8,Over,295,-425,-7.0,25.3,81.0
+WPG @ CHI,2026-10-16T00:10:00Z,CHI,Teuvo Teravainen,F,Assists,0.5,22.5,Over,205,-285,-8.2,32.8,74.0
+WPG @ CHI,2026-10-16T00:10:00Z,CHI,Ryan Donato,F,Assists,0.5,15.4,Over,285,-400,-9.2,26.0,80.0
+WPG @ CHI,2026-10-16T00:10:00Z,WPG,Nino Niederreiter,F,Assists,0.5,14.8,Over,285,-400,-9.7,26.0,80.0
+WPG @ CHI,2026-10-16T00:10:00Z,WPG,Dylan Samberg,D,Assists,0.5,16.0,Over,245,-340,-11.3,29.0,77.3
+WPG @ CHI,2026-10-16T00:10:00Z,WPG,Cole Perfetti,F,Assists,0.5,24.5,Over,115,-160,-18.6,46.5,61.5
+WPG @ CHI,2026-10-16T00:10:00Z,CHI,Roman Kantserov,F,Assists,0.5,14.0,Over,170,-230,-20.7,37.0,69.7
+WPG @ CHI,2026-10-16T00:10:00Z,WPG,Neal Pionk,D,Assists,0.5,15.6,Over,150,-205,-21.7,40.0,67.2
+WPG @ CHI,2026-10-16T00:10:00Z,WPG,Gabriel Vilardi,F,Points,0.5,57.4,Over,-135,100,3.9,57.4,50.0
+WPG @ CHI,2026-10-16T00:10:00Z,CHI,Patrick Kane,F,Points,0.5,57.7,Over,-145,105,2.9,59.2,48.8
+WPG @ CHI,2026-10-16T00:10:00Z,CHI,Alex Vlasic,D,Points,0.5,20.5,Over,425,-650,2.5,19.0,86.7
+WPG @ CHI,2026-10-16T00:10:00Z,CHI,Ian Cole,D,Points,0.5,22.0,Over,370,-550,1.9,21.3,84.6
+WPG @ CHI,2026-10-16T00:10:00Z,WPG,Mario Ferraro,D,Points,0.5,22.0,Over,370,-550,1.9,21.3,84.6
+WPG @ CHI,2026-10-16T00:10:00Z,WPG,Isak Rosen,F,Points,0.5,34.8,Over,185,-250,1.8,35.1,71.4
+WPG @ CHI,2026-10-16T00:10:00Z,CHI,Tyler Bertuzzi,F,Points,0.5,51.4,Over,-115,-115,1.4,53.5,53.5
+WPG @ CHI,2026-10-16T00:10:00Z,CHI,Connor Bedard,F,Points,0.5,66.7,Over,-230,170,1.4,69.7,37.0
+WPG @ CHI,2026-10-16T00:10:00Z,WPG,Mark Scheifele,F,Points,0.5,73.0,Over,-265,,0.4,72.6,
+WPG @ CHI,2026-10-16T00:10:00Z,CHI,Artyom Levshunov,D,Points,0.5,26.8,Over,245,-340,-0.5,29.0,77.3
+WPG @ CHI,2026-10-16T00:10:00Z,CHI,Frank Nazar,F,Points,0.5,43.2,Over,110,-150,-1.0,47.6,60.0
+WPG @ CHI,2026-10-16T00:10:00Z,CHI,Anton Frondell,F,Points,0.5,46.0,Over,-105,-135,-1.1,51.2,57.4
+WPG @ CHI,2026-10-16T00:10:00Z,WPG,Dylan DeMelo,D,Points,0.5,18.5,Over,370,-550,-1.6,21.3,84.6
+WPG @ CHI,2026-10-16T00:10:00Z,WPG,Kyle Connor,F,Points,1.5,34.6,Over,155,-210,-2.1,39.2,67.7
+WPG @ CHI,2026-10-16T00:10:00Z,CHI,Teuvo Teravainen,F,Points,0.5,34.6,Over,130,-175,-5.9,43.5,63.6
+WPG @ CHI,2026-10-16T00:10:00Z,CHI,Oliver Moore,F,Points,0.5,28.8,Over,165,-230,-6.3,37.7,69.7
+WPG @ CHI,2026-10-16T00:10:00Z,CHI,Ryan Donato,F,Points,0.5,28.3,Over,170,-230,-6.4,37.0,69.7
+WPG @ CHI,2026-10-16T00:10:00Z,WPG,Alex Iafallo,F,Points,0.5,28.4,Over,165,-220,-7.0,37.7,68.8
+WPG @ CHI,2026-10-16T00:10:00Z,WPG,Adam Lowry,F,Points,0.5,23.3,Over,190,-260,-9.0,34.5,72.2
+WPG @ CHI,2026-10-16T00:10:00Z,WPG,Nino Niederreiter,F,Points,0.5,24.1,Over,170,-230,-10.6,37.0,69.7
+WPG @ CHI,2026-10-16T00:10:00Z,WPG,Dylan Samberg,D,Points,0.5,17.1,Over,210,-285,-13.2,32.3,74.0
+WPG @ CHI,2026-10-16T00:10:00Z,CHI,Roman Kantserov,F,Points,0.5,36.5,Over,-120,-110,-14.5,54.5,52.4
+WPG @ CHI,2026-10-16T00:10:00Z,WPG,Cole Perfetti,F,Points,0.5,36.2,Over,-160,120,-21.3,61.5,45.5
+WPG @ CHI,2026-10-16T00:10:00Z,WPG,Neal Pionk,D,Points,0.5,20.2,Over,105,-145,-25.0,48.8,59.2
+WPG @ CHI,2026-10-16T00:10:00Z,CHI,Tyler Bertuzzi,F,Shots On Goal,1.5,62.2,Over,-135,100,8.7,57.4,50.0
+WPG @ CHI,2026-10-16T00:10:00Z,CHI,Connor Bedard,F,Shots On Goal,2.5,64.1,Over,-155,115,7.5,60.8,46.5
+WPG @ CHI,2026-10-16T00:10:00Z,WPG,Gabriel Vilardi,F,Shots On Goal,1.5,56.7,Over,-135,100,3.2,57.4,50.0
+WPG @ CHI,2026-10-16T00:10:00Z,CHI,Patrick Kane,F,Shots On Goal,2.5,47.0,Over,110,-150,2.7,47.6,60.0
+WPG @ CHI,2026-10-16T00:10:00Z,WPG,Mark Scheifele,F,Shots On Goal,2.5,41.8,Over,150,,1.8,40.0,
+WPG @ CHI,2026-10-16T00:10:00Z,WPG,Kyle Connor,F,Shots On Goal,3.5,48.2,Over,100,-135,1.6,50.0,57.4
+WPG @ CHI,2026-10-16T00:10:00Z,WPG,Neal Pionk,D,Shots On Goal,1.5,56.0,Over,-165,125,-2.3,62.3,44.4
+WPG @ CHI,2026-10-16T00:10:00Z,WPG,Cole Perfetti,F,Shots On Goal,2.5,33.4,Over,110,-145,-11.2,47.6,59.2
+WPG @ CHI,2026-10-16T00:10:00Z,CHI,Anton Frondell,F,Shots On Goal,1.5,46.4,Over,-205,,-20.8,67.2,
+WPG @ CHI,2026-10-16T00:10:00Z,CHI,Roman Kantserov,F,Shots On Goal,1.5,47.7,Over,-265,,-24.9,72.6,
+WPG @ CHI,2026-10-16T00:10:00Z,CHI,Spencer Knight,G,Total Saves,24.5,63.9,Over,-110,-125,15.3,52.4,55.6
+PHI @ DET,2026-10-15T23:09:00Z,DET,Justin Faulk,D,Anytime Goal Scorer,0.5,22.4,Over,850,,11.9,10.5,
+PHI @ DET,2026-10-15T23:09:00Z,PHI,Tyson Foerster,F,Anytime Goal Scorer,0.5,33.7,Over,270,,6.7,27.0,
+PHI @ DET,2026-10-15T23:09:00Z,PHI,Owen Tippett,F,Anytime Goal Scorer,0.5,29.5,Over,290,,3.9,25.6,
+PHI @ DET,2026-10-15T23:09:00Z,PHI,Noel Acciari,F,Anytime Goal Scorer,0.5,16.3,Over,700,,3.8,12.5,
+PHI @ DET,2026-10-15T23:09:00Z,PHI,Noah Cates,F,Anytime Goal Scorer,0.5,17.9,Over,600,,3.6,14.3,
+PHI @ DET,2026-10-15T23:09:00Z,DET,Dylan Larkin,F,Anytime Goal Scorer,0.5,37.9,Over,190,,3.5,34.5,
+PHI @ DET,2026-10-15T23:09:00Z,PHI,Michael Bunting,F,Anytime Goal Scorer,0.5,18.6,Over,550,,3.2,15.4,
+PHI @ DET,2026-10-15T23:09:00Z,PHI,Travis Sanheim,D,Anytime Goal Scorer,0.5,11.0,Over,1000,,2.0,9.1,
+PHI @ DET,2026-10-15T23:09:00Z,PHI,Nick Seeler,D,Anytime Goal Scorer,0.5,4.2,Over,2200,,-0.1,4.3,
+PHI @ DET,2026-10-15T23:09:00Z,DET,Alex DeBrincat,F,Anytime Goal Scorer,0.5,39.0,Over,155,,-0.2,39.2,
+PHI @ DET,2026-10-15T23:09:00Z,PHI,Trevor Zegras,F,Anytime Goal Scorer,0.5,27.5,Over,260,,-0.3,27.8,
+PHI @ DET,2026-10-15T23:09:00Z,DET,Viktor Arvidsson,F,Anytime Goal Scorer,0.5,30.9,Over,220,,-0.3,31.2,
+PHI @ DET,2026-10-15T23:09:00Z,DET,Sheldon Dries,F,Anytime Goal Scorer,0.5,10.1,Over,850,,-0.4,10.5,
+PHI @ DET,2026-10-15T23:09:00Z,DET,Moritz Seider,D,Anytime Goal Scorer,0.5,11.7,Over,700,,-0.8,12.5,
+PHI @ DET,2026-10-15T23:09:00Z,PHI,Jamie Drysdale,D,Anytime Goal Scorer,0.5,9.1,Over,900,,-0.9,10.0,
+PHI @ DET,2026-10-15T23:09:00Z,DET,Lucas Raymond,F,Anytime Goal Scorer,0.5,27.3,Over,250,,-1.2,28.6,
+PHI @ DET,2026-10-15T23:09:00Z,DET,Ben Chiarot,D,Anytime Goal Scorer,0.5,5.4,Over,1400,,-1.2,6.7,
+PHI @ DET,2026-10-15T23:09:00Z,PHI,Matvei Michkov,F,Anytime Goal Scorer,0.5,22.1,Over,320,,-1.7,23.8,
+PHI @ DET,2026-10-15T23:09:00Z,PHI,Christian Dvorak,F,Anytime Goal Scorer,0.5,20.5,Over,340,,-2.3,22.7,
+PHI @ DET,2026-10-15T23:09:00Z,PHI,Sean Couturier,F,Anytime Goal Scorer,0.5,13.1,Over,550,,-2.3,15.4,
+PHI @ DET,2026-10-15T23:09:00Z,DET,Anton Johansson,D,Anytime Goal Scorer,0.5,3.9,Over,1400,,-2.7,6.7,
+PHI @ DET,2026-10-15T23:09:00Z,DET,Albert Johansson,D,Anytime Goal Scorer,0.5,3.3,Over,1500,,-3.0,6.2,
+PHI @ DET,2026-10-15T23:09:00Z,PHI,Denver Barkey,F,Anytime Goal Scorer,0.5,11.3,Over,600,,-3.0,14.3,
+PHI @ DET,2026-10-15T23:09:00Z,DET,Keegan Kolesar,F,Anytime Goal Scorer,0.5,6.1,Over,800,,-5.0,11.1,
+PHI @ DET,2026-10-15T23:09:00Z,PHI,Jack Studnicka,F,Anytime Goal Scorer,0.5,3.1,Over,1000,,-5.9,9.1,
+PHI @ DET,2026-10-15T23:09:00Z,DET,Michael Rasmussen,F,Anytime Goal Scorer,0.5,8.4,Over,440,,-10.1,18.5,
+PHI @ DET,2026-10-15T23:09:00Z,DET,Andrew Copp,F,Anytime Goal Scorer,0.5,10.4,Over,380,,-10.4,20.8,
+PHI @ DET,2026-10-15T23:09:00Z,DET,Emmitt Finnie,F,Anytime Goal Scorer,0.5,13.8,Over,310,,-10.6,24.4,
+PHI @ DET,2026-10-15T23:09:00Z,PHI,David Jiricek,D,Anytime Goal Scorer,0.5,1.0,Over,750,,-10.8,11.8,
+PHI @ DET,2026-10-15T23:09:00Z,PHI,Porter Martone,F,Anytime Goal Scorer,0.5,15.2,Over,260,,-12.6,27.8,
+PHI @ DET,2026-10-15T23:09:00Z,DET,Nate Danielson,F,Anytime Goal Scorer,0.5,7.1,Over,360,,-14.6,21.7,
+PHI @ DET,2026-10-15T23:09:00Z,PHI,Trevor Zegras,F,Assists,0.5,38.7,Over,190,-260,6.4,34.5,72.2
+PHI @ DET,2026-10-15T23:09:00Z,PHI,Noah Cates,F,Assists,0.5,27.6,Over,310,-450,4.6,24.4,81.8
+PHI @ DET,2026-10-15T23:09:00Z,DET,Lucas Raymond,F,Assists,0.5,47.6,Over,115,-155,4.2,46.5,60.8
+PHI @ DET,2026-10-15T23:09:00Z,DET,Moritz Seider,D,Assists,0.5,45.1,Over,125,-170,3.7,44.4,63.0
+PHI @ DET,2026-10-15T23:09:00Z,DET,Andrew Copp,F,Assists,0.5,33.2,Over,210,-290,3.0,32.3,74.4
+PHI @ DET,2026-10-15T23:09:00Z,DET,Justin Faulk,D,Assists,0.5,30.8,Over,235,-330,2.8,29.9,76.7
+PHI @ DET,2026-10-15T23:09:00Z,PHI,Christian Dvorak,F,Assists,0.5,33.4,Over,205,-280,2.6,32.8,73.7
+PHI @ DET,2026-10-15T23:09:00Z,PHI,Matvei Michkov,F,Assists,0.5,31.4,Over,210,-290,1.1,32.3,74.4
+PHI @ DET,2026-10-15T23:09:00Z,PHI,Sean Couturier,F,Assists,0.5,23.8,Over,280,-400,-0.9,26.3,80.0
+PHI @ DET,2026-10-15T23:09:00Z,DET,Alex DeBrincat,F,Assists,0.5,42.0,Over,110,-150,-2.3,47.6,60.0
+PHI @ DET,2026-10-15T23:09:00Z,PHI,Owen Tippett,F,Assists,0.5,24.4,Over,245,-350,-2.8,29.0,77.8
+PHI @ DET,2026-10-15T23:09:00Z,DET,Viktor Arvidsson,F,Assists,0.5,34.7,Over,150,-200,-2.8,40.0,66.7
+PHI @ DET,2026-10-15T23:09:00Z,PHI,Jamie Drysdale,D,Assists,0.5,25.5,Over,220,-310,-3.8,31.2,75.6
+PHI @ DET,2026-10-15T23:09:00Z,DET,Dylan Larkin,F,Assists,0.5,36.4,Over,120,-160,-6.1,45.5,61.5
+PHI @ DET,2026-10-15T23:09:00Z,DET,Emmitt Finnie,F,Assists,0.5,17.2,Over,285,-400,-7.3,26.0,80.0
+PHI @ DET,2026-10-15T23:09:00Z,PHI,Tyson Foerster,F,Assists,0.5,12.9,Over,340,-500,-8.5,22.7,83.3
+PHI @ DET,2026-10-15T23:09:00Z,PHI,Porter Martone,F,Assists,0.5,12.7,Over,245,-340,-14.5,29.0,77.3
+PHI @ DET,2026-10-15T23:09:00Z,DET,Justin Faulk,D,Points,0.5,45.9,Over,170,-230,11.2,37.0,69.7
+PHI @ DET,2026-10-15T23:09:00Z,PHI,Noah Cates,F,Points,0.5,40.7,Over,180,-250,7.4,35.7,71.4
+PHI @ DET,2026-10-15T23:09:00Z,PHI,Trevor Zegras,F,Points,0.5,55.1,Over,-105,-125,7.1,51.2,55.6
+PHI @ DET,2026-10-15T23:09:00Z,DET,Lucas Raymond,F,Points,0.5,61.8,Over,-155,115,5.2,60.8,46.5
+PHI @ DET,2026-10-15T23:09:00Z,DET,Moritz Seider,D,Points,0.5,51.3,Over,-105,-130,3.8,51.2,56.5
+PHI @ DET,2026-10-15T23:09:00Z,PHI,Christian Dvorak,F,Points,0.5,46.6,Over,110,-145,2.0,47.6,59.2
+PHI @ DET,2026-10-15T23:09:00Z,PHI,Matvei Michkov,F,Points,0.5,46.2,Over,110,-150,1.9,47.6,60.0
+PHI @ DET,2026-10-15T23:09:00Z,PHI,Owen Tippett,F,Points,0.5,46.2,Over,110,-150,1.9,47.6,60.0
+PHI @ DET,2026-10-15T23:09:00Z,DET,Alex DeBrincat,F,Points,0.5,65.0,Over,-215,160,1.1,68.3,38.5
+PHI @ DET,2026-10-15T23:09:00Z,PHI,Tyson Foerster,F,Points,0.5,41.7,Over,130,-175,1.1,43.5,63.6
+PHI @ DET,2026-10-15T23:09:00Z,DET,Viktor Arvidsson,F,Points,0.5,54.7,Over,-140,100,0.9,58.3,50.0
+PHI @ DET,2026-10-15T23:09:00Z,DET,Dylan Larkin,F,Points,0.5,60.0,Over,-185,135,-0.4,64.9,42.6
+PHI @ DET,2026-10-15T23:09:00Z,PHI,Sean Couturier,F,Points,0.5,33.5,Over,165,-230,-1.6,37.7,69.7
+PHI @ DET,2026-10-15T23:09:00Z,DET,Andrew Copp,F,Points,0.5,40.0,Over,120,-165,-2.2,45.5,62.3
+PHI @ DET,2026-10-15T23:09:00Z,PHI,Jamie Drysdale,D,Points,0.5,32.4,Over,165,-225,-2.9,37.7,69.2
+PHI @ DET,2026-10-15T23:09:00Z,DET,Emmitt Finnie,F,Points,0.5,28.3,Over,140,-190,-10.5,41.7,65.5
+PHI @ DET,2026-10-15T23:09:00Z,PHI,Porter Martone,F,Points,0.5,25.7,Over,125,-165,-16.0,44.4,62.3
+PHI @ DET,2026-10-15T23:09:00Z,DET,Justin Faulk,D,Shots On Goal,1.5,69.3,Over,100,-135,22.7,50.0,57.4
+PHI @ DET,2026-10-15T23:09:00Z,PHI,Trevor Zegras,F,Shots On Goal,1.5,59.3,Over,-115,-120,9.8,53.5,54.5
+PHI @ DET,2026-10-15T23:09:00Z,DET,Moritz Seider,D,Shots On Goal,1.5,66.2,Over,-180,135,6.0,64.3,42.6
+PHI @ DET,2026-10-15T23:09:00Z,PHI,Michael Bunting,F,Shots On Goal,1.5,55.2,Over,-115,-120,5.7,53.5,54.5
+PHI @ DET,2026-10-15T23:09:00Z,DET,Alex DeBrincat,F,Shots On Goal,3.5,52.2,Over,-105,-125,4.2,51.2,55.6
+PHI @ DET,2026-10-15T23:09:00Z,DET,Dylan Larkin,F,Shots On Goal,2.5,59.3,Over,-155,115,2.6,60.8,46.5
+PHI @ DET,2026-10-15T23:09:00Z,PHI,Christian Dvorak,F,Shots On Goal,1.5,53.2,Over,-130,-105,0.8,56.5,51.2
+PHI @ DET,2026-10-15T23:09:00Z,PHI,Owen Tippett,F,Shots On Goal,2.5,46.3,Over,100,-135,-0.2,50.0,57.4
+PHI @ DET,2026-10-15T23:09:00Z,PHI,Matvei Michkov,F,Shots On Goal,1.5,54.6,Over,-150,110,-1.2,60.0,47.6
+PHI @ DET,2026-10-15T23:09:00Z,PHI,Tyson Foerster,F,Shots On Goal,1.5,55.7,Over,-160,120,-1.8,61.5,45.5
+PHI @ DET,2026-10-15T23:09:00Z,PHI,Sean Couturier,F,Shots On Goal,1.5,41.4,Over,115,-155,-2.0,46.5,60.8
+PHI @ DET,2026-10-15T23:09:00Z,DET,Lucas Raymond,F,Shots On Goal,2.5,39.2,Over,125,-160,-2.8,44.4,61.5
+PHI @ DET,2026-10-15T23:09:00Z,DET,Viktor Arvidsson,F,Shots On Goal,2.5,48.5,Over,-140,105,-6.0,58.3,48.8
+PHI @ DET,2026-10-15T23:09:00Z,DET,Emmitt Finnie,F,Shots On Goal,1.5,40.1,Over,-105,-125,-7.9,51.2,55.6
+PHI @ DET,2026-10-15T23:09:00Z,PHI,Denver Barkey,F,Shots On Goal,1.5,26.2,Over,135,-185,-13.4,42.6,64.9
+PHI @ DET,2026-10-15T23:09:00Z,PHI,Porter Martone,F,Shots On Goal,1.5,31.5,Over,-160,115,-25.4,61.5,46.5
+UTA @ EDM,2026-10-16T01:10:00Z,UTA,Vincent Trocheck,F,Assists,0.5,41.3,Over,180,-245,7.9,35.7,71.0
+UTA @ EDM,2026-10-16T01:10:00Z,UTA,MacKenzie Weegar,D,Assists,0.5,29.7,Over,280,-390,4.9,26.3,79.6
+UTA @ EDM,2026-10-16T01:10:00Z,EDM,Leon Draisaitl,F,Assists,0.5,62.9,Over,-170,125,4.3,63.0,44.4
+UTA @ EDM,2026-10-16T01:10:00Z,UTA,Clayton Keller,F,Assists,0.5,53.5,Over,-115,-120,4.0,53.5,54.5
+UTA @ EDM,2026-10-16T01:10:00Z,EDM,Mattias Ekholm,D,Assists,0.5,33.0,Over,205,-285,2.3,32.8,74.0
+UTA @ EDM,2026-10-16T01:10:00Z,EDM,Connor McDavid,F,Assists,0.5,68.2,Over,-245,180,1.6,71.0,35.7
+UTA @ EDM,2026-10-16T01:10:00Z,UTA,Nick Schmaltz,F,Assists,0.5,39.8,Over,135,-185,0.2,42.6,64.9
+UTA @ EDM,2026-10-16T01:10:00Z,UTA,John Marino,D,Assists,0.5,31.3,Over,195,-270,-0.4,33.9,73.0
+UTA @ EDM,2026-10-16T01:10:00Z,UTA,Anders Lee,F,Assists,0.5,23.2,Over,290,-425,-0.9,25.6,81.0
+UTA @ EDM,2026-10-16T01:10:00Z,UTA,Lawson Crouse,F,Assists,0.5,20.2,Over,340,-500,-1.3,22.7,83.3
+UTA @ EDM,2026-10-16T01:10:00Z,UTA,Dylan Guenther,F,Assists,0.5,34.5,Over,160,-220,-1.4,38.5,68.8
+UTA @ EDM,2026-10-16T01:10:00Z,UTA,Mikhail Sergachev,D,Assists,0.5,46.1,Over,-105,-130,-1.4,51.2,56.5
+UTA @ EDM,2026-10-16T01:10:00Z,EDM,Evan Bouchard,D,Assists,0.5,59.9,Over,-195,145,-1.9,66.1,40.8
+UTA @ EDM,2026-10-16T01:10:00Z,UTA,Barrett Hayton,F,Assists,0.5,18.0,Over,300,-450,-5.4,25.0,81.8
+UTA @ EDM,2026-10-16T01:10:00Z,UTA,Logan Cooley,F,Assists,0.5,29.9,Over,145,-200,-8.0,40.8,66.7
+UTA @ EDM,2026-10-16T01:10:00Z,EDM,Kasperi Kapanen,F,Assists,0.5,19.0,Over,220,-310,-10.3,31.2,75.6
+UTA @ EDM,2026-10-16T01:10:00Z,EDM,Vasily Podkolzin,F,Assists,0.5,18.9,Over,170,-235,-15.6,37.0,70.1
+UTA @ EDM,2026-10-16T01:10:00Z,UTA,Vincent Trocheck,F,Points,0.5,53.4,Over,105,-140,7.9,48.8,58.3
+UTA @ EDM,2026-10-16T01:10:00Z,UTA,MacKenzie Weegar,D,Points,0.5,33.8,Over,220,-300,4.3,31.2,75.0
+UTA @ EDM,2026-10-16T01:10:00Z,UTA,Dylan Guenther,F,Points,0.5,60.8,Over,-155,115,4.2,60.8,46.5
+UTA @ EDM,2026-10-16T01:10:00Z,EDM,Leon Draisaitl,F,Points,1.5,48.8,Over,105,-145,3.6,48.8,59.2
+UTA @ EDM,2026-10-16T01:10:00Z,UTA,Clayton Keller,F,Points,0.5,66.3,Over,-210,150,3.4,67.7,40.0
+UTA @ EDM,2026-10-16T01:10:00Z,UTA,Nick Schmaltz,F,Points,0.5,59.9,Over,-160,115,3.0,61.5,46.5
+UTA @ EDM,2026-10-16T01:10:00Z,EDM,Connor McDavid,F,Points,1.5,55.0,Over,-135,-110,2.7,57.4,52.4
+UTA @ EDM,2026-10-16T01:10:00Z,UTA,Lawson Crouse,F,Points,0.5,39.0,Over,155,-210,2.4,39.2,67.7
+UTA @ EDM,2026-10-16T01:10:00Z,UTA,Logan Cooley,F,Points,0.5,55.3,Over,-145,105,0.4,59.2,48.8
+UTA @ EDM,2026-10-16T01:10:00Z,UTA,Mikhail Sergachev,D,Points,0.5,52.5,Over,-130,100,-0.6,56.5,50.0
+UTA @ EDM,2026-10-16T01:10:00Z,UTA,Anders Lee,F,Points,0.5,38.2,Over,140,-190,-0.7,41.7,65.5
+UTA @ EDM,2026-10-16T01:10:00Z,UTA,John Marino,D,Points,0.5,34.5,Over,165,-225,-0.8,37.7,69.2
+UTA @ EDM,2026-10-16T01:10:00Z,EDM,Evan Bouchard,D,Points,0.5,69.1,Over,-280,,-4.6,73.7,
+UTA @ EDM,2026-10-16T01:10:00Z,UTA,Barrett Hayton,F,Points,0.5,28.1,Over,180,-245,-5.3,35.7,71.0
+UTA @ EDM,2026-10-16T01:10:00Z,EDM,Connor Murphy,D,Points,0.5,22.2,Over,225,-310,-6.8,30.8,75.6
+UTA @ EDM,2026-10-16T01:10:00Z,EDM,Kasperi Kapanen,F,Points,0.5,32.7,Over,105,-140,-12.8,48.8,58.3
+UTA @ EDM,2026-10-16T01:10:00Z,EDM,Vasily Podkolzin,F,Points,0.5,35.0,Over,-130,100,-18.1,56.5,50.0
+UTA @ EDM,2026-10-16T01:10:00Z,UTA,MacKenzie Weegar,D,Shots On Goal,1.5,68.3,Over,105,-145,23.1,48.8,59.2
+UTA @ EDM,2026-10-16T01:10:00Z,UTA,Anders Lee,F,Shots On Goal,1.5,66.4,Over,-145,110,11.0,59.2,47.6
+UTA @ EDM,2026-10-16T01:10:00Z,EDM,Connor McDavid,F,Shots On Goal,3.5,51.7,Over,125,-170,10.4,44.4,63.0
+UTA @ EDM,2026-10-16T01:10:00Z,UTA,Lawson Crouse,F,Shots On Goal,1.5,49.4,Over,115,-155,6.0,46.5,60.8
+UTA @ EDM,2026-10-16T01:10:00Z,UTA,Vincent Trocheck,F,Shots On Goal,1.5,49.0,Over,115,-155,5.6,46.5,60.8
+UTA @ EDM,2026-10-16T01:10:00Z,UTA,Mikhail Sergachev,D,Shots On Goal,1.5,58.1,Over,-130,-105,5.6,56.5,51.2
+UTA @ EDM,2026-10-16T01:10:00Z,UTA,Clayton Keller,F,Shots On Goal,2.5,48.7,Over,115,-150,5.0,46.5,60.0
+UTA @ EDM,2026-10-16T01:10:00Z,UTA,Dylan Guenther,F,Shots On Goal,2.5,55.6,Over,-125,-105,3.5,55.6,51.2
+UTA @ EDM,2026-10-16T01:10:00Z,UTA,Nick Schmaltz,F,Shots On Goal,2.5,45.0,Over,120,-160,2.5,45.5,61.5
+UTA @ EDM,2026-10-16T01:10:00Z,UTA,Barrett Hayton,F,Shots On Goal,1.5,48.1,Over,100,-140,2.0,50.0,58.3
+UTA @ EDM,2026-10-16T01:10:00Z,UTA,Logan Cooley,F,Shots On Goal,1.5,54.2,Over,-140,100,0.3,58.3,50.0
+UTA @ EDM,2026-10-16T01:10:00Z,EDM,Leon Draisaitl,F,Shots On Goal,2.5,54.2,Over,-160,115,-2.7,61.5,46.5
+UTA @ EDM,2026-10-16T01:10:00Z,EDM,Evan Bouchard,D,Shots On Goal,2.5,47.6,Over,-135,-105,-5.3,57.4,51.2
+UTA @ EDM,2026-10-16T01:10:00Z,EDM,Mattias Ekholm,D,Shots On Goal,1.5,43.2,Over,-120,-115,-7.3,54.5,53.5
+UTA @ EDM,2026-10-16T01:10:00Z,EDM,Kasperi Kapanen,F,Shots On Goal,1.5,44.5,Over,-160,115,-12.5,61.5,46.5
+UTA @ EDM,2026-10-16T01:10:00Z,EDM,Isaac Howard,F,Shots On Goal,1.5,32.5,Over,100,-130,-14.4,50.0,56.5
+UTA @ EDM,2026-10-16T01:10:00Z,EDM,Vasily Podkolzin,F,Shots On Goal,2.5,24.1,Over,105,-140,-21.4,48.8,58.3
+VAN @ FLA,2026-10-15T23:10:00Z,VAN,Marco Rossi,F,Anytime Goal Scorer,0.5,27.6,Over,470,,10.1,17.5,
+VAN @ FLA,2026-10-15T23:10:00Z,VAN,Drew O'Connor,F,Anytime Goal Scorer,0.5,17.3,Over,1000,,8.2,9.1,
+VAN @ FLA,2026-10-15T23:10:00Z,VAN,Max Sasson,F,Anytime Goal Scorer,0.5,15.6,Over,950,,6.1,9.5,
+VAN @ FLA,2026-10-15T23:10:00Z,VAN,Zeev Buium,D,Anytime Goal Scorer,0.5,10.8,Over,1300,,3.6,7.1,
+VAN @ FLA,2026-10-15T23:10:00Z,VAN,Jamie Oleksiak,D,Anytime Goal Scorer,0.5,5.4,Over,3000,,2.2,3.2,
+VAN @ FLA,2026-10-15T23:10:00Z,VAN,Filip Chytil,F,Anytime Goal Scorer,0.5,17.7,Over,525,,1.7,16.0,
+VAN @ FLA,2026-10-15T23:10:00Z,VAN,Tom Willander,D,Anytime Goal Scorer,0.5,6.1,Over,1700,,0.6,5.6,
+VAN @ FLA,2026-10-15T23:10:00Z,VAN,Linus Karlsson,F,Anytime Goal Scorer,0.5,15.5,Over,550,,0.1,15.4,
+VAN @ FLA,2026-10-15T23:10:00Z,VAN,Brendan Gallagher,F,Anytime Goal Scorer,0.5,7.9,Over,1100,,-0.4,8.3,
+VAN @ FLA,2026-10-15T23:10:00Z,VAN,Liam Ohgren,F,Anytime Goal Scorer,0.5,13.8,Over,600,,-0.5,14.3,
+VAN @ FLA,2026-10-15T23:10:00Z,VAN,Brock Boeser,F,Anytime Goal Scorer,0.5,25.7,Over,280,,-0.7,26.3,
+VAN @ FLA,2026-10-15T23:10:00Z,VAN,Filip Hronek,D,Anytime Goal Scorer,0.5,8.9,Over,800,,-2.2,11.1,
+VAN @ FLA,2026-10-15T23:10:00Z,VAN,Paul Cotter,F,Anytime Goal Scorer,0.5,10.2,Over,700,,-2.3,12.5,
+VAN @ FLA,2026-10-15T23:10:00Z,FLA,Niko Mikkola,D,Anytime Goal Scorer,0.5,4.0,Over,1300,,-3.2,7.1,
+VAN @ FLA,2026-10-15T23:10:00Z,VAN,Jake DeBrusk,F,Anytime Goal Scorer,0.5,25.1,Over,250,,-3.5,28.6,
+VAN @ FLA,2026-10-15T23:10:00Z,VAN,Elias Pettersson,F,Anytime Goal Scorer,0.5,20.3,Over,320,,-3.5,23.8,
+VAN @ FLA,2026-10-15T23:10:00Z,FLA,Anton Lundell,F,Anytime Goal Scorer,0.5,23.7,Over,260,,-4.1,27.8,
+VAN @ FLA,2026-10-15T23:10:00Z,FLA,Dmitry Kulikov,D,Anytime Goal Scorer,0.5,1.2,Over,1700,,-4.3,5.6,
+VAN @ FLA,2026-10-15T23:10:00Z,FLA,Seth Jones,D,Anytime Goal Scorer,0.5,12.8,Over,460,,-5.1,17.9,
+VAN @ FLA,2026-10-15T23:10:00Z,FLA,Sandis Vilmanis,F,Anytime Goal Scorer,0.5,9.8,Over,550,,-5.6,15.4,
+VAN @ FLA,2026-10-15T23:10:00Z,FLA,Sam Bennett,F,Anytime Goal Scorer,0.5,28.0,Over,195,,-5.9,33.9,
+VAN @ FLA,2026-10-15T23:10:00Z,FLA,Sam Lafferty,F,Anytime Goal Scorer,0.5,4.1,Over,850,,-6.4,10.5,
+VAN @ FLA,2026-10-15T23:10:00Z,FLA,Sam Reinhart,F,Anytime Goal Scorer,0.5,37.5,Over,125,,-6.9,44.4,
+VAN @ FLA,2026-10-15T23:10:00Z,FLA,Aaron Ekblad,D,Anytime Goal Scorer,0.5,5.1,Over,700,,-7.4,12.5,
+VAN @ FLA,2026-10-15T23:10:00Z,FLA,Gustav Forsling,D,Anytime Goal Scorer,0.5,2.3,Over,900,,-7.7,10.0,
+VAN @ FLA,2026-10-15T23:10:00Z,FLA,Matthew Tkachuk,F,Anytime Goal Scorer,0.5,34.5,Over,135,,-8.1,42.6,
+VAN @ FLA,2026-10-15T23:10:00Z,FLA,Carter Verhaeghe,F,Anytime Goal Scorer,0.5,27.9,Over,175,,-8.4,36.4,
+VAN @ FLA,2026-10-15T23:10:00Z,FLA,Garnet Hathaway,F,Anytime Goal Scorer,0.5,1.4,Over,900,,-8.6,10.0,
+VAN @ FLA,2026-10-15T23:10:00Z,FLA,Eetu Luostarinen,F,Anytime Goal Scorer,0.5,13.5,Over,350,,-8.7,22.2,
+VAN @ FLA,2026-10-15T23:10:00Z,FLA,Brady Tkachuk,F,Anytime Goal Scorer,0.5,31.9,Over,130,,-11.6,43.5,
+VAN @ FLA,2026-10-15T23:10:00Z,FLA,Lars Eller,F,Anytime Goal Scorer,0.5,6.7,Over,420,,-12.6,19.2,
+VAN @ FLA,2026-10-15T23:10:00Z,VAN,Marco Rossi,F,Assists,0.5,46.8,Over,260,-370,20.7,27.8,78.7
+VAN @ FLA,2026-10-15T23:10:00Z,FLA,Brady Tkachuk,F,Assists,0.5,46.4,Over,130,-175,5.8,43.5,63.6
+VAN @ FLA,2026-10-15T23:10:00Z,FLA,Eetu Luostarinen,F,Assists,0.5,24.6,Over,300,-450,1.2,25.0,81.8
+VAN @ FLA,2026-10-15T23:10:00Z,FLA,Sam Reinhart,F,Assists,0.5,39.7,Over,130,-180,-0.6,43.5,64.3
+VAN @ FLA,2026-10-15T23:10:00Z,FLA,Anton Lundell,F,Assists,0.5,31.7,Over,190,-260,-0.6,34.5,72.2
+VAN @ FLA,2026-10-15T23:10:00Z,FLA,Sandis Vilmanis,F,Assists,0.5,17.6,Over,400,-600,-1.3,20.0,85.7
+VAN @ FLA,2026-10-15T23:10:00Z,FLA,Gustav Forsling,D,Assists,0.5,25.0,Over,255,-360,-1.5,28.2,78.3
+VAN @ FLA,2026-10-15T23:10:00Z,VAN,Filip Hronek,D,Assists,0.5,38.9,Over,125,-170,-2.5,44.4,63.0
+VAN @ FLA,2026-10-15T23:10:00Z,VAN,Brock Boeser,F,Assists,0.5,28.9,Over,195,-270,-2.8,33.9,73.0
+VAN @ FLA,2026-10-15T23:10:00Z,VAN,Jamie Oleksiak,D,Assists,0.5,10.7,Over,600,,-3.6,14.3,
+VAN @ FLA,2026-10-15T23:10:00Z,VAN,Linus Karlsson,F,Assists,0.5,20.6,Over,285,-400,-3.9,26.0,80.0
+VAN @ FLA,2026-10-15T23:10:00Z,FLA,Sam Bennett,F,Assists,0.5,32.6,Over,150,-200,-4.9,40.0,66.7
+VAN @ FLA,2026-10-15T23:10:00Z,FLA,Matthew Tkachuk,F,Assists,0.5,48.2,Over,-135,100,-5.3,57.4,50.0
+VAN @ FLA,2026-10-15T23:10:00Z,FLA,Seth Jones,D,Assists,0.5,37.5,Over,115,-160,-5.5,46.5,61.5
+VAN @ FLA,2026-10-15T23:10:00Z,FLA,Carter Verhaeghe,F,Assists,0.5,31.8,Over,145,-200,-6.1,40.8,66.7
+VAN @ FLA,2026-10-15T23:10:00Z,FLA,Niko Mikkola,D,Assists,0.5,9.9,Over,475,-750,-6.6,17.4,88.2
+VAN @ FLA,2026-10-15T23:10:00Z,VAN,Jake DeBrusk,F,Assists,0.5,20.6,Over,240,-340,-6.9,29.4,77.3
+VAN @ FLA,2026-10-15T23:10:00Z,VAN,Liam Ohgren,F,Assists,0.5,16.4,Over,275,-390,-8.7,26.7,79.6
+VAN @ FLA,2026-10-15T23:10:00Z,VAN,Tom Willander,D,Assists,0.5,18.8,Over,235,-330,-9.2,29.9,76.7
+VAN @ FLA,2026-10-15T23:10:00Z,FLA,Aaron Ekblad,D,Assists,0.5,24.3,Over,165,-225,-11.0,37.7,69.2
+VAN @ FLA,2026-10-15T23:10:00Z,VAN,Marco Rossi,F,Points,0.5,61.8,Over,145,-200,23.8,40.8,66.7
+VAN @ FLA,2026-10-15T23:10:00Z,FLA,Brady Tkachuk,F,Points,0.5,63.0,Over,-195,140,1.7,66.1,41.7
+VAN @ FLA,2026-10-15T23:10:00Z,FLA,Sam Reinhart,F,Points,0.5,61.9,Over,-190,140,0.8,65.5,41.7
+VAN @ FLA,2026-10-15T23:10:00Z,VAN,Brock Boeser,F,Points,0.5,46.7,Over,-110,-125,-1.8,52.4,55.6
+VAN @ FLA,2026-10-15T23:10:00Z,VAN,Filip Hronek,D,Points,0.5,44.5,Over,100,-135,-2.1,50.0,57.4
+VAN @ FLA,2026-10-15T23:10:00Z,FLA,Anton Lundell,F,Points,0.5,47.5,Over,-115,-115,-2.5,53.5,53.5
+VAN @ FLA,2026-10-15T23:10:00Z,VAN,Jamie Oleksiak,D,Points,0.5,15.6,Over,450,,-2.5,18.2,
+VAN @ FLA,2026-10-15T23:10:00Z,FLA,Eetu Luostarinen,F,Points,0.5,34.6,Over,150,-200,-2.9,40.0,66.7
+VAN @ FLA,2026-10-15T23:10:00Z,FLA,Sam Bennett,F,Points,0.5,51.1,Over,-140,105,-3.3,58.3,48.8
+VAN @ FLA,2026-10-15T23:10:00Z,VAN,Linus Karlsson,F,Points,0.5,33.2,Over,150,-205,-4.1,40.0,67.2
+VAN @ FLA,2026-10-15T23:10:00Z,FLA,Matthew Tkachuk,F,Points,1.5,32.0,Over,155,-215,-4.5,39.2,68.3
+VAN @ FLA,2026-10-15T23:10:00Z,VAN,Jake DeBrusk,F,Points,0.5,40.0,Over,110,-145,-4.6,47.6,59.2
+VAN @ FLA,2026-10-15T23:10:00Z,VAN,Liam Ohgren,F,Points,0.5,27.6,Over,190,-260,-4.8,34.5,72.2
+VAN @ FLA,2026-10-15T23:10:00Z,FLA,Sandis Vilmanis,F,Points,0.5,25.4,Over,205,-280,-5.4,32.8,73.7
+VAN @ FLA,2026-10-15T23:10:00Z,FLA,Gustav Forsling,D,Points,0.5,26.6,Over,190,-260,-5.7,34.5,72.2
+VAN @ FLA,2026-10-15T23:10:00Z,FLA,Seth Jones,D,Points,0.5,45.3,Over,-120,-110,-5.8,54.5,52.4
+VAN @ FLA,2026-10-15T23:10:00Z,FLA,Carter Verhaeghe,F,Points,0.5,50.5,Over,-160,115,-6.5,61.5,46.5
+VAN @ FLA,2026-10-15T23:10:00Z,FLA,Niko Mikkola,D,Points,0.5,13.4,Over,350,-500,-7.7,22.2,83.3
+VAN @ FLA,2026-10-15T23:10:00Z,FLA,Aaron Ekblad,D,Points,0.5,28.0,Over,130,-175,-12.6,43.5,63.6
+VAN @ FLA,2026-10-15T23:10:00Z,VAN,Marco Rossi,F,Shots On Goal,1.5,59.7,Over,105,,10.9,48.8,
+VAN @ FLA,2026-10-15T23:10:00Z,VAN,Brock Boeser,F,Shots On Goal,1.5,65.6,Over,-160,115,8.7,61.5,46.5
+VAN @ FLA,2026-10-15T23:10:00Z,FLA,Brady Tkachuk,F,Shots On Goal,3.5,54.1,Over,-105,-130,6.6,51.2,56.5
+VAN @ FLA,2026-10-15T23:10:00Z,VAN,Jake DeBrusk,F,Shots On Goal,2.5,46.0,Over,110,-155,2.1,47.6,60.8
+VAN @ FLA,2026-10-15T23:10:00Z,FLA,Matthew Tkachuk,F,Shots On Goal,2.5,54.8,Over,-140,105,0.4,58.3,48.8
+VAN @ FLA,2026-10-15T23:10:00Z,VAN,Filip Hronek,D,Shots On Goal,1.5,46.6,Over,-120,-115,-3.9,54.5,53.5
+VAN @ FLA,2026-10-15T23:10:00Z,FLA,Sam Reinhart,F,Shots On Goal,2.5,45.2,Over,-115,-120,-4.3,53.5,54.5
+VAN @ FLA,2026-10-15T23:10:00Z,FLA,Sam Bennett,F,Shots On Goal,2.5,44.7,Over,-110,-120,-4.3,52.4,54.5
+VAN @ FLA,2026-10-15T23:10:00Z,FLA,Gustav Forsling,D,Shots On Goal,1.5,37.9,Over,115,-155,-5.5,46.5,60.8
+VAN @ FLA,2026-10-15T23:10:00Z,FLA,Anton Lundell,F,Shots On Goal,2.5,33.4,Over,125,-170,-8.0,44.4,63.0
+VAN @ FLA,2026-10-15T23:10:00Z,FLA,Seth Jones,D,Shots On Goal,1.5,48.0,Over,-175,130,-11.5,63.6,43.5
+VAN @ FLA,2026-10-15T23:10:00Z,VAN,Linus Karlsson,F,Shots On Goal,1.5,43.4,Over,-135,,-14.0,57.4,
+VAN @ FLA,2026-10-15T23:10:00Z,FLA,Carter Verhaeghe,F,Shots On Goal,2.5,39.8,Over,-140,105,-14.7,58.3,48.8
+STL @ MIN,2026-10-16T00:10:00Z,MIN,Quinn Hughes,D,Assists,0.5,76.3,Over,-165,120,18.5,62.3,45.5
+STL @ MIN,2026-10-16T00:10:00Z,STL,Jonatan Berggren,F,Assists,0.5,28.7,Over,330,-475,6.8,23.3,82.6
+STL @ MIN,2026-10-16T00:10:00Z,STL,Connor McMichael,F,Assists,0.5,32.0,Over,240,-340,4.4,29.4,77.3
+STL @ MIN,2026-10-16T00:10:00Z,STL,Dylan Holloway,F,Assists,0.5,39.2,Over,165,-225,3.9,37.7,69.2
+STL @ MIN,2026-10-16T00:10:00Z,STL,Robert Thomas,F,Assists,0.5,46.0,Over,115,-160,3.0,46.5,61.5
+STL @ MIN,2026-10-16T00:10:00Z,STL,Jimmy Snuggerud,F,Assists,0.5,34.4,Over,180,-245,0.9,35.7,71.0
+STL @ MIN,2026-10-16T00:10:00Z,STL,Pavel Buchnevich,F,Assists,0.5,27.7,Over,245,-340,0.4,29.0,77.3
+STL @ MIN,2026-10-16T00:10:00Z,MIN,Joel Eriksson Ek,F,Assists,0.5,36.2,Over,160,-215,0.2,38.5,68.3
+STL @ MIN,2026-10-16T00:10:00Z,STL,Justin Barron,D,Assists,0.5,14.2,Over,550,-900,-0.4,15.4,90.0
+STL @ MIN,2026-10-16T00:10:00Z,MIN,Matt Boldy,F,Assists,0.5,44.6,Over,105,-140,-1.0,48.8,58.3
+STL @ MIN,2026-10-16T00:10:00Z,MIN,Jonas Brodin,D,Assists,0.5,18.1,Over,390,-575,-1.2,20.4,85.2
+STL @ MIN,2026-10-16T00:10:00Z,MIN,Ryan Hartman,F,Assists,0.5,21.9,Over,295,-425,-1.9,25.3,81.0
+STL @ MIN,2026-10-16T00:10:00Z,STL,Philip Broberg,D,Assists,0.5,26.3,Over,230,-320,-2.1,30.3,76.2
+STL @ MIN,2026-10-16T00:10:00Z,STL,Mason McTavish,F,Assists,0.5,25.9,Over,230,-320,-2.5,30.3,76.2
+STL @ MIN,2026-10-16T00:10:00Z,MIN,Kirill Kaprizov,F,Assists,0.5,44.5,Over,-105,-130,-3.1,51.2,56.5
+STL @ MIN,2026-10-16T00:10:00Z,MIN,Zach Bogosian,D,Assists,0.5,8.6,Over,700,-1200,-3.3,12.5,92.3
+STL @ MIN,2026-10-16T00:10:00Z,STL,Jake Neighbours,F,Assists,0.5,25.9,Over,220,-310,-3.4,31.2,75.6
+STL @ MIN,2026-10-16T00:10:00Z,MIN,Blake Coleman,F,Assists,0.5,18.5,Over,330,-475,-3.5,23.3,82.6
+STL @ MIN,2026-10-16T00:10:00Z,STL,Cam Fowler,D,Assists,0.5,25.1,Over,220,-300,-4.3,31.2,75.0
+STL @ MIN,2026-10-16T00:10:00Z,MIN,Maxim Shabanov,F,Assists,0.5,25.2,Over,205,-290,-5.4,32.8,74.4
+STL @ MIN,2026-10-16T00:10:00Z,MIN,Danila Yurov,F,Assists,0.5,17.1,Over,310,-450,-5.9,24.4,81.8
+STL @ MIN,2026-10-16T00:10:00Z,MIN,Bobby Brink,F,Assists,0.5,22.6,Over,225,-310,-6.3,30.8,75.6
+STL @ MIN,2026-10-16T00:10:00Z,STL,Dalibor Dvorsky,F,Assists,0.5,10.9,Over,370,-550,-9.2,21.3,84.6
+STL @ MIN,2026-10-16T00:10:00Z,STL,Colton Parayko,D,Assists,0.5,14.9,Over,250,-350,-12.0,28.6,77.8
+STL @ MIN,2026-10-16T00:10:00Z,STL,Adam Jiricek,D,Assists,0.5,12.5,Over,220,-310,-16.8,31.2,75.6
+STL @ MIN,2026-10-16T00:10:00Z,MIN,Quinn Hughes,D,Points,0.5,79.5,Over,-230,170,14.2,69.7,37.0
+STL @ MIN,2026-10-16T00:10:00Z,STL,Jonatan Berggren,F,Points,0.5,41.3,Over,215,-295,11.5,31.7,74.7
+STL @ MIN,2026-10-16T00:10:00Z,STL,Robert Thomas,F,Points,0.5,63.6,Over,-145,105,8.8,59.2,48.8
+STL @ MIN,2026-10-16T00:10:00Z,STL,Dylan Holloway,F,Points,0.5,58.3,Over,-125,-110,6.8,55.6,52.4
+STL @ MIN,2026-10-16T00:10:00Z,MIN,Ryan Hartman,F,Points,0.5,41.2,Over,165,-230,6.1,37.7,69.7
+STL @ MIN,2026-10-16T00:10:00Z,MIN,Matt Boldy,F,Points,0.5,68.8,Over,-210,150,6.0,67.7,40.0
+STL @ MIN,2026-10-16T00:10:00Z,STL,Pavel Buchnevich,F,Points,0.5,42.7,Over,140,-190,3.8,41.7,65.5
+STL @ MIN,2026-10-16T00:10:00Z,MIN,Bobby Brink,F,Points,0.5,40.0,Over,145,-200,2.1,40.8,66.7
+STL @ MIN,2026-10-16T00:10:00Z,STL,Connor McMichael,F,Points,0.5,42.5,Over,120,-165,0.3,45.5,62.3
+STL @ MIN,2026-10-16T00:10:00Z,MIN,Blake Coleman,F,Points,0.5,37.9,Over,145,-195,-0.3,40.8,66.1
+STL @ MIN,2026-10-16T00:10:00Z,STL,Jimmy Snuggerud,F,Points,0.5,51.2,Over,-125,-110,-0.3,55.6,52.4
+STL @ MIN,2026-10-16T00:10:00Z,STL,Philip Broberg,D,Points,0.5,31.0,Over,190,-265,-1.2,34.5,72.6
+STL @ MIN,2026-10-16T00:10:00Z,MIN,Joel Eriksson Ek,F,Points,0.5,51.2,Over,-135,100,-2.3,57.4,50.0
+STL @ MIN,2026-10-16T00:10:00Z,STL,Jake Neighbours,F,Points,0.5,40.2,Over,120,-160,-2.3,45.5,61.5
+STL @ MIN,2026-10-16T00:10:00Z,MIN,Kirill Kaprizov,F,Points,0.5,69.6,Over,-260,,-2.6,72.2,
+STL @ MIN,2026-10-16T00:10:00Z,MIN,Jonas Brodin,D,Points,0.5,22.6,Over,270,-380,-2.8,27.0,79.2
+STL @ MIN,2026-10-16T00:10:00Z,STL,Justin Barron,D,Points,0.5,14.3,Over,425,-650,-3.7,19.0,86.7
+STL @ MIN,2026-10-16T00:10:00Z,MIN,Zach Bogosian,D,Points,0.5,12.5,Over,425,-650,-5.5,19.0,86.7
+STL @ MIN,2026-10-16T00:10:00Z,MIN,Danila Yurov,F,Points,0.5,28.6,Over,170,-230,-6.1,37.0,69.7
+STL @ MIN,2026-10-16T00:10:00Z,STL,Cam Fowler,D,Points,0.5,28.3,Over,170,-235,-6.2,37.0,70.1
+STL @ MIN,2026-10-16T00:10:00Z,STL,Mason McTavish,F,Points,0.5,40.1,Over,-105,-130,-7.4,51.2,56.5
+STL @ MIN,2026-10-16T00:10:00Z,MIN,Maxim Shabanov,F,Points,0.5,33.2,Over,115,-155,-10.2,46.5,60.8
+STL @ MIN,2026-10-16T00:10:00Z,STL,Dalibor Dvorsky,F,Points,0.5,23.6,Over,175,-240,-10.4,36.4,70.6
+STL @ MIN,2026-10-16T00:10:00Z,STL,Colton Parayko,D,Points,0.5,18.7,Over,195,-265,-13.1,33.9,72.6
+STL @ MIN,2026-10-16T00:10:00Z,STL,Adam Jiricek,D,Points,0.5,20.8,Over,155,-210,-15.8,39.2,67.7
+STL @ MIN,2026-10-16T00:10:00Z,MIN,Quinn Hughes,D,Shots On Goal,2.5,74.6,Over,120,-160,32.1,45.5,61.5
+STL @ MIN,2026-10-16T00:10:00Z,STL,Dylan Holloway,F,Shots On Goal,2.5,48.6,Over,140,-190,9.7,41.7,65.5
+STL @ MIN,2026-10-16T00:10:00Z,MIN,Ryan Hartman,F,Shots On Goal,1.5,62.4,Over,-145,105,7.6,59.2,48.8
+STL @ MIN,2026-10-16T00:10:00Z,MIN,Kirill Kaprizov,F,Shots On Goal,3.5,45.5,Over,130,-175,4.9,43.5,63.6
+STL @ MIN,2026-10-16T00:10:00Z,STL,Jimmy Snuggerud,F,Shots On Goal,2.5,44.8,Over,120,-160,2.3,45.5,61.5
+STL @ MIN,2026-10-16T00:10:00Z,STL,Connor McMichael,F,Shots On Goal,1.5,49.5,Over,-105,-130,2.0,51.2,56.5
+STL @ MIN,2026-10-16T00:10:00Z,MIN,Blake Coleman,F,Shots On Goal,1.5,67.3,Over,-195,,1.2,66.1,
+STL @ MIN,2026-10-16T00:10:00Z,STL,Pavel Buchnevich,F,Shots On Goal,1.5,47.7,Over,-105,-135,0.5,51.2,57.4
+STL @ MIN,2026-10-16T00:10:00Z,STL,Robert Thomas,F,Shots On Goal,1.5,48.1,Over,-110,-125,-0.4,52.4,55.6
+STL @ MIN,2026-10-16T00:10:00Z,MIN,Matt Boldy,F,Shots On Goal,3.5,43.3,Over,-105,-130,-4.2,51.2,56.5
+STL @ MIN,2026-10-16T00:10:00Z,MIN,Joel Eriksson Ek,F,Shots On Goal,2.5,50.8,Over,-150,110,-4.9,60.0,47.6
+STL @ MIN,2026-10-16T00:10:00Z,STL,Cam Fowler,D,Shots On Goal,1.5,28.0,Over,140,-190,-10.9,41.7,65.5
+STL @ MIN,2026-10-16T00:10:00Z,MIN,Maxim Shabanov,F,Shots On Goal,1.5,36.1,Over,-110,-120,-12.9,52.4,54.5
+STL @ MIN,2026-10-16T00:10:00Z,STL,Adam Jiricek,D,Shots On Goal,1.5,40.2,Over,-135,100,-13.3,57.4,50.0
+STL @ MIN,2026-10-16T00:10:00Z,STL,Mason McTavish,F,Shots On Goal,1.5,56.7,Over,-240,,-13.8,70.6,
+STL @ MIN,2026-10-16T00:10:00Z,MIN,Jesper Wallstedt,G,Total Saves,22.5,62.5,Over,-130,-105,10.1,56.5,51.2
+NYR @ NJD,2026-10-15T23:07:00Z,NJD,Anthony Mantha,F,Anytime Goal Scorer,0.5,32.9,Over,370,,11.6,21.3,
+NYR @ NJD,2026-10-15T23:07:00Z,NJD,Cody Glass,F,Anytime Goal Scorer,0.5,21.0,Over,700,,8.5,12.5,
+NYR @ NJD,2026-10-15T23:07:00Z,NYR,Vladislav Gavrikov,D,Anytime Goal Scorer,0.5,14.5,Over,1300,,7.3,7.1,
+NYR @ NJD,2026-10-15T23:07:00Z,NYR,Pavel Dorofeyev,F,Anytime Goal Scorer,0.5,36.0,Over,195,,2.1,33.9,
+NYR @ NJD,2026-10-15T23:07:00Z,NYR,Mika Zibanejad,F,Anytime Goal Scorer,0.5,35.6,Over,190,,1.1,34.5,
+NYR @ NJD,2026-10-15T23:07:00Z,NYR,Adam Fox,D,Anytime Goal Scorer,0.5,15.7,Over,550,,0.3,15.4,
+NYR @ NJD,2026-10-15T23:07:00Z,NJD,Dougie Hamilton,D,Anytime Goal Scorer,0.5,13.3,Over,650,,-0.0,13.3,
+NYR @ NJD,2026-10-15T23:07:00Z,NJD,Amadeus Lombardi,F,Anytime Goal Scorer,0.5,10.4,Over,850,,-0.1,10.5,
+NYR @ NJD,2026-10-15T23:07:00Z,NYR,Tye Kartye,F,Anytime Goal Scorer,0.5,15.8,Over,500,,-0.9,16.7,
+NYR @ NJD,2026-10-15T23:07:00Z,NJD,Declan Chisholm,D,Anytime Goal Scorer,0.5,3.5,Over,2100,,-1.0,4.5,
+NYR @ NJD,2026-10-15T23:07:00Z,NYR,Marcus Pettersson,D,Anytime Goal Scorer,0.5,3.3,Over,2200,,-1.1,4.3,
+NYR @ NJD,2026-10-15T23:07:00Z,NYR,Alberts Smits,D,Anytime Goal Scorer,0.5,3.3,Over,2100,,-1.2,4.5,
+NYR @ NJD,2026-10-15T23:07:00Z,NJD,Dawson Mercer,F,Anytime Goal Scorer,0.5,19.6,Over,370,,-1.6,21.3,
+NYR @ NJD,2026-10-15T23:07:00Z,NYR,Matt Rempe,F,Anytime Goal Scorer,0.5,4.8,Over,1400,,-1.9,6.7,
+NYR @ NJD,2026-10-15T23:07:00Z,NYR,Noah Laba,F,Anytime Goal Scorer,0.5,10.5,Over,700,,-2.0,12.5,
+NYR @ NJD,2026-10-15T23:07:00Z,NYR,Sean Durzi,D,Anytime Goal Scorer,0.5,7.5,Over,950,,-2.0,9.5,
+NYR @ NJD,2026-10-15T23:07:00Z,NYR,Braden Schneider,D,Anytime Goal Scorer,0.5,2.2,Over,2100,,-2.3,4.5,
+NYR @ NJD,2026-10-15T23:07:00Z,NJD,Timo Meier,F,Anytime Goal Scorer,0.5,26.7,Over,240,,-2.7,29.4,
+NYR @ NJD,2026-10-15T23:07:00Z,NYR,Oliver Bjorkstrand,F,Anytime Goal Scorer,0.5,12.5,Over,550,,-2.9,15.4,
+NYR @ NJD,2026-10-15T23:07:00Z,NJD,Brett Pesce,D,Anytime Goal Scorer,0.5,2.5,Over,1700,,-3.1,5.6,
+NYR @ NJD,2026-10-15T23:07:00Z,NYR,Gabe Perreault,F,Anytime Goal Scorer,0.5,19.5,Over,340,,-3.2,22.7,
+NYR @ NJD,2026-10-15T23:07:00Z,NYR,Will Cuylle,F,Anytime Goal Scorer,0.5,19.5,Over,340,,-3.3,22.7,
+NYR @ NJD,2026-10-15T23:07:00Z,NYR,J.T. Miller,F,Anytime Goal Scorer,0.5,23.1,Over,275,,-3.6,26.7,
+NYR @ NJD,2026-10-15T23:07:00Z,NJD,Johnathan Kovacevic,D,Anytime Goal Scorer,0.5,1.0,Over,2000,,-3.8,4.8,
+NYR @ NJD,2026-10-15T23:07:00Z,NYR,Eeli Tolvanen,F,Anytime Goal Scorer,0.5,12.8,Over,500,,-3.9,16.7,
+NYR @ NJD,2026-10-15T23:07:00Z,NJD,Evan Rodrigues,F,Anytime Goal Scorer,0.5,13.3,Over,470,,-4.2,17.5,
+NYR @ NJD,2026-10-15T23:07:00Z,NJD,Jesper Bratt,F,Anytime Goal Scorer,0.5,23.3,Over,240,,-6.1,29.4,
+NYR @ NJD,2026-10-15T23:07:00Z,NJD,Luke Hughes,D,Anytime Goal Scorer,0.5,8.1,Over,600,,-6.2,14.3,
+NYR @ NJD,2026-10-15T23:07:00Z,NJD,Jesper Boqvist,F,Anytime Goal Scorer,0.5,4.7,Over,800,,-6.4,11.1,
+NYR @ NJD,2026-10-15T23:07:00Z,NJD,Arseny Gritsyuk,F,Anytime Goal Scorer,0.5,16.6,Over,330,,-6.7,23.3,
+NYR @ NJD,2026-10-15T23:07:00Z,NJD,Nico Hischier,F,Anytime Goal Scorer,0.5,28.9,Over,180,,-6.9,35.7,
+NYR @ NJD,2026-10-15T23:07:00Z,NJD,Jack Hughes,F,Anytime Goal Scorer,0.5,36.4,Over,130,,-7.0,43.5,
+NYR @ NJD,2026-10-15T23:07:00Z,NJD,Stefan Noesen,F,Anytime Goal Scorer,0.5,7.3,Over,360,,-14.4,21.7,
+NYR @ NJD,2026-10-15T23:07:00Z,NYR,Adam Fox,D,Assists,0.5,55.4,Over,100,-135,8.8,50.0,57.4
+NYR @ NJD,2026-10-15T23:07:00Z,NJD,Jack Hughes,F,Assists,0.5,57.4,Over,-120,-115,6.9,54.5,53.5
+NYR @ NJD,2026-10-15T23:07:00Z,NJD,Anthony Mantha,F,Assists,0.5,30.9,Over,245,-340,3.6,29.0,77.3
+NYR @ NJD,2026-10-15T23:07:00Z,NYR,J.T. Miller,F,Assists,0.5,41.5,Over,145,-200,3.5,40.8,66.7
+NYR @ NJD,2026-10-15T23:07:00Z,NJD,Jesper Bratt,F,Assists,0.5,45.4,Over,115,-160,2.4,46.5,61.5
+NYR @ NJD,2026-10-15T23:07:00Z,NJD,Nico Hischier,F,Assists,0.5,37.5,Over,160,-215,1.4,38.5,68.3
+NYR @ NJD,2026-10-15T23:07:00Z,NYR,Pavel Dorofeyev,F,Assists,0.5,28.4,Over,245,-340,1.1,29.0,77.3
+NYR @ NJD,2026-10-15T23:07:00Z,NYR,Gabe Perreault,F,Assists,0.5,24.3,Over,295,-425,0.5,25.3,81.0
+NYR @ NJD,2026-10-15T23:07:00Z,NYR,Mika Zibanejad,F,Assists,0.5,42.3,Over,120,-160,-0.1,45.5,61.5
+NYR @ NJD,2026-10-15T23:07:00Z,NYR,Tye Kartye,F,Assists,0.5,26.4,Over,250,-350,-0.4,28.6,77.8
+NYR @ NJD,2026-10-15T23:07:00Z,NJD,Dawson Mercer,F,Assists,0.5,21.7,Over,300,-425,-1.9,25.0,81.0
+NYR @ NJD,2026-10-15T23:07:00Z,NJD,Dougie Hamilton,D,Assists,0.5,28.0,Over,205,-285,-2.7,32.8,74.0
+NYR @ NJD,2026-10-15T23:07:00Z,NJD,Timo Meier,F,Assists,0.5,22.6,Over,250,-350,-4.3,28.6,77.8
+NYR @ NJD,2026-10-15T23:07:00Z,NJD,Evan Rodrigues,F,Assists,0.5,23.2,Over,215,-300,-6.5,31.7,75.0
+NYR @ NJD,2026-10-15T23:07:00Z,NJD,Arseny Gritsyuk,F,Assists,0.5,22.0,Over,225,-320,-6.8,30.8,76.2
+NYR @ NJD,2026-10-15T23:07:00Z,NJD,Luke Hughes,D,Assists,0.5,34.3,Over,125,-170,-7.1,44.4,63.0
+NYR @ NJD,2026-10-15T23:07:00Z,NJD,Anthony Mantha,F,Points,0.5,53.4,Over,130,-180,13.1,43.5,64.3
+NYR @ NJD,2026-10-15T23:07:00Z,NYR,Adam Fox,D,Points,0.5,62.1,Over,-130,-105,9.7,56.5,51.2
+NYR @ NJD,2026-10-15T23:07:00Z,NJD,Jack Hughes,F,Points,1.5,40.8,Over,175,-240,6.8,36.4,70.6
+NYR @ NJD,2026-10-15T23:07:00Z,NYR,Pavel Dorofeyev,F,Points,0.5,54.7,Over,-115,-120,5.2,53.5,54.5
+NYR @ NJD,2026-10-15T23:07:00Z,NYR,Mika Zibanejad,F,Points,0.5,62.3,Over,-160,120,4.8,61.5,45.5
+NYR @ NJD,2026-10-15T23:07:00Z,NYR,J.T. Miller,F,Points,0.5,54.6,Over,-125,-110,3.1,55.6,52.4
+NYR @ NJD,2026-10-15T23:07:00Z,NJD,Dawson Mercer,F,Points,0.5,37.3,Over,170,-235,2.7,37.0,70.1
+NYR @ NJD,2026-10-15T23:07:00Z,NYR,Tye Kartye,F,Points,0.5,38.3,Over,155,-215,1.8,39.2,68.3
+NYR @ NJD,2026-10-15T23:07:00Z,NJD,Jesper Bratt,F,Points,0.5,58.4,Over,-160,120,0.9,61.5,45.5
+NYR @ NJD,2026-10-15T23:07:00Z,NJD,Nico Hischier,F,Points,0.5,55.8,Over,-150,110,0.0,60.0,47.6
+NYR @ NJD,2026-10-15T23:07:00Z,NYR,Gabe Perreault,F,Points,0.5,39.4,Over,135,-185,-0.2,42.6,64.9
+NYR @ NJD,2026-10-15T23:07:00Z,NJD,Dougie Hamilton,D,Points,0.5,37.8,Over,140,-190,-1.0,41.7,65.5
+NYR @ NJD,2026-10-15T23:07:00Z,NJD,Timo Meier,F,Points,0.5,43.0,Over,100,-135,-3.5,50.0,57.4
+NYR @ NJD,2026-10-15T23:07:00Z,NJD,Arseny Gritsyuk,F,Points,0.5,34.8,Over,125,-170,-6.6,44.4,63.0
+NYR @ NJD,2026-10-15T23:07:00Z,NJD,Evan Rodrigues,F,Points,0.5,33.6,Over,130,-175,-7.0,43.5,63.6
+NYR @ NJD,2026-10-15T23:07:00Z,NJD,Luke Hughes,D,Points,0.5,39.7,Over,-110,-125,-8.8,52.4,55.6
+NYR @ NJD,2026-10-15T23:07:00Z,NJD,Dawson Mercer,F,Shots On Goal,1.5,57.1,Over,-110,-125,8.6,52.4,55.6
+NYR @ NJD,2026-10-15T23:07:00Z,NYR,Mika Zibanejad,F,Shots On Goal,2.5,48.3,Over,135,-175,8.3,42.6,63.6
+NYR @ NJD,2026-10-15T23:07:00Z,NJD,Nico Hischier,F,Shots On Goal,2.5,50.4,Over,120,-165,8.2,45.5,62.3
+NYR @ NJD,2026-10-15T23:07:00Z,NJD,Anthony Mantha,F,Shots On Goal,1.5,53.5,Over,100,-135,6.9,50.0,57.4
+NYR @ NJD,2026-10-15T23:07:00Z,NYR,J.T. Miller,F,Shots On Goal,1.5,60.1,Over,-135,100,6.7,57.4,50.0
+NYR @ NJD,2026-10-15T23:07:00Z,NJD,Evan Rodrigues,F,Shots On Goal,1.5,65.1,Over,-185,135,4.7,64.9,42.6
+NYR @ NJD,2026-10-15T23:07:00Z,NJD,Jack Hughes,F,Shots On Goal,3.5,56.9,Over,-135,100,3.5,57.4,50.0
+NYR @ NJD,2026-10-15T23:07:00Z,NYR,Eeli Tolvanen,F,Shots On Goal,1.5,48.6,Over,105,-140,3.0,48.8,58.3
+NYR @ NJD,2026-10-15T23:07:00Z,NYR,Will Cuylle,F,Shots On Goal,1.5,54.4,Over,-125,-110,2.9,55.6,52.4
+NYR @ NJD,2026-10-15T23:07:00Z,NJD,Dougie Hamilton,D,Shots On Goal,2.5,45.8,Over,115,-160,2.7,46.5,61.5
+NYR @ NJD,2026-10-15T23:07:00Z,NYR,Adam Fox,D,Shots On Goal,1.5,48.2,Over,100,-140,2.0,50.0,58.3
+NYR @ NJD,2026-10-15T23:07:00Z,NYR,Pavel Dorofeyev,F,Shots On Goal,2.5,51.2,Over,-115,-120,1.7,53.5,54.5
+NYR @ NJD,2026-10-15T23:07:00Z,NJD,Arseny Gritsyuk,F,Shots On Goal,1.5,59.9,Over,-165,125,1.5,62.3,44.4
+NYR @ NJD,2026-10-15T23:07:00Z,NJD,Timo Meier,F,Shots On Goal,3.5,42.9,Over,140,,1.2,41.7,
+NYR @ NJD,2026-10-15T23:07:00Z,NJD,Jesper Bratt,F,Shots On Goal,2.5,35.3,Over,135,-185,-4.3,42.6,64.9
+NYR @ NJD,2026-10-15T23:07:00Z,NJD,Luke Hughes,D,Shots On Goal,1.5,60.4,Over,-235,,-9.8,70.1,
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,SJS,Kiefer Sherwood,F,Anytime Goal Scorer,0.5,37.5,Over,460,,19.6,17.9,
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,SJS,Mason Marchment,F,Anytime Goal Scorer,0.5,36.1,Over,380,,15.3,20.8,
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,SJS,Collin Graf,F,Anytime Goal Scorer,0.5,21.0,Over,750,,9.3,11.8,
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,SJS,Macklin Celebrini,F,Anytime Goal Scorer,0.5,43.6,Over,150,,3.6,40.0,
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,NSH,Filip Forsberg,F,Anytime Goal Scorer,0.5,39.0,Over,175,,2.6,36.4,
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,SJS,Jacob Trouba,D,Anytime Goal Scorer,0.5,10.6,Over,1100,,2.3,8.3,
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,NSH,Steven Stamkos,F,Anytime Goal Scorer,0.5,40.5,Over,155,,1.3,39.2,
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,SJS,Igor Chernyshov,F,Anytime Goal Scorer,0.5,25.2,Over,300,,0.2,25.0,
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,SJS,Darnell Nurse,D,Anytime Goal Scorer,0.5,7.3,Over,1300,,0.1,7.1,
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,SJS,Luca Cagnoni,D,Anytime Goal Scorer,0.5,10.0,Over,850,,-0.6,10.5,
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,SJS,Will Smith,F,Anytime Goal Scorer,0.5,29.7,Over,230,,-0.6,30.3,
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,SJS,Zack Ostapchuk,F,Anytime Goal Scorer,0.5,5.9,Over,1300,,-1.3,7.1,
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,SJS,Michael Misa,F,Anytime Goal Scorer,0.5,17.1,Over,430,,-1.8,18.9,
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,NSH,Jack Drury,F,Anytime Goal Scorer,0.5,10.2,Over,725,,-1.9,12.1,
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,NSH,Alexander Kerfoot,F,Anytime Goal Scorer,0.5,16.5,Over,430,,-2.3,18.9,
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,SJS,Barclay Goodrow,F,Anytime Goal Scorer,0.5,5.3,Over,1200,,-2.4,7.7,
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,NSH,Matthew Wood,F,Anytime Goal Scorer,0.5,20.4,Over,330,,-2.8,23.3,
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,NSH,Nicolas Hague,D,Anytime Goal Scorer,0.5,4.2,Over,1300,,-2.9,7.1,
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,SJS,Sam Dickinson,D,Anytime Goal Scorer,0.5,1.2,Over,1900,,-3.8,5.0,
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,NSH,Nick Perbix,D,Anytime Goal Scorer,0.5,3.3,Over,1300,,-3.8,7.1,
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,NSH,Roman Josi,D,Anytime Goal Scorer,0.5,17.6,Over,360,,-4.1,21.7,
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,NSH,Jayden Struble,D,Anytime Goal Scorer,0.5,3.0,Over,1300,,-4.2,7.1,
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,SJS,Michael Kesselring,D,Anytime Goal Scorer,0.5,1.0,Over,1800,,-4.3,5.3,
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,SJS,Tyler Toffoli,F,Anytime Goal Scorer,0.5,20.2,Over,300,,-4.8,25.0,
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,NSH,Ryan O'Reilly,F,Anytime Goal Scorer,0.5,26.9,Over,210,,-5.4,32.3,
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,SJS,Ivar Stenberg,F,Anytime Goal Scorer,0.5,17.1,Over,340,,-5.6,22.7,
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,NSH,Brady Skjei,D,Anytime Goal Scorer,0.5,3.3,Over,850,,-7.2,10.5,
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,SJS,Dmitry Orlov,D,Anytime Goal Scorer,0.5,3.2,Over,800,,-7.9,11.1,
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,NSH,Adam Edstrom,F,Anytime Goal Scorer,0.5,7.7,Over,500,,-9.0,16.7,
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,NSH,Ross Colton,F,Anytime Goal Scorer,0.5,10.3,Over,370,,-10.9,21.3,
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,NSH,Nils Hoglander,F,Anytime Goal Scorer,0.5,5.1,Over,440,,-13.4,18.5,
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,NSH,Jonathan Marchessault,F,Anytime Goal Scorer,0.5,16.6,Over,230,,-13.7,30.3,
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,SJS,Mason Marchment,F,Assists,0.5,45.8,Over,235,-320,17.7,29.9,76.2
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,NSH,Ryan O'Reilly,F,Assists,0.5,45.8,Over,130,-175,5.2,43.5,63.6
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,SJS,Tyler Toffoli,F,Assists,0.5,30.0,Over,265,-370,4.2,27.4,78.7
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,SJS,Kiefer Sherwood,F,Assists,0.5,23.5,Over,370,-550,3.5,21.3,84.6
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,SJS,Macklin Celebrini,F,Assists,0.5,58.9,Over,-150,110,3.2,60.0,47.6
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,SJS,Will Smith,F,Assists,0.5,40.2,Over,145,-195,2.0,40.8,66.1
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,SJS,Dmitry Orlov,D,Assists,0.5,30.7,Over,200,-275,-0.6,33.3,73.3
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,NSH,Ross Colton,F,Assists,0.5,16.6,Over,380,-550,-3.1,20.8,84.6
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,SJS,Igor Chernyshov,F,Assists,0.5,27.9,Over,200,-280,-3.3,33.3,73.7
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,NSH,Brady Skjei,D,Assists,0.5,22.5,Over,255,-360,-3.9,28.2,78.3
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,SJS,Ivar Stenberg,F,Assists,0.5,30.5,Over,170,-230,-4.2,37.0,69.7
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,NSH,Roman Josi,D,Assists,0.5,46.5,Over,-125,-110,-5.0,55.6,52.4
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,SJS,Michael Misa,F,Assists,0.5,22.1,Over,230,-320,-6.3,30.3,76.2
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,NSH,Filip Forsberg,F,Assists,0.5,35.1,Over,120,-165,-7.1,45.5,62.3
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,SJS,Luca Cagnoni,D,Assists,0.5,18.5,Over,240,-340,-9.1,29.4,77.3
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,NSH,Matthew Wood,F,Assists,0.5,16.1,Over,265,-370,-9.8,27.4,78.7
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,NSH,Alexander Kerfoot,F,Assists,0.5,14.8,Over,255,-360,-11.7,28.2,78.3
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,NSH,Jonathan Marchessault,F,Assists,0.5,25.0,Over,150,-200,-12.5,40.0,66.7
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,NSH,Steven Stamkos,F,Assists,0.5,25.7,Over,135,-185,-13.9,42.6,64.9
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,SJS,Mason Marchment,F,Points,0.5,65.4,Over,130,-175,24.8,43.5,63.6
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,SJS,Kiefer Sherwood,F,Points,0.5,52.2,Over,200,-275,20.9,33.3,73.3
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,SJS,Macklin Celebrini,F,Points,1.5,45.9,Over,135,-185,6.3,42.6,64.9
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,NSH,Ryan O'Reilly,F,Points,0.5,60.4,Over,-155,115,3.7,60.8,46.5
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,SJS,Will Smith,F,Points,0.5,57.9,Over,-140,105,3.5,58.3,48.8
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,SJS,Tyler Toffoli,F,Points,0.5,44.1,Over,125,-170,2.8,44.4,63.0
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,SJS,Igor Chernyshov,F,Points,0.5,46.0,Over,110,-150,1.8,47.6,60.0
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,NSH,Filip Forsberg,F,Points,0.5,60.4,Over,-185,135,0.0,64.9,42.6
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,NSH,Steven Stamkos,F,Points,0.5,55.8,Over,-175,125,-3.1,63.6,44.4
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,SJS,Michael Misa,F,Points,0.5,35.4,Over,135,-180,-4.4,42.6,64.3
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,NSH,Roman Josi,D,Points,0.5,55.9,Over,-185,135,-4.5,64.9,42.6
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,SJS,Dmitry Orlov,D,Points,0.5,32.9,Over,150,-200,-4.6,40.0,66.7
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,SJS,Ivar Stenberg,F,Points,0.5,42.4,Over,-105,-130,-5.1,51.2,56.5
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,NSH,Ross Colton,F,Points,0.5,25.2,Over,190,-260,-7.1,34.5,72.2
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,SJS,Luca Cagnoni,D,Points,0.5,26.6,Over,175,-235,-7.5,36.4,70.1
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,NSH,Matthew Wood,F,Points,0.5,33.2,Over,125,-170,-8.2,44.4,63.0
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,NSH,Brady Skjei,D,Points,0.5,25.1,Over,180,-250,-8.3,35.7,71.4
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,NSH,Alexander Kerfoot,F,Points,0.5,28.9,Over,150,-200,-8.6,40.0,66.7
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,NSH,Jonathan Marchessault,F,Points,0.5,37.4,Over,-125,-110,-14.0,55.6,52.4
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,SJS,Kiefer Sherwood,F,Shots On Goal,1.5,87.5,Over,-155,115,30.8,60.8,46.5
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,SJS,Mason Marchment,F,Shots On Goal,1.5,77.3,Over,-130,-105,24.8,56.5,51.2
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,NSH,Ross Colton,F,Shots On Goal,1.5,57.8,Over,-110,-125,9.2,52.4,55.6
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,SJS,Jacob Trouba,D,Shots On Goal,1.5,56.6,Over,-115,-115,6.6,53.5,53.5
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,SJS,Darnell Nurse,D,Shots On Goal,1.5,55.3,Over,-110,-120,6.4,52.4,54.5
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,NSH,Roman Josi,D,Shots On Goal,2.5,49.9,Over,115,-150,6.3,46.5,60.0
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,SJS,Will Smith,F,Shots On Goal,2.5,43.9,Over,140,-190,5.0,41.7,65.5
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,SJS,Igor Chernyshov,F,Shots On Goal,1.5,46.6,Over,115,-155,3.3,46.5,60.8
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,SJS,Macklin Celebrini,F,Shots On Goal,3.5,49.4,Over,100,-135,2.9,50.0,57.4
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,NSH,Filip Forsberg,F,Shots On Goal,2.5,57.5,Over,-150,110,1.7,60.0,47.6
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,NSH,Ryan O'Reilly,F,Shots On Goal,1.5,55.8,Over,-145,105,1.0,59.2,48.8
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,SJS,Tyler Toffoli,F,Shots On Goal,1.5,61.3,Over,-185,135,0.9,64.9,42.6
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,NSH,Steven Stamkos,F,Shots On Goal,2.5,46.5,Over,-110,-125,-2.1,52.4,55.6
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,NSH,Jonathan Marchessault,F,Shots On Goal,2.5,35.4,Over,165,,-2.4,37.7,
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,NSH,Brady Skjei,D,Shots On Goal,1.5,36.7,Over,140,-185,-2.4,41.7,64.9
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,SJS,Dmitry Orlov,D,Shots On Goal,1.5,28.9,Over,155,-215,-7.6,39.2,68.3
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,SJS,Luca Cagnoni,D,Shots On Goal,1.5,33.6,Over,125,-170,-7.8,44.4,63.0
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,SJS,Ivar Stenberg,F,Shots On Goal,1.5,40.5,Over,-120,-110,-10.5,54.5,52.4
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,NSH,Matthew Wood,F,Shots On Goal,1.5,39.8,Over,-110,,-12.6,52.4,
+SJ SHARKS @ NSH,2026-10-16T00:10:00Z,NSH,Juuse Saros,G,Total Saves,25.5,59.8,Over,-130,-105,7.3,56.5,51.2
+NYI @ OTT,2026-10-15T23:10:00Z,NYI,Kyle Palmieri,F,Assists,0.5,36.0,Over,245,-340,8.8,29.0,77.3
+NYI @ OTT,2026-10-15T23:10:00Z,NYI,Tony DeAngelo,D,Assists,0.5,30.2,Over,265,-370,4.4,27.4,78.7
+NYI @ OTT,2026-10-15T23:10:00Z,NYI,Logan Stanley,D,Assists,0.5,22.5,Over,400,-600,3.6,20.0,85.7
+NYI @ OTT,2026-10-15T23:10:00Z,NYI,Simon Holmstrom,F,Assists,0.5,23.0,Over,350,-525,2.1,22.2,84.0
+NYI @ OTT,2026-10-15T23:10:00Z,OTT,Claude Giroux,F,Assists,0.5,33.0,Over,195,-270,1.3,33.9,73.0
+NYI @ OTT,2026-10-15T23:10:00Z,OTT,Drake Batherson,F,Assists,0.5,38.6,Over,150,-200,1.1,40.0,66.7
+NYI @ OTT,2026-10-15T23:10:00Z,NYI,Bo Horvat,F,Assists,0.5,32.1,Over,195,-265,0.3,33.9,72.6
+NYI @ OTT,2026-10-15T23:10:00Z,NYI,Calum Ritchie,F,Assists,0.5,21.8,Over,330,-475,-0.2,23.3,82.6
+NYI @ OTT,2026-10-15T23:10:00Z,NYI,Brayden Schenn,F,Assists,0.5,28.7,Over,220,-310,-0.5,31.2,75.6
+NYI @ OTT,2026-10-15T23:10:00Z,OTT,Ridly Greig,F,Assists,0.5,22.3,Over,310,-450,-0.6,24.4,81.8
+NYI @ OTT,2026-10-15T23:10:00Z,OTT,Shane Pinto,F,Assists,0.5,25.9,Over,250,-350,-1.0,28.6,77.8
+NYI @ OTT,2026-10-15T23:10:00Z,NYI,Victor Eklund,F,Assists,0.5,19.8,Over,310,-450,-3.2,24.4,81.8
+NYI @ OTT,2026-10-15T23:10:00Z,OTT,Thomas Chabot,D,Assists,0.5,33.8,Over,150,-205,-3.5,40.0,67.2
+NYI @ OTT,2026-10-15T23:10:00Z,OTT,Dylan Cozens,F,Assists,0.5,31.1,Over,170,-235,-3.5,37.0,70.1
+NYI @ OTT,2026-10-15T23:10:00Z,OTT,Fabian Zetterlund,F,Assists,0.5,16.3,Over,370,-550,-3.8,21.3,84.6
+NYI @ OTT,2026-10-15T23:10:00Z,OTT,Andre Burakovsky,F,Assists,0.5,25.1,Over,220,-310,-4.2,31.2,75.6
+NYI @ OTT,2026-10-15T23:10:00Z,NYI,Matias Maccelli,F,Assists,0.5,29.3,Over,170,-235,-5.3,37.0,70.1
+NYI @ OTT,2026-10-15T23:10:00Z,NYI,Matthew Schaefer,D,Assists,0.5,35.1,Over,110,-150,-9.2,47.6,60.0
+NYI @ OTT,2026-10-15T23:10:00Z,OTT,Stephen Halliday,F,Assists,0.5,19.3,Over,215,-295,-10.6,31.7,74.7
+NYI @ OTT,2026-10-15T23:10:00Z,OTT,Carter Yakemchuk,D,Assists,0.5,17.0,Over,200,-275,-14.2,33.3,73.3
+NYI @ OTT,2026-10-15T23:10:00Z,NYI,Logan Stanley,D,Points,0.5,32.2,Over,320,-475,9.8,23.8,82.6
+NYI @ OTT,2026-10-15T23:10:00Z,NYI,Simon Holmstrom,F,Points,0.5,38.6,Over,200,-275,7.3,33.3,73.3
+NYI @ OTT,2026-10-15T23:10:00Z,OTT,Drake Batherson,F,Points,0.5,59.8,Over,-145,105,5.0,59.2,48.8
+NYI @ OTT,2026-10-15T23:10:00Z,NYI,Kyle Palmieri,F,Points,0.5,49.2,Over,110,-150,4.9,47.6,60.0
+NYI @ OTT,2026-10-15T23:10:00Z,NYI,Bo Horvat,F,Points,0.5,57.2,Over,-130,-105,4.8,56.5,51.2
+NYI @ OTT,2026-10-15T23:10:00Z,NYI,Tony DeAngelo,D,Points,0.5,34.2,Over,215,-295,4.4,31.7,74.7
+NYI @ OTT,2026-10-15T23:10:00Z,NYI,Brayden Schenn,F,Points,0.5,46.7,Over,120,-160,4.2,45.5,61.5
+NYI @ OTT,2026-10-15T23:10:00Z,OTT,Dylan Cozens,F,Points,0.5,50.7,Over,-110,-120,1.8,52.4,54.5
+NYI @ OTT,2026-10-15T23:10:00Z,OTT,Shane Pinto,F,Points,0.5,45.1,Over,115,-155,1.7,46.5,60.8
+NYI @ OTT,2026-10-15T23:10:00Z,NYI,Calum Ritchie,F,Points,0.5,35.2,Over,175,-240,1.2,36.4,70.6
+NYI @ OTT,2026-10-15T23:10:00Z,OTT,Claude Giroux,F,Points,0.5,42.9,Over,115,-160,-0.1,46.5,61.5
+NYI @ OTT,2026-10-15T23:10:00Z,NYI,Victor Eklund,F,Points,0.5,32.9,Over,175,-245,-0.9,36.4,71.0
+NYI @ OTT,2026-10-15T23:10:00Z,OTT,Ridly Greig,F,Points,0.5,33.1,Over,175,-235,-1.0,36.4,70.1
+NYI @ OTT,2026-10-15T23:10:00Z,NYI,Matias Maccelli,F,Points,0.5,41.8,Over,115,-160,-1.3,46.5,61.5
+NYI @ OTT,2026-10-15T23:10:00Z,NYI,Matthew Schaefer,D,Points,0.5,50.7,Over,-130,-105,-1.7,56.5,51.2
+NYI @ OTT,2026-10-15T23:10:00Z,OTT,Fabian Zetterlund,F,Points,0.5,30.7,Over,190,-255,-1.7,34.5,71.8
+NYI @ OTT,2026-10-15T23:10:00Z,OTT,Thomas Chabot,D,Points,0.5,41.4,Over,105,-145,-3.8,48.8,59.2
+NYI @ OTT,2026-10-15T23:10:00Z,OTT,Andre Burakovsky,F,Points,0.5,35.2,Over,135,-180,-4.7,42.6,64.3
+NYI @ OTT,2026-10-15T23:10:00Z,OTT,Stephen Halliday,F,Points,0.5,28.7,Over,130,-175,-11.9,43.5,63.6
+NYI @ OTT,2026-10-15T23:10:00Z,OTT,Carter Yakemchuk,D,Points,0.5,24.8,Over,145,-195,-13.4,40.8,66.1
+NYI @ OTT,2026-10-15T23:10:00Z,OTT,Warren Foegele,F,Shots On Goal,1.5,63.4,Over,150,-205,26.1,40.0,67.2
+NYI @ OTT,2026-10-15T23:10:00Z,NYI,Kyle Palmieri,F,Shots On Goal,1.5,70.8,Over,-150,115,14.5,60.0,46.5
+NYI @ OTT,2026-10-15T23:10:00Z,NYI,Bo Horvat,F,Shots On Goal,2.5,62.4,Over,-120,-110,11.4,54.5,52.4
+NYI @ OTT,2026-10-15T23:10:00Z,NYI,Brayden Schenn,F,Shots On Goal,1.5,54.3,Over,105,-145,9.2,48.8,59.2
+NYI @ OTT,2026-10-15T23:10:00Z,OTT,Drake Batherson,F,Shots On Goal,1.5,58.7,Over,-165,125,0.3,62.3,44.4
+NYI @ OTT,2026-10-15T23:10:00Z,NYI,Tony DeAngelo,D,Shots On Goal,1.5,53.4,Over,-115,,-0.1,53.5,
+NYI @ OTT,2026-10-15T23:10:00Z,OTT,Dylan Cozens,F,Shots On Goal,2.5,41.4,Over,120,-160,-1.1,45.5,61.5
+NYI @ OTT,2026-10-15T23:10:00Z,OTT,Shane Pinto,F,Shots On Goal,2.5,34.0,Over,185,,-1.1,35.1,
+NYI @ OTT,2026-10-15T23:10:00Z,OTT,Fabian Zetterlund,F,Shots On Goal,1.5,47.0,Over,-110,-120,-2.0,52.4,54.5
+NYI @ OTT,2026-10-15T23:10:00Z,OTT,Ridly Greig,F,Shots On Goal,1.5,44.0,Over,-105,-130,-3.5,51.2,56.5
+NYI @ OTT,2026-10-15T23:10:00Z,OTT,Claude Giroux,F,Shots On Goal,1.5,45.7,Over,-115,-120,-3.8,53.5,54.5
+NYI @ OTT,2026-10-15T23:10:00Z,NYI,Matthew Schaefer,D,Shots On Goal,2.5,48.6,Over,-140,105,-5.9,58.3,48.8
+NYI @ OTT,2026-10-15T23:10:00Z,NYI,Matias Maccelli,F,Shots On Goal,1.5,33.2,Over,120,-160,-9.3,45.5,61.5
+NYI @ OTT,2026-10-15T23:10:00Z,OTT,Thomas Chabot,D,Shots On Goal,2.5,25.6,Over,145,-195,-12.5,40.8,66.1
+NYI @ OTT,2026-10-15T23:10:00Z,OTT,Carter Yakemchuk,D,Shots On Goal,1.5,34.4,Over,-125,-110,-17.1,55.6,52.4
+SEA @ TBL,2026-10-15T23:10:00Z,SEA,Kaapo Kakko,F,Assists,0.5,33.5,Over,275,-390,8.4,26.7,79.6
+SEA @ TBL,2026-10-15T23:10:00Z,TBL,Nikita Kucherov,F,Assists,0.5,69.3,Over,-185,140,8.4,64.9,41.7
+SEA @ TBL,2026-10-15T23:10:00Z,TBL,John Carlson,D,Assists,0.5,57.0,Over,-125,-110,5.5,55.6,52.4
+SEA @ TBL,2026-10-15T23:10:00Z,SEA,Matty Beniers,F,Assists,0.5,30.2,Over,265,-370,4.4,27.4,78.7
+SEA @ TBL,2026-10-15T23:10:00Z,SEA,Chandler Stephenson,F,Assists,0.5,32.1,Over,220,-310,2.9,31.2,75.6
+SEA @ TBL,2026-10-15T23:10:00Z,TBL,Anthony Cirelli,F,Assists,0.5,31.8,Over,215,-295,2.0,31.7,74.7
+SEA @ TBL,2026-10-15T23:10:00Z,SEA,Jordan Eberle,F,Assists,0.5,28.8,Over,250,-350,2.0,28.6,77.8
+SEA @ TBL,2026-10-15T23:10:00Z,TBL,Jake Guentzel,F,Assists,0.5,46.5,Over,105,-145,1.3,48.8,59.2
+SEA @ TBL,2026-10-15T23:10:00Z,TBL,Gage Goncalves,F,Assists,0.5,24.4,Over,285,-400,-0.2,26.0,80.0
+SEA @ TBL,2026-10-15T23:10:00Z,TBL,Brandon Hagel,F,Assists,0.5,41.8,Over,120,-160,-0.6,45.5,61.5
+SEA @ TBL,2026-10-15T23:10:00Z,SEA,Jared McCann,F,Assists,0.5,30.2,Over,195,-270,-1.5,33.9,73.0
+SEA @ TBL,2026-10-15T23:10:00Z,SEA,Vince Dunn,D,Assists,0.5,31.8,Over,180,-250,-1.6,35.7,71.4
+SEA @ TBL,2026-10-15T23:10:00Z,SEA,Mackie Samoskevich,F,Assists,0.5,20.5,Over,310,-450,-2.4,24.4,81.8
+SEA @ TBL,2026-10-15T23:10:00Z,SEA,Brandon Montour,D,Assists,0.5,27.6,Over,210,-290,-2.7,32.3,74.4
+SEA @ TBL,2026-10-15T23:10:00Z,TBL,Brayden Point,F,Assists,0.5,40.2,Over,115,-155,-3.2,46.5,60.8
+SEA @ TBL,2026-10-15T23:10:00Z,SEA,Bobby McMann,F,Assists,0.5,23.3,Over,235,-330,-4.7,29.9,76.7
+SEA @ TBL,2026-10-15T23:10:00Z,TBL,Nikita Kucherov,F,Points,1.5,55.8,Over,110,-150,11.5,47.6,60.0
+SEA @ TBL,2026-10-15T23:10:00Z,SEA,Kaapo Kakko,F,Points,0.5,45.4,Over,160,-215,9.4,38.5,68.3
+SEA @ TBL,2026-10-15T23:10:00Z,SEA,Matty Beniers,F,Points,0.5,45.1,Over,145,-200,7.2,40.8,66.7
+SEA @ TBL,2026-10-15T23:10:00Z,TBL,John Carlson,D,Points,0.5,66.7,Over,-180,135,6.5,64.3,42.6
+SEA @ TBL,2026-10-15T23:10:00Z,SEA,Bobby McMann,F,Points,0.5,51.2,Over,105,-145,6.1,48.8,59.2
+SEA @ TBL,2026-10-15T23:10:00Z,SEA,Chandler Stephenson,F,Points,0.5,43.7,Over,145,-200,5.8,40.8,66.7
+SEA @ TBL,2026-10-15T23:10:00Z,SEA,Jordan Eberle,F,Points,0.5,47.5,Over,115,-160,4.5,46.5,61.5
+SEA @ TBL,2026-10-15T23:10:00Z,TBL,Brandon Hagel,F,Points,0.5,65.2,Over,-190,140,4.1,65.5,41.7
+SEA @ TBL,2026-10-15T23:10:00Z,SEA,Jared McCann,F,Points,0.5,51.3,Over,-105,-130,3.7,51.2,56.5
+SEA @ TBL,2026-10-15T23:10:00Z,TBL,Jake Guentzel,F,Points,0.5,66.8,Over,-210,155,3.4,67.7,39.2
+SEA @ TBL,2026-10-15T23:10:00Z,TBL,Anthony Cirelli,F,Points,0.5,49.7,Over,100,-135,3.2,50.0,57.4
+SEA @ TBL,2026-10-15T23:10:00Z,SEA,Brandon Montour,D,Points,0.5,38.8,Over,150,-205,1.5,40.0,67.2
+SEA @ TBL,2026-10-15T23:10:00Z,SEA,Vince Dunn,D,Points,0.5,39.9,Over,140,-190,1.1,41.7,65.5
+SEA @ TBL,2026-10-15T23:10:00Z,TBL,Gage Goncalves,F,Points,0.5,34.2,Over,155,-215,-2.3,39.2,68.3
+SEA @ TBL,2026-10-15T23:10:00Z,SEA,Mackie Samoskevich,F,Points,0.5,30.8,Over,170,-230,-3.9,37.0,69.7
+SEA @ TBL,2026-10-15T23:10:00Z,TBL,Brayden Point,F,Points,0.5,55.2,Over,-175,130,-4.2,63.6,43.5
+SEA @ TBL,2026-10-15T23:10:00Z,TBL,John Carlson,D,Shots On Goal,2.5,56.7,Over,125,-170,15.3,44.4,63.0
+SEA @ TBL,2026-10-15T23:10:00Z,SEA,Jordan Eberle,F,Shots On Goal,1.5,59.0,Over,-105,-130,11.5,51.2,56.5
+SEA @ TBL,2026-10-15T23:10:00Z,SEA,Vince Dunn,D,Shots On Goal,1.5,62.7,Over,-135,100,9.3,57.4,50.0
+SEA @ TBL,2026-10-15T23:10:00Z,SEA,Matty Beniers,F,Shots On Goal,1.5,49.5,Over,125,-175,8.3,44.4,63.6
+SEA @ TBL,2026-10-15T23:10:00Z,SEA,Bobby McMann,F,Shots On Goal,2.5,53.3,Over,-105,-130,5.8,51.2,56.5
+SEA @ TBL,2026-10-15T23:10:00Z,SEA,Brandon Montour,D,Shots On Goal,2.5,50.1,Over,100,-140,4.0,50.0,58.3
+SEA @ TBL,2026-10-15T23:10:00Z,SEA,Jared McCann,F,Shots On Goal,1.5,60.2,Over,-170,125,1.6,63.0,44.4
+SEA @ TBL,2026-10-15T23:10:00Z,TBL,Nikita Kucherov,F,Shots On Goal,3.5,40.7,Over,150,,0.7,40.0,
+SEA @ TBL,2026-10-15T23:10:00Z,SEA,Mackie Samoskevich,F,Shots On Goal,1.5,57.2,Over,-155,120,-0.0,60.8,45.5
+SEA @ TBL,2026-10-15T23:10:00Z,TBL,Jake Guentzel,F,Shots On Goal,2.5,51.1,Over,-125,-105,-0.9,55.6,51.2
+SEA @ TBL,2026-10-15T23:10:00Z,TBL,Anthony Cirelli,F,Shots On Goal,1.5,50.3,Over,-125,-110,-1.2,55.6,52.4
+SEA @ TBL,2026-10-15T23:10:00Z,TBL,Brandon Hagel,F,Shots On Goal,3.5,37.9,Over,120,-165,-4.3,45.5,62.3
+SEA @ TBL,2026-10-15T23:10:00Z,TBL,Brayden Point,F,Shots On Goal,2.5,34.8,Over,135,-180,-5.0,42.6,64.3
+SEA @ TBL,2026-10-15T23:10:00Z,TBL,Andrei Vasilevskiy,G,Total Saves,21.5,35.2,Under,-115,-120,14.3,53.5,54.5
+BUF @ TOR,2026-10-15T23:08:00Z,TOR,Teddy Blueger,F,Anytime Goal Scorer,0.5,21.1,Over,700,,8.6,12.5,
+BUF @ TOR,2026-10-15T23:08:00Z,TOR,Darren Raddysh,D,Anytime Goal Scorer,0.5,25.7,Over,460,,7.9,17.9,
+BUF @ TOR,2026-10-15T23:08:00Z,BUF,Mattias Samuelsson,D,Anytime Goal Scorer,0.5,14.5,Over,900,,4.5,10.0,
+BUF @ TOR,2026-10-15T23:08:00Z,TOR,Nick Blankenburg,D,Anytime Goal Scorer,0.5,13.4,Over,950,,3.9,9.5,
+BUF @ TOR,2026-10-15T23:08:00Z,BUF,Josh Norris,F,Anytime Goal Scorer,0.5,24.1,Over,360,,2.4,21.7,
+BUF @ TOR,2026-10-15T23:08:00Z,TOR,Morgan Rielly,D,Anytime Goal Scorer,0.5,11.8,Over,900,,1.8,10.0,
+BUF @ TOR,2026-10-15T23:08:00Z,TOR,Oliver Ekman-Larsson,D,Anytime Goal Scorer,0.5,8.7,Over,1300,,1.6,7.1,
+BUF @ TOR,2026-10-15T23:08:00Z,TOR,Jack Roslovic,F,Anytime Goal Scorer,0.5,25.4,Over,320,,1.6,23.8,
+BUF @ TOR,2026-10-15T23:08:00Z,BUF,Louis Crevier,D,Anytime Goal Scorer,0.5,7.8,Over,1400,,1.2,6.7,
+BUF @ TOR,2026-10-15T23:08:00Z,BUF,Beck Malenstyn,F,Anytime Goal Scorer,0.5,7.6,Over,1200,,-0.1,7.7,
+BUF @ TOR,2026-10-15T23:08:00Z,TOR,Troy Stecher,D,Anytime Goal Scorer,0.5,4.4,Over,2100,,-0.2,4.5,
+BUF @ TOR,2026-10-15T23:08:00Z,TOR,William Nylander,F,Anytime Goal Scorer,0.5,37.4,Over,165,,-0.3,37.7,
+BUF @ TOR,2026-10-15T23:08:00Z,TOR,Jake McCabe,D,Anytime Goal Scorer,0.5,5.2,Over,1600,,-0.6,5.9,
+BUF @ TOR,2026-10-15T23:08:00Z,TOR,John Tavares,F,Anytime Goal Scorer,0.5,32.5,Over,200,,-0.8,33.3,
+BUF @ TOR,2026-10-15T23:08:00Z,BUF,Zach Metsa,D,Anytime Goal Scorer,0.5,4.2,Over,1800,,-1.1,5.3,
+BUF @ TOR,2026-10-15T23:08:00Z,BUF,Jiri Kulich,F,Anytime Goal Scorer,0.5,18.2,Over,420,,-1.1,19.2,
+BUF @ TOR,2026-10-15T23:08:00Z,BUF,Dennis Gilbert,D,Anytime Goal Scorer,0.5,3.1,Over,2200,,-1.2,4.3,
+BUF @ TOR,2026-10-15T23:08:00Z,TOR,Gavin McKenna,F,Anytime Goal Scorer,0.5,21.0,Over,330,,-2.3,23.3,
+BUF @ TOR,2026-10-15T23:08:00Z,BUF,Ryan McLeod,F,Anytime Goal Scorer,0.5,14.2,Over,500,,-2.4,16.7,
+BUF @ TOR,2026-10-15T23:08:00Z,BUF,Josh Doan,F,Anytime Goal Scorer,0.5,24.8,Over,260,,-3.0,27.8,
+BUF @ TOR,2026-10-15T23:08:00Z,BUF,Tage Thompson,F,Anytime Goal Scorer,0.5,38.6,Over,140,,-3.1,41.7,
+BUF @ TOR,2026-10-15T23:08:00Z,TOR,Brandon Duhaime,F,Anytime Goal Scorer,0.5,4.4,Over,1200,,-3.3,7.7,
+BUF @ TOR,2026-10-15T23:08:00Z,BUF,Konsta Helenius,F,Anytime Goal Scorer,0.5,16.0,Over,410,,-3.6,19.6,
+BUF @ TOR,2026-10-15T23:08:00Z,TOR,Colton Sissons,F,Anytime Goal Scorer,0.5,7.9,Over,725,,-4.2,12.1,
+BUF @ TOR,2026-10-15T23:08:00Z,TOR,Kirill Marchenko,F,Anytime Goal Scorer,0.5,29.6,Over,195,,-4.3,33.9,
+BUF @ TOR,2026-10-15T23:08:00Z,TOR,Easton Cowan,F,Anytime Goal Scorer,0.5,13.8,Over,440,,-4.8,18.5,
+BUF @ TOR,2026-10-15T23:08:00Z,BUF,Peyton Krebs,F,Anytime Goal Scorer,0.5,12.2,Over,480,,-5.0,17.2,
+BUF @ TOR,2026-10-15T23:08:00Z,BUF,Zach Benson,F,Anytime Goal Scorer,0.5,18.4,Over,310,,-6.0,24.4,
+BUF @ TOR,2026-10-15T23:08:00Z,BUF,Noah Ostlund,F,Anytime Goal Scorer,0.5,16.1,Over,350,,-6.1,22.2,
+BUF @ TOR,2026-10-15T23:08:00Z,TOR,Auston Matthews,F,Anytime Goal Scorer,0.5,37.3,Over,125,,-7.2,44.4,
+BUF @ TOR,2026-10-15T23:08:00Z,BUF,Owen Power,D,Anytime Goal Scorer,0.5,9.3,Over,500,,-7.4,16.7,
+BUF @ TOR,2026-10-15T23:08:00Z,BUF,Olen Zellweger,D,Anytime Goal Scorer,0.5,8.3,Over,525,,-7.7,16.0,
+BUF @ TOR,2026-10-15T23:08:00Z,BUF,Jack Quinn,F,Anytime Goal Scorer,0.5,21.3,Over,230,,-9.0,30.3,
+BUF @ TOR,2026-10-15T23:08:00Z,BUF,Josh Norris,F,Assists,0.5,36.7,Over,285,-400,12.2,26.0,80.0
+BUF @ TOR,2026-10-15T23:08:00Z,BUF,Ryan McLeod,F,Assists,0.5,36.2,Over,235,-330,8.2,29.9,76.7
+BUF @ TOR,2026-10-15T23:08:00Z,TOR,Darren Raddysh,D,Assists,0.5,48.6,Over,125,-165,7.0,44.4,62.3
+BUF @ TOR,2026-10-15T23:08:00Z,TOR,William Nylander,F,Assists,0.5,54.4,Over,-115,-115,4.4,53.5,53.5
+BUF @ TOR,2026-10-15T23:08:00Z,TOR,Kirill Marchenko,F,Assists,0.5,41.3,Over,135,-180,1.5,42.6,64.3
+BUF @ TOR,2026-10-15T23:08:00Z,TOR,John Tavares,F,Assists,0.5,39.0,Over,145,-195,0.8,40.8,66.1
+BUF @ TOR,2026-10-15T23:08:00Z,BUF,Zach Benson,F,Assists,0.5,36.5,Over,150,-200,-1.0,40.0,66.7
+BUF @ TOR,2026-10-15T23:08:00Z,TOR,Gavin McKenna,F,Assists,0.5,27.9,Over,215,-300,-1.8,31.7,75.0
+BUF @ TOR,2026-10-15T23:08:00Z,BUF,Josh Doan,F,Assists,0.5,26.6,Over,225,-310,-2.3,30.8,75.6
+BUF @ TOR,2026-10-15T23:08:00Z,TOR,Morgan Rielly,D,Assists,0.5,25.3,Over,230,-320,-3.1,30.3,76.2
+BUF @ TOR,2026-10-15T23:08:00Z,BUF,Tage Thompson,F,Assists,0.5,40.1,Over,115,-155,-3.2,46.5,60.8
+BUF @ TOR,2026-10-15T23:08:00Z,BUF,Jack Quinn,F,Assists,0.5,31.1,Over,160,-215,-5.0,38.5,68.3
+BUF @ TOR,2026-10-15T23:08:00Z,BUF,Jiri Kulich,F,Assists,0.5,16.4,Over,320,-475,-5.9,23.8,82.6
+BUF @ TOR,2026-10-15T23:08:00Z,TOR,Easton Cowan,F,Assists,0.5,22.0,Over,220,-310,-7.3,31.2,75.6
+BUF @ TOR,2026-10-15T23:08:00Z,TOR,Jack Roslovic,F,Assists,0.5,18.5,Over,245,-340,-8.8,29.0,77.3
+BUF @ TOR,2026-10-15T23:08:00Z,TOR,Auston Matthews,F,Assists,0.5,35.5,Over,-105,-130,-12.0,51.2,56.5
+BUF @ TOR,2026-10-15T23:08:00Z,BUF,Owen Power,D,Assists,0.5,21.9,Over,140,-190,-16.9,41.7,65.5
+BUF @ TOR,2026-10-15T23:08:00Z,TOR,Darren Raddysh,D,Points,0.5,62.1,Over,-115,-120,12.6,53.5,54.5
+BUF @ TOR,2026-10-15T23:08:00Z,BUF,Josh Norris,F,Points,0.5,52.3,Over,135,-180,12.5,42.6,64.3
+BUF @ TOR,2026-10-15T23:08:00Z,BUF,Ryan McLeod,F,Points,0.5,45.5,Over,140,-190,6.7,41.7,65.5
+BUF @ TOR,2026-10-15T23:08:00Z,TOR,William Nylander,F,Points,0.5,71.8,Over,-250,180,5.1,71.4,35.7
+BUF @ TOR,2026-10-15T23:08:00Z,TOR,John Tavares,F,Points,0.5,58.4,Over,-155,115,1.8,60.8,46.5
+BUF @ TOR,2026-10-15T23:08:00Z,TOR,Kirill Marchenko,F,Points,0.5,59.1,Over,-165,120,1.3,62.3,45.5
+BUF @ TOR,2026-10-15T23:08:00Z,BUF,Tage Thompson,F,Points,0.5,63.7,Over,-205,150,1.0,67.2,40.0
+BUF @ TOR,2026-10-15T23:08:00Z,BUF,Josh Doan,F,Points,0.5,44.9,Over,105,-145,-0.3,48.8,59.2
+BUF @ TOR,2026-10-15T23:08:00Z,TOR,Morgan Rielly,D,Points,0.5,34.3,Over,165,-230,-0.8,37.7,69.7
+BUF @ TOR,2026-10-15T23:08:00Z,TOR,Gavin McKenna,F,Points,0.5,42.6,Over,110,-145,-2.0,47.6,59.2
+BUF @ TOR,2026-10-15T23:08:00Z,BUF,Zach Benson,F,Points,0.5,47.8,Over,-120,-115,-2.7,54.5,53.5
+BUF @ TOR,2026-10-15T23:08:00Z,TOR,Jack Roslovic,F,Points,0.5,38.7,Over,115,-155,-4.6,46.5,60.8
+BUF @ TOR,2026-10-15T23:08:00Z,BUF,Jiri Kulich,F,Points,0.5,32.0,Over,155,-210,-4.7,39.2,67.7
+BUF @ TOR,2026-10-15T23:08:00Z,BUF,Noah Ostlund,F,Points,0.5,35.8,Over,125,-165,-5.9,44.4,62.3
+BUF @ TOR,2026-10-15T23:08:00Z,TOR,Easton Cowan,F,Points,0.5,33.0,Over,130,-175,-7.6,43.5,63.6
+BUF @ TOR,2026-10-15T23:08:00Z,BUF,Jack Quinn,F,Points,0.5,45.8,Over,-140,100,-8.1,58.3,50.0
+BUF @ TOR,2026-10-15T23:08:00Z,TOR,Auston Matthews,F,Points,0.5,59.1,Over,-260,,-13.2,72.2,
+BUF @ TOR,2026-10-15T23:08:00Z,BUF,Owen Power,D,Points,0.5,29.0,Over,100,-130,-18.0,50.0,56.5
+BUF @ TOR,2026-10-15T23:08:00Z,TOR,Darren Raddysh,D,Shots On Goal,2.5,53.5,Over,100,-140,7.4,50.0,58.3
+BUF @ TOR,2026-10-15T23:08:00Z,BUF,Josh Doan,F,Shots On Goal,1.5,60.7,Over,-165,125,2.3,62.3,44.4
+BUF @ TOR,2026-10-15T23:08:00Z,BUF,Josh Norris,F,Shots On Goal,1.5,46.2,Over,110,-150,2.0,47.6,60.0
+BUF @ TOR,2026-10-15T23:08:00Z,TOR,Kirill Marchenko,F,Shots On Goal,2.5,51.4,Over,-120,-110,0.4,54.5,52.4
+BUF @ TOR,2026-10-15T23:08:00Z,TOR,Auston Matthews,F,Shots On Goal,3.5,49.1,Over,-120,-110,-2.0,54.5,52.4
+BUF @ TOR,2026-10-15T23:08:00Z,BUF,Louis Crevier,D,Shots On Goal,1.5,39.3,Over,120,-165,-2.9,45.5,62.3
+BUF @ TOR,2026-10-15T23:08:00Z,BUF,Tage Thompson,F,Shots On Goal,3.5,44.6,Over,-105,-130,-2.9,51.2,56.5
+BUF @ TOR,2026-10-15T23:08:00Z,TOR,John Tavares,F,Shots On Goal,2.5,39.4,Over,115,-155,-3.9,46.5,60.8
+BUF @ TOR,2026-10-15T23:08:00Z,TOR,William Nylander,F,Shots On Goal,2.5,42.4,Over,-115,-115,-7.6,53.5,53.5
+BUF @ TOR,2026-10-15T23:08:00Z,TOR,Nick Paul,F,Shots On Goal,1.5,36.0,Over,105,-145,-9.2,48.8,59.2
+BUF @ TOR,2026-10-15T23:08:00Z,BUF,Olen Zellweger,D,Shots On Goal,1.5,42.5,Over,-130,-105,-10.0,56.5,51.2
+BUF @ TOR,2026-10-15T23:08:00Z,BUF,Jack Quinn,F,Shots On Goal,2.5,42.4,Over,-130,-105,-10.0,56.5,51.2
+BUF @ TOR,2026-10-15T23:08:00Z,BUF,Jiri Kulich,F,Shots On Goal,1.5,44.6,Over,-150,110,-11.2,60.0,47.6
+BUF @ TOR,2026-10-15T23:08:00Z,BUF,Owen Power,D,Shots On Goal,1.5,39.9,Over,-130,-105,-12.5,56.5,51.2
+BUF @ TOR,2026-10-15T23:08:00Z,TOR,Jack Roslovic,F,Shots On Goal,1.5,55.4,Over,-225,,-13.9,69.2,
+BUF @ TOR,2026-10-15T23:08:00Z,BUF,Zach Benson,F,Shots On Goal,1.5,51.5,Over,-205,,-15.8,67.2,
+BUF @ TOR,2026-10-15T23:08:00Z,TOR,Easton Cowan,F,Shots On Goal,1.5,35.8,Over,-140,105,-18.6,58.3,48.8
+BUF @ TOR,2026-10-15T23:08:00Z,BUF,Noah Ostlund,F,Shots On Goal,1.5,26.5,Over,-115,-120,-23.0,53.5,54.5
+BUF @ TOR,2026-10-15T23:08:00Z,BUF,Ukko-Pekka Luukkonen,G,Total Saves,25.5,17.4,Under,-115,-115,32.6,53.5,53.5
+CGY @ VGK GOLDEN KNIGHTS,2026-10-16T02:10:00Z,VGK,Mark Stone,F,Assists,0.5,54.2,Over,100,-135,7.6,50.0,57.4
+CGY @ VGK GOLDEN KNIGHTS,2026-10-16T02:10:00Z,CGY,Matvei Gridin,F,Assists,0.5,30.8,Over,255,-360,4.3,28.2,78.3
+CGY @ VGK GOLDEN KNIGHTS,2026-10-16T02:10:00Z,VGK,Ivan Barbashev,F,Assists,0.5,36.1,Over,190,-260,3.8,34.5,72.2
+CGY @ VGK GOLDEN KNIGHTS,2026-10-16T02:10:00Z,CGY,Mikael Backlund,F,Assists,0.5,25.1,Over,340,-500,3.7,22.7,83.3
+CGY @ VGK GOLDEN KNIGHTS,2026-10-16T02:10:00Z,VGK,Jack Eichel,F,Assists,0.5,58.8,Over,-155,115,2.2,60.8,46.5
+CGY @ VGK GOLDEN KNIGHTS,2026-10-16T02:10:00Z,CGY,Matt Coronato,F,Assists,0.5,28.3,Over,210,-290,-2.0,32.3,74.4
+CGY @ VGK GOLDEN KNIGHTS,2026-10-16T02:10:00Z,VGK,Tomas Hertl,F,Assists,0.5,33.5,Over,160,-220,-2.4,38.5,68.8
+CGY @ VGK GOLDEN KNIGHTS,2026-10-16T02:10:00Z,CGY,Morgan Frost,F,Assists,0.5,22.3,Over,245,-340,-5.0,29.0,77.3
+CGY @ VGK GOLDEN KNIGHTS,2026-10-16T02:10:00Z,CGY,Joel Farabee,F,Assists,0.5,19.4,Over,250,-350,-7.4,28.6,77.8
+CGY @ VGK GOLDEN KNIGHTS,2026-10-16T02:10:00Z,VGK,Brett Howden,F,Assists,0.5,14.2,Over,300,-450,-9.2,25.0,81.8
+CGY @ VGK GOLDEN KNIGHTS,2026-10-16T02:10:00Z,CGY,Zayne Parekh,D,Assists,0.5,12.4,Over,250,-350,-14.4,28.6,77.8
+CGY @ VGK GOLDEN KNIGHTS,2026-10-16T02:10:00Z,VGK,Shea Theodore,D,Assists,0.5,32.2,Over,110,,-15.4,47.6,
+CGY @ VGK GOLDEN KNIGHTS,2026-10-16T02:10:00Z,VGK,Trevor Connelly,F,Assists,0.5,23.0,Over,135,-180,-16.8,42.6,64.3
+CGY @ VGK GOLDEN KNIGHTS,2026-10-16T02:10:00Z,VGK,Mark Stone,F,Points,0.5,71.8,Over,-225,165,7.1,69.2,37.7
+CGY @ VGK GOLDEN KNIGHTS,2026-10-16T02:10:00Z,CGY,Mikael Backlund,F,Points,0.5,38.0,Over,190,-265,5.8,34.5,72.6
+CGY @ VGK GOLDEN KNIGHTS,2026-10-16T02:10:00Z,VGK,Ivan Barbashev,F,Points,0.5,51.3,Over,-110,-120,2.3,52.4,54.5
+CGY @ VGK GOLDEN KNIGHTS,2026-10-16T02:10:00Z,CGY,Matvei Gridin,F,Points,0.5,41.0,Over,125,-170,-0.4,44.4,63.0
+CGY @ VGK GOLDEN KNIGHTS,2026-10-16T02:10:00Z,VGK,Jack Eichel,F,Points,1.5,39.2,Over,135,-180,-0.6,42.6,64.3
+CGY @ VGK GOLDEN KNIGHTS,2026-10-16T02:10:00Z,CGY,Morgan Frost,F,Points,0.5,40.3,Over,125,-170,-1.1,44.4,63.0
+CGY @ VGK GOLDEN KNIGHTS,2026-10-16T02:10:00Z,VGK,Tomas Hertl,F,Points,0.5,50.2,Over,-145,105,-4.7,59.2,48.8
+CGY @ VGK GOLDEN KNIGHTS,2026-10-16T02:10:00Z,CGY,Matt Coronato,F,Points,0.5,42.5,Over,-105,-130,-5.0,51.2,56.5
+CGY @ VGK GOLDEN KNIGHTS,2026-10-16T02:10:00Z,CGY,Joel Farabee,F,Points,0.5,36.6,Over,115,-155,-6.7,46.5,60.8
+CGY @ VGK GOLDEN KNIGHTS,2026-10-16T02:10:00Z,VGK,Shea Theodore,D,Points,0.5,40.7,Over,-115,-115,-9.3,53.5,53.5
+CGY @ VGK GOLDEN KNIGHTS,2026-10-16T02:10:00Z,VGK,Brett Howden,F,Points,0.5,28.5,Over,130,-180,-11.8,43.5,64.3
+CGY @ VGK GOLDEN KNIGHTS,2026-10-16T02:10:00Z,CGY,Zayne Parekh,D,Points,0.5,20.9,Over,185,-255,-11.9,35.1,71.8
+CGY @ VGK GOLDEN KNIGHTS,2026-10-16T02:10:00Z,VGK,Trevor Connelly,F,Points,0.5,42.2,Over,-140,105,-12.3,58.3,48.8
+CGY @ VGK GOLDEN KNIGHTS,2026-10-16T02:10:00Z,VGK,Rasmus Andersson,D,Shots On Goal,1.5,85.7,Over,-175,,22.0,63.6,
+CGY @ VGK GOLDEN KNIGHTS,2026-10-16T02:10:00Z,CGY,Matt Coronato,F,Shots On Goal,1.5,67.6,Over,-175,130,8.2,63.6,43.5
+CGY @ VGK GOLDEN KNIGHTS,2026-10-16T02:10:00Z,CGY,Mikael Backlund,F,Shots On Goal,1.5,63.4,Over,-150,110,7.7,60.0,47.6
+CGY @ VGK GOLDEN KNIGHTS,2026-10-16T02:10:00Z,VGK,Jack Eichel,F,Shots On Goal,3.5,49.7,Over,110,-150,5.4,47.6,60.0
+CGY @ VGK GOLDEN KNIGHTS,2026-10-16T02:10:00Z,CGY,Yegor Sharangovich,F,Shots On Goal,1.5,50.6,Over,105,-145,5.4,48.8,59.2
+CGY @ VGK GOLDEN KNIGHTS,2026-10-16T02:10:00Z,CGY,Matvei Gridin,F,Shots On Goal,1.5,53.6,Over,-110,-125,5.1,52.4,55.6
+CGY @ VGK GOLDEN KNIGHTS,2026-10-16T02:10:00Z,VGK,Noah Hanifin,D,Shots On Goal,1.5,52.7,Over,-110,-125,4.2,52.4,55.6
+CGY @ VGK GOLDEN KNIGHTS,2026-10-16T02:10:00Z,CGY,Morgan Frost,F,Shots On Goal,1.5,48.9,Over,100,-135,2.4,50.0,57.4
+CGY @ VGK GOLDEN KNIGHTS,2026-10-16T02:10:00Z,VGK,Tomas Hertl,F,Shots On Goal,2.5,43.5,Over,125,-170,2.2,44.4,63.0
+CGY @ VGK GOLDEN KNIGHTS,2026-10-16T02:10:00Z,CGY,Joel Farabee,F,Shots On Goal,1.5,49.6,Over,-105,-125,1.6,51.2,55.6
+CGY @ VGK GOLDEN KNIGHTS,2026-10-16T02:10:00Z,VGK,Mark Stone,F,Shots On Goal,2.5,39.5,Over,135,-180,-0.4,42.6,64.3
+CGY @ VGK GOLDEN KNIGHTS,2026-10-16T02:10:00Z,VGK,Ivan Barbashev,F,Shots On Goal,1.5,47.8,Over,-120,-110,-3.2,54.5,52.4
+CGY @ VGK GOLDEN KNIGHTS,2026-10-16T02:10:00Z,VGK,Shea Theodore,D,Shots On Goal,1.5,53.1,Over,-155,115,-3.6,60.8,46.5
+CGY @ VGK GOLDEN KNIGHTS,2026-10-16T02:10:00Z,VGK,Brayden McNabb,D,Shots On Goal,1.5,34.6,Over,140,-185,-4.5,41.7,64.9
+CGY @ VGK GOLDEN KNIGHTS,2026-10-16T02:10:00Z,VGK,William Karlsson,F,Shots On Goal,1.5,55.7,Over,-185,140,-5.2,64.9,41.7
+CGY @ VGK GOLDEN KNIGHTS,2026-10-16T02:10:00Z,CGY,Zayne Parekh,D,Shots On Goal,1.5,35.6,Over,120,-165,-6.6,45.5,62.3
+CGY @ VGK GOLDEN KNIGHTS,2026-10-16T02:10:00Z,VGK,Trevor Connelly,F,Shots On Goal,2.5,29.0,Over,-150,,-31.0,60.0,
