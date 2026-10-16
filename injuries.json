@@ -60,6 +60,18 @@
     "injured": true
   },
   {
+    "team": "BUF",
+    "player": "Jiri Kulich",
+    "status": "dtd",
+    "injured": true
+  },
+  {
+    "team": "BUF",
+    "player": "Josh Norris",
+    "status": "dtd",
+    "injured": true
+  },
+  {
     "team": "CGY",
     "player": "Jonathan Huberdeau",
     "status": "out",
@@ -474,6 +486,12 @@
     "injured": true
   },
   {
+    "team": "SEA",
+    "player": "Brandon Montour",
+    "status": "dtd",
+    "injured": true
+  },
+  {
     "team": "STL",
     "player": "Logan Mailloux",
     "status": "ir",
@@ -531,6 +549,12 @@
     "team": "TOR",
     "player": "Chris Tanev",
     "status": "ir",
+    "injured": true
+  },
+  {
+    "team": "TOR",
+    "player": "John Tavares",
+    "status": "dtd",
     "injured": true
   },
   {

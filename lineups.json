@@ -1,6 +1,6 @@
 {
   "source": "daily_faceoff",
-  "updated_at": "2026-10-15T23:43:34.999Z",
+  "updated_at": "2026-10-16T04:30:16.470Z",
   "teams": {
     "ANA": {
       "pp1": [
@@ -53,7 +53,7 @@
         "Olen Zellweger",
         "Josh Norris"
       ],
-      "updated_at": "2026-10-15T22:40:11.942Z",
+      "updated_at": "2026-10-16T04:30:16.470Z",
       "source": "@BuffaloSabres"
     },
     "CGY": {
@@ -71,8 +71,8 @@
         "Simon Nemec",
         "Yegor Sharangovich"
       ],
-      "updated_at": "2026-10-15T19:31:10.564Z",
-      "source": "Derek Wills"
+      "updated_at": "2026-10-16T01:46:43.408Z",
+      "source": "@VGK_PR"
     },
     "CAR": {
       "pp1": [
@@ -197,7 +197,7 @@
         "Ryan Shea",
         "Mattias Ekholm"
       ],
-      "updated_at": "2026-10-15T17:32:13.890Z",
+      "updated_at": "2026-10-16T00:40:56.865Z",
       "source": "Bob Stauffer"
     },
     "FLA": {
@@ -431,7 +431,7 @@
         "Chandler Stephenson",
         "Vince Dunn"
       ],
-      "updated_at": "2026-10-15T22:50:57.537Z",
+      "updated_at": "2026-10-16T00:45:21.973Z",
       "source": "Seattle Kraken"
     },
     "STL": {
@@ -485,7 +485,7 @@
         "Nick Blankenburg",
         "Morgan Rielly"
       ],
-      "updated_at": "2026-10-15T22:43:42.549Z",
+      "updated_at": "2026-10-16T02:27:07.308Z",
       "source": "David Alter"
     },
     "UTA": {
@@ -503,8 +503,8 @@
         "Barrett Hayton",
         "John Marino"
       ],
-      "updated_at": "2026-10-15T18:32:28.805Z",
-      "source": "Jason Gregor"
+      "updated_at": "2026-10-16T00:34:46.115Z",
+      "source": "Utah Mammoth"
     },
     "VAN": {
       "pp1": [
@@ -539,8 +539,8 @@
         "Rasmus Andersson",
         "Shea Theodore"
       ],
-      "updated_at": "2026-10-15T18:05:13.468Z",
-      "source": "Hannah Kirkell"
+      "updated_at": "2026-10-16T01:39:27.073Z",
+      "source": "Danny Webster"
     },
     "WSH": {
       "pp1": [

@@ -78,7 +78,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.05387733294037406,
+      "xgf_pg": 0.053877332940374056,
       "pbp_goals": 1,
       "pbp_assists": 0,
       "pbp_shots": 2
@@ -132,7 +132,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 1,
       "game_winning_goals": 1,
-      "xgf_pg": 0.17875679086781077,
+      "xgf_pg": 0.1787567908678108,
       "pbp_goals": 1,
       "pbp_assists": 1,
       "pbp_shots": 6
@@ -159,7 +159,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.18361834471124042,
+      "xgf_pg": 0.18361834471124044,
       "pbp_goals": 1,
       "pbp_assists": 2,
       "pbp_shots": 6
@@ -294,7 +294,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.0817791125480977,
+      "xgf_pg": 0.08177911254809768,
       "pbp_goals": 1,
       "pbp_assists": 2,
       "pbp_shots": 5
@@ -321,7 +321,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.10531704678823472,
+      "xgf_pg": 0.10531704678823471,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 8
@@ -645,7 +645,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.09688680386240599,
+      "xgf_pg": 0.096886803862406,
       "pbp_goals": 1,
       "pbp_assists": 3,
       "pbp_shots": 8
@@ -699,7 +699,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.18263144584256266,
+      "xgf_pg": 0.18263144584256272,
       "pbp_goals": 1,
       "pbp_assists": 3,
       "pbp_shots": 10
@@ -807,7 +807,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.024558361685203506,
+      "xgf_pg": 0.024558361685203513,
       "pbp_goals": 1,
       "pbp_assists": 2,
       "pbp_shots": 3
@@ -1158,7 +1158,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.3089899331727471,
+      "xgf_pg": 0.30898993317274714,
       "pbp_goals": 2,
       "pbp_assists": 2,
       "pbp_shots": 11
@@ -1185,7 +1185,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.023016863175171123,
+      "xgf_pg": 0.017862363422118617,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 1
@@ -1239,10 +1239,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.1422094064683715,
-      "pbp_goals": 0,
+      "xgf_pg": 0.12023257149425758,
+      "pbp_goals": 1,
       "pbp_assists": 1,
-      "pbp_shots": 0
+      "pbp_shots": 1
     },
     {
       "name": "Beck Malenstyn",
@@ -1293,10 +1293,10 @@
       "power_play_goals": 1,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.6056695742497655,
+      "xgf_pg": 0.6125523840078316,
       "pbp_goals": 5,
-      "pbp_assists": 3,
-      "pbp_shots": 32
+      "pbp_assists": 4,
+      "pbp_shots": 38
     },
     {
       "name": "Justin Danforth",
@@ -1374,10 +1374,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.1835355422712956,
+      "xgf_pg": 0.16243672643775034,
       "pbp_goals": 1,
       "pbp_assists": 1,
-      "pbp_shots": 5
+      "pbp_shots": 7
     },
     {
       "name": "Mattias Samuelsson",
@@ -1401,10 +1401,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.07405158525467836,
-      "pbp_goals": 1,
-      "pbp_assists": 3,
-      "pbp_shots": 8
+      "xgf_pg": 0.09443006935488316,
+      "pbp_goals": 2,
+      "pbp_assists": 4,
+      "pbp_shots": 11
     },
     {
       "name": "Rasmus Dahlin",
@@ -1455,10 +1455,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.16092719741442188,
+      "xgf_pg": 0.14641460127439915,
       "pbp_goals": 0,
       "pbp_assists": 4,
-      "pbp_shots": 5
+      "pbp_shots": 6
     },
     {
       "name": "Louis Crevier",
@@ -1482,10 +1482,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.054215628536935255,
+      "xgf_pg": 0.060720677617284564,
       "pbp_goals": 0,
       "pbp_assists": 1,
-      "pbp_shots": 8
+      "pbp_shots": 9
     },
     {
       "name": "Jack Quinn",
@@ -1509,10 +1509,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.3679171086519544,
-      "pbp_goals": 2,
-      "pbp_assists": 2,
-      "pbp_shots": 18
+      "xgf_pg": 0.39642746252940125,
+      "pbp_goals": 4,
+      "pbp_assists": 4,
+      "pbp_shots": 22
     },
     {
       "name": "Josh Doan",
@@ -1563,10 +1563,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 1,
-      "xgf_pg": 0.10265948008600777,
-      "pbp_goals": 1,
+      "xgf_pg": 0.13125539521666177,
+      "pbp_goals": 2,
       "pbp_assists": 6,
-      "pbp_shots": 6
+      "pbp_shots": 8
     },
     {
       "name": "Olen Zellweger",
@@ -1590,10 +1590,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.16919386511475723,
+      "xgf_pg": 0.19057355607625023,
       "pbp_goals": 2,
       "pbp_assists": 1,
-      "pbp_shots": 11
+      "pbp_shots": 16
     },
     {
       "name": "Tyson Kozak",
@@ -1617,7 +1617,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.03146020960068489,
+      "xgf_pg": 0.0314602096006849,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 0
@@ -1644,7 +1644,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 1,
-      "xgf_pg": 0.23018375264009672,
+      "xgf_pg": 0.23018375264009674,
       "pbp_goals": 1,
       "pbp_assists": 1,
       "pbp_shots": 8
@@ -1671,10 +1671,10 @@
       "power_play_goals": 1,
       "short_handed_goals": 0,
       "game_winning_goals": 1,
-      "xgf_pg": 0.4880069034884787,
+      "xgf_pg": 0.4345976670866818,
       "pbp_goals": 2,
-      "pbp_assists": 2,
-      "pbp_shots": 18
+      "pbp_assists": 4,
+      "pbp_shots": 19
     },
     {
       "name": "Zach Benson",
@@ -1698,10 +1698,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.447841017941473,
+      "xgf_pg": 0.4434177053249774,
       "pbp_goals": 0,
-      "pbp_assists": 3,
-      "pbp_shots": 11
+      "pbp_assists": 5,
+      "pbp_shots": 15
     },
     {
       "name": "Zach Metsa",
@@ -1727,7 +1727,7 @@
       "game_winning_goals": 0,
       "xgf_pg": 0.05454490928579134,
       "pbp_goals": 0,
-      "pbp_assists": 1,
+      "pbp_assists": 2,
       "pbp_shots": 2
     },
     {
@@ -1752,10 +1752,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.16504298104903553,
+      "xgf_pg": 0.19975318434532519,
       "pbp_goals": 1,
       "pbp_assists": 0,
-      "pbp_shots": 7
+      "pbp_shots": 11
     },
     {
       "name": "Jordan Staal",
@@ -1806,7 +1806,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.14014305347085904,
+      "xgf_pg": 0.14014305347085906,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 2
@@ -1914,7 +1914,7 @@
       "power_play_goals": 1,
       "short_handed_goals": 0,
       "game_winning_goals": 2,
-      "xgf_pg": 0.1984968012024214,
+      "xgf_pg": 0.19849680120242144,
       "pbp_goals": 2,
       "pbp_assists": 3,
       "pbp_shots": 15
@@ -1941,7 +1941,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.22411133120567428,
+      "xgf_pg": 0.2241113312056743,
       "pbp_goals": 1,
       "pbp_assists": 2,
       "pbp_shots": 13
@@ -1968,7 +1968,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.082899671545989,
+      "xgf_pg": 0.08289967154598901,
       "pbp_goals": 0,
       "pbp_assists": 2,
       "pbp_shots": 12
@@ -1995,7 +1995,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.22164423602393155,
+      "xgf_pg": 0.22164423602393157,
       "pbp_goals": 0,
       "pbp_assists": 6,
       "pbp_shots": 13
@@ -2076,7 +2076,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.09349802531813302,
+      "xgf_pg": 0.093498025318133,
       "pbp_goals": 0,
       "pbp_assists": 2,
       "pbp_shots": 11
@@ -2184,7 +2184,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.05624015350434845,
+      "xgf_pg": 0.05624015350434846,
       "pbp_goals": 0,
       "pbp_assists": 2,
       "pbp_shots": 4
@@ -2211,7 +2211,7 @@
       "power_play_goals": 3,
       "short_handed_goals": 0,
       "game_winning_goals": 2,
-      "xgf_pg": 0.4830303992686754,
+      "xgf_pg": 0.48303039926867547,
       "pbp_goals": 6,
       "pbp_assists": 5,
       "pbp_shots": 27
@@ -2319,7 +2319,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.3959819212270611,
+      "xgf_pg": 0.39598192122706116,
       "pbp_goals": 0,
       "pbp_assists": 5,
       "pbp_shots": 11
@@ -2373,7 +2373,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.13707907392284863,
+      "xgf_pg": 0.13707907392284865,
       "pbp_goals": 1,
       "pbp_assists": 3,
       "pbp_shots": 4
@@ -2427,7 +2427,7 @@
       "power_play_goals": 1,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.2921312023891165,
+      "xgf_pg": 0.29213120238911655,
       "pbp_goals": 1,
       "pbp_assists": 1,
       "pbp_shots": 9
@@ -2508,7 +2508,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.18885518964799428,
+      "xgf_pg": 0.1888551896479943,
       "pbp_goals": 0,
       "pbp_assists": 4,
       "pbp_shots": 12
@@ -2535,7 +2535,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.15348000458228558,
+      "xgf_pg": 0.15348000458228556,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 4
@@ -2589,7 +2589,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.24557805282507275,
+      "xgf_pg": 0.2455780528250728,
       "pbp_goals": 2,
       "pbp_assists": 0,
       "pbp_shots": 9
@@ -2778,7 +2778,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.13754653087933374,
+      "xgf_pg": 0.13754653087933377,
       "pbp_goals": 1,
       "pbp_assists": 1,
       "pbp_shots": 11
@@ -2805,7 +2805,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.19449854760494745,
+      "xgf_pg": 0.19449854760494742,
       "pbp_goals": 1,
       "pbp_assists": 1,
       "pbp_shots": 12
@@ -2832,10 +2832,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.44245750189660055,
+      "xgf_pg": 0.3811827231174198,
       "pbp_goals": 1,
       "pbp_assists": 1,
-      "pbp_shots": 21
+      "pbp_shots": 22
     },
     {
       "name": "Ryan Strome",
@@ -2859,10 +2859,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.3221494554702106,
+      "xgf_pg": 0.29985932317027003,
       "pbp_goals": 1,
       "pbp_assists": 2,
-      "pbp_shots": 16
+      "pbp_shots": 18
     },
     {
       "name": "Joel Hanley",
@@ -2913,10 +2913,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.0833179216296299,
-      "pbp_goals": 0,
+      "xgf_pg": 0.11054958202426764,
+      "pbp_goals": 1,
       "pbp_assists": 0,
-      "pbp_shots": 7
+      "pbp_shots": 9
     },
     {
       "name": "Morgan Frost",
@@ -2940,10 +2940,10 @@
       "power_play_goals": 1,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.26199332255003666,
+      "xgf_pg": 0.30273642136043843,
       "pbp_goals": 2,
-      "pbp_assists": 0,
-      "pbp_shots": 12
+      "pbp_assists": 1,
+      "pbp_shots": 14
     },
     {
       "name": "Zach Whitecloud",
@@ -2967,10 +2967,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.05398555903940307,
+      "xgf_pg": 0.05396924532823281,
       "pbp_goals": 0,
       "pbp_assists": 0,
-      "pbp_shots": 4
+      "pbp_shots": 6
     },
     {
       "name": "Joel Farabee",
@@ -2994,10 +2994,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.2334873070930401,
+      "xgf_pg": 0.23753332094942775,
       "pbp_goals": 0,
-      "pbp_assists": 3,
-      "pbp_shots": 15
+      "pbp_assists": 4,
+      "pbp_shots": 18
     },
     {
       "name": "Kevin Bahl",
@@ -3021,7 +3021,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.07071571387365873,
+      "xgf_pg": 0.061295129761176674,
       "pbp_goals": 1,
       "pbp_assists": 0,
       "pbp_shots": 6
@@ -3048,10 +3048,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 1,
-      "xgf_pg": 0.21491779541906364,
+      "xgf_pg": 0.19830445797026855,
       "pbp_goals": 1,
-      "pbp_assists": 0,
-      "pbp_shots": 13
+      "pbp_assists": 1,
+      "pbp_shots": 14
     },
     {
       "name": "Yegor Sharangovich",
@@ -3075,10 +3075,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.14724136322562953,
+      "xgf_pg": 0.17778145778433493,
       "pbp_goals": 1,
       "pbp_assists": 2,
-      "pbp_shots": 9
+      "pbp_shots": 10
     },
     {
       "name": "Connor Zary",
@@ -3102,7 +3102,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.2068175224721543,
+      "xgf_pg": 0.20681752247215432,
       "pbp_goals": 0,
       "pbp_assists": 1,
       "pbp_shots": 2
@@ -3129,10 +3129,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.07627540528539502,
+      "xgf_pg": 0.06728233601895033,
       "pbp_goals": 0,
       "pbp_assists": 1,
-      "pbp_shots": 8
+      "pbp_shots": 9
     },
     {
       "name": "Matt Coronato",
@@ -3156,10 +3156,10 @@
       "power_play_goals": 1,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.20056555315663807,
-      "pbp_goals": 1,
+      "xgf_pg": 0.22110979061454503,
+      "pbp_goals": 2,
       "pbp_assists": 2,
-      "pbp_shots": 13
+      "pbp_shots": 16
     },
     {
       "name": "Brennan Othmann",
@@ -3210,10 +3210,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.16225100206993442,
+      "xgf_pg": 0.18310312013138522,
       "pbp_goals": 0,
       "pbp_assists": 3,
-      "pbp_shots": 10
+      "pbp_shots": 13
     },
     {
       "name": "Adam Klapka",
@@ -3237,10 +3237,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.23843396425567642,
+      "xgf_pg": 0.22279836700533387,
       "pbp_goals": 2,
       "pbp_assists": 0,
-      "pbp_shots": 6
+      "pbp_shots": 7
     },
     {
       "name": "Jonathan Castagna",
@@ -3264,7 +3264,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.15665759159351195,
+      "xgf_pg": 0.17081851804415238,
       "pbp_goals": 0,
       "pbp_assists": 1,
       "pbp_shots": 3
@@ -3318,10 +3318,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.35613906407468293,
+      "xgf_pg": 0.41887172279744567,
       "pbp_goals": 2,
       "pbp_assists": 1,
-      "pbp_shots": 4
+      "pbp_shots": 7
     },
     {
       "name": "Zayne Parekh",
@@ -3345,10 +3345,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.20980077027656605,
+      "xgf_pg": 0.20973004897940453,
       "pbp_goals": 0,
       "pbp_assists": 1,
-      "pbp_shots": 9
+      "pbp_shots": 13
     },
     {
       "name": "Matvei Gridin",
@@ -3372,9 +3372,9 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.1798716219205115,
+      "xgf_pg": 0.16583852636818536,
       "pbp_goals": 0,
-      "pbp_assists": 1,
+      "pbp_assists": 2,
       "pbp_shots": 12
     },
     {
@@ -3399,10 +3399,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.14643447345539906,
+      "xgf_pg": 0.13756488758963833,
       "pbp_goals": 0,
       "pbp_assists": 1,
-      "pbp_shots": 2
+      "pbp_shots": 3
     },
     {
       "name": "Ian Cole",
@@ -3426,7 +3426,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.06771166730092053,
+      "xgf_pg": 0.06771166730092054,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 6
@@ -3453,10 +3453,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.2529355054011918,
+      "xgf_pg": 0.23995731356971742,
       "pbp_goals": 1,
-      "pbp_assists": 2,
-      "pbp_shots": 11
+      "pbp_assists": 4,
+      "pbp_shots": 13
     },
     {
       "name": "Teuvo Teravainen",
@@ -3480,10 +3480,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 1,
-      "xgf_pg": 0.12838217707627003,
+      "xgf_pg": 0.14568293278716352,
       "pbp_goals": 2,
       "pbp_assists": 3,
-      "pbp_shots": 5
+      "pbp_shots": 7
     },
     {
       "name": "Dominic Toninato",
@@ -3534,10 +3534,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.15493642966939564,
+      "xgf_pg": 0.1669185013735602,
       "pbp_goals": 2,
-      "pbp_assists": 2,
-      "pbp_shots": 8
+      "pbp_assists": 3,
+      "pbp_shots": 9
     },
     {
       "name": "Ryan Donato",
@@ -3561,10 +3561,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.2105828554449559,
-      "pbp_goals": 1,
+      "xgf_pg": 0.20724043042155235,
+      "pbp_goals": 2,
       "pbp_assists": 1,
-      "pbp_shots": 9
+      "pbp_shots": 11
     },
     {
       "name": "Andrew Mangiapane",
@@ -3615,7 +3615,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.23224666706536412,
+      "xgf_pg": 0.2322466670653642,
       "pbp_goals": 1,
       "pbp_assists": 0,
       "pbp_shots": 13
@@ -3669,7 +3669,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.0627342836709446,
+      "xgf_pg": 0.05718461078604968,
       "pbp_goals": 0,
       "pbp_assists": 2,
       "pbp_shots": 4
@@ -3696,10 +3696,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 1,
       "game_winning_goals": 1,
-      "xgf_pg": 0.15234238849851733,
+      "xgf_pg": 0.145226408067076,
       "pbp_goals": 1,
       "pbp_assists": 1,
-      "pbp_shots": 6
+      "pbp_shots": 8
     },
     {
       "name": "Wyatt Kaiser",
@@ -3723,10 +3723,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.05500769829445259,
+      "xgf_pg": 0.05157612870226008,
       "pbp_goals": 0,
-      "pbp_assists": 2,
-      "pbp_shots": 5
+      "pbp_assists": 3,
+      "pbp_shots": 6
     },
     {
       "name": "Ethan Del Mastro",
@@ -3750,10 +3750,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.05883403680258766,
+      "xgf_pg": 0.14750155080707475,
       "pbp_goals": 0,
       "pbp_assists": 0,
-      "pbp_shots": 0
+      "pbp_shots": 1
     },
     {
       "name": "Ryan Greene",
@@ -3831,10 +3831,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.36691630038520623,
-      "pbp_goals": 2,
+      "xgf_pg": 0.39984655556450094,
+      "pbp_goals": 3,
       "pbp_assists": 1,
-      "pbp_shots": 9
+      "pbp_shots": 12
     },
     {
       "name": "Sam Rinzel",
@@ -3858,10 +3858,10 @@
       "power_play_goals": 1,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.11894364447082335,
+      "xgf_pg": 0.11653256719981447,
       "pbp_goals": 1,
       "pbp_assists": 1,
-      "pbp_shots": 7
+      "pbp_shots": 10
     },
     {
       "name": "Connor Bedard",
@@ -3885,10 +3885,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.327282367987941,
-      "pbp_goals": 0,
-      "pbp_assists": 1,
-      "pbp_shots": 3
+      "xgf_pg": 0.43695883301617694,
+      "pbp_goals": 1,
+      "pbp_assists": 2,
+      "pbp_shots": 6
     },
     {
       "name": "Nick Lardis",
@@ -3939,10 +3939,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.18735874573588546,
+      "xgf_pg": 0.19256647459874543,
       "pbp_goals": 2,
-      "pbp_assists": 0,
-      "pbp_shots": 8
+      "pbp_assists": 1,
+      "pbp_shots": 11
     },
     {
       "name": "Roman Kantserov",
@@ -3966,7 +3966,7 @@
       "power_play_goals": 1,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.18283636875335135,
+      "xgf_pg": 0.17172892642790358,
       "pbp_goals": 3,
       "pbp_assists": 0,
       "pbp_shots": 12
@@ -3993,10 +3993,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.14319233040484702,
-      "pbp_goals": 0,
+      "xgf_pg": 0.14394898227084515,
+      "pbp_goals": 1,
       "pbp_assists": 2,
-      "pbp_shots": 10
+      "pbp_shots": 11
     },
     {
       "name": "Anton Frondell",
@@ -4020,10 +4020,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.16332752442259252,
+      "xgf_pg": 0.18930072655760588,
       "pbp_goals": 1,
       "pbp_assists": 5,
-      "pbp_shots": 11
+      "pbp_shots": 15
     },
     {
       "name": "Brent Burns",
@@ -4047,7 +4047,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.08987529113160152,
+      "xgf_pg": 0.08987529113160153,
       "pbp_goals": 0,
       "pbp_assists": 3,
       "pbp_shots": 10
@@ -4074,7 +4074,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.3558028541486805,
+      "xgf_pg": 0.35580285414868057,
       "pbp_goals": 1,
       "pbp_assists": 5,
       "pbp_shots": 21
@@ -4101,7 +4101,7 @@
       "power_play_goals": 1,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.2777035651420426,
+      "xgf_pg": 0.27770356514204264,
       "pbp_goals": 3,
       "pbp_assists": 3,
       "pbp_shots": 15
@@ -4263,7 +4263,7 @@
       "power_play_goals": 1,
       "short_handed_goals": 0,
       "game_winning_goals": 1,
-      "xgf_pg": 0.4766407714657749,
+      "xgf_pg": 0.47664077146577494,
       "pbp_goals": 5,
       "pbp_assists": 7,
       "pbp_shots": 30
@@ -4290,7 +4290,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.1287969281150784,
+      "xgf_pg": 0.12879692811507842,
       "pbp_goals": 2,
       "pbp_assists": 4,
       "pbp_shots": 9
@@ -4425,7 +4425,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.09317743882816529,
+      "xgf_pg": 0.0931774388281653,
       "pbp_goals": 1,
       "pbp_assists": 4,
       "pbp_shots": 5
@@ -4506,7 +4506,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.20426716153856883,
+      "xgf_pg": 0.2042671615385688,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 1
@@ -4560,7 +4560,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.24786660569510394,
+      "xgf_pg": 0.24786660569510396,
       "pbp_goals": 0,
       "pbp_assists": 1,
       "pbp_shots": 15
@@ -4614,7 +4614,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.046885749720223295,
+      "xgf_pg": 0.0468857497202233,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 3
@@ -4668,7 +4668,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.19285346719242477,
+      "xgf_pg": 0.1928534671924248,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 6
@@ -4695,7 +4695,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.1538409112420707,
+      "xgf_pg": 0.15384091124207072,
       "pbp_goals": 0,
       "pbp_assists": 1,
       "pbp_shots": 6
@@ -4749,7 +4749,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.36550841069186507,
+      "xgf_pg": 0.3655084106918651,
       "pbp_goals": 2,
       "pbp_assists": 5,
       "pbp_shots": 15
@@ -4884,7 +4884,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 1,
-      "xgf_pg": 0.131883039671666,
+      "xgf_pg": 0.13188303967166604,
       "pbp_goals": 3,
       "pbp_assists": 3,
       "pbp_shots": 12
@@ -5019,7 +5019,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.37981894232551366,
+      "xgf_pg": 0.3798189423255137,
       "pbp_goals": 1,
       "pbp_assists": 4,
       "pbp_shots": 12
@@ -5073,7 +5073,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.166729079555779,
+      "xgf_pg": 0.16672907955577906,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 8
@@ -5127,7 +5127,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.07488559152672804,
+      "xgf_pg": 0.06510979608670829,
       "pbp_goals": 0,
       "pbp_assists": 1,
       "pbp_shots": 6
@@ -5154,10 +5154,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 1,
-      "xgf_pg": 0.11842582667480202,
+      "xgf_pg": 0.11370707202823749,
       "pbp_goals": 1,
-      "pbp_assists": 2,
-      "pbp_shots": 9
+      "pbp_assists": 3,
+      "pbp_shots": 11
     },
     {
       "name": "Andrew Copp",
@@ -5181,10 +5181,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.19877197018879444,
-      "pbp_goals": 0,
+      "xgf_pg": 0.24254680412804827,
+      "pbp_goals": 1,
       "pbp_assists": 1,
-      "pbp_shots": 11
+      "pbp_shots": 14
     },
     {
       "name": "J.T. Compher",
@@ -5235,10 +5235,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.4255394430025867,
+      "xgf_pg": 0.38243864424119683,
       "pbp_goals": 1,
-      "pbp_assists": 1,
-      "pbp_shots": 12
+      "pbp_assists": 2,
+      "pbp_shots": 14
     },
     {
       "name": "Andreas Englund",
@@ -5289,10 +5289,10 @@
       "power_play_goals": 3,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.34986341971265794,
+      "xgf_pg": 0.3487675235142292,
       "pbp_goals": 3,
       "pbp_assists": 1,
-      "pbp_shots": 17
+      "pbp_shots": 19
     },
     {
       "name": "Keegan Kolesar",
@@ -5316,7 +5316,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.03264832213766474,
+      "xgf_pg": 0.04276361113549323,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 2
@@ -5370,10 +5370,10 @@
       "power_play_goals": 1,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.5336026298149931,
+      "xgf_pg": 0.5203360449463218,
       "pbp_goals": 4,
       "pbp_assists": 4,
-      "pbp_shots": 25
+      "pbp_shots": 29
     },
     {
       "name": "Michael Rasmussen",
@@ -5397,10 +5397,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.11838023878845609,
+      "xgf_pg": 0.12158223698406105,
       "pbp_goals": 0,
-      "pbp_assists": 0,
-      "pbp_shots": 7
+      "pbp_assists": 1,
+      "pbp_shots": 8
     },
     {
       "name": "Sheldon Dries",
@@ -5424,7 +5424,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.2954269912037552,
+      "xgf_pg": 0.32724616525941447,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 4
@@ -5451,10 +5451,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.15499909112925375,
+      "xgf_pg": 0.16597586478141735,
       "pbp_goals": 0,
       "pbp_assists": 3,
-      "pbp_shots": 11
+      "pbp_shots": 13
     },
     {
       "name": "Albert Johansson",
@@ -5478,10 +5478,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.09594340271371865,
+      "xgf_pg": 0.09168548795849338,
       "pbp_goals": 0,
       "pbp_assists": 0,
-      "pbp_shots": 11
+      "pbp_shots": 12
     },
     {
       "name": "Lucas Raymond",
@@ -5505,10 +5505,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.348372304992111,
+      "xgf_pg": 0.35036179977862425,
       "pbp_goals": 0,
       "pbp_assists": 4,
-      "pbp_shots": 19
+      "pbp_shots": 21
     },
     {
       "name": "William Wallinder",
@@ -5532,10 +5532,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.05424001839649238,
+      "xgf_pg": 0.053082934322518587,
       "pbp_goals": 1,
       "pbp_assists": 1,
-      "pbp_shots": 3
+      "pbp_shots": 4
     },
     {
       "name": "Carter Mazur",
@@ -5613,10 +5613,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.05810352535936861,
-      "pbp_goals": 0,
+      "xgf_pg": 0.06790311137520716,
+      "pbp_goals": 1,
       "pbp_assists": 1,
-      "pbp_shots": 4
+      "pbp_shots": 5
     },
     {
       "name": "Nate Danielson",
@@ -5640,10 +5640,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.19565761295242887,
+      "xgf_pg": 0.17776903314406958,
       "pbp_goals": 0,
-      "pbp_assists": 1,
-      "pbp_shots": 4
+      "pbp_assists": 2,
+      "pbp_shots": 5
     },
     {
       "name": "Axel Sandin-Pellikka",
@@ -5694,10 +5694,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.21051035208817825,
+      "xgf_pg": 0.19141018347565564,
       "pbp_goals": 2,
       "pbp_assists": 1,
-      "pbp_shots": 13
+      "pbp_shots": 14
     },
     {
       "name": "Michael Brandsegg-Nyg\u00e5rd",
@@ -5721,10 +5721,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.5196870665685532,
+      "xgf_pg": 0.5228427525518645,
       "pbp_goals": 2,
       "pbp_assists": 3,
-      "pbp_shots": 19
+      "pbp_shots": 22
     },
     {
       "name": "Mattias Ekholm",
@@ -5748,10 +5748,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.08815674624641175,
+      "xgf_pg": 0.0901524602425734,
       "pbp_goals": 1,
       "pbp_assists": 1,
-      "pbp_shots": 5
+      "pbp_shots": 7
     },
     {
       "name": "Zach Hyman",
@@ -5802,10 +5802,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.03864317982881928,
+      "xgf_pg": 0.03527627732278277,
       "pbp_goals": 0,
       "pbp_assists": 1,
-      "pbp_shots": 3
+      "pbp_shots": 4
     },
     {
       "name": "Jason Dickinson",
@@ -5829,7 +5829,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.053787213600791584,
+      "xgf_pg": 0.053787213600791604,
       "pbp_goals": 0,
       "pbp_assists": 1,
       "pbp_shots": 2
@@ -5856,10 +5856,10 @@
       "power_play_goals": 1,
       "short_handed_goals": 0,
       "game_winning_goals": 1,
-      "xgf_pg": 0.5809677388889761,
-      "pbp_goals": 4,
+      "xgf_pg": 0.5551725654459374,
+      "pbp_goals": 5,
       "pbp_assists": 7,
-      "pbp_shots": 24
+      "pbp_shots": 27
     },
     {
       "name": "Kasperi Kapanen",
@@ -5883,10 +5883,10 @@
       "power_play_goals": 1,
       "short_handed_goals": 1,
       "game_winning_goals": 1,
-      "xgf_pg": 0.2556072012110918,
+      "xgf_pg": 0.25198924280212387,
       "pbp_goals": 2,
       "pbp_assists": 1,
-      "pbp_shots": 9
+      "pbp_shots": 10
     },
     {
       "name": "Jake Walman",
@@ -5937,10 +5937,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 1,
       "game_winning_goals": 0,
-      "xgf_pg": 0.4016678651897772,
+      "xgf_pg": 0.40579639689923974,
       "pbp_goals": 4,
-      "pbp_assists": 13,
-      "pbp_shots": 14
+      "pbp_assists": 14,
+      "pbp_shots": 16
     },
     {
       "name": "Mathieu Joseph",
@@ -5964,9 +5964,9 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.14691743982302852,
+      "xgf_pg": 0.1424572386013524,
       "pbp_goals": 0,
-      "pbp_assists": 2,
+      "pbp_assists": 3,
       "pbp_shots": 7
     },
     {
@@ -5991,10 +5991,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.0924739089867895,
+      "xgf_pg": 0.08642928554161848,
       "pbp_goals": 1,
       "pbp_assists": 2,
-      "pbp_shots": 4
+      "pbp_shots": 5
     },
     {
       "name": "Trent Frederic",
@@ -6018,7 +6018,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.20496345444716163,
+      "xgf_pg": 0.18649520886893467,
       "pbp_goals": 1,
       "pbp_assists": 0,
       "pbp_shots": 7
@@ -6045,10 +6045,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.18396083547531403,
+      "xgf_pg": 0.15116386717104016,
       "pbp_goals": 0,
       "pbp_assists": 0,
-      "pbp_shots": 4
+      "pbp_shots": 5
     },
     {
       "name": "Alex Formenton",
@@ -6072,10 +6072,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.16889160705818632,
+      "xgf_pg": 0.15919538317252285,
       "pbp_goals": 1,
       "pbp_assists": 2,
-      "pbp_shots": 7
+      "pbp_shots": 8
     },
     {
       "name": "Evan Bouchard",
@@ -6099,10 +6099,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 1,
-      "xgf_pg": 0.22044554247205336,
+      "xgf_pg": 0.22149572198521958,
       "pbp_goals": 6,
-      "pbp_assists": 8,
-      "pbp_shots": 19
+      "pbp_assists": 9,
+      "pbp_shots": 25
     },
     {
       "name": "Ty Emberson",
@@ -6126,10 +6126,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.051209455269340155,
+      "xgf_pg": 0.05333339544652751,
       "pbp_goals": 0,
       "pbp_assists": 1,
-      "pbp_shots": 0
+      "pbp_shots": 1
     },
     {
       "name": "Filip Hallander",
@@ -6153,10 +6153,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.24535413657480767,
+      "xgf_pg": 0.19942150123262786,
       "pbp_goals": 1,
       "pbp_assists": 2,
-      "pbp_shots": 4
+      "pbp_shots": 5
     },
     {
       "name": "Vasily Podkolzin",
@@ -6180,10 +6180,10 @@
       "power_play_goals": 3,
       "short_handed_goals": 0,
       "game_winning_goals": 2,
-      "xgf_pg": 0.5003536526446477,
+      "xgf_pg": 0.4915759111808658,
       "pbp_goals": 7,
       "pbp_assists": 2,
-      "pbp_shots": 20
+      "pbp_shots": 22
     },
     {
       "name": "Shakir Mukhamadullin",
@@ -6207,10 +6207,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.013676293808215974,
-      "pbp_goals": 0,
+      "xgf_pg": 0.014074800817031278,
+      "pbp_goals": 1,
       "pbp_assists": 0,
-      "pbp_shots": 0
+      "pbp_shots": 1
     },
     {
       "name": "Colton Dach",
@@ -6261,10 +6261,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.06979603817210259,
+      "xgf_pg": 0.0627653748339392,
       "pbp_goals": 0,
       "pbp_assists": 2,
-      "pbp_shots": 6
+      "pbp_shots": 7
     },
     {
       "name": "Josh Samanski",
@@ -6315,9 +6315,9 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.06306230293887692,
+      "xgf_pg": 0.05700141081081928,
       "pbp_goals": 2,
-      "pbp_assists": 0,
+      "pbp_assists": 1,
       "pbp_shots": 6
     },
     {
@@ -6369,10 +6369,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.08548666042559905,
+      "xgf_pg": 0.11508543379827815,
       "pbp_goals": 0,
       "pbp_assists": 4,
-      "pbp_shots": 6
+      "pbp_shots": 8
     },
     {
       "name": "Dmitry Kulikov",
@@ -6396,10 +6396,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.05406148644597088,
+      "xgf_pg": 0.06349192752108994,
       "pbp_goals": 0,
       "pbp_assists": 1,
-      "pbp_shots": 2
+      "pbp_shots": 4
     },
     {
       "name": "Radko Gudas",
@@ -6423,7 +6423,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.029612648169142938,
+      "xgf_pg": 0.029612648169142945,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 3
@@ -6450,10 +6450,10 @@
       "power_play_goals": 1,
       "short_handed_goals": 0,
       "game_winning_goals": 1,
-      "xgf_pg": 0.2691161764547854,
+      "xgf_pg": 0.2600672829912519,
       "pbp_goals": 3,
-      "pbp_assists": 1,
-      "pbp_shots": 10
+      "pbp_assists": 2,
+      "pbp_shots": 11
     },
     {
       "name": "Aleksander Barkov",
@@ -6477,7 +6477,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.08423442621794516,
+      "xgf_pg": 0.0842344262179452,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 2
@@ -6504,10 +6504,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.22966948358065992,
+      "xgf_pg": 0.22660851610183527,
       "pbp_goals": 1,
-      "pbp_assists": 6,
-      "pbp_shots": 19
+      "pbp_assists": 8,
+      "pbp_shots": 24
     },
     {
       "name": "Garnet Hathaway",
@@ -6531,7 +6531,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.13705825493078957,
+      "xgf_pg": 0.1370582549307896,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 3
@@ -6558,10 +6558,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.16136333302702832,
+      "xgf_pg": 0.17492440413819774,
       "pbp_goals": 0,
-      "pbp_assists": 2,
-      "pbp_shots": 8
+      "pbp_assists": 3,
+      "pbp_shots": 11
     },
     {
       "name": "Sam Reinhart",
@@ -6585,10 +6585,10 @@
       "power_play_goals": 3,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.5334722483872791,
+      "xgf_pg": 0.5414040645295083,
       "pbp_goals": 4,
-      "pbp_assists": 1,
-      "pbp_shots": 21
+      "pbp_assists": 2,
+      "pbp_shots": 26
     },
     {
       "name": "Sam Bennett",
@@ -6612,10 +6612,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.23483298698141325,
+      "xgf_pg": 0.3423294618752976,
       "pbp_goals": 0,
       "pbp_assists": 3,
-      "pbp_shots": 11
+      "pbp_shots": 17
     },
     {
       "name": "Sam Lafferty",
@@ -6666,10 +6666,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 1,
-      "xgf_pg": 0.06520554670195093,
+      "xgf_pg": 0.06777954898023078,
       "pbp_goals": 1,
       "pbp_assists": 0,
-      "pbp_shots": 7
+      "pbp_shots": 9
     },
     {
       "name": "Bokondji Imama",
@@ -6693,7 +6693,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.18698061493723447,
+      "xgf_pg": 0.14049349294306968,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 5
@@ -6720,10 +6720,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.07595526989487414,
+      "xgf_pg": 0.0745569120965745,
       "pbp_goals": 0,
       "pbp_assists": 0,
-      "pbp_shots": 9
+      "pbp_shots": 10
     },
     {
       "name": "Matthew Tkachuk",
@@ -6747,10 +6747,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 1,
-      "xgf_pg": 0.265412161149011,
+      "xgf_pg": 0.2578889625656778,
       "pbp_goals": 3,
-      "pbp_assists": 7,
-      "pbp_shots": 14
+      "pbp_assists": 8,
+      "pbp_shots": 15
     },
     {
       "name": "Eetu Luostarinen",
@@ -6774,7 +6774,7 @@
       "power_play_goals": 1,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.29237065319345323,
+      "xgf_pg": 0.2712568632553648,
       "pbp_goals": 2,
       "pbp_assists": 0,
       "pbp_shots": 11
@@ -6801,10 +6801,10 @@
       "power_play_goals": 2,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.360542250791807,
-      "pbp_goals": 3,
+      "xgf_pg": 0.3968058973168682,
+      "pbp_goals": 6,
       "pbp_assists": 2,
-      "pbp_shots": 19
+      "pbp_shots": 25
     },
     {
       "name": "Anton Lundell",
@@ -6828,10 +6828,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.3182074269070315,
+      "xgf_pg": 0.32178265921792487,
       "pbp_goals": 1,
       "pbp_assists": 2,
-      "pbp_shots": 20
+      "pbp_shots": 24
     },
     {
       "name": "Sandis Vilmanis",
@@ -6855,10 +6855,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.26500223778665855,
+      "xgf_pg": 0.2284782473590021,
       "pbp_goals": 0,
       "pbp_assists": 1,
-      "pbp_shots": 8
+      "pbp_shots": 9
     },
     {
       "name": "Uvis Balinskis",
@@ -6882,7 +6882,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.031709870789608005,
+      "xgf_pg": 0.03170987078960801,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 2
@@ -6936,7 +6936,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.08687533213403051,
+      "xgf_pg": 0.08687533213403054,
       "pbp_goals": 0,
       "pbp_assists": 1,
       "pbp_shots": 3
@@ -7017,7 +7017,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.10381247431576189,
+      "xgf_pg": 0.1038124743157619,
       "pbp_goals": 0,
       "pbp_assists": 1,
       "pbp_shots": 1
@@ -7044,7 +7044,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.05181840116168013,
+      "xgf_pg": 0.05181840116168014,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 7
@@ -7152,7 +7152,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.08806160858283957,
+      "xgf_pg": 0.08806160858283955,
       "pbp_goals": 0,
       "pbp_assists": 1,
       "pbp_shots": 4
@@ -7314,7 +7314,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.2456271318198537,
+      "xgf_pg": 0.24562713181985366,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 3
@@ -7422,7 +7422,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.12327231569686074,
+      "xgf_pg": 0.12327231569686078,
       "pbp_goals": 1,
       "pbp_assists": 3,
       "pbp_shots": 15
@@ -7503,7 +7503,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.049478815577756484,
+      "xgf_pg": 0.04947881557775649,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 6
@@ -7530,7 +7530,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.057374578710979736,
+      "xgf_pg": 0.05737457871097975,
       "pbp_goals": 1,
       "pbp_assists": 4,
       "pbp_shots": 7
@@ -7584,10 +7584,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.11322067079995139,
+      "xgf_pg": 0.1517669705612168,
       "pbp_goals": 0,
       "pbp_assists": 0,
-      "pbp_shots": 1
+      "pbp_shots": 3
     },
     {
       "name": "Blake Coleman",
@@ -7611,10 +7611,10 @@
       "power_play_goals": 2,
       "short_handed_goals": 0,
       "game_winning_goals": 1,
-      "xgf_pg": 0.2295292094273715,
+      "xgf_pg": 0.23688544340891698,
       "pbp_goals": 2,
       "pbp_assists": 1,
-      "pbp_shots": 13
+      "pbp_shots": 16
     },
     {
       "name": "Jonas Brodin",
@@ -7638,10 +7638,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.030764130960260507,
+      "xgf_pg": 0.03847811763047605,
       "pbp_goals": 0,
       "pbp_assists": 1,
-      "pbp_shots": 6
+      "pbp_shots": 8
     },
     {
       "name": "Olli Maatta",
@@ -7694,7 +7694,7 @@
       "game_winning_goals": 0,
       "xgf_pg": 0.1453162795396809,
       "pbp_goals": 0,
-      "pbp_assists": 3,
+      "pbp_assists": 4,
       "pbp_shots": 12
     },
     {
@@ -7719,7 +7719,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.17331777495275605,
+      "xgf_pg": 0.15723257830750498,
       "pbp_goals": 0,
       "pbp_assists": 1,
       "pbp_shots": 6
@@ -7746,10 +7746,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.4730156696001315,
+      "xgf_pg": 0.47996794877378585,
       "pbp_goals": 1,
-      "pbp_assists": 2,
-      "pbp_shots": 20
+      "pbp_assists": 4,
+      "pbp_shots": 23
     },
     {
       "name": "Yakov Trenin",
@@ -7773,10 +7773,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.23300091282674987,
+      "xgf_pg": 0.2083220783996412,
       "pbp_goals": 0,
-      "pbp_assists": 0,
-      "pbp_shots": 9
+      "pbp_assists": 1,
+      "pbp_shots": 10
     },
     {
       "name": "Kirill Kaprizov",
@@ -7800,10 +7800,10 @@
       "power_play_goals": 2,
       "short_handed_goals": 0,
       "game_winning_goals": 1,
-      "xgf_pg": 0.4522522749227225,
-      "pbp_goals": 8,
-      "pbp_assists": 3,
-      "pbp_shots": 20
+      "xgf_pg": 0.5413627751302839,
+      "pbp_goals": 9,
+      "pbp_assists": 5,
+      "pbp_shots": 25
     },
     {
       "name": "Quinn Hughes",
@@ -7827,10 +7827,10 @@
       "power_play_goals": 1,
       "short_handed_goals": 0,
       "game_winning_goals": 1,
-      "xgf_pg": 0.23826606259502126,
+      "xgf_pg": 0.2242694926357335,
       "pbp_goals": 2,
-      "pbp_assists": 8,
-      "pbp_shots": 19
+      "pbp_assists": 10,
+      "pbp_shots": 24
     },
     {
       "name": "Nico Sturm",
@@ -7854,7 +7854,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.010483358571361429,
+      "xgf_pg": 0.010483358571361434,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 2
@@ -7881,10 +7881,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.12737396067384882,
+      "xgf_pg": 0.1428670419928121,
       "pbp_goals": 0,
       "pbp_assists": 4,
-      "pbp_shots": 11
+      "pbp_shots": 13
     },
     {
       "name": "Matt Boldy",
@@ -7908,10 +7908,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.4866120599274187,
-      "pbp_goals": 2,
-      "pbp_assists": 1,
-      "pbp_shots": 27
+      "xgf_pg": 0.5155047565695723,
+      "pbp_goals": 5,
+      "pbp_assists": 2,
+      "pbp_shots": 35
     },
     {
       "name": "Daemon Hunt",
@@ -7935,10 +7935,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.04808201193661872,
+      "xgf_pg": 0.10476299515731483,
       "pbp_goals": 0,
       "pbp_assists": 0,
-      "pbp_shots": 2
+      "pbp_shots": 4
     },
     {
       "name": "Rieger Lorenz",
@@ -7962,7 +7962,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.20473296138571753,
+      "xgf_pg": 0.2047329613857176,
       "pbp_goals": 0,
       "pbp_assists": 1,
       "pbp_shots": 1
@@ -7989,10 +7989,10 @@
       "power_play_goals": 1,
       "short_handed_goals": 0,
       "game_winning_goals": 1,
-      "xgf_pg": 0.2063650584802721,
-      "pbp_goals": 2,
+      "xgf_pg": 0.1945308234302589,
+      "pbp_goals": 3,
       "pbp_assists": 1,
-      "pbp_shots": 9
+      "pbp_shots": 11
     },
     {
       "name": "David Spacek",
@@ -8016,10 +8016,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.04340371863958414,
+      "xgf_pg": 0.05081677278709559,
       "pbp_goals": 0,
       "pbp_assists": 0,
-      "pbp_shots": 3
+      "pbp_shots": 6
     },
     {
       "name": "Maxim Shabanov",
@@ -8043,9 +8043,9 @@
       "power_play_goals": 1,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.24537194571468807,
+      "xgf_pg": 0.2184472369744091,
       "pbp_goals": 2,
-      "pbp_assists": 2,
+      "pbp_assists": 3,
       "pbp_shots": 10
     },
     {
@@ -8259,7 +8259,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.22477072166292622,
+      "xgf_pg": 0.22477072166292625,
       "pbp_goals": 1,
       "pbp_assists": 2,
       "pbp_shots": 12
@@ -8367,7 +8367,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.0045134344478996655,
+      "xgf_pg": 0.03696175272997478,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 0
@@ -8448,7 +8448,7 @@
       "power_play_goals": 1,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.41444772856836626,
+      "xgf_pg": 0.41444772856836637,
       "pbp_goals": 5,
       "pbp_assists": 2,
       "pbp_shots": 13
@@ -8475,7 +8475,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.032862550281343904,
+      "xgf_pg": 0.03286255028134392,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 2
@@ -8583,7 +8583,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.07392275433991843,
+      "xgf_pg": 0.07392275433991846,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 3
@@ -8610,7 +8610,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.04617492503837302,
+      "xgf_pg": 0.046174925038373026,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 2
@@ -8673,128 +8673,128 @@
       "name": "Dougie Hamilton",
       "team": "NJD",
       "position": "D",
-      "gp": 6,
+      "gp": 7,
       "goals": 1,
-      "assists": 1,
-      "points": 2,
-      "shots": 20,
-      "gpg": 0.16666666666666666,
-      "apg": 0.16666666666666666,
-      "ppg": 0.3333333333333333,
-      "sogpg": 3.3333333333333335,
-      "sh_pct": 0.05,
-      "plus_minus": -3,
+      "assists": 3,
+      "points": 4,
+      "shots": 21,
+      "gpg": 0.14285714285714285,
+      "apg": 0.42857142857142855,
+      "ppg": 0.5714285714285714,
+      "sogpg": 3.0,
+      "sh_pct": 0.047619047619047616,
+      "plus_minus": 1,
       "pim": 0,
-      "toi_pg": 21.419445,
-      "ppg_raw": 1285.1667,
+      "toi_pg": 21.166666666666668,
+      "ppg_raw": 1270.0,
       "faceoff_pct": 0.0,
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.21413466524354277,
+      "xgf_pg": 0.1857263967632763,
       "pbp_goals": 1,
-      "pbp_assists": 1,
-      "pbp_shots": 20
+      "pbp_assists": 3,
+      "pbp_shots": 21
     },
     {
       "name": "Stefan Noesen",
       "team": "NJD",
       "position": "R",
-      "gp": 3,
-      "goals": 0,
+      "gp": 4,
+      "goals": 1,
       "assists": 1,
-      "points": 1,
-      "shots": 3,
-      "gpg": 0.0,
-      "apg": 0.3333333333333333,
-      "ppg": 0.3333333333333333,
-      "sogpg": 1.0,
-      "sh_pct": 0.0,
-      "plus_minus": -1,
+      "points": 2,
+      "shots": 6,
+      "gpg": 0.25,
+      "apg": 0.25,
+      "ppg": 0.5,
+      "sogpg": 1.5,
+      "sh_pct": 0.16666666666666666,
+      "plus_minus": 0,
       "pim": 0,
-      "toi_pg": 8.844445,
-      "ppg_raw": 530.6667,
+      "toi_pg": 9.325,
+      "ppg_raw": 559.5,
       "faceoff_pct": 0.0,
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.04315149976704942,
-      "pbp_goals": 0,
+      "xgf_pg": 0.2156764358207323,
+      "pbp_goals": 1,
       "pbp_assists": 1,
-      "pbp_shots": 3
+      "pbp_shots": 6
     },
     {
       "name": "Brett Pesce",
       "team": "NJD",
       "position": "D",
-      "gp": 6,
+      "gp": 7,
       "goals": 0,
-      "assists": 0,
-      "points": 0,
-      "shots": 5,
+      "assists": 2,
+      "points": 2,
+      "shots": 7,
       "gpg": 0.0,
-      "apg": 0.0,
-      "ppg": 0.0,
-      "sogpg": 0.8333333333333334,
+      "apg": 0.2857142857142857,
+      "ppg": 0.2857142857142857,
+      "sogpg": 1.0,
       "sh_pct": 0.0,
-      "plus_minus": 1,
+      "plus_minus": 4,
       "pim": 0,
-      "toi_pg": 21.136111666666668,
-      "ppg_raw": 1268.1667,
+      "toi_pg": 21.188094999999997,
+      "ppg_raw": 1271.2857,
       "faceoff_pct": 0.0,
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.0403436108913125,
+      "xgf_pg": 0.05221182774089089,
       "pbp_goals": 0,
-      "pbp_assists": 0,
-      "pbp_shots": 5
+      "pbp_assists": 2,
+      "pbp_shots": 7
     },
     {
       "name": "Anthony Mantha",
       "team": "NJD",
       "position": "R",
-      "gp": 6,
+      "gp": 7,
       "goals": 1,
       "assists": 1,
       "points": 2,
-      "shots": 7,
-      "gpg": 0.16666666666666666,
-      "apg": 0.16666666666666666,
-      "ppg": 0.3333333333333333,
-      "sogpg": 1.1666666666666667,
-      "sh_pct": 0.14285714285714285,
-      "plus_minus": -1,
+      "shots": 8,
+      "gpg": 0.14285714285714285,
+      "apg": 0.14285714285714285,
+      "ppg": 0.2857142857142857,
+      "sogpg": 1.1428571428571428,
+      "sh_pct": 0.125,
+      "plus_minus": 0,
       "pim": 7,
-      "toi_pg": 13.236111666666668,
-      "ppg_raw": 794.1667000000001,
+      "toi_pg": 13.292856666666667,
+      "ppg_raw": 797.5714,
       "faceoff_pct": 0.0,
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.22124117049773515,
+      "xgf_pg": 0.19923326393259522,
       "pbp_goals": 1,
       "pbp_assists": 1,
-      "pbp_shots": 7
+      "pbp_shots": 8
     },
     {
       "name": "Jonas Siegenthaler",
       "team": "NJD",
       "position": "D",
-      "gp": 6,
+      "gp": 7,
       "goals": 0,
       "assists": 1,
       "points": 1,
       "shots": 2,
       "gpg": 0.0,
-      "apg": 0.16666666666666666,
-      "ppg": 0.16666666666666666,
-      "sogpg": 0.3333333333333333,
+      "apg": 0.14285714285714285,
+      "ppg": 0.14285714285714285,
+      "sogpg": 0.2857142857142857,
       "sh_pct": 0.0,
-      "plus_minus": -5,
-      "pim": 0,
-      "toi_pg": 19.202778333333335,
-      "ppg_raw": 1152.1667,
+      "plus_minus": -2,
+      "pim": 2,
+      "toi_pg": 18.97381,
+      "ppg_raw": 1138.4286,
       "faceoff_pct": 0.0,
       "power_play_goals": 0,
       "short_handed_goals": 0,
@@ -8808,79 +8808,79 @@
       "name": "Timo Meier",
       "team": "NJD",
       "position": "R",
-      "gp": 6,
+      "gp": 7,
       "goals": 0,
-      "assists": 1,
-      "points": 1,
-      "shots": 25,
+      "assists": 3,
+      "points": 3,
+      "shots": 27,
       "gpg": 0.0,
-      "apg": 0.16666666666666666,
-      "ppg": 0.16666666666666666,
-      "sogpg": 4.166666666666667,
+      "apg": 0.42857142857142855,
+      "ppg": 0.42857142857142855,
+      "sogpg": 3.857142857142857,
       "sh_pct": 0.0,
-      "plus_minus": -3,
-      "pim": 4,
-      "toi_pg": 16.875,
-      "ppg_raw": 1012.5,
-      "faceoff_pct": 40.0,
+      "plus_minus": -1,
+      "pim": 6,
+      "toi_pg": 16.535715,
+      "ppg_raw": 992.1428999999999,
+      "faceoff_pct": 22.222200000000004,
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.3831087645717161,
+      "xgf_pg": 0.3519442229484263,
       "pbp_goals": 0,
-      "pbp_assists": 1,
-      "pbp_shots": 25
+      "pbp_assists": 3,
+      "pbp_shots": 27
     },
     {
       "name": "Evan Rodrigues",
       "team": "NJD",
       "position": "C",
-      "gp": 6,
-      "goals": 1,
-      "assists": 1,
-      "points": 2,
-      "shots": 11,
-      "gpg": 0.16666666666666666,
-      "apg": 0.16666666666666666,
-      "ppg": 0.3333333333333333,
-      "sogpg": 1.8333333333333333,
-      "sh_pct": 0.09090909090909091,
-      "plus_minus": -2,
+      "gp": 7,
+      "goals": 2,
+      "assists": 2,
+      "points": 4,
+      "shots": 13,
+      "gpg": 0.2857142857142857,
+      "apg": 0.2857142857142857,
+      "ppg": 0.5714285714285714,
+      "sogpg": 1.8571428571428572,
+      "sh_pct": 0.15384615384615385,
+      "plus_minus": 0,
       "pim": 4,
-      "toi_pg": 15.566666666666666,
-      "ppg_raw": 934.0,
-      "faceoff_pct": 47.12640000000001,
+      "toi_pg": 15.82619,
+      "ppg_raw": 949.5714,
+      "faceoff_pct": 49.019600000000004,
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.16099468483863674,
-      "pbp_goals": 1,
-      "pbp_assists": 1,
-      "pbp_shots": 11
+      "xgf_pg": 0.18162078080639915,
+      "pbp_goals": 2,
+      "pbp_assists": 2,
+      "pbp_shots": 13
     },
     {
       "name": "Jesper Bratt",
       "team": "NJD",
       "position": "L",
-      "gp": 6,
+      "gp": 7,
       "goals": 2,
       "assists": 5,
       "points": 7,
       "shots": 19,
-      "gpg": 0.3333333333333333,
-      "apg": 0.8333333333333334,
-      "ppg": 1.1666666666666667,
-      "sogpg": 3.1666666666666665,
+      "gpg": 0.2857142857142857,
+      "apg": 0.7142857142857143,
+      "ppg": 1.0,
+      "sogpg": 2.7142857142857144,
       "sh_pct": 0.10526315789473684,
-      "plus_minus": 0,
+      "plus_minus": 1,
       "pim": 0,
-      "toi_pg": 18.31111166666667,
-      "ppg_raw": 1098.6667000000002,
+      "toi_pg": 17.94761833333333,
+      "ppg_raw": 1076.8571,
       "faceoff_pct": 0.0,
       "power_play_goals": 1,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.36600808760702214,
+      "xgf_pg": 0.3285224337553741,
       "pbp_goals": 2,
       "pbp_assists": 5,
       "pbp_shots": 19
@@ -8889,133 +8889,133 @@
       "name": "Cody Glass",
       "team": "NJD",
       "position": "C",
-      "gp": 6,
-      "goals": 0,
+      "gp": 7,
+      "goals": 1,
       "assists": 0,
-      "points": 0,
-      "shots": 8,
-      "gpg": 0.0,
+      "points": 1,
+      "shots": 9,
+      "gpg": 0.14285714285714285,
       "apg": 0.0,
-      "ppg": 0.0,
-      "sogpg": 1.3333333333333333,
-      "sh_pct": 0.0,
-      "plus_minus": -2,
+      "ppg": 0.14285714285714285,
+      "sogpg": 1.2857142857142858,
+      "sh_pct": 0.1111111111111111,
+      "plus_minus": 0,
       "pim": 0,
-      "toi_pg": 11.813888333333333,
-      "ppg_raw": 708.8333,
-      "faceoff_pct": 63.2911,
+      "toi_pg": 12.238095,
+      "ppg_raw": 734.2857,
+      "faceoff_pct": 59.7938,
       "power_play_goals": 0,
-      "short_handed_goals": 0,
+      "short_handed_goals": 1,
       "game_winning_goals": 0,
-      "xgf_pg": 0.20428160992976074,
-      "pbp_goals": 0,
+      "xgf_pg": 0.21374419096776395,
+      "pbp_goals": 1,
       "pbp_assists": 0,
-      "pbp_shots": 8
+      "pbp_shots": 9
     },
     {
       "name": "Nico Hischier",
       "team": "NJD",
       "position": "C",
-      "gp": 6,
-      "goals": 3,
+      "gp": 7,
+      "goals": 4,
       "assists": 1,
-      "points": 4,
-      "shots": 13,
-      "gpg": 0.5,
-      "apg": 0.16666666666666666,
-      "ppg": 0.6666666666666666,
-      "sogpg": 2.1666666666666665,
-      "sh_pct": 0.23076923076923078,
-      "plus_minus": -4,
+      "points": 5,
+      "shots": 14,
+      "gpg": 0.5714285714285714,
+      "apg": 0.14285714285714285,
+      "ppg": 0.7142857142857143,
+      "sogpg": 2.0,
+      "sh_pct": 0.2857142857142857,
+      "plus_minus": -2,
       "pim": 0,
-      "toi_pg": 19.144445,
-      "ppg_raw": 1148.6667,
-      "faceoff_pct": 53.571400000000004,
+      "toi_pg": 18.438094999999997,
+      "ppg_raw": 1106.2857,
+      "faceoff_pct": 56.0976,
       "power_play_goals": 3,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.310131541286412,
-      "pbp_goals": 3,
+      "xgf_pg": 0.29885216805641424,
+      "pbp_goals": 4,
       "pbp_assists": 1,
-      "pbp_shots": 13
+      "pbp_shots": 14
     },
     {
       "name": "Jesper Boqvist",
       "team": "NJD",
       "position": "C",
-      "gp": 4,
+      "gp": 5,
       "goals": 2,
       "assists": 0,
       "points": 2,
-      "shots": 10,
-      "gpg": 0.5,
+      "shots": 11,
+      "gpg": 0.4,
       "apg": 0.0,
-      "ppg": 0.5,
-      "sogpg": 2.5,
-      "sh_pct": 0.2,
-      "plus_minus": 0,
+      "ppg": 0.4,
+      "sogpg": 2.2,
+      "sh_pct": 0.18181818181818182,
+      "plus_minus": 1,
       "pim": 0,
-      "toi_pg": 10.904166666666667,
-      "ppg_raw": 654.25,
+      "toi_pg": 11.493333333333334,
+      "ppg_raw": 689.6,
       "faceoff_pct": 0.0,
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 1,
-      "xgf_pg": 0.2753857913659363,
+      "xgf_pg": 0.23799685411947064,
       "pbp_goals": 2,
       "pbp_assists": 0,
-      "pbp_shots": 10
+      "pbp_shots": 11
     },
     {
       "name": "Johnathan Kovacevic",
       "team": "NJD",
       "position": "D",
-      "gp": 1,
+      "gp": 2,
       "goals": 0,
       "assists": 0,
       "points": 0,
-      "shots": 0,
+      "shots": 2,
       "gpg": 0.0,
       "apg": 0.0,
       "ppg": 0.0,
-      "sogpg": 0.0,
+      "sogpg": 1.0,
       "sh_pct": 0.0,
       "plus_minus": 0,
-      "pim": 0,
+      "pim": 7,
       "toi_pg": 16.0,
       "ppg_raw": 960.0,
       "faceoff_pct": 0.0,
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.009390313888301055,
+      "xgf_pg": 0.025195650349276583,
       "pbp_goals": 0,
       "pbp_assists": 0,
-      "pbp_shots": 0
+      "pbp_shots": 2
     },
     {
       "name": "Declan Chisholm",
       "team": "NJD",
       "position": "D",
-      "gp": 6,
+      "gp": 7,
       "goals": 0,
       "assists": 1,
       "points": 1,
       "shots": 2,
       "gpg": 0.0,
-      "apg": 0.16666666666666666,
-      "ppg": 0.16666666666666666,
-      "sogpg": 0.3333333333333333,
+      "apg": 0.14285714285714285,
+      "ppg": 0.14285714285714285,
+      "sogpg": 0.2857142857142857,
       "sh_pct": 0.0,
-      "plus_minus": -1,
+      "plus_minus": 0,
       "pim": 0,
-      "toi_pg": 14.497221666666665,
-      "ppg_raw": 869.8332999999999,
+      "toi_pg": 14.771428333333333,
+      "ppg_raw": 886.2856999999999,
       "faceoff_pct": 0.0,
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.035197519160985825,
+      "xgf_pg": 0.03055364201878943,
       "pbp_goals": 0,
       "pbp_assists": 1,
       "pbp_shots": 2
@@ -9024,82 +9024,82 @@
       "name": "Jack Hughes",
       "team": "NJD",
       "position": "C",
-      "gp": 6,
+      "gp": 7,
       "goals": 2,
-      "assists": 6,
-      "points": 8,
-      "shots": 25,
-      "gpg": 0.3333333333333333,
+      "assists": 7,
+      "points": 9,
+      "shots": 28,
+      "gpg": 0.2857142857142857,
       "apg": 1.0,
-      "ppg": 1.3333333333333333,
-      "sogpg": 4.166666666666667,
-      "sh_pct": 0.08,
-      "plus_minus": 1,
+      "ppg": 1.2857142857142858,
+      "sogpg": 4.0,
+      "sh_pct": 0.07142857142857142,
+      "plus_minus": 2,
       "pim": 0,
-      "toi_pg": 21.502778333333335,
-      "ppg_raw": 1290.1667000000002,
-      "faceoff_pct": 33.871,
+      "toi_pg": 20.94047666666667,
+      "ppg_raw": 1256.4286000000002,
+      "faceoff_pct": 30.985899999999997,
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 2,
-      "xgf_pg": 0.5404362810469104,
+      "xgf_pg": 0.5162048815789956,
       "pbp_goals": 2,
-      "pbp_assists": 6,
-      "pbp_shots": 25
+      "pbp_assists": 7,
+      "pbp_shots": 28
     },
     {
       "name": "Arseny Gritsyuk",
       "team": "NJD",
       "position": "R",
-      "gp": 6,
-      "goals": 1,
+      "gp": 7,
+      "goals": 2,
       "assists": 1,
-      "points": 2,
-      "shots": 11,
-      "gpg": 0.16666666666666666,
-      "apg": 0.16666666666666666,
-      "ppg": 0.3333333333333333,
-      "sogpg": 1.8333333333333333,
-      "sh_pct": 0.09090909090909091,
-      "plus_minus": -1,
+      "points": 3,
+      "shots": 13,
+      "gpg": 0.2857142857142857,
+      "apg": 0.14285714285714285,
+      "ppg": 0.42857142857142855,
+      "sogpg": 1.8571428571428572,
+      "sh_pct": 0.15384615384615385,
+      "plus_minus": 0,
       "pim": 0,
-      "toi_pg": 15.369445,
-      "ppg_raw": 922.1667,
+      "toi_pg": 15.592856666666668,
+      "ppg_raw": 935.5714,
       "faceoff_pct": 0.0,
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.2688904419914688,
-      "pbp_goals": 1,
+      "xgf_pg": 0.26411217290355005,
+      "pbp_goals": 2,
       "pbp_assists": 1,
-      "pbp_shots": 11
+      "pbp_shots": 13
     },
     {
       "name": "Dawson Mercer",
       "team": "NJD",
       "position": "C",
-      "gp": 6,
+      "gp": 7,
       "goals": 0,
-      "assists": 1,
-      "points": 1,
-      "shots": 15,
+      "assists": 3,
+      "points": 3,
+      "shots": 18,
       "gpg": 0.0,
-      "apg": 0.16666666666666666,
-      "ppg": 0.16666666666666666,
-      "sogpg": 2.5,
+      "apg": 0.42857142857142855,
+      "ppg": 0.42857142857142855,
+      "sogpg": 2.5714285714285716,
       "sh_pct": 0.0,
-      "plus_minus": -5,
+      "plus_minus": -2,
       "pim": 0,
-      "toi_pg": 14.575,
-      "ppg_raw": 874.5,
+      "toi_pg": 14.759523333333334,
+      "ppg_raw": 885.5714,
       "faceoff_pct": 0.0,
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.28716531474806456,
+      "xgf_pg": 0.2918331071814079,
       "pbp_goals": 0,
-      "pbp_assists": 1,
-      "pbp_shots": 15
+      "pbp_assists": 3,
+      "pbp_shots": 18
     },
     {
       "name": "Luke Evangelista",
@@ -9132,55 +9132,55 @@
       "name": "Luke Hughes",
       "team": "NJD",
       "position": "D",
-      "gp": 6,
-      "goals": 1,
+      "gp": 7,
+      "goals": 3,
       "assists": 1,
-      "points": 2,
-      "shots": 17,
-      "gpg": 0.16666666666666666,
-      "apg": 0.16666666666666666,
-      "ppg": 0.3333333333333333,
-      "sogpg": 2.8333333333333335,
-      "sh_pct": 0.058823529411764705,
-      "plus_minus": -2,
-      "pim": 4,
-      "toi_pg": 23.947221666666664,
-      "ppg_raw": 1436.8332999999998,
+      "points": 4,
+      "shots": 22,
+      "gpg": 0.42857142857142855,
+      "apg": 0.14285714285714285,
+      "ppg": 0.5714285714285714,
+      "sogpg": 3.142857142857143,
+      "sh_pct": 0.13636363636363635,
+      "plus_minus": 1,
+      "pim": 6,
+      "toi_pg": 24.092856666666666,
+      "ppg_raw": 1445.5714,
       "faceoff_pct": 0.0,
       "power_play_goals": 0,
       "short_handed_goals": 0,
-      "game_winning_goals": 0,
-      "xgf_pg": 0.22697024657826947,
-      "pbp_goals": 1,
+      "game_winning_goals": 1,
+      "xgf_pg": 0.2413620196531365,
+      "pbp_goals": 3,
       "pbp_assists": 1,
-      "pbp_shots": 17
+      "pbp_shots": 22
     },
     {
       "name": "Amadeus Lombardi",
       "team": "NJD",
       "position": "C",
-      "gp": 6,
+      "gp": 7,
       "goals": 0,
-      "assists": 1,
-      "points": 1,
-      "shots": 12,
+      "assists": 3,
+      "points": 3,
+      "shots": 14,
       "gpg": 0.0,
-      "apg": 0.16666666666666666,
-      "ppg": 0.16666666666666666,
+      "apg": 0.42857142857142855,
+      "ppg": 0.42857142857142855,
       "sogpg": 2.0,
       "sh_pct": 0.0,
-      "plus_minus": -4,
+      "plus_minus": -1,
       "pim": 8,
-      "toi_pg": 10.466666666666667,
-      "ppg_raw": 628.0,
-      "faceoff_pct": 0.0,
+      "toi_pg": 10.761905,
+      "ppg_raw": 645.7143,
+      "faceoff_pct": 25.0,
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.24167945638696775,
+      "xgf_pg": 0.23360708893969045,
       "pbp_goals": 0,
-      "pbp_assists": 1,
-      "pbp_shots": 12
+      "pbp_assists": 3,
+      "pbp_shots": 14
     },
     {
       "name": "Steven Stamkos",
@@ -9204,10 +9204,10 @@
       "power_play_goals": 2,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.36712101699015487,
-      "pbp_goals": 3,
+      "xgf_pg": 0.36037654226385646,
+      "pbp_goals": 4,
       "pbp_assists": 4,
-      "pbp_shots": 12
+      "pbp_shots": 14
     },
     {
       "name": "Roman Josi",
@@ -9231,10 +9231,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.11861819859335997,
+      "xgf_pg": 0.1789139739788795,
       "pbp_goals": 1,
-      "pbp_assists": 5,
-      "pbp_shots": 10
+      "pbp_assists": 6,
+      "pbp_shots": 18
     },
     {
       "name": "Ryan O'Reilly",
@@ -9258,10 +9258,10 @@
       "power_play_goals": 1,
       "short_handed_goals": 0,
       "game_winning_goals": 1,
-      "xgf_pg": 0.23588563800636783,
-      "pbp_goals": 3,
+      "xgf_pg": 0.35583039586493953,
+      "pbp_goals": 4,
       "pbp_assists": 3,
-      "pbp_shots": 11
+      "pbp_shots": 15
     },
     {
       "name": "Jonathan Marchessault",
@@ -9285,10 +9285,10 @@
       "power_play_goals": 1,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.2039255714886937,
+      "xgf_pg": 0.2078328056070991,
       "pbp_goals": 1,
-      "pbp_assists": 0,
-      "pbp_shots": 10
+      "pbp_assists": 1,
+      "pbp_shots": 12
     },
     {
       "name": "Brady Skjei",
@@ -9312,10 +9312,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.05970621180947944,
+      "xgf_pg": 0.07930970781040426,
       "pbp_goals": 0,
       "pbp_assists": 2,
-      "pbp_shots": 6
+      "pbp_shots": 7
     },
     {
       "name": "Filip Forsberg",
@@ -9339,10 +9339,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.330778054643361,
+      "xgf_pg": 0.4024501988455204,
       "pbp_goals": 0,
-      "pbp_assists": 5,
-      "pbp_shots": 17
+      "pbp_assists": 6,
+      "pbp_shots": 24
     },
     {
       "name": "Alexander Kerfoot",
@@ -9366,7 +9366,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.13639905052208717,
+      "xgf_pg": 0.14979807019963987,
       "pbp_goals": 1,
       "pbp_assists": 3,
       "pbp_shots": 5
@@ -9393,10 +9393,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.10956675557744194,
+      "xgf_pg": 0.1757228919624618,
       "pbp_goals": 1,
       "pbp_assists": 1,
-      "pbp_shots": 6
+      "pbp_shots": 8
     },
     {
       "name": "Nicolas Hague",
@@ -9420,10 +9420,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.026494072692760277,
+      "xgf_pg": 0.05396191702458102,
       "pbp_goals": 0,
       "pbp_assists": 1,
-      "pbp_shots": 2
+      "pbp_shots": 6
     },
     {
       "name": "Nick Perbix",
@@ -9474,7 +9474,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.18486582668512172,
+      "xgf_pg": 0.15177134864408615,
       "pbp_goals": 0,
       "pbp_assists": 1,
       "pbp_shots": 6
@@ -9501,10 +9501,10 @@
       "power_play_goals": 1,
       "short_handed_goals": 0,
       "game_winning_goals": 1,
-      "xgf_pg": 0.08452332214045717,
+      "xgf_pg": 0.08545968247629979,
       "pbp_goals": 3,
       "pbp_assists": 0,
-      "pbp_shots": 8
+      "pbp_shots": 10
     },
     {
       "name": "Adam Edstrom",
@@ -9528,10 +9528,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 1,
       "game_winning_goals": 0,
-      "xgf_pg": 0.26859709790183783,
+      "xgf_pg": 0.27337545135556246,
       "pbp_goals": 3,
       "pbp_assists": 0,
-      "pbp_shots": 11
+      "pbp_shots": 12
     },
     {
       "name": "Jack Ahcan",
@@ -9609,7 +9609,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.12999360054713946,
+      "xgf_pg": 0.11972262129429971,
       "pbp_goals": 0,
       "pbp_assists": 2,
       "pbp_shots": 7
@@ -9636,7 +9636,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.047618453223450985,
+      "xgf_pg": 0.047618453223451,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 1
@@ -9690,7 +9690,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.0916239036390789,
+      "xgf_pg": 0.0919514800569796,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 4
@@ -9717,10 +9717,10 @@
       "power_play_goals": 1,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.254102004079584,
+      "xgf_pg": 0.26754151312047286,
       "pbp_goals": 1,
       "pbp_assists": 1,
-      "pbp_shots": 9
+      "pbp_shots": 12
     },
     {
       "name": "Vitali Pinchuk",
@@ -9798,10 +9798,10 @@
       "power_play_goals": 1,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.25621512047822453,
+      "xgf_pg": 0.26562942988741056,
       "pbp_goals": 2,
       "pbp_assists": 3,
-      "pbp_shots": 13
+      "pbp_shots": 15
     },
     {
       "name": "Casey Cizikas",
@@ -9825,10 +9825,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 1,
       "game_winning_goals": 0,
-      "xgf_pg": 0.29782153150232094,
+      "xgf_pg": 0.2547749992841993,
       "pbp_goals": 1,
       "pbp_assists": 1,
-      "pbp_shots": 6
+      "pbp_shots": 7
     },
     {
       "name": "Ondrej Palat",
@@ -9852,10 +9852,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.2636447590692379,
+      "xgf_pg": 0.26145305772102184,
       "pbp_goals": 1,
       "pbp_assists": 1,
-      "pbp_shots": 7
+      "pbp_shots": 9
     },
     {
       "name": "Jean-Gabriel Pageau",
@@ -9879,10 +9879,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.1270544048461624,
+      "xgf_pg": 0.15637243353362662,
       "pbp_goals": 1,
       "pbp_assists": 2,
-      "pbp_shots": 6
+      "pbp_shots": 8
     },
     {
       "name": "Scott Mayfield",
@@ -9933,10 +9933,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.0668173886129291,
+      "xgf_pg": 0.05923789255778159,
       "pbp_goals": 0,
       "pbp_assists": 2,
-      "pbp_shots": 7
+      "pbp_shots": 8
     },
     {
       "name": "Anthony Duclair",
@@ -9960,10 +9960,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.22539627207015167,
+      "xgf_pg": 0.20079882925373835,
       "pbp_goals": 1,
       "pbp_assists": 0,
-      "pbp_shots": 7
+      "pbp_shots": 8
     },
     {
       "name": "Bo Horvat",
@@ -9987,10 +9987,10 @@
       "power_play_goals": 3,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.41537907593792817,
+      "xgf_pg": 0.47612984498563504,
       "pbp_goals": 4,
       "pbp_assists": 3,
-      "pbp_shots": 20
+      "pbp_shots": 25
     },
     {
       "name": "Ryan Pulock",
@@ -10014,7 +10014,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.03105562208357368,
+      "xgf_pg": 0.026336604367478905,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 1
@@ -10041,7 +10041,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.13431680373882324,
+      "xgf_pg": 0.11771180741465846,
       "pbp_goals": 1,
       "pbp_assists": 1,
       "pbp_shots": 9
@@ -10068,7 +10068,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.03271286197321104,
+      "xgf_pg": 0.04597463582079472,
       "pbp_goals": 0,
       "pbp_assists": 4,
       "pbp_shots": 4
@@ -10095,7 +10095,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.06796282019429048,
+      "xgf_pg": 0.0679628201942905,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 3
@@ -10122,10 +10122,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 1,
-      "xgf_pg": 0.09095774375473638,
+      "xgf_pg": 0.09817655645551979,
       "pbp_goals": 1,
       "pbp_assists": 1,
-      "pbp_shots": 6
+      "pbp_shots": 7
     },
     {
       "name": "Matias Maccelli",
@@ -10149,10 +10149,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.19059293567543434,
-      "pbp_goals": 1,
+      "xgf_pg": 0.1854615454187318,
+      "pbp_goals": 2,
       "pbp_assists": 4,
-      "pbp_shots": 11
+      "pbp_shots": 13
     },
     {
       "name": "Emil Heineman",
@@ -10176,10 +10176,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 1,
       "game_winning_goals": 1,
-      "xgf_pg": 0.24557422680292837,
+      "xgf_pg": 0.21692661498678922,
       "pbp_goals": 2,
       "pbp_assists": 0,
-      "pbp_shots": 8
+      "pbp_shots": 9
     },
     {
       "name": "Matthew Kessel",
@@ -10203,10 +10203,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.050835603742892234,
+      "xgf_pg": 0.03060278947901539,
       "pbp_goals": 0,
       "pbp_assists": 1,
-      "pbp_shots": 1
+      "pbp_shots": 2
     },
     {
       "name": "Calum Ritchie",
@@ -10230,10 +10230,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.16325594445073463,
+      "xgf_pg": 0.14400754557006215,
       "pbp_goals": 1,
       "pbp_assists": 1,
-      "pbp_shots": 6
+      "pbp_shots": 7
     },
     {
       "name": "Matthew Schaefer",
@@ -10257,10 +10257,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.258494152312094,
+      "xgf_pg": 0.27189713883671446,
       "pbp_goals": 0,
       "pbp_assists": 6,
-      "pbp_shots": 23
+      "pbp_shots": 26
     },
     {
       "name": "Victor Eklund",
@@ -10284,34 +10284,58 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.30101205273806386,
+      "xgf_pg": 0.2631384747303454,
       "pbp_goals": 1,
       "pbp_assists": 1,
       "pbp_shots": 8
     },
     {
+      "name": "Justin Dowling",
+      "team": "NYR",
+      "position": "C",
+      "gp": 1,
+      "goals": 0,
+      "assists": 0,
+      "points": 0,
+      "shots": 0,
+      "gpg": 0.0,
+      "apg": 0.0,
+      "ppg": 0.0,
+      "sogpg": 0.0,
+      "sh_pct": 0.0,
+      "plus_minus": -1,
+      "pim": 0,
+      "toi_pg": 7.683333333333334,
+      "ppg_raw": 461.0,
+      "faceoff_pct": 28.571400000000004,
+      "power_play_goals": 0,
+      "short_handed_goals": 0,
+      "game_winning_goals": 0,
+      "xgf_pg": 0.0
+    },
+    {
       "name": "Mika Zibanejad",
       "team": "NYR",
       "position": "C",
-      "gp": 8,
+      "gp": 9,
       "goals": 2,
       "assists": 6,
       "points": 8,
       "shots": 17,
-      "gpg": 0.25,
-      "apg": 0.75,
-      "ppg": 1.0,
-      "sogpg": 2.125,
+      "gpg": 0.2222222222222222,
+      "apg": 0.6666666666666666,
+      "ppg": 0.8888888888888888,
+      "sogpg": 1.8888888888888888,
       "sh_pct": 0.11764705882352941,
-      "plus_minus": 3,
+      "plus_minus": 0,
       "pim": 2,
-      "toi_pg": 20.608333333333334,
-      "ppg_raw": 1236.5,
-      "faceoff_pct": 58.823499999999996,
+      "toi_pg": 20.566666666666666,
+      "ppg_raw": 1234.0,
+      "faceoff_pct": 59.090900000000005,
       "power_play_goals": 1,
       "short_handed_goals": 1,
       "game_winning_goals": 0,
-      "xgf_pg": 0.24613134432927128,
+      "xgf_pg": 0.22702018754340628,
       "pbp_goals": 2,
       "pbp_assists": 6,
       "pbp_shots": 17
@@ -10320,25 +10344,25 @@
       "name": "J.T. Miller",
       "team": "NYR",
       "position": "C",
-      "gp": 8,
+      "gp": 9,
       "goals": 1,
       "assists": 5,
       "points": 6,
       "shots": 11,
-      "gpg": 0.125,
-      "apg": 0.625,
-      "ppg": 0.75,
-      "sogpg": 1.375,
+      "gpg": 0.1111111111111111,
+      "apg": 0.5555555555555556,
+      "ppg": 0.6666666666666666,
+      "sogpg": 1.2222222222222223,
       "sh_pct": 0.09090909090909091,
-      "plus_minus": 6,
+      "plus_minus": 2,
       "pim": 11,
-      "toi_pg": 18.233333333333334,
-      "ppg_raw": 1094.0,
-      "faceoff_pct": 57.3643,
+      "toi_pg": 18.146296666666668,
+      "ppg_raw": 1088.7778,
+      "faceoff_pct": 57.823100000000004,
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 1,
-      "xgf_pg": 0.2371377803538012,
+      "xgf_pg": 0.21154912662313835,
       "pbp_goals": 1,
       "pbp_assists": 5,
       "pbp_shots": 11
@@ -10347,47 +10371,47 @@
       "name": "Oliver Bjorkstrand",
       "team": "NYR",
       "position": "R",
-      "gp": 8,
+      "gp": 9,
       "goals": 2,
       "assists": 1,
       "points": 3,
-      "shots": 10,
-      "gpg": 0.25,
-      "apg": 0.125,
-      "ppg": 0.375,
-      "sogpg": 1.25,
-      "sh_pct": 0.2,
-      "plus_minus": 0,
+      "shots": 13,
+      "gpg": 0.2222222222222222,
+      "apg": 0.1111111111111111,
+      "ppg": 0.3333333333333333,
+      "sogpg": 1.4444444444444444,
+      "sh_pct": 0.15384615384615385,
+      "plus_minus": -1,
       "pim": 5,
-      "toi_pg": 10.5375,
-      "ppg_raw": 632.25,
+      "toi_pg": 10.707406666666667,
+      "ppg_raw": 642.4444000000001,
       "faceoff_pct": 0.0,
       "power_play_goals": 1,
       "short_handed_goals": 0,
       "game_winning_goals": 1,
-      "xgf_pg": 0.17674605010272743,
+      "xgf_pg": 0.21661111879195083,
       "pbp_goals": 2,
       "pbp_assists": 1,
-      "pbp_shots": 10
+      "pbp_shots": 13
     },
     {
       "name": "Marcus Pettersson",
       "team": "NYR",
       "position": "D",
-      "gp": 8,
+      "gp": 9,
       "goals": 0,
       "assists": 2,
       "points": 2,
       "shots": 6,
       "gpg": 0.0,
-      "apg": 0.25,
-      "ppg": 0.25,
-      "sogpg": 0.75,
+      "apg": 0.2222222222222222,
+      "ppg": 0.2222222222222222,
+      "sogpg": 0.6666666666666666,
       "sh_pct": 0.0,
-      "plus_minus": 5,
-      "pim": 2,
-      "toi_pg": 20.583333333333332,
-      "ppg_raw": 1235.0,
+      "plus_minus": 3,
+      "pim": 8,
+      "toi_pg": 20.411111666666667,
+      "ppg_raw": 1224.6667,
       "faceoff_pct": 0.0,
       "power_play_goals": 0,
       "short_handed_goals": 0,
@@ -10401,20 +10425,20 @@
       "name": "Vladislav Gavrikov",
       "team": "NYR",
       "position": "D",
-      "gp": 8,
+      "gp": 9,
       "goals": 1,
       "assists": 4,
       "points": 5,
       "shots": 11,
-      "gpg": 0.125,
-      "apg": 0.5,
-      "ppg": 0.625,
-      "sogpg": 1.375,
+      "gpg": 0.1111111111111111,
+      "apg": 0.4444444444444444,
+      "ppg": 0.5555555555555556,
+      "sogpg": 1.2222222222222223,
       "sh_pct": 0.09090909090909091,
-      "plus_minus": 6,
+      "plus_minus": 3,
       "pim": 0,
-      "toi_pg": 21.127083333333335,
-      "ppg_raw": 1267.625,
+      "toi_pg": 20.89259333333333,
+      "ppg_raw": 1253.5556,
       "faceoff_pct": 0.0,
       "power_play_goals": 0,
       "short_handed_goals": 0,
@@ -10428,52 +10452,52 @@
       "name": "Adam Fox",
       "team": "NYR",
       "position": "D",
-      "gp": 8,
+      "gp": 9,
       "goals": 0,
-      "assists": 8,
-      "points": 8,
-      "shots": 6,
+      "assists": 9,
+      "points": 9,
+      "shots": 10,
       "gpg": 0.0,
       "apg": 1.0,
       "ppg": 1.0,
-      "sogpg": 0.75,
+      "sogpg": 1.1111111111111112,
       "sh_pct": 0.0,
-      "plus_minus": 5,
+      "plus_minus": 1,
       "pim": 6,
-      "toi_pg": 21.560416666666665,
-      "ppg_raw": 1293.625,
+      "toi_pg": 21.19629666666667,
+      "ppg_raw": 1271.7778,
       "faceoff_pct": 0.0,
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.08329445856247061,
+      "xgf_pg": 0.08549291830050443,
       "pbp_goals": 0,
-      "pbp_assists": 8,
-      "pbp_shots": 6
+      "pbp_assists": 9,
+      "pbp_shots": 10
     },
     {
       "name": "Eeli Tolvanen",
       "team": "NYR",
       "position": "R",
-      "gp": 8,
+      "gp": 9,
       "goals": 3,
       "assists": 1,
       "points": 4,
       "shots": 11,
-      "gpg": 0.375,
-      "apg": 0.125,
-      "ppg": 0.5,
-      "sogpg": 1.375,
+      "gpg": 0.3333333333333333,
+      "apg": 0.1111111111111111,
+      "ppg": 0.4444444444444444,
+      "sogpg": 1.2222222222222223,
       "sh_pct": 0.2727272727272727,
       "plus_minus": 6,
       "pim": 2,
-      "toi_pg": 13.266666666666667,
-      "ppg_raw": 796.0,
+      "toi_pg": 13.225926666666666,
+      "ppg_raw": 793.5555999999999,
       "faceoff_pct": 0.0,
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.18303561103156757,
+      "xgf_pg": 0.1607666452167418,
       "pbp_goals": 3,
       "pbp_assists": 1,
       "pbp_shots": 11
@@ -10482,25 +10506,25 @@
       "name": "Sean Durzi",
       "team": "NYR",
       "position": "D",
-      "gp": 8,
+      "gp": 9,
       "goals": 1,
       "assists": 2,
       "points": 3,
       "shots": 4,
-      "gpg": 0.125,
-      "apg": 0.25,
-      "ppg": 0.375,
-      "sogpg": 0.5,
+      "gpg": 0.1111111111111111,
+      "apg": 0.2222222222222222,
+      "ppg": 0.3333333333333333,
+      "sogpg": 0.4444444444444444,
       "sh_pct": 0.25,
-      "plus_minus": 2,
+      "plus_minus": 0,
       "pim": 11,
-      "toi_pg": 20.39375,
-      "ppg_raw": 1223.625,
+      "toi_pg": 20.7,
+      "ppg_raw": 1242.0,
       "faceoff_pct": 0.0,
       "power_play_goals": 1,
       "short_handed_goals": 0,
       "game_winning_goals": 1,
-      "xgf_pg": 0.05230149833508384,
+      "xgf_pg": 0.05227370540298634,
       "pbp_goals": 1,
       "pbp_assists": 2,
       "pbp_shots": 4
@@ -10536,133 +10560,133 @@
       "name": "Pavel Dorofeyev",
       "team": "NYR",
       "position": "R",
-      "gp": 8,
-      "goals": 1,
+      "gp": 9,
+      "goals": 2,
       "assists": 2,
-      "points": 3,
-      "shots": 23,
-      "gpg": 0.125,
-      "apg": 0.25,
-      "ppg": 0.375,
-      "sogpg": 2.875,
-      "sh_pct": 0.043478260869565216,
-      "plus_minus": -4,
+      "points": 4,
+      "shots": 28,
+      "gpg": 0.2222222222222222,
+      "apg": 0.2222222222222222,
+      "ppg": 0.4444444444444444,
+      "sogpg": 3.111111111111111,
+      "sh_pct": 0.07142857142857142,
+      "plus_minus": -7,
       "pim": 0,
-      "toi_pg": 16.88125,
-      "ppg_raw": 1012.8750000000001,
+      "toi_pg": 17.112963333333333,
+      "ppg_raw": 1026.7778,
       "faceoff_pct": 0.0,
-      "power_play_goals": 0,
+      "power_play_goals": 1,
       "short_handed_goals": 0,
       "game_winning_goals": 1,
-      "xgf_pg": 0.3786837881209585,
-      "pbp_goals": 1,
+      "xgf_pg": 0.3911612323063031,
+      "pbp_goals": 2,
       "pbp_assists": 2,
-      "pbp_shots": 23
+      "pbp_shots": 28
     },
     {
       "name": "Tye Kartye",
       "team": "NYR",
       "position": "L",
-      "gp": 8,
+      "gp": 9,
       "goals": 2,
       "assists": 4,
       "points": 6,
-      "shots": 9,
-      "gpg": 0.25,
-      "apg": 0.5,
-      "ppg": 0.75,
-      "sogpg": 1.125,
-      "sh_pct": 0.2222222222222222,
-      "plus_minus": 4,
+      "shots": 10,
+      "gpg": 0.2222222222222222,
+      "apg": 0.4444444444444444,
+      "ppg": 0.6666666666666666,
+      "sogpg": 1.1111111111111112,
+      "sh_pct": 0.2,
+      "plus_minus": 1,
       "pim": 4,
-      "toi_pg": 15.154166666666667,
-      "ppg_raw": 909.25,
+      "toi_pg": 15.172221666666667,
+      "ppg_raw": 910.3333,
       "faceoff_pct": 33.3333,
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 1,
-      "xgf_pg": 0.21672682652145914,
+      "xgf_pg": 0.1891787298733181,
       "pbp_goals": 2,
       "pbp_assists": 4,
-      "pbp_shots": 9
+      "pbp_shots": 10
     },
     {
       "name": "Braden Schneider",
       "team": "NYR",
       "position": "D",
-      "gp": 8,
+      "gp": 9,
       "goals": 0,
       "assists": 1,
       "points": 1,
-      "shots": 9,
+      "shots": 11,
       "gpg": 0.0,
-      "apg": 0.125,
-      "ppg": 0.125,
-      "sogpg": 1.125,
+      "apg": 0.1111111111111111,
+      "ppg": 0.1111111111111111,
+      "sogpg": 1.2222222222222223,
       "sh_pct": 0.0,
-      "plus_minus": 4,
+      "plus_minus": 3,
       "pim": 6,
-      "toi_pg": 17.15,
-      "ppg_raw": 1029.0,
+      "toi_pg": 17.240740000000002,
+      "ppg_raw": 1034.4444,
       "faceoff_pct": 0.0,
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.04925241352449242,
+      "xgf_pg": 0.06052689588297777,
       "pbp_goals": 0,
       "pbp_assists": 1,
-      "pbp_shots": 9
+      "pbp_shots": 11
     },
     {
       "name": "Alexis Lafreni\u00e8re",
       "team": "NYR",
       "position": "L",
-      "gp": 8,
+      "gp": 9,
       "goals": 7,
-      "assists": 3,
-      "points": 10,
-      "shots": 18,
-      "gpg": 0.875,
-      "apg": 0.375,
-      "ppg": 1.25,
-      "sogpg": 2.25,
-      "sh_pct": 0.3888888888888889,
-      "plus_minus": 6,
-      "pim": 2,
-      "toi_pg": 19.141666666666666,
-      "ppg_raw": 1148.5,
-      "faceoff_pct": 57.1429,
+      "assists": 4,
+      "points": 11,
+      "shots": 19,
+      "gpg": 0.7777777777777778,
+      "apg": 0.4444444444444444,
+      "ppg": 1.2222222222222223,
+      "sogpg": 2.111111111111111,
+      "sh_pct": 0.3684210526315789,
+      "plus_minus": 2,
+      "pim": 12,
+      "toi_pg": 18.812963333333332,
+      "ppg_raw": 1128.7777999999998,
+      "faceoff_pct": 50.0,
       "power_play_goals": 2,
       "short_handed_goals": 0,
       "game_winning_goals": 1,
-      "xgf_pg": 0.35178157096561796,
+      "xgf_pg": 0.32492097000116216,
       "pbp_goals": 7,
-      "pbp_assists": 3,
-      "pbp_shots": 18
+      "pbp_assists": 4,
+      "pbp_shots": 19
     },
     {
       "name": "Will Cuylle",
       "team": "NYR",
       "position": "L",
-      "gp": 8,
+      "gp": 9,
       "goals": 3,
       "assists": 3,
       "points": 6,
       "shots": 22,
-      "gpg": 0.375,
-      "apg": 0.375,
-      "ppg": 0.75,
-      "sogpg": 2.75,
+      "gpg": 0.3333333333333333,
+      "apg": 0.3333333333333333,
+      "ppg": 0.6666666666666666,
+      "sogpg": 2.4444444444444446,
       "sh_pct": 0.13636363636363635,
-      "plus_minus": 1,
-      "pim": 13,
-      "toi_pg": 15.633333333333333,
-      "ppg_raw": 938.0,
-      "faceoff_pct": 55.172399999999996,
+      "plus_minus": 0,
+      "pim": 18,
+      "toi_pg": 15.687036666666666,
+      "ppg_raw": 941.2221999999999,
+      "faceoff_pct": 51.4286,
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.44633338121150584,
+      "xgf_pg": 0.4047664236775611,
       "pbp_goals": 3,
       "pbp_assists": 3,
       "pbp_shots": 22
@@ -10689,7 +10713,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.19963562737098065,
+      "xgf_pg": 0.19963562737098073,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 1
@@ -10698,7 +10722,7 @@
       "name": "Jaroslav Chmelar",
       "team": "NYR",
       "position": "R",
-      "gp": 6,
+      "gp": 7,
       "goals": 0,
       "assists": 0,
       "points": 0,
@@ -10706,17 +10730,17 @@
       "gpg": 0.0,
       "apg": 0.0,
       "ppg": 0.0,
-      "sogpg": 0.5,
+      "sogpg": 0.42857142857142855,
       "sh_pct": 0.0,
-      "plus_minus": -1,
+      "plus_minus": -2,
       "pim": 0,
-      "toi_pg": 8.188888333333333,
-      "ppg_raw": 491.33329999999995,
+      "toi_pg": 8.245238333333333,
+      "ppg_raw": 494.7143,
       "faceoff_pct": 0.0,
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.07002377474992945,
+      "xgf_pg": 0.06923025361196274,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 3
@@ -10725,25 +10749,25 @@
       "name": "Noah Laba",
       "team": "NYR",
       "position": "C",
-      "gp": 8,
+      "gp": 9,
       "goals": 0,
       "assists": 2,
       "points": 2,
       "shots": 7,
       "gpg": 0.0,
-      "apg": 0.25,
-      "ppg": 0.25,
-      "sogpg": 0.875,
+      "apg": 0.2222222222222222,
+      "ppg": 0.2222222222222222,
+      "sogpg": 0.7777777777777778,
       "sh_pct": 0.0,
       "plus_minus": 2,
-      "pim": 4,
-      "toi_pg": 14.783333333333333,
-      "ppg_raw": 887.0,
-      "faceoff_pct": 50.6024,
+      "pim": 6,
+      "toi_pg": 14.987036666666668,
+      "ppg_raw": 899.2222000000002,
+      "faceoff_pct": 52.57730000000001,
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.13738363273632606,
+      "xgf_pg": 0.1271122528559622,
       "pbp_goals": 0,
       "pbp_assists": 2,
       "pbp_shots": 7
@@ -10752,28 +10776,28 @@
       "name": "Gabe Perreault",
       "team": "NYR",
       "position": "R",
-      "gp": 8,
+      "gp": 9,
       "goals": 3,
       "assists": 3,
       "points": 6,
-      "shots": 12,
-      "gpg": 0.375,
-      "apg": 0.375,
-      "ppg": 0.75,
-      "sogpg": 1.5,
-      "sh_pct": 0.25,
-      "plus_minus": 1,
+      "shots": 13,
+      "gpg": 0.3333333333333333,
+      "apg": 0.3333333333333333,
+      "ppg": 0.6666666666666666,
+      "sogpg": 1.4444444444444444,
+      "sh_pct": 0.23076923076923078,
+      "plus_minus": 0,
       "pim": 0,
-      "toi_pg": 16.229166666666668,
-      "ppg_raw": 973.7500000000001,
+      "toi_pg": 16.164815,
+      "ppg_raw": 969.8889,
       "faceoff_pct": 0.0,
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.32227635444233277,
+      "xgf_pg": 0.2896086991220708,
       "pbp_goals": 3,
       "pbp_assists": 3,
-      "pbp_shots": 12
+      "pbp_shots": 13
     },
     {
       "name": "Cole Beaudoin",
@@ -10806,28 +10830,28 @@
       "name": "Alberts Smits",
       "team": "NYR",
       "position": "D",
-      "gp": 8,
+      "gp": 9,
       "goals": 0,
       "assists": 0,
       "points": 0,
-      "shots": 2,
+      "shots": 4,
       "gpg": 0.0,
       "apg": 0.0,
       "ppg": 0.0,
-      "sogpg": 0.25,
+      "sogpg": 0.4444444444444444,
       "sh_pct": 0.0,
-      "plus_minus": 1,
+      "plus_minus": 0,
       "pim": 4,
-      "toi_pg": 14.747916666666667,
-      "ppg_raw": 884.875,
+      "toi_pg": 15.0,
+      "ppg_raw": 900.0,
       "faceoff_pct": 0.0,
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.06545467462610115,
+      "xgf_pg": 0.06982622285123062,
       "pbp_goals": 0,
       "pbp_assists": 0,
-      "pbp_shots": 2
+      "pbp_shots": 4
     },
     {
       "name": "Claude Giroux",
@@ -10851,10 +10875,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.1420113728602416,
+      "xgf_pg": 0.18033464301206972,
       "pbp_goals": 1,
       "pbp_assists": 4,
-      "pbp_shots": 10
+      "pbp_shots": 12
     },
     {
       "name": "Nick Cousins",
@@ -10878,7 +10902,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.0779706087472564,
+      "xgf_pg": 0.0786604527493341,
       "pbp_goals": 1,
       "pbp_assists": 1,
       "pbp_shots": 3
@@ -10905,10 +10929,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.09041410812203456,
+      "xgf_pg": 0.09121390950899798,
       "pbp_goals": 0,
       "pbp_assists": 0,
-      "pbp_shots": 0
+      "pbp_shots": 2
     },
     {
       "name": "Warren Foegele",
@@ -10932,10 +10956,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.14220550028224233,
+      "xgf_pg": 0.13539963139024744,
       "pbp_goals": 0,
-      "pbp_assists": 1,
-      "pbp_shots": 3
+      "pbp_assists": 2,
+      "pbp_shots": 4
     },
     {
       "name": "Michael Amadio",
@@ -11013,7 +11037,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.19289525344562172,
+      "xgf_pg": 0.17157057469634832,
       "pbp_goals": 1,
       "pbp_assists": 3,
       "pbp_shots": 18
@@ -11040,7 +11064,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.0035246118515460862,
+      "xgf_pg": 0.0077519451247029724,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 0
@@ -11067,10 +11091,10 @@
       "power_play_goals": 1,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.1905067313891061,
+      "xgf_pg": 0.18104346344508188,
       "pbp_goals": 1,
       "pbp_assists": 2,
-      "pbp_shots": 14
+      "pbp_shots": 15
     },
     {
       "name": "Drake Batherson",
@@ -11094,10 +11118,10 @@
       "power_play_goals": 1,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.28744227143058065,
+      "xgf_pg": 0.36251751028798795,
       "pbp_goals": 3,
       "pbp_assists": 2,
-      "pbp_shots": 16
+      "pbp_shots": 19
     },
     {
       "name": "Dylan Cozens",
@@ -11121,10 +11145,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.21921552727871926,
+      "xgf_pg": 0.2250778924673649,
       "pbp_goals": 0,
       "pbp_assists": 2,
-      "pbp_shots": 14
+      "pbp_shots": 15
     },
     {
       "name": "Shane Pinto",
@@ -11148,10 +11172,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.3725536668569431,
-      "pbp_goals": 2,
+      "xgf_pg": 0.4321968702084,
+      "pbp_goals": 3,
       "pbp_assists": 5,
-      "pbp_shots": 12
+      "pbp_shots": 15
     },
     {
       "name": "Jordan Spence",
@@ -11175,7 +11199,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.07516408255052491,
+      "xgf_pg": 0.06684501868021057,
       "pbp_goals": 0,
       "pbp_assists": 1,
       "pbp_shots": 7
@@ -11202,10 +11226,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.16245082980640624,
-      "pbp_goals": 0,
+      "xgf_pg": 0.17193547798908448,
+      "pbp_goals": 1,
       "pbp_assists": 1,
-      "pbp_shots": 7
+      "pbp_shots": 9
     },
     {
       "name": "Tyler Kleven",
@@ -11229,10 +11253,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.061302878425552744,
+      "xgf_pg": 0.05404122761110335,
       "pbp_goals": 1,
       "pbp_assists": 1,
-      "pbp_shots": 7
+      "pbp_shots": 8
     },
     {
       "name": "Jake Sanderson",
@@ -11280,10 +11304,10 @@
       "power_play_goals": 1,
       "short_handed_goals": 1,
       "game_winning_goals": 1,
-      "xgf_pg": 0.3919247146741475,
+      "xgf_pg": 0.41113452159819286,
       "pbp_goals": 6,
       "pbp_assists": 6,
-      "pbp_shots": 14
+      "pbp_shots": 16
     },
     {
       "name": "William Eklund",
@@ -11361,10 +11385,10 @@
       "power_play_goals": 1,
       "short_handed_goals": 0,
       "game_winning_goals": 2,
-      "xgf_pg": 0.23665077535772383,
+      "xgf_pg": 0.255732832385422,
       "pbp_goals": 2,
       "pbp_assists": 1,
-      "pbp_shots": 7
+      "pbp_shots": 8
     },
     {
       "name": "Nikolas Matinpalo",
@@ -11442,10 +11466,10 @@
       "power_play_goals": 1,
       "short_handed_goals": 0,
       "game_winning_goals": 1,
-      "xgf_pg": 0.07898696533593949,
+      "xgf_pg": 0.07424813411503642,
       "pbp_goals": 1,
       "pbp_assists": 1,
-      "pbp_shots": 10
+      "pbp_shots": 11
     },
     {
       "name": "Garrett Wilson",
@@ -11493,10 +11517,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.03837689586565864,
+      "xgf_pg": 0.040313813309223616,
       "pbp_goals": 0,
       "pbp_assists": 2,
-      "pbp_shots": 4
+      "pbp_shots": 7
     },
     {
       "name": "Sean Couturier",
@@ -11520,7 +11544,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.1647491459338207,
+      "xgf_pg": 0.16474914593382073,
       "pbp_goals": 0,
       "pbp_assists": 2,
       "pbp_shots": 10
@@ -11574,10 +11598,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.13633715983748212,
+      "xgf_pg": 0.13475154016864796,
       "pbp_goals": 1,
       "pbp_assists": 2,
-      "pbp_shots": 14
+      "pbp_shots": 15
     },
     {
       "name": "Christian Dvorak",
@@ -11601,7 +11625,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.13241799179613073,
+      "xgf_pg": 0.1324179917961307,
       "pbp_goals": 2,
       "pbp_assists": 1,
       "pbp_shots": 9
@@ -11628,10 +11652,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.0762020394002914,
+      "xgf_pg": 0.11582895947804331,
       "pbp_goals": 0,
       "pbp_assists": 0,
-      "pbp_shots": 3
+      "pbp_shots": 6
     },
     {
       "name": "Travis Konecny",
@@ -11682,10 +11706,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.14497232525567924,
+      "xgf_pg": 0.13010107074821553,
       "pbp_goals": 0,
       "pbp_assists": 0,
-      "pbp_shots": 3
+      "pbp_shots": 4
     },
     {
       "name": "Carl Grundstrom",
@@ -11709,7 +11733,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.10076736556812822,
+      "xgf_pg": 0.10076736556812824,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 5
@@ -11736,10 +11760,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.2586881361381033,
+      "xgf_pg": 0.23722059346541796,
       "pbp_goals": 1,
       "pbp_assists": 1,
-      "pbp_shots": 20
+      "pbp_shots": 21
     },
     {
       "name": "Jack Studnicka",
@@ -11790,10 +11814,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.10412479155785234,
+      "xgf_pg": 0.11870588367957072,
       "pbp_goals": 0,
       "pbp_assists": 0,
-      "pbp_shots": 9
+      "pbp_shots": 10
     },
     {
       "name": "Simon Benoit",
@@ -11817,7 +11841,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.07047917162633481,
+      "xgf_pg": 0.07047917162633482,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 5
@@ -11844,10 +11868,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.2683322521337376,
+      "xgf_pg": 0.24474916282145306,
       "pbp_goals": 1,
       "pbp_assists": 2,
-      "pbp_shots": 12
+      "pbp_shots": 13
     },
     {
       "name": "Cam York",
@@ -11898,7 +11922,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.1305321146704311,
+      "xgf_pg": 0.12135471740935554,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 9
@@ -11925,10 +11949,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.24930754585979242,
+      "xgf_pg": 0.2539308084625141,
       "pbp_goals": 1,
       "pbp_assists": 0,
-      "pbp_shots": 18
+      "pbp_shots": 20
     },
     {
       "name": "Helge Grans",
@@ -11976,7 +12000,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.06236099093359936,
+      "xgf_pg": 0.06497641110988887,
       "pbp_goals": 0,
       "pbp_assists": 1,
       "pbp_shots": 6
@@ -12030,10 +12054,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.09866328496829632,
+      "xgf_pg": 0.0929981719766682,
       "pbp_goals": 0,
       "pbp_assists": 2,
-      "pbp_shots": 2
+      "pbp_shots": 3
     },
     {
       "name": "Oliver Bonk",
@@ -12057,10 +12081,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.12003165475599667,
+      "xgf_pg": 0.23105958763431014,
       "pbp_goals": 0,
       "pbp_assists": 1,
-      "pbp_shots": 3
+      "pbp_shots": 5
     },
     {
       "name": "Matvei Michkov",
@@ -12084,10 +12108,10 @@
       "power_play_goals": 1,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.1611534291004726,
-      "pbp_goals": 3,
+      "xgf_pg": 0.18070678546907246,
+      "pbp_goals": 4,
       "pbp_assists": 0,
-      "pbp_shots": 9
+      "pbp_shots": 10
     },
     {
       "name": "Porter Martone",
@@ -12111,10 +12135,10 @@
       "power_play_goals": 1,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.15316808287121442,
+      "xgf_pg": 0.14765006630681626,
       "pbp_goals": 1,
       "pbp_assists": 0,
-      "pbp_shots": 7
+      "pbp_shots": 8
     },
     {
       "name": "Evgeni Malkin",
@@ -12192,7 +12216,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.13435648776552803,
+      "xgf_pg": 0.13435648776552805,
       "pbp_goals": 0,
       "pbp_assists": 3,
       "pbp_shots": 15
@@ -12246,7 +12270,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.27826494342694885,
+      "xgf_pg": 0.2782649434269488,
       "pbp_goals": 2,
       "pbp_assists": 0,
       "pbp_shots": 6
@@ -12273,7 +12297,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.4053386995741271,
+      "xgf_pg": 0.40533869957412705,
       "pbp_goals": 1,
       "pbp_assists": 2,
       "pbp_shots": 16
@@ -12354,7 +12378,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.16151870876953042,
+      "xgf_pg": 0.16151870876953048,
       "pbp_goals": 1,
       "pbp_assists": 5,
       "pbp_shots": 10
@@ -12705,10 +12729,10 @@
       "power_play_goals": 1,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.48173835833777684,
+      "xgf_pg": 0.422947789640281,
       "pbp_goals": 3,
-      "pbp_assists": 3,
-      "pbp_shots": 17
+      "pbp_assists": 4,
+      "pbp_shots": 18
     },
     {
       "name": "Adam Larsson",
@@ -12732,10 +12756,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.04902004034066946,
+      "xgf_pg": 0.06220479015362245,
       "pbp_goals": 0,
       "pbp_assists": 1,
-      "pbp_shots": 7
+      "pbp_shots": 9
     },
     {
       "name": "Chandler Stephenson",
@@ -12759,9 +12783,9 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.1932692535322026,
+      "xgf_pg": 0.1735782834802745,
       "pbp_goals": 1,
-      "pbp_assists": 6,
+      "pbp_assists": 7,
       "pbp_shots": 5
     },
     {
@@ -12788,7 +12812,7 @@
       "game_winning_goals": 1,
       "xgf_pg": 0.21061944315773742,
       "pbp_goals": 4,
-      "pbp_assists": 1,
+      "pbp_assists": 2,
       "pbp_shots": 11
     },
     {
@@ -12813,10 +12837,10 @@
       "power_play_goals": 1,
       "short_handed_goals": 0,
       "game_winning_goals": 1,
-      "xgf_pg": 0.3445337401009046,
-      "pbp_goals": 2,
+      "xgf_pg": 0.34896038368963217,
+      "pbp_goals": 3,
       "pbp_assists": 5,
-      "pbp_shots": 21
+      "pbp_shots": 24
     },
     {
       "name": "Brandon Montour",
@@ -12840,10 +12864,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.15673585222455094,
+      "xgf_pg": 0.16955728830078648,
       "pbp_goals": 0,
       "pbp_assists": 5,
-      "pbp_shots": 11
+      "pbp_shots": 13
     },
     {
       "name": "Vince Dunn",
@@ -12867,10 +12891,10 @@
       "power_play_goals": 1,
       "short_handed_goals": 0,
       "game_winning_goals": 1,
-      "xgf_pg": 0.13924360894234425,
+      "xgf_pg": 0.15135368590768583,
       "pbp_goals": 2,
-      "pbp_assists": 4,
-      "pbp_shots": 12
+      "pbp_assists": 5,
+      "pbp_shots": 13
     },
     {
       "name": "Ryan Lindgren",
@@ -12921,10 +12945,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.07553916607219546,
+      "xgf_pg": 0.06495629850443217,
       "pbp_goals": 0,
       "pbp_assists": 2,
-      "pbp_shots": 2
+      "pbp_shots": 3
     },
     {
       "name": "Cale Fleury",
@@ -12975,7 +12999,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.06484730020784868,
+      "xgf_pg": 0.06484730020784871,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 1
@@ -13002,10 +13026,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.13204717729063803,
+      "xgf_pg": 0.110971043237795,
       "pbp_goals": 2,
       "pbp_assists": 4,
-      "pbp_shots": 6
+      "pbp_shots": 7
     },
     {
       "name": "Bobby McMann",
@@ -13029,10 +13053,10 @@
       "power_play_goals": 2,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.4000900245508934,
+      "xgf_pg": 0.3511555127535845,
       "pbp_goals": 4,
       "pbp_assists": 1,
-      "pbp_shots": 25
+      "pbp_shots": 26
     },
     {
       "name": "Matty Beniers",
@@ -13056,10 +13080,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.2238884131247414,
-      "pbp_goals": 2,
+      "xgf_pg": 0.2292250147981702,
+      "pbp_goals": 3,
       "pbp_assists": 2,
-      "pbp_shots": 9
+      "pbp_shots": 11
     },
     {
       "name": "Mackie Samoskevich",
@@ -13110,10 +13134,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.22166571101443036,
-      "pbp_goals": 1,
+      "xgf_pg": 0.2655693002022933,
+      "pbp_goals": 2,
       "pbp_assists": 4,
-      "pbp_shots": 10
+      "pbp_shots": 14
     },
     {
       "name": "Ryker Evans",
@@ -13137,10 +13161,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.04722299820203018,
+      "xgf_pg": 0.04781856160050009,
       "pbp_goals": 0,
       "pbp_assists": 3,
-      "pbp_shots": 4
+      "pbp_shots": 6
     },
     {
       "name": "Ville Ottavainen",
@@ -13164,10 +13188,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.06731697234330321,
+      "xgf_pg": 0.05888574581330597,
       "pbp_goals": 1,
       "pbp_assists": 0,
-      "pbp_shots": 4
+      "pbp_shots": 5
     },
     {
       "name": "Jacob Melanson",
@@ -13191,7 +13215,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.24452557466084943,
+      "xgf_pg": 0.24452557466084948,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 1
@@ -13218,10 +13242,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.34803897223216146,
+      "xgf_pg": 0.40865998313573526,
       "pbp_goals": 2,
       "pbp_assists": 1,
-      "pbp_shots": 12
+      "pbp_shots": 16
     },
     {
       "name": "Ben Meyers",
@@ -13272,10 +13296,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.2873522690398832,
+      "xgf_pg": 0.2883135108663119,
       "pbp_goals": 2,
       "pbp_assists": 2,
-      "pbp_shots": 13
+      "pbp_shots": 15
     },
     {
       "name": "Dmitry Orlov",
@@ -13299,10 +13323,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.052050605654695846,
+      "xgf_pg": 0.04604833885945415,
       "pbp_goals": 0,
       "pbp_assists": 2,
-      "pbp_shots": 3
+      "pbp_shots": 5
     },
     {
       "name": "Tyler Toffoli",
@@ -13326,10 +13350,10 @@
       "power_play_goals": 1,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.27033407045302404,
+      "xgf_pg": 0.26516097294346413,
       "pbp_goals": 2,
-      "pbp_assists": 2,
-      "pbp_shots": 17
+      "pbp_assists": 3,
+      "pbp_shots": 20
     },
     {
       "name": "Barclay Goodrow",
@@ -13353,10 +13377,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.11293539376107443,
+      "xgf_pg": 0.1378258711082994,
       "pbp_goals": 0,
       "pbp_assists": 0,
-      "pbp_shots": 6
+      "pbp_shots": 10
     },
     {
       "name": "Jacob Trouba",
@@ -13380,10 +13404,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.10188810280414866,
+      "xgf_pg": 0.08842441376348138,
       "pbp_goals": 1,
       "pbp_assists": 2,
-      "pbp_shots": 11
+      "pbp_shots": 12
     },
     {
       "name": "Darnell Nurse",
@@ -13434,9 +13458,9 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.21181391635495864,
+      "xgf_pg": 0.20829622989618063,
       "pbp_goals": 0,
-      "pbp_assists": 1,
+      "pbp_assists": 2,
       "pbp_shots": 11
     },
     {
@@ -13461,10 +13485,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.1268589443321587,
-      "pbp_goals": 1,
+      "xgf_pg": 0.14639007548198663,
+      "pbp_goals": 2,
       "pbp_assists": 0,
-      "pbp_shots": 11
+      "pbp_shots": 13
     },
     {
       "name": "Kiefer Sherwood",
@@ -13488,10 +13512,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.1286966182651882,
+      "xgf_pg": 0.19047358567292957,
       "pbp_goals": 1,
       "pbp_assists": 1,
-      "pbp_shots": 6
+      "pbp_shots": 11
     },
     {
       "name": "Ty Dellandrea",
@@ -13515,7 +13539,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.07071791216936239,
+      "xgf_pg": 0.07071791216936238,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 1
@@ -13542,10 +13566,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.0281659926331414,
+      "xgf_pg": 0.0384224964714977,
       "pbp_goals": 0,
-      "pbp_assists": 0,
-      "pbp_shots": 5
+      "pbp_assists": 1,
+      "pbp_shots": 6
     },
     {
       "name": "Nolan Allan",
@@ -13569,7 +13593,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.10294060271401856,
+      "xgf_pg": 0.08470470570923504,
       "pbp_goals": 1,
       "pbp_assists": 0,
       "pbp_shots": 3
@@ -13596,10 +13620,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.17534791384618775,
+      "xgf_pg": 0.14661312237325544,
       "pbp_goals": 0,
       "pbp_assists": 0,
-      "pbp_shots": 6
+      "pbp_shots": 7
     },
     {
       "name": "Luca Cagnoni",
@@ -13623,10 +13647,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 1,
-      "xgf_pg": 0.11585911986220836,
+      "xgf_pg": 0.11654790100616266,
       "pbp_goals": 1,
       "pbp_assists": 1,
-      "pbp_shots": 9
+      "pbp_shots": 11
     },
     {
       "name": "Will Smith",
@@ -13650,10 +13674,10 @@
       "power_play_goals": 1,
       "short_handed_goals": 1,
       "game_winning_goals": 0,
-      "xgf_pg": 0.23024694420925362,
-      "pbp_goals": 2,
+      "xgf_pg": 0.27971832564022836,
+      "pbp_goals": 3,
       "pbp_assists": 2,
-      "pbp_shots": 11
+      "pbp_shots": 16
     },
     {
       "name": "Macklin Celebrini",
@@ -13677,10 +13701,10 @@
       "power_play_goals": 1,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.26527115457546613,
-      "pbp_goals": 2,
+      "xgf_pg": 0.409132146685967,
+      "pbp_goals": 3,
       "pbp_assists": 6,
-      "pbp_shots": 16
+      "pbp_shots": 20
     },
     {
       "name": "Sam Dickinson",
@@ -13704,10 +13728,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.019756898169219602,
+      "xgf_pg": 0.038730441344082385,
       "pbp_goals": 0,
       "pbp_assists": 1,
-      "pbp_shots": 1
+      "pbp_shots": 2
     },
     {
       "name": "Collin Graf",
@@ -13731,7 +13755,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.14246935751556833,
+      "xgf_pg": 0.131031745528189,
       "pbp_goals": 1,
       "pbp_assists": 0,
       "pbp_shots": 7
@@ -13758,9 +13782,9 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 1,
-      "xgf_pg": 0.15707790215280784,
+      "xgf_pg": 0.14588719531890484,
       "pbp_goals": 2,
-      "pbp_assists": 1,
+      "pbp_assists": 2,
       "pbp_shots": 7
     },
     {
@@ -13785,10 +13809,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.21436430504342077,
+      "xgf_pg": 0.2106505926856595,
       "pbp_goals": 0,
       "pbp_assists": 3,
-      "pbp_shots": 5
+      "pbp_shots": 6
     },
     {
       "name": "Ivar Stenberg",
@@ -13812,10 +13836,10 @@
       "power_play_goals": 1,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.21082014102468824,
+      "xgf_pg": 0.2959604772734257,
       "pbp_goals": 1,
       "pbp_assists": 3,
-      "pbp_shots": 7
+      "pbp_shots": 9
     },
     {
       "name": "Cam Fowler",
@@ -13839,10 +13863,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.0548050474851344,
+      "xgf_pg": 0.07913029448527552,
       "pbp_goals": 0,
-      "pbp_assists": 1,
-      "pbp_shots": 6
+      "pbp_assists": 4,
+      "pbp_shots": 9
     },
     {
       "name": "Colton Parayko",
@@ -13866,10 +13890,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.10973404829668985,
+      "xgf_pg": 0.12028078492496386,
       "pbp_goals": 0,
-      "pbp_assists": 3,
-      "pbp_shots": 8
+      "pbp_assists": 4,
+      "pbp_shots": 11
     },
     {
       "name": "Pavel Buchnevich",
@@ -13893,7 +13917,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.22335898119262487,
+      "xgf_pg": 0.2233589811926249,
       "pbp_goals": 1,
       "pbp_assists": 4,
       "pbp_shots": 8
@@ -13920,7 +13944,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.11995607867983371,
+      "xgf_pg": 0.11995607867983372,
       "pbp_goals": 0,
       "pbp_assists": 1,
       "pbp_shots": 3
@@ -13947,7 +13971,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.03909684421282789,
+      "xgf_pg": 0.0390968442128279,
       "pbp_goals": 0,
       "pbp_assists": 1,
       "pbp_shots": 4
@@ -14001,10 +14025,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.18254249466409184,
-      "pbp_goals": 0,
-      "pbp_assists": 2,
-      "pbp_shots": 6
+      "xgf_pg": 0.23039169670131576,
+      "pbp_goals": 1,
+      "pbp_assists": 3,
+      "pbp_shots": 9
     },
     {
       "name": "Alexey Toropchenko",
@@ -14055,9 +14079,9 @@
       "power_play_goals": 0,
       "short_handed_goals": 1,
       "game_winning_goals": 0,
-      "xgf_pg": 0.16923732224617904,
+      "xgf_pg": 0.16633439376957554,
       "pbp_goals": 3,
-      "pbp_assists": 2,
+      "pbp_assists": 3,
       "pbp_shots": 11
     },
     {
@@ -14082,10 +14106,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 1,
-      "xgf_pg": 0.15023001498904984,
-      "pbp_goals": 1,
+      "xgf_pg": 0.15710715589453716,
+      "pbp_goals": 2,
       "pbp_assists": 2,
-      "pbp_shots": 6
+      "pbp_shots": 8
     },
     {
       "name": "Connor McMichael",
@@ -14109,7 +14133,7 @@
       "power_play_goals": 1,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.29882355680494604,
+      "xgf_pg": 0.27275880817842685,
       "pbp_goals": 2,
       "pbp_assists": 4,
       "pbp_shots": 11
@@ -14136,7 +14160,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.12776602623068473,
+      "xgf_pg": 0.1160606061724017,
       "pbp_goals": 0,
       "pbp_assists": 3,
       "pbp_shots": 9
@@ -14163,10 +14187,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.1955284787997036,
-      "pbp_goals": 0,
+      "xgf_pg": 0.2089787023550024,
+      "pbp_goals": 1,
       "pbp_assists": 4,
-      "pbp_shots": 10
+      "pbp_shots": 12
     },
     {
       "name": "Jake Neighbours",
@@ -14190,10 +14214,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.1678428218243576,
+      "xgf_pg": 0.15546355191640446,
       "pbp_goals": 3,
       "pbp_assists": 0,
-      "pbp_shots": 9
+      "pbp_shots": 10
     },
     {
       "name": "Justin Barron",
@@ -14217,10 +14241,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.08460530825070378,
+      "xgf_pg": 0.1030269537648302,
       "pbp_goals": 0,
       "pbp_assists": 1,
-      "pbp_shots": 3
+      "pbp_shots": 5
     },
     {
       "name": "Dylan Peterson",
@@ -14268,10 +14292,10 @@
       "power_play_goals": 1,
       "short_handed_goals": 0,
       "game_winning_goals": 2,
-      "xgf_pg": 0.6471927888410395,
-      "pbp_goals": 4,
+      "xgf_pg": 0.631486628706346,
+      "pbp_goals": 5,
       "pbp_assists": 3,
-      "pbp_shots": 23
+      "pbp_shots": 27
     },
     {
       "name": "Zach Dean",
@@ -14319,10 +14343,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.2576256777946357,
+      "xgf_pg": 0.2661340866719597,
       "pbp_goals": 3,
       "pbp_assists": 1,
-      "pbp_shots": 14
+      "pbp_shots": 17
     },
     {
       "name": "Dalibor Dvorsky",
@@ -14346,10 +14370,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.18367630041254382,
+      "xgf_pg": 0.1707538212628033,
       "pbp_goals": 2,
-      "pbp_assists": 0,
-      "pbp_shots": 10
+      "pbp_assists": 1,
+      "pbp_shots": 11
     },
     {
       "name": "Theo Lindstein",
@@ -14373,7 +14397,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.030715866646160345,
+      "xgf_pg": 0.030715866646160356,
       "pbp_goals": 0,
       "pbp_assists": 1,
       "pbp_shots": 2
@@ -14400,10 +14424,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.17131283587926963,
+      "xgf_pg": 0.1533347840405854,
       "pbp_goals": 1,
       "pbp_assists": 0,
-      "pbp_shots": 12
+      "pbp_shots": 13
     },
     {
       "name": "Ryan McDonagh",
@@ -14427,10 +14451,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.0283406736983065,
+      "xgf_pg": 0.047113546028096004,
       "pbp_goals": 0,
       "pbp_assists": 1,
-      "pbp_shots": 3
+      "pbp_shots": 5
     },
     {
       "name": "John Carlson",
@@ -14454,10 +14478,10 @@
       "power_play_goals": 1,
       "short_handed_goals": 0,
       "game_winning_goals": 1,
-      "xgf_pg": 0.2255247972700493,
+      "xgf_pg": 0.21540543917835264,
       "pbp_goals": 2,
       "pbp_assists": 2,
-      "pbp_shots": 18
+      "pbp_shots": 19
     },
     {
       "name": "Victor Hedman",
@@ -14481,10 +14505,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.07051825338387022,
-      "pbp_goals": 0,
+      "xgf_pg": 0.10419715153301679,
+      "pbp_goals": 1,
       "pbp_assists": 2,
-      "pbp_shots": 5
+      "pbp_shots": 7
     },
     {
       "name": "Nikita Kucherov",
@@ -14508,10 +14532,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.20240147150409205,
+      "xgf_pg": 0.25964636735281565,
       "pbp_goals": 1,
       "pbp_assists": 7,
-      "pbp_shots": 9
+      "pbp_shots": 17
     },
     {
       "name": "Zemgus Girgensons",
@@ -14535,10 +14559,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.17355102632441274,
+      "xgf_pg": 0.155110293367281,
       "pbp_goals": 1,
       "pbp_assists": 1,
-      "pbp_shots": 8
+      "pbp_shots": 9
     },
     {
       "name": "Scott Sabourin",
@@ -14589,10 +14613,10 @@
       "power_play_goals": 1,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.34935881198544366,
+      "xgf_pg": 0.3649920544691618,
       "pbp_goals": 3,
-      "pbp_assists": 3,
-      "pbp_shots": 16
+      "pbp_assists": 4,
+      "pbp_shots": 18
     },
     {
       "name": "Brayden Point",
@@ -14616,10 +14640,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.4440239437211078,
+      "xgf_pg": 0.4001842302675079,
       "pbp_goals": 1,
-      "pbp_assists": 2,
-      "pbp_shots": 15
+      "pbp_assists": 3,
+      "pbp_shots": 16
     },
     {
       "name": "Erik Cernak",
@@ -14643,10 +14667,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.11411167693050649,
+      "xgf_pg": 0.10516677455860421,
       "pbp_goals": 0,
       "pbp_assists": 1,
-      "pbp_shots": 9
+      "pbp_shots": 12
     },
     {
       "name": "Jansen Harkins",
@@ -14697,10 +14721,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.20401487930475395,
+      "xgf_pg": 0.18781812167015327,
       "pbp_goals": 1,
-      "pbp_assists": 1,
-      "pbp_shots": 10
+      "pbp_assists": 2,
+      "pbp_shots": 11
     },
     {
       "name": "Brandon Hagel",
@@ -14724,10 +14748,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 1,
-      "xgf_pg": 0.5635720885434702,
-      "pbp_goals": 4,
+      "xgf_pg": 0.6124389140032235,
+      "pbp_goals": 6,
       "pbp_assists": 4,
-      "pbp_shots": 27
+      "pbp_shots": 33
     },
     {
       "name": "Jeffrey Viel",
@@ -14751,7 +14775,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.20118793744439883,
+      "xgf_pg": 0.18347358903809555,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 6
@@ -14805,10 +14829,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 1,
-      "xgf_pg": 0.2705284120975323,
+      "xgf_pg": 0.2628552750763642,
       "pbp_goals": 1,
-      "pbp_assists": 2,
-      "pbp_shots": 10
+      "pbp_assists": 3,
+      "pbp_shots": 11
     },
     {
       "name": "Ilya Mikheyev",
@@ -14832,10 +14856,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.18619051341815598,
-      "pbp_goals": 1,
+      "xgf_pg": 0.22307064547212133,
+      "pbp_goals": 2,
       "pbp_assists": 2,
-      "pbp_shots": 5
+      "pbp_shots": 8
     },
     {
       "name": "Max Crozier",
@@ -14859,10 +14883,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.09011901112028649,
+      "xgf_pg": 0.0754423631702795,
       "pbp_goals": 0,
       "pbp_assists": 2,
-      "pbp_shots": 7
+      "pbp_shots": 8
     },
     {
       "name": "Gage Goncalves",
@@ -14913,10 +14937,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.154240115495968,
+      "xgf_pg": 0.15580773424237102,
       "pbp_goals": 0,
       "pbp_assists": 0,
-      "pbp_shots": 5
+      "pbp_shots": 7
     },
     {
       "name": "Emil Lilleberg",
@@ -14940,7 +14964,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.08831383474216618,
+      "xgf_pg": 0.049109439406098056,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 1
@@ -14967,7 +14991,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 1,
-      "xgf_pg": 0.2210873066374369,
+      "xgf_pg": 0.22108730663743692,
       "pbp_goals": 1,
       "pbp_assists": 0,
       "pbp_shots": 8
@@ -14996,7 +15020,7 @@
       "game_winning_goals": 0,
       "xgf_pg": 0.5350206582287674,
       "pbp_goals": 2,
-      "pbp_assists": 3,
+      "pbp_assists": 5,
       "pbp_shots": 18
     },
     {
@@ -15075,10 +15099,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.08871539028620479,
+      "xgf_pg": 0.08798358062233846,
       "pbp_goals": 0,
       "pbp_assists": 4,
-      "pbp_shots": 7
+      "pbp_shots": 10
     },
     {
       "name": "Colton Sissons",
@@ -15102,9 +15126,9 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.1908243519705055,
+      "xgf_pg": 0.17333931572908975,
       "pbp_goals": 1,
-      "pbp_assists": 0,
+      "pbp_assists": 1,
       "pbp_shots": 9
     },
     {
@@ -15129,10 +15153,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.057530789951229594,
+      "xgf_pg": 0.08708818189402263,
       "pbp_goals": 0,
       "pbp_assists": 0,
-      "pbp_shots": 4
+      "pbp_shots": 7
     },
     {
       "name": "Jake McCabe",
@@ -15183,10 +15207,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.29027129393476353,
+      "xgf_pg": 0.25690382736429523,
       "pbp_goals": 1,
       "pbp_assists": 3,
-      "pbp_shots": 7
+      "pbp_shots": 8
     },
     {
       "name": "William Nylander",
@@ -15210,10 +15234,10 @@
       "power_play_goals": 2,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.6111331848696409,
+      "xgf_pg": 0.6082962723134905,
       "pbp_goals": 5,
       "pbp_assists": 7,
-      "pbp_shots": 23
+      "pbp_shots": 28
     },
     {
       "name": "Darren Raddysh",
@@ -15237,10 +15261,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.1659388738139076,
+      "xgf_pg": 0.1570611045658677,
       "pbp_goals": 0,
-      "pbp_assists": 3,
-      "pbp_shots": 15
+      "pbp_assists": 4,
+      "pbp_shots": 18
     },
     {
       "name": "Jack Roslovic",
@@ -15264,10 +15288,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.3873622414447695,
+      "xgf_pg": 0.3924790067575307,
       "pbp_goals": 3,
-      "pbp_assists": 2,
-      "pbp_shots": 20
+      "pbp_assists": 3,
+      "pbp_shots": 25
     },
     {
       "name": "Auston Matthews",
@@ -15291,10 +15315,10 @@
       "power_play_goals": 2,
       "short_handed_goals": 0,
       "game_winning_goals": 1,
-      "xgf_pg": 0.4883300390306129,
-      "pbp_goals": 5,
+      "xgf_pg": 0.4443372169271659,
+      "pbp_goals": 6,
       "pbp_assists": 7,
-      "pbp_shots": 26
+      "pbp_shots": 27
     },
     {
       "name": "Troy Stecher",
@@ -15318,10 +15342,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.033165165081814704,
+      "xgf_pg": 0.03306999177398488,
       "pbp_goals": 0,
       "pbp_assists": 0,
-      "pbp_shots": 5
+      "pbp_shots": 6
     },
     {
       "name": "Brandon Duhaime",
@@ -15372,7 +15396,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.0
+      "xgf_pg": 0.0021239880429678726,
+      "pbp_goals": 0,
+      "pbp_assists": 0,
+      "pbp_shots": 0
     },
     {
       "name": "Bo Groulx",
@@ -15423,10 +15450,10 @@
       "power_play_goals": 1,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.40750615961977804,
-      "pbp_goals": 2,
+      "xgf_pg": 0.4009641554617779,
+      "pbp_goals": 5,
       "pbp_assists": 5,
-      "pbp_shots": 18
+      "pbp_shots": 21
     },
     {
       "name": "Marshall Rifai",
@@ -15474,10 +15501,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.06650791758420886,
+      "xgf_pg": 0.11293938330497649,
       "pbp_goals": 1,
       "pbp_assists": 0,
-      "pbp_shots": 1
+      "pbp_shots": 3
     },
     {
       "name": "Easton Cowan",
@@ -15501,10 +15528,10 @@
       "power_play_goals": 1,
       "short_handed_goals": 0,
       "game_winning_goals": 2,
-      "xgf_pg": 0.1831308301047748,
+      "xgf_pg": 0.18338841004379106,
       "pbp_goals": 3,
-      "pbp_assists": 2,
-      "pbp_shots": 15
+      "pbp_assists": 3,
+      "pbp_shots": 17
     },
     {
       "name": "Gavin McKenna",
@@ -15528,10 +15555,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.2044658251947715,
+      "xgf_pg": 0.20670000334143193,
       "pbp_goals": 2,
       "pbp_assists": 3,
-      "pbp_shots": 12
+      "pbp_shots": 13
     },
     {
       "name": "Anders Lee",
@@ -15555,7 +15582,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.44948558381012427,
+      "xgf_pg": 0.3947495347742458,
       "pbp_goals": 2,
       "pbp_assists": 3,
       "pbp_shots": 14
@@ -15582,9 +15609,9 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.4230463076757048,
+      "xgf_pg": 0.3645332876722075,
       "pbp_goals": 2,
-      "pbp_assists": 1,
+      "pbp_assists": 2,
       "pbp_shots": 10
     },
     {
@@ -15609,10 +15636,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.10084096235295274,
+      "xgf_pg": 0.09274402719853986,
       "pbp_goals": 0,
       "pbp_assists": 1,
-      "pbp_shots": 9
+      "pbp_shots": 11
     },
     {
       "name": "MacKenzie Weegar",
@@ -15636,7 +15663,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 1,
-      "xgf_pg": 0.136904346887602,
+      "xgf_pg": 0.12084673655113778,
       "pbp_goals": 2,
       "pbp_assists": 0,
       "pbp_shots": 13
@@ -15663,10 +15690,10 @@
       "power_play_goals": 4,
       "short_handed_goals": 0,
       "game_winning_goals": 2,
-      "xgf_pg": 0.4854804478114763,
+      "xgf_pg": 0.42892524381424424,
       "pbp_goals": 6,
-      "pbp_assists": 3,
-      "pbp_shots": 25
+      "pbp_assists": 5,
+      "pbp_shots": 26
     },
     {
       "name": "Lawson Crouse",
@@ -15690,10 +15717,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 1,
-      "xgf_pg": 0.15283420919356527,
+      "xgf_pg": 0.19440938962444257,
       "pbp_goals": 1,
-      "pbp_assists": 1,
-      "pbp_shots": 12
+      "pbp_assists": 2,
+      "pbp_shots": 15
     },
     {
       "name": "John Marino",
@@ -15719,7 +15746,7 @@
       "game_winning_goals": 0,
       "xgf_pg": 0.0803606251940464,
       "pbp_goals": 1,
-      "pbp_assists": 2,
+      "pbp_assists": 3,
       "pbp_shots": 6
     },
     {
@@ -15744,7 +15771,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.10324953341701994,
+      "xgf_pg": 0.0888802284701186,
       "pbp_goals": 0,
       "pbp_assists": 2,
       "pbp_shots": 5
@@ -15771,10 +15798,10 @@
       "power_play_goals": 1,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.30962638398904346,
-      "pbp_goals": 1,
+      "xgf_pg": 0.28750529170177264,
+      "pbp_goals": 3,
       "pbp_assists": 8,
-      "pbp_shots": 17
+      "pbp_shots": 21
     },
     {
       "name": "Andrew Peeke",
@@ -15798,10 +15825,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.06796632893065947,
+      "xgf_pg": 0.06760718517027717,
       "pbp_goals": 1,
       "pbp_assists": 2,
-      "pbp_shots": 6
+      "pbp_shots": 7
     },
     {
       "name": "Mikhail Sergachev",
@@ -15825,10 +15852,10 @@
       "power_play_goals": 1,
       "short_handed_goals": 1,
       "game_winning_goals": 0,
-      "xgf_pg": 0.17475241234968514,
+      "xgf_pg": 0.1742698089434195,
       "pbp_goals": 2,
       "pbp_assists": 7,
-      "pbp_shots": 17
+      "pbp_shots": 19
     },
     {
       "name": "Michael Carcone",
@@ -15852,7 +15879,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.3564295499732129,
+      "xgf_pg": 0.35642954997321297,
       "pbp_goals": 1,
       "pbp_assists": 1,
       "pbp_shots": 17
@@ -15879,10 +15906,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.28419499462020315,
+      "xgf_pg": 0.37031128127781826,
       "pbp_goals": 1,
-      "pbp_assists": 2,
-      "pbp_shots": 4
+      "pbp_assists": 3,
+      "pbp_shots": 8
     },
     {
       "name": "Barrett Hayton",
@@ -15906,10 +15933,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.3883380650534766,
-      "pbp_goals": 0,
+      "xgf_pg": 0.36334012223948964,
+      "pbp_goals": 1,
       "pbp_assists": 5,
-      "pbp_shots": 13
+      "pbp_shots": 14
     },
     {
       "name": "Jack McBain",
@@ -15933,7 +15960,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.21015682489656118,
+      "xgf_pg": 0.21246875986568156,
       "pbp_goals": 1,
       "pbp_assists": 1,
       "pbp_shots": 7
@@ -15960,10 +15987,10 @@
       "power_play_goals": 3,
       "short_handed_goals": 0,
       "game_winning_goals": 1,
-      "xgf_pg": 0.37797560411179193,
+      "xgf_pg": 0.3638302935596188,
       "pbp_goals": 4,
-      "pbp_assists": 4,
-      "pbp_shots": 24
+      "pbp_assists": 5,
+      "pbp_shots": 26
     },
     {
       "name": "Logan Cooley",
@@ -15987,10 +16014,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.15175364509656145,
-      "pbp_goals": 0,
-      "pbp_assists": 6,
-      "pbp_shots": 5
+      "xgf_pg": 0.18683063875608177,
+      "pbp_goals": 1,
+      "pbp_assists": 7,
+      "pbp_shots": 8
     },
     {
       "name": "Dmitri Simashev",
@@ -16014,7 +16041,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.11355153498564785,
+      "xgf_pg": 0.1135515349856479,
       "pbp_goals": 0,
       "pbp_assists": 2,
       "pbp_shots": 7
@@ -16041,10 +16068,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.2510549449223991,
+      "xgf_pg": 0.21550760516802875,
       "pbp_goals": 2,
       "pbp_assists": 0,
-      "pbp_shots": 8
+      "pbp_shots": 9
     },
     {
       "name": "Luke Schenn",
@@ -16095,10 +16122,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.2203374743140833,
+      "xgf_pg": 0.22292546797686968,
       "pbp_goals": 0,
       "pbp_assists": 1,
-      "pbp_shots": 8
+      "pbp_shots": 9
     },
     {
       "name": "Jamie Oleksiak",
@@ -16122,10 +16149,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.03865434353349595,
+      "xgf_pg": 0.03921710527990036,
       "pbp_goals": 1,
       "pbp_assists": 3,
-      "pbp_shots": 3
+      "pbp_shots": 5
     },
     {
       "name": "Brock Boeser",
@@ -16149,9 +16176,9 @@
       "power_play_goals": 1,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.16440521017048038,
+      "xgf_pg": 0.16918139153849868,
       "pbp_goals": 2,
-      "pbp_assists": 3,
+      "pbp_assists": 4,
       "pbp_shots": 12
     },
     {
@@ -16203,10 +16230,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.3876748255484704,
+      "xgf_pg": 0.38378499885350736,
       "pbp_goals": 3,
       "pbp_assists": 2,
-      "pbp_shots": 18
+      "pbp_shots": 20
     },
     {
       "name": "Filip Hronek",
@@ -16230,10 +16257,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.06209419415995071,
+      "xgf_pg": 0.0581638432283657,
       "pbp_goals": 0,
       "pbp_assists": 6,
-      "pbp_shots": 10
+      "pbp_shots": 11
     },
     {
       "name": "Elias Pettersson",
@@ -16257,10 +16284,10 @@
       "power_play_goals": 2,
       "short_handed_goals": 1,
       "game_winning_goals": 1,
-      "xgf_pg": 0.08612804718993018,
-      "pbp_goals": 2,
+      "xgf_pg": 0.12066329755353494,
+      "pbp_goals": 3,
       "pbp_assists": 0,
-      "pbp_shots": 8
+      "pbp_shots": 10
     },
     {
       "name": "Linus Karlsson",
@@ -16284,9 +16311,9 @@
       "power_play_goals": 1,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.1944532113555736,
+      "xgf_pg": 0.19081306153700753,
       "pbp_goals": 1,
-      "pbp_assists": 4,
+      "pbp_assists": 5,
       "pbp_shots": 16
     },
     {
@@ -16311,10 +16338,10 @@
       "power_play_goals": 1,
       "short_handed_goals": 1,
       "game_winning_goals": 1,
-      "xgf_pg": 0.16200545822288662,
+      "xgf_pg": 0.1489430569681075,
       "pbp_goals": 4,
       "pbp_assists": 2,
-      "pbp_shots": 8
+      "pbp_shots": 9
     },
     {
       "name": "Drew O'Connor",
@@ -16338,7 +16365,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.2410027806564635,
+      "xgf_pg": 0.21368634341151835,
       "pbp_goals": 1,
       "pbp_assists": 2,
       "pbp_shots": 10
@@ -16365,10 +16392,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.1778013767992363,
+      "xgf_pg": 0.16735119539958815,
       "pbp_goals": 3,
       "pbp_assists": 1,
-      "pbp_shots": 15
+      "pbp_shots": 16
     },
     {
       "name": "Aatu R\u00e4ty",
@@ -16446,10 +16473,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.1394152884061107,
+      "xgf_pg": 0.16642029146093304,
       "pbp_goals": 2,
       "pbp_assists": 3,
-      "pbp_shots": 11
+      "pbp_shots": 13
     },
     {
       "name": "Liam Ohgren",
@@ -16473,10 +16500,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.22251617760873782,
-      "pbp_goals": 1,
+      "xgf_pg": 0.21437636195360102,
+      "pbp_goals": 2,
       "pbp_assists": 3,
-      "pbp_shots": 11
+      "pbp_shots": 12
     },
     {
       "name": "Victor Mancini",
@@ -16500,7 +16527,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.048536743974806375,
+      "xgf_pg": 0.06753335358205895,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 0
@@ -16527,10 +16554,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.15179975637407955,
+      "xgf_pg": 0.17397505224827467,
       "pbp_goals": 2,
       "pbp_assists": 1,
-      "pbp_shots": 8
+      "pbp_shots": 10
     },
     {
       "name": "Tom Willander",
@@ -16554,10 +16581,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.0550428115160647,
+      "xgf_pg": 0.05245302916158215,
       "pbp_goals": 0,
       "pbp_assists": 3,
-      "pbp_shots": 6
+      "pbp_shots": 7
     },
     {
       "name": "Zeev Buium",
@@ -16581,10 +16608,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.07274904144074397,
+      "xgf_pg": 0.07623810654587548,
       "pbp_goals": 0,
       "pbp_assists": 1,
-      "pbp_shots": 6
+      "pbp_shots": 7
     },
     {
       "name": "Brayden McNabb",
@@ -16608,10 +16635,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.06826503924975308,
+      "xgf_pg": 0.07019182434310477,
       "pbp_goals": 0,
       "pbp_assists": 5,
-      "pbp_shots": 7
+      "pbp_shots": 8
     },
     {
       "name": "Nic Dowd",
@@ -16662,10 +16689,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 1,
       "game_winning_goals": 1,
-      "xgf_pg": 0.33243387757313575,
-      "pbp_goals": 3,
+      "xgf_pg": 0.3469894609864675,
+      "pbp_goals": 6,
       "pbp_assists": 5,
-      "pbp_shots": 16
+      "pbp_shots": 19
     },
     {
       "name": "William Karlsson",
@@ -16689,10 +16716,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 1,
-      "xgf_pg": 0.2909760760919622,
+      "xgf_pg": 0.30182226667617545,
       "pbp_goals": 2,
-      "pbp_assists": 1,
-      "pbp_shots": 15
+      "pbp_assists": 2,
+      "pbp_shots": 16
     },
     {
       "name": "Tomas Hertl",
@@ -16716,10 +16743,10 @@
       "power_play_goals": 3,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.5904873157992804,
+      "xgf_pg": 0.5863843288857215,
       "pbp_goals": 4,
       "pbp_assists": 3,
-      "pbp_shots": 19
+      "pbp_shots": 22
     },
     {
       "name": "Shea Theodore",
@@ -16743,10 +16770,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.1673005367212837,
+      "xgf_pg": 0.1551557577477155,
       "pbp_goals": 1,
       "pbp_assists": 2,
-      "pbp_shots": 18
+      "pbp_shots": 19
     },
     {
       "name": "Ivan Barbashev",
@@ -16770,10 +16797,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.2152856298937627,
+      "xgf_pg": 0.22876239476650428,
       "pbp_goals": 0,
-      "pbp_assists": 4,
-      "pbp_shots": 10
+      "pbp_assists": 7,
+      "pbp_shots": 14
     },
     {
       "name": "Victor Olofsson",
@@ -16797,7 +16824,7 @@
       "power_play_goals": 2,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.21148276151747694,
+      "xgf_pg": 0.21148276151747697,
       "pbp_goals": 4,
       "pbp_assists": 1,
       "pbp_shots": 9
@@ -16824,9 +16851,9 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.09391187152825838,
+      "xgf_pg": 0.08469760130613642,
       "pbp_goals": 1,
-      "pbp_assists": 1,
+      "pbp_assists": 2,
       "pbp_shots": 10
     },
     {
@@ -16851,10 +16878,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.108087077008126,
+      "xgf_pg": 0.1102084447359294,
       "pbp_goals": 1,
       "pbp_assists": 3,
-      "pbp_shots": 16
+      "pbp_shots": 19
     },
     {
       "name": "Jack Eichel",
@@ -16878,10 +16905,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 1,
-      "xgf_pg": 0.37453847988448563,
-      "pbp_goals": 4,
-      "pbp_assists": 9,
-      "pbp_shots": 24
+      "xgf_pg": 0.3818867187513288,
+      "pbp_goals": 5,
+      "pbp_assists": 11,
+      "pbp_shots": 28
     },
     {
       "name": "Parker Wotherspoon",
@@ -16932,7 +16959,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.07444535257843667,
+      "xgf_pg": 0.06973239069773933,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 13
@@ -16959,10 +16986,10 @@
       "power_play_goals": 1,
       "short_handed_goals": 0,
       "game_winning_goals": 1,
-      "xgf_pg": 0.3413253018627019,
+      "xgf_pg": 0.31797889982578337,
       "pbp_goals": 2,
-      "pbp_assists": 5,
-      "pbp_shots": 21
+      "pbp_assists": 7,
+      "pbp_shots": 22
     },
     {
       "name": "Brett Howden",
@@ -16986,10 +17013,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.3133600412043922,
-      "pbp_goals": 2,
+      "xgf_pg": 0.28430182791459563,
+      "pbp_goals": 3,
       "pbp_assists": 3,
-      "pbp_shots": 15
+      "pbp_shots": 16
     },
     {
       "name": "Dylan Coghlan",
@@ -17013,10 +17040,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.08039750866919522,
+      "xgf_pg": 0.08479522535695692,
       "pbp_goals": 0,
       "pbp_assists": 1,
-      "pbp_shots": 3
+      "pbp_shots": 6
     },
     {
       "name": "Raphael Lavoie",
@@ -17040,10 +17067,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.10648887390248256,
+      "xgf_pg": 0.10582961074444845,
       "pbp_goals": 0,
       "pbp_assists": 2,
-      "pbp_shots": 3
+      "pbp_shots": 4
     },
     {
       "name": "Marc Gatcomb",
@@ -17067,10 +17094,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 1,
-      "xgf_pg": 0.15610885312617395,
+      "xgf_pg": 0.1403423980821254,
       "pbp_goals": 1,
       "pbp_assists": 1,
-      "pbp_shots": 15
+      "pbp_shots": 16
     },
     {
       "name": "Braeden Bowman",
@@ -17094,10 +17121,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.21212307705743463,
-      "pbp_goals": 2,
+      "xgf_pg": 0.28080380001538496,
+      "pbp_goals": 3,
       "pbp_assists": 1,
-      "pbp_shots": 7
+      "pbp_shots": 12
     },
     {
       "name": "Trevor Connelly",
@@ -17121,10 +17148,10 @@
       "power_play_goals": 1,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.35509946485573224,
+      "xgf_pg": 0.32668490569844033,
       "pbp_goals": 4,
       "pbp_assists": 2,
-      "pbp_shots": 18
+      "pbp_shots": 19
     },
     {
       "name": "Nino Niederreiter",
@@ -17148,7 +17175,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.0
+      "xgf_pg": 0.8939461058717675,
+      "pbp_goals": 0,
+      "pbp_assists": 0,
+      "pbp_shots": 7
     },
     {
       "name": "Dylan DeMelo",
@@ -17172,10 +17202,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.022273073921920267,
+      "xgf_pg": 0.030777268350672182,
       "pbp_goals": 1,
       "pbp_assists": 2,
-      "pbp_shots": 3
+      "pbp_shots": 5
     },
     {
       "name": "Adam Lowry",
@@ -17226,10 +17256,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.3119861103383333,
+      "xgf_pg": 0.2871517732344266,
       "pbp_goals": 1,
-      "pbp_assists": 5,
-      "pbp_shots": 10
+      "pbp_assists": 6,
+      "pbp_shots": 11
     },
     {
       "name": "Vladislav Namestnikov",
@@ -17334,10 +17364,10 @@
       "power_play_goals": 3,
       "short_handed_goals": 0,
       "game_winning_goals": 2,
-      "xgf_pg": 0.6101715125500996,
-      "pbp_goals": 7,
+      "xgf_pg": 0.6010756860061185,
+      "pbp_goals": 8,
       "pbp_assists": 3,
-      "pbp_shots": 30
+      "pbp_shots": 35
     },
     {
       "name": "Mario Ferraro",
@@ -17361,10 +17391,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.06819266748842787,
+      "xgf_pg": 0.06204610421891566,
       "pbp_goals": 1,
       "pbp_assists": 0,
-      "pbp_shots": 6
+      "pbp_shots": 7
     },
     {
       "name": "Gabriel Vilardi",
@@ -17388,10 +17418,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.35477251233163165,
+      "xgf_pg": 0.35272008294668966,
       "pbp_goals": 0,
       "pbp_assists": 3,
-      "pbp_shots": 10
+      "pbp_shots": 12
     },
     {
       "name": "Dylan Samberg",
@@ -17415,7 +17445,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.07264530943859564,
+      "xgf_pg": 0.06777675782194233,
       "pbp_goals": 0,
       "pbp_assists": 2,
       "pbp_shots": 8
@@ -17442,10 +17472,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.14593289330415624,
-      "pbp_goals": 1,
+      "xgf_pg": 0.18746916395898533,
+      "pbp_goals": 2,
       "pbp_assists": 1,
-      "pbp_shots": 6
+      "pbp_shots": 9
     },
     {
       "name": "Neal Pionk",
@@ -17469,10 +17499,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.10370846931310855,
-      "pbp_goals": 0,
-      "pbp_assists": 3,
-      "pbp_shots": 9
+      "xgf_pg": 0.16925281651860208,
+      "pbp_goals": 1,
+      "pbp_assists": 5,
+      "pbp_shots": 13
     },
     {
       "name": "Morgan Barron",
@@ -17496,10 +17526,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.17297402544584625,
+      "xgf_pg": 0.16104394425516605,
       "pbp_goals": 0,
-      "pbp_assists": 1,
-      "pbp_shots": 7
+      "pbp_assists": 2,
+      "pbp_shots": 8
     },
     {
       "name": "Jack St. Ivany",
@@ -17523,10 +17553,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.03323599930030296,
+      "xgf_pg": 0.02890871808546462,
       "pbp_goals": 0,
       "pbp_assists": 0,
-      "pbp_shots": 0
+      "pbp_shots": 1
     },
     {
       "name": "Cole Koepke",
@@ -17550,10 +17580,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.16218204418273105,
+      "xgf_pg": 0.20469546911453426,
       "pbp_goals": 1,
       "pbp_assists": 0,
-      "pbp_shots": 4
+      "pbp_shots": 7
     },
     {
       "name": "Cole Perfetti",
@@ -17577,10 +17607,10 @@
       "power_play_goals": 2,
       "short_handed_goals": 0,
       "game_winning_goals": 2,
-      "xgf_pg": 0.38787343468624336,
+      "xgf_pg": 0.4244123853679498,
       "pbp_goals": 5,
       "pbp_assists": 3,
-      "pbp_shots": 16
+      "pbp_shots": 18
     },
     {
       "name": "Tyrel Bauer",
@@ -17604,7 +17634,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.018395237086002936,
+      "xgf_pg": 0.018395237086002932,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 1
@@ -17631,10 +17661,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.11588851377105717,
+      "xgf_pg": 0.10335453509947334,
       "pbp_goals": 0,
-      "pbp_assists": 0,
-      "pbp_shots": 8
+      "pbp_assists": 1,
+      "pbp_shots": 9
     },
     {
       "name": "Brad Lambert",
@@ -17658,9 +17688,9 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.10620285866462037,
+      "xgf_pg": 0.10140783692177334,
       "pbp_goals": 0,
-      "pbp_assists": 0,
+      "pbp_assists": 1,
       "pbp_shots": 3
     },
     {
@@ -17685,10 +17715,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.1735031127065098,
+      "xgf_pg": 0.15769921661315897,
       "pbp_goals": 0,
       "pbp_assists": 0,
-      "pbp_shots": 6
+      "pbp_shots": 7
     },
     {
       "name": "Alex Ovechkin",
@@ -17739,7 +17769,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.04191509688138837,
+      "xgf_pg": 0.041915096881388364,
       "pbp_goals": 2,
       "pbp_assists": 0,
       "pbp_shots": 2
@@ -17874,7 +17904,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.31522724304609745,
+      "xgf_pg": 0.3152272430460975,
       "pbp_goals": 0,
       "pbp_assists": 5,
       "pbp_shots": 12
@@ -17928,7 +17958,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.06560958880254678,
+      "xgf_pg": 0.0656095888025468,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 0
@@ -17955,7 +17985,7 @@
       "power_play_goals": 1,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.19895427019144157,
+      "xgf_pg": 0.1989542701914416,
       "pbp_goals": 1,
       "pbp_assists": 2,
       "pbp_shots": 21
@@ -18009,7 +18039,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.16220809536370212,
+      "xgf_pg": 0.16220809536370215,
       "pbp_goals": 1,
       "pbp_assists": 3,
       "pbp_shots": 6
@@ -18036,7 +18066,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.012956149391265239,
+      "xgf_pg": 0.012956149391265243,
       "pbp_goals": 0,
       "pbp_assists": 1,
       "pbp_shots": 2
@@ -18063,7 +18093,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.06698636609210681,
+      "xgf_pg": 0.06698636609210683,
       "pbp_goals": 1,
       "pbp_assists": 0,
       "pbp_shots": 4
@@ -18090,7 +18120,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.04993539928339874,
+      "xgf_pg": 0.04993539928339876,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 1
@@ -18198,7 +18228,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.058658666681962505,
+      "xgf_pg": 0.05865866668196251,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 2
@@ -18279,11 +18309,11 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.14577279638729113,
+      "xgf_pg": 0.14577279638729115,
       "pbp_goals": 0,
       "pbp_assists": 4,
       "pbp_shots": 5
     }
   ],
-  "updated_at": "2026-10-15T23:50:11Z"
+  "updated_at": "2026-10-16T07:06:37Z"
 }
