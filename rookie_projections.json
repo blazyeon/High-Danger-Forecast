@@ -1,6 +1,17 @@
 {
-  "generated_at": "2026-10-16T07:07:52.620952+00:00",
+  "generated_at": "2026-10-16T23:54:43.291377+00:00",
   "players": {
+    "felixungers\u00f6rum": {
+      "points_pg": 0.4033,
+      "goals_pg": 0.1039,
+      "assists_pg": 0.2994,
+      "shots_pg": 1.1543,
+      "source_league": "AHL",
+      "source_season": 20252026,
+      "source_games": 72,
+      "name": "Felix Unger S\u00f6rum",
+      "team": "CAR"
+    },
     "juusov\u00e4lim\u00e4ki": {
       "points_pg": 0.44,
       "goals_pg": 0.1467,
@@ -32,6 +43,17 @@
       "source_season": 20252026,
       "source_games": 53,
       "name": "Jake O'Brien",
+      "team": "SEA"
+    },
+    "tynelson": {
+      "points_pg": 0.2444,
+      "goals_pg": 0.0768,
+      "assists_pg": 0.1676,
+      "shots_pg": 0.8536,
+      "source_league": "AHL",
+      "source_season": 20252026,
+      "source_games": 63,
+      "name": "Ty Nelson",
       "team": "SEA"
     }
   }

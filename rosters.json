@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-16T07:07:52.616480+00:00",
+  "generated_at": "2026-10-16T23:54:43.286469+00:00",
   "teams": {
     "BOS": {
       "skaters": [
@@ -605,12 +605,6 @@
         }
       ],
       "goalies": [
-        {
-          "name": "Cooper Black",
-          "id": 8484900,
-          "position": "G",
-          "birthDate": "2001-06-14"
-        },
         {
           "name": "Jacob Markstrom",
           "id": 8474593,
@@ -1324,6 +1318,12 @@
           "birthDate": "2000-03-26"
         },
         {
+          "name": "Felix Unger S\u00f6rum",
+          "id": 8484392,
+          "position": "RW",
+          "birthDate": "2005-09-14"
+        },
+        {
           "name": "Jalen Chatfield",
           "id": 8478970,
           "position": "D",
@@ -1828,12 +1828,6 @@
           "birthDate": "1995-04-10"
         },
         {
-          "name": "Jaroslav Chmelar",
-          "id": 8482877,
-          "position": "RW",
-          "birthDate": "2003-07-20"
-        },
-        {
           "name": "Will Cuylle",
           "id": 8482157,
           "position": "LW",
@@ -1880,6 +1874,12 @@
           "id": 8484210,
           "position": "RW",
           "birthDate": "2005-05-07"
+        },
+        {
+          "name": "Taylor Raddysh",
+          "id": 8479390,
+          "position": "RW",
+          "birthDate": "1998-02-18"
         },
         {
           "name": "Matt Rempe",
@@ -3020,12 +3020,6 @@
           "id": 8482641,
           "position": "D",
           "birthDate": "1998-04-14"
-        },
-        {
-          "name": "Carson Lambos",
-          "id": 8482781,
-          "position": "D",
-          "birthDate": "2003-01-14"
         },
         {
           "name": "Olli Maatta",
@@ -4592,6 +4586,12 @@
           "id": 8477986,
           "position": "D",
           "birthDate": "1994-04-11"
+        },
+        {
+          "name": "Ty Nelson",
+          "id": 8483494,
+          "position": "D",
+          "birthDate": "2004-03-30"
         },
         {
           "name": "Ville Ottavainen",

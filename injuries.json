@@ -13,12 +13,6 @@
   },
   {
     "team": "ANA",
-    "player": "Cutter Gauthier",
-    "status": "dtd",
-    "injured": true
-  },
-  {
-    "team": "ANA",
     "player": "Ryan Poehling",
     "status": "ir",
     "injured": true
@@ -104,7 +98,7 @@
   {
     "team": "CAR",
     "player": "Taylor Hall",
-    "status": "dtd",
+    "status": "out",
     "injured": true
   },
   {
@@ -157,13 +151,13 @@
   },
   {
     "team": "DAL",
-    "player": "Wyatt Johnston",
-    "status": "dtd",
+    "player": "Oskar Back",
+    "status": "ir",
     "injured": true
   },
   {
     "team": "DAL",
-    "player": "Oskar Back",
+    "player": "Wyatt Johnston",
     "status": "dtd",
     "injured": true
   },
