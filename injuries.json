@@ -24,6 +24,12 @@
     "injured": true
   },
   {
+    "team": "BOS",
+    "player": "Pavel Zacha",
+    "status": "dtd",
+    "injured": true
+  },
+  {
     "team": "BUF",
     "player": "Jason Zucker",
     "status": "ir",
@@ -50,18 +56,6 @@
   {
     "team": "BUF",
     "player": "Rasmus Dahlin",
-    "status": "dtd",
-    "injured": true
-  },
-  {
-    "team": "BUF",
-    "player": "Jiri Kulich",
-    "status": "dtd",
-    "injured": true
-  },
-  {
-    "team": "BUF",
-    "player": "Josh Norris",
     "status": "dtd",
     "injured": true
   },
@@ -205,26 +199,8 @@
   },
   {
     "team": "EDM",
-    "player": "Colton Dach",
-    "status": "ir",
-    "injured": true
-  },
-  {
-    "team": "EDM",
     "player": "Ryan Nugent-Hopkins",
     "status": "ir",
-    "injured": true
-  },
-  {
-    "team": "EDM",
-    "player": "Zach Hyman",
-    "status": "dtd",
-    "injured": true
-  },
-  {
-    "team": "EDM",
-    "player": "Jake Walman",
-    "status": "dtd",
     "injured": true
   },
   {
@@ -253,7 +229,7 @@
   },
   {
     "team": "FLA",
-    "player": "Jacob Markstrom",
+    "player": "Radko Gudas",
     "status": "dtd",
     "injured": true
   },
@@ -315,12 +291,6 @@
     "team": "MIN",
     "player": "Olli Maatta",
     "status": "none",
-    "injured": true
-  },
-  {
-    "team": "MTL",
-    "player": "Oliver Kapanen",
-    "status": "ir",
     "injured": true
   },
   {
@@ -456,6 +426,12 @@
     "injured": true
   },
   {
+    "team": "PHI",
+    "player": "Owen Tippett",
+    "status": "dtd",
+    "injured": true
+  },
+  {
     "team": "PIT",
     "player": "Justin Brazeau",
     "status": "dtd",
@@ -464,12 +440,6 @@
   {
     "team": "PIT",
     "player": "Egor Chinakhov",
-    "status": "dtd",
-    "injured": true
-  },
-  {
-    "team": "SJS",
-    "player": "Darnell Nurse",
     "status": "dtd",
     "injured": true
   },
@@ -517,7 +487,7 @@
   },
   {
     "team": "STL",
-    "player": "Pavel Buchnevich",
+    "player": "Ross Johnston",
     "status": "dtd",
     "injured": true
   },
@@ -554,7 +524,7 @@
   {
     "team": "TOR",
     "player": "John Tavares",
-    "status": "dtd",
+    "status": "out",
     "injured": true
   },
   {
@@ -567,6 +537,12 @@
     "team": "VAN",
     "player": "Thatcher Demko",
     "status": "out",
+    "injured": true
+  },
+  {
+    "team": "VAN",
+    "player": "Marco Rossi",
+    "status": "dtd",
     "injured": true
   },
   {
@@ -596,6 +572,12 @@
   {
     "team": "WSH",
     "player": "Pierre-Luc Dubois",
+    "status": "dtd",
+    "injured": true
+  },
+  {
+    "team": "WSH",
+    "player": "Justin Sourdif",
     "status": "dtd",
     "injured": true
   },

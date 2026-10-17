@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-17T06:55:50.531904+00:00",
+  "generated_at": "2026-10-17T23:24:41.227882+00:00",
   "teams": {
     "BOS": {
       "skaters": [
@@ -2806,6 +2806,12 @@
           "birthDate": "1996-03-23"
         },
         {
+          "name": "David Perron",
+          "id": 8474102,
+          "position": "LW",
+          "birthDate": "1988-05-28"
+        },
+        {
           "name": "Mikko Rantanen",
           "id": 8478420,
           "position": "RW",
@@ -4240,10 +4246,10 @@
           "birthDate": "2001-02-26"
         },
         {
-          "name": "Jared Wright",
-          "id": 8483756,
+          "name": "Taylor Ward",
+          "id": 8483406,
           "position": "RW",
-          "birthDate": "2002-11-22"
+          "birthDate": "1998-03-31"
         },
         {
           "name": "Mats Zuccarello",
@@ -4856,12 +4862,6 @@
           "id": 8478396,
           "position": "D",
           "birthDate": "1997-01-25"
-        },
-        {
-          "name": "Ville Heinola",
-          "id": 8481572,
-          "position": "D",
-          "birthDate": "2001-03-02"
         },
         {
           "name": "Jeremy Lauzon",
