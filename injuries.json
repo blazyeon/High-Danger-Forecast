@@ -462,6 +462,12 @@
     "injured": true
   },
   {
+    "team": "PIT",
+    "player": "Egor Chinakhov",
+    "status": "dtd",
+    "injured": true
+  },
+  {
     "team": "SJS",
     "player": "Darnell Nurse",
     "status": "dtd",
