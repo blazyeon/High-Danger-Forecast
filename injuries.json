@@ -44,7 +44,7 @@
   {
     "team": "BUF",
     "player": "Alex Lyon",
-    "status": "out",
+    "status": "ir",
     "injured": true
   },
   {
@@ -62,31 +62,31 @@
   {
     "team": "CGY",
     "player": "Jonathan Huberdeau",
-    "status": "out",
+    "status": "ir",
     "injured": true
   },
   {
     "team": "CGY",
     "player": "Samuel Honzek",
-    "status": "dtd",
+    "status": "out",
     "injured": true
   },
   {
     "team": "CAR",
     "player": "Seth Jarvis",
-    "status": "out",
-    "injured": true
-  },
-  {
-    "team": "CAR",
-    "player": "Alexander Nikishin",
-    "status": "out",
+    "status": "ir",
     "injured": true
   },
   {
     "team": "CAR",
     "player": "Jordan Staal",
     "status": "ir",
+    "injured": true
+  },
+  {
+    "team": "CAR",
+    "player": "Alexander Nikishin",
+    "status": "out",
     "injured": true
   },
   {
@@ -98,7 +98,7 @@
   {
     "team": "CHI",
     "player": "Andrew Mangiapane",
-    "status": "out",
+    "status": "ir",
     "injured": true
   },
   {
@@ -122,7 +122,7 @@
   {
     "team": "CBJ",
     "player": "Dante Fabbro",
-    "status": "out",
+    "status": "ir",
     "injured": true
   },
   {
@@ -151,7 +151,7 @@
   },
   {
     "team": "DAL",
-    "player": "Wyatt Johnston",
+    "player": "Roope Hintz",
     "status": "dtd",
     "injured": true
   },
@@ -170,6 +170,12 @@
   {
     "team": "DET",
     "player": "Mason Appleton",
+    "status": "ir",
+    "injured": true
+  },
+  {
+    "team": "DET",
+    "player": "Simon Edvinsson",
     "status": "ir",
     "injured": true
   },
@@ -206,7 +212,7 @@
   {
     "team": "EDM",
     "player": "Jason Dickinson",
-    "status": "dtd",
+    "status": "out",
     "injured": true
   },
   {
@@ -248,7 +254,7 @@
   {
     "team": "LAK",
     "player": "Kevin Fiala",
-    "status": "out",
+    "status": "ir",
     "injured": true
   },
   {
@@ -301,14 +307,14 @@
   },
   {
     "team": "MTL",
-    "player": "Sam Montembeault",
+    "player": "Florian Xhekaj",
     "status": "ir",
     "injured": true
   },
   {
     "team": "MTL",
-    "player": "Florian Xhekaj",
-    "status": "dtd",
+    "player": "Sam Montembeault",
+    "status": "ir",
     "injured": true
   },
   {

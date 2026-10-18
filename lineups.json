@@ -1,6 +1,6 @@
 {
   "source": "daily_faceoff",
-  "updated_at": "2026-10-18T04:19:01.120Z",
+  "updated_at": "2026-10-18T22:00:23.941Z",
   "teams": {
     "ANA": {
       "pp1": [
@@ -35,8 +35,8 @@
         "Frederic Brunet",
         "JJ Peterka"
       ],
-      "updated_at": "2026-10-18T00:43:31.557Z",
-      "source": "Boston Bruins"
+      "updated_at": "2026-10-18T16:09:03.446Z",
+      "source": "Last Game (2026-10-17)"
     },
     "BUF": {
       "pp1": [
@@ -48,13 +48,13 @@
       ],
       "pp2": [
         "Josh Doan",
-        "Ryan McLeod",
+        "Jiri Kulich",
         "Konsta Helenius",
         "Olen Zellweger",
         "Josh Norris"
       ],
-      "updated_at": "2026-10-17T22:45:23.106Z",
-      "source": "Matthew Fairburn"
+      "updated_at": "2026-10-18T16:10:42.384Z",
+      "source": "Last Game (2026-10-17)"
     },
     "CGY": {
       "pp1": [
@@ -65,13 +65,13 @@
         "Zayne Parekh"
       ],
       "pp2": [
-        "Maxim Tsyplakov",
+        "Brennan Othmann",
         "Ryan Strome",
         "Aydar Suniev",
         "Simon Nemec",
         "Yegor Sharangovich"
       ],
-      "updated_at": "2026-10-17T17:47:54.462Z",
+      "updated_at": "2026-10-18T17:25:44.209Z",
       "source": "Pat Steinberg"
     },
     "CAR": {
@@ -89,8 +89,8 @@
         "K'Andre Miller",
         "Logan Stankoven"
       ],
-      "updated_at": "2026-10-17T19:14:45.736Z",
-      "source": "Walt Ruff"
+      "updated_at": "2026-10-18T17:27:12.880Z",
+      "source": "Ryan Henkel"
     },
     "CHI": {
       "pp1": [
@@ -107,8 +107,8 @@
         "Oliver Moore",
         "Sam Rinzel"
       ],
-      "updated_at": "2026-10-17T22:41:14.774Z",
-      "source": "Scott Powers"
+      "updated_at": "2026-10-18T16:14:05.939Z",
+      "source": "Last Game (2026-10-17)"
     },
     "CBJ": {
       "pp1": [
@@ -125,8 +125,8 @@
         "Denton Mateychuk",
         "Sean Monahan"
       ],
-      "updated_at": "2026-10-17T22:43:27.076Z",
-      "source": "Mark Scheig"
+      "updated_at": "2026-10-18T22:00:23.941Z",
+      "source": "Minnesota Wild PR"
     },
     "COL": {
       "pp1": [
@@ -148,7 +148,7 @@
     },
     "DAL": {
       "pp1": [
-        "Tyler Seguin",
+        "Wyatt Johnston",
         "Roope Hintz",
         "Mikko Rantanen",
         "Miro Heiskanen",
@@ -157,12 +157,12 @@
       "pp2": [
         "Jamie Benn",
         "Justin Hryckowian",
-        "Sam Steel",
+        "Tyler Seguin",
         "Esa Lindell",
         "Thomas Harley"
       ],
-      "updated_at": "2026-10-16T16:13:57.202Z",
-      "source": "Projected"
+      "updated_at": "2026-10-18T16:21:10.148Z",
+      "source": "Last Game (2026-10-17)"
     },
     "DET": {
       "pp1": [
@@ -179,8 +179,8 @@
         "Emmitt Finnie",
         "Justin Faulk"
       ],
-      "updated_at": "2026-10-17T22:58:08.499Z",
-      "source": "Detroit Red Wings"
+      "updated_at": "2026-10-18T16:46:12.438Z",
+      "source": "Last Game (2026-10-17)"
     },
     "EDM": {
       "pp1": [
@@ -197,8 +197,8 @@
         "Jake Walman",
         "Mattias Ekholm"
       ],
-      "updated_at": "2026-10-17T17:50:07.712Z",
-      "source": "Jack Michael"
+      "updated_at": "2026-10-18T16:47:52.171Z",
+      "source": "Last Game (2026-10-17)"
     },
     "FLA": {
       "pp1": [
@@ -209,32 +209,32 @@
         "Matthew Tkachuk"
       ],
       "pp2": [
-        "Lars Eller",
         "Sam Bennett",
-        "Eetu Luostarinen",
         "Anton Lundell",
+        "Eetu Luostarinen",
+        "Gustav Forsling",
         "Aaron Ekblad"
       ],
-      "updated_at": "2026-10-17T14:13:55.185Z",
-      "source": "Rob Darragh"
+      "updated_at": "2026-10-18T17:45:08.035Z",
+      "source": "Last Game (2026-10-17)"
     },
     "LAK": {
       "pp1": [
         "Adrian Kempe",
         "Quinton Byfield",
-        "Corey Perry",
+        "Alex Laferriere",
         "Artemi Panarin",
         "Brandt Clarke"
       ],
       "pp2": [
-        "Alex Laferriere",
+        "Corey Perry",
         "Erik Haula",
         "Trevor Moore",
         "Erik Gustafsson",
         "Drew Doughty"
       ],
-      "updated_at": "2026-10-18T00:39:19.955Z",
-      "source": "Zach Dooley"
+      "updated_at": "2026-10-18T17:48:07.265Z",
+      "source": "Last Game (2026-10-17)"
     },
     "MIN": {
       "pp1": [
@@ -251,26 +251,26 @@
         "Bobby Brink",
         "David Spacek"
       ],
-      "updated_at": "2026-10-16T14:34:32.043Z",
-      "source": "Last Game (2026-10-15)"
+      "updated_at": "2026-10-18T21:36:14.844Z",
+      "source": "Dylan Loucks"
     },
     "MTL": {
       "pp1": [
-        "Chris Kreider",
-        "Nick Suzuki",
         "Juraj Slafkovsky",
+        "Nick Suzuki",
+        "Zack Bolduc",
         "Cole Caufield",
         "Lane Hutson"
       ],
       "pp2": [
+        "Chris Kreider",
         "Oliver Kapanen",
-        "Alex Newhook",
         "Alexandre Texier",
         "Noah Dobson",
-        "Zack Bolduc"
+        "Alex Newhook"
       ],
-      "updated_at": "2026-10-17T22:57:14.851Z",
-      "source": "Montreal Canadiens"
+      "updated_at": "2026-10-18T17:50:32.361Z",
+      "source": "Last Game (2026-10-17)"
     },
     "NSH": {
       "pp1": [

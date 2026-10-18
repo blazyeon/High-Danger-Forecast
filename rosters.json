@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-18T07:14:27.396265+00:00",
+  "generated_at": "2026-10-18T23:39:28.289318+00:00",
   "teams": {
     "BOS": {
       "skaters": [
@@ -398,12 +398,6 @@
           "id": 8482078,
           "position": "LW",
           "birthDate": "2002-03-28"
-        },
-        {
-          "name": "Jacob Bernard-Docker",
-          "id": 8480879,
-          "position": "D",
-          "birthDate": "2000-06-30"
         },
         {
           "name": "Ben Chiarot",
@@ -1106,6 +1100,12 @@
           "id": 8480870,
           "position": "C",
           "birthDate": "2000-02-06"
+        },
+        {
+          "name": "Vinni Lettieri",
+          "id": 8479968,
+          "position": "C",
+          "birthDate": "1995-02-06"
         },
         {
           "name": "Zack MacEwen",
@@ -2092,12 +2092,6 @@
           "birthDate": "2002-04-08"
         },
         {
-          "name": "Helge Grans",
-          "id": 8482169,
-          "position": "D",
-          "birthDate": "2002-05-10"
-        },
-        {
           "name": "David Jiricek",
           "id": 8483460,
           "position": "D",
@@ -2246,12 +2240,6 @@
           "id": 8479398,
           "position": "D",
           "birthDate": "1998-05-12"
-        },
-        {
-          "name": "Ryan Johnson",
-          "id": 8481564,
-          "position": "D",
-          "birthDate": "2001-07-24"
         },
         {
           "name": "Erik Karlsson",
@@ -2938,6 +2926,12 @@
           "birthDate": "1987-10-31"
         },
         {
+          "name": "Hunter Haight",
+          "id": 8483452,
+          "position": "C",
+          "birthDate": "2004-04-04"
+        },
+        {
           "name": "Ryan Hartman",
           "id": 8477451,
           "position": "RW",
@@ -3026,6 +3020,12 @@
           "id": 8482641,
           "position": "D",
           "birthDate": "1998-04-14"
+        },
+        {
+          "name": "Carson Lambos",
+          "id": 8482781,
+          "position": "D",
+          "birthDate": "2003-01-14"
         },
         {
           "name": "Olli Maatta",
