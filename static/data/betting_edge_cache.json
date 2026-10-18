@@ -6268,9 +6268,9 @@
     },
     "2026-10-18": {
       "date": "2026-10-18",
-      "computed_at": "2026-10-17T23:23:56.262072+00:00",
+      "computed_at": "2026-10-18T07:13:42.340504+00:00",
       "source": "sharpapi",
-      "odds_fetched_at": "2026-10-17T23:23:33.875979+00:00",
+      "odds_fetched_at": "2026-10-18T07:13:32.772304+00:00",
       "warning": null,
       "no_games": false,
       "scanned": 2,
@@ -6279,23 +6279,69 @@
       "dropped": 0,
       "games": [
         {
+          "home": "MIN",
+          "away": "CBJ",
+          "home_name": "Wild",
+          "away_name": "Blue Jackets",
+          "start_time": "2026-10-18T22:00:00Z",
+          "best_edge": 0.0563,
+          "edges": [
+            {
+              "market": "Puck Line (1.5)",
+              "side": "Columbus Blue Jackets",
+              "pick": "Columbus Blue Jackets",
+              "team": "CBJ",
+              "odds": -158,
+              "odds_decimal": 1.6329113924050633,
+              "model_prob": 0.639,
+              "implied_prob": 0.5827,
+              "edge": 0.0563,
+              "book": "fanduel"
+            },
+            {
+              "market": "Total 6.5",
+              "side": "Over",
+              "pick": "Over",
+              "team": null,
+              "odds": 100,
+              "odds_decimal": 2.0,
+              "model_prob": 0.479,
+              "implied_prob": 0.4764,
+              "edge": 0.0026,
+              "book": "fanduel"
+            },
+            {
+              "market": "Moneyline",
+              "side": "Minnesota Wild",
+              "pick": "Minnesota Wild",
+              "team": "MIN",
+              "odds": -194,
+              "odds_decimal": 1.5154639175257731,
+              "model_prob": 0.528,
+              "implied_prob": 0.6318,
+              "edge": -0.1038,
+              "book": "fanduel"
+            }
+          ]
+        },
+        {
           "home": "CGY",
           "away": "CAR",
           "home_name": "Flames",
           "away_name": "Hurricanes",
           "start_time": "2026-10-19T00:00:00Z",
-          "best_edge": 0.0571,
+          "best_edge": 0.0485,
           "edges": [
             {
               "market": "Puck Line (-1.5)",
               "side": "CAR Hurricanes",
               "pick": "CAR Hurricanes",
               "team": "CAR",
-              "odds": 124,
-              "odds_decimal": 2.24,
+              "odds": 120,
+              "odds_decimal": 2.2,
               "model_prob": 0.485,
-              "implied_prob": 0.4279,
-              "edge": 0.0571,
+              "implied_prob": 0.4365,
+              "edge": 0.0485,
               "book": "draftkings"
             },
             {
@@ -6303,11 +6349,11 @@
               "side": "Under",
               "pick": "Under",
               "team": null,
-              "odds": -125,
-              "odds_decimal": 1.8,
+              "odds": -130,
+              "odds_decimal": 1.7692307692307692,
               "model_prob": 0.585,
-              "implied_prob": 0.5325,
-              "edge": 0.0525,
+              "implied_prob": 0.5427,
+              "edge": 0.0423,
               "book": "draftkings"
             },
             {
@@ -6315,57 +6361,11 @@
               "side": "Carolina Hurricanes",
               "pick": "Carolina Hurricanes",
               "team": "CAR",
-              "odds": -205,
-              "odds_decimal": 1.4878048780487805,
+              "odds": -218,
+              "odds_decimal": 1.4587155963302751,
               "model_prob": 0.677,
-              "implied_prob": 0.6447,
-              "edge": 0.0323,
-              "book": "draftkings"
-            }
-          ]
-        },
-        {
-          "home": "MIN",
-          "away": "CBJ",
-          "home_name": "Wild",
-          "away_name": "Blue Jackets",
-          "start_time": "2026-10-18T22:00:00Z",
-          "best_edge": 0.0509,
-          "edges": [
-            {
-              "market": "Puck Line (1.5)",
-              "side": "CBJ Blue Jackets",
-              "pick": "CBJ Blue Jackets",
-              "team": "CBJ",
-              "odds": -148,
-              "odds_decimal": 1.6756756756756757,
-              "model_prob": 0.623,
-              "implied_prob": 0.5721,
-              "edge": 0.0509,
-              "book": "draftkings"
-            },
-            {
-              "market": "Total 6.5",
-              "side": "Over",
-              "pick": "Over",
-              "team": null,
-              "odds": 105,
-              "odds_decimal": 2.05,
-              "model_prob": 0.473,
-              "implied_prob": 0.4675,
-              "edge": 0.0055,
-              "book": "draftkings"
-            },
-            {
-              "market": "Moneyline",
-              "side": "Minnesota Wild",
-              "pick": "Minnesota Wild",
-              "team": "MIN",
-              "odds": -192,
-              "odds_decimal": 1.5208333333333335,
-              "model_prob": 0.53,
-              "implied_prob": 0.6309,
-              "edge": -0.1009,
+              "implied_prob": 0.6575,
+              "edge": 0.0195,
               "book": "draftkings"
             }
           ]

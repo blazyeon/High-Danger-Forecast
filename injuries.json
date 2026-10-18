@@ -397,6 +397,12 @@
   },
   {
     "team": "OTT",
+    "player": "Thomas Chabot",
+    "status": "dtd",
+    "injured": true
+  },
+  {
+    "team": "OTT",
     "player": "Jake Sanderson",
     "status": "dtd",
     "injured": true
@@ -440,6 +446,12 @@
   {
     "team": "PIT",
     "player": "Egor Chinakhov",
+    "status": "dtd",
+    "injured": true
+  },
+  {
+    "team": "PIT",
+    "player": "Samuel Girard",
     "status": "dtd",
     "injured": true
   },

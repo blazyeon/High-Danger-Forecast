@@ -1,6 +1,6 @@
 {
   "source": "daily_faceoff",
-  "updated_at": "2026-10-17T22:58:08.499Z",
+  "updated_at": "2026-10-18T04:19:01.120Z",
   "teams": {
     "ANA": {
       "pp1": [
@@ -24,19 +24,19 @@
       "pp1": [
         "Morgan Geekie",
         "Elias Lindholm",
-        "Pavel Zacha",
+        "Fraser Minten",
         "David Pastrnak",
         "Charlie McAvoy"
       ],
       "pp2": [
         "James Hagens",
         "Casey Mittelstadt",
-        "Fraser Minten",
+        "Matthew Poitras",
         "Frederic Brunet",
         "JJ Peterka"
       ],
-      "updated_at": "2026-10-17T15:30:36.741Z",
-      "source": "Belle Fraser"
+      "updated_at": "2026-10-18T00:43:31.557Z",
+      "source": "Boston Bruins"
     },
     "BUF": {
       "pp1": [
@@ -233,8 +233,8 @@
         "Erik Gustafsson",
         "Drew Doughty"
       ],
-      "updated_at": "2026-10-15T18:35:41.701Z",
-      "source": "Alexander Legget"
+      "updated_at": "2026-10-18T00:39:19.955Z",
+      "source": "Zach Dooley"
     },
     "MIN": {
       "pp1": [
@@ -287,8 +287,8 @@
         "Brady Skjei",
         "Ross Colton"
       ],
-      "updated_at": "2026-10-16T14:30:02.570Z",
-      "source": "Last Game (2026-10-15)"
+      "updated_at": "2026-10-17T23:37:32.636Z",
+      "source": "Brooks Bratten"
     },
     "NJD": {
       "pp1": [
@@ -359,7 +359,7 @@
         "Fabian Zetterlund",
         "Thomas Chabot"
       ],
-      "updated_at": "2026-10-17T15:37:15.403Z",
+      "updated_at": "2026-10-18T01:25:15.996Z",
       "source": "Jackson Starr"
     },
     "PHI": {
@@ -395,7 +395,7 @@
         "Kris Letang",
         "Tommy Novak"
       ],
-      "updated_at": "2026-10-17T00:32:42.418Z",
+      "updated_at": "2026-10-18T04:19:01.120Z",
       "source": "@penguins"
     },
     "SJS": {
@@ -449,8 +449,8 @@
         "Jonatan Berggren",
         "Cam Fowler"
       ],
-      "updated_at": "2026-10-16T14:33:28.803Z",
-      "source": "Last Game (2026-10-15)"
+      "updated_at": "2026-10-17T23:41:13.220Z",
+      "source": "Lou Korac"
     },
     "TBL": {
       "pp1": [
@@ -503,8 +503,8 @@
         "Barrett Hayton",
         "John Marino"
       ],
-      "updated_at": "2026-10-17T17:09:10.035Z",
-      "source": "Cole Bagley"
+      "updated_at": "2026-10-18T01:57:30.596Z",
+      "source": "Utah Mammoth"
     },
     "VAN": {
       "pp1": [
@@ -539,8 +539,8 @@
         "Rasmus Andersson",
         "Shea Theodore"
       ],
-      "updated_at": "2026-10-16T14:40:34.495Z",
-      "source": "Last Game (2026-10-15)"
+      "updated_at": "2026-10-18T01:37:06.898Z",
+      "source": "Sin Bin Vegas"
     },
     "WSH": {
       "pp1": [

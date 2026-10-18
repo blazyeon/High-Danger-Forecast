@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-17T23:24:41.227882+00:00",
+  "generated_at": "2026-10-18T07:14:27.396265+00:00",
   "teams": {
     "BOS": {
       "skaters": [
@@ -3262,6 +3262,12 @@
           "birthDate": "1994-02-18"
         },
         {
+          "name": "Aleksanteri Kaskimaki",
+          "id": 8483463,
+          "position": "C",
+          "birthDate": "2004-02-06"
+        },
+        {
           "name": "Connor McMichael",
           "id": 8481580,
           "position": "LW",
@@ -4082,12 +4088,6 @@
           "id": 8481617,
           "position": "RW",
           "birthDate": "2001-06-24"
-        },
-        {
-          "name": "Josh Samanski",
-          "id": 8484509,
-          "position": "C",
-          "birthDate": "2002-03-22"
         },
         {
           "name": "Matt Savoie",
