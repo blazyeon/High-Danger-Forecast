@@ -1,6 +1,6 @@
 {
   "source": "daily_faceoff",
-  "updated_at": "2026-10-18T22:00:23.941Z",
+  "updated_at": "2026-10-19T00:25:37.330Z",
   "teams": {
     "ANA": {
       "pp1": [
@@ -71,8 +71,8 @@
         "Simon Nemec",
         "Yegor Sharangovich"
       ],
-      "updated_at": "2026-10-18T17:25:44.209Z",
-      "source": "Pat Steinberg"
+      "updated_at": "2026-10-18T23:48:33.118Z",
+      "source": "Ryan Pike"
     },
     "CAR": {
       "pp1": [
@@ -84,13 +84,13 @@
       ],
       "pp2": [
         "Felix Unger Sorum",
-        "Mark Jankowski",
+        "Logan Stankoven",
         "Bradly Nadeau",
         "K'Andre Miller",
-        "Logan Stankoven"
+        "Sean Walker"
       ],
-      "updated_at": "2026-10-18T17:27:12.880Z",
-      "source": "Ryan Henkel"
+      "updated_at": "2026-10-18T23:49:21.826Z",
+      "source": "Walt Ruff"
     },
     "CHI": {
       "pp1": [
@@ -274,10 +274,10 @@
     },
     "NSH": {
       "pp1": [
-        "Steven Stamkos",
+        "Filip Forsberg",
         "Ryan O'Reilly",
         "Jonathan Marchessault",
-        "Filip Forsberg",
+        "Steven Stamkos",
         "Roman Josi"
       ],
       "pp2": [
@@ -287,8 +287,8 @@
         "Brady Skjei",
         "Ross Colton"
       ],
-      "updated_at": "2026-10-17T23:37:32.636Z",
-      "source": "Brooks Bratten"
+      "updated_at": "2026-10-19T00:03:18.494Z",
+      "source": "Last Game (2026-10-17)"
     },
     "NJD": {
       "pp1": [
@@ -305,26 +305,26 @@
         "Arseny Gritsyuk",
         "Dougie Hamilton"
       ],
-      "updated_at": "2026-10-17T16:46:13.292Z",
-      "source": "New Jersey Devils"
+      "updated_at": "2026-10-18T23:57:18.683Z",
+      "source": "Last Game (2026-10-17)"
     },
     "NYI": {
       "pp1": [
         "Kyle Palmieri",
         "Bo Horvat",
         "Brayden Schenn",
-        "Matias Maccelli",
+        "Simon Holmstrom",
         "Matthew Schaefer"
       ],
       "pp2": [
         "Victor Eklund",
+        "Jean-Gabriel Pageau",
         "Anthony Duclair",
-        "Simon Holmstrom",
         "Calum Ritchie",
         "Tony DeAngelo"
       ],
-      "updated_at": "2026-10-17T15:40:46.101Z",
-      "source": "Ethan Sears"
+      "updated_at": "2026-10-19T00:11:48.364Z",
+      "source": "Projected"
     },
     "NYR": {
       "pp1": [
@@ -341,13 +341,13 @@
         "Eeli Tolvanen",
         "Sean Durzi"
       ],
-      "updated_at": "2026-10-17T15:35:26.546Z",
-      "source": "Peter Baugh"
+      "updated_at": "2026-10-19T00:13:11.787Z",
+      "source": "Last Game (2026-10-17)"
     },
     "OTT": {
       "pp1": [
-        "Stephen Halliday",
         "Dylan Cozens",
+        "Stephen Halliday",
         "Drake Batherson",
         "Carter Yakemchuk",
         "Tim St\u00fctzle"
@@ -359,8 +359,8 @@
         "Fabian Zetterlund",
         "Thomas Chabot"
       ],
-      "updated_at": "2026-10-18T01:25:15.996Z",
-      "source": "Jackson Starr"
+      "updated_at": "2026-10-19T00:17:12.007Z",
+      "source": "Last Game (2026-10-17)"
     },
     "PHI": {
       "pp1": [
@@ -372,31 +372,31 @@
       ],
       "pp2": [
         "Michael Bunting",
-        "Noah Cates",
+        "Christian Dvorak",
         "Porter Martone",
         "Oliver Bonk",
         "Jamie Drysdale"
       ],
-      "updated_at": "2026-10-17T22:46:57.122Z",
-      "source": "Siobhan Nolan"
+      "updated_at": "2026-10-19T00:20:24.747Z",
+      "source": "Last Game (2026-10-17)"
     },
     "PIT": {
       "pp1": [
-        "Ben Kindel",
-        "Evgeni Malkin",
+        "Bryan Rust",
+        "Tommy Novak",
         "Rickard Rakell",
         "Erik Karlsson",
         "Sidney Crosby"
       ],
       "pp2": [
         "Andrei Kuzmenko",
-        "Bryan Rust",
+        "Ben Kindel",
         "Ville Koivunen",
         "Kris Letang",
-        "Tommy Novak"
+        "Evgeni Malkin"
       ],
-      "updated_at": "2026-10-18T04:19:01.120Z",
-      "source": "@penguins"
+      "updated_at": "2026-10-19T00:25:37.330Z",
+      "source": "Last Game (2026-10-17)"
     },
     "SJS": {
       "pp1": [

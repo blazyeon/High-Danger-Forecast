@@ -96,6 +96,12 @@
     "injured": true
   },
   {
+    "team": "CAR",
+    "player": "Mark Jankowski",
+    "status": "dtd",
+    "injured": true
+  },
+  {
     "team": "CHI",
     "player": "Andrew Mangiapane",
     "status": "ir",
@@ -362,13 +368,25 @@
   {
     "team": "NYI",
     "player": "Mathew Barzal",
-    "status": "dtd",
+    "status": "ir",
     "injured": true
   },
   {
     "team": "NYI",
     "player": "Alexander Romanov",
-    "status": "ir",
+    "status": "out",
+    "injured": true
+  },
+  {
+    "team": "NYI",
+    "player": "Matias Maccelli",
+    "status": "dtd",
+    "injured": true
+  },
+  {
+    "team": "NYI",
+    "player": "Calum Ritchie",
+    "status": "dtd",
     "injured": true
   },
   {
@@ -390,6 +408,12 @@
     "injured": true
   },
   {
+    "team": "NYR",
+    "player": "Adam Sykora",
+    "status": "ir",
+    "injured": true
+  },
+  {
     "team": "OTT",
     "player": "William Eklund",
     "status": "ir",
@@ -403,13 +427,13 @@
   },
   {
     "team": "OTT",
-    "player": "Thomas Chabot",
+    "player": "Jake Sanderson",
     "status": "dtd",
     "injured": true
   },
   {
     "team": "OTT",
-    "player": "Jake Sanderson",
+    "player": "Thomas Chabot",
     "status": "dtd",
     "injured": true
   },
@@ -434,7 +458,7 @@
   {
     "team": "PHI",
     "player": "Cam York",
-    "status": "dtd",
+    "status": "ir",
     "injured": true
   },
   {
@@ -444,9 +468,33 @@
     "injured": true
   },
   {
+    "team": "PHI",
+    "player": "Sean Couturier",
+    "status": "dtd",
+    "injured": true
+  },
+  {
+    "team": "PHI",
+    "player": "Tyson Foerster",
+    "status": "dtd",
+    "injured": true
+  },
+  {
     "team": "PIT",
     "player": "Justin Brazeau",
-    "status": "dtd",
+    "status": "ir",
+    "injured": true
+  },
+  {
+    "team": "PIT",
+    "player": "Trevor van Riemsdyk",
+    "status": "ir",
+    "injured": true
+  },
+  {
+    "team": "PIT",
+    "player": "Ryan Graves",
+    "status": "ir",
     "injured": true
   },
   {

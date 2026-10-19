@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-18T23:39:28.289318+00:00",
+  "generated_at": "2026-10-19T07:44:30.615053+00:00",
   "teams": {
     "BOS": {
       "skaters": [
@@ -3296,6 +3296,12 @@
           "id": 8483516,
           "position": "RW",
           "birthDate": "2004-06-01"
+        },
+        {
+          "name": "Otto Stenberg",
+          "id": 8484230,
+          "position": "C",
+          "birthDate": "2005-05-29"
         },
         {
           "name": "Pius Suter",
