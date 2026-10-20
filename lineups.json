@@ -1,6 +1,6 @@
 {
   "source": "daily_faceoff",
-  "updated_at": "2026-10-19T23:13:31.135Z",
+  "updated_at": "2026-10-20T03:33:53.794Z",
   "teams": {
     "ANA": {
       "pp1": [
@@ -395,8 +395,8 @@
         "Kris Letang",
         "Evgeni Malkin"
       ],
-      "updated_at": "2026-10-19T20:27:28.451Z",
-      "source": "Projected"
+      "updated_at": "2026-10-20T03:33:20.394Z",
+      "source": "@penguins"
     },
     "SJS": {
       "pp1": [
@@ -413,7 +413,7 @@
         "Igor Chernyshov",
         "Luca Cagnoni"
       ],
-      "updated_at": "2026-10-19T23:11:10.540Z",
+      "updated_at": "2026-10-20T03:33:53.794Z",
       "source": "Sheng Peng"
     },
     "SEA": {
@@ -501,10 +501,10 @@
         "Vincent Trocheck",
         "Kailer Yamamoto",
         "Barrett Hayton",
-        "John Marino"
+        "MacKenzie Weegar"
       ],
-      "updated_at": "2026-10-19T17:14:47.381Z",
-      "source": "Cole Bagley"
+      "updated_at": "2026-10-20T00:42:55.472Z",
+      "source": "Utah Mammoth"
     },
     "VAN": {
       "pp1": [
@@ -521,8 +521,8 @@
         "Linus Karlsson",
         "Zeev Buium"
       ],
-      "updated_at": "2026-10-19T14:22:18.708Z",
-      "source": "Last Game (2026-10-17)"
+      "updated_at": "2026-10-20T02:10:17.171Z",
+      "source": "Thomas Drance"
     },
     "VGK": {
       "pp1": [

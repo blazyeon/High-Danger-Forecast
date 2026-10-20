@@ -481,13 +481,19 @@
   },
   {
     "team": "PIT",
-    "player": "Egor Chinakhov",
+    "player": "Samuel Girard",
     "status": "dtd",
     "injured": true
   },
   {
     "team": "PIT",
-    "player": "Samuel Girard",
+    "player": "Bryan Rust",
+    "status": "dtd",
+    "injured": true
+  },
+  {
+    "team": "SJS",
+    "player": "Alexander Wennberg",
     "status": "dtd",
     "injured": true
   },
@@ -579,6 +585,12 @@
     "team": "UTA",
     "player": "Michael Carcone",
     "status": "out",
+    "injured": true
+  },
+  {
+    "team": "UTA",
+    "player": "John Marino",
+    "status": "dtd",
     "injured": true
   },
   {

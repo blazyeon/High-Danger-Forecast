@@ -1,17 +1,6 @@
 {
-  "generated_at": "2026-10-20T00:39:43.679761+00:00",
+  "generated_at": "2026-10-20T07:30:29.505184+00:00",
   "players": {
-    "vinnilettieri": {
-      "points_pg": 0.336,
-      "goals_pg": 0.112,
-      "assists_pg": 0.224,
-      "shots_pg": 1.2444,
-      "source_league": "AHL",
-      "source_season": 20252026,
-      "source_games": 55,
-      "name": "Vinni Lettieri",
-      "team": "TOR"
-    },
     "juusov\u00e4lim\u00e4ki": {
       "points_pg": 0.44,
       "goals_pg": 0.1467,
@@ -22,17 +11,6 @@
       "source_games": 3,
       "name": "Juuso V\u00e4lim\u00e4ki",
       "team": "CAR"
-    },
-    "coleknuble": {
-      "points_pg": 0.3531,
-      "goals_pg": 0.1025,
-      "assists_pg": 0.2506,
-      "shots_pg": 1.1389,
-      "source_league": "NCAA",
-      "source_season": 20252026,
-      "source_games": 36,
-      "name": "Cole Knuble",
-      "team": "PHI"
     },
     "kyleburroughs": {
       "points_pg": 0.1711,
