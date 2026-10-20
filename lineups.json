@@ -1,14 +1,14 @@
 {
   "source": "daily_faceoff",
-  "updated_at": "2026-10-19T00:25:37.330Z",
+  "updated_at": "2026-10-19T23:13:31.135Z",
   "teams": {
     "ANA": {
       "pp1": [
-        "Mikael Granlund",
-        "Leo Carlsson",
-        "Cutter Gauthier",
         "Beckett Sennecke",
-        "Jackson Lacombe"
+        "Leo Carlsson",
+        "Mikael Granlund",
+        "Jackson Lacombe",
+        "Cutter Gauthier"
       ],
       "pp2": [
         "Alex Killorn",
@@ -17,8 +17,8 @@
         "Frank Vatrano",
         "Tristan Luneau"
       ],
-      "updated_at": "2026-10-17T18:28:28.552Z",
-      "source": "Zach Cavanagh"
+      "updated_at": "2026-10-19T22:47:40.378Z",
+      "source": "@AnaheimDucks"
     },
     "BOS": {
       "pp1": [
@@ -35,8 +35,8 @@
         "Frederic Brunet",
         "JJ Peterka"
       ],
-      "updated_at": "2026-10-18T16:09:03.446Z",
-      "source": "Last Game (2026-10-17)"
+      "updated_at": "2026-10-19T17:54:44.204Z",
+      "source": "Belle Fraser"
     },
     "BUF": {
       "pp1": [
@@ -44,17 +44,17 @@
         "Zach Benson",
         "Noah Ostlund",
         "Tage Thompson",
-        "Owen Power"
+        "Rasmus Dahlin"
       ],
       "pp2": [
-        "Josh Doan",
+        "Jason Zucker",
         "Jiri Kulich",
-        "Konsta Helenius",
-        "Olen Zellweger",
+        "Josh Doan",
+        "Owen Power",
         "Josh Norris"
       ],
-      "updated_at": "2026-10-18T16:10:42.384Z",
-      "source": "Last Game (2026-10-17)"
+      "updated_at": "2026-10-19T16:02:15.348Z",
+      "source": "Rachel Lenzi"
     },
     "CGY": {
       "pp1": [
@@ -65,14 +65,14 @@
         "Zayne Parekh"
       ],
       "pp2": [
-        "Brennan Othmann",
+        "Adam Klapka",
         "Ryan Strome",
         "Aydar Suniev",
         "Simon Nemec",
         "Yegor Sharangovich"
       ],
-      "updated_at": "2026-10-18T23:48:33.118Z",
-      "source": "Ryan Pike"
+      "updated_at": "2026-10-19T14:04:21.641Z",
+      "source": "Last Game (2026-10-18)"
     },
     "CAR": {
       "pp1": [
@@ -86,11 +86,11 @@
         "Felix Unger Sorum",
         "Logan Stankoven",
         "Bradly Nadeau",
-        "K'Andre Miller",
-        "Sean Walker"
+        "Jesperi Kotkaniemi",
+        "K'Andre Miller"
       ],
-      "updated_at": "2026-10-18T23:49:21.826Z",
-      "source": "Walt Ruff"
+      "updated_at": "2026-10-19T14:03:18.150Z",
+      "source": "Last Game (2026-10-18)"
     },
     "CHI": {
       "pp1": [
@@ -107,8 +107,8 @@
         "Oliver Moore",
         "Sam Rinzel"
       ],
-      "updated_at": "2026-10-18T16:14:05.939Z",
-      "source": "Last Game (2026-10-17)"
+      "updated_at": "2026-10-19T17:16:36.319Z",
+      "source": "Ben Pope"
     },
     "CBJ": {
       "pp1": [
@@ -125,8 +125,8 @@
         "Denton Mateychuk",
         "Sean Monahan"
       ],
-      "updated_at": "2026-10-18T22:00:23.941Z",
-      "source": "Minnesota Wild PR"
+      "updated_at": "2026-10-19T13:59:22.123Z",
+      "source": "Last Game (2026-10-18)"
     },
     "COL": {
       "pp1": [
@@ -143,8 +143,8 @@
         "Devon Toews",
         "Martin Necas"
       ],
-      "updated_at": "2026-10-17T18:10:41.946Z",
-      "source": "Bailey Curtis"
+      "updated_at": "2026-10-19T17:57:49.463Z",
+      "source": "Aarif Deen"
     },
     "DAL": {
       "pp1": [
@@ -161,26 +161,26 @@
         "Esa Lindell",
         "Thomas Harley"
       ],
-      "updated_at": "2026-10-18T16:21:10.148Z",
-      "source": "Last Game (2026-10-17)"
+      "updated_at": "2026-10-19T17:01:59.221Z",
+      "source": "Robert Tiffin"
     },
     "DET": {
       "pp1": [
-        "Viktor Arvidsson",
-        "Dylan Larkin",
-        "Lucas Raymond",
+        "Michael Brandsegg-Nyg\u00e5rd",
+        "Andrew Copp",
+        "Emmitt Finnie",
         "Alex DeBrincat",
         "Moritz Seider"
       ],
       "pp2": [
-        "Michael Rasmussen",
-        "Andrew Copp",
-        "Michael Brandsegg-Nyg\u00e5rd",
-        "Emmitt Finnie",
-        "Justin Faulk"
+        "Lucas Raymond",
+        "Dylan Larkin",
+        "Viktor Arvidsson",
+        "Axel Sandin-Pellikka",
+        "Nate Danielson"
       ],
-      "updated_at": "2026-10-18T16:46:12.438Z",
-      "source": "Last Game (2026-10-17)"
+      "updated_at": "2026-10-19T14:44:33.412Z",
+      "source": "Max Bultman"
     },
     "EDM": {
       "pp1": [
@@ -197,8 +197,8 @@
         "Jake Walman",
         "Mattias Ekholm"
       ],
-      "updated_at": "2026-10-18T16:47:52.171Z",
-      "source": "Last Game (2026-10-17)"
+      "updated_at": "2026-10-19T17:38:46.026Z",
+      "source": "Bob Stauffer"
     },
     "FLA": {
       "pp1": [
@@ -215,8 +215,8 @@
         "Gustav Forsling",
         "Aaron Ekblad"
       ],
-      "updated_at": "2026-10-18T17:45:08.035Z",
-      "source": "Last Game (2026-10-17)"
+      "updated_at": "2026-10-19T15:58:05.222Z",
+      "source": "Jameson Olive"
     },
     "LAK": {
       "pp1": [
@@ -251,8 +251,8 @@
         "Bobby Brink",
         "David Spacek"
       ],
-      "updated_at": "2026-10-18T21:36:14.844Z",
-      "source": "Dylan Loucks"
+      "updated_at": "2026-10-19T14:01:26.004Z",
+      "source": "Last Game (2026-10-18)"
     },
     "MTL": {
       "pp1": [
@@ -269,8 +269,8 @@
         "Noah Dobson",
         "Alex Newhook"
       ],
-      "updated_at": "2026-10-18T17:50:32.361Z",
-      "source": "Last Game (2026-10-17)"
+      "updated_at": "2026-10-19T15:58:45.049Z",
+      "source": "Pat Guillet"
     },
     "NSH": {
       "pp1": [
@@ -287,8 +287,8 @@
         "Brady Skjei",
         "Ross Colton"
       ],
-      "updated_at": "2026-10-19T00:03:18.494Z",
-      "source": "Last Game (2026-10-17)"
+      "updated_at": "2026-10-19T17:15:38.247Z",
+      "source": "Nick Kieser"
     },
     "NJD": {
       "pp1": [
@@ -317,14 +317,14 @@
         "Matthew Schaefer"
       ],
       "pp2": [
-        "Victor Eklund",
-        "Jean-Gabriel Pageau",
+        "Ondrej Palat",
+        "Emil Heineman",
         "Anthony Duclair",
-        "Calum Ritchie",
+        "Victor Eklund",
         "Tony DeAngelo"
       ],
-      "updated_at": "2026-10-19T00:11:48.364Z",
-      "source": "Projected"
+      "updated_at": "2026-10-19T14:42:48.190Z",
+      "source": "Stefen Rosner"
     },
     "NYR": {
       "pp1": [
@@ -341,15 +341,15 @@
         "Eeli Tolvanen",
         "Sean Durzi"
       ],
-      "updated_at": "2026-10-19T00:13:11.787Z",
-      "source": "Last Game (2026-10-17)"
+      "updated_at": "2026-10-19T22:36:05.539Z",
+      "source": "Mollie Walker"
     },
     "OTT": {
       "pp1": [
         "Dylan Cozens",
         "Stephen Halliday",
         "Drake Batherson",
-        "Carter Yakemchuk",
+        "Jake Sanderson",
         "Tim St\u00fctzle"
       ],
       "pp2": [
@@ -357,14 +357,14 @@
         "Shane Pinto",
         "Claude Giroux",
         "Fabian Zetterlund",
-        "Thomas Chabot"
+        "Carter Yakemchuk"
       ],
-      "updated_at": "2026-10-19T00:17:12.007Z",
-      "source": "Last Game (2026-10-17)"
+      "updated_at": "2026-10-19T17:14:10.600Z",
+      "source": "Andrew Wilimek"
     },
     "PHI": {
       "pp1": [
-        "Tyson Foerster",
+        "Alex Bump",
         "Denver Barkey",
         "Matvei Michkov",
         "Trevor Zegras",
@@ -377,8 +377,8 @@
         "Oliver Bonk",
         "Jamie Drysdale"
       ],
-      "updated_at": "2026-10-19T00:20:24.747Z",
-      "source": "Last Game (2026-10-17)"
+      "updated_at": "2026-10-19T22:38:02.168Z",
+      "source": "Will James"
     },
     "PIT": {
       "pp1": [
@@ -391,12 +391,12 @@
       "pp2": [
         "Andrei Kuzmenko",
         "Ben Kindel",
-        "Ville Koivunen",
+        "Egor Chinakhov",
         "Kris Letang",
         "Evgeni Malkin"
       ],
-      "updated_at": "2026-10-19T00:25:37.330Z",
-      "source": "Last Game (2026-10-17)"
+      "updated_at": "2026-10-19T20:27:28.451Z",
+      "source": "Projected"
     },
     "SJS": {
       "pp1": [
@@ -411,9 +411,9 @@
         "Michael Misa",
         "Tyler Toffoli",
         "Igor Chernyshov",
-        "Sam Dickinson"
+        "Luca Cagnoni"
       ],
-      "updated_at": "2026-10-17T22:48:58.671Z",
+      "updated_at": "2026-10-19T23:11:10.540Z",
       "source": "Sheng Peng"
     },
     "SEA": {
@@ -427,12 +427,12 @@
       "pp2": [
         "Kaapo Kakko",
         "Berkly Catton",
-        "Mackie Samoskevich",
+        "Shane Wright",
         "Matty Beniers",
         "Ryker Evans"
       ],
-      "updated_at": "2026-10-17T21:49:37.548Z",
-      "source": "Seattle Kraken"
+      "updated_at": "2026-10-19T17:56:21.640Z",
+      "source": "@sound_hockey"
     },
     "STL": {
       "pp1": [
@@ -440,16 +440,16 @@
         "Robert Thomas",
         "Dylan Holloway",
         "Jimmy Snuggerud",
-        "Adam Ji\u0159\u00ed\u010dek"
+        "Philip Broberg"
       ],
       "pp2": [
+        "Pavel Buchnevich",
         "Mason McTavish",
-        "Dalibor Dvorsky",
         "Connor McMichael",
         "Jonatan Berggren",
         "Cam Fowler"
       ],
-      "updated_at": "2026-10-17T23:41:13.220Z",
+      "updated_at": "2026-10-19T17:40:00.344Z",
       "source": "Lou Korac"
     },
     "TBL": {
@@ -458,16 +458,16 @@
         "Brayden Point",
         "Nikita Kucherov",
         "Brandon Hagel",
-        "John Carlson"
+        "Charle-Edouard D'Astous"
       ],
       "pp2": [
-        "Dominic James",
+        "Pontus Holmberg",
         "Anthony Cirelli",
         "Gage Goncalves",
         "Conor Geekie",
-        "J.J. Moser"
+        "John Carlson"
       ],
-      "updated_at": "2026-10-17T19:36:42.001Z",
+      "updated_at": "2026-10-19T14:46:45.369Z",
       "source": "Benjamin Pierce"
     },
     "TOR": {
@@ -480,12 +480,12 @@
       ],
       "pp2": [
         "Easton Cowan",
+        "Nick Paul",
         "Jack Roslovic",
-        "Bo Groulx",
         "Nick Blankenburg",
         "Morgan Rielly"
       ],
-      "updated_at": "2026-10-17T22:47:46.195Z",
+      "updated_at": "2026-10-19T23:13:31.135Z",
       "source": "David Alter"
     },
     "UTA": {
@@ -503,8 +503,8 @@
         "Barrett Hayton",
         "John Marino"
       ],
-      "updated_at": "2026-10-18T01:57:30.596Z",
-      "source": "Utah Mammoth"
+      "updated_at": "2026-10-19T17:14:47.381Z",
+      "source": "Cole Bagley"
     },
     "VAN": {
       "pp1": [
@@ -517,12 +517,12 @@
       "pp2": [
         "Liam Ohgren",
         "Filip Chytil",
-        "Arshdeep Bains",
+        "Paul Cotter",
         "Linus Karlsson",
         "Zeev Buium"
       ],
-      "updated_at": "2026-10-17T19:43:00.552Z",
-      "source": "Brendan Batchelor"
+      "updated_at": "2026-10-19T14:22:18.708Z",
+      "source": "Last Game (2026-10-17)"
     },
     "VGK": {
       "pp1": [
@@ -539,8 +539,8 @@
         "Rasmus Andersson",
         "Shea Theodore"
       ],
-      "updated_at": "2026-10-18T01:37:06.898Z",
-      "source": "Sin Bin Vegas"
+      "updated_at": "2026-10-19T14:23:20.183Z",
+      "source": "Last Game (2026-10-17)"
     },
     "WSH": {
       "pp1": [
@@ -557,8 +557,8 @@
         "Cole Hutson",
         "Ivan Miroshnichenko"
       ],
-      "updated_at": "2026-10-17T16:38:27.354Z",
-      "source": "Tom Gulitti"
+      "updated_at": "2026-10-19T15:57:31.592Z",
+      "source": "Sammi Silber"
     },
     "WPG": {
       "pp1": [
@@ -571,12 +571,12 @@
       "pp2": [
         "Alex Iafallo",
         "Viggo Bj\u00f6rck",
-        "Brad Lambert",
+        "Nino Niederreiter",
         "Haydn Fleury",
         "Isak Rosen"
       ],
-      "updated_at": "2026-10-17T19:13:19.512Z",
-      "source": "Mitchell Clinton"
+      "updated_at": "2026-10-19T17:17:21.521Z",
+      "source": "Ken Wiebe"
     }
   }
 }

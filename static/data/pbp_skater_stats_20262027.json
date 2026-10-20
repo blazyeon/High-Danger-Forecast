@@ -1252,11 +1252,11 @@
       "goals": 0,
       "assists": 2,
       "points": 2,
-      "shots": 1,
+      "shots": 2,
       "gpg": 0.0,
       "apg": 0.2222222222222222,
       "ppg": 0.2222222222222222,
-      "sogpg": 0.1111111111111111,
+      "sogpg": 0.2222222222222222,
       "sh_pct": 0.0,
       "plus_minus": -2,
       "pim": 4,
@@ -1266,10 +1266,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.037418085338139735,
+      "xgf_pg": 0.04846682016198042,
       "pbp_goals": 0,
       "pbp_assists": 2,
-      "pbp_shots": 1
+      "pbp_shots": 2
     },
     {
       "name": "Tage Thompson",
@@ -1576,12 +1576,12 @@
       "goals": 2,
       "assists": 1,
       "points": 3,
-      "shots": 21,
+      "shots": 20,
       "gpg": 0.25,
       "apg": 0.125,
       "ppg": 0.375,
-      "sogpg": 2.625,
-      "sh_pct": 0.09523809523809523,
+      "sogpg": 2.5,
+      "sh_pct": 0.1,
       "plus_minus": 0,
       "pim": 6,
       "toi_pg": 19.714583333333334,
@@ -1590,10 +1590,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.19189525509458233,
+      "xgf_pg": 0.18881693766826285,
       "pbp_goals": 2,
       "pbp_assists": 1,
-      "pbp_shots": 21
+      "pbp_shots": 20
     },
     {
       "name": "Tyson Kozak",
@@ -2427,7 +2427,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.09718718094816678,
+      "xgf_pg": 0.0993111329550935,
       "pbp_goals": 1,
       "pbp_assists": 3,
       "pbp_shots": 5
@@ -2643,7 +2643,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.21919623525027931,
+      "xgf_pg": 0.21742627524450706,
       "pbp_goals": 2,
       "pbp_assists": 0,
       "pbp_shots": 12
@@ -2791,12 +2791,12 @@
       "goals": 2,
       "assists": 2,
       "points": 4,
-      "shots": 11,
+      "shots": 12,
       "gpg": 0.2857142857142857,
       "apg": 0.2857142857142857,
       "ppg": 0.5714285714285714,
-      "sogpg": 1.5714285714285714,
-      "sh_pct": 0.18181818181818182,
+      "sogpg": 1.7142857142857142,
+      "sh_pct": 0.16666666666666666,
       "plus_minus": 0,
       "pim": 0,
       "toi_pg": 18.32619,
@@ -2808,7 +2808,7 @@
       "xgf_pg": 0.26688344083798776,
       "pbp_goals": 2,
       "pbp_assists": 2,
-      "pbp_shots": 11
+      "pbp_shots": 12
     },
     {
       "name": "Luca Del Bel Belluz",
@@ -6069,7 +6069,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.0761484340912265,
+      "xgf_pg": 0.08642928554161848,
       "pbp_goals": 1,
       "pbp_assists": 2,
       "pbp_shots": 5
@@ -6177,7 +6177,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 1,
-      "xgf_pg": 0.20594362862851848,
+      "xgf_pg": 0.20435502713274947,
       "pbp_goals": 6,
       "pbp_assists": 10,
       "pbp_shots": 28
@@ -7567,11 +7567,11 @@
       "goals": 0,
       "assists": 0,
       "points": 0,
-      "shots": 10,
+      "shots": 11,
       "gpg": 0.0,
       "apg": 0.0,
       "ppg": 0.0,
-      "sogpg": 1.25,
+      "sogpg": 1.375,
       "sh_pct": 0.0,
       "plus_minus": 0,
       "pim": 6,
@@ -7581,10 +7581,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.05489021651101426,
+      "xgf_pg": 0.06435426618751647,
       "pbp_goals": 0,
       "pbp_assists": 0,
-      "pbp_shots": 10
+      "pbp_shots": 11
     },
     {
       "name": "Jared Spurgeon",
@@ -8391,7 +8391,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.16564865695484196,
+      "xgf_pg": 0.16271779349683474,
       "pbp_goals": 0,
       "pbp_assists": 2,
       "pbp_shots": 17
@@ -9498,7 +9498,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.3587516707273425,
+      "xgf_pg": 0.35904437846982273,
       "pbp_goals": 1,
       "pbp_assists": 7,
       "pbp_shots": 26
@@ -10618,11 +10618,11 @@
       "goals": 0,
       "assists": 9,
       "points": 9,
-      "shots": 12,
+      "shots": 13,
       "gpg": 0.0,
       "apg": 0.9,
       "ppg": 0.9,
-      "sogpg": 1.2,
+      "sogpg": 1.3,
       "sh_pct": 0.0,
       "plus_minus": 1,
       "pim": 6,
@@ -10632,10 +10632,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.11390782930712566,
+      "xgf_pg": 0.11361480783350622,
       "pbp_goals": 0,
       "pbp_assists": 9,
-      "pbp_shots": 12
+      "pbp_shots": 13
     },
     {
       "name": "Taylor Raddysh",
@@ -10659,10 +10659,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.0010272056838326496,
-      "pbp_goals": 0,
-      "pbp_assists": 0,
-      "pbp_shots": 0
+      "xgf_pg": 0.0
     },
     {
       "name": "Eeli Tolvanen",
@@ -10807,11 +10804,11 @@
       "goals": 0,
       "assists": 1,
       "points": 1,
-      "shots": 14,
+      "shots": 15,
       "gpg": 0.0,
       "apg": 0.1,
       "ppg": 0.1,
-      "sogpg": 1.4,
+      "sogpg": 1.5,
       "sh_pct": 0.0,
       "plus_minus": 3,
       "pim": 6,
@@ -10824,7 +10821,7 @@
       "xgf_pg": 0.06546786456047915,
       "pbp_goals": 0,
       "pbp_assists": 1,
-      "pbp_shots": 14
+      "pbp_shots": 15
     },
     {
       "name": "Alexis Lafreni\u00e8re",
@@ -17178,7 +17175,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 1,
       "game_winning_goals": 1,
-      "xgf_pg": 0.3443055910270767,
+      "xgf_pg": 0.38188671875132874,
       "pbp_goals": 5,
       "pbp_assists": 13,
       "pbp_shots": 28
@@ -18615,5 +18612,5 @@
       "pbp_shots": 8
     }
   ],
-  "updated_at": "2026-10-19T07:43:12Z"
+  "updated_at": "2026-10-20T00:37:50Z"
 }

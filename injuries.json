@@ -18,12 +18,6 @@
     "injured": true
   },
   {
-    "team": "ANA",
-    "player": "Mikael Granlund",
-    "status": "dtd",
-    "injured": true
-  },
-  {
     "team": "BOS",
     "player": "Pavel Zacha",
     "status": "dtd",
@@ -85,13 +79,13 @@
   },
   {
     "team": "CAR",
-    "player": "Alexander Nikishin",
-    "status": "out",
+    "player": "Taylor Hall",
+    "status": "ir",
     "injured": true
   },
   {
     "team": "CAR",
-    "player": "Taylor Hall",
+    "player": "Alexander Nikishin",
     "status": "out",
     "injured": true
   },
@@ -134,13 +128,19 @@
   {
     "team": "COL",
     "player": "Logan O&#x27;Connor",
-    "status": "dtd",
+    "status": "ir",
     "injured": true
   },
   {
     "team": "COL",
     "player": "Nicolas Roy",
-    "status": "dtd",
+    "status": "out",
+    "injured": true
+  },
+  {
+    "team": "COL",
+    "player": "Zachary L&#x27;Heureux",
+    "status": "out",
     "injured": true
   },
   {
@@ -153,12 +153,6 @@
     "team": "DAL",
     "player": "Oskar Back",
     "status": "ir",
-    "injured": true
-  },
-  {
-    "team": "DAL",
-    "player": "Roope Hintz",
-    "status": "dtd",
     "injured": true
   },
   {
@@ -237,12 +231,6 @@
     "team": "FLA",
     "player": "Brad Marchand",
     "status": "ir",
-    "injured": true
-  },
-  {
-    "team": "FLA",
-    "player": "Radko Gudas",
-    "status": "dtd",
     "injured": true
   },
   {
@@ -434,7 +422,7 @@
   {
     "team": "OTT",
     "player": "Thomas Chabot",
-    "status": "dtd",
+    "status": "out",
     "injured": true
   },
   {
@@ -464,13 +452,7 @@
   {
     "team": "PHI",
     "player": "Owen Tippett",
-    "status": "dtd",
-    "injured": true
-  },
-  {
-    "team": "PHI",
-    "player": "Sean Couturier",
-    "status": "dtd",
+    "status": "ir",
     "injured": true
   },
   {
@@ -645,12 +627,6 @@
     "team": "WSH",
     "player": "Justin Sourdif",
     "status": "dtd",
-    "injured": true
-  },
-  {
-    "team": "WPG",
-    "player": "Elias Salomonsson",
-    "status": "out",
     "injured": true
   },
   {

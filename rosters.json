@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-19T07:44:30.615053+00:00",
+  "generated_at": "2026-10-20T00:39:43.676053+00:00",
   "teams": {
     "BOS": {
       "skaters": [
@@ -1218,6 +1218,12 @@
       ],
       "goalies": [
         {
+          "name": "Artur Akhtyamov",
+          "id": 8482515,
+          "position": "G",
+          "birthDate": "2001-10-31"
+        },
+        {
           "name": "Sergei Bobrovsky",
           "id": 8475683,
           "position": "G",
@@ -1678,6 +1684,12 @@
     "NYI": {
       "skaters": [
         {
+          "name": "Mitchell Chaffee",
+          "id": 8482070,
+          "position": "RW",
+          "birthDate": "1998-01-26"
+        },
+        {
           "name": "Casey Cizikas",
           "id": 8475231,
           "position": "C",
@@ -1996,6 +2008,12 @@
           "birthDate": "2005-04-27"
         },
         {
+          "name": "Alex Bump",
+          "id": 8483731,
+          "position": "LW",
+          "birthDate": "2003-11-20"
+        },
+        {
           "name": "Michael Bunting",
           "id": 8478047,
           "position": "LW",
@@ -2026,10 +2044,22 @@
           "birthDate": "2002-01-18"
         },
         {
+          "name": "Jacob Gaucher",
+          "id": 8481848,
+          "position": "C",
+          "birthDate": "2001-03-09"
+        },
+        {
           "name": "Nikita Grebenkin",
           "id": 8483733,
           "position": "RW",
           "birthDate": "2003-05-02"
+        },
+        {
+          "name": "Cole Knuble",
+          "id": 8483787,
+          "position": "RW",
+          "birthDate": "2004-07-01"
         },
         {
           "name": "Travis Konecny",
@@ -2096,6 +2126,12 @@
           "id": 8483460,
           "position": "D",
           "birthDate": "2003-11-28"
+        },
+        {
+          "name": "Hunter McDonald",
+          "id": 8483760,
+          "position": "D",
+          "birthDate": "2002-05-11"
         },
         {
           "name": "Rasmus Ristolainen",
@@ -2260,6 +2296,12 @@
           "birthDate": "1987-04-24"
         },
         {
+          "name": "Ilya Solovyov",
+          "id": 8482470,
+          "position": "D",
+          "birthDate": "2000-07-20"
+        },
+        {
           "name": "Spencer Stastney",
           "id": 8481056,
           "position": "D",
@@ -2294,6 +2336,12 @@
           "id": 8478463,
           "position": "RW",
           "birthDate": "1997-06-08"
+        },
+        {
+          "name": "Jonny Brodzinski",
+          "id": 8477380,
+          "position": "C",
+          "birthDate": "1993-06-19"
         },
         {
           "name": "Pierre-Luc Dubois",
@@ -2392,12 +2440,6 @@
           "birthDate": "1999-10-06"
         },
         {
-          "name": "Justin Holl",
-          "id": 8475718,
-          "position": "D",
-          "birthDate": "1992-01-30"
-        },
-        {
           "name": "Cole Hutson",
           "id": 8484873,
           "position": "D",
@@ -2420,6 +2462,12 @@
           "id": 8478911,
           "position": "D",
           "birthDate": "1995-03-01"
+        },
+        {
+          "name": "Rasmus Sandin",
+          "id": 8480873,
+          "position": "D",
+          "birthDate": "2000-03-07"
         }
       ],
       "goalies": [
@@ -3620,6 +3668,12 @@
           "id": 8480014,
           "position": "C",
           "birthDate": "1999-08-16"
+        },
+        {
+          "name": "Brayden Yager",
+          "id": 8484242,
+          "position": "C",
+          "birthDate": "2005-01-03"
         },
         {
           "name": "Tyrel Bauer",
