@@ -887,6 +887,56 @@ function buildParlays() {
     renderResults();
 }
 
+// ── Ladder builder ───────────────────────────────────────────────────
+// A "ladder" is a 2-leg parlay that lands as close as possible to even
+// money (+100): win one rung and the stake doubles, so a run of them
+// compounds. We enumerate every pair in the filtered pool and rank by
+// distance to +100, then by hit chance.
+const LADDER_TARGET = 2.0; // decimal odds for +100
+const LADDER_SHOW = 3;     // surface only the top ladders
+
+function buildLadder() {
+    const host = document.getElementById('plAutoplay');
+    const pool = _legs.filter(legAllowed);
+
+    if (pool.length < 2) {
+        host.innerHTML = `<p class="empty-desc">Need at least two usable legs for a ladder — pick more markets or games.</p>`;
+        return;
+    }
+
+    const pairs = [];
+    for (let i = 0; i < pool.length; i++) {
+        const a = pool[i];
+        for (let j = i + 1; j < pool.length; j++) {
+            const b = pool[j];
+            const combinedDecimal = (a.decimal || 1) * (b.decimal || 1);
+            pairs.push({
+                legs: [a, b],
+                combinedDecimal,
+                jointProb: a.modelProb * b.modelProb,
+                dist: Math.abs(combinedDecimal - LADDER_TARGET),
+            });
+        }
+    }
+
+    // Nearest to +100 first; ties go to the higher hit chance — the better
+    // odds of the two — so the top rung is the strongest even-money ladder.
+    pairs.sort((x, y) => x.dist - y.dist || y.jointProb - x.jointProb);
+
+    const results = pairs.slice(0, LADDER_SHOW).map(p => ({
+        legs: p.legs,
+        combinedDecimal: p.combinedDecimal,
+        jointProb: p.jointProb,
+        ev: evOf(p.jointProb, p.combinedDecimal),
+    }));
+
+    const nearestAm = results.length ? fmtAmerican(decimalToAmerican(results[0].combinedDecimal)) : '—';
+    setResultsNote(`Top ${results.length} ladders — nearest +100 first, then highest hit chance. Best lands at ${nearestAm}.`);
+    _lastResults = results;
+    _resultShown = Math.min(MAX_SHOW, results.length);
+    renderResults();
+}
+
 function renderResults() {
     const host = document.getElementById('plAutoplay');
     if (!_lastResults.length) {
@@ -1194,6 +1244,7 @@ function stakeOrBankrollChanged(kind) {
 document.getElementById('plStake').addEventListener('input', () => stakeOrBankrollChanged('stake'));
 document.getElementById('plBankroll').addEventListener('input', () => stakeOrBankrollChanged('bankroll'));
 document.getElementById('plBuild').addEventListener('click', buildParlays);
+document.getElementById('plLadder').addEventListener('click', buildLadder);
 document.getElementById('plClear').addEventListener('click', () => { pushUndo(); _slip = []; renderSlip(); });
 
 document.getElementById('plCopy').addEventListener('click', () => {

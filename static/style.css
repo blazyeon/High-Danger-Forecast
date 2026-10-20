@@ -2339,6 +2339,8 @@ input[type="date"].param-input, input[type="date"].date-input {
 }
 
 .pl-build-btn { width: 100%; justify-content: center; }
+.pl-finder-actions { display: flex; gap: 10px; }
+.pl-finder-actions .action-btn { flex: 1; width: auto; }
 
 /* Finder results */
 .pl-autoplay { display: grid; gap: 8px; }
