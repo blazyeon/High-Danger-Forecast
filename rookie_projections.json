@@ -1,17 +1,6 @@
 {
-  "generated_at": "2026-10-21T00:09:17.869260+00:00",
+  "generated_at": "2026-10-21T07:33:05.138906+00:00",
   "players": {
-    "juusov\u00e4lim\u00e4ki": {
-      "points_pg": 0.44,
-      "goals_pg": 0.1467,
-      "assists_pg": 0.2933,
-      "shots_pg": 1.6296,
-      "source_league": "AHL",
-      "source_season": 20252026,
-      "source_games": 3,
-      "name": "Juuso V\u00e4lim\u00e4ki",
-      "team": "CAR"
-    },
     "kyleburroughs": {
       "points_pg": 0.1711,
       "goals_pg": 0.0244,
