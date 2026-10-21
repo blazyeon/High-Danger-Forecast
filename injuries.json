@@ -18,8 +18,8 @@
     "injured": true
   },
   {
-    "team": "BOS",
-    "player": "Pavel Zacha",
+    "team": "ANA",
+    "player": "Judd Caulfield",
     "status": "dtd",
     "injured": true
   },
@@ -156,6 +156,12 @@
     "injured": true
   },
   {
+    "team": "DAL",
+    "player": "Esa Lindell",
+    "status": "dtd",
+    "injured": true
+  },
+  {
     "team": "DET",
     "player": "J.T. Compher",
     "status": "ir",
@@ -234,6 +240,12 @@
     "injured": true
   },
   {
+    "team": "FLA",
+    "player": "Jacob Markstrom",
+    "status": "dtd",
+    "injured": true
+  },
+  {
     "team": "LAK",
     "player": "Alex Turcotte",
     "status": "ir",
@@ -241,14 +253,14 @@
   },
   {
     "team": "LAK",
-    "player": "Mats Zuccarello",
+    "player": "Kevin Fiala",
     "status": "ir",
     "injured": true
   },
   {
     "team": "LAK",
-    "player": "Kevin Fiala",
-    "status": "ir",
+    "player": "Quinton Byfield",
+    "status": "dtd",
     "injured": true
   },
   {
@@ -266,12 +278,6 @@
   {
     "team": "MIN",
     "player": "Nick Foligno",
-    "status": "out",
-    "injured": true
-  },
-  {
-    "team": "MIN",
-    "player": "Nico Sturm",
     "status": "out",
     "injured": true
   },
@@ -339,18 +345,6 @@
     "team": "NJD",
     "player": "Nick Bjugstad",
     "status": "ir",
-    "injured": true
-  },
-  {
-    "team": "NJD",
-    "player": "Connor Brown",
-    "status": "ir",
-    "injured": true
-  },
-  {
-    "team": "NJD",
-    "player": "Luke Evangelista",
-    "status": "dtd",
     "injured": true
   },
   {
@@ -492,6 +486,12 @@
     "injured": true
   },
   {
+    "team": "PIT",
+    "player": "Ben Kindel",
+    "status": "dtd",
+    "injured": true
+  },
+  {
     "team": "SJS",
     "player": "Alexander Wennberg",
     "status": "dtd",
@@ -584,7 +584,7 @@
   {
     "team": "UTA",
     "player": "Michael Carcone",
-    "status": "out",
+    "status": "ir",
     "injured": true
   },
   {
@@ -625,19 +625,13 @@
   },
   {
     "team": "WSH",
-    "player": "Matt Roy",
+    "player": "Justin Sourdif",
     "status": "dtd",
     "injured": true
   },
   {
     "team": "WSH",
     "player": "Pierre-Luc Dubois",
-    "status": "dtd",
-    "injured": true
-  },
-  {
-    "team": "WSH",
-    "player": "Justin Sourdif",
     "status": "dtd",
     "injured": true
   },

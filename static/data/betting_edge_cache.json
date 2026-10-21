@@ -7054,6 +7054,113 @@
         }
       ],
       "no_odds_games": []
+    },
+    "2026-10-21": {
+      "date": "2026-10-21",
+      "computed_at": "2026-10-21T00:08:31.800465+00:00",
+      "source": "sharpapi",
+      "odds_fetched_at": "2026-10-21T00:08:22.344787+00:00",
+      "warning": null,
+      "no_games": false,
+      "scanned": 2,
+      "matched": 2,
+      "with_edges": 2,
+      "dropped": 0,
+      "games": [
+        {
+          "home": "BUF",
+          "away": "PHI",
+          "home_name": "Sabres",
+          "away_name": "Flyers",
+          "start_time": "2026-10-21T23:30:00Z",
+          "best_edge": 0.2334,
+          "edges": [
+            {
+              "market": "Puck Line (-1.5)",
+              "side": "BUF Sabres",
+              "pick": "BUF Sabres",
+              "team": "BUF",
+              "odds": 136,
+              "odds_decimal": 2.3600000000000003,
+              "model_prob": 0.64,
+              "implied_prob": 0.4066,
+              "edge": 0.2334,
+              "book": "draftkings"
+            },
+            {
+              "market": "Moneyline",
+              "side": "Buffalo Sabres",
+              "pick": "Buffalo Sabres",
+              "team": "BUF",
+              "odds": -185,
+              "odds_decimal": 1.5405405405405406,
+              "model_prob": 0.682,
+              "implied_prob": 0.6225,
+              "edge": 0.0595,
+              "book": "draftkings"
+            },
+            {
+              "market": "Total 5.5",
+              "side": "Under",
+              "pick": "Under",
+              "team": null,
+              "odds": 114,
+              "odds_decimal": 2.1399999999999997,
+              "model_prob": 0.497,
+              "implied_prob": 0.4486,
+              "edge": 0.0484,
+              "book": "draftkings"
+            }
+          ]
+        },
+        {
+          "home": "OTT",
+          "away": "FLA",
+          "home_name": "Senators",
+          "away_name": "Panthers",
+          "start_time": "2026-10-21T23:30:00Z",
+          "best_edge": 0.0867,
+          "edges": [
+            {
+              "market": "Moneyline",
+              "side": "Florida Panthers",
+              "pick": "Florida Panthers",
+              "team": "FLA",
+              "odds": -112,
+              "odds_decimal": 1.8928571428571428,
+              "model_prob": 0.591,
+              "implied_prob": 0.5043,
+              "edge": 0.0867,
+              "book": "draftkings"
+            },
+            {
+              "market": "Puck Line (1.5)",
+              "side": "FLA Panthers",
+              "pick": "FLA Panthers",
+              "team": "FLA",
+              "odds": -278,
+              "odds_decimal": 1.3597122302158273,
+              "model_prob": 0.765,
+              "implied_prob": 0.705,
+              "edge": 0.06,
+              "book": "draftkings"
+            },
+            {
+              "market": "Total 5.5",
+              "side": "Over",
+              "pick": "Over",
+              "team": null,
+              "odds": -125,
+              "odds_decimal": 1.8,
+              "model_prob": 0.572,
+              "implied_prob": 0.5325,
+              "edge": 0.0395,
+              "book": "draftkings"
+            }
+          ]
+        }
+      ],
+      "no_odds_games": []
     }
   }
 }

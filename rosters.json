@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-20T07:30:29.501946+00:00",
+  "generated_at": "2026-10-21T00:09:17.864591+00:00",
   "teams": {
     "BOS": {
       "skaters": [
@@ -599,6 +599,12 @@
         }
       ],
       "goalies": [
+        {
+          "name": "Cooper Black",
+          "id": 8484900,
+          "position": "G",
+          "birthDate": "2001-06-14"
+        },
         {
           "name": "Jacob Markstrom",
           "id": 8474593,
@@ -2974,12 +2980,6 @@
           "birthDate": "1987-10-31"
         },
         {
-          "name": "Hunter Haight",
-          "id": 8483452,
-          "position": "C",
-          "birthDate": "2004-04-04"
-        },
-        {
           "name": "Ryan Hartman",
           "id": 8477451,
           "position": "RW",
@@ -3950,6 +3950,12 @@
           "id": 8476456,
           "position": "LW",
           "birthDate": "1993-06-04"
+        },
+        {
+          "name": "Ben Jones",
+          "id": 8480259,
+          "position": "C",
+          "birthDate": "1999-02-26"
         },
         {
           "name": "Adam Klapka",
