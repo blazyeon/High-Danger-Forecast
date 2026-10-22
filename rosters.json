@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-21T07:33:05.134172+00:00",
+  "generated_at": "2026-10-22T00:13:44.051791+00:00",
   "teams": {
     "BOS": {
       "skaters": [
@@ -230,6 +230,12 @@
           "id": 8479420,
           "position": "C",
           "birthDate": "1997-10-30"
+        },
+        {
+          "name": "Jason Zucker",
+          "id": 8475722,
+          "position": "LW",
+          "birthDate": "1992-01-16"
         },
         {
           "name": "Louis Crevier",
@@ -628,12 +634,6 @@
           "birthDate": "1994-05-07"
         },
         {
-          "name": "Owen Beck",
-          "id": 8483424,
-          "position": "C",
-          "birthDate": "2004-02-03"
-        },
-        {
           "name": "Zachary Bolduc",
           "id": 8482737,
           "position": "RW",
@@ -746,12 +746,6 @@
           "id": 8476875,
           "position": "D",
           "birthDate": "1994-02-27"
-        },
-        {
-          "name": "David Reinbacher",
-          "id": 8484220,
-          "position": "D",
-          "birthDate": "2004-10-25"
         },
         {
           "name": "Arber Xhekaj",
@@ -1224,12 +1218,6 @@
       ],
       "goalies": [
         {
-          "name": "Artur Akhtyamov",
-          "id": 8482515,
-          "position": "G",
-          "birthDate": "2001-10-31"
-        },
-        {
           "name": "Sergei Bobrovsky",
           "id": 8475683,
           "position": "G",
@@ -1298,12 +1286,6 @@
           "id": 8476921,
           "position": "LW",
           "birthDate": "1992-07-25"
-        },
-        {
-          "name": "Bradly Nadeau",
-          "id": 8484203,
-          "position": "LW",
-          "birthDate": "2005-05-05"
         },
         {
           "name": "Eric Robinson",
@@ -2342,12 +2324,6 @@
           "id": 8478463,
           "position": "RW",
           "birthDate": "1997-06-08"
-        },
-        {
-          "name": "Jonny Brodzinski",
-          "id": 8477380,
-          "position": "C",
-          "birthDate": "1993-06-19"
         },
         {
           "name": "Pierre-Luc Dubois",
@@ -4310,6 +4286,12 @@
           "id": 8483406,
           "position": "RW",
           "birthDate": "1998-03-31"
+        },
+        {
+          "name": "Jared Wright",
+          "id": 8483756,
+          "position": "RW",
+          "birthDate": "2002-11-22"
         },
         {
           "name": "Mats Zuccarello",
