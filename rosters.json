@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-22T07:33:37.813886+00:00",
+  "generated_at": "2026-10-23T00:11:40.062695+00:00",
   "teams": {
     "BOS": {
       "skaters": [
@@ -358,12 +358,6 @@
           "birthDate": "1997-12-18"
         },
         {
-          "name": "Sheldon Dries",
-          "id": 8480326,
-          "position": "C",
-          "birthDate": "1994-04-23"
-        },
-        {
           "name": "Emmitt Finnie",
           "id": 8484471,
           "position": "C",
@@ -462,6 +456,12 @@
           "birthDate": "1993-07-14"
         },
         {
+          "name": "Michal Postava",
+          "id": 8485545,
+          "position": "G",
+          "birthDate": "2002-02-28"
+        },
+        {
           "name": "Daniil Tarasov",
           "id": 8480193,
           "position": "G",
@@ -508,12 +508,6 @@
           "birthDate": "1996-08-03"
         },
         {
-          "name": "Sam Lafferty",
-          "id": 8478043,
-          "position": "C",
-          "birthDate": "1995-03-06"
-        },
-        {
           "name": "Anton Lundell",
           "id": 8482113,
           "position": "C",
@@ -532,10 +526,22 @@
           "birthDate": "1988-05-11"
         },
         {
+          "name": "Cole Reinhardt",
+          "id": 8481133,
+          "position": "LW",
+          "birthDate": "2000-02-01"
+        },
+        {
           "name": "Sam Reinhart",
           "id": 8477933,
           "position": "C",
           "birthDate": "1995-11-06"
+        },
+        {
+          "name": "Cole Schwindt",
+          "id": 8481655,
+          "position": "RW",
+          "birthDate": "2001-04-25"
         },
         {
           "name": "Brady Tkachuk",
@@ -632,6 +638,12 @@
           "id": 8476981,
           "position": "RW",
           "birthDate": "1994-05-07"
+        },
+        {
+          "name": "Owen Beck",
+          "id": 8483424,
+          "position": "C",
+          "birthDate": "2004-02-03"
         },
         {
           "name": "Zachary Bolduc",
@@ -916,6 +928,12 @@
           "id": 8481035,
           "position": "G",
           "birthDate": "1999-10-20"
+        },
+        {
+          "name": "Jonas Johansson",
+          "id": 8477992,
+          "position": "G",
+          "birthDate": "1995-09-19"
         },
         {
           "name": "Linus Ullmark",
@@ -1246,6 +1264,12 @@
           "birthDate": "2003-08-03"
         },
         {
+          "name": "Skyler Brind'Amour",
+          "id": 8480291,
+          "position": "C",
+          "birthDate": "1999-07-27"
+        },
+        {
           "name": "William Carrier",
           "id": 8477478,
           "position": "LW",
@@ -1274,6 +1298,12 @@
           "id": 8476873,
           "position": "LW",
           "birthDate": "1994-09-13"
+        },
+        {
+          "name": "Seth Jarvis",
+          "id": 8482093,
+          "position": "RW",
+          "birthDate": "2002-02-01"
         },
         {
           "name": "Jesperi Kotkaniemi",
@@ -2224,6 +2254,12 @@
           "birthDate": "1986-07-31"
         },
         {
+          "name": "Rutger McGroarty",
+          "id": 8483487,
+          "position": "RW",
+          "birthDate": "2004-03-30"
+        },
+        {
           "name": "Tommy Novak",
           "id": 8478438,
           "position": "C",
@@ -2282,6 +2318,12 @@
           "id": 8471724,
           "position": "D",
           "birthDate": "1987-04-24"
+        },
+        {
+          "name": "Chase Pietila",
+          "id": 8485019,
+          "position": "D",
+          "birthDate": "2004-03-03"
         },
         {
           "name": "Ilya Solovyov",
@@ -2619,12 +2661,6 @@
     },
     "COL": {
       "skaters": [
-        {
-          "name": "Gavin Brindley",
-          "id": 8484149,
-          "position": "C",
-          "birthDate": "2004-10-05"
-        },
         {
           "name": "T.J. Hughes",
           "id": 8486171,
@@ -3044,12 +3080,6 @@
           "id": 8482641,
           "position": "D",
           "birthDate": "1998-04-14"
-        },
-        {
-          "name": "Carson Lambos",
-          "id": 8482781,
-          "position": "D",
-          "birthDate": "2003-01-14"
         },
         {
           "name": "Olli Maatta",
@@ -3836,12 +3866,6 @@
           "id": 8483490,
           "position": "D",
           "birthDate": "2003-11-25"
-        },
-        {
-          "name": "Travis Mitchell",
-          "id": 8484262,
-          "position": "D",
-          "birthDate": "1999-11-25"
         },
         {
           "name": "Ian Moore",
@@ -4904,6 +4928,12 @@
           "id": 8478396,
           "position": "D",
           "birthDate": "1997-01-25"
+        },
+        {
+          "name": "Ville Heinola",
+          "id": 8481572,
+          "position": "D",
+          "birthDate": "2001-03-02"
         },
         {
           "name": "Jeremy Lauzon",
