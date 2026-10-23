@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-23T00:11:40.062695+00:00",
+  "generated_at": "2026-10-23T07:27:11.605155+00:00",
   "teams": {
     "BOS": {
       "skaters": [
@@ -3400,12 +3400,6 @@
           "birthDate": "2006-06-28"
         },
         {
-          "name": "Theo Lindstein",
-          "id": 8484188,
-          "position": "D",
-          "birthDate": "2005-01-05"
-        },
-        {
           "name": "Logan Mailloux",
           "id": 8482733,
           "position": "D",
@@ -4874,6 +4868,12 @@
           "id": 8476881,
           "position": "C",
           "birthDate": "1993-11-12"
+        },
+        {
+          "name": "Alexander Holtz",
+          "id": 8482125,
+          "position": "RW",
+          "birthDate": "2002-01-23"
         },
         {
           "name": "Brett Howden",

@@ -1,6 +1,6 @@
 {
   "source": "daily_faceoff",
-  "updated_at": "2026-10-22T22:40:28.467Z",
+  "updated_at": "2026-10-23T04:57:06.557Z",
   "teams": {
     "ANA": {
       "pp1": [
@@ -71,8 +71,8 @@
         "Simon Nemec",
         "Yegor Sharangovich"
       ],
-      "updated_at": "2026-10-22T17:22:47.596Z",
-      "source": "Projected"
+      "updated_at": "2026-10-23T00:48:51.812Z",
+      "source": "Pat Steinberg"
     },
     "CAR": {
       "pp1": [
@@ -89,7 +89,7 @@
         "Juuso Valimaki",
         "K'Andre Miller"
       ],
-      "updated_at": "2026-10-21T20:06:49.201Z",
+      "updated_at": "2026-10-23T00:49:21.912Z",
       "source": "Walt Ruff"
     },
     "CHI": {
@@ -179,8 +179,8 @@
         "Michael Brandsegg-Nyg\u00e5rd",
         "Justin Faulk"
       ],
-      "updated_at": "2026-10-21T14:07:15.783Z",
-      "source": "Last Game (2026-10-20)"
+      "updated_at": "2026-10-23T04:57:06.557Z",
+      "source": "@DetroitRedWings"
     },
     "EDM": {
       "pp1": [
@@ -197,7 +197,7 @@
         "Ryan Shea",
         "Isaac Howard"
       ],
-      "updated_at": "2026-10-22T16:57:05.812Z",
+      "updated_at": "2026-10-23T04:56:28.828Z",
       "source": "Jason Gregor"
     },
     "FLA": {
@@ -238,7 +238,7 @@
     },
     "MIN": {
       "pp1": [
-        "Maxim Shabanov",
+        "Bobby Brink",
         "Joel Eriksson Ek",
         "Kirill Kaprizov",
         "Quinn Hughes",
@@ -248,11 +248,11 @@
         "Blake Coleman",
         "Ryan Hartman",
         "Danila Yurov",
-        "Bobby Brink",
+        "Quinn Hughes",
         "Jared Spurgeon"
       ],
-      "updated_at": "2026-10-22T18:04:41.937Z",
-      "source": "Last Game (2026-10-20)"
+      "updated_at": "2026-10-23T00:52:43.921Z",
+      "source": "Projected"
     },
     "MTL": {
       "pp1": [
@@ -413,7 +413,7 @@
         "Igor Chernyshov",
         "Jacob Trouba"
       ],
-      "updated_at": "2026-10-22T15:43:36.664Z",
+      "updated_at": "2026-10-23T02:24:10.293Z",
       "source": "Max Miller"
     },
     "SEA": {
@@ -485,8 +485,8 @@
         "Oliver Ekman-Larsson",
         "Morgan Rielly"
       ],
-      "updated_at": "2026-10-22T15:33:24.126Z",
-      "source": "Arun Srinivasan"
+      "updated_at": "2026-10-23T02:29:32.456Z",
+      "source": "David Alter"
     },
     "UTA": {
       "pp1": [

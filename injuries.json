@@ -61,12 +61,6 @@
   },
   {
     "team": "CAR",
-    "player": "Seth Jarvis",
-    "status": "ir",
-    "injured": true
-  },
-  {
-    "team": "CAR",
     "player": "Jordan Staal",
     "status": "ir",
     "injured": true
@@ -174,6 +168,18 @@
     "injured": true
   },
   {
+    "team": "DET",
+    "player": "Daniil Tarasov",
+    "status": "dtd",
+    "injured": true
+  },
+  {
+    "team": "DET",
+    "player": "John Gibson",
+    "status": "dtd",
+    "injured": true
+  },
+  {
     "team": "EDM",
     "player": "Alec Regula",
     "status": "ir",
@@ -201,6 +207,12 @@
     "team": "EDM",
     "player": "Jason Dickinson",
     "status": "ir",
+    "injured": true
+  },
+  {
+    "team": "EDM",
+    "player": "Mattias Ekholm",
+    "status": "dtd",
     "injured": true
   },
   {
@@ -267,6 +279,12 @@
     "team": "MIN",
     "player": "Marcus Foligno",
     "status": "out",
+    "injured": true
+  },
+  {
+    "team": "MIN",
+    "player": "Maxim Shabanov",
+    "status": "dtd",
     "injured": true
   },
   {
@@ -456,6 +474,12 @@
     "injured": true
   },
   {
+    "team": "SJS",
+    "player": "Igor Chernyshov",
+    "status": "out",
+    "injured": true
+  },
+  {
     "team": "SEA",
     "player": "Jacob Melanson",
     "status": "ir",
@@ -542,7 +566,7 @@
   {
     "team": "TOR",
     "player": "Marshall Rifai",
-    "status": "dtd",
+    "status": "out",
     "injured": true
   },
   {

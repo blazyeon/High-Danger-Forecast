@@ -7731,9 +7731,9 @@
     },
     "2026-10-23": {
       "date": "2026-10-23",
-      "computed_at": "2026-10-23T00:10:57.599017+00:00",
+      "computed_at": "2026-10-23T07:26:24.675047+00:00",
       "source": "sharpapi",
-      "odds_fetched_at": "2026-10-23T00:10:50.845787+00:00",
+      "odds_fetched_at": "2026-10-23T07:26:15.700054+00:00",
       "warning": null,
       "no_games": false,
       "scanned": 2,
@@ -7747,30 +7747,30 @@
           "home_name": "Blackhawks",
           "away_name": "Canadiens",
           "start_time": "2026-10-24T00:00:00Z",
-          "best_edge": 0.1135,
+          "best_edge": 0.1227,
           "edges": [
-            {
-              "market": "Moneyline",
-              "side": "Montreal Canadiens",
-              "pick": "Montreal Canadiens",
-              "team": "MTL",
-              "odds": -142,
-              "odds_decimal": 1.704225352112676,
-              "model_prob": 0.677,
-              "implied_prob": 0.5635,
-              "edge": 0.1135,
-              "book": "draftkings"
-            },
             {
               "market": "Puck Line (-1.5)",
               "side": "MTL Canadiens",
               "pick": "MTL Canadiens",
               "team": "MTL",
-              "odds": 180,
-              "odds_decimal": 2.8,
-              "model_prob": 0.434,
-              "implied_prob": 0.3425,
-              "edge": 0.0915,
+              "odds": 170,
+              "odds_decimal": 2.7,
+              "model_prob": 0.478,
+              "implied_prob": 0.3553,
+              "edge": 0.1227,
+              "book": "draftkings"
+            },
+            {
+              "market": "Moneyline",
+              "side": "Montreal Canadiens",
+              "pick": "Montreal Canadiens",
+              "team": "MTL",
+              "odds": -148,
+              "odds_decimal": 1.6756756756756757,
+              "model_prob": 0.685,
+              "implied_prob": 0.5721,
+              "edge": 0.1129,
               "book": "draftkings"
             },
             {
@@ -7780,9 +7780,9 @@
               "team": null,
               "odds": -122,
               "odds_decimal": 1.819672131147541,
-              "model_prob": 0.607,
+              "model_prob": 0.592,
               "implied_prob": 0.5261,
-              "edge": 0.0809,
+              "edge": 0.0659,
               "book": "draftkings"
             }
           ]
@@ -7793,7 +7793,7 @@
           "home_name": "Avalanche",
           "away_name": "Lightning",
           "start_time": "2026-10-24T01:00:00Z",
-          "best_edge": 0.076,
+          "best_edge": 0.042,
           "edges": [
             {
               "market": "Puck Line (-1.5)",
@@ -7802,9 +7802,9 @@
               "team": "COL",
               "odds": 195,
               "odds_decimal": 2.95,
-              "model_prob": 0.401,
+              "model_prob": 0.367,
               "implied_prob": 0.325,
-              "edge": 0.076,
+              "edge": 0.042,
               "book": "draftkings"
             },
             {
@@ -7814,9 +7814,9 @@
               "team": null,
               "odds": -122,
               "odds_decimal": 1.819672131147541,
-              "model_prob": 0.564,
+              "model_prob": 0.551,
               "implied_prob": 0.5261,
-              "edge": 0.0379,
+              "edge": 0.0249,
               "book": "draftkings"
             },
             {
@@ -7826,9 +7826,9 @@
               "team": "COL",
               "odds": -125,
               "odds_decimal": 1.8,
-              "model_prob": 0.515,
+              "model_prob": 0.502,
               "implied_prob": 0.5325,
-              "edge": -0.0175,
+              "edge": -0.0305,
               "book": "draftkings"
             }
           ]
