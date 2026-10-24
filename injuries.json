@@ -19,7 +19,7 @@
   },
   {
     "team": "ANA",
-    "player": "Judd Caulfield",
+    "player": "Pavel Mintyukov",
     "status": "dtd",
     "injured": true
   },
@@ -91,12 +91,6 @@
   },
   {
     "team": "CHI",
-    "player": "Andrew Mangiapane",
-    "status": "ir",
-    "injured": true
-  },
-  {
-    "team": "CHI",
     "player": "Bowen Byram",
     "status": "dtd",
     "injured": true
@@ -152,6 +146,12 @@
   {
     "team": "DAL",
     "player": "Radek Faksa",
+    "status": "dtd",
+    "injured": true
+  },
+  {
+    "team": "DAL",
+    "player": "Sam Steel",
     "status": "dtd",
     "injured": true
   },
@@ -330,6 +330,12 @@
     "injured": true
   },
   {
+    "team": "NJD",
+    "player": "Connor Hellebuyck",
+    "status": "out",
+    "injured": true
+  },
+  {
     "team": "NYI",
     "player": "Mathew Barzal",
     "status": "ir",
@@ -378,12 +384,6 @@
     "injured": true
   },
   {
-    "team": "NYR",
-    "player": "Eeli Tolvanen",
-    "status": "out",
-    "injured": true
-  },
-  {
     "team": "OTT",
     "player": "William Eklund",
     "status": "ir",
@@ -410,12 +410,6 @@
   {
     "team": "PHI",
     "player": "Nikita Grebenkin",
-    "status": "ir",
-    "injured": true
-  },
-  {
-    "team": "PHI",
-    "player": "Rasmus Ristolainen",
     "status": "ir",
     "injured": true
   },
@@ -480,6 +474,12 @@
     "injured": true
   },
   {
+    "team": "PIT",
+    "player": "Evgeni Malkin",
+    "status": "out",
+    "injured": true
+  },
+  {
     "team": "SJS",
     "player": "Alexander Wennberg",
     "status": "dtd",
@@ -501,6 +501,12 @@
     "team": "SEA",
     "player": "Ryan Lindgren",
     "status": "out",
+    "injured": true
+  },
+  {
+    "team": "SEA",
+    "player": "Jared McCann",
+    "status": "dtd",
     "injured": true
   },
   {
@@ -537,6 +543,12 @@
     "team": "TBL",
     "player": "Yanni Gourde",
     "status": "out",
+    "injured": true
+  },
+  {
+    "team": "TBL",
+    "player": "Victor Hedman",
+    "status": "dtd",
     "injured": true
   },
   {
@@ -625,13 +637,7 @@
   },
   {
     "team": "WSH",
-    "player": "Justin Sourdif",
-    "status": "dtd",
-    "injured": true
-  },
-  {
-    "team": "WSH",
-    "player": "Pierre-Luc Dubois",
+    "player": "Logan Thompson",
     "status": "dtd",
     "injured": true
   },

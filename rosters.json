@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-24T07:17:15.088774+00:00",
+  "generated_at": "2026-10-24T23:42:13.368155+00:00",
   "teams": {
     "BOS": {
       "skaters": [
@@ -1354,12 +1354,6 @@
           "birthDate": "2000-03-26"
         },
         {
-          "name": "Felix Unger S\u00f6rum",
-          "id": 8484392,
-          "position": "RW",
-          "birthDate": "2005-09-14"
-        },
-        {
           "name": "Jalen Chatfield",
           "id": 8478970,
           "position": "D",
@@ -1984,6 +1978,12 @@
           "birthDate": "1996-05-08"
         },
         {
+          "name": "Matthew Robertson",
+          "id": 8481525,
+          "position": "D",
+          "birthDate": "2001-03-09"
+        },
+        {
           "name": "Braden Schneider",
           "id": 8482073,
           "position": "D",
@@ -2122,12 +2122,6 @@
           "birthDate": "1999-02-16"
         },
         {
-          "name": "Garrett Wilson",
-          "id": 8475253,
-          "position": "LW",
-          "birthDate": "1991-03-16"
-        },
-        {
           "name": "Trevor Zegras",
           "id": 8481533,
           "position": "C",
@@ -2228,6 +2222,12 @@
           "id": 8480980,
           "position": "C",
           "birthDate": "1999-06-26"
+        },
+        {
+          "name": "Avery Hayes",
+          "id": 8482993,
+          "position": "RW",
+          "birthDate": "2002-10-10"
         },
         {
           "name": "Ben Kindel",
@@ -2504,9 +2504,21 @@
           "id": 8480873,
           "position": "D",
           "birthDate": "2000-03-07"
+        },
+        {
+          "name": "John St. Ivany",
+          "id": 8481030,
+          "position": "D",
+          "birthDate": "1999-07-22"
         }
       ],
       "goalies": [
+        {
+          "name": "Mitchell Gibson",
+          "id": 8481064,
+          "position": "G",
+          "birthDate": "1999-06-25"
+        },
         {
           "name": "Charlie Lindgren",
           "id": 8479292,
@@ -3046,6 +3058,12 @@
           "birthDate": "2000-10-07"
         },
         {
+          "name": "Mason Shaw",
+          "id": 8479972,
+          "position": "C",
+          "birthDate": "1998-11-03"
+        },
+        {
           "name": "Nico Sturm",
           "id": 8481477,
           "position": "C",
@@ -3086,12 +3104,6 @@
           "id": 8480800,
           "position": "D",
           "birthDate": "1999-10-14"
-        },
-        {
-          "name": "Daemon Hunt",
-          "id": 8482094,
-          "position": "D",
-          "birthDate": "2002-05-15"
         },
         {
           "name": "Matt Kiersted",
@@ -3220,16 +3232,16 @@
           "birthDate": "2005-02-06"
         },
         {
-          "name": "Jack Ahcan",
-          "id": 8482072,
-          "position": "D",
-          "birthDate": "1997-05-18"
-        },
-        {
           "name": "Nicolas Hague",
           "id": 8479980,
           "position": "D",
           "birthDate": "1998-12-05"
+        },
+        {
+          "name": "Daemon Hunt",
+          "id": 8482094,
+          "position": "D",
+          "birthDate": "2002-05-15"
         },
         {
           "name": "Roman Josi",
@@ -3724,16 +3736,16 @@
           "birthDate": "1995-07-29"
         },
         {
+          "name": "Elias Salomonsson",
+          "id": 8483510,
+          "position": "D",
+          "birthDate": "2004-08-31"
+        },
+        {
           "name": "Dylan Samberg",
           "id": 8480049,
           "position": "D",
           "birthDate": "1999-01-24"
-        },
-        {
-          "name": "Jack St. Ivany",
-          "id": 8481030,
-          "position": "D",
-          "birthDate": "1999-07-22"
         }
       ],
       "goalies": [
@@ -4604,6 +4616,12 @@
           "id": 8483570,
           "position": "C",
           "birthDate": "1998-11-15"
+        },
+        {
+          "name": "Jani Nyman",
+          "id": 8483497,
+          "position": "RW",
+          "birthDate": "2004-07-30"
         },
         {
           "name": "Jake O'Brien",

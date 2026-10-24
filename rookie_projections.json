@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-24T07:17:15.092164+00:00",
+  "generated_at": "2026-10-24T23:42:13.372484+00:00",
   "players": {
     "chasepietila": {
       "points_pg": 0.1067,
@@ -12,6 +12,17 @@
       "name": "Chase Pietila",
       "team": "PIT"
     },
+    "johnstivany": {
+      "points_pg": 0.1903,
+      "goals_pg": 0.0119,
+      "assists_pg": 0.1784,
+      "shots_pg": 0.1321,
+      "source_league": "AHL",
+      "source_season": 20242025,
+      "source_games": 37,
+      "name": "John St. Ivany",
+      "team": "WSH"
+    },
     "kyleburroughs": {
       "points_pg": 0.1711,
       "goals_pg": 0.0244,
@@ -22,6 +33,17 @@
       "source_games": 18,
       "name": "Kyle Burroughs",
       "team": "DAL"
+    },
+    "masonshaw": {
+      "points_pg": 0.2727,
+      "goals_pg": 0.093,
+      "assists_pg": 0.1797,
+      "shots_pg": 1.0329,
+      "source_league": "AHL",
+      "source_season": 20252026,
+      "source_games": 71,
+      "name": "Mason Shaw",
+      "team": "MIN"
     },
     "quintonburns": {
       "points_pg": 0.0788,
