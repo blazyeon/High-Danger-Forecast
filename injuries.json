@@ -25,6 +25,12 @@
   },
   {
     "team": "BUF",
+    "player": "Matt Grzelcyk",
+    "status": "ir",
+    "injured": true
+  },
+  {
+    "team": "BUF",
     "player": "Conor Timmins",
     "status": "ir",
     "injured": true
@@ -37,8 +43,8 @@
   },
   {
     "team": "BUF",
-    "player": "Matt Grzelcyk",
-    "status": "ir",
+    "player": "Jiri Kulich",
+    "status": "dtd",
     "injured": true
   },
   {
@@ -150,6 +156,12 @@
     "injured": true
   },
   {
+    "team": "DAL",
+    "player": "Radek Faksa",
+    "status": "dtd",
+    "injured": true
+  },
+  {
     "team": "DET",
     "player": "Marco Kasper",
     "status": "ir",
@@ -211,8 +223,14 @@
   },
   {
     "team": "EDM",
+    "player": "Devon Levi",
+    "status": "ir",
+    "injured": true
+  },
+  {
+    "team": "EDM",
     "player": "Mattias Ekholm",
-    "status": "dtd",
+    "status": "out",
     "injured": true
   },
   {
@@ -306,12 +324,6 @@
     "injured": true
   },
   {
-    "team": "MTL",
-    "player": "Mike Matheson",
-    "status": "dtd",
-    "injured": true
-  },
-  {
     "team": "NSH",
     "player": "William Trudeau",
     "status": "ir",
@@ -320,12 +332,6 @@
   {
     "team": "NJD",
     "player": "Seamus Casey",
-    "status": "ir",
-    "injured": true
-  },
-  {
-    "team": "NJD",
-    "player": "Nick Bjugstad",
     "status": "ir",
     "injured": true
   },
@@ -375,6 +381,12 @@
     "team": "NYR",
     "player": "Adam Sykora",
     "status": "ir",
+    "injured": true
+  },
+  {
+    "team": "NYR",
+    "player": "Eeli Tolvanen",
+    "status": "out",
     "injured": true
   },
   {
@@ -464,6 +476,12 @@
   {
     "team": "PIT",
     "player": "Samuel Girard",
+    "status": "dtd",
+    "injured": true
+  },
+  {
+    "team": "PIT",
+    "player": "Egor Chinakhov",
     "status": "dtd",
     "injured": true
   },
@@ -588,12 +606,6 @@
     "injured": true
   },
   {
-    "team": "VAN",
-    "player": "Marco Rossi",
-    "status": "dtd",
-    "injured": true
-  },
-  {
     "team": "VGK",
     "player": "Parker Wotherspoon",
     "status": "ir",
@@ -619,6 +631,12 @@
   },
   {
     "team": "WSH",
+    "player": "Vincent Desharnais",
+    "status": "ir",
+    "injured": true
+  },
+  {
+    "team": "WSH",
     "player": "Justin Sourdif",
     "status": "dtd",
     "injured": true
@@ -627,12 +645,6 @@
     "team": "WSH",
     "player": "Pierre-Luc Dubois",
     "status": "dtd",
-    "injured": true
-  },
-  {
-    "team": "WPG",
-    "player": "Connor Hellebuyck",
-    "status": "out",
     "injured": true
   },
   {

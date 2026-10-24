@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-23T07:27:11.605155+00:00",
+  "generated_at": "2026-10-24T00:01:54.742297+00:00",
   "teams": {
     "BOS": {
       "skaters": [
@@ -1204,6 +1204,18 @@
           "birthDate": "1993-10-12"
         },
         {
+          "name": "Cole McWard",
+          "id": 8484287,
+          "position": "D",
+          "birthDate": "2001-06-09"
+        },
+        {
+          "name": "Dakota Mermis",
+          "id": 8477541,
+          "position": "D",
+          "birthDate": "1994-01-05"
+        },
+        {
           "name": "Darren Raddysh",
           "id": 8478178,
           "position": "D",
@@ -1522,6 +1534,12 @@
           "birthDate": "1997-01-13"
         },
         {
+          "name": "Damon Severson",
+          "id": 8476923,
+          "position": "D",
+          "birthDate": "1994-08-07"
+        },
+        {
           "name": "Carson Soucy",
           "id": 8477369,
           "position": "D",
@@ -1618,12 +1636,6 @@
           "birthDate": "1996-10-08"
         },
         {
-          "name": "Dawson Mercer",
-          "id": 8482110,
-          "position": "C",
-          "birthDate": "2001-10-27"
-        },
-        {
           "name": "Stefan Noesen",
           "id": 8476474,
           "position": "RW",
@@ -1686,10 +1698,10 @@
           "birthDate": "1990-08-07"
         },
         {
-          "name": "Nico Daws",
-          "id": 8482076,
+          "name": "Connor Hellebuyck",
+          "id": 8476945,
           "position": "G",
-          "birthDate": "2000-12-22"
+          "birthDate": "1993-05-19"
         },
         {
           "name": "R\u00e9mi Poirier",
@@ -1870,10 +1882,10 @@
           "birthDate": "2000-10-26"
         },
         {
-          "name": "Justin Dowling",
-          "id": 8475413,
+          "name": "Luke Glendening",
+          "id": 8476822,
           "position": "C",
-          "birthDate": "1990-10-01"
+          "birthDate": "1989-04-28"
         },
         {
           "name": "Tye Kartye",
@@ -2704,6 +2716,12 @@
           "birthDate": "1995-09-01"
         },
         {
+          "name": "Taylor Makar",
+          "id": 8482953,
+          "position": "LW",
+          "birthDate": "2001-03-13"
+        },
+        {
           "name": "Martin Necas",
           "id": 8480039,
           "position": "C",
@@ -3286,12 +3304,6 @@
           "birthDate": "1995-04-17"
         },
         {
-          "name": "Zach Dean",
-          "id": 8482784,
-          "position": "C",
-          "birthDate": "2003-01-04"
-        },
-        {
           "name": "Dillon Dube",
           "id": 8479346,
           "position": "C",
@@ -3628,6 +3640,12 @@
           "birthDate": "1993-03-29"
         },
         {
+          "name": "Dawson Mercer",
+          "id": 8482110,
+          "position": "C",
+          "birthDate": "2001-10-27"
+        },
+        {
           "name": "Vladislav Namestnikov",
           "id": 8476480,
           "position": "C",
@@ -3662,12 +3680,6 @@
           "id": 8480014,
           "position": "C",
           "birthDate": "1999-08-16"
-        },
-        {
-          "name": "Brayden Yager",
-          "id": 8484242,
-          "position": "C",
-          "birthDate": "2005-01-03"
         },
         {
           "name": "Tyrel Bauer",
@@ -3720,10 +3732,10 @@
       ],
       "goalies": [
         {
-          "name": "Connor Hellebuyck",
-          "id": 8476945,
+          "name": "Nico Daws",
+          "id": 8482076,
           "position": "G",
-          "birthDate": "1993-05-19"
+          "birthDate": "2000-12-22"
         },
         {
           "name": "Stuart Skinner",
@@ -4216,6 +4228,12 @@
           "id": 8482221,
           "position": "G",
           "birthDate": "2001-12-27"
+        },
+        {
+          "name": "Matt Tomkins",
+          "id": 8477035,
+          "position": "G",
+          "birthDate": "1994-06-19"
         }
       ]
     },
@@ -4652,12 +4670,6 @@
           "id": 8477986,
           "position": "D",
           "birthDate": "1994-04-11"
-        },
-        {
-          "name": "Ty Nelson",
-          "id": 8483494,
-          "position": "D",
-          "birthDate": "2004-03-30"
         },
         {
           "name": "Ville Ottavainen",

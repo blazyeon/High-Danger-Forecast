@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-23T07:27:11.610556+00:00",
+  "generated_at": "2026-10-24T00:01:54.746912+00:00",
   "players": {
     "chasepietila": {
       "points_pg": 0.1067,
@@ -32,17 +32,6 @@
       "source_season": 20252026,
       "source_games": 53,
       "name": "Jake O'Brien",
-      "team": "SEA"
-    },
-    "tynelson": {
-      "points_pg": 0.2444,
-      "goals_pg": 0.0768,
-      "assists_pg": 0.1676,
-      "shots_pg": 0.8536,
-      "source_league": "AHL",
-      "source_season": 20252026,
-      "source_games": 63,
-      "name": "Ty Nelson",
       "team": "SEA"
     }
   }
