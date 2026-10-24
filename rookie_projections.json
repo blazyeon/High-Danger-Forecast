@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-24T00:01:54.746912+00:00",
+  "generated_at": "2026-10-24T07:17:15.092164+00:00",
   "players": {
     "chasepietila": {
       "points_pg": 0.1067,
@@ -22,6 +22,17 @@
       "source_games": 18,
       "name": "Kyle Burroughs",
       "team": "DAL"
+    },
+    "quintonburns": {
+      "points_pg": 0.0788,
+      "goals_pg": 0.0131,
+      "assists_pg": 0.0656,
+      "shots_pg": 0.1458,
+      "source_league": "ECHL",
+      "source_season": 20252026,
+      "source_games": 16,
+      "name": "Quinton Burns",
+      "team": "STL"
     },
     "jakeobrien": {
       "points_pg": 0.4738,

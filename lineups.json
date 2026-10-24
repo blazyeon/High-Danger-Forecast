@@ -1,6 +1,6 @@
 {
   "source": "daily_faceoff",
-  "updated_at": "2026-10-23T23:41:46.160Z",
+  "updated_at": "2026-10-24T00:39:08.716Z",
   "teams": {
     "ANA": {
       "pp1": [
@@ -143,8 +143,8 @@
         "Devon Toews",
         "Martin Necas"
       ],
-      "updated_at": "2026-10-22T17:33:02.593Z",
-      "source": "Bailey Curtis"
+      "updated_at": "2026-10-24T00:39:08.716Z",
+      "source": "t"
     },
     "DAL": {
       "pp1": [
@@ -467,7 +467,7 @@
         "Conor Geekie",
         "John Carlson"
       ],
-      "updated_at": "2026-10-22T18:13:31.663Z",
+      "updated_at": "2026-10-24T00:36:33.986Z",
       "source": "Gabby Shirley"
     },
     "TOR": {

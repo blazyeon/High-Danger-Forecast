@@ -121,12 +121,6 @@
   },
   {
     "team": "COL",
-    "player": "Logan O&#x27;Connor",
-    "status": "ir",
-    "injured": true
-  },
-  {
-    "team": "COL",
     "player": "Nicolas Roy",
     "status": "out",
     "injured": true
@@ -543,12 +537,6 @@
     "team": "TBL",
     "player": "Yanni Gourde",
     "status": "out",
-    "injured": true
-  },
-  {
-    "team": "TBL",
-    "player": "Anthony Cirelli",
-    "status": "dtd",
     "injured": true
   },
   {
