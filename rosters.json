@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-25T07:36:07.168654+00:00",
+  "generated_at": "2026-10-25T23:34:24.415950+00:00",
   "teams": {
     "BOS": {
       "skaters": [
@@ -2016,6 +2016,12 @@
           "birthDate": "1995-06-08"
         },
         {
+          "name": "James Reimer",
+          "id": 8473503,
+          "position": "G",
+          "birthDate": "1988-03-15"
+        },
+        {
           "name": "Igor Shesterkin",
           "id": 8478048,
           "position": "G",
@@ -2072,12 +2078,6 @@
           "id": 8482159,
           "position": "RW",
           "birthDate": "2002-01-18"
-        },
-        {
-          "name": "Jacob Gaucher",
-          "id": 8481848,
-          "position": "C",
-          "birthDate": "2001-03-09"
         },
         {
           "name": "Nikita Grebenkin",
@@ -2866,6 +2866,12 @@
           "birthDate": "1996-11-17"
         },
         {
+          "name": "Dylan Hryckowian",
+          "id": 8486130,
+          "position": "RW",
+          "birthDate": "2004-05-19"
+        },
+        {
           "name": "Justin Hryckowian",
           "id": 8484829,
           "position": "C",
@@ -2912,6 +2918,12 @@
           "id": 8475794,
           "position": "C",
           "birthDate": "1992-01-31"
+        },
+        {
+          "name": "Matthew Seminoff",
+          "id": 8483514,
+          "position": "RW",
+          "birthDate": "2003-12-27"
         },
         {
           "name": "Sam Steel",
