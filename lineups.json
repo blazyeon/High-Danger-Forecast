@@ -1,6 +1,6 @@
 {
   "source": "daily_faceoff",
-  "updated_at": "2026-10-24T23:01:35.324Z",
+  "updated_at": "2026-10-25T02:00:57.189Z",
   "teams": {
     "ANA": {
       "pp1": [
@@ -71,8 +71,8 @@
         "Simon Nemec",
         "Yegor Sharangovich"
       ],
-      "updated_at": "2026-10-24T18:41:39.587Z",
-      "source": "Pat Steinberg"
+      "updated_at": "2026-10-25T01:45:23.983Z",
+      "source": "Calgary Flames"
     },
     "CAR": {
       "pp1": [
@@ -179,8 +179,8 @@
         "Michael Brandsegg-Nyg\u00e5rd",
         "Justin Faulk"
       ],
-      "updated_at": "2026-10-23T14:11:05.285Z",
-      "source": "Last Game (2026-10-22)"
+      "updated_at": "2026-10-25T02:00:57.189Z",
+      "source": "Detroit Red Wings"
     },
     "EDM": {
       "pp1": [
@@ -238,7 +238,7 @@
     },
     "MIN": {
       "pp1": [
-        "Danila Yurov",
+        "Maxim Shabanov",
         "Joel Eriksson Ek",
         "Kirill Kaprizov",
         "Quinn Hughes",
@@ -247,12 +247,12 @@
       "pp2": [
         "Blake Coleman",
         "Ryan Hartman",
-        "Bobby Brink",
+        "Danila Yurov",
         "Quinn Hughes",
         "Jared Spurgeon"
       ],
-      "updated_at": "2026-10-23T14:03:23.118Z",
-      "source": "Last Game (2026-10-22)"
+      "updated_at": "2026-10-25T01:43:04.059Z",
+      "source": "Joe Smith"
     },
     "MTL": {
       "pp1": [
@@ -431,8 +431,8 @@
         "Mackie Samoskevich",
         "Brandon Montour"
       ],
-      "updated_at": "2026-10-24T17:36:53.894Z",
-      "source": "Mike Benton"
+      "updated_at": "2026-10-25T01:41:16.265Z",
+      "source": "Sound of Hockey"
     },
     "STL": {
       "pp1": [
@@ -467,7 +467,7 @@
         "Conor Geekie",
         "John Carlson"
       ],
-      "updated_at": "2026-10-24T15:08:52.646Z",
+      "updated_at": "2026-10-25T00:37:28.398Z",
       "source": "Gabby Shirley"
     },
     "TOR": {
@@ -503,8 +503,8 @@
         "Barrett Hayton",
         "MacKenzie Weegar"
       ],
-      "updated_at": "2026-10-24T16:44:57.372Z",
-      "source": "Cole Bagley"
+      "updated_at": "2026-10-25T00:35:40.475Z",
+      "source": "Utah Mammoth"
     },
     "VAN": {
       "pp1": [

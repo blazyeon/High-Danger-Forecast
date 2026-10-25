@@ -180,12 +180,6 @@
     "injured": true
   },
   {
-    "team": "DET",
-    "player": "John Gibson",
-    "status": "dtd",
-    "injured": true
-  },
-  {
     "team": "EDM",
     "player": "Alec Regula",
     "status": "ir",
@@ -291,12 +285,6 @@
     "team": "MIN",
     "player": "Marcus Foligno",
     "status": "out",
-    "injured": true
-  },
-  {
-    "team": "MIN",
-    "player": "Maxim Shabanov",
-    "status": "dtd",
     "injured": true
   },
   {
@@ -493,6 +481,12 @@
   },
   {
     "team": "SEA",
+    "player": "Jared McCann",
+    "status": "ir",
+    "injured": true
+  },
+  {
+    "team": "SEA",
     "player": "Jacob Melanson",
     "status": "ir",
     "injured": true
@@ -501,12 +495,6 @@
     "team": "SEA",
     "player": "Ryan Lindgren",
     "status": "out",
-    "injured": true
-  },
-  {
-    "team": "SEA",
-    "player": "Jared McCann",
-    "status": "dtd",
     "injured": true
   },
   {
