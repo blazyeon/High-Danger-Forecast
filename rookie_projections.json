@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-25T23:34:24.418724+00:00",
+  "generated_at": "2026-10-26T07:47:38.051549+00:00",
   "players": {
     "chasepietila": {
       "points_pg": 0.1067,
@@ -22,28 +22,6 @@
       "source_games": 37,
       "name": "John St. Ivany",
       "team": "WSH"
-    },
-    "dylanhryckowian": {
-      "points_pg": 0.5057,
-      "goals_pg": 0.205,
-      "assists_pg": 0.3007,
-      "shots_pg": 2.2778,
-      "source_league": "NCAA",
-      "source_season": 20252026,
-      "source_games": 30,
-      "name": "Dylan Hryckowian",
-      "team": "DAL"
-    },
-    "matthewseminoff": {
-      "points_pg": 0.3056,
-      "goals_pg": 0.1467,
-      "assists_pg": 0.1589,
-      "shots_pg": 1.6296,
-      "source_league": "AHL",
-      "source_season": 20252026,
-      "source_games": 72,
-      "name": "Matthew Seminoff",
-      "team": "DAL"
     },
     "kyleburroughs": {
       "points_pg": 0.1711,

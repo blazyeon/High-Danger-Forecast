@@ -8184,9 +8184,9 @@
     },
     "2026-10-26": {
       "date": "2026-10-26",
-      "computed_at": "2026-10-25T23:33:34.887920+00:00",
+      "computed_at": "2026-10-26T07:46:49.614642+00:00",
       "source": "sharpapi",
-      "odds_fetched_at": "2026-10-25T23:33:18.120423+00:00",
+      "odds_fetched_at": "2026-10-26T07:46:38.561198+00:00",
       "warning": null,
       "no_games": false,
       "scanned": 3,
@@ -8200,18 +8200,18 @@
           "home_name": "Flames",
           "away_name": "Maple Leafs",
           "start_time": "2026-10-27T00:30:00Z",
-          "best_edge": 0.1755,
+          "best_edge": 0.1587,
           "edges": [
             {
               "market": "Total 6.5",
               "side": "Under",
               "pick": "Under",
               "team": null,
-              "odds": 105,
-              "odds_decimal": 2.05,
-              "model_prob": 0.643,
-              "implied_prob": 0.4675,
-              "edge": 0.1755,
+              "odds": 100,
+              "odds_decimal": 2.0,
+              "model_prob": 0.637,
+              "implied_prob": 0.4783,
+              "edge": 0.1587,
               "book": "draftkings"
             },
             {
@@ -8219,11 +8219,11 @@
               "side": "CGY Flames",
               "pick": "CGY Flames",
               "team": "CGY",
-              "odds": -170,
-              "odds_decimal": 1.5882352941176472,
+              "odds": -180,
+              "odds_decimal": 1.5555555555555556,
               "model_prob": 0.679,
-              "implied_prob": 0.6038,
-              "edge": 0.0752,
+              "implied_prob": 0.6164,
+              "edge": 0.0626,
               "book": "draftkings"
             },
             {
@@ -8233,9 +8233,9 @@
               "team": "TOR",
               "odds": -162,
               "odds_decimal": 1.617283950617284,
-              "model_prob": 0.59,
+              "model_prob": 0.592,
               "implied_prob": 0.5934,
-              "edge": -0.0034,
+              "edge": -0.0014,
               "book": "draftkings"
             }
           ]
@@ -8246,7 +8246,7 @@
           "home_name": "Rangers",
           "away_name": "Kings",
           "start_time": "2026-10-26T23:00:00Z",
-          "best_edge": 0.12,
+          "best_edge": 0.117,
           "edges": [
             {
               "market": "Puck Line (-1.5)",
@@ -8255,9 +8255,9 @@
               "team": "NYR",
               "odds": 190,
               "odds_decimal": 2.9,
-              "model_prob": 0.451,
+              "model_prob": 0.448,
               "implied_prob": 0.331,
-              "edge": 0.12,
+              "edge": 0.117,
               "book": "draftkings"
             },
             {
@@ -8267,9 +8267,9 @@
               "team": null,
               "odds": -130,
               "odds_decimal": 1.7692307692307692,
-              "model_prob": 0.579,
+              "model_prob": 0.578,
               "implied_prob": 0.5427,
-              "edge": 0.0363,
+              "edge": 0.0353,
               "book": "draftkings"
             },
             {
@@ -8279,9 +8279,9 @@
               "team": "NYR",
               "odds": -135,
               "odds_decimal": 1.7407407407407407,
-              "model_prob": 0.542,
+              "model_prob": 0.539,
               "implied_prob": 0.5514,
-              "edge": -0.0094,
+              "edge": -0.0124,
               "book": "draftkings"
             }
           ]
@@ -8292,7 +8292,7 @@
           "home_name": "Oilers",
           "away_name": "Red Wings",
           "start_time": "2026-10-27T01:30:00Z",
-          "best_edge": 0.0689,
+          "best_edge": 0.0769,
           "edges": [
             {
               "market": "Puck Line (1.5)",
@@ -8301,9 +8301,9 @@
               "team": "DET",
               "odds": -148,
               "odds_decimal": 1.6756756756756757,
-              "model_prob": 0.641,
+              "model_prob": 0.649,
               "implied_prob": 0.5721,
-              "edge": 0.0689,
+              "edge": 0.0769,
               "book": "draftkings"
             },
             {
@@ -8313,9 +8313,9 @@
               "team": null,
               "odds": -118,
               "odds_decimal": 1.847457627118644,
-              "model_prob": 0.523,
+              "model_prob": 0.526,
               "implied_prob": 0.5174,
-              "edge": 0.0056,
+              "edge": 0.0086,
               "book": "draftkings"
             },
             {
@@ -8323,11 +8323,11 @@
               "side": "Edmonton Oilers",
               "pick": "Edmonton Oilers",
               "team": "EDM",
-              "odds": -185,
-              "odds_decimal": 1.5405405405405406,
-              "model_prob": 0.529,
-              "implied_prob": 0.6225,
-              "edge": -0.0935,
+              "odds": -180,
+              "odds_decimal": 1.5555555555555556,
+              "model_prob": 0.525,
+              "implied_prob": 0.6164,
+              "edge": -0.0914,
               "book": "draftkings"
             }
           ]
