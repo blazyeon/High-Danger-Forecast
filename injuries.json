@@ -216,6 +216,12 @@
     "injured": true
   },
   {
+    "team": "EDM",
+    "player": "Zach Hyman",
+    "status": "none",
+    "injured": true
+  },
+  {
     "team": "FLA",
     "player": "Aleksander Barkov",
     "status": "ir",
