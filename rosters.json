@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-26T07:47:38.048406+00:00",
+  "generated_at": "2026-10-27T00:49:40.981869+00:00",
   "teams": {
     "BOS": {
       "skaters": [
@@ -1276,12 +1276,6 @@
           "birthDate": "2003-08-03"
         },
         {
-          "name": "Skyler Brind'Amour",
-          "id": 8480291,
-          "position": "C",
-          "birthDate": "1999-07-27"
-        },
-        {
           "name": "William Carrier",
           "id": 8477478,
           "position": "LW",
@@ -1370,6 +1364,12 @@
           "id": 8480817,
           "position": "D",
           "birthDate": "2000-01-21"
+        },
+        {
+          "name": "Alexander Nikishin",
+          "id": 8482100,
+          "position": "D",
+          "birthDate": "2001-10-02"
         },
         {
           "name": "Mike Reilly",
@@ -1732,6 +1732,12 @@
           "birthDate": "2006-10-03"
         },
         {
+          "name": "Pierre Engvall",
+          "id": 8478115,
+          "position": "LW",
+          "birthDate": "1996-05-31"
+        },
+        {
           "name": "Emil Heineman",
           "id": 8482476,
           "position": "LW",
@@ -1790,6 +1796,12 @@
           "id": 8475170,
           "position": "C",
           "birthDate": "1991-08-22"
+        },
+        {
+          "name": "Kashawn Aitcheson",
+          "id": 8485352,
+          "position": "D",
+          "birthDate": "2006-09-21"
         },
         {
           "name": "Tony DeAngelo",
@@ -1978,12 +1990,6 @@
           "birthDate": "1996-05-08"
         },
         {
-          "name": "Matthew Robertson",
-          "id": 8481525,
-          "position": "D",
-          "birthDate": "2001-03-09"
-        },
-        {
           "name": "Braden Schneider",
           "id": 8482073,
           "position": "D",
@@ -2008,12 +2014,6 @@
           "id": 8476914,
           "position": "G",
           "birthDate": "1994-04-28"
-        },
-        {
-          "name": "Spencer Martin",
-          "id": 8477484,
-          "position": "G",
-          "birthDate": "1995-06-08"
         },
         {
           "name": "James Reimer",
@@ -2506,7 +2506,7 @@
           "birthDate": "2000-03-07"
         },
         {
-          "name": "John St. Ivany",
+          "name": "Jack St. Ivany",
           "id": 8481030,
           "position": "D",
           "birthDate": "1999-07-22"
@@ -2728,12 +2728,6 @@
           "birthDate": "1995-09-01"
         },
         {
-          "name": "Taylor Makar",
-          "id": 8482953,
-          "position": "LW",
-          "birthDate": "2001-03-13"
-        },
-        {
           "name": "Martin Necas",
           "id": 8480039,
           "position": "C",
@@ -2936,12 +2930,6 @@
           "id": 8483425,
           "position": "D",
           "birthDate": "2004-05-18"
-        },
-        {
-          "name": "Kyle Burroughs",
-          "id": 8477335,
-          "position": "D",
-          "birthDate": "1995-07-12"
         },
         {
           "name": "Kyle Capobianco",
@@ -4918,12 +4906,6 @@
           "birthDate": "1993-11-12"
         },
         {
-          "name": "Alexander Holtz",
-          "id": 8482125,
-          "position": "RW",
-          "birthDate": "2002-01-23"
-        },
-        {
           "name": "Brett Howden",
           "id": 8479353,
           "position": "C",
@@ -4952,6 +4934,12 @@
           "id": 8478109,
           "position": "LW",
           "birthDate": "1995-07-18"
+        },
+        {
+          "name": "Jonas Rondbjerg",
+          "id": 8480007,
+          "position": "RW",
+          "birthDate": "1999-03-31"
         },
         {
           "name": "Mark Stone",

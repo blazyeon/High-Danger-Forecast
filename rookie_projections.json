@@ -1,6 +1,28 @@
 {
-  "generated_at": "2026-10-26T07:47:38.051549+00:00",
+  "generated_at": "2026-10-27T00:49:40.986445+00:00",
   "players": {
+    "pierreengvall": {
+      "points_pg": 0.2933,
+      "goals_pg": 0.0978,
+      "assists_pg": 0.1956,
+      "shots_pg": 1.0864,
+      "source_league": "AHL",
+      "source_season": 20262027,
+      "source_games": 9,
+      "name": "Pierre Engvall",
+      "team": "NYI"
+    },
+    "kashawnaitcheson": {
+      "points_pg": 0.3375,
+      "goals_pg": 0.135,
+      "assists_pg": 0.2025,
+      "shots_pg": 1.5,
+      "source_league": "OHL",
+      "source_season": 20252026,
+      "source_games": 56,
+      "name": "Kashawn Aitcheson",
+      "team": "NYI"
+    },
     "chasepietila": {
       "points_pg": 0.1067,
       "goals_pg": 0.0133,
@@ -11,28 +33,6 @@
       "source_games": 66,
       "name": "Chase Pietila",
       "team": "PIT"
-    },
-    "johnstivany": {
-      "points_pg": 0.1903,
-      "goals_pg": 0.0119,
-      "assists_pg": 0.1784,
-      "shots_pg": 0.1321,
-      "source_league": "AHL",
-      "source_season": 20242025,
-      "source_games": 37,
-      "name": "John St. Ivany",
-      "team": "WSH"
-    },
-    "kyleburroughs": {
-      "points_pg": 0.1711,
-      "goals_pg": 0.0244,
-      "assists_pg": 0.1467,
-      "shots_pg": 0.2716,
-      "source_league": "AHL",
-      "source_season": 20252026,
-      "source_games": 18,
-      "name": "Kyle Burroughs",
-      "team": "DAL"
     },
     "masonshaw": {
       "points_pg": 0.2727,

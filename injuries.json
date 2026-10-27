@@ -60,12 +60,6 @@
     "injured": true
   },
   {
-    "team": "CGY",
-    "player": "Mikael Backlund",
-    "status": "dtd",
-    "injured": true
-  },
-  {
     "team": "CAR",
     "player": "Jordan Staal",
     "status": "ir",
@@ -259,8 +253,8 @@
   },
   {
     "team": "LAK",
-    "player": "Quinton Byfield",
-    "status": "dtd",
+    "player": "Mats Zuccarello",
+    "status": "ir",
     "injured": true
   },
   {
@@ -326,19 +320,19 @@
   {
     "team": "NYI",
     "player": "Alexander Romanov",
-    "status": "out",
+    "status": "ir",
     "injured": true
   },
   {
     "team": "NYI",
     "player": "Matias Maccelli",
-    "status": "dtd",
+    "status": "ir",
     "injured": true
   },
   {
     "team": "NYI",
     "player": "Calum Ritchie",
-    "status": "dtd",
+    "status": "ir",
     "injured": true
   },
   {
@@ -373,12 +367,6 @@
   },
   {
     "team": "OTT",
-    "player": "Kurtis MacDermid",
-    "status": "ir",
-    "injured": true
-  },
-  {
-    "team": "OTT",
     "player": "Thomas Chabot",
     "status": "out",
     "injured": true
@@ -397,6 +385,12 @@
   },
   {
     "team": "PHI",
+    "player": "Owen Tippett",
+    "status": "ir",
+    "injured": true
+  },
+  {
+    "team": "PHI",
     "player": "Travis Konecny",
     "status": "ir",
     "injured": true
@@ -409,8 +403,8 @@
   },
   {
     "team": "PHI",
-    "player": "Owen Tippett",
-    "status": "ir",
+    "player": "Rasmus Ristolainen",
+    "status": "out",
     "injured": true
   },
   {
@@ -600,12 +594,6 @@
     "injured": true
   },
   {
-    "team": "VGK",
-    "player": "Mitch Marner",
-    "status": "dtd",
-    "injured": true
-  },
-  {
     "team": "WSH",
     "player": "Rasmus Sandin",
     "status": "out",
@@ -620,7 +608,7 @@
   {
     "team": "WSH",
     "player": "Logan Thompson",
-    "status": "dtd",
+    "status": "ir",
     "injured": true
   },
   {
