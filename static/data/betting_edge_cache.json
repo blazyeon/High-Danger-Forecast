@@ -8855,6 +8855,205 @@
         }
       ],
       "no_odds_games": []
+    },
+    "2026-10-28": {
+      "date": "2026-10-28",
+      "computed_at": "2026-10-28T00:45:30.672877+00:00",
+      "source": "sharpapi",
+      "odds_fetched_at": "2026-10-28T00:45:14.487766+00:00",
+      "warning": null,
+      "no_games": false,
+      "scanned": 4,
+      "matched": 4,
+      "with_edges": 4,
+      "dropped": 0,
+      "games": [
+        {
+          "home": "COL",
+          "away": "NJD",
+          "home_name": "Avalanche",
+          "away_name": "Devils",
+          "start_time": "2026-10-29T01:00:00Z",
+          "best_edge": 0.1985,
+          "edges": [
+            {
+              "market": "Moneyline",
+              "side": "New Jersey Devils",
+              "pick": "New Jersey Devils",
+              "team": "NJD",
+              "odds": 154,
+              "odds_decimal": 2.54,
+              "model_prob": 0.576,
+              "implied_prob": 0.3775,
+              "edge": 0.1985,
+              "book": "draftkings"
+            },
+            {
+              "market": "Puck Line (1.5)",
+              "side": "NJ Devils",
+              "pick": "NJ Devils",
+              "team": "NJD",
+              "odds": -155,
+              "odds_decimal": 1.6451612903225805,
+              "model_prob": 0.741,
+              "implied_prob": 0.583,
+              "edge": 0.158,
+              "book": "draftkings"
+            },
+            {
+              "market": "Total 6.5",
+              "side": "Over",
+              "pick": "Over",
+              "team": null,
+              "odds": 105,
+              "odds_decimal": 2.05,
+              "model_prob": 0.529,
+              "implied_prob": 0.4675,
+              "edge": 0.0615,
+              "book": "draftkings"
+            }
+          ]
+        },
+        {
+          "home": "SEA",
+          "away": "TOR",
+          "home_name": "Kraken",
+          "away_name": "Maple Leafs",
+          "start_time": "2026-10-29T02:00:00Z",
+          "best_edge": 0.1027,
+          "edges": [
+            {
+              "market": "Total 6.5",
+              "side": "Under",
+              "pick": "Under",
+              "team": null,
+              "odds": 100,
+              "odds_decimal": 2.0,
+              "model_prob": 0.581,
+              "implied_prob": 0.4783,
+              "edge": 0.1027,
+              "book": "draftkings"
+            },
+            {
+              "market": "Moneyline",
+              "side": "Toronto Maple Leafs",
+              "pick": "Toronto Maple Leafs",
+              "team": "TOR",
+              "odds": -120,
+              "odds_decimal": 1.8333333333333335,
+              "model_prob": 0.616,
+              "implied_prob": 0.5217,
+              "edge": 0.0943,
+              "book": "fanduel"
+            },
+            {
+              "market": "Puck Line (-1.5)",
+              "side": "TOR Maple Leafs",
+              "pick": "TOR Maple Leafs",
+              "team": "TOR",
+              "odds": 195,
+              "odds_decimal": 2.95,
+              "model_prob": 0.367,
+              "implied_prob": 0.325,
+              "edge": 0.042,
+              "book": "draftkings"
+            }
+          ]
+        },
+        {
+          "home": "WSH",
+          "away": "PHI",
+          "home_name": "Capitals",
+          "away_name": "Flyers",
+          "start_time": "2026-10-28T23:30:00Z",
+          "best_edge": 0.0997,
+          "edges": [
+            {
+              "market": "Puck Line (-1.5)",
+              "side": "WAS Capitals",
+              "pick": "WAS Capitals",
+              "team": "WSH",
+              "odds": 100,
+              "odds_decimal": 2.0,
+              "model_prob": 0.578,
+              "implied_prob": 0.4783,
+              "edge": 0.0997,
+              "book": "draftkings"
+            },
+            {
+              "market": "Total 6.5",
+              "side": "Under",
+              "pick": "Under",
+              "team": null,
+              "odds": -125,
+              "odds_decimal": 1.8,
+              "model_prob": 0.586,
+              "implied_prob": 0.5325,
+              "edge": 0.0535,
+              "book": "draftkings"
+            },
+            {
+              "market": "Moneyline",
+              "side": "Washington Capitals",
+              "pick": "Washington Capitals",
+              "team": "WSH",
+              "odds": -230,
+              "odds_decimal": 1.434782608695652,
+              "model_prob": 0.651,
+              "implied_prob": 0.669,
+              "edge": -0.018,
+              "book": "draftkings"
+            }
+          ]
+        },
+        {
+          "home": "EDM",
+          "away": "CGY",
+          "home_name": "Oilers",
+          "away_name": "Flames",
+          "start_time": "2026-10-29T00:30:00Z",
+          "best_edge": 0.0806,
+          "edges": [
+            {
+              "market": "Puck Line (1.5)",
+              "side": "CGY Flames",
+              "pick": "CGY Flames",
+              "team": "CGY",
+              "odds": -135,
+              "odds_decimal": 1.7407407407407407,
+              "model_prob": 0.632,
+              "implied_prob": 0.5514,
+              "edge": 0.0806,
+              "book": "draftkings"
+            },
+            {
+              "market": "Total 6.5",
+              "side": "Over",
+              "pick": "Over",
+              "team": null,
+              "odds": -114,
+              "odds_decimal": 1.8771929824561404,
+              "model_prob": 0.517,
+              "implied_prob": 0.5087,
+              "edge": 0.0083,
+              "book": "fanduel"
+            },
+            {
+              "market": "Moneyline",
+              "side": "Edmonton Oilers",
+              "pick": "Edmonton Oilers",
+              "team": "EDM",
+              "odds": -218,
+              "odds_decimal": 1.4587155963302751,
+              "model_prob": 0.509,
+              "implied_prob": 0.6575,
+              "edge": -0.1485,
+              "book": "draftkings"
+            }
+          ]
+        }
+      ],
+      "no_odds_games": []
     }
   }
 }

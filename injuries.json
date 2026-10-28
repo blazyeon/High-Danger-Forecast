@@ -68,18 +68,6 @@
   {
     "team": "CAR",
     "player": "Taylor Hall",
-    "status": "ir",
-    "injured": true
-  },
-  {
-    "team": "CAR",
-    "player": "Alexander Nikishin",
-    "status": "out",
-    "injured": true
-  },
-  {
-    "team": "CAR",
-    "player": "Mark Jankowski",
     "status": "dtd",
     "injured": true
   },
@@ -110,7 +98,7 @@
   {
     "team": "COL",
     "player": "Nicolas Roy",
-    "status": "out",
+    "status": "dtd",
     "injured": true
   },
   {
@@ -212,13 +200,13 @@
   {
     "team": "EDM",
     "player": "Mattias Ekholm",
-    "status": "out",
+    "status": "dtd",
     "injured": true
   },
   {
     "team": "EDM",
     "player": "Zach Hyman",
-    "status": "none",
+    "status": "out",
     "injured": true
   },
   {
@@ -261,6 +249,18 @@
     "team": "LAK",
     "player": "Mats Zuccarello",
     "status": "ir",
+    "injured": true
+  },
+  {
+    "team": "LAK",
+    "player": "Drew Doughty",
+    "status": "dtd",
+    "injured": true
+  },
+  {
+    "team": "LAK",
+    "player": "Corey Perry",
+    "status": "dtd",
     "injured": true
   },
   {
@@ -309,12 +309,6 @@
     "team": "NJD",
     "player": "Seamus Casey",
     "status": "ir",
-    "injured": true
-  },
-  {
-    "team": "NJD",
-    "player": "Connor Hellebuyck",
-    "status": "out",
     "injured": true
   },
   {
@@ -403,14 +397,8 @@
   },
   {
     "team": "PHI",
-    "player": "Cam York",
-    "status": "ir",
-    "injured": true
-  },
-  {
-    "team": "PHI",
     "player": "Rasmus Ristolainen",
-    "status": "out",
+    "status": "ir",
     "injured": true
   },
   {
@@ -458,7 +446,7 @@
   {
     "team": "PIT",
     "player": "Evgeni Malkin",
-    "status": "out",
+    "status": "dtd",
     "injured": true
   },
   {
@@ -570,6 +558,12 @@
     "injured": true
   },
   {
+    "team": "TOR",
+    "player": "Kirill Marchenko",
+    "status": "dtd",
+    "injured": true
+  },
+  {
     "team": "UTA",
     "player": "Michael Carcone",
     "status": "ir",
@@ -600,6 +594,12 @@
     "injured": true
   },
   {
+    "team": "VGK",
+    "player": "Carter Hart",
+    "status": "dtd",
+    "injured": true
+  },
+  {
     "team": "WSH",
     "player": "Rasmus Sandin",
     "status": "out",
@@ -619,14 +619,20 @@
   },
   {
     "team": "WPG",
-    "player": "Josh Morrissey",
-    "status": "out",
+    "player": "Nick Bjugstad",
+    "status": "ir",
     "injured": true
   },
   {
     "team": "WPG",
     "player": "Vladislav Namestnikov",
-    "status": "dtd",
+    "status": "ir",
+    "injured": true
+  },
+  {
+    "team": "WPG",
+    "player": "Josh Morrissey",
+    "status": "ir",
     "injured": true
   }
 ]

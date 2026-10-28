@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-27T07:47:40.052928+00:00",
+  "generated_at": "2026-10-28T00:46:15.162239+00:00",
   "teams": {
     "BOS": {
       "skaters": [
@@ -1732,12 +1732,6 @@
           "birthDate": "2006-10-03"
         },
         {
-          "name": "Pierre Engvall",
-          "id": 8478115,
-          "position": "LW",
-          "birthDate": "1996-05-31"
-        },
-        {
           "name": "Emil Heineman",
           "id": 8482476,
           "position": "LW",
@@ -1796,12 +1790,6 @@
           "id": 8475170,
           "position": "C",
           "birthDate": "1991-08-22"
-        },
-        {
-          "name": "Kashawn Aitcheson",
-          "id": 8485352,
-          "position": "D",
-          "birthDate": "2006-09-21"
         },
         {
           "name": "Tony DeAngelo",
@@ -2078,6 +2066,12 @@
           "id": 8482159,
           "position": "RW",
           "birthDate": "2002-01-18"
+        },
+        {
+          "name": "Jacob Gaucher",
+          "id": 8481848,
+          "position": "C",
+          "birthDate": "2001-03-09"
         },
         {
           "name": "Nikita Grebenkin",
@@ -4936,12 +4930,6 @@
           "birthDate": "1995-07-18"
         },
         {
-          "name": "Jonas Rondbjerg",
-          "id": 8480007,
-          "position": "RW",
-          "birthDate": "1999-03-31"
-        },
-        {
           "name": "Mark Stone",
           "id": 8475913,
           "position": "RW",
@@ -5008,6 +4996,12 @@
           "id": 8478499,
           "position": "G",
           "birthDate": "1996-05-11"
+        },
+        {
+          "name": "Cameron Whitehead",
+          "id": 8483523,
+          "position": "G",
+          "birthDate": "2003-06-13"
         }
       ]
     }

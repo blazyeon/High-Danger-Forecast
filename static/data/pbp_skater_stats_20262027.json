@@ -3044,7 +3044,7 @@
       "pim": 6,
       "toi_pg": 17.814815,
       "ppg_raw": 1068.8889,
-      "faceoff_pct": 50.60980000000001,
+      "faceoff_pct": 50.306700000000006,
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
@@ -3075,7 +3075,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.2851691683188061,
+      "xgf_pg": 0.2851663528327455,
       "pbp_goals": 2,
       "pbp_assists": 2,
       "pbp_shots": 26
@@ -3264,7 +3264,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.07689392251133503,
+      "xgf_pg": 0.07117522368821799,
       "pbp_goals": 1,
       "pbp_assists": 1,
       "pbp_shots": 10
@@ -5842,12 +5842,12 @@
       "goals": 3,
       "assists": 8,
       "points": 11,
-      "shots": 38,
+      "shots": 37,
       "gpg": 0.25,
       "apg": 0.6666666666666666,
       "ppg": 0.9166666666666666,
-      "sogpg": 3.1666666666666665,
-      "sh_pct": 0.07894736842105263,
+      "sogpg": 3.0833333333333335,
+      "sh_pct": 0.08108108108108109,
       "plus_minus": 0,
       "pim": 6,
       "toi_pg": 20.619445000000002,
@@ -5856,10 +5856,10 @@
       "power_play_goals": 2,
       "short_handed_goals": 0,
       "game_winning_goals": 1,
-      "xgf_pg": 0.5251914236640588,
+      "xgf_pg": 0.5240352585408458,
       "pbp_goals": 5,
       "pbp_assists": 8,
-      "pbp_shots": 42
+      "pbp_shots": 41
     },
     {
       "name": "William Wallinder",
@@ -6490,11 +6490,11 @@
       "goals": 0,
       "assists": 1,
       "points": 1,
-      "shots": 8,
+      "shots": 7,
       "gpg": 0.0,
       "apg": 0.1,
       "ppg": 0.1,
-      "sogpg": 0.8,
+      "sogpg": 0.7,
       "sh_pct": 0.0,
       "plus_minus": -2,
       "pim": 2,
@@ -6507,7 +6507,7 @@
       "xgf_pg": 0.05352905040834306,
       "pbp_goals": 0,
       "pbp_assists": 1,
-      "pbp_shots": 8
+      "pbp_shots": 7
     },
     {
       "name": "Filip Hallander",
@@ -11115,7 +11115,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.07901530532419049,
+      "xgf_pg": 0.07838087589311803,
       "pbp_goals": 1,
       "pbp_assists": 5,
       "pbp_shots": 20
@@ -16340,11 +16340,11 @@
       "pim": 4,
       "toi_pg": 20.653571666666668,
       "ppg_raw": 1239.2143,
-      "faceoff_pct": 52.0,
+      "faceoff_pct": 52.2321,
       "power_play_goals": 3,
       "short_handed_goals": 0,
       "game_winning_goals": 2,
-      "xgf_pg": 0.4497819183588529,
+      "xgf_pg": 0.454724511443724,
       "pbp_goals": 9,
       "pbp_assists": 11,
       "pbp_shots": 41
@@ -16587,7 +16587,7 @@
       "power_play_goals": 1,
       "short_handed_goals": 1,
       "game_winning_goals": 2,
-      "xgf_pg": 0.21531155023119372,
+      "xgf_pg": 0.21530108118338634,
       "pbp_goals": 6,
       "pbp_assists": 7,
       "pbp_shots": 29
@@ -19536,5 +19536,5 @@
       "pbp_shots": 9
     }
   ],
-  "updated_at": "2026-10-27T07:45:54Z"
+  "updated_at": "2026-10-28T00:44:57Z"
 }

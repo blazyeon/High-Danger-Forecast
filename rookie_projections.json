@@ -1,28 +1,6 @@
 {
-  "generated_at": "2026-10-27T07:47:40.057316+00:00",
+  "generated_at": "2026-10-28T00:46:15.166716+00:00",
   "players": {
-    "pierreengvall": {
-      "points_pg": 0.2933,
-      "goals_pg": 0.0978,
-      "assists_pg": 0.1956,
-      "shots_pg": 1.0864,
-      "source_league": "AHL",
-      "source_season": 20262027,
-      "source_games": 9,
-      "name": "Pierre Engvall",
-      "team": "NYI"
-    },
-    "kashawnaitcheson": {
-      "points_pg": 0.3375,
-      "goals_pg": 0.135,
-      "assists_pg": 0.2025,
-      "shots_pg": 1.5,
-      "source_league": "OHL",
-      "source_season": 20252026,
-      "source_games": 56,
-      "name": "Kashawn Aitcheson",
-      "team": "NYI"
-    },
     "chasepietila": {
       "points_pg": 0.1067,
       "goals_pg": 0.0133,
