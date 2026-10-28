@@ -138,6 +138,12 @@
     "injured": true
   },
   {
+    "team": "DAL",
+    "player": "Kyle Capobianco",
+    "status": "dtd",
+    "injured": true
+  },
+  {
     "team": "DET",
     "player": "Marco Kasper",
     "status": "ir",
