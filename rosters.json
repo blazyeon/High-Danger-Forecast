@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-28T08:24:44.962293+00:00",
+  "generated_at": "2026-10-29T01:16:11.825481+00:00",
   "teams": {
     "BOS": {
       "skaters": [
@@ -1120,6 +1120,12 @@
           "birthDate": "2000-02-06"
         },
         {
+          "name": "Dakota Joshua",
+          "id": 8478057,
+          "position": "C",
+          "birthDate": "1996-05-15"
+        },
+        {
           "name": "Vinni Lettieri",
           "id": 8479968,
           "position": "C",
@@ -2218,12 +2224,6 @@
           "birthDate": "1999-06-26"
         },
         {
-          "name": "Avery Hayes",
-          "id": 8482993,
-          "position": "RW",
-          "birthDate": "2002-10-10"
-        },
-        {
           "name": "Ben Kindel",
           "id": 8485414,
           "position": "C",
@@ -2324,12 +2324,6 @@
           "id": 8471724,
           "position": "D",
           "birthDate": "1987-04-24"
-        },
-        {
-          "name": "Chase Pietila",
-          "id": 8485019,
-          "position": "D",
-          "birthDate": "2004-03-03"
         },
         {
           "name": "Ilya Solovyov",
@@ -2507,12 +2501,6 @@
         }
       ],
       "goalies": [
-        {
-          "name": "Mitchell Gibson",
-          "id": 8481064,
-          "position": "G",
-          "birthDate": "1999-06-25"
-        },
         {
           "name": "Charlie Lindgren",
           "id": 8479292,
@@ -2852,12 +2840,6 @@
           "id": 8478449,
           "position": "C",
           "birthDate": "1996-11-17"
-        },
-        {
-          "name": "Dylan Hryckowian",
-          "id": 8486130,
-          "position": "RW",
-          "birthDate": "2004-05-19"
         },
         {
           "name": "Justin Hryckowian",
@@ -4408,6 +4390,12 @@
     "SJS": {
       "skaters": [
         {
+          "name": "Filip Bystedt",
+          "id": 8483428,
+          "position": "C",
+          "birthDate": "2004-02-04"
+        },
+        {
           "name": "Macklin Celebrini",
           "id": 8484801,
           "position": "C",
@@ -4498,16 +4486,16 @@
           "birthDate": "2003-04-28"
         },
         {
-          "name": "Luca Cagnoni",
-          "id": 8484152,
-          "position": "D",
-          "birthDate": "2004-12-21"
-        },
-        {
           "name": "Sam Dickinson",
           "id": 8484806,
           "position": "D",
           "birthDate": "2006-06-07"
+        },
+        {
+          "name": "Libor Hajek",
+          "id": 8479333,
+          "position": "D",
+          "birthDate": "1998-02-04"
         },
         {
           "name": "Michael Kesselring",

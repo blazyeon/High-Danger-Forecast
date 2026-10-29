@@ -90,18 +90,6 @@
     "injured": true
   },
   {
-    "team": "CBJ",
-    "player": "Dante Fabbro",
-    "status": "ir",
-    "injured": true
-  },
-  {
-    "team": "COL",
-    "player": "Nicolas Roy",
-    "status": "dtd",
-    "injured": true
-  },
-  {
     "team": "COL",
     "player": "Zachary L&#x27;Heureux",
     "status": "out",
@@ -193,26 +181,14 @@
   },
   {
     "team": "EDM",
-    "player": "Jason Dickinson",
-    "status": "ir",
-    "injured": true
-  },
-  {
-    "team": "EDM",
     "player": "Devon Levi",
     "status": "ir",
     "injured": true
   },
   {
     "team": "EDM",
-    "player": "Mattias Ekholm",
-    "status": "dtd",
-    "injured": true
-  },
-  {
-    "team": "EDM",
     "player": "Zach Hyman",
-    "status": "out",
+    "status": "ir",
     "injured": true
   },
   {
@@ -458,13 +434,13 @@
   {
     "team": "SJS",
     "player": "Alexander Wennberg",
-    "status": "dtd",
+    "status": "ir",
     "injured": true
   },
   {
     "team": "SJS",
     "player": "Igor Chernyshov",
-    "status": "out",
+    "status": "ir",
     "injured": true
   },
   {
@@ -499,12 +475,6 @@
   },
   {
     "team": "STL",
-    "player": "Alexey Toropchenko",
-    "status": "ir",
-    "injured": true
-  },
-  {
-    "team": "STL",
     "player": "Dillon Dube",
     "status": "ir",
     "injured": true
@@ -524,6 +494,18 @@
   {
     "team": "TBL",
     "player": "Victor Hedman",
+    "status": "dtd",
+    "injured": true
+  },
+  {
+    "team": "TBL",
+    "player": "Zemgus Girgensons",
+    "status": "out",
+    "injured": true
+  },
+  {
+    "team": "TBL",
+    "player": "Brandon Hagel",
     "status": "dtd",
     "injured": true
   },
@@ -566,7 +548,7 @@
   {
     "team": "TOR",
     "player": "Kirill Marchenko",
-    "status": "dtd",
+    "status": "out",
     "injured": true
   },
   {
@@ -614,12 +596,6 @@
   {
     "team": "WSH",
     "player": "Vincent Desharnais",
-    "status": "ir",
-    "injured": true
-  },
-  {
-    "team": "WSH",
-    "player": "Logan Thompson",
     "status": "ir",
     "injured": true
   },

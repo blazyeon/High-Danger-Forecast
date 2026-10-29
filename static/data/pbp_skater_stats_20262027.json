@@ -955,12 +955,12 @@
       "goals": 2,
       "assists": 4,
       "points": 6,
-      "shots": 16,
+      "shots": 17,
       "gpg": 0.15384615384615385,
       "apg": 0.3076923076923077,
       "ppg": 0.46153846153846156,
-      "sogpg": 1.2307692307692308,
-      "sh_pct": 0.125,
+      "sogpg": 1.3076923076923077,
+      "sh_pct": 0.11764705882352941,
       "plus_minus": 3,
       "pim": 19,
       "toi_pg": 11.308975,
@@ -969,10 +969,10 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.1545216140512127,
+      "xgf_pg": 0.16050297336086913,
       "pbp_goals": 2,
       "pbp_assists": 4,
-      "pbp_shots": 16
+      "pbp_shots": 17
     },
     {
       "name": "Jonathan Aspirot",
@@ -1468,12 +1468,12 @@
       "goals": 2,
       "assists": 3,
       "points": 5,
-      "shots": 27,
+      "shots": 28,
       "gpg": 0.2222222222222222,
       "apg": 0.3333333333333333,
       "ppg": 0.5555555555555556,
-      "sogpg": 3.0,
-      "sh_pct": 0.07407407407407407,
+      "sogpg": 3.111111111111111,
+      "sh_pct": 0.07142857142857142,
       "plus_minus": 0,
       "pim": 2,
       "toi_pg": 24.655555,
@@ -1485,7 +1485,7 @@
       "xgf_pg": 0.22082193258675498,
       "pbp_goals": 2,
       "pbp_assists": 3,
-      "pbp_shots": 27
+      "pbp_shots": 28
     },
     {
       "name": "Peyton Krebs",
@@ -7824,7 +7824,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.33164280373041033,
+      "xgf_pg": 0.3260365386874303,
       "pbp_goals": 2,
       "pbp_assists": 7,
       "pbp_shots": 23
@@ -8134,12 +8134,12 @@
       "goals": 1,
       "assists": 2,
       "points": 3,
-      "shots": 4,
+      "shots": 5,
       "gpg": 0.1,
       "apg": 0.2,
       "ppg": 0.3,
-      "sogpg": 0.4,
-      "sh_pct": 0.25,
+      "sogpg": 0.5,
+      "sh_pct": 0.2,
       "plus_minus": 3,
       "pim": 2,
       "toi_pg": 20.575,
@@ -8151,7 +8151,7 @@
       "xgf_pg": 0.11853021503341259,
       "pbp_goals": 1,
       "pbp_assists": 2,
-      "pbp_shots": 4
+      "pbp_shots": 5
     },
     {
       "name": "Michael McCarron",
@@ -8620,12 +8620,12 @@
       "goals": 1,
       "assists": 3,
       "points": 4,
-      "shots": 14,
+      "shots": 15,
       "gpg": 0.125,
       "apg": 0.375,
       "ppg": 0.5,
-      "sogpg": 1.75,
-      "sh_pct": 0.07142857142857142,
+      "sogpg": 1.875,
+      "sh_pct": 0.06666666666666667,
       "plus_minus": 1,
       "pim": 6,
       "toi_pg": 23.75625,
@@ -8637,7 +8637,7 @@
       "xgf_pg": 0.10026922421453066,
       "pbp_goals": 1,
       "pbp_assists": 3,
-      "pbp_shots": 14
+      "pbp_shots": 15
     },
     {
       "name": "Josh Anderson",
@@ -10372,12 +10372,12 @@
       "goals": 3,
       "assists": 1,
       "points": 4,
-      "shots": 24,
+      "shots": 23,
       "gpg": 0.25,
       "apg": 0.08333333333333333,
       "ppg": 0.3333333333333333,
-      "sogpg": 2.0,
-      "sh_pct": 0.125,
+      "sogpg": 1.9166666666666667,
+      "sh_pct": 0.13043478260869565,
       "plus_minus": 0,
       "pim": 6,
       "toi_pg": 16.715278333333334,
@@ -10389,7 +10389,7 @@
       "xgf_pg": 0.3152213425689071,
       "pbp_goals": 4,
       "pbp_assists": 1,
-      "pbp_shots": 25
+      "pbp_shots": 24
     },
     {
       "name": "Brayden Schenn",
@@ -10650,8 +10650,8 @@
       "sh_pct": 0.07142857142857142,
       "plus_minus": -5,
       "pim": 4,
-      "toi_pg": 16.451388333333334,
-      "ppg_raw": 987.0833,
+      "toi_pg": 16.441666666666666,
+      "ppg_raw": 986.5,
       "faceoff_pct": 0.0,
       "power_play_goals": 0,
       "short_handed_goals": 0,
@@ -10677,8 +10677,8 @@
       "sh_pct": 0.0,
       "plus_minus": 8,
       "pim": 30,
-      "toi_pg": 20.606945,
-      "ppg_raw": 1236.4167,
+      "toi_pg": 20.616666666666667,
+      "ppg_raw": 1237.0,
       "faceoff_pct": 0.0,
       "power_play_goals": 0,
       "short_handed_goals": 0,
@@ -12367,12 +12367,12 @@
       "goals": 2,
       "assists": 3,
       "points": 5,
-      "shots": 17,
+      "shots": 18,
       "gpg": 0.14285714285714285,
       "apg": 0.21428571428571427,
       "ppg": 0.35714285714285715,
-      "sogpg": 1.2142857142857142,
-      "sh_pct": 0.11764705882352941,
+      "sogpg": 1.2857142857142858,
+      "sh_pct": 0.1111111111111111,
       "plus_minus": -1,
       "pim": 4,
       "toi_pg": 17.745238333333337,
@@ -12384,7 +12384,7 @@
       "xgf_pg": 0.1856868502338567,
       "pbp_goals": 2,
       "pbp_assists": 3,
-      "pbp_shots": 17
+      "pbp_shots": 18
     },
     {
       "name": "Michael Bunting",
@@ -16776,7 +16776,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 1,
-      "xgf_pg": 0.15511023039866983,
+      "xgf_pg": 0.15708321105742198,
       "pbp_goals": 2,
       "pbp_assists": 2,
       "pbp_shots": 26
@@ -16911,7 +16911,7 @@
       "power_play_goals": 2,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.2588935209233346,
+      "xgf_pg": 0.2580333162303555,
       "pbp_goals": 4,
       "pbp_assists": 11,
       "pbp_shots": 29
@@ -17046,7 +17046,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.06215847190595822,
+      "xgf_pg": 0.06837704557907825,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 3
@@ -17802,7 +17802,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.09785495313332257,
+      "xgf_pg": 0.09594102035683001,
       "pbp_goals": 0,
       "pbp_assists": 7,
       "pbp_shots": 17
@@ -18585,7 +18585,7 @@
       "power_play_goals": 4,
       "short_handed_goals": 0,
       "game_winning_goals": 2,
-      "xgf_pg": 0.5352694625778858,
+      "xgf_pg": 0.535364671615164,
       "pbp_goals": 9,
       "pbp_assists": 3,
       "pbp_shots": 52
@@ -19617,5 +19617,5 @@
       "pbp_shots": 9
     }
   ],
-  "updated_at": "2026-10-28T08:23:23Z"
+  "updated_at": "2026-10-29T01:14:23Z"
 }

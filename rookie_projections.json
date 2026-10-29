@@ -1,17 +1,6 @@
 {
-  "generated_at": "2026-10-28T08:24:44.966192+00:00",
+  "generated_at": "2026-10-29T01:16:11.828876+00:00",
   "players": {
-    "chasepietila": {
-      "points_pg": 0.1067,
-      "goals_pg": 0.0133,
-      "assists_pg": 0.0933,
-      "shots_pg": 0.1481,
-      "source_league": "AHL",
-      "source_season": 20252026,
-      "source_games": 66,
-      "name": "Chase Pietila",
-      "team": "PIT"
-    },
     "masonshaw": {
       "points_pg": 0.2727,
       "goals_pg": 0.093,
@@ -33,6 +22,28 @@
       "source_games": 16,
       "name": "Quinton Burns",
       "team": "STL"
+    },
+    "filipbystedt": {
+      "points_pg": 0.4062,
+      "goals_pg": 0.1489,
+      "assists_pg": 0.2572,
+      "shots_pg": 1.6547,
+      "source_league": "AHL",
+      "source_season": 20252026,
+      "source_games": 65,
+      "name": "Filip Bystedt",
+      "team": "SJS"
+    },
+    "liborhajek": {
+      "points_pg": 0.1507,
+      "goals_pg": 0.0695,
+      "assists_pg": 0.0811,
+      "shots_pg": 0.7727,
+      "source_league": "CZECHIA",
+      "source_season": 20252026,
+      "source_games": 44,
+      "name": "Libor Hajek",
+      "team": "SJS"
     },
     "jakeobrien": {
       "points_pg": 0.4738,
