@@ -60,6 +60,18 @@
     "injured": true
   },
   {
+    "team": "CGY",
+    "player": "Brennan Othmann",
+    "status": "dtd",
+    "injured": true
+  },
+  {
+    "team": "CGY",
+    "player": "Devin Cooley",
+    "status": "dtd",
+    "injured": true
+  },
+  {
     "team": "CAR",
     "player": "Jordan Staal",
     "status": "ir",
@@ -87,6 +99,12 @@
     "team": "CBJ",
     "player": "Ivan Provorov",
     "status": "ir",
+    "injured": true
+  },
+  {
+    "team": "COL",
+    "player": "Josh Manson",
+    "status": "dtd",
     "injured": true
   },
   {
