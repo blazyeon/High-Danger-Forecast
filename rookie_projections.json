@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-30T01:23:23.017441+00:00",
+  "generated_at": "2026-10-30T08:35:44.235948+00:00",
   "players": {
     "masonshaw": {
       "points_pg": 0.2727,
@@ -33,17 +33,6 @@
       "source_games": 71,
       "name": "Martin Chromiak",
       "team": "LAK"
-    },
-    "filipbystedt": {
-      "points_pg": 0.4062,
-      "goals_pg": 0.1489,
-      "assists_pg": 0.2572,
-      "shots_pg": 1.6547,
-      "source_league": "AHL",
-      "source_season": 20252026,
-      "source_games": 65,
-      "name": "Filip Bystedt",
-      "team": "SJS"
     },
     "liborhajek": {
       "points_pg": 0.1507,

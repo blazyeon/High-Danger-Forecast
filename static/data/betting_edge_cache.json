@@ -9578,9 +9578,9 @@
     },
     "2026-10-30": {
       "date": "2026-10-30",
-      "computed_at": "2026-10-30T01:22:33.855544+00:00",
+      "computed_at": "2026-10-30T08:34:59.865835+00:00",
       "source": "sharpapi",
-      "odds_fetched_at": "2026-10-30T01:22:17.274909+00:00",
+      "odds_fetched_at": "2026-10-30T08:34:46.661908+00:00",
       "warning": null,
       "no_games": false,
       "scanned": 3,
@@ -9673,9 +9673,9 @@
               "team": "NJD",
               "odds": -106,
               "odds_decimal": 1.9433962264150944,
-              "model_prob": 0.504,
+              "model_prob": 0.503,
               "implied_prob": 0.4924,
-              "edge": 0.0116,
+              "edge": 0.0106,
               "book": "fanduel"
             }
           ]
@@ -9686,18 +9686,18 @@
           "home_name": "Panthers",
           "away_name": "Jets",
           "start_time": "2026-10-30T23:00:00Z",
-          "best_edge": 0.0406,
+          "best_edge": 0.0084,
           "edges": [
             {
-              "market": "Total 5.5",
+              "market": "Total 6.5",
               "side": "Over",
               "pick": "Over",
               "team": null,
-              "odds": -135,
-              "odds_decimal": 1.7407407407407407,
-              "model_prob": 0.592,
-              "implied_prob": 0.5514,
-              "edge": 0.0406,
+              "odds": 114,
+              "odds_decimal": 2.1399999999999997,
+              "model_prob": 0.457,
+              "implied_prob": 0.4486,
+              "edge": 0.0084,
               "book": "draftkings"
             },
             {
@@ -9707,9 +9707,9 @@
               "team": "WPG",
               "odds": -135,
               "odds_decimal": 1.7407407407407407,
-              "model_prob": 0.57,
+              "model_prob": 0.552,
               "implied_prob": 0.5514,
-              "edge": 0.0186,
+              "edge": 0.0006,
               "book": "draftkings"
             },
             {
@@ -9717,11 +9717,11 @@
               "side": "Florida Panthers",
               "pick": "Florida Panthers",
               "team": "FLA",
-              "odds": -218,
-              "odds_decimal": 1.4587155963302751,
-              "model_prob": 0.584,
-              "implied_prob": 0.6575,
-              "edge": -0.0735,
+              "odds": -225,
+              "odds_decimal": 1.4444444444444444,
+              "model_prob": 0.592,
+              "implied_prob": 0.6636,
+              "edge": -0.0716,
               "book": "draftkings"
             }
           ]

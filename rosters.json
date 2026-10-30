@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-30T01:23:23.012386+00:00",
+  "generated_at": "2026-10-30T08:35:44.232705+00:00",
   "teams": {
     "BOS": {
       "skaters": [
@@ -3334,12 +3334,6 @@
           "birthDate": "2004-06-01"
         },
         {
-          "name": "Otto Stenberg",
-          "id": 8484230,
-          "position": "C",
-          "birthDate": "2005-05-29"
-        },
-        {
           "name": "Pius Suter",
           "id": 8480459,
           "position": "C",
@@ -3788,6 +3782,12 @@
           "id": 8482408,
           "position": "LW",
           "birthDate": "1996-08-07"
+        },
+        {
+          "name": "Roger McQueen",
+          "id": 8485400,
+          "position": "C",
+          "birthDate": "2006-10-02"
         },
         {
           "name": "Nikita Nesterenko",

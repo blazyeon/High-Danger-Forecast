@@ -252,6 +252,12 @@
     "injured": true
   },
   {
+    "team": "LAK",
+    "player": "Brandt Clarke",
+    "status": "dtd",
+    "injured": true
+  },
+  {
     "team": "MIN",
     "player": "Brock Faber",
     "status": "ir",
@@ -375,6 +381,12 @@
     "team": "OTT",
     "player": "Warren Foegele",
     "status": "out",
+    "injured": true
+  },
+  {
+    "team": "OTT",
+    "player": "Andre Burakovsky",
+    "status": "dtd",
     "injured": true
   },
   {
