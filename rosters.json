@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-29T08:27:51.649840+00:00",
+  "generated_at": "2026-10-30T01:23:23.012386+00:00",
   "teams": {
     "BOS": {
       "skaters": [
@@ -358,6 +358,12 @@
           "birthDate": "1997-12-18"
         },
         {
+          "name": "Sheldon Dries",
+          "id": 8480326,
+          "position": "C",
+          "birthDate": "1994-04-23"
+        },
+        {
           "name": "Emmitt Finnie",
           "id": 8484471,
           "position": "C",
@@ -374,12 +380,6 @@
           "id": 8478434,
           "position": "RW",
           "birthDate": "1997-04-08"
-        },
-        {
-          "name": "Dylan Larkin",
-          "id": 8477946,
-          "position": "C",
-          "birthDate": "1996-07-30"
         },
         {
           "name": "Carter Mazur",
@@ -454,12 +454,6 @@
           "id": 8476434,
           "position": "G",
           "birthDate": "1993-07-14"
-        },
-        {
-          "name": "Michal Postava",
-          "id": 8485545,
-          "position": "G",
-          "birthDate": "2002-02-28"
         },
         {
           "name": "Daniil Tarasov",
@@ -878,12 +872,6 @@
           "id": 8478469,
           "position": "D",
           "birthDate": "1997-01-30"
-        },
-        {
-          "name": "Cameron Crotty",
-          "id": 8480075,
-          "position": "D",
-          "birthDate": "1999-05-05"
         },
         {
           "name": "Tyler Kleven",
@@ -1540,12 +1528,6 @@
           "birthDate": "1994-08-07"
         },
         {
-          "name": "Carson Soucy",
-          "id": 8477369,
-          "position": "D",
-          "birthDate": "1994-07-27"
-        },
-        {
           "name": "Zach Werenski",
           "id": 8478460,
           "position": "D",
@@ -2072,12 +2054,6 @@
           "id": 8482159,
           "position": "RW",
           "birthDate": "2002-01-18"
-        },
-        {
-          "name": "Jacob Gaucher",
-          "id": 8481848,
-          "position": "C",
-          "birthDate": "2001-03-09"
         },
         {
           "name": "Nikita Grebenkin",
@@ -3070,6 +3046,12 @@
           "birthDate": "1993-07-12"
         },
         {
+          "name": "Cameron Crotty",
+          "id": 8480075,
+          "position": "D",
+          "birthDate": "1999-05-05"
+        },
+        {
           "name": "Brock Faber",
           "id": 8482122,
           "position": "D",
@@ -3086,6 +3068,12 @@
           "id": 8482641,
           "position": "D",
           "birthDate": "1998-04-14"
+        },
+        {
+          "name": "Carson Lambos",
+          "id": 8482781,
+          "position": "D",
+          "birthDate": "2003-01-14"
         },
         {
           "name": "Olli Maatta",
@@ -3820,6 +3808,12 @@
           "birthDate": "2006-01-28"
         },
         {
+          "name": "Troy Terry",
+          "id": 8478873,
+          "position": "RW",
+          "birthDate": "1997-09-10"
+        },
+        {
           "name": "Frank Vatrano",
           "id": 8478366,
           "position": "RW",
@@ -3866,6 +3860,12 @@
           "id": 8483490,
           "position": "D",
           "birthDate": "2003-11-25"
+        },
+        {
+          "name": "Travis Mitchell",
+          "id": 8484262,
+          "position": "D",
+          "birthDate": "1999-11-25"
         },
         {
           "name": "Ian Moore",
@@ -4246,6 +4246,12 @@
           "birthDate": "2002-08-19"
         },
         {
+          "name": "Martin Chromiak",
+          "id": 8482160,
+          "position": "RW",
+          "birthDate": "2002-08-20"
+        },
+        {
           "name": "Kevin Fiala",
           "id": 8477942,
           "position": "LW",
@@ -4316,12 +4322,6 @@
           "id": 8483406,
           "position": "RW",
           "birthDate": "1998-03-31"
-        },
-        {
-          "name": "Jared Wright",
-          "id": 8483756,
-          "position": "RW",
-          "birthDate": "2002-11-22"
         },
         {
           "name": "Mats Zuccarello",

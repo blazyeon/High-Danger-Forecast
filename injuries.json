@@ -48,6 +48,12 @@
     "injured": true
   },
   {
+    "team": "BUF",
+    "player": "Konsta Helenius",
+    "status": "dtd",
+    "injured": true
+  },
+  {
     "team": "CGY",
     "player": "Jonathan Huberdeau",
     "status": "ir",
@@ -128,25 +134,19 @@
   {
     "team": "DAL",
     "player": "Esa Lindell",
-    "status": "dtd",
+    "status": "out",
     "injured": true
   },
   {
     "team": "DAL",
     "player": "Radek Faksa",
-    "status": "dtd",
-    "injured": true
-  },
-  {
-    "team": "DAL",
-    "player": "Sam Steel",
-    "status": "dtd",
+    "status": "out",
     "injured": true
   },
   {
     "team": "DAL",
     "player": "Kyle Capobianco",
-    "status": "dtd",
+    "status": "out",
     "injured": true
   },
   {
@@ -164,13 +164,13 @@
   {
     "team": "DET",
     "player": "Simon Edvinsson",
-    "status": "ir",
+    "status": "out",
     "injured": true
   },
   {
     "team": "DET",
-    "player": "Daniil Tarasov",
-    "status": "dtd",
+    "player": "Dylan Larkin",
+    "status": "out",
     "injured": true
   },
   {
@@ -252,18 +252,6 @@
     "injured": true
   },
   {
-    "team": "LAK",
-    "player": "Drew Doughty",
-    "status": "dtd",
-    "injured": true
-  },
-  {
-    "team": "LAK",
-    "player": "Corey Perry",
-    "status": "dtd",
-    "injured": true
-  },
-  {
     "team": "MIN",
     "player": "Brock Faber",
     "status": "ir",
@@ -288,6 +276,12 @@
     "injured": true
   },
   {
+    "team": "MIN",
+    "player": "Jared Spurgeon",
+    "status": "out",
+    "injured": true
+  },
+  {
     "team": "MTL",
     "player": "Ivan Demidov",
     "status": "ir",
@@ -297,6 +291,12 @@
     "team": "MTL",
     "player": "Sam Montembeault",
     "status": "ir",
+    "injured": true
+  },
+  {
+    "team": "MTL",
+    "player": "Mike Matheson",
+    "status": "dtd",
     "injured": true
   },
   {
@@ -367,14 +367,14 @@
   },
   {
     "team": "OTT",
-    "player": "Thomas Chabot",
-    "status": "out",
+    "player": "Linus Ullmark",
+    "status": "ir",
     "injured": true
   },
   {
     "team": "OTT",
-    "player": "Linus Ullmark",
-    "status": "ir",
+    "player": "Warren Foegele",
+    "status": "out",
     "injured": true
   },
   {
@@ -403,12 +403,6 @@
   },
   {
     "team": "PIT",
-    "player": "Justin Brazeau",
-    "status": "ir",
-    "injured": true
-  },
-  {
-    "team": "PIT",
     "player": "Trevor van Riemsdyk",
     "status": "ir",
     "injured": true
@@ -421,32 +415,8 @@
   },
   {
     "team": "PIT",
-    "player": "Ben Kindel",
-    "status": "ir",
-    "injured": true
-  },
-  {
-    "team": "PIT",
     "player": "Bryan Rust",
     "status": "ir",
-    "injured": true
-  },
-  {
-    "team": "PIT",
-    "player": "Samuel Girard",
-    "status": "dtd",
-    "injured": true
-  },
-  {
-    "team": "PIT",
-    "player": "Egor Chinakhov",
-    "status": "dtd",
-    "injured": true
-  },
-  {
-    "team": "PIT",
-    "player": "Evgeni Malkin",
-    "status": "dtd",
     "injured": true
   },
   {
@@ -511,20 +481,8 @@
   },
   {
     "team": "TBL",
-    "player": "Victor Hedman",
-    "status": "dtd",
-    "injured": true
-  },
-  {
-    "team": "TBL",
     "player": "Zemgus Girgensons",
     "status": "out",
-    "injured": true
-  },
-  {
-    "team": "TBL",
-    "player": "Brandon Hagel",
-    "status": "dtd",
     "injured": true
   },
   {
@@ -553,8 +511,8 @@
   },
   {
     "team": "TOR",
-    "player": "John Tavares",
-    "status": "out",
+    "player": "Kirill Marchenko",
+    "status": "ir",
     "injured": true
   },
   {
@@ -565,7 +523,7 @@
   },
   {
     "team": "TOR",
-    "player": "Kirill Marchenko",
+    "player": "John Tavares",
     "status": "out",
     "injured": true
   },

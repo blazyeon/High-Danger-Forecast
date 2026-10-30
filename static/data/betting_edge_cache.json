@@ -9575,6 +9575,159 @@
         }
       ],
       "no_odds_games": []
+    },
+    "2026-10-30": {
+      "date": "2026-10-30",
+      "computed_at": "2026-10-30T01:22:33.855544+00:00",
+      "source": "sharpapi",
+      "odds_fetched_at": "2026-10-30T01:22:17.274909+00:00",
+      "warning": null,
+      "no_games": false,
+      "scanned": 3,
+      "matched": 3,
+      "with_edges": 3,
+      "dropped": 0,
+      "games": [
+        {
+          "home": "CGY",
+          "away": "SEA",
+          "home_name": "Flames",
+          "away_name": "Kraken",
+          "start_time": "2026-10-31T00:00:00Z",
+          "best_edge": 0.0689,
+          "edges": [
+            {
+              "market": "Total 6.5",
+              "side": "Under",
+              "pick": "Under",
+              "team": null,
+              "odds": -122,
+              "odds_decimal": 1.819672131147541,
+              "model_prob": 0.595,
+              "implied_prob": 0.5261,
+              "edge": 0.0689,
+              "book": "draftkings"
+            },
+            {
+              "market": "Puck Line (1.5)",
+              "side": "CGY Flames",
+              "pick": "CGY Flames",
+              "team": "CGY",
+              "odds": -258,
+              "odds_decimal": 1.3875968992248062,
+              "model_prob": 0.712,
+              "implied_prob": 0.6908,
+              "edge": 0.0212,
+              "book": "draftkings"
+            },
+            {
+              "market": "Moneyline",
+              "side": "Seattle Kraken",
+              "pick": "Seattle Kraken",
+              "team": "SEA",
+              "odds": -120,
+              "odds_decimal": 1.8333333333333335,
+              "model_prob": 0.522,
+              "implied_prob": 0.5217,
+              "edge": 0.0003,
+              "book": "fanduel"
+            }
+          ]
+        },
+        {
+          "home": "VGK",
+          "away": "NJD",
+          "home_name": "Golden Knights",
+          "away_name": "Devils",
+          "start_time": "2026-10-30T22:00:00Z",
+          "best_edge": 0.0687,
+          "edges": [
+            {
+              "market": "Total 6.5",
+              "side": "Over",
+              "pick": "Over",
+              "team": null,
+              "odds": 110,
+              "odds_decimal": 2.1,
+              "model_prob": 0.526,
+              "implied_prob": 0.4573,
+              "edge": 0.0687,
+              "book": "draftkings"
+            },
+            {
+              "market": "Puck Line (-1.5)",
+              "side": "VGK Golden Knights",
+              "pick": "VGK Golden Knights",
+              "team": "VGK",
+              "odds": 210,
+              "odds_decimal": 3.1,
+              "model_prob": 0.333,
+              "implied_prob": 0.3092,
+              "edge": 0.0238,
+              "book": "draftkings"
+            },
+            {
+              "market": "Moneyline",
+              "side": "New Jersey Devils",
+              "pick": "New Jersey Devils",
+              "team": "NJD",
+              "odds": -106,
+              "odds_decimal": 1.9433962264150944,
+              "model_prob": 0.504,
+              "implied_prob": 0.4924,
+              "edge": 0.0116,
+              "book": "fanduel"
+            }
+          ]
+        },
+        {
+          "home": "FLA",
+          "away": "WPG",
+          "home_name": "Panthers",
+          "away_name": "Jets",
+          "start_time": "2026-10-30T23:00:00Z",
+          "best_edge": 0.0406,
+          "edges": [
+            {
+              "market": "Total 5.5",
+              "side": "Over",
+              "pick": "Over",
+              "team": null,
+              "odds": -135,
+              "odds_decimal": 1.7407407407407407,
+              "model_prob": 0.592,
+              "implied_prob": 0.5514,
+              "edge": 0.0406,
+              "book": "draftkings"
+            },
+            {
+              "market": "Puck Line (1.5)",
+              "side": "WPG Jets",
+              "pick": "WPG Jets",
+              "team": "WPG",
+              "odds": -135,
+              "odds_decimal": 1.7407407407407407,
+              "model_prob": 0.57,
+              "implied_prob": 0.5514,
+              "edge": 0.0186,
+              "book": "draftkings"
+            },
+            {
+              "market": "Moneyline",
+              "side": "Florida Panthers",
+              "pick": "Florida Panthers",
+              "team": "FLA",
+              "odds": -218,
+              "odds_decimal": 1.4587155963302751,
+              "model_prob": 0.584,
+              "implied_prob": 0.6575,
+              "edge": -0.0735,
+              "book": "draftkings"
+            }
+          ]
+        }
+      ],
+      "no_odds_games": []
     }
   }
 }

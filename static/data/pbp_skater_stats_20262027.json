@@ -4560,7 +4560,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.13541358584216795,
+      "xgf_pg": 0.13499367379281013,
       "pbp_goals": 4,
       "pbp_assists": 7,
       "pbp_shots": 21
@@ -4641,7 +4641,7 @@
       "power_play_goals": 1,
       "short_handed_goals": 0,
       "game_winning_goals": 2,
-      "xgf_pg": 0.2723009547713557,
+      "xgf_pg": 0.2844924899656787,
       "pbp_goals": 6,
       "pbp_assists": 10,
       "pbp_shots": 29
@@ -4870,12 +4870,12 @@
       "goals": 2,
       "assists": 2,
       "points": 4,
-      "shots": 28,
+      "shots": 29,
       "gpg": 0.15384615384615385,
       "apg": 0.15384615384615385,
       "ppg": 0.3076923076923077,
-      "sogpg": 2.1538461538461537,
-      "sh_pct": 0.07142857142857142,
+      "sogpg": 2.230769230769231,
+      "sh_pct": 0.06896551724137931,
       "plus_minus": 1,
       "pim": 2,
       "toi_pg": 14.774358333333334,
@@ -4887,7 +4887,7 @@
       "xgf_pg": 0.27624032859398545,
       "pbp_goals": 2,
       "pbp_assists": 2,
-      "pbp_shots": 28
+      "pbp_shots": 29
     },
     {
       "name": "Jamie Benn",
@@ -6126,7 +6126,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.07477203974920756,
+      "xgf_pg": 0.07598904202914085,
       "pbp_goals": 2,
       "pbp_assists": 2,
       "pbp_shots": 12
@@ -6261,7 +6261,7 @@
       "power_play_goals": 6,
       "short_handed_goals": 0,
       "game_winning_goals": 1,
-      "xgf_pg": 0.5880851756771479,
+      "xgf_pg": 0.5835140127208538,
       "pbp_goals": 12,
       "pbp_assists": 12,
       "pbp_shots": 50
@@ -16182,7 +16182,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.13292398383396017,
+      "xgf_pg": 0.14060899563687226,
       "pbp_goals": 2,
       "pbp_assists": 3,
       "pbp_shots": 16
@@ -16398,7 +16398,7 @@
       "power_play_goals": 3,
       "short_handed_goals": 0,
       "game_winning_goals": 2,
-      "xgf_pg": 0.4633875178608998,
+      "xgf_pg": 0.45621539545380024,
       "pbp_goals": 10,
       "pbp_assists": 13,
       "pbp_shots": 45
@@ -16411,12 +16411,12 @@
       "goals": 2,
       "assists": 3,
       "points": 5,
-      "shots": 17,
+      "shots": 18,
       "gpg": 0.13333333333333333,
       "apg": 0.2,
       "ppg": 0.3333333333333333,
-      "sogpg": 1.1333333333333333,
-      "sh_pct": 0.11764705882352941,
+      "sogpg": 1.2,
+      "sh_pct": 0.1111111111111111,
       "plus_minus": 4,
       "pim": 11,
       "toi_pg": 19.683333333333334,
@@ -16428,7 +16428,7 @@
       "xgf_pg": 0.07592016363000578,
       "pbp_goals": 2,
       "pbp_assists": 3,
-      "pbp_shots": 17
+      "pbp_shots": 18
     },
     {
       "name": "Brandon Duhaime",
@@ -19644,5 +19644,5 @@
       "pbp_shots": 9
     }
   ],
-  "updated_at": "2026-10-29T08:26:07Z"
+  "updated_at": "2026-10-30T01:21:56Z"
 }

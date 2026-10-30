@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-29T08:27:51.653083+00:00",
+  "generated_at": "2026-10-30T01:23:23.017441+00:00",
   "players": {
     "masonshaw": {
       "points_pg": 0.2727,
@@ -22,6 +22,17 @@
       "source_games": 16,
       "name": "Quinton Burns",
       "team": "STL"
+    },
+    "martinchromiak": {
+      "points_pg": 0.347,
+      "goals_pg": 0.1735,
+      "assists_pg": 0.1735,
+      "shots_pg": 1.928,
+      "source_league": "AHL",
+      "source_season": 20252026,
+      "source_games": 71,
+      "name": "Martin Chromiak",
+      "team": "LAK"
     },
     "filipbystedt": {
       "points_pg": 0.4062,
