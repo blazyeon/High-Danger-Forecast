@@ -1,17 +1,6 @@
 {
-  "generated_at": "2026-10-30T08:35:44.235948+00:00",
+  "generated_at": "2026-10-31T01:06:31.718496+00:00",
   "players": {
-    "masonshaw": {
-      "points_pg": 0.2727,
-      "goals_pg": 0.093,
-      "assists_pg": 0.1797,
-      "shots_pg": 1.0329,
-      "source_league": "AHL",
-      "source_season": 20252026,
-      "source_games": 71,
-      "name": "Mason Shaw",
-      "team": "MIN"
-    },
     "quintonburns": {
       "points_pg": 0.0788,
       "goals_pg": 0.0131,
