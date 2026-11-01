@@ -10206,9 +10206,9 @@
     },
     "2026-11-01": {
       "date": "2026-11-01",
-      "computed_at": "2026-11-01T00:27:27.100416+00:00",
+      "computed_at": "2026-11-01T09:10:34.806757+00:00",
       "source": "sharpapi",
-      "odds_fetched_at": "2026-11-01T00:27:10.111901+00:00",
+      "odds_fetched_at": "2026-11-01T09:10:18.445228+00:00",
       "warning": null,
       "no_games": false,
       "scanned": 5,
@@ -10222,7 +10222,7 @@
           "home_name": "Rangers",
           "away_name": "Oilers",
           "start_time": "2026-11-01T23:00:00Z",
-          "best_edge": 0.1425,
+          "best_edge": 0.1535,
           "edges": [
             {
               "market": "Moneyline",
@@ -10231,21 +10231,9 @@
               "team": "EDM",
               "odds": 105,
               "odds_decimal": 2.05,
-              "model_prob": 0.61,
+              "model_prob": 0.621,
               "implied_prob": 0.4675,
-              "edge": 0.1425,
-              "book": "draftkings"
-            },
-            {
-              "market": "Total 6.5",
-              "side": "Under",
-              "pick": "Under",
-              "team": null,
-              "odds": -108,
-              "odds_decimal": 1.925925925925926,
-              "model_prob": 0.577,
-              "implied_prob": 0.4957,
-              "edge": 0.0813,
+              "edge": 0.1535,
               "book": "draftkings"
             },
             {
@@ -10255,10 +10243,22 @@
               "team": "EDM",
               "odds": -230,
               "odds_decimal": 1.434782608695652,
-              "model_prob": 0.744,
+              "model_prob": 0.763,
               "implied_prob": 0.669,
-              "edge": 0.075,
+              "edge": 0.094,
               "book": "draftkings"
+            },
+            {
+              "market": "Total 6.5",
+              "side": "Under",
+              "pick": "Under",
+              "team": null,
+              "odds": -105,
+              "odds_decimal": 1.9523809523809523,
+              "model_prob": 0.578,
+              "implied_prob": 0.4892,
+              "edge": 0.0888,
+              "book": "fanduel"
             }
           ]
         },
@@ -10268,18 +10268,18 @@
           "home_name": "Ducks",
           "away_name": "Senators",
           "start_time": "2026-11-02T01:00:00Z",
-          "best_edge": 0.1377,
+          "best_edge": 0.1464,
           "edges": [
             {
               "market": "Total 6.5",
               "side": "Under",
               "pick": "Under",
               "team": null,
-              "odds": 110,
-              "odds_decimal": 2.1,
+              "odds": 114,
+              "odds_decimal": 2.1399999999999997,
               "model_prob": 0.595,
-              "implied_prob": 0.4573,
-              "edge": 0.1377,
+              "implied_prob": 0.4486,
+              "edge": 0.1464,
               "book": "draftkings"
             },
             {
@@ -10345,11 +10345,11 @@
               "side": "Carolina Hurricanes",
               "pick": "Carolina Hurricanes",
               "team": "CAR",
-              "odds": -278,
-              "odds_decimal": 1.3597122302158273,
+              "odds": -265,
+              "odds_decimal": 1.3773584905660377,
               "model_prob": 0.736,
-              "implied_prob": 0.705,
-              "edge": 0.031,
+              "implied_prob": 0.6958,
+              "edge": 0.0402,
               "book": "draftkings"
             }
           ]
