@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-31T08:26:02.074419+00:00",
+  "generated_at": "2026-11-01T00:28:12.491652+00:00",
   "teams": {
     "BOS": {
       "skaters": [
@@ -398,6 +398,12 @@
           "id": 8482078,
           "position": "LW",
           "birthDate": "2002-03-28"
+        },
+        {
+          "name": "Jacob Bernard-Docker",
+          "id": 8480879,
+          "position": "D",
+          "birthDate": "2000-06-30"
         },
         {
           "name": "Ben Chiarot",
@@ -1780,6 +1786,12 @@
           "birthDate": "1995-10-24"
         },
         {
+          "name": "Isaiah George",
+          "id": 8483448,
+          "position": "D",
+          "birthDate": "2004-02-15"
+        },
+        {
           "name": "Matthew Kessel",
           "id": 8482516,
           "position": "D",
@@ -2120,12 +2132,6 @@
           "id": 8483460,
           "position": "D",
           "birthDate": "2003-11-28"
-        },
-        {
-          "name": "Hunter McDonald",
-          "id": 8483760,
-          "position": "D",
-          "birthDate": "2002-05-11"
         },
         {
           "name": "Rasmus Ristolainen",
@@ -2638,6 +2644,12 @@
     "COL": {
       "skaters": [
         {
+          "name": "Gavin Brindley",
+          "id": 8484149,
+          "position": "C",
+          "birthDate": "2004-10-05"
+        },
+        {
           "name": "T.J. Hughes",
           "id": 8486171,
           "position": "RW",
@@ -2996,6 +3008,12 @@
           "id": 8485702,
           "position": "RW",
           "birthDate": "2000-10-07"
+        },
+        {
+          "name": "Mason Shaw",
+          "id": 8479972,
+          "position": "C",
+          "birthDate": "1998-11-03"
         },
         {
           "name": "Nico Sturm",
@@ -3405,12 +3423,6 @@
     },
     "UTA": {
       "skaters": [
-        {
-          "name": "Daniil But",
-          "id": 8484388,
-          "position": "LW",
-          "birthDate": "2005-02-15"
-        },
         {
           "name": "Michael Carcone",
           "id": 8479619,

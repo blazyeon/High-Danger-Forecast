@@ -102,15 +102,9 @@
     "injured": true
   },
   {
-    "team": "CBJ",
-    "player": "Ivan Provorov",
-    "status": "ir",
-    "injured": true
-  },
-  {
     "team": "COL",
     "player": "Josh Manson",
-    "status": "dtd",
+    "status": "ir",
     "injured": true
   },
   {
@@ -133,19 +127,13 @@
   },
   {
     "team": "DAL",
-    "player": "Esa Lindell",
-    "status": "out",
+    "player": "Kyle Capobianco",
+    "status": "ir",
     "injured": true
   },
   {
     "team": "DAL",
     "player": "Radek Faksa",
-    "status": "out",
-    "injured": true
-  },
-  {
-    "team": "DAL",
-    "player": "Kyle Capobianco",
     "status": "out",
     "injured": true
   },
@@ -253,7 +241,7 @@
   },
   {
     "team": "LAK",
-    "player": "Brandt Clarke",
+    "player": "Adrian Kempe",
     "status": "dtd",
     "injured": true
   },
@@ -372,6 +360,18 @@
     "injured": true
   },
   {
+    "team": "NYR",
+    "player": "Braden Schneider",
+    "status": "dtd",
+    "injured": true
+  },
+  {
+    "team": "NYR",
+    "player": "Sean Durzi",
+    "status": "dtd",
+    "injured": true
+  },
+  {
     "team": "OTT",
     "player": "William Eklund",
     "status": "ir",
@@ -386,13 +386,19 @@
   {
     "team": "OTT",
     "player": "Warren Foegele",
+    "status": "ir",
+    "injured": true
+  },
+  {
+    "team": "OTT",
+    "player": "Hayden Hodgson",
     "status": "out",
     "injured": true
   },
   {
     "team": "OTT",
     "player": "Andre Burakovsky",
-    "status": "dtd",
+    "status": "out",
     "injured": true
   },
   {
@@ -523,18 +529,6 @@
   },
   {
     "team": "TOR",
-    "player": "Dakota Joshua",
-    "status": "ir",
-    "injured": true
-  },
-  {
-    "team": "TOR",
-    "player": "Chris Tanev",
-    "status": "ir",
-    "injured": true
-  },
-  {
-    "team": "TOR",
     "player": "Kirill Marchenko",
     "status": "ir",
     "injured": true
@@ -566,13 +560,13 @@
   {
     "team": "VAN",
     "player": "Thatcher Demko",
-    "status": "out",
+    "status": "ir",
     "injured": true
   },
   {
     "team": "VAN",
     "player": "Filip Chytil",
-    "status": "dtd",
+    "status": "ir",
     "injured": true
   },
   {
