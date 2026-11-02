@@ -1,6 +1,6 @@
 {
   "source": "daily_faceoff",
-  "updated_at": "2026-11-01T01:52:15.610Z",
+  "updated_at": "2026-11-02T00:37:24.788Z",
   "teams": {
     "ANA": {
       "pp1": [
@@ -17,7 +17,7 @@
         "Judd Caulfield",
         "Tristan Luneau"
       ],
-      "updated_at": "2026-10-31T18:00:24.558Z",
+      "updated_at": "2026-11-02T00:37:24.788Z",
       "source": "Derek Lee"
     },
     "BOS": {
@@ -89,8 +89,8 @@
         "Logan Stankoven",
         "Juuso Valimaki"
       ],
-      "updated_at": "2026-10-30T13:57:13.313Z",
-      "source": "Last Game (2026-10-29)"
+      "updated_at": "2026-11-01T17:54:50.231Z",
+      "source": "Walt Ruff"
     },
     "CHI": {
       "pp1": [
@@ -195,10 +195,10 @@
         "Trent Frederic",
         "Colton Dach",
         "Ryan Shea",
-        "Isaac Howard"
+        "Mattias Ekholm"
       ],
-      "updated_at": "2026-10-30T16:19:11.408Z",
-      "source": "Bob Stauffer"
+      "updated_at": "2026-11-01T14:25:02.080Z",
+      "source": "Projected"
     },
     "FLA": {
       "pp1": [
@@ -251,8 +251,8 @@
         "Bobby Brink",
         "David Spacek"
       ],
-      "updated_at": "2026-10-31T15:57:59.714Z",
-      "source": "Joe Smith"
+      "updated_at": "2026-11-01T20:43:31.929Z",
+      "source": "@CapitalsPR"
     },
     "MTL": {
       "pp1": [
@@ -281,14 +281,14 @@
         "Roman Josi"
       ],
       "pp2": [
+        "Ross Colton",
+        "Shane Wright",
         "Alex Kerfoot",
         "Mavrik Bourque",
-        "Matthew Wood",
-        "Nils Hoglander",
         "Brady Skjei"
       ],
-      "updated_at": "2026-10-31T17:40:46.387Z",
-      "source": "Brooks Bratten"
+      "updated_at": "2026-11-01T22:48:29.292Z",
+      "source": "Projected"
     },
     "NJD": {
       "pp1": [
@@ -339,9 +339,9 @@
         "Will Cuylle",
         "Gabriel Perreault",
         "Eeli Tolvanen",
-        "Sean Durzi"
+        "Scott Morrow"
       ],
-      "updated_at": "2026-10-31T16:22:28.124Z",
+      "updated_at": "2026-11-01T22:38:10.694Z",
       "source": "Mollie Walker"
     },
     "OTT": {
@@ -359,8 +359,8 @@
         "Fabian Zetterlund",
         "Thomas Chabot"
       ],
-      "updated_at": "2026-10-31T19:42:07.496Z",
-      "source": "Ottawa Senators"
+      "updated_at": "2026-11-01T23:49:05.875Z",
+      "source": "@Senators"
     },
     "PHI": {
       "pp1": [
@@ -377,8 +377,8 @@
         "Owen Tippett",
         "Oliver Bonk"
       ],
-      "updated_at": "2026-10-31T16:05:53.859Z",
-      "source": "Charlie O'Connor"
+      "updated_at": "2026-11-01T20:37:18.653Z",
+      "source": "Will James"
     },
     "PIT": {
       "pp1": [
@@ -426,13 +426,13 @@
       ],
       "pp2": [
         "Kaapo Kakko",
-        "Shane Wright",
         "Berkly Catton",
+        "Matthew Wood",
         "Mackie Samoskevich",
         "Brandon Montour"
       ],
-      "updated_at": "2026-10-30T23:54:29.086Z",
-      "source": "Seattle Kraken"
+      "updated_at": "2026-11-01T22:47:35.633Z",
+      "source": "Projected"
     },
     "STL": {
       "pp1": [
@@ -499,12 +499,12 @@
       "pp2": [
         "Anders Lee",
         "Vincent Trocheck",
-        "Kailer Yamamoto",
+        "Michael Carcone",
         "Barrett Hayton",
         "MacKenzie Weegar"
       ],
-      "updated_at": "2026-10-30T13:54:27.690Z",
-      "source": "Last Game (2026-10-29)"
+      "updated_at": "2026-11-01T20:40:08.520Z",
+      "source": "Utah Mammoth"
     },
     "VAN": {
       "pp1": [
@@ -557,26 +557,26 @@
         "Ryan Leonard",
         "Cole Hutson"
       ],
-      "updated_at": "2026-10-31T15:57:34.355Z",
-      "source": "Tom Gulitti"
+      "updated_at": "2026-11-01T20:06:55.433Z",
+      "source": "Sammi Silber"
     },
     "WPG": {
       "pp1": [
         "Gabriel Vilardi",
         "Mark Scheifele",
         "Cole Perfetti",
-        "Elias Salomonsson",
+        "Neal Pionk",
         "Kyle Connor"
       ],
       "pp2": [
-        "Isak Rosen",
+        "Alex Iafallo",
         "Viggo Bj\u00f6rck",
         "Dawson Mercer",
-        "Neal Pionk",
-        "Haydn Fleury"
+        "Isak Rosen",
+        "Elias Salomonsson"
       ],
-      "updated_at": "2026-10-30T22:42:35.471Z",
-      "source": "Mitchell Clinton"
+      "updated_at": "2026-11-01T17:52:44.923Z",
+      "source": "Mike McIntyre"
     }
   }
 }

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-01T09:11:19.038481+00:00",
+  "generated_at": "2026-11-02T01:04:01.361076+00:00",
   "teams": {
     "BOS": {
       "skaters": [
@@ -250,12 +250,6 @@
           "birthDate": "2000-04-13"
         },
         {
-          "name": "Dennis Gilbert",
-          "id": 8478502,
-          "position": "D",
-          "birthDate": "1996-10-30"
-        },
-        {
           "name": "Matt Grzelcyk",
           "id": 8476891,
           "position": "D",
@@ -380,6 +374,12 @@
           "id": 8478434,
           "position": "RW",
           "birthDate": "1997-04-08"
+        },
+        {
+          "name": "John Leonard",
+          "id": 8481077,
+          "position": "LW",
+          "birthDate": "1998-08-07"
         },
         {
           "name": "Carter Mazur",
@@ -1684,12 +1684,6 @@
           "id": 8476945,
           "position": "G",
           "birthDate": "1993-05-19"
-        },
-        {
-          "name": "R\u00e9mi Poirier",
-          "id": 8482465,
-          "position": "G",
-          "birthDate": "2001-10-06"
         }
       ]
     },
@@ -1784,12 +1778,6 @@
           "id": 8477950,
           "position": "D",
           "birthDate": "1995-10-24"
-        },
-        {
-          "name": "Isaiah George",
-          "id": 8483448,
-          "position": "D",
-          "birthDate": "2004-02-15"
         },
         {
           "name": "Matthew Kessel",
@@ -1970,6 +1958,12 @@
           "id": 8477969,
           "position": "D",
           "birthDate": "1996-05-08"
+        },
+        {
+          "name": "Matthew Robertson",
+          "id": 8481525,
+          "position": "D",
+          "birthDate": "2001-03-09"
         },
         {
           "name": "Braden Schneider",
@@ -2236,12 +2230,6 @@
           "birthDate": "1986-07-31"
         },
         {
-          "name": "Rutger McGroarty",
-          "id": 8483487,
-          "position": "RW",
-          "birthDate": "2004-03-30"
-        },
-        {
           "name": "Tommy Novak",
           "id": 8478438,
           "position": "C",
@@ -2484,6 +2472,12 @@
           "birthDate": "1993-12-18"
         },
         {
+          "name": "R\u00e9mi Poirier",
+          "id": 8482465,
+          "position": "G",
+          "birthDate": "2001-10-06"
+        },
+        {
           "name": "Logan Thompson",
           "id": 8480313,
           "position": "G",
@@ -2643,12 +2637,6 @@
     },
     "COL": {
       "skaters": [
-        {
-          "name": "Gavin Brindley",
-          "id": 8484149,
-          "position": "C",
-          "birthDate": "2004-10-05"
-        },
         {
           "name": "T.J. Hughes",
           "id": 8486171,
@@ -3184,10 +3172,10 @@
           "birthDate": "1990-02-07"
         },
         {
-          "name": "Matthew Wood",
-          "id": 8484241,
-          "position": "RW",
-          "birthDate": "2005-02-06"
+          "name": "Shane Wright",
+          "id": 8483524,
+          "position": "C",
+          "birthDate": "2004-01-05"
         },
         {
           "name": "Nicolas Hague",
@@ -4636,10 +4624,10 @@
           "birthDate": "2003-09-04"
         },
         {
-          "name": "Shane Wright",
-          "id": 8483524,
-          "position": "C",
-          "birthDate": "2004-01-05"
+          "name": "Matthew Wood",
+          "id": 8484241,
+          "position": "RW",
+          "birthDate": "2005-02-06"
         },
         {
           "name": "Vince Dunn",
@@ -4958,12 +4946,6 @@
           "id": 8478396,
           "position": "D",
           "birthDate": "1997-01-25"
-        },
-        {
-          "name": "Ville Heinola",
-          "id": 8481572,
-          "position": "D",
-          "birthDate": "2001-03-02"
         },
         {
           "name": "Jeremy Lauzon",
