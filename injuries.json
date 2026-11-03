@@ -48,6 +48,12 @@
     "injured": true
   },
   {
+    "team": "BUF",
+    "player": "Zach Benson",
+    "status": "dtd",
+    "injured": true
+  },
+  {
     "team": "CGY",
     "player": "Jonathan Huberdeau",
     "status": "ir",
@@ -216,12 +222,6 @@
     "injured": true
   },
   {
-    "team": "FLA",
-    "player": "Jacob Markstrom",
-    "status": "dtd",
-    "injured": true
-  },
-  {
     "team": "LAK",
     "player": "Alex Turcotte",
     "status": "ir",
@@ -242,6 +242,12 @@
   {
     "team": "LAK",
     "player": "Adrian Kempe",
+    "status": "dtd",
+    "injured": true
+  },
+  {
+    "team": "LAK",
+    "player": "Brandt Clarke",
     "status": "dtd",
     "injured": true
   },
@@ -290,6 +296,12 @@
   {
     "team": "MTL",
     "player": "Mike Matheson",
+    "status": "dtd",
+    "injured": true
+  },
+  {
+    "team": "MTL",
+    "player": "Nick Suzuki",
     "status": "dtd",
     "injured": true
   },

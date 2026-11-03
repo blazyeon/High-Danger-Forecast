@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-02T09:25:28.786477+00:00",
+  "generated_at": "2026-11-03T03:07:19.448113+00:00",
   "teams": {
     "BOS": {
       "skaters": [
@@ -605,12 +605,6 @@
         }
       ],
       "goalies": [
-        {
-          "name": "Cooper Black",
-          "id": 8484900,
-          "position": "G",
-          "birthDate": "2001-06-14"
-        },
         {
           "name": "Jacob Markstrom",
           "id": 8474593,
@@ -1846,6 +1840,12 @@
           "birthDate": "1995-04-10"
         },
         {
+          "name": "Jaroslav Chmelar",
+          "id": 8482877,
+          "position": "RW",
+          "birthDate": "2003-07-20"
+        },
+        {
           "name": "Will Cuylle",
           "id": 8482157,
           "position": "LW",
@@ -1892,12 +1892,6 @@
           "id": 8484210,
           "position": "RW",
           "birthDate": "2005-05-07"
-        },
-        {
-          "name": "Taylor Raddysh",
-          "id": 8479390,
-          "position": "RW",
-          "birthDate": "1998-02-18"
         },
         {
           "name": "Matt Rempe",
@@ -2018,12 +2012,6 @@
           "id": 8484142,
           "position": "C",
           "birthDate": "2005-04-27"
-        },
-        {
-          "name": "Alex Bump",
-          "id": 8483731,
-          "position": "LW",
-          "birthDate": "2003-11-20"
         },
         {
           "name": "Michael Bunting",
@@ -2752,6 +2740,12 @@
           "birthDate": "1991-10-07"
         },
         {
+          "name": "Keaton Middleton",
+          "id": 8479387,
+          "position": "D",
+          "birthDate": "1998-02-10"
+        },
+        {
           "name": "Devon Toews",
           "id": 8478038,
           "position": "D",
@@ -2972,12 +2966,6 @@
           "id": 8478864,
           "position": "LW",
           "birthDate": "1997-04-26"
-        },
-        {
-          "name": "Rieger Lorenz",
-          "id": 8483478,
-          "position": "LW",
-          "birthDate": "2004-03-30"
         },
         {
           "name": "Michael McCarron",
@@ -3376,12 +3364,6 @@
           "birthDate": "2005-01-05"
         },
         {
-          "name": "Logan Mailloux",
-          "id": 8482733,
-          "position": "D",
-          "birthDate": "2003-04-15"
-        },
-        {
           "name": "Colton Parayko",
           "id": 8476892,
           "position": "D",
@@ -3754,12 +3736,6 @@
           "birthDate": "1989-09-14"
         },
         {
-          "name": "Nikita Klepov",
-          "id": 8486052,
-          "position": "RW",
-          "birthDate": "2008-06-27"
-        },
-        {
           "name": "Jeff Malott",
           "id": 8482408,
           "position": "LW",
@@ -3770,6 +3746,12 @@
           "id": 8485400,
           "position": "C",
           "birthDate": "2006-10-02"
+        },
+        {
+          "name": "Nico Myatovic",
+          "id": 8484201,
+          "position": "LW",
+          "birthDate": "2004-12-01"
         },
         {
           "name": "Nikita Nesterenko",
@@ -3820,12 +3802,6 @@
           "birthDate": "2003-03-12"
         },
         {
-          "name": "Nick Jensen",
-          "id": 8475324,
-          "position": "D",
-          "birthDate": "1990-09-21"
-        },
-        {
           "name": "Jackson LaCombe",
           "id": 8481605,
           "position": "D",
@@ -3863,6 +3839,12 @@
         }
       ],
       "goalies": [
+        {
+          "name": "Laurent Brossoit",
+          "id": 8476316,
+          "position": "G",
+          "birthDate": "1993-03-23"
+        },
         {
           "name": "Lukas Dostal",
           "id": 8480843,
