@@ -1,6 +1,6 @@
 {
   "source": "daily_faceoff",
-  "updated_at": "2026-11-03T00:42:09.962Z",
+  "updated_at": "2026-11-03T03:31:54.687Z",
   "teams": {
     "ANA": {
       "pp1": [
@@ -107,7 +107,7 @@
         "Sam Rinzel",
         "Oliver Moore"
       ],
-      "updated_at": "2026-11-02T17:17:01.051Z",
+      "updated_at": "2026-11-03T03:31:54.687Z",
       "source": "Kalen Lumpkins"
     },
     "CBJ": {
@@ -401,16 +401,16 @@
     "SJS": {
       "pp1": [
         "Mason Marchment",
-        "Will Smith",
-        "Macklin Celebrini",
         "Ivar Stenberg",
-        "Dmitry Orlov"
+        "Tyler Toffoli",
+        "Macklin Celebrini",
+        "Will Smith"
       ],
       "pp2": [
-        "Filip Bystedt",
+        "Kiefer Sherwood",
         "Michael Misa",
-        "Tyler Toffoli",
-        "Michael Kesselring",
+        "Adam Gaudette",
+        "Dmitry Orlov",
         "Jacob Trouba"
       ],
       "updated_at": "2026-11-02T18:52:28.682Z",

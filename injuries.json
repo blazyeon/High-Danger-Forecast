@@ -91,6 +91,12 @@
   },
   {
     "team": "CHI",
+    "player": "Patrick Kane",
+    "status": "dtd",
+    "injured": true
+  },
+  {
+    "team": "CHI",
     "player": "Bowen Byram",
     "status": "dtd",
     "injured": true
