@@ -11171,9 +11171,9 @@
     },
     "2026-11-04": {
       "date": "2026-11-04",
-      "computed_at": "2026-11-04T01:41:45.441700+00:00",
+      "computed_at": "2026-11-04T09:05:28.268625+00:00",
       "source": "sharpapi",
-      "odds_fetched_at": "2026-11-04T01:41:25.564760+00:00",
+      "odds_fetched_at": "2026-11-04T09:05:10.347290+00:00",
       "warning": null,
       "no_games": false,
       "scanned": 4,
@@ -11325,18 +11325,30 @@
           "home_name": "Kraken",
           "away_name": "Flames",
           "start_time": "2026-11-05T03:00:00Z",
-          "best_edge": 0.0855,
+          "best_edge": 0.0604,
           "edges": [
             {
               "market": "Moneyline",
               "side": "Calgary Flames",
               "pick": "Calgary Flames",
               "team": "CGY",
-              "odds": 120,
-              "odds_decimal": 2.2,
-              "model_prob": 0.522,
-              "implied_prob": 0.4365,
-              "edge": 0.0855,
+              "odds": 114,
+              "odds_decimal": 2.1399999999999997,
+              "model_prob": 0.509,
+              "implied_prob": 0.4486,
+              "edge": 0.0604,
+              "book": "draftkings"
+            },
+            {
+              "market": "Puck Line (-1.5)",
+              "side": "SEA Kraken",
+              "pick": "SEA Kraken",
+              "team": "SEA",
+              "odds": 180,
+              "odds_decimal": 2.8,
+              "model_prob": 0.366,
+              "implied_prob": 0.3425,
+              "edge": 0.0235,
               "book": "draftkings"
             },
             {
@@ -11346,21 +11358,9 @@
               "team": null,
               "odds": -125,
               "odds_decimal": 1.8,
-              "model_prob": 0.573,
+              "model_prob": 0.55,
               "implied_prob": 0.5325,
-              "edge": 0.0405,
-              "book": "draftkings"
-            },
-            {
-              "market": "Puck Line (1.5)",
-              "side": "CGY Flames",
-              "pick": "CGY Flames",
-              "team": "CGY",
-              "odds": -205,
-              "odds_decimal": 1.4878048780487805,
-              "model_prob": 0.651,
-              "implied_prob": 0.6447,
-              "edge": 0.0063,
+              "edge": 0.0175,
               "book": "draftkings"
             }
           ]
