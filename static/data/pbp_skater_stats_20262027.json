@@ -4020,7 +4020,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 1,
       "game_winning_goals": 1,
-      "xgf_pg": 0.18045196449339526,
+      "xgf_pg": 0.19510799233852197,
       "pbp_goals": 1,
       "pbp_assists": 1,
       "pbp_shots": 18
@@ -4074,7 +4074,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.12544684182029464,
+      "xgf_pg": 0.12325931333652872,
       "pbp_goals": 0,
       "pbp_assists": 0,
       "pbp_shots": 7
@@ -4398,7 +4398,7 @@
       "power_play_goals": 2,
       "short_handed_goals": 0,
       "game_winning_goals": 1,
-      "xgf_pg": 0.33368551634571536,
+      "xgf_pg": 0.3343268457326273,
       "pbp_goals": 5,
       "pbp_assists": 9,
       "pbp_shots": 40
@@ -6207,7 +6207,7 @@
       "power_play_goals": 1,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.281919726124121,
+      "xgf_pg": 0.2928991114800386,
       "pbp_goals": 7,
       "pbp_assists": 4,
       "pbp_shots": 35
@@ -14708,12 +14708,12 @@
       "position": "L",
       "gp": 16,
       "goals": 2,
-      "assists": 7,
-      "points": 9,
+      "assists": 6,
+      "points": 8,
       "shots": 29,
       "gpg": 0.125,
-      "apg": 0.4375,
-      "ppg": 0.5625,
+      "apg": 0.375,
+      "ppg": 0.5,
       "sogpg": 1.8125,
       "sh_pct": 0.06896551724137931,
       "plus_minus": -5,
@@ -14726,7 +14726,7 @@
       "game_winning_goals": 0,
       "xgf_pg": 0.2417358877278424,
       "pbp_goals": 2,
-      "pbp_assists": 7,
+      "pbp_assists": 6,
       "pbp_shots": 29
     },
     {
@@ -14967,7 +14967,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.07648287760816998,
+      "xgf_pg": 0.0770209173796678,
       "pbp_goals": 1,
       "pbp_assists": 2,
       "pbp_shots": 12
@@ -15032,12 +15032,12 @@
       "position": "C",
       "gp": 16,
       "goals": 3,
-      "assists": 4,
-      "points": 7,
+      "assists": 5,
+      "points": 8,
       "shots": 18,
       "gpg": 0.1875,
-      "apg": 0.25,
-      "ppg": 0.4375,
+      "apg": 0.3125,
+      "ppg": 0.5,
       "sogpg": 1.125,
       "sh_pct": 0.16666666666666666,
       "plus_minus": -5,
@@ -15050,7 +15050,7 @@
       "game_winning_goals": 0,
       "xgf_pg": 0.20081825142991866,
       "pbp_goals": 3,
-      "pbp_assists": 4,
+      "pbp_assists": 5,
       "pbp_shots": 18
     },
     {
@@ -20019,5 +20019,5 @@
       "pbp_shots": 11
     }
   ],
-  "updated_at": "2026-11-03T09:30:28Z"
+  "updated_at": "2026-11-04T01:40:53Z"
 }

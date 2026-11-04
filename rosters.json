@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-03T09:32:23.632138+00:00",
+  "generated_at": "2026-11-04T01:42:32.117554+00:00",
   "teams": {
     "BOS": {
       "skaters": [
@@ -2074,12 +2074,6 @@
           "birthDate": "2004-12-09"
         },
         {
-          "name": "Jack Studnicka",
-          "id": 8480021,
-          "position": "C",
-          "birthDate": "1999-02-18"
-        },
-        {
           "name": "Owen Tippett",
           "id": 8480015,
           "position": "RW",
@@ -2276,6 +2270,12 @@
           "id": 8471724,
           "position": "D",
           "birthDate": "1987-04-24"
+        },
+        {
+          "name": "Jake Livanavage",
+          "id": 8486169,
+          "position": "D",
+          "birthDate": "2004-05-06"
         },
         {
           "name": "Ilya Solovyov",
@@ -2486,6 +2486,12 @@
           "id": 8477479,
           "position": "LW",
           "birthDate": "1995-02-24"
+        },
+        {
+          "name": "Dillon Boucher",
+          "id": 8485554,
+          "position": "LW",
+          "birthDate": "1997-04-16"
         },
         {
           "name": "Ryan Donato",
@@ -4228,6 +4234,12 @@
           "birthDate": "2002-08-20"
         },
         {
+          "name": "Kenny Connors",
+          "id": 8483675,
+          "position": "C",
+          "birthDate": "2003-03-10"
+        },
+        {
           "name": "Kevin Fiala",
           "id": 8477942,
           "position": "LW",
@@ -4292,12 +4304,6 @@
           "id": 8481532,
           "position": "C",
           "birthDate": "2001-02-26"
-        },
-        {
-          "name": "Taylor Ward",
-          "id": 8483406,
-          "position": "RW",
-          "birthDate": "1998-03-31"
         },
         {
           "name": "Mats Zuccarello",
@@ -4490,6 +4496,12 @@
           "id": 8475200,
           "position": "D",
           "birthDate": "1991-07-23"
+        },
+        {
+          "name": "Eric Pohlkamp",
+          "id": 8484421,
+          "position": "D",
+          "birthDate": "2004-03-23"
         },
         {
           "name": "Jacob Trouba",

@@ -1,6 +1,17 @@
 {
-  "generated_at": "2026-11-03T09:32:23.636625+00:00",
+  "generated_at": "2026-11-04T01:42:32.122215+00:00",
   "players": {
+    "dillonboucher": {
+      "points_pg": 0.0664,
+      "goals_pg": 0.0249,
+      "assists_pg": 0.0415,
+      "shots_pg": 0.2767,
+      "source_league": "AHL",
+      "source_season": 20252026,
+      "source_games": 53,
+      "name": "Dillon Boucher",
+      "team": "CHI"
+    },
     "masonshaw": {
       "points_pg": 0.44,
       "goals_pg": 0.176,
@@ -43,6 +54,17 @@
       "source_season": 20252026,
       "source_games": 44,
       "name": "Libor Hajek",
+      "team": "SJS"
+    },
+    "ericpohlkamp": {
+      "points_pg": 0.3719,
+      "goals_pg": 0.1716,
+      "assists_pg": 0.2002,
+      "shots_pg": 1.907,
+      "source_league": "NCAA",
+      "source_season": 20252026,
+      "source_games": 43,
+      "name": "Eric Pohlkamp",
       "team": "SJS"
     },
     "jakeobrien": {

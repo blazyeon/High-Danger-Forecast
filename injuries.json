@@ -18,6 +18,12 @@
     "injured": true
   },
   {
+    "team": "ANA",
+    "player": "A.J. Greer",
+    "status": "ir",
+    "injured": true
+  },
+  {
     "team": "BUF",
     "player": "Matt Grzelcyk",
     "status": "ir",
@@ -138,12 +144,6 @@
     "injured": true
   },
   {
-    "team": "DAL",
-    "player": "Radek Faksa",
-    "status": "out",
-    "injured": true
-  },
-  {
     "team": "DET",
     "player": "Marco Kasper",
     "status": "ir",
@@ -165,6 +165,12 @@
     "team": "DET",
     "player": "Dylan Larkin",
     "status": "out",
+    "injured": true
+  },
+  {
+    "team": "DET",
+    "player": "John Gibson",
+    "status": "dtd",
     "injured": true
   },
   {
@@ -318,6 +324,12 @@
     "injured": true
   },
   {
+    "team": "NSH",
+    "player": "Jonathan Marchessault",
+    "status": "dtd",
+    "injured": true
+  },
+  {
     "team": "NJD",
     "player": "Seamus Casey",
     "status": "ir",
@@ -444,6 +456,12 @@
     "injured": true
   },
   {
+    "team": "PIT",
+    "player": "Evgeni Malkin",
+    "status": "dtd",
+    "injured": true
+  },
+  {
     "team": "SJS",
     "player": "Alexander Wennberg",
     "status": "ir",
@@ -474,18 +492,6 @@
     "injured": true
   },
   {
-    "team": "SEA",
-    "player": "Matty Beniers",
-    "status": "dtd",
-    "injured": true
-  },
-  {
-    "team": "STL",
-    "player": "Logan Mailloux",
-    "status": "ir",
-    "injured": true
-  },
-  {
     "team": "STL",
     "player": "Tyler Tucker",
     "status": "ir",
@@ -495,12 +501,6 @@
     "team": "STL",
     "player": "Dillon Dube",
     "status": "ir",
-    "injured": true
-  },
-  {
-    "team": "STL",
-    "player": "Ross Johnston",
-    "status": "dtd",
     "injured": true
   },
   {
