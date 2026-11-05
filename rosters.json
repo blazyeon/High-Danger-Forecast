@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-04T09:06:11.407844+00:00",
+  "generated_at": "2026-11-05T01:49:36.432051+00:00",
   "teams": {
     "BOS": {
       "skaters": [
@@ -2428,12 +2428,6 @@
           "birthDate": "1999-04-30"
         },
         {
-          "name": "Dylan McIlrath",
-          "id": 8475795,
-          "position": "D",
-          "birthDate": "1992-04-20"
-        },
-        {
           "name": "Matt Roy",
           "id": 8478911,
           "position": "D",
@@ -2746,12 +2740,6 @@
           "birthDate": "1991-10-07"
         },
         {
-          "name": "Keaton Middleton",
-          "id": 8479387,
-          "position": "D",
-          "birthDate": "1998-02-10"
-        },
-        {
           "name": "Devon Toews",
           "id": 8478038,
           "position": "D",
@@ -2990,12 +2978,6 @@
           "id": 8485702,
           "position": "RW",
           "birthDate": "2000-10-07"
-        },
-        {
-          "name": "Mason Shaw",
-          "id": 8479972,
-          "position": "C",
-          "birthDate": "1998-11-03"
         },
         {
           "name": "Nico Sturm",
@@ -3572,12 +3554,6 @@
           "id": 8481043,
           "position": "LW",
           "birthDate": "1998-05-17"
-        },
-        {
-          "name": "Brad Lambert",
-          "id": 8483471,
-          "position": "C",
-          "birthDate": "2003-12-19"
         },
         {
           "name": "Adam Lowry",
@@ -4474,12 +4450,6 @@
           "birthDate": "2006-06-07"
         },
         {
-          "name": "Libor Hajek",
-          "id": 8479333,
-          "position": "D",
-          "birthDate": "1998-02-04"
-        },
-        {
           "name": "Michael Kesselring",
           "id": 8480891,
           "position": "D",
@@ -4910,12 +4880,6 @@
           "id": 8478109,
           "position": "LW",
           "birthDate": "1995-07-18"
-        },
-        {
-          "name": "Jonas Rondbjerg",
-          "id": 8480007,
-          "position": "RW",
-          "birthDate": "1999-03-31"
         },
         {
           "name": "Mark Stone",
