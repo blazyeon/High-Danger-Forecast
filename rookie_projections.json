@@ -1,17 +1,6 @@
 {
-  "generated_at": "2026-11-05T01:49:36.435321+00:00",
+  "generated_at": "2026-11-05T09:27:19.186665+00:00",
   "players": {
-    "dillonboucher": {
-      "points_pg": 0.0664,
-      "goals_pg": 0.0249,
-      "assists_pg": 0.0415,
-      "shots_pg": 0.2767,
-      "source_league": "AHL",
-      "source_season": 20252026,
-      "source_games": 53,
-      "name": "Dillon Boucher",
-      "team": "CHI"
-    },
     "quintonburns": {
       "points_pg": 0.0788,
       "goals_pg": 0.0131,
@@ -22,17 +11,6 @@
       "source_games": 16,
       "name": "Quinton Burns",
       "team": "STL"
-    },
-    "ericpohlkamp": {
-      "points_pg": 0.3719,
-      "goals_pg": 0.1716,
-      "assists_pg": 0.2002,
-      "shots_pg": 1.907,
-      "source_league": "NCAA",
-      "source_season": 20252026,
-      "source_games": 43,
-      "name": "Eric Pohlkamp",
-      "team": "SJS"
     },
     "jakeobrien": {
       "points_pg": 0.4738,
