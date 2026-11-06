@@ -11891,9 +11891,9 @@
     },
     "2026-11-06": {
       "date": "2026-11-06",
-      "computed_at": "2026-11-06T01:50:14.678145+00:00",
+      "computed_at": "2026-11-06T09:21:23.718299+00:00",
       "source": "sharpapi",
-      "odds_fetched_at": "2026-11-06T01:50:02.390517+00:00",
+      "odds_fetched_at": "2026-11-06T09:21:10.135057+00:00",
       "warning": null,
       "no_games": false,
       "scanned": 3,
@@ -11907,7 +11907,7 @@
           "home_name": "Sabres",
           "away_name": "Blue Jackets",
           "start_time": "2026-11-07T00:00:00Z",
-          "best_edge": 0.0796,
+          "best_edge": 0.0746,
           "edges": [
             {
               "market": "Total 6.5",
@@ -11916,9 +11916,9 @@
               "team": null,
               "odds": -118,
               "odds_decimal": 1.847457627118644,
-              "model_prob": 0.597,
+              "model_prob": 0.592,
               "implied_prob": 0.5174,
-              "edge": 0.0796,
+              "edge": 0.0746,
               "book": "draftkings"
             },
             {
@@ -11926,11 +11926,11 @@
               "side": "CBJ Blue Jackets",
               "pick": "CBJ Blue Jackets",
               "team": "CBJ",
-              "odds": -162,
-              "odds_decimal": 1.617283950617284,
-              "model_prob": 0.619,
-              "implied_prob": 0.5934,
-              "edge": 0.0256,
+              "odds": -170,
+              "odds_decimal": 1.5882352941176472,
+              "model_prob": 0.605,
+              "implied_prob": 0.6038,
+              "edge": 0.0012,
               "book": "draftkings"
             },
             {
@@ -11938,11 +11938,11 @@
               "side": "Buffalo Sabres",
               "pick": "Buffalo Sabres",
               "team": "BUF",
-              "odds": -175,
-              "odds_decimal": 1.5714285714285714,
-              "model_prob": 0.514,
-              "implied_prob": 0.6092,
-              "edge": -0.0952,
+              "odds": -170,
+              "odds_decimal": 1.5882352941176472,
+              "model_prob": 0.528,
+              "implied_prob": 0.6038,
+              "edge": -0.0758,
               "book": "draftkings"
             }
           ]
@@ -11953,18 +11953,18 @@
           "home_name": "Flames",
           "away_name": "Ducks",
           "start_time": "2026-11-07T01:00:00Z",
-          "best_edge": 0.0752,
+          "best_edge": 0.0543,
           "edges": [
             {
               "market": "Total 6.5",
               "side": "Under",
               "pick": "Under",
               "team": null,
-              "odds": -115,
-              "odds_decimal": 1.8695652173913042,
-              "model_prob": 0.586,
-              "implied_prob": 0.5108,
-              "edge": 0.0752,
+              "odds": -120,
+              "odds_decimal": 1.8333333333333335,
+              "model_prob": 0.576,
+              "implied_prob": 0.5217,
+              "edge": 0.0543,
               "book": "draftkings"
             },
             {
@@ -11972,11 +11972,11 @@
               "side": "CGY Flames",
               "pick": "CGY Flames",
               "team": "CGY",
-              "odds": 190,
-              "odds_decimal": 2.9,
-              "model_prob": 0.36,
-              "implied_prob": 0.331,
-              "edge": 0.029,
+              "odds": 200,
+              "odds_decimal": 3.0,
+              "model_prob": 0.345,
+              "implied_prob": 0.3194,
+              "edge": 0.0256,
               "book": "draftkings"
             },
             {
@@ -11986,9 +11986,9 @@
               "team": "CGY",
               "odds": -122,
               "odds_decimal": 1.819672131147541,
-              "model_prob": 0.514,
+              "model_prob": 0.518,
               "implied_prob": 0.5261,
-              "edge": -0.0121,
+              "edge": -0.0081,
               "book": "draftkings"
             }
           ]
@@ -11999,20 +11999,8 @@
           "home_name": "Wild",
           "away_name": "Sharks",
           "start_time": "2026-11-07T01:00:00Z",
-          "best_edge": 0.0234,
+          "best_edge": 0.0395,
           "edges": [
-            {
-              "market": "Puck Line (-1.5)",
-              "side": "MIN Wild",
-              "pick": "MIN Wild",
-              "team": "MIN",
-              "odds": -102,
-              "odds_decimal": 1.9803921568627452,
-              "model_prob": 0.506,
-              "implied_prob": 0.4826,
-              "edge": 0.0234,
-              "book": "draftkings"
-            },
             {
               "market": "Total 6.5",
               "side": "Under",
@@ -12020,9 +12008,21 @@
               "team": null,
               "odds": -125,
               "odds_decimal": 1.8,
-              "model_prob": 0.534,
+              "model_prob": 0.572,
               "implied_prob": 0.5325,
-              "edge": 0.0015,
+              "edge": 0.0395,
+              "book": "draftkings"
+            },
+            {
+              "market": "Puck Line (1.5)",
+              "side": "SJ Sharks",
+              "pick": "SJ Sharks",
+              "team": "SJS",
+              "odds": -122,
+              "odds_decimal": 1.819672131147541,
+              "model_prob": 0.546,
+              "implied_prob": 0.5261,
+              "edge": 0.0199,
               "book": "draftkings"
             },
             {
@@ -12032,9 +12032,9 @@
               "team": "MIN",
               "odds": -258,
               "odds_decimal": 1.3875968992248062,
-              "model_prob": 0.647,
+              "model_prob": 0.613,
               "implied_prob": 0.6908,
-              "edge": -0.0438,
+              "edge": -0.0778,
               "book": "draftkings"
             }
           ]
