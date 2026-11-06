@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-05T09:27:19.183433+00:00",
+  "generated_at": "2026-11-06T01:50:57.294773+00:00",
   "teams": {
     "BOS": {
       "skaters": [
@@ -454,6 +454,12 @@
           "id": 8476434,
           "position": "G",
           "birthDate": "1993-07-14"
+        },
+        {
+          "name": "Michal Postava",
+          "id": 8485545,
+          "position": "G",
+          "birthDate": "2002-02-28"
         },
         {
           "name": "Daniil Tarasov",
@@ -1426,12 +1432,6 @@
           "birthDate": "1996-03-11"
         },
         {
-          "name": "Danton Heinen",
-          "id": 8478046,
-          "position": "LW",
-          "birthDate": "1995-07-05"
-        },
-        {
           "name": "Kent Johnson",
           "id": 8482660,
           "position": "C",
@@ -1478,12 +1478,6 @@
           "id": 8481716,
           "position": "LW",
           "birthDate": "2000-09-10"
-        },
-        {
-          "name": "Emil Andrae",
-          "id": 8482126,
-          "position": "D",
-          "birthDate": "2002-02-23"
         },
         {
           "name": "Jake Christiansen",
@@ -1772,6 +1766,12 @@
           "id": 8477950,
           "position": "D",
           "birthDate": "1995-10-24"
+        },
+        {
+          "name": "Ben Hutton",
+          "id": 8477018,
+          "position": "D",
+          "birthDate": "1993-04-20"
         },
         {
           "name": "Matthew Kessel",
@@ -3604,6 +3604,12 @@
           "birthDate": "1999-08-16"
         },
         {
+          "name": "Brayden Yager",
+          "id": 8484242,
+          "position": "C",
+          "birthDate": "2005-01-03"
+        },
+        {
           "name": "Tyrel Bauer",
           "id": 8482459,
           "position": "D",
@@ -3996,12 +4002,6 @@
           "birthDate": "1997-05-25"
         },
         {
-          "name": "Arsenii Sergeev",
-          "id": 8482949,
-          "position": "G",
-          "birthDate": "2002-12-16"
-        },
-        {
           "name": "Dustin Wolf",
           "id": 8481692,
           "position": "G",
@@ -4168,6 +4168,12 @@
           "id": 8475883,
           "position": "G",
           "birthDate": "1989-10-02"
+        },
+        {
+          "name": "Brett Epp",
+          "id": 8486540,
+          "position": "G",
+          "birthDate": "1997-10-29"
         },
         {
           "name": "Tristan Jarry",
@@ -4520,6 +4526,12 @@
           "id": 8474586,
           "position": "RW",
           "birthDate": "1990-05-15"
+        },
+        {
+          "name": "Jagger Firkus",
+          "id": 8483442,
+          "position": "RW",
+          "birthDate": "2004-04-29"
         },
         {
           "name": "Frederick Gaudreau",

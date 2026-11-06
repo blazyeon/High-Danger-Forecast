@@ -11888,6 +11888,159 @@
         }
       ],
       "no_odds_games": []
+    },
+    "2026-11-06": {
+      "date": "2026-11-06",
+      "computed_at": "2026-11-06T01:50:14.678145+00:00",
+      "source": "sharpapi",
+      "odds_fetched_at": "2026-11-06T01:50:02.390517+00:00",
+      "warning": null,
+      "no_games": false,
+      "scanned": 3,
+      "matched": 3,
+      "with_edges": 3,
+      "dropped": 0,
+      "games": [
+        {
+          "home": "BUF",
+          "away": "CBJ",
+          "home_name": "Sabres",
+          "away_name": "Blue Jackets",
+          "start_time": "2026-11-07T00:00:00Z",
+          "best_edge": 0.0796,
+          "edges": [
+            {
+              "market": "Total 6.5",
+              "side": "Under",
+              "pick": "Under",
+              "team": null,
+              "odds": -118,
+              "odds_decimal": 1.847457627118644,
+              "model_prob": 0.597,
+              "implied_prob": 0.5174,
+              "edge": 0.0796,
+              "book": "draftkings"
+            },
+            {
+              "market": "Puck Line (1.5)",
+              "side": "CBJ Blue Jackets",
+              "pick": "CBJ Blue Jackets",
+              "team": "CBJ",
+              "odds": -162,
+              "odds_decimal": 1.617283950617284,
+              "model_prob": 0.619,
+              "implied_prob": 0.5934,
+              "edge": 0.0256,
+              "book": "draftkings"
+            },
+            {
+              "market": "Moneyline",
+              "side": "Buffalo Sabres",
+              "pick": "Buffalo Sabres",
+              "team": "BUF",
+              "odds": -175,
+              "odds_decimal": 1.5714285714285714,
+              "model_prob": 0.514,
+              "implied_prob": 0.6092,
+              "edge": -0.0952,
+              "book": "draftkings"
+            }
+          ]
+        },
+        {
+          "home": "CGY",
+          "away": "ANA",
+          "home_name": "Flames",
+          "away_name": "Ducks",
+          "start_time": "2026-11-07T01:00:00Z",
+          "best_edge": 0.0752,
+          "edges": [
+            {
+              "market": "Total 6.5",
+              "side": "Under",
+              "pick": "Under",
+              "team": null,
+              "odds": -115,
+              "odds_decimal": 1.8695652173913042,
+              "model_prob": 0.586,
+              "implied_prob": 0.5108,
+              "edge": 0.0752,
+              "book": "draftkings"
+            },
+            {
+              "market": "Puck Line (-1.5)",
+              "side": "CGY Flames",
+              "pick": "CGY Flames",
+              "team": "CGY",
+              "odds": 190,
+              "odds_decimal": 2.9,
+              "model_prob": 0.36,
+              "implied_prob": 0.331,
+              "edge": 0.029,
+              "book": "draftkings"
+            },
+            {
+              "market": "Moneyline",
+              "side": "Calgary Flames",
+              "pick": "Calgary Flames",
+              "team": "CGY",
+              "odds": -122,
+              "odds_decimal": 1.819672131147541,
+              "model_prob": 0.514,
+              "implied_prob": 0.5261,
+              "edge": -0.0121,
+              "book": "draftkings"
+            }
+          ]
+        },
+        {
+          "home": "MIN",
+          "away": "SJS",
+          "home_name": "Wild",
+          "away_name": "Sharks",
+          "start_time": "2026-11-07T01:00:00Z",
+          "best_edge": 0.0234,
+          "edges": [
+            {
+              "market": "Puck Line (-1.5)",
+              "side": "MIN Wild",
+              "pick": "MIN Wild",
+              "team": "MIN",
+              "odds": -102,
+              "odds_decimal": 1.9803921568627452,
+              "model_prob": 0.506,
+              "implied_prob": 0.4826,
+              "edge": 0.0234,
+              "book": "draftkings"
+            },
+            {
+              "market": "Total 6.5",
+              "side": "Under",
+              "pick": "Under",
+              "team": null,
+              "odds": -125,
+              "odds_decimal": 1.8,
+              "model_prob": 0.534,
+              "implied_prob": 0.5325,
+              "edge": 0.0015,
+              "book": "draftkings"
+            },
+            {
+              "market": "Moneyline",
+              "side": "Minnesota Wild",
+              "pick": "Minnesota Wild",
+              "team": "MIN",
+              "odds": -258,
+              "odds_decimal": 1.3875968992248062,
+              "model_prob": 0.647,
+              "implied_prob": 0.6908,
+              "edge": -0.0438,
+              "book": "draftkings"
+            }
+          ]
+        }
+      ],
+      "no_odds_games": []
     }
   }
 }

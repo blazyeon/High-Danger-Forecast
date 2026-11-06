@@ -1792,11 +1792,11 @@
       "goals": 0,
       "assists": 2,
       "points": 2,
-      "shots": 8,
+      "shots": 9,
       "gpg": 0.0,
       "apg": 0.15384615384615385,
       "ppg": 0.15384615384615385,
-      "sogpg": 0.6153846153846154,
+      "sogpg": 0.6923076923076923,
       "sh_pct": 0.0,
       "plus_minus": -2,
       "pim": 5,
@@ -1809,7 +1809,7 @@
       "xgf_pg": 0.055084205875531624,
       "pbp_goals": 0,
       "pbp_assists": 2,
-      "pbp_shots": 8
+      "pbp_shots": 9
     },
     {
       "name": "Konsta Helenius",
@@ -3291,7 +3291,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.04191375298093626,
+      "xgf_pg": 0.04124127376632251,
       "pbp_goals": 0,
       "pbp_assists": 2,
       "pbp_shots": 16
@@ -7378,12 +7378,12 @@
       "goals": 8,
       "assists": 9,
       "points": 17,
-      "shots": 52,
+      "shots": 51,
       "gpg": 0.5,
       "apg": 0.5625,
       "ppg": 1.0625,
-      "sogpg": 3.25,
-      "sh_pct": 0.15384615384615385,
+      "sogpg": 3.1875,
+      "sh_pct": 0.1568627450980392,
       "plus_minus": -4,
       "pim": 19,
       "toi_pg": 16.639583333333334,
@@ -7395,7 +7395,7 @@
       "xgf_pg": 0.4105011489476472,
       "pbp_goals": 8,
       "pbp_assists": 9,
-      "pbp_shots": 52
+      "pbp_shots": 51
     },
     {
       "name": "Cole Reinhardt",
@@ -7537,12 +7537,12 @@
       "goals": 1,
       "assists": 1,
       "points": 2,
-      "shots": 22,
+      "shots": 21,
       "gpg": 0.08333333333333333,
       "apg": 0.08333333333333333,
       "ppg": 0.16666666666666666,
-      "sogpg": 1.8333333333333333,
-      "sh_pct": 0.045454545454545456,
+      "sogpg": 1.75,
+      "sh_pct": 0.047619047619047616,
       "plus_minus": -4,
       "pim": 4,
       "toi_pg": 12.894445000000001,
@@ -7554,7 +7554,7 @@
       "xgf_pg": 0.25187090160238634,
       "pbp_goals": 1,
       "pbp_assists": 1,
-      "pbp_shots": 22
+      "pbp_shots": 21
     },
     {
       "name": "Drew Doughty",
@@ -7562,12 +7562,12 @@
       "position": "D",
       "gp": 13,
       "goals": 1,
-      "assists": 6,
-      "points": 7,
+      "assists": 7,
+      "points": 8,
       "shots": 13,
       "gpg": 0.07692307692307693,
-      "apg": 0.46153846153846156,
-      "ppg": 0.5384615384615384,
+      "apg": 0.5384615384615384,
+      "ppg": 0.6153846153846154,
       "sogpg": 1.0,
       "sh_pct": 0.07692307692307693,
       "plus_minus": 8,
@@ -7580,7 +7580,7 @@
       "game_winning_goals": 0,
       "xgf_pg": 0.09696979354745973,
       "pbp_goals": 1,
-      "pbp_assists": 6,
+      "pbp_assists": 7,
       "pbp_shots": 13
     },
     {
@@ -12513,7 +12513,7 @@
       "power_play_goals": 1,
       "short_handed_goals": 0,
       "game_winning_goals": 2,
-      "xgf_pg": 0.2945033577798891,
+      "xgf_pg": 0.2935148600201463,
       "pbp_goals": 3,
       "pbp_assists": 2,
       "pbp_shots": 25
@@ -12540,7 +12540,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.055609938202669545,
+      "xgf_pg": 0.05269690450220336,
       "pbp_goals": 0,
       "pbp_assists": 3,
       "pbp_shots": 11
@@ -20178,5 +20178,5 @@
       "pbp_shots": 11
     }
   ],
-  "updated_at": "2026-11-05T09:25:46Z"
+  "updated_at": "2026-11-06T01:49:43Z"
 }

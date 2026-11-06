@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-05T09:27:19.186665+00:00",
+  "generated_at": "2026-11-06T01:50:57.299821+00:00",
   "players": {
     "quintonburns": {
       "points_pg": 0.0788,
@@ -11,6 +11,17 @@
       "source_games": 16,
       "name": "Quinton Burns",
       "team": "STL"
+    },
+    "jaggerfirkus": {
+      "points_pg": 0.44,
+      "goals_pg": 0.1467,
+      "assists_pg": 0.2933,
+      "shots_pg": 1.6296,
+      "source_league": "AHL",
+      "source_season": 20262027,
+      "source_games": 12,
+      "name": "Jagger Firkus",
+      "team": "SEA"
     },
     "jakeobrien": {
       "points_pg": 0.4738,
