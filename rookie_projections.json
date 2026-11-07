@@ -1,17 +1,6 @@
 {
-  "generated_at": "2026-11-07T01:13:27.220668+00:00",
+  "generated_at": "2026-11-07T08:46:31.902958+00:00",
   "players": {
-    "jackwilliams": {
-      "points_pg": 0.2322,
-      "goals_pg": 0.0917,
-      "assists_pg": 0.1406,
-      "shots_pg": 1.0185,
-      "source_league": "AHL",
-      "source_season": 20252026,
-      "source_games": 72,
-      "name": "Jack Williams",
-      "team": "CBJ"
-    },
     "masonshaw": {
       "points_pg": 0.4,
       "goals_pg": 0.16,
@@ -22,17 +11,6 @@
       "source_games": 11,
       "name": "Mason Shaw",
       "team": "MIN"
-    },
-    "quintonburns": {
-      "points_pg": 0.0788,
-      "goals_pg": 0.0131,
-      "assists_pg": 0.0656,
-      "shots_pg": 0.1458,
-      "source_league": "ECHL",
-      "source_season": 20252026,
-      "source_games": 16,
-      "name": "Quinton Burns",
-      "team": "STL"
     },
     "gregorbiber": {
       "points_pg": 0.12,

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-07T01:13:27.216976+00:00",
+  "generated_at": "2026-11-07T08:46:31.897712+00:00",
   "teams": {
     "BOS": {
       "skaters": [
@@ -3320,12 +3320,6 @@
           "id": 8481598,
           "position": "D",
           "birthDate": "2001-06-25"
-        },
-        {
-          "name": "Quinton Burns",
-          "id": 8484151,
-          "position": "D",
-          "birthDate": "2005-04-14"
         },
         {
           "name": "Brandon Carlo",
