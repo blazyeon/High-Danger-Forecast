@@ -31,20 +31,8 @@
   },
   {
     "team": "BUF",
-    "player": "Conor Timmins",
-    "status": "ir",
-    "injured": true
-  },
-  {
-    "team": "BUF",
     "player": "Alex Lyon",
     "status": "ir",
-    "injured": true
-  },
-  {
-    "team": "BUF",
-    "player": "Jiri Kulich",
-    "status": "dtd",
     "injured": true
   },
   {
@@ -73,7 +61,7 @@
   },
   {
     "team": "CGY",
-    "player": "Devin Cooley",
+    "player": "Kevin Bahl",
     "status": "dtd",
     "injured": true
   },
@@ -512,12 +500,6 @@
   {
     "team": "TOR",
     "player": "John Tavares",
-    "status": "out",
-    "injured": true
-  },
-  {
-    "team": "TOR",
-    "player": "Jack Roslovic",
     "status": "dtd",
     "injured": true
   },

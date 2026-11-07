@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-06T09:22:07.514674+00:00",
+  "generated_at": "2026-11-07T01:13:27.216976+00:00",
   "teams": {
     "BOS": {
       "skaters": [
@@ -1450,6 +1450,12 @@
           "birthDate": "1994-12-09"
         },
         {
+          "name": "Steven Lorentz",
+          "id": 8478904,
+          "position": "C",
+          "birthDate": "1996-04-13"
+        },
+        {
           "name": "Sean Monahan",
           "id": 8477497,
           "position": "C",
@@ -1478,6 +1484,12 @@
           "id": 8481716,
           "position": "LW",
           "birthDate": "2000-09-10"
+        },
+        {
+          "name": "Jack Williams",
+          "id": 8485469,
+          "position": "C",
+          "birthDate": "2002-03-02"
         },
         {
           "name": "Jake Christiansen",
@@ -1986,12 +1998,6 @@
           "birthDate": "1994-04-28"
         },
         {
-          "name": "James Reimer",
-          "id": 8473503,
-          "position": "G",
-          "birthDate": "1988-03-15"
-        },
-        {
           "name": "Igor Shesterkin",
           "id": 8478048,
           "position": "G",
@@ -2272,12 +2278,6 @@
           "birthDate": "1987-04-24"
         },
         {
-          "name": "Jake Livanavage",
-          "id": 8486169,
-          "position": "D",
-          "birthDate": "2004-05-06"
-        },
-        {
           "name": "Ilya Solovyov",
           "id": 8482470,
           "position": "D",
@@ -2552,12 +2552,6 @@
           "id": 8476882,
           "position": "C",
           "birthDate": "1994-09-11"
-        },
-        {
-          "name": "Dominic Toninato",
-          "id": 8476952,
-          "position": "C",
-          "birthDate": "1994-03-09"
         },
         {
           "name": "Bowen Byram",
@@ -2980,6 +2974,12 @@
           "birthDate": "2000-10-07"
         },
         {
+          "name": "Mason Shaw",
+          "id": 8479972,
+          "position": "C",
+          "birthDate": "1998-11-03"
+        },
+        {
           "name": "Nico Sturm",
           "id": 8481477,
           "position": "C",
@@ -3352,6 +3352,12 @@
           "birthDate": "2005-01-05"
         },
         {
+          "name": "Logan Mailloux",
+          "id": 8482733,
+          "position": "D",
+          "birthDate": "2003-04-15"
+        },
+        {
           "name": "Colton Parayko",
           "id": 8476892,
           "position": "D",
@@ -3458,6 +3464,12 @@
           "id": 8479977,
           "position": "RW",
           "birthDate": "1998-09-29"
+        },
+        {
+          "name": "Gregor Biber",
+          "id": 8485010,
+          "position": "D",
+          "birthDate": "2006-08-09"
         },
         {
           "name": "Nick DeSimone",
@@ -4168,12 +4180,6 @@
           "id": 8475883,
           "position": "G",
           "birthDate": "1989-10-02"
-        },
-        {
-          "name": "Brett Epp",
-          "id": 8486540,
-          "position": "G",
-          "birthDate": "1997-10-29"
         },
         {
           "name": "Tristan Jarry",
