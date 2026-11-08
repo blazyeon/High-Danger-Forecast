@@ -205,18 +205,6 @@
   },
   {
     "team": "EDM",
-    "player": "Zach Hyman",
-    "status": "ir",
-    "injured": true
-  },
-  {
-    "team": "EDM",
-    "player": "Devon Levi",
-    "status": "ir",
-    "injured": true
-  },
-  {
-    "team": "EDM",
     "player": "Isaac Howard",
     "status": "dtd",
     "injured": true
