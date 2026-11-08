@@ -1,17 +1,6 @@
 {
-  "generated_at": "2026-11-07T08:46:31.902958+00:00",
+  "generated_at": "2026-11-08T00:57:36.923413+00:00",
   "players": {
-    "masonshaw": {
-      "points_pg": 0.4,
-      "goals_pg": 0.16,
-      "assists_pg": 0.24,
-      "shots_pg": 1.7778,
-      "source_league": "AHL",
-      "source_season": 20262027,
-      "source_games": 11,
-      "name": "Mason Shaw",
-      "team": "MIN"
-    },
     "gregorbiber": {
       "points_pg": 0.12,
       "goals_pg": 0.0,

@@ -1,8 +1,14 @@
 {
-  "generated_at": "2026-11-07T08:46:31.897712+00:00",
+  "generated_at": "2026-11-08T00:57:36.918996+00:00",
   "teams": {
     "BOS": {
       "skaters": [
+        {
+          "name": "Michael Eyssimont",
+          "id": 8479591,
+          "position": "C",
+          "birthDate": "1996-09-09"
+        },
         {
           "name": "Morgan Geekie",
           "id": 8479987,
@@ -1241,6 +1247,12 @@
         }
       ],
       "goalies": [
+        {
+          "name": "Artur Akhtyamov",
+          "id": 8482515,
+          "position": "G",
+          "birthDate": "2001-10-31"
+        },
         {
           "name": "Sergei Bobrovsky",
           "id": 8475683,
@@ -2974,12 +2986,6 @@
           "birthDate": "2000-10-07"
         },
         {
-          "name": "Mason Shaw",
-          "id": 8479972,
-          "position": "C",
-          "birthDate": "1998-11-03"
-        },
-        {
           "name": "Nico Sturm",
           "id": 8481477,
           "position": "C",
@@ -3650,12 +3656,6 @@
           "id": 8480145,
           "position": "D",
           "birthDate": "1995-07-29"
-        },
-        {
-          "name": "Elias Salomonsson",
-          "id": 8483510,
-          "position": "D",
-          "birthDate": "2004-08-31"
         },
         {
           "name": "Dylan Samberg",

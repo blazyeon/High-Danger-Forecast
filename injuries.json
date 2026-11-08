@@ -24,6 +24,12 @@
     "injured": true
   },
   {
+    "team": "BOS",
+    "player": "James Hagens",
+    "status": "ir",
+    "injured": true
+  },
+  {
     "team": "BUF",
     "player": "Matt Grzelcyk",
     "status": "ir",
@@ -87,6 +93,18 @@
     "team": "CBJ",
     "player": "Isac Lundestrom",
     "status": "ir",
+    "injured": true
+  },
+  {
+    "team": "CBJ",
+    "player": "Sean Monahan",
+    "status": "dtd",
+    "injured": true
+  },
+  {
+    "team": "CBJ",
+    "player": "Dmitri Voronkov",
+    "status": "dtd",
     "injured": true
   },
   {
@@ -222,9 +240,9 @@
     "injured": true
   },
   {
-    "team": "LAK",
-    "player": "Alex Turcotte",
-    "status": "ir",
+    "team": "FLA",
+    "player": "Anton Lundell",
+    "status": "dtd",
     "injured": true
   },
   {
@@ -253,26 +271,14 @@
   },
   {
     "team": "MIN",
-    "player": "Nick Foligno",
-    "status": "out",
-    "injured": true
-  },
-  {
-    "team": "MIN",
-    "player": "Marcus Foligno",
-    "status": "out",
-    "injured": true
-  },
-  {
-    "team": "MIN",
     "player": "Jared Spurgeon",
     "status": "out",
     "injured": true
   },
   {
     "team": "MIN",
-    "player": "Joel Eriksson Ek",
-    "status": "dtd",
+    "player": "Michael McCarron",
+    "status": "out",
     "injured": true
   },
   {
@@ -290,6 +296,12 @@
   {
     "team": "MTL",
     "player": "Mike Matheson",
+    "status": "out",
+    "injured": true
+  },
+  {
+    "team": "MTL",
+    "player": "Josh Anderson",
     "status": "out",
     "injured": true
   },
@@ -363,6 +375,12 @@
     "team": "NYR",
     "player": "Sean Durzi",
     "status": "ir",
+    "injured": true
+  },
+  {
+    "team": "NYR",
+    "player": "Alberts Smits",
+    "status": "dtd",
     "injured": true
   },
   {
@@ -498,12 +516,6 @@
     "injured": true
   },
   {
-    "team": "TOR",
-    "player": "John Tavares",
-    "status": "dtd",
-    "injured": true
-  },
-  {
     "team": "UTA",
     "player": "John Marino",
     "status": "ir",
@@ -512,6 +524,12 @@
   {
     "team": "UTA",
     "player": "Kailer Yamamoto",
+    "status": "dtd",
+    "injured": true
+  },
+  {
+    "team": "UTA",
+    "player": "Nate Schmidt",
     "status": "dtd",
     "injured": true
   },
@@ -561,6 +579,12 @@
     "team": "WPG",
     "player": "Josh Morrissey",
     "status": "ir",
+    "injured": true
+  },
+  {
+    "team": "WPG",
+    "player": "Elias Salomonsson",
+    "status": "dtd",
     "injured": true
   }
 ]
