@@ -12902,9 +12902,9 @@
     },
     "2026-11-09": {
       "date": "2026-11-09",
-      "computed_at": "2026-11-09T01:14:50.973750+00:00",
+      "computed_at": "2026-11-09T09:43:04.167036+00:00",
       "source": "sharpapi",
-      "odds_fetched_at": "2026-11-09T01:14:38.059484+00:00",
+      "odds_fetched_at": "2026-11-09T09:42:53.624644+00:00",
       "warning": null,
       "no_games": false,
       "scanned": 3,
@@ -12918,18 +12918,18 @@
           "home_name": "Sharks",
           "away_name": "Islanders",
           "start_time": "2026-11-10T03:00:00Z",
-          "best_edge": 0.1385,
+          "best_edge": 0.1536,
           "edges": [
             {
               "market": "Total 6.5",
               "side": "Under",
               "pick": "Under",
               "team": null,
-              "odds": -125,
-              "odds_decimal": 1.8,
+              "odds": -118,
+              "odds_decimal": 1.847457627118644,
               "model_prob": 0.671,
-              "implied_prob": 0.5325,
-              "edge": 0.1385,
+              "implied_prob": 0.5174,
+              "edge": 0.1536,
               "book": "draftkings"
             },
             {
@@ -12937,11 +12937,11 @@
               "side": "SJ Sharks",
               "pick": "SJ Sharks",
               "team": "SJS",
-              "odds": -230,
-              "odds_decimal": 1.434782608695652,
+              "odds": -218,
+              "odds_decimal": 1.4587155963302751,
               "model_prob": 0.685,
-              "implied_prob": 0.669,
-              "edge": 0.016,
+              "implied_prob": 0.6575,
+              "edge": 0.0275,
               "book": "draftkings"
             },
             {
@@ -12954,52 +12954,6 @@
               "model_prob": 0.543,
               "implied_prob": 0.5514,
               "edge": -0.0084,
-              "book": "draftkings"
-            }
-          ]
-        },
-        {
-          "home": "VAN",
-          "away": "PHI",
-          "home_name": "Canucks",
-          "away_name": "Flyers",
-          "start_time": "2026-11-10T02:30:00Z",
-          "best_edge": 0.1175,
-          "edges": [
-            {
-              "market": "Total 6.5",
-              "side": "Under",
-              "pick": "Under",
-              "team": null,
-              "odds": -125,
-              "odds_decimal": 1.8,
-              "model_prob": 0.65,
-              "implied_prob": 0.5325,
-              "edge": 0.1175,
-              "book": "draftkings"
-            },
-            {
-              "market": "Puck Line (1.5)",
-              "side": "VAN Canucks",
-              "pick": "VAN Canucks",
-              "team": "VAN",
-              "odds": -230,
-              "odds_decimal": 1.434782608695652,
-              "model_prob": 0.74,
-              "implied_prob": 0.669,
-              "edge": 0.071,
-              "book": "draftkings"
-            },
-            {
-              "market": "Moneyline",
-              "side": "Philadelphia Flyers",
-              "pick": "Philadelphia Flyers",
-              "team": "PHI",
-              "odds": -130,
-              "odds_decimal": 1.7692307692307692,
-              "model_prob": 0.537,
-              "implied_prob": 0.5427,
-              "edge": -0.0057,
               "book": "draftkings"
             }
           ]
@@ -13029,12 +12983,12 @@
               "side": "Under",
               "pick": "Under",
               "team": null,
-              "odds": -105,
-              "odds_decimal": 1.9523809523809523,
+              "odds": -108,
+              "odds_decimal": 1.925925925925926,
               "model_prob": 0.525,
-              "implied_prob": 0.4892,
-              "edge": 0.0358,
-              "book": "fanduel"
+              "implied_prob": 0.4957,
+              "edge": 0.0293,
+              "book": "draftkings"
             },
             {
               "market": "Moneyline",
@@ -13043,9 +12997,55 @@
               "team": "EDM",
               "odds": -155,
               "odds_decimal": 1.6451612903225805,
-              "model_prob": 0.577,
+              "model_prob": 0.578,
               "implied_prob": 0.583,
-              "edge": -0.006,
+              "edge": -0.005,
+              "book": "draftkings"
+            }
+          ]
+        },
+        {
+          "home": "VAN",
+          "away": "PHI",
+          "home_name": "Canucks",
+          "away_name": "Flyers",
+          "start_time": "2026-11-10T02:30:00Z",
+          "best_edge": 0.0823,
+          "edges": [
+            {
+              "market": "Total 6.5",
+              "side": "Under",
+              "pick": "Under",
+              "team": null,
+              "odds": -130,
+              "odds_decimal": 1.7692307692307692,
+              "model_prob": 0.625,
+              "implied_prob": 0.5427,
+              "edge": 0.0823,
+              "book": "draftkings"
+            },
+            {
+              "market": "Puck Line (1.5)",
+              "side": "VAN Canucks",
+              "pick": "VAN Canucks",
+              "team": "VAN",
+              "odds": -230,
+              "odds_decimal": 1.434782608695652,
+              "model_prob": 0.71,
+              "implied_prob": 0.669,
+              "edge": 0.041,
+              "book": "draftkings"
+            },
+            {
+              "market": "Moneyline",
+              "side": "Philadelphia Flyers",
+              "pick": "Philadelphia Flyers",
+              "team": "PHI",
+              "odds": -135,
+              "odds_decimal": 1.7407407407407407,
+              "model_prob": 0.541,
+              "implied_prob": 0.5514,
+              "edge": -0.0104,
               "book": "draftkings"
             }
           ]

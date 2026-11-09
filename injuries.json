@@ -468,6 +468,12 @@
     "injured": true
   },
   {
+    "team": "TBL",
+    "player": "Brayden Point",
+    "status": "dtd",
+    "injured": true
+  },
+  {
     "team": "TOR",
     "player": "Elvis Merzlikins",
     "status": "ir",
