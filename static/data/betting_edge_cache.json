@@ -12899,6 +12899,159 @@
         }
       ],
       "no_odds_games": []
+    },
+    "2026-11-09": {
+      "date": "2026-11-09",
+      "computed_at": "2026-11-09T01:14:50.973750+00:00",
+      "source": "sharpapi",
+      "odds_fetched_at": "2026-11-09T01:14:38.059484+00:00",
+      "warning": null,
+      "no_games": false,
+      "scanned": 3,
+      "matched": 3,
+      "with_edges": 3,
+      "dropped": 0,
+      "games": [
+        {
+          "home": "SJS",
+          "away": "NYI",
+          "home_name": "Sharks",
+          "away_name": "Islanders",
+          "start_time": "2026-11-10T03:00:00Z",
+          "best_edge": 0.1385,
+          "edges": [
+            {
+              "market": "Total 6.5",
+              "side": "Under",
+              "pick": "Under",
+              "team": null,
+              "odds": -125,
+              "odds_decimal": 1.8,
+              "model_prob": 0.671,
+              "implied_prob": 0.5325,
+              "edge": 0.1385,
+              "book": "draftkings"
+            },
+            {
+              "market": "Puck Line (1.5)",
+              "side": "SJ Sharks",
+              "pick": "SJ Sharks",
+              "team": "SJS",
+              "odds": -230,
+              "odds_decimal": 1.434782608695652,
+              "model_prob": 0.685,
+              "implied_prob": 0.669,
+              "edge": 0.016,
+              "book": "draftkings"
+            },
+            {
+              "market": "Moneyline",
+              "side": "New York Islanders",
+              "pick": "New York Islanders",
+              "team": "NYI",
+              "odds": -135,
+              "odds_decimal": 1.7407407407407407,
+              "model_prob": 0.543,
+              "implied_prob": 0.5514,
+              "edge": -0.0084,
+              "book": "draftkings"
+            }
+          ]
+        },
+        {
+          "home": "VAN",
+          "away": "PHI",
+          "home_name": "Canucks",
+          "away_name": "Flyers",
+          "start_time": "2026-11-10T02:30:00Z",
+          "best_edge": 0.1175,
+          "edges": [
+            {
+              "market": "Total 6.5",
+              "side": "Under",
+              "pick": "Under",
+              "team": null,
+              "odds": -125,
+              "odds_decimal": 1.8,
+              "model_prob": 0.65,
+              "implied_prob": 0.5325,
+              "edge": 0.1175,
+              "book": "draftkings"
+            },
+            {
+              "market": "Puck Line (1.5)",
+              "side": "VAN Canucks",
+              "pick": "VAN Canucks",
+              "team": "VAN",
+              "odds": -230,
+              "odds_decimal": 1.434782608695652,
+              "model_prob": 0.74,
+              "implied_prob": 0.669,
+              "edge": 0.071,
+              "book": "draftkings"
+            },
+            {
+              "market": "Moneyline",
+              "side": "Philadelphia Flyers",
+              "pick": "Philadelphia Flyers",
+              "team": "PHI",
+              "odds": -130,
+              "odds_decimal": 1.7692307692307692,
+              "model_prob": 0.537,
+              "implied_prob": 0.5427,
+              "edge": -0.0057,
+              "book": "draftkings"
+            }
+          ]
+        },
+        {
+          "home": "EDM",
+          "away": "NYR",
+          "home_name": "Oilers",
+          "away_name": "Rangers",
+          "start_time": "2026-11-10T01:00:00Z",
+          "best_edge": 0.1159,
+          "edges": [
+            {
+              "market": "Puck Line (-1.5)",
+              "side": "EDM Oilers",
+              "pick": "EDM Oilers",
+              "team": "EDM",
+              "odds": 164,
+              "odds_decimal": 2.6399999999999997,
+              "model_prob": 0.479,
+              "implied_prob": 0.3631,
+              "edge": 0.1159,
+              "book": "draftkings"
+            },
+            {
+              "market": "Total 6.5",
+              "side": "Under",
+              "pick": "Under",
+              "team": null,
+              "odds": -105,
+              "odds_decimal": 1.9523809523809523,
+              "model_prob": 0.525,
+              "implied_prob": 0.4892,
+              "edge": 0.0358,
+              "book": "fanduel"
+            },
+            {
+              "market": "Moneyline",
+              "side": "Edmonton Oilers",
+              "pick": "Edmonton Oilers",
+              "team": "EDM",
+              "odds": -155,
+              "odds_decimal": 1.6451612903225805,
+              "model_prob": 0.577,
+              "implied_prob": 0.583,
+              "edge": -0.006,
+              "book": "draftkings"
+            }
+          ]
+        }
+      ],
+      "no_odds_games": []
     }
   }
 }

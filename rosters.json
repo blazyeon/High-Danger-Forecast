@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-08T08:59:24.291381+00:00",
+  "generated_at": "2026-11-09T01:15:36.057019+00:00",
   "teams": {
     "BOS": {
       "skaters": [
@@ -346,12 +346,6 @@
           "birthDate": "1994-07-08"
         },
         {
-          "name": "Nate Danielson",
-          "id": 8484160,
-          "position": "C",
-          "birthDate": "2004-09-27"
-        },
-        {
           "name": "Alex DeBrincat",
           "id": 8479337,
           "position": "RW",
@@ -380,12 +374,6 @@
           "id": 8478434,
           "position": "RW",
           "birthDate": "1997-04-08"
-        },
-        {
-          "name": "John Leonard",
-          "id": 8481077,
-          "position": "LW",
-          "birthDate": "1998-08-07"
         },
         {
           "name": "Carter Mazur",
@@ -462,12 +450,6 @@
           "birthDate": "1993-07-14"
         },
         {
-          "name": "Michal Postava",
-          "id": 8485545,
-          "position": "G",
-          "birthDate": "2002-02-28"
-        },
-        {
           "name": "Daniil Tarasov",
           "id": 8480193,
           "position": "G",
@@ -488,6 +470,12 @@
           "id": 8477935,
           "position": "C",
           "birthDate": "1996-06-20"
+        },
+        {
+          "name": "Jack Devine",
+          "id": 8483433,
+          "position": "RW",
+          "birthDate": "2003-10-01"
         },
         {
           "name": "Lars Eller",
@@ -924,12 +912,6 @@
           "birthDate": "1999-10-20"
         },
         {
-          "name": "Jonas Johansson",
-          "id": 8477992,
-          "position": "G",
-          "birthDate": "1995-09-19"
-        },
-        {
           "name": "Linus Ullmark",
           "id": 8476999,
           "position": "G",
@@ -1118,12 +1100,6 @@
           "id": 8478057,
           "position": "C",
           "birthDate": "1996-05-15"
-        },
-        {
-          "name": "Vinni Lettieri",
-          "id": 8479968,
-          "position": "C",
-          "birthDate": "1995-02-06"
         },
         {
           "name": "Zack MacEwen",
@@ -1948,6 +1924,12 @@
           "birthDate": "1993-04-18"
         },
         {
+          "name": "Marc Del Gaizo",
+          "id": 8481743,
+          "position": "D",
+          "birthDate": "1999-10-11"
+        },
+        {
           "name": "Sean Durzi",
           "id": 8480434,
           "position": "D",
@@ -2228,6 +2210,12 @@
           "id": 8471215,
           "position": "C",
           "birthDate": "1986-07-31"
+        },
+        {
+          "name": "Rutger McGroarty",
+          "id": 8483487,
+          "position": "RW",
+          "birthDate": "2004-03-30"
         },
         {
           "name": "Tommy Novak",
@@ -3662,6 +3650,12 @@
           "id": 8480049,
           "position": "D",
           "birthDate": "1999-01-24"
+        },
+        {
+          "name": "Henry Thrun",
+          "id": 8481567,
+          "position": "D",
+          "birthDate": "2001-03-12"
         }
       ],
       "goalies": [
@@ -3988,6 +3982,12 @@
           "birthDate": "2004-02-15"
         },
         {
+          "name": "Brayden Pachal",
+          "id": 8481167,
+          "position": "D",
+          "birthDate": "1999-08-23"
+        },
+        {
           "name": "Zayne Parekh",
           "id": 8484768,
           "position": "D",
@@ -4186,12 +4186,6 @@
           "id": 8482221,
           "position": "G",
           "birthDate": "2001-12-27"
-        },
-        {
-          "name": "Matt Tomkins",
-          "id": 8477035,
-          "position": "G",
-          "birthDate": "1994-06-19"
         }
       ]
     },
@@ -4208,12 +4202,6 @@
           "id": 8482124,
           "position": "RW",
           "birthDate": "2002-08-19"
-        },
-        {
-          "name": "Martin Chromiak",
-          "id": 8482160,
-          "position": "RW",
-          "birthDate": "2002-08-20"
         },
         {
           "name": "Kenny Connors",
@@ -4568,6 +4556,12 @@
           "id": 8483570,
           "position": "C",
           "birthDate": "1998-11-15"
+        },
+        {
+          "name": "Logan Morrison",
+          "id": 8483012,
+          "position": "C",
+          "birthDate": "2002-07-09"
         },
         {
           "name": "Jani Nyman",
