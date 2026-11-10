@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-09T09:43:45.943365+00:00",
+  "generated_at": "2026-11-10T03:51:36.745663+00:00",
   "teams": {
     "BOS": {
       "skaters": [
@@ -2416,6 +2416,12 @@
           "birthDate": "1999-10-06"
         },
         {
+          "name": "Justin Holl",
+          "id": 8475718,
+          "position": "D",
+          "birthDate": "1992-01-30"
+        },
+        {
           "name": "Cole Hutson",
           "id": 8484873,
           "position": "D",
@@ -2452,12 +2458,6 @@
           "id": 8479292,
           "position": "G",
           "birthDate": "1993-12-18"
-        },
-        {
-          "name": "R\u00e9mi Poirier",
-          "id": 8482465,
-          "position": "G",
-          "birthDate": "2001-10-06"
         },
         {
           "name": "Logan Thompson",
@@ -2604,16 +2604,16 @@
       ],
       "goalies": [
         {
+          "name": "Drew Commesso",
+          "id": 8482123,
+          "position": "G",
+          "birthDate": "2002-07-19"
+        },
+        {
           "name": "Spencer Knight",
           "id": 8481519,
           "position": "G",
           "birthDate": "2001-04-19"
-        },
-        {
-          "name": "Arvid Soderblom",
-          "id": 8482821,
-          "position": "G",
-          "birthDate": "1999-08-19"
         }
       ]
     },
@@ -2702,6 +2702,12 @@
           "id": 8470613,
           "position": "D",
           "birthDate": "1985-03-09"
+        },
+        {
+          "name": "Alex Gagne",
+          "id": 8482942,
+          "position": "D",
+          "birthDate": "2002-08-12"
         },
         {
           "name": "Noah Juulsen",
@@ -2902,6 +2908,12 @@
           "id": 8479979,
           "position": "G",
           "birthDate": "1998-12-18"
+        },
+        {
+          "name": "R\u00e9mi Poirier",
+          "id": 8482465,
+          "position": "G",
+          "birthDate": "2001-10-06"
         }
       ]
     },
@@ -3328,18 +3340,6 @@
           "birthDate": "1991-12-05"
         },
         {
-          "name": "Adam Jiricek",
-          "id": 8484790,
-          "position": "D",
-          "birthDate": "2006-06-28"
-        },
-        {
-          "name": "Theo Lindstein",
-          "id": 8484188,
-          "position": "D",
-          "birthDate": "2005-01-05"
-        },
-        {
           "name": "Logan Mailloux",
           "id": 8482733,
           "position": "D",
@@ -3350,6 +3350,12 @@
           "id": 8476892,
           "position": "D",
           "birthDate": "1993-05-12"
+        },
+        {
+          "name": "Calle Rosen",
+          "id": 8480157,
+          "position": "D",
+          "birthDate": "1994-02-02"
         },
         {
           "name": "Tyler Tucker",
@@ -4341,12 +4347,6 @@
     },
     "SJS": {
       "skaters": [
-        {
-          "name": "Filip Bystedt",
-          "id": 8483428,
-          "position": "C",
-          "birthDate": "2004-02-04"
-        },
         {
           "name": "Macklin Celebrini",
           "id": 8484801,

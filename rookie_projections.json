@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-09T09:43:45.947819+00:00",
+  "generated_at": "2026-11-10T03:51:36.749453+00:00",
   "players": {
     "marcdelgaizo": {
       "points_pg": 0.3227,
@@ -11,6 +11,28 @@
       "source_games": 15,
       "name": "Marc Del Gaizo",
       "team": "NYR"
+    },
+    "alexgagne": {
+      "points_pg": 0.0986,
+      "goals_pg": 0.0076,
+      "assists_pg": 0.091,
+      "shots_pg": 0.0843,
+      "source_league": "AHL",
+      "source_season": 20252026,
+      "source_games": 58,
+      "name": "Alex Gagne",
+      "team": "COL"
+    },
+    "callerosen": {
+      "points_pg": 0.2236,
+      "goals_pg": 0.0577,
+      "assists_pg": 0.1659,
+      "shots_pg": 0.6412,
+      "source_league": "AHL",
+      "source_season": 20252026,
+      "source_games": 61,
+      "name": "Calle Rosen",
+      "team": "STL"
     },
     "gregorbiber": {
       "points_pg": 0.12,

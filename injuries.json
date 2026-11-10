@@ -200,7 +200,7 @@
   {
     "team": "EDM",
     "player": "Isaac Howard",
-    "status": "dtd",
+    "status": "ir",
     "injured": true
   },
   {
@@ -283,8 +283,8 @@
   },
   {
     "team": "MTL",
-    "player": "Josh Anderson",
-    "status": "out",
+    "player": "Jake Evans",
+    "status": "dtd",
     "injured": true
   },
   {
@@ -368,7 +368,7 @@
   {
     "team": "NYR",
     "player": "Alberts Smits",
-    "status": "dtd",
+    "status": "out",
     "injured": true
   },
   {
@@ -386,7 +386,7 @@
   {
     "team": "OTT",
     "player": "Andre Burakovsky",
-    "status": "out",
+    "status": "ir",
     "injured": true
   },
   {
@@ -423,12 +423,6 @@
     "team": "PIT",
     "player": "Ville Koivunen",
     "status": "dtd",
-    "injured": true
-  },
-  {
-    "team": "SJS",
-    "player": "Alexander Wennberg",
-    "status": "ir",
     "injured": true
   },
   {
@@ -530,6 +524,12 @@
   {
     "team": "UTA",
     "player": "Nate Schmidt",
+    "status": "dtd",
+    "injured": true
+  },
+  {
+    "team": "UTA",
+    "player": "Dylan Guenther",
     "status": "dtd",
     "injured": true
   },
