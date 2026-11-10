@@ -13055,9 +13055,9 @@
     },
     "2026-11-10": {
       "date": "2026-11-10",
-      "computed_at": "2026-11-10T03:50:44.559062+00:00",
+      "computed_at": "2026-11-10T09:44:03.918450+00:00",
       "source": "sharpapi",
-      "odds_fetched_at": "2026-11-10T03:50:18.556772+00:00",
+      "odds_fetched_at": "2026-11-10T09:43:39.254350+00:00",
       "warning": null,
       "no_games": false,
       "scanned": 7,
@@ -13112,86 +13112,6 @@
           ]
         },
         {
-          "home": "LAK",
-          "away": "NSH",
-          "home_name": "Kings",
-          "away_name": "Predators",
-          "start_time": "2026-11-11T03:00:00Z",
-          "best_edge": 0.1015,
-          "edges": [
-            {
-              "market": "Moneyline",
-              "side": "Nashville Predators",
-              "pick": "Nashville Predators",
-              "team": "NSH",
-              "odds": 120,
-              "odds_decimal": 2.2,
-              "model_prob": 0.538,
-              "implied_prob": 0.4365,
-              "edge": 0.1015,
-              "book": "draftkings"
-            },
-            {
-              "market": "Total 6.5",
-              "side": "Under",
-              "pick": "Under",
-              "team": null,
-              "odds": -125,
-              "odds_decimal": 1.8,
-              "model_prob": 0.581,
-              "implied_prob": 0.5325,
-              "edge": 0.0485,
-              "book": "draftkings"
-            },
-            {
-              "market": "Puck Line (1.5)",
-              "side": "NSH Predators",
-              "pick": "NSH Predators",
-              "team": "NSH",
-              "odds": -218,
-              "odds_decimal": 1.4587155963302751,
-              "model_prob": 0.666,
-              "implied_prob": 0.6575,
-              "edge": 0.0085,
-              "book": "draftkings"
-            }
-          ]
-        },
-        {
-          "home": "MTL",
-          "away": "MIN",
-          "home_name": "Canadiens",
-          "away_name": "Wild",
-          "start_time": "2026-11-11T00:00:00Z",
-          "best_edge": 0.0984,
-          "edges": [
-            {
-              "market": "Puck Line (1.5)",
-              "side": "MTL Canadiens",
-              "pick": "MTL Canadiens",
-              "team": "MTL",
-              "odds": -245,
-              "odds_decimal": 1.4081632653061225,
-              "model_prob": 0.779,
-              "implied_prob": 0.6806,
-              "edge": 0.0984,
-              "book": "draftkings"
-            },
-            {
-              "market": "Total 6.5",
-              "side": "Under",
-              "pick": "Under",
-              "team": null,
-              "odds": -125,
-              "odds_decimal": 1.8,
-              "model_prob": 0.554,
-              "implied_prob": 0.5325,
-              "edge": 0.0215,
-              "book": "draftkings"
-            }
-          ]
-        },
-        {
           "home": "OTT",
           "away": "WSH",
           "home_name": "Senators",
@@ -13201,8 +13121,8 @@
           "edges": [
             {
               "market": "Moneyline",
-              "side": "Washington Capitals",
-              "pick": "Washington Capitals",
+              "side": "WAS Capitals",
+              "pick": "WAS Capitals",
               "team": "WSH",
               "odds": 110,
               "odds_decimal": 2.1,
@@ -13284,6 +13204,98 @@
           ]
         },
         {
+          "home": "LAK",
+          "away": "NSH",
+          "home_name": "Kings",
+          "away_name": "Predators",
+          "start_time": "2026-11-11T03:00:00Z",
+          "best_edge": 0.0894,
+          "edges": [
+            {
+              "market": "Moneyline",
+              "side": "Nashville Predators",
+              "pick": "Nashville Predators",
+              "team": "NSH",
+              "odds": 114,
+              "odds_decimal": 2.1399999999999997,
+              "model_prob": 0.538,
+              "implied_prob": 0.4486,
+              "edge": 0.0894,
+              "book": "draftkings"
+            },
+            {
+              "market": "Total 6.5",
+              "side": "Under",
+              "pick": "Under",
+              "team": null,
+              "odds": -125,
+              "odds_decimal": 1.8,
+              "model_prob": 0.581,
+              "implied_prob": 0.5325,
+              "edge": 0.0485,
+              "book": "draftkings"
+            },
+            {
+              "market": "Puck Line (1.5)",
+              "side": "NSH Predators",
+              "pick": "NSH Predators",
+              "team": "NSH",
+              "odds": -218,
+              "odds_decimal": 1.4587155963302751,
+              "model_prob": 0.666,
+              "implied_prob": 0.6575,
+              "edge": 0.0085,
+              "book": "draftkings"
+            }
+          ]
+        },
+        {
+          "home": "MTL",
+          "away": "MIN",
+          "home_name": "Canadiens",
+          "away_name": "Wild",
+          "start_time": "2026-11-11T00:00:00Z",
+          "best_edge": 0.0874,
+          "edges": [
+            {
+              "market": "Puck Line (1.5)",
+              "side": "MTL Canadiens",
+              "pick": "MTL Canadiens",
+              "team": "MTL",
+              "odds": -245,
+              "odds_decimal": 1.4081632653061225,
+              "model_prob": 0.768,
+              "implied_prob": 0.6806,
+              "edge": 0.0874,
+              "book": "draftkings"
+            },
+            {
+              "market": "Moneyline",
+              "side": "Montreal Canadiens",
+              "pick": "Montreal Canadiens",
+              "team": "MTL",
+              "odds": 105,
+              "odds_decimal": 2.05,
+              "model_prob": 0.506,
+              "implied_prob": 0.4675,
+              "edge": 0.0385,
+              "book": "draftkings"
+            },
+            {
+              "market": "Total 6.5",
+              "side": "Under",
+              "pick": "Under",
+              "team": null,
+              "odds": -125,
+              "odds_decimal": 1.8,
+              "model_prob": 0.556,
+              "implied_prob": 0.5325,
+              "edge": 0.0235,
+              "book": "draftkings"
+            }
+          ]
+        },
+        {
           "home": "WPG",
           "away": "NJD",
           "home_name": "Jets",
@@ -13308,11 +13320,11 @@
               "side": "NJ Devils",
               "pick": "NJ Devils",
               "team": "NJD",
-              "odds": 170,
-              "odds_decimal": 2.7,
+              "odds": 164,
+              "odds_decimal": 2.6399999999999997,
               "model_prob": 0.416,
-              "implied_prob": 0.3553,
-              "edge": 0.0607,
+              "implied_prob": 0.3631,
+              "edge": 0.0529,
               "book": "draftkings"
             },
             {
@@ -13335,18 +13347,18 @@
           "home_name": "Blues",
           "away_name": "Red Wings",
           "start_time": "2026-11-11T01:00:00Z",
-          "best_edge": 0.0085,
+          "best_edge": 0.0181,
           "edges": [
             {
-              "market": "Puck Line (-1.5)",
-              "side": "STL Blues",
-              "pick": "STL Blues",
-              "team": "STL",
-              "odds": 180,
-              "odds_decimal": 2.8,
-              "model_prob": 0.351,
-              "implied_prob": 0.3425,
-              "edge": 0.0085,
+              "market": "Puck Line (1.5)",
+              "side": "DET Red Wings",
+              "pick": "DET Red Wings",
+              "team": "DET",
+              "odds": -192,
+              "odds_decimal": 1.5208333333333335,
+              "model_prob": 0.649,
+              "implied_prob": 0.6309,
+              "edge": 0.0181,
               "book": "draftkings"
             },
             {
