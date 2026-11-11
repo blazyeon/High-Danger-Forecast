@@ -11587,12 +11587,12 @@
       "goals": 2,
       "assists": 20,
       "points": 22,
-      "shots": 27,
+      "shots": 28,
       "gpg": 0.10526315789473684,
       "apg": 1.0526315789473684,
       "ppg": 1.1578947368421053,
-      "sogpg": 1.4210526315789473,
-      "sh_pct": 0.07407407407407407,
+      "sogpg": 1.4736842105263157,
+      "sh_pct": 0.07142857142857142,
       "plus_minus": 2,
       "pim": 6,
       "toi_pg": 22.796491666666668,
@@ -11601,10 +11601,10 @@
       "power_play_goals": 1,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.13583894983752068,
+      "xgf_pg": 0.14542645677365967,
       "pbp_goals": 2,
       "pbp_assists": 20,
-      "pbp_shots": 27
+      "pbp_shots": 28
     },
     {
       "name": "Taylor Raddysh",
@@ -11776,12 +11776,12 @@
       "goals": 6,
       "assists": 7,
       "points": 13,
-      "shots": 33,
+      "shots": 34,
       "gpg": 0.3157894736842105,
       "apg": 0.3684210526315789,
       "ppg": 0.6842105263157895,
-      "sogpg": 1.736842105263158,
-      "sh_pct": 0.18181818181818182,
+      "sogpg": 1.7894736842105263,
+      "sh_pct": 0.17647058823529413,
       "plus_minus": 0,
       "pim": 16,
       "toi_pg": 16.68421,
@@ -11793,7 +11793,7 @@
       "xgf_pg": 0.2898963350896548,
       "pbp_goals": 6,
       "pbp_assists": 7,
-      "pbp_shots": 33
+      "pbp_shots": 34
     },
     {
       "name": "Braden Schneider",
@@ -15385,12 +15385,12 @@
       "goals": 4,
       "assists": 7,
       "points": 11,
-      "shots": 28,
+      "shots": 29,
       "gpg": 0.2,
       "apg": 0.35,
       "ppg": 0.55,
-      "sogpg": 1.4,
-      "sh_pct": 0.14285714285714285,
+      "sogpg": 1.45,
+      "sh_pct": 0.13793103448275862,
       "plus_minus": -6,
       "pim": 4,
       "toi_pg": 14.67,
@@ -15402,7 +15402,7 @@
       "xgf_pg": 0.25134494325043727,
       "pbp_goals": 4,
       "pbp_assists": 7,
-      "pbp_shots": 28
+      "pbp_shots": 29
     },
     {
       "name": "Ivar Stenberg",
@@ -15412,12 +15412,12 @@
       "goals": 6,
       "assists": 6,
       "points": 12,
-      "shots": 31,
+      "shots": 32,
       "gpg": 0.3,
       "apg": 0.3,
       "ppg": 0.6,
-      "sogpg": 1.55,
-      "sh_pct": 0.1935483870967742,
+      "sogpg": 1.6,
+      "sh_pct": 0.1875,
       "plus_minus": -12,
       "pim": 6,
       "toi_pg": 16.055833333333332,
@@ -15429,7 +15429,7 @@
       "xgf_pg": 0.298896749891473,
       "pbp_goals": 7,
       "pbp_assists": 6,
-      "pbp_shots": 34
+      "pbp_shots": 35
     },
     {
       "name": "Cam Fowler",
@@ -20424,5 +20424,5 @@
       "pbp_shots": 12
     }
   ],
-  "updated_at": "2026-11-10T09:43:17Z"
+  "updated_at": "2026-11-11T01:30:46Z"
 }

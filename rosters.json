@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-10T09:44:50.368516+00:00",
+  "generated_at": "2026-11-11T01:32:22.422467+00:00",
   "teams": {
     "BOS": {
       "skaters": [
@@ -970,12 +970,6 @@
           "birthDate": "1999-03-09"
         },
         {
-          "name": "Dominic James",
-          "id": 8483752,
-          "position": "C",
-          "birthDate": "2002-07-03"
-        },
-        {
           "name": "Nikita Kucherov",
           "id": 8476453,
           "position": "RW",
@@ -986,6 +980,12 @@
           "id": 8481624,
           "position": "RW",
           "birthDate": "1994-10-10"
+        },
+        {
+          "name": "Sam O'Reilly",
+          "id": 8484770,
+          "position": "RW",
+          "birthDate": "2006-03-30"
         },
         {
           "name": "Brayden Point",
@@ -1154,6 +1154,12 @@
           "id": 8475166,
           "position": "C",
           "birthDate": "1990-09-20"
+        },
+        {
+          "name": "Ryan Tverberg",
+          "id": 8482525,
+          "position": "C",
+          "birthDate": "2002-01-30"
         },
         {
           "name": "Miles Wood",
@@ -1856,6 +1862,12 @@
           "id": 8481604,
           "position": "RW",
           "birthDate": "2000-10-26"
+        },
+        {
+          "name": "Glenn Gawdin",
+          "id": 8478446,
+          "position": "C",
+          "birthDate": "1997-03-25"
         },
         {
           "name": "Luke Glendening",
@@ -2974,12 +2986,6 @@
           "birthDate": "1995-03-07"
         },
         {
-          "name": "Tyler Pitlick",
-          "id": 8475752,
-          "position": "C",
-          "birthDate": "1991-11-01"
-        },
-        {
           "name": "Maxim Shabanov",
           "id": 8485702,
           "position": "RW",
@@ -3014,12 +3020,6 @@
           "id": 8476463,
           "position": "D",
           "birthDate": "1993-07-12"
-        },
-        {
-          "name": "Cameron Crotty",
-          "id": 8480075,
-          "position": "D",
-          "birthDate": "1999-05-05"
         },
         {
           "name": "Brock Faber",
@@ -3656,12 +3656,6 @@
           "id": 8480049,
           "position": "D",
           "birthDate": "1999-01-24"
-        },
-        {
-          "name": "Henry Thrun",
-          "id": 8481567,
-          "position": "D",
-          "birthDate": "2001-03-12"
         }
       ],
       "goalies": [
@@ -4762,16 +4756,16 @@
           "birthDate": "2005-12-07"
         },
         {
+          "name": "Cameron Crotty",
+          "id": 8480075,
+          "position": "D",
+          "birthDate": "1999-05-05"
+        },
+        {
           "name": "Filip Hronek",
           "id": 8479425,
           "position": "D",
           "birthDate": "1997-11-02"
-        },
-        {
-          "name": "Victor Mancini",
-          "id": 8483768,
-          "position": "D",
-          "birthDate": "2002-05-26"
         },
         {
           "name": "Jamie Oleksiak",
