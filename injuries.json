@@ -1,12 +1,6 @@
 [
   {
     "team": "ANA",
-    "player": "Troy Terry",
-    "status": "ir",
-    "injured": true
-  },
-  {
-    "team": "ANA",
     "player": "Ian Moore",
     "status": "ir",
     "injured": true

@@ -1,6 +1,6 @@
 {
   "source": "daily_faceoff",
-  "updated_at": "2026-11-12T02:19:27.570Z",
+  "updated_at": "2026-11-12T02:48:15.138Z",
   "teams": {
     "ANA": {
       "pp1": [
@@ -17,8 +17,8 @@
         "Troy Terry",
         "Tristan Luneau"
       ],
-      "updated_at": "2026-11-11T18:12:22.431Z",
-      "source": "Zach Cavanagh"
+      "updated_at": "2026-11-12T02:48:15.138Z",
+      "source": "Derek Lee"
     },
     "BOS": {
       "pp1": [
@@ -287,8 +287,8 @@
         "Vitali Pinchuk",
         "Brady Skjei"
       ],
-      "updated_at": "2026-11-11T14:03:58.636Z",
-      "source": "Last Game (2026-11-10)"
+      "updated_at": "2026-11-12T02:39:06.626Z",
+      "source": "Brooks Bratten"
     },
     "NJD": {
       "pp1": [
@@ -395,8 +395,8 @@
         "Kris Letang",
         "Evgeni Malkin"
       ],
-      "updated_at": "2026-11-11T13:18:56.496Z",
-      "source": "@PensInsideScoop"
+      "updated_at": "2026-11-12T02:43:03.895Z",
+      "source": "@penguins"
     },
     "SJS": {
       "pp1": [
@@ -413,8 +413,8 @@
         "Dmitry Orlov",
         "Eric Pohlkamp"
       ],
-      "updated_at": "2026-11-10T20:08:34.419Z",
-      "source": "Sheng Peng"
+      "updated_at": "2026-11-12T02:37:44.514Z",
+      "source": "Curtis Pashelka"
     },
     "SEA": {
       "pp1": [

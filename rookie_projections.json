@@ -1,28 +1,6 @@
 {
-  "generated_at": "2026-11-12T02:33:22.973937+00:00",
+  "generated_at": "2026-11-12T09:48:34.092462+00:00",
   "players": {
-    "samoreilly": {
-      "points_pg": 0.4146,
-      "goals_pg": 0.1639,
-      "assists_pg": 0.2507,
-      "shots_pg": 1.8214,
-      "source_league": "OHL",
-      "source_season": 20252026,
-      "source_games": 28,
-      "name": "Sam O'Reilly",
-      "team": "TBL"
-    },
-    "glenngawdin": {
-      "points_pg": 0.385,
-      "goals_pg": 0.1375,
-      "assists_pg": 0.2475,
-      "shots_pg": 1.5278,
-      "source_league": "AHL",
-      "source_season": 20262027,
-      "source_games": 16,
-      "name": "Glenn Gawdin",
-      "team": "NYR"
-    },
     "marcdelgaizo": {
       "points_pg": 0.3227,
       "goals_pg": 0.0587,
