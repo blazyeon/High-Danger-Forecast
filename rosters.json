@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-11T09:20:37.835764+00:00",
+  "generated_at": "2026-11-12T02:33:22.970148+00:00",
   "teams": {
     "BOS": {
       "skaters": [
@@ -3382,6 +3382,12 @@
     "UTA": {
       "skaters": [
         {
+          "name": "Daniil But",
+          "id": 8484388,
+          "position": "LW",
+          "birthDate": "2005-02-15"
+        },
+        {
           "name": "Michael Carcone",
           "id": 8479619,
           "position": "LW",
@@ -3734,12 +3740,6 @@
           "id": 8485400,
           "position": "C",
           "birthDate": "2006-10-02"
-        },
-        {
-          "name": "Nico Myatovic",
-          "id": 8484201,
-          "position": "LW",
-          "birthDate": "2004-12-01"
         },
         {
           "name": "Nikita Nesterenko",

@@ -210,6 +210,12 @@
     "injured": true
   },
   {
+    "team": "LAK",
+    "player": "Drew Doughty",
+    "status": "dtd",
+    "injured": true
+  },
+  {
     "team": "MIN",
     "player": "Brock Faber",
     "status": "ir",
@@ -240,12 +246,6 @@
     "injured": true
   },
   {
-    "team": "MTL",
-    "player": "Jake Evans",
-    "status": "dtd",
-    "injured": true
-  },
-  {
     "team": "NSH",
     "player": "William Trudeau",
     "status": "ir",
@@ -267,6 +267,12 @@
     "team": "NJD",
     "player": "Anthony Mantha",
     "status": "out",
+    "injured": true
+  },
+  {
+    "team": "NJD",
+    "player": "Johnathan Kovacevic",
+    "status": "dtd",
     "injured": true
   },
   {
@@ -360,12 +366,6 @@
     "injured": true
   },
   {
-    "team": "PHI",
-    "player": "Rasmus Ristolainen",
-    "status": "ir",
-    "injured": true
-  },
-  {
     "team": "PIT",
     "player": "Trevor van Riemsdyk",
     "status": "ir",
@@ -381,12 +381,6 @@
     "team": "PIT",
     "player": "Bryan Rust",
     "status": "ir",
-    "injured": true
-  },
-  {
-    "team": "PIT",
-    "player": "Ville Koivunen",
-    "status": "dtd",
     "injured": true
   },
   {
@@ -463,7 +457,7 @@
   },
   {
     "team": "TOR",
-    "player": "Jack Roslovic",
+    "player": "Zack MacEwen",
     "status": "dtd",
     "injured": true
   },
@@ -475,19 +469,19 @@
   },
   {
     "team": "UTA",
-    "player": "Kailer Yamamoto",
-    "status": "dtd",
-    "injured": true
-  },
-  {
-    "team": "UTA",
     "player": "Nate Schmidt",
-    "status": "dtd",
+    "status": "ir",
     "injured": true
   },
   {
     "team": "UTA",
     "player": "Dylan Guenther",
+    "status": "ir",
+    "injured": true
+  },
+  {
+    "team": "UTA",
+    "player": "Logan Cooley",
     "status": "dtd",
     "injured": true
   },
@@ -505,8 +499,8 @@
   },
   {
     "team": "VGK",
-    "player": "Parker Wotherspoon",
-    "status": "ir",
+    "player": "Noah Hanifin",
+    "status": "out",
     "injured": true
   },
   {
