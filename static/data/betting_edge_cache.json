@@ -14201,6 +14201,113 @@
         }
       ],
       "no_odds_games": []
+    },
+    "2026-11-13": {
+      "date": "2026-11-13",
+      "computed_at": "2026-11-13T02:10:18.894896+00:00",
+      "source": "sharpapi",
+      "odds_fetched_at": "2026-11-13T02:10:09.080584+00:00",
+      "warning": null,
+      "no_games": false,
+      "scanned": 2,
+      "matched": 2,
+      "with_edges": 2,
+      "dropped": 0,
+      "games": [
+        {
+          "home": "VAN",
+          "away": "NYR",
+          "home_name": "Canucks",
+          "away_name": "Rangers",
+          "start_time": "2026-11-14T02:00:00Z",
+          "best_edge": 0.1802,
+          "edges": [
+            {
+              "market": "Total 6.5",
+              "side": "Under",
+              "pick": "Under",
+              "team": null,
+              "odds": -115,
+              "odds_decimal": 1.8695652173913042,
+              "model_prob": 0.691,
+              "implied_prob": 0.5108,
+              "edge": 0.1802,
+              "book": "draftkings"
+            },
+            {
+              "market": "Moneyline",
+              "side": "New York Rangers",
+              "pick": "New York Rangers",
+              "team": "NYR",
+              "odds": -225,
+              "odds_decimal": 1.4444444444444444,
+              "model_prob": 0.697,
+              "implied_prob": 0.6636,
+              "edge": 0.0334,
+              "book": "draftkings"
+            },
+            {
+              "market": "Puck Line (-1.5)",
+              "side": "NY Rangers",
+              "pick": "NY Rangers",
+              "team": "NYR",
+              "odds": 114,
+              "odds_decimal": 2.1399999999999997,
+              "model_prob": 0.475,
+              "implied_prob": 0.4486,
+              "edge": 0.0264,
+              "book": "draftkings"
+            }
+          ]
+        },
+        {
+          "home": "VGK",
+          "away": "NSH",
+          "home_name": "Golden Knights",
+          "away_name": "Predators",
+          "start_time": "2026-11-14T03:00:00Z",
+          "best_edge": 0.0656,
+          "edges": [
+            {
+              "market": "Total 5.5",
+              "side": "Over",
+              "pick": "Over",
+              "team": null,
+              "odds": -135,
+              "odds_decimal": 1.7407407407407407,
+              "model_prob": 0.617,
+              "implied_prob": 0.5514,
+              "edge": 0.0656,
+              "book": "draftkings"
+            },
+            {
+              "market": "Puck Line (-1.5)",
+              "side": "VGK Golden Knights",
+              "pick": "VGK Golden Knights",
+              "team": "VGK",
+              "odds": 136,
+              "odds_decimal": 2.3600000000000003,
+              "model_prob": 0.471,
+              "implied_prob": 0.4066,
+              "edge": 0.0644,
+              "book": "draftkings"
+            },
+            {
+              "market": "Moneyline",
+              "side": "Vegas Golden Knights",
+              "pick": "Vegas Golden Knights",
+              "team": "VGK",
+              "odds": -185,
+              "odds_decimal": 1.5405405405405406,
+              "model_prob": 0.586,
+              "implied_prob": 0.6225,
+              "edge": -0.0365,
+              "book": "draftkings"
+            }
+          ]
+        }
+      ],
+      "no_odds_games": []
     }
   }
 }

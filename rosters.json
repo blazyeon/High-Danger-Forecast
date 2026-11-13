@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-12T09:48:34.087780+00:00",
+  "generated_at": "2026-11-13T02:11:08.404488+00:00",
   "teams": {
     "BOS": {
       "skaters": [
@@ -470,12 +470,6 @@
           "id": 8477935,
           "position": "C",
           "birthDate": "1996-06-20"
-        },
-        {
-          "name": "Jack Devine",
-          "id": 8483433,
-          "position": "RW",
-          "birthDate": "2003-10-01"
         },
         {
           "name": "Lars Eller",
@@ -1078,6 +1072,12 @@
           "birthDate": "1994-08-15"
         },
         {
+          "name": "Brendan Brisson",
+          "id": 8482153,
+          "position": "C",
+          "birthDate": "2001-10-22"
+        },
+        {
           "name": "Easton Cowan",
           "id": 8484158,
           "position": "RW",
@@ -1580,6 +1580,12 @@
           "id": 8481721,
           "position": "RW",
           "birthDate": "2001-03-15"
+        },
+        {
+          "name": "Lenni Hameenaho",
+          "id": 8484177,
+          "position": "RW",
+          "birthDate": "2004-11-07"
         },
         {
           "name": "Nico Hischier",
@@ -4202,12 +4208,6 @@
           "id": 8482124,
           "position": "RW",
           "birthDate": "2002-08-19"
-        },
-        {
-          "name": "Kenny Connors",
-          "id": 8483675,
-          "position": "C",
-          "birthDate": "2003-03-10"
         },
         {
           "name": "Kevin Fiala",
