@@ -1,6 +1,6 @@
 {
   "source": "daily_faceoff",
-  "updated_at": "2026-11-13T01:50:28.528Z",
+  "updated_at": "2026-11-13T03:30:12.935Z",
   "teams": {
     "ANA": {
       "pp1": [
@@ -233,7 +233,7 @@
         "Brandt Clarke",
         "Drew Doughty"
       ],
-      "updated_at": "2026-11-12T19:47:32.255Z",
+      "updated_at": "2026-11-13T02:36:38.329Z",
       "source": "Zach Dooley"
     },
     "MIN": {
@@ -323,8 +323,8 @@
         "Emil Heineman",
         "Tony DeAngelo"
       ],
-      "updated_at": "2026-11-12T20:37:09.304Z",
-      "source": "Projected"
+      "updated_at": "2026-11-13T02:35:53.536Z",
+      "source": "Andrew Gross"
     },
     "NYR": {
       "pp1": [
@@ -341,8 +341,8 @@
         "Oliver Bjorkstrand",
         "Adam Fox"
       ],
-      "updated_at": "2026-11-12T14:34:27.541Z",
-      "source": "Last Game (2026-11-11)"
+      "updated_at": "2026-11-13T03:30:12.935Z",
+      "source": "Vince Mercogliano"
     },
     "OTT": {
       "pp1": [

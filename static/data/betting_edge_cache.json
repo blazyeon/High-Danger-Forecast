@@ -14204,9 +14204,9 @@
     },
     "2026-11-13": {
       "date": "2026-11-13",
-      "computed_at": "2026-11-13T02:10:18.894896+00:00",
+      "computed_at": "2026-11-13T09:30:22.962621+00:00",
       "source": "sharpapi",
-      "odds_fetched_at": "2026-11-13T02:10:09.080584+00:00",
+      "odds_fetched_at": "2026-11-13T09:30:14.277250+00:00",
       "warning": null,
       "no_games": false,
       "scanned": 2,
@@ -14294,8 +14294,8 @@
             },
             {
               "market": "Moneyline",
-              "side": "Vegas Golden Knights",
-              "pick": "Vegas Golden Knights",
+              "side": "VGK Golden Knights",
+              "pick": "VGK Golden Knights",
               "team": "VGK",
               "odds": -185,
               "odds_decimal": 1.5405405405405406,
