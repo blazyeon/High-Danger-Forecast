@@ -66,6 +66,12 @@
     "injured": true
   },
   {
+    "team": "CBJ",
+    "player": "Sean Monahan",
+    "status": "dtd",
+    "injured": true
+  },
+  {
     "team": "COL",
     "player": "Josh Manson",
     "status": "ir",
@@ -75,6 +81,18 @@
     "team": "COL",
     "player": "Zachary L&#x27;Heureux",
     "status": "out",
+    "injured": true
+  },
+  {
+    "team": "COL",
+    "player": "Nathan MacKinnon",
+    "status": "dtd",
+    "injured": true
+  },
+  {
+    "team": "COL",
+    "player": "Cale Makar",
+    "status": "dtd",
     "injured": true
   },
   {
@@ -98,6 +116,12 @@
   {
     "team": "DAL",
     "player": "Miro Heiskanen",
+    "status": "dtd",
+    "injured": true
+  },
+  {
+    "team": "DAL",
+    "player": "Lian Bichsel",
     "status": "dtd",
     "injured": true
   },
@@ -186,6 +210,12 @@
     "injured": true
   },
   {
+    "team": "MIN",
+    "player": "Joel Eriksson Ek",
+    "status": "dtd",
+    "injured": true
+  },
+  {
     "team": "MTL",
     "player": "Ivan Demidov",
     "status": "ir",
@@ -195,6 +225,12 @@
     "team": "MTL",
     "player": "Sam Montembeault",
     "status": "ir",
+    "injured": true
+  },
+  {
+    "team": "MTL",
+    "player": "Chris Kreider",
+    "status": "dtd",
     "injured": true
   },
   {
@@ -468,12 +504,6 @@
     "injured": true
   },
   {
-    "team": "VAN",
-    "player": "Filip Chytil",
-    "status": "ir",
-    "injured": true
-  },
-  {
     "team": "VGK",
     "player": "Noah Hanifin",
     "status": "out",
@@ -500,6 +530,12 @@
   {
     "team": "WPG",
     "player": "Vladislav Namestnikov",
+    "status": "ir",
+    "injured": true
+  },
+  {
+    "team": "WPG",
+    "player": "Dylan DeMelo",
     "status": "ir",
     "injured": true
   },

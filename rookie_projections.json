@@ -1,6 +1,17 @@
 {
-  "generated_at": "2026-11-13T09:31:09.416179+00:00",
+  "generated_at": "2026-11-14T01:48:23.053170+00:00",
   "players": {
+    "antonsilaev": {
+      "points_pg": 0.1467,
+      "goals_pg": 0.0,
+      "assists_pg": 0.1467,
+      "shots_pg": 0.0,
+      "source_league": "AHL",
+      "source_season": 20262027,
+      "source_games": 12,
+      "name": "Anton Silaev",
+      "team": "NJD"
+    },
     "marcdelgaizo": {
       "points_pg": 0.3227,
       "goals_pg": 0.0587,

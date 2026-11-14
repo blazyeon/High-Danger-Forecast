@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-13T09:31:09.413198+00:00",
+  "generated_at": "2026-11-14T01:48:23.048208+00:00",
   "teams": {
     "BOS": {
       "skaters": [
@@ -1670,6 +1670,12 @@
           "id": 8478399,
           "position": "D",
           "birthDate": "1997-05-06"
+        },
+        {
+          "name": "Anton Silaev",
+          "id": 8484987,
+          "position": "D",
+          "birthDate": "2006-04-11"
         }
       ],
       "goalies": [
@@ -2637,6 +2643,12 @@
     },
     "COL": {
       "skaters": [
+        {
+          "name": "Gavin Brindley",
+          "id": 8484149,
+          "position": "C",
+          "birthDate": "2004-10-05"
+        },
         {
           "name": "T.J. Hughes",
           "id": 8486171,
@@ -3668,6 +3680,12 @@
           "id": 8480049,
           "position": "D",
           "birthDate": "1999-01-24"
+        },
+        {
+          "name": "Henry Thrun",
+          "id": 8481567,
+          "position": "D",
+          "birthDate": "2001-03-12"
         }
       ],
       "goalies": [
@@ -3892,22 +3910,10 @@
           "birthDate": "2006-03-01"
         },
         {
-          "name": "Samuel Honzek",
-          "id": 8484180,
-          "position": "LW",
-          "birthDate": "2004-11-12"
-        },
-        {
           "name": "Jonathan Huberdeau",
           "id": 8476456,
           "position": "LW",
           "birthDate": "1993-06-04"
-        },
-        {
-          "name": "Ben Jones",
-          "id": 8480259,
-          "position": "C",
-          "birthDate": "1999-02-26"
         },
         {
           "name": "Adam Klapka",
