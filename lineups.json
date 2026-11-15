@@ -1,6 +1,6 @@
 {
   "source": "daily_faceoff",
-  "updated_at": "2026-11-15T00:40:24.231Z",
+  "updated_at": "2026-11-15T06:08:55.353Z",
   "teams": {
     "ANA": {
       "pp1": [
@@ -17,8 +17,8 @@
         "Troy Terry",
         "Tristan Luneau"
       ],
-      "updated_at": "2026-11-13T19:25:33.579Z",
-      "source": "Patrick Present"
+      "updated_at": "2026-11-15T02:42:45.157Z",
+      "source": "Derek Lee"
     },
     "BOS": {
       "pp1": [
@@ -71,8 +71,8 @@
         "Simon Nemec",
         "Yegor Sharangovich"
       ],
-      "updated_at": "2026-11-13T19:23:46.375Z",
-      "source": "Pat Steinberg"
+      "updated_at": "2026-11-15T02:45:15.278Z",
+      "source": "Derek Wills"
     },
     "CAR": {
       "pp1": [
@@ -233,7 +233,7 @@
         "Brandt Clarke",
         "Drew Doughty"
       ],
-      "updated_at": "2026-11-14T23:25:15.047Z",
+      "updated_at": "2026-11-15T02:39:26.407Z",
       "source": "Zach Dooley"
     },
     "MIN": {
@@ -319,12 +319,12 @@
       "pp2": [
         "Kyle Palmieri",
         "Simon Holmstrom",
-        "Anthony Duclair",
         "Emil Heineman",
+        "Mathew Barzal",
         "Tony DeAngelo"
       ],
-      "updated_at": "2026-11-13T14:47:44.852Z",
-      "source": "Last Game (2026-11-12)"
+      "updated_at": "2026-11-15T06:08:55.353Z",
+      "source": "Andrew Gross"
     },
     "NYR": {
       "pp1": [
@@ -413,8 +413,8 @@
         "Dmitry Orlov",
         "Eric Pohlkamp"
       ],
-      "updated_at": "2026-11-13T19:27:20.261Z",
-      "source": "Max Miller"
+      "updated_at": "2026-11-15T01:36:35.364Z",
+      "source": "Sheng Peng"
     },
     "SEA": {
       "pp1": [
@@ -503,8 +503,8 @@
         "Daniil But",
         "MacKenzie Weegar"
       ],
-      "updated_at": "2026-11-14T19:34:43.368Z",
-      "source": "Cole Bagley"
+      "updated_at": "2026-11-15T01:38:06.020Z",
+      "source": "Utah Mammoth"
     },
     "VAN": {
       "pp1": [
@@ -539,8 +539,8 @@
         "Rasmus Andersson",
         "Shea Theodore"
       ],
-      "updated_at": "2026-11-14T02:38:15.679Z",
-      "source": "Jesse Granger"
+      "updated_at": "2026-11-15T01:35:58.617Z",
+      "source": "Danny Webster"
     },
     "WSH": {
       "pp1": [
