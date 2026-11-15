@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-14T09:00:46.637690+00:00",
+  "generated_at": "2026-11-15T01:20:40.852686+00:00",
   "teams": {
     "BOS": {
       "skaters": [
@@ -1360,12 +1360,6 @@
           "birthDate": "2001-10-02"
         },
         {
-          "name": "Mike Reilly",
-          "id": 8476422,
-          "position": "D",
-          "birthDate": "1993-07-13"
-        },
-        {
           "name": "Jaccob Slavin",
           "id": 8476958,
           "position": "D",
@@ -1696,6 +1690,12 @@
     "NYI": {
       "skaters": [
         {
+          "name": "Mathew Barzal",
+          "id": 8478445,
+          "position": "C",
+          "birthDate": "1997-05-26"
+        },
+        {
           "name": "Mitchell Chaffee",
           "id": 8482070,
           "position": "RW",
@@ -1742,12 +1742,6 @@
           "id": 8481711,
           "position": "LW",
           "birthDate": "2000-10-14"
-        },
-        {
-          "name": "Kyle MacLean",
-          "id": 8481237,
-          "position": "C",
-          "birthDate": "1999-04-29"
         },
         {
           "name": "Jean-Gabriel Pageau",
@@ -2300,12 +2294,6 @@
           "id": 8471724,
           "position": "D",
           "birthDate": "1987-04-24"
-        },
-        {
-          "name": "Ilya Solovyov",
-          "id": 8482470,
-          "position": "D",
-          "birthDate": "2000-07-20"
         },
         {
           "name": "Spencer Stastney",
@@ -2890,6 +2878,12 @@
           "birthDate": "2004-05-18"
         },
         {
+          "name": "Kyle Burroughs",
+          "id": 8477335,
+          "position": "D",
+          "birthDate": "1995-07-12"
+        },
+        {
           "name": "Kyle Capobianco",
           "id": 8478476,
           "position": "D",
@@ -2924,6 +2918,12 @@
           "id": 8474574,
           "position": "D",
           "birthDate": "1990-02-01"
+        },
+        {
+          "name": "Trey Taylor",
+          "id": 8485468,
+          "position": "D",
+          "birthDate": "2002-02-04"
         }
       ],
       "goalies": [
@@ -2938,12 +2938,6 @@
           "id": 8479979,
           "position": "G",
           "birthDate": "1998-12-18"
-        },
-        {
-          "name": "R\u00e9mi Poirier",
-          "id": 8482465,
-          "position": "G",
-          "birthDate": "2001-10-06"
         }
       ]
     },
@@ -4556,12 +4550,6 @@
           "id": 8483570,
           "position": "C",
           "birthDate": "1998-11-15"
-        },
-        {
-          "name": "Logan Morrison",
-          "id": 8483012,
-          "position": "C",
-          "birthDate": "2002-07-09"
         },
         {
           "name": "Jani Nyman",

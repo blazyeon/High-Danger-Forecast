@@ -48,12 +48,6 @@
     "injured": true
   },
   {
-    "team": "CAR",
-    "player": "Jordan Staal",
-    "status": "ir",
-    "injured": true
-  },
-  {
     "team": "CHI",
     "player": "Bowen Byram",
     "status": "ir",
@@ -63,6 +57,12 @@
     "team": "CBJ",
     "player": "Isac Lundestrom",
     "status": "ir",
+    "injured": true
+  },
+  {
+    "team": "CBJ",
+    "player": "Conor Garland",
+    "status": "out",
     "injured": true
   },
   {
@@ -86,13 +86,13 @@
   {
     "team": "COL",
     "player": "Nathan MacKinnon",
-    "status": "dtd",
+    "status": "out",
     "injured": true
   },
   {
     "team": "COL",
     "player": "Cale Makar",
-    "status": "dtd",
+    "status": "out",
     "injured": true
   },
   {
@@ -122,7 +122,7 @@
   {
     "team": "DAL",
     "player": "Lian Bichsel",
-    "status": "dtd",
+    "status": "ir",
     "injured": true
   },
   {
@@ -198,21 +198,15 @@
     "injured": true
   },
   {
-    "team": "MIN",
-    "player": "Brock Faber",
-    "status": "ir",
+    "team": "LAK",
+    "player": "Artemi Panarin",
+    "status": "dtd",
     "injured": true
   },
   {
     "team": "MIN",
     "player": "Filip Gustavsson",
     "status": "out",
-    "injured": true
-  },
-  {
-    "team": "MIN",
-    "player": "Joel Eriksson Ek",
-    "status": "dtd",
     "injured": true
   },
   {
@@ -230,6 +224,12 @@
   {
     "team": "MTL",
     "player": "Chris Kreider",
+    "status": "out",
+    "injured": true
+  },
+  {
+    "team": "MTL",
+    "player": "Mike Matheson",
     "status": "dtd",
     "injured": true
   },
@@ -378,6 +378,12 @@
     "injured": true
   },
   {
+    "team": "SJS",
+    "player": "Alexander Wennberg",
+    "status": "dtd",
+    "injured": true
+  },
+  {
     "team": "SEA",
     "player": "Jared McCann",
     "status": "ir",
@@ -387,12 +393,6 @@
     "team": "SEA",
     "player": "Jacob Melanson",
     "status": "ir",
-    "injured": true
-  },
-  {
-    "team": "SEA",
-    "player": "Ryan Lindgren",
-    "status": "out",
     "injured": true
   },
   {
@@ -426,12 +426,6 @@
     "injured": true
   },
   {
-    "team": "TBL",
-    "player": "Yanni Gourde",
-    "status": "dtd",
-    "injured": true
-  },
-  {
     "team": "TOR",
     "player": "Elvis Merzlikins",
     "status": "ir",
@@ -458,12 +452,6 @@
   {
     "team": "TOR",
     "player": "Morgan Rielly",
-    "status": "dtd",
-    "injured": true
-  },
-  {
-    "team": "TOR",
-    "player": "Chris Tanev",
     "status": "dtd",
     "injured": true
   },

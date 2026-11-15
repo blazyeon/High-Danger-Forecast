@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-14T09:00:46.641519+00:00",
+  "generated_at": "2026-11-15T01:20:40.857044+00:00",
   "players": {
     "antonsilaev": {
       "points_pg": 0.1467,
@@ -34,6 +34,17 @@
       "name": "Alex Gagne",
       "team": "COL"
     },
+    "kyleburroughs": {
+      "points_pg": 0.1711,
+      "goals_pg": 0.0244,
+      "assists_pg": 0.1467,
+      "shots_pg": 0.2716,
+      "source_league": "AHL",
+      "source_season": 20252026,
+      "source_games": 18,
+      "name": "Kyle Burroughs",
+      "team": "DAL"
+    },
     "callerosen": {
       "points_pg": 0.2236,
       "goals_pg": 0.0577,
@@ -55,28 +66,6 @@
       "source_games": 11,
       "name": "Gregor Biber",
       "team": "UTA"
-    },
-    "jaggerfirkus": {
-      "points_pg": 0.44,
-      "goals_pg": 0.1467,
-      "assists_pg": 0.2933,
-      "shots_pg": 1.6296,
-      "source_league": "AHL",
-      "source_season": 20262027,
-      "source_games": 12,
-      "name": "Jagger Firkus",
-      "team": "SEA"
-    },
-    "loganmorrison": {
-      "points_pg": 0.3947,
-      "goals_pg": 0.1876,
-      "assists_pg": 0.2071,
-      "shots_pg": 2.085,
-      "source_league": "AHL",
-      "source_season": 20252026,
-      "source_games": 68,
-      "name": "Logan Morrison",
-      "team": "SEA"
     },
     "jakeobrien": {
       "points_pg": 0.4738,
