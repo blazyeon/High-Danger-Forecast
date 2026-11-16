@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-15T09:19:21.237239+00:00",
+  "generated_at": "2026-11-16T01:26:49.851339+00:00",
   "teams": {
     "BOS": {
       "skaters": [
@@ -628,6 +628,12 @@
           "birthDate": "2004-02-03"
         },
         {
+          "name": "Brett Berard",
+          "id": 8482132,
+          "position": "LW",
+          "birthDate": "2002-09-09"
+        },
+        {
           "name": "Zachary Bolduc",
           "id": 8482737,
           "position": "RW",
@@ -740,6 +746,12 @@
           "id": 8476875,
           "position": "D",
           "birthDate": "1994-02-27"
+        },
+        {
+          "name": "David Reinbacher",
+          "id": 8484220,
+          "position": "D",
+          "birthDate": "2004-10-25"
         },
         {
           "name": "Arber Xhekaj",
@@ -2756,6 +2768,12 @@
           "id": 8476312,
           "position": "D",
           "birthDate": "1991-10-07"
+        },
+        {
+          "name": "Mike Reilly",
+          "id": 8476422,
+          "position": "D",
+          "birthDate": "1993-07-13"
         },
         {
           "name": "Devon Toews",
@@ -4798,6 +4816,12 @@
           "id": 8482447,
           "position": "G",
           "birthDate": "2002-08-13"
+        },
+        {
+          "name": "Nikita Tolopilo",
+          "id": 8484268,
+          "position": "G",
+          "birthDate": "2000-04-06"
         }
       ]
     },
