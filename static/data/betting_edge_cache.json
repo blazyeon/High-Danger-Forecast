@@ -15215,9 +15215,9 @@
     },
     "2026-11-16": {
       "date": "2026-11-16",
-      "computed_at": "2026-11-16T01:26:02.402864+00:00",
+      "computed_at": "2026-11-16T09:34:04.673464+00:00",
       "source": "sharpapi",
-      "odds_fetched_at": "2026-11-16T01:25:52.112756+00:00",
+      "odds_fetched_at": "2026-11-16T09:33:57.459772+00:00",
       "warning": null,
       "no_games": false,
       "scanned": 2,
@@ -15231,8 +15231,20 @@
           "home_name": "Mammoth",
           "away_name": "Canucks",
           "start_time": "2026-11-17T02:30:00Z",
-          "best_edge": 0.1114,
+          "best_edge": 0.1353,
           "edges": [
+            {
+              "market": "Total 6.5",
+              "side": "Under",
+              "pick": "Under",
+              "team": null,
+              "odds": -108,
+              "odds_decimal": 1.925925925925926,
+              "model_prob": 0.631,
+              "implied_prob": 0.4957,
+              "edge": 0.1353,
+              "book": "draftkings"
+            },
             {
               "market": "Puck Line (1.5)",
               "side": "VAN Canucks",
@@ -15240,21 +15252,9 @@
               "team": "VAN",
               "odds": 114,
               "odds_decimal": 2.1399999999999997,
-              "model_prob": 0.56,
+              "model_prob": 0.565,
               "implied_prob": 0.4486,
-              "edge": 0.1114,
-              "book": "draftkings"
-            },
-            {
-              "market": "Total 6.5",
-              "side": "Under",
-              "pick": "Under",
-              "team": null,
-              "odds": -115,
-              "odds_decimal": 1.8695652173913042,
-              "model_prob": 0.622,
-              "implied_prob": 0.5108,
-              "edge": 0.1112,
+              "edge": 0.1164,
               "book": "draftkings"
             },
             {
@@ -15264,9 +15264,9 @@
               "team": "UTA",
               "odds": -340,
               "odds_decimal": 1.2941176470588236,
-              "model_prob": 0.63,
+              "model_prob": 0.629,
               "implied_prob": 0.7409,
-              "edge": -0.1109,
+              "edge": -0.1119,
               "book": "draftkings"
             }
           ]
@@ -15277,42 +15277,42 @@
           "home_name": "Rangers",
           "away_name": "Canadiens",
           "start_time": "2026-11-17T00:30:00Z",
-          "best_edge": 0.087,
+          "best_edge": 0.1086,
           "edges": [
             {
-              "market": "Puck Line (-1.5)",
-              "side": "NY Rangers",
-              "pick": "NY Rangers",
+              "market": "Puck Line (1.5)",
+              "side": "New York Rangers",
+              "pick": "New York Rangers",
               "team": "NYR",
-              "odds": 225,
-              "odds_decimal": 3.25,
-              "model_prob": 0.382,
-              "implied_prob": 0.295,
-              "edge": 0.087,
-              "book": "draftkings"
+              "odds": -265,
+              "odds_decimal": 1.3773584905660377,
+              "model_prob": 0.801,
+              "implied_prob": 0.6924,
+              "edge": 0.1086,
+              "book": "fanduel"
             },
             {
               "market": "Total 6.5",
               "side": "Under",
               "pick": "Under",
               "team": null,
-              "odds": -135,
-              "odds_decimal": 1.7407407407407407,
-              "model_prob": 0.59,
+              "odds": -138,
+              "odds_decimal": 1.7246376811594204,
+              "model_prob": 0.613,
               "implied_prob": 0.5514,
-              "edge": 0.0386,
-              "book": "draftkings"
+              "edge": 0.0616,
+              "book": "fanduel"
             },
             {
               "market": "Moneyline",
-              "side": "Montreal Canadiens",
-              "pick": "Montreal Canadiens",
-              "team": "MTL",
-              "odds": -110,
-              "odds_decimal": 1.9090909090909092,
-              "model_prob": 0.501,
-              "implied_prob": 0.5,
-              "edge": 0.001,
+              "side": "New York Rangers",
+              "pick": "New York Rangers",
+              "team": "NYR",
+              "odds": -105,
+              "odds_decimal": 1.9523809523809523,
+              "model_prob": 0.513,
+              "implied_prob": 0.4902,
+              "edge": 0.0228,
               "book": "fanduel"
             }
           ]

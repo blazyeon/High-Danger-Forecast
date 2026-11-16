@@ -402,6 +402,12 @@
     "injured": true
   },
   {
+    "team": "SJS",
+    "player": "Kiefer Sherwood",
+    "status": "dtd",
+    "injured": true
+  },
+  {
     "team": "SEA",
     "player": "Jared McCann",
     "status": "ir",

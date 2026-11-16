@@ -1,6 +1,6 @@
 {
   "source": "daily_faceoff",
-  "updated_at": "2026-11-16T00:42:17.342Z",
+  "updated_at": "2026-11-16T05:50:39.685Z",
   "teams": {
     "ANA": {
       "pp1": [
@@ -17,7 +17,7 @@
         "Troy Terry",
         "Tristan Luneau"
       ],
-      "updated_at": "2026-11-16T00:40:21.403Z",
+      "updated_at": "2026-11-16T01:50:37.512Z",
       "source": "Derek Lee"
     },
     "BOS": {
@@ -413,8 +413,8 @@
         "Dmitry Orlov",
         "Will Smith"
       ],
-      "updated_at": "2026-11-15T13:24:49.242Z",
-      "source": "Last Game (11-14-26)"
+      "updated_at": "2026-11-16T05:50:39.685Z",
+      "source": "Sheng Peng"
     },
     "SEA": {
       "pp1": [
@@ -521,8 +521,8 @@
         "Zeev Buium",
         "Marco Rossi"
       ],
-      "updated_at": "2026-11-15T18:10:14.215Z",
-      "source": "Dan Murphy"
+      "updated_at": "2026-11-16T01:41:44.808Z",
+      "source": "Brendan Batchelor"
     },
     "VGK": {
       "pp1": [
@@ -539,8 +539,8 @@
         "Rasmus Andersson",
         "Shea Theodore"
       ],
-      "updated_at": "2026-11-15T01:35:58.617Z",
-      "source": "Danny Webster"
+      "updated_at": "2026-11-16T01:40:42.415Z",
+      "source": "Sin Bin Vegas"
     },
     "WSH": {
       "pp1": [
