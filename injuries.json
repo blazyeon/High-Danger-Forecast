@@ -48,6 +48,18 @@
     "injured": true
   },
   {
+    "team": "CHI",
+    "player": "Cole Smith",
+    "status": "dtd",
+    "injured": true
+  },
+  {
+    "team": "CHI",
+    "player": "Tyler Bertuzzi",
+    "status": "dtd",
+    "injured": true
+  },
+  {
     "team": "CBJ",
     "player": "Isac Lundestrom",
     "status": "ir",
@@ -117,6 +129,12 @@
     "team": "DAL",
     "player": "Lian Bichsel",
     "status": "ir",
+    "injured": true
+  },
+  {
+    "team": "DAL",
+    "player": "Tyler Myers",
+    "status": "dtd",
     "injured": true
   },
   {
@@ -201,6 +219,12 @@
     "team": "LAK",
     "player": "Artemi Panarin",
     "status": "dtd",
+    "injured": true
+  },
+  {
+    "team": "MIN",
+    "player": "Olli Maatta",
+    "status": "ir",
     "injured": true
   },
   {
@@ -300,12 +324,6 @@
     "injured": true
   },
   {
-    "team": "NYI",
-    "player": "Bo Horvat",
-    "status": "dtd",
-    "injured": true
-  },
-  {
     "team": "NYR",
     "player": "Igor Shesterkin",
     "status": "ir",
@@ -333,6 +351,12 @@
     "team": "NYR",
     "player": "Alberts Smits",
     "status": "ir",
+    "injured": true
+  },
+  {
+    "team": "NYR",
+    "player": "Pavel Dorofeyev",
+    "status": "dtd",
     "injured": true
   },
   {
@@ -505,13 +529,13 @@
   },
   {
     "team": "UTA",
-    "player": "Logan Cooley",
+    "player": "Nick Schmaltz",
     "status": "dtd",
     "injured": true
   },
   {
     "team": "UTA",
-    "player": "Nick Schmaltz",
+    "player": "Artem Duda",
     "status": "dtd",
     "injured": true
   },
@@ -560,6 +584,12 @@
   {
     "team": "WPG",
     "player": "Elias Salomonsson",
+    "status": "dtd",
+    "injured": true
+  },
+  {
+    "team": "WPG",
+    "player": "Kyle Connor",
     "status": "dtd",
     "injured": true
   }

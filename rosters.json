@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-16T09:34:46.972668+00:00",
+  "generated_at": "2026-11-17T04:14:05.659367+00:00",
   "teams": {
     "BOS": {
       "skaters": [
@@ -3346,6 +3346,12 @@
           "birthDate": "1999-06-25"
         },
         {
+          "name": "Nathan Walker",
+          "id": 8477573,
+          "position": "LW",
+          "birthDate": "1994-02-07"
+        },
+        {
           "name": "Justin Barron",
           "id": 8482111,
           "position": "D",
@@ -3466,6 +3472,12 @@
           "birthDate": "2000-01-06"
         },
         {
+          "name": "Ben McCartney",
+          "id": 8481827,
+          "position": "LW",
+          "birthDate": "2001-07-13"
+        },
+        {
           "name": "Liam O'Brien",
           "id": 8477070,
           "position": "C",
@@ -3496,16 +3508,22 @@
           "birthDate": "1998-09-29"
         },
         {
-          "name": "Gregor Biber",
-          "id": 8485010,
-          "position": "D",
-          "birthDate": "2006-08-09"
-        },
-        {
           "name": "Nick DeSimone",
           "id": 8480084,
           "position": "D",
           "birthDate": "1994-11-21"
+        },
+        {
+          "name": "Artem Duda",
+          "id": 8483436,
+          "position": "D",
+          "birthDate": "2004-04-08"
+        },
+        {
+          "name": "Zac Jones",
+          "id": 8481708,
+          "position": "D",
+          "birthDate": "2000-10-18"
         },
         {
           "name": "Maveric Lamoureux",
@@ -3958,12 +3976,6 @@
           "birthDate": "1993-07-11"
         },
         {
-          "name": "William Stromgren",
-          "id": 8482766,
-          "position": "LW",
-          "birthDate": "2003-06-07"
-        },
-        {
           "name": "Aydar Suniev",
           "id": 8484234,
           "position": "LW",
@@ -4076,12 +4088,6 @@
           "id": 8480842,
           "position": "C",
           "birthDate": "2000-06-29"
-        },
-        {
-          "name": "Isaac Howard",
-          "id": 8483455,
-          "position": "LW",
-          "birthDate": "2004-03-30"
         },
         {
           "name": "Zach Hyman",
