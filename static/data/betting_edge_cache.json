@@ -15843,9 +15843,9 @@
     },
     "2026-11-18": {
       "date": "2026-11-18",
-      "computed_at": "2026-11-18T03:11:03.887895+00:00",
+      "computed_at": "2026-11-18T10:07:09.580013+00:00",
       "source": "sharpapi",
-      "odds_fetched_at": "2026-11-18T03:10:49.485814+00:00",
+      "odds_fetched_at": "2026-11-18T10:06:56.887941+00:00",
       "warning": null,
       "no_games": false,
       "scanned": 3,
@@ -15859,18 +15859,18 @@
           "home_name": "Mammoth",
           "away_name": "Avalanche",
           "start_time": "2026-11-19T03:00:00Z",
-          "best_edge": 0.1108,
+          "best_edge": 0.1314,
           "edges": [
             {
               "market": "Puck Line (-1.5)",
               "side": "Utah Mammoth",
               "pick": "Utah Mammoth",
               "team": "UTA",
-              "odds": 205,
-              "odds_decimal": 3.05,
-              "model_prob": 0.423,
-              "implied_prob": 0.3122,
-              "edge": 0.1108,
+              "odds": 210,
+              "odds_decimal": 3.1,
+              "model_prob": 0.439,
+              "implied_prob": 0.3076,
+              "edge": 0.1314,
               "book": "fanduel"
             },
             {
@@ -15878,11 +15878,11 @@
               "side": "Under",
               "pick": "Under",
               "team": null,
-              "odds": -114,
-              "odds_decimal": 1.8771929824561404,
-              "model_prob": 0.556,
-              "implied_prob": 0.5087,
-              "edge": 0.0473,
+              "odds": -118,
+              "odds_decimal": 1.847457627118644,
+              "model_prob": 0.564,
+              "implied_prob": 0.515,
+              "edge": 0.049,
               "book": "fanduel"
             },
             {
@@ -15890,11 +15890,11 @@
               "side": "Utah Mammoth",
               "pick": "Utah Mammoth",
               "team": "UTA",
-              "odds": -115,
-              "odds_decimal": 1.8695652173913042,
-              "model_prob": 0.524,
-              "implied_prob": 0.512,
-              "edge": 0.012,
+              "odds": -118,
+              "odds_decimal": 1.847457627118644,
+              "model_prob": 0.526,
+              "implied_prob": 0.5174,
+              "edge": 0.0086,
               "book": "fanduel"
             }
           ]
@@ -15936,11 +15936,11 @@
               "side": "Detroit Red Wings",
               "pick": "Detroit Red Wings",
               "team": "DET",
-              "odds": 198,
-              "odds_decimal": 2.98,
+              "odds": 210,
+              "odds_decimal": 3.1,
               "model_prob": 0.34,
-              "implied_prob": 0.3196,
-              "edge": 0.0204,
+              "implied_prob": 0.3076,
+              "edge": 0.0324,
               "book": "fanduel"
             }
           ]
@@ -15951,30 +15951,30 @@
           "home_name": "Devils",
           "away_name": "Canadiens",
           "start_time": "2026-11-19T00:30:00Z",
-          "best_edge": 0.0252,
+          "best_edge": 0.0638,
           "edges": [
-            {
-              "market": "Total 5.5",
-              "side": "Under",
-              "pick": "Under",
-              "team": null,
-              "odds": 114,
-              "odds_decimal": 2.1399999999999997,
-              "model_prob": 0.47,
-              "implied_prob": 0.4448,
-              "edge": 0.0252,
-              "book": "fanduel"
-            },
             {
               "market": "Puck Line (-1.5)",
               "side": "New Jersey Devils",
               "pick": "New Jersey Devils",
               "team": "NJD",
-              "odds": 138,
-              "odds_decimal": 2.38,
-              "model_prob": 0.422,
-              "implied_prob": 0.4002,
-              "edge": 0.0218,
+              "odds": 140,
+              "odds_decimal": 2.4,
+              "model_prob": 0.461,
+              "implied_prob": 0.3972,
+              "edge": 0.0638,
+              "book": "fanduel"
+            },
+            {
+              "market": "Total 5.5",
+              "side": "Over",
+              "pick": "Over",
+              "team": null,
+              "odds": -140,
+              "odds_decimal": 1.7142857142857144,
+              "model_prob": 0.561,
+              "implied_prob": 0.5552,
+              "edge": 0.0058,
               "book": "fanduel"
             },
             {
@@ -15984,9 +15984,9 @@
               "team": "NJD",
               "odds": -162,
               "odds_decimal": 1.617283950617284,
-              "model_prob": 0.55,
+              "model_prob": 0.57,
               "implied_prob": 0.5934,
-              "edge": -0.0434,
+              "edge": -0.0234,
               "book": "draftkings"
             }
           ]
