@@ -15840,6 +15840,159 @@
         }
       ],
       "no_odds_games": []
+    },
+    "2026-11-18": {
+      "date": "2026-11-18",
+      "computed_at": "2026-11-18T03:11:03.887895+00:00",
+      "source": "sharpapi",
+      "odds_fetched_at": "2026-11-18T03:10:49.485814+00:00",
+      "warning": null,
+      "no_games": false,
+      "scanned": 3,
+      "matched": 3,
+      "with_edges": 3,
+      "dropped": 0,
+      "games": [
+        {
+          "home": "UTA",
+          "away": "COL",
+          "home_name": "Mammoth",
+          "away_name": "Avalanche",
+          "start_time": "2026-11-19T03:00:00Z",
+          "best_edge": 0.1108,
+          "edges": [
+            {
+              "market": "Puck Line (-1.5)",
+              "side": "Utah Mammoth",
+              "pick": "Utah Mammoth",
+              "team": "UTA",
+              "odds": 205,
+              "odds_decimal": 3.05,
+              "model_prob": 0.423,
+              "implied_prob": 0.3122,
+              "edge": 0.1108,
+              "book": "fanduel"
+            },
+            {
+              "market": "Total 6.5",
+              "side": "Under",
+              "pick": "Under",
+              "team": null,
+              "odds": -114,
+              "odds_decimal": 1.8771929824561404,
+              "model_prob": 0.556,
+              "implied_prob": 0.5087,
+              "edge": 0.0473,
+              "book": "fanduel"
+            },
+            {
+              "market": "Moneyline",
+              "side": "Utah Mammoth",
+              "pick": "Utah Mammoth",
+              "team": "UTA",
+              "odds": -115,
+              "odds_decimal": 1.8695652173913042,
+              "model_prob": 0.524,
+              "implied_prob": 0.512,
+              "edge": 0.012,
+              "book": "fanduel"
+            }
+          ]
+        },
+        {
+          "home": "DET",
+          "away": "BOS",
+          "home_name": "Red Wings",
+          "away_name": "Bruins",
+          "start_time": "2026-11-19T00:30:00Z",
+          "best_edge": 0.0794,
+          "edges": [
+            {
+              "market": "Moneyline",
+              "side": "Boston Bruins",
+              "pick": "Boston Bruins",
+              "team": "BOS",
+              "odds": -102,
+              "odds_decimal": 1.9803921568627452,
+              "model_prob": 0.562,
+              "implied_prob": 0.4826,
+              "edge": 0.0794,
+              "book": "fanduel"
+            },
+            {
+              "market": "Total 5.5",
+              "side": "Under",
+              "pick": "Under",
+              "team": null,
+              "odds": 110,
+              "odds_decimal": 2.1,
+              "model_prob": 0.488,
+              "implied_prob": 0.454,
+              "edge": 0.034,
+              "book": "fanduel"
+            },
+            {
+              "market": "Puck Line (-1.5)",
+              "side": "Detroit Red Wings",
+              "pick": "Detroit Red Wings",
+              "team": "DET",
+              "odds": 198,
+              "odds_decimal": 2.98,
+              "model_prob": 0.34,
+              "implied_prob": 0.3196,
+              "edge": 0.0204,
+              "book": "fanduel"
+            }
+          ]
+        },
+        {
+          "home": "NJD",
+          "away": "MTL",
+          "home_name": "Devils",
+          "away_name": "Canadiens",
+          "start_time": "2026-11-19T00:30:00Z",
+          "best_edge": 0.0252,
+          "edges": [
+            {
+              "market": "Total 5.5",
+              "side": "Under",
+              "pick": "Under",
+              "team": null,
+              "odds": 114,
+              "odds_decimal": 2.1399999999999997,
+              "model_prob": 0.47,
+              "implied_prob": 0.4448,
+              "edge": 0.0252,
+              "book": "fanduel"
+            },
+            {
+              "market": "Puck Line (-1.5)",
+              "side": "New Jersey Devils",
+              "pick": "New Jersey Devils",
+              "team": "NJD",
+              "odds": 138,
+              "odds_decimal": 2.38,
+              "model_prob": 0.422,
+              "implied_prob": 0.4002,
+              "edge": 0.0218,
+              "book": "fanduel"
+            },
+            {
+              "market": "Moneyline",
+              "side": "New Jersey Devils",
+              "pick": "New Jersey Devils",
+              "team": "NJD",
+              "odds": -162,
+              "odds_decimal": 1.617283950617284,
+              "model_prob": 0.55,
+              "implied_prob": 0.5934,
+              "edge": -0.0434,
+              "book": "draftkings"
+            }
+          ]
+        }
+      ],
+      "no_odds_games": []
     }
   }
 }

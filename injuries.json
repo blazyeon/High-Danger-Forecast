@@ -12,6 +12,12 @@
     "injured": true
   },
   {
+    "team": "ANA",
+    "player": "Beckett Sennecke",
+    "status": "dtd",
+    "injured": true
+  },
+  {
     "team": "BOS",
     "player": "James Hagens",
     "status": "ir",
@@ -27,12 +33,6 @@
     "team": "BUF",
     "player": "Konsta Helenius",
     "status": "dtd",
-    "injured": true
-  },
-  {
-    "team": "CGY",
-    "player": "Jonathan Huberdeau",
-    "status": "ir",
     "injured": true
   },
   {
@@ -121,12 +121,6 @@
   },
   {
     "team": "DAL",
-    "player": "Miro Heiskanen",
-    "status": "dtd",
-    "injured": true
-  },
-  {
-    "team": "DAL",
     "player": "Lian Bichsel",
     "status": "ir",
     "injured": true
@@ -181,12 +175,6 @@
   },
   {
     "team": "EDM",
-    "player": "Isaac Howard",
-    "status": "ir",
-    "injured": true
-  },
-  {
-    "team": "EDM",
     "player": "Ryan Nugent-Hopkins",
     "status": "out",
     "injured": true
@@ -207,12 +195,6 @@
     "team": "FLA",
     "player": "Brad Marchand",
     "status": "ir",
-    "injured": true
-  },
-  {
-    "team": "LAK",
-    "player": "Erik Gustafsson",
-    "status": "dtd",
     "injured": true
   },
   {
@@ -270,12 +252,6 @@
     "injured": true
   },
   {
-    "team": "NSH",
-    "player": "Jonathan Marchessault",
-    "status": "dtd",
-    "injured": true
-  },
-  {
     "team": "NJD",
     "player": "Seamus Casey",
     "status": "ir",
@@ -291,12 +267,6 @@
     "team": "NJD",
     "player": "Johnathan Kovacevic",
     "status": "out",
-    "injured": true
-  },
-  {
-    "team": "NJD",
-    "player": "Brett Pesce",
-    "status": "dtd",
     "injured": true
   },
   {
@@ -390,12 +360,6 @@
     "injured": true
   },
   {
-    "team": "PHI",
-    "player": "Denver Barkey",
-    "status": "out",
-    "injured": true
-  },
-  {
     "team": "PIT",
     "player": "Trevor van Riemsdyk",
     "status": "ir",
@@ -421,14 +385,8 @@
   },
   {
     "team": "SJS",
-    "player": "Alexander Wennberg",
-    "status": "dtd",
-    "injured": true
-  },
-  {
-    "team": "SJS",
     "player": "Kiefer Sherwood",
-    "status": "dtd",
+    "status": "out",
     "injured": true
   },
   {
@@ -457,26 +415,20 @@
   },
   {
     "team": "STL",
-    "player": "Philip Broberg",
+    "player": "Ross Johnston",
     "status": "dtd",
     "injured": true
   },
   {
     "team": "TBL",
-    "player": "Brayden Point",
-    "status": "out",
-    "injured": true
-  },
-  {
-    "team": "TBL",
-    "player": "Anthony Cirelli",
+    "player": "Brandon Hagel",
     "status": "dtd",
     "injured": true
   },
   {
     "team": "TBL",
-    "player": "Erik Cernak",
-    "status": "dtd",
+    "player": "Conor Geekie",
+    "status": "ir",
     "injured": true
   },
   {
@@ -584,12 +536,6 @@
   {
     "team": "WPG",
     "player": "Elias Salomonsson",
-    "status": "dtd",
-    "injured": true
-  },
-  {
-    "team": "WPG",
-    "player": "Kyle Connor",
     "status": "dtd",
     "injured": true
   }
