@@ -115,7 +115,7 @@
   },
   {
     "team": "COL",
-    "player": "Scott Wedgewood",
+    "player": "Gavin Brindley",
     "status": "dtd",
     "injured": true
   },
@@ -267,6 +267,12 @@
     "team": "MTL",
     "player": "Mike Matheson",
     "status": "out",
+    "injured": true
+  },
+  {
+    "team": "MTL",
+    "player": "Zack Bolduc",
+    "status": "dtd",
     "injured": true
   },
   {
