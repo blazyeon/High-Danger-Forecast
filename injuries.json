@@ -12,12 +12,6 @@
     "injured": true
   },
   {
-    "team": "ANA",
-    "player": "Beckett Sennecke",
-    "status": "dtd",
-    "injured": true
-  },
-  {
     "team": "BOS",
     "player": "James Hagens",
     "status": "ir",
@@ -69,12 +63,6 @@
     "team": "CHI",
     "player": "Connor Bedard",
     "status": "out",
-    "injured": true
-  },
-  {
-    "team": "CBJ",
-    "player": "Isac Lundestrom",
-    "status": "ir",
     "injured": true
   },
   {
@@ -228,6 +216,12 @@
     "injured": true
   },
   {
+    "team": "LAK",
+    "player": "Trevor Moore",
+    "status": "dtd",
+    "injured": true
+  },
+  {
     "team": "MIN",
     "player": "Olli Maatta",
     "status": "ir",
@@ -237,6 +231,12 @@
     "team": "MIN",
     "player": "Filip Gustavsson",
     "status": "ir",
+    "injured": true
+  },
+  {
+    "team": "MIN",
+    "player": "Yakov Trenin",
+    "status": "dtd",
     "injured": true
   },
   {
@@ -303,18 +303,6 @@
     "team": "NYI",
     "player": "Alexander Romanov",
     "status": "ir",
-    "injured": true
-  },
-  {
-    "team": "NYI",
-    "player": "Calum Ritchie",
-    "status": "ir",
-    "injured": true
-  },
-  {
-    "team": "NYI",
-    "player": "Jean-Gabriel Pageau",
-    "status": "dtd",
     "injured": true
   },
   {
@@ -439,12 +427,6 @@
   },
   {
     "team": "SEA",
-    "player": "Jacob Melanson",
-    "status": "ir",
-    "injured": true
-  },
-  {
-    "team": "SEA",
     "player": "Curtis Douglas",
     "status": "ir",
     "injured": true
@@ -476,7 +458,7 @@
   {
     "team": "TBL",
     "player": "Brandon Hagel",
-    "status": "dtd",
+    "status": "ir",
     "injured": true
   },
   {
@@ -543,12 +525,6 @@
     "team": "UTA",
     "player": "Dylan Guenther",
     "status": "ir",
-    "injured": true
-  },
-  {
-    "team": "UTA",
-    "player": "Mikhail Sergachev",
-    "status": "dtd",
     "injured": true
   },
   {

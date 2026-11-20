@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-19T10:17:08.295973+00:00",
+  "generated_at": "2026-11-20T02:39:09.193012+00:00",
   "teams": {
     "BOS": {
       "skaters": [
@@ -968,6 +968,12 @@
           "id": 8479542,
           "position": "LW",
           "birthDate": "1998-08-27"
+        },
+        {
+          "name": "Jansen Harkins",
+          "id": 8478424,
+          "position": "C",
+          "birthDate": "1997-05-23"
         },
         {
           "name": "Pontus Holmberg",
@@ -2638,6 +2644,12 @@
     "COL": {
       "skaters": [
         {
+          "name": "Adam Beckman",
+          "id": 8481550,
+          "position": "LW",
+          "birthDate": "2001-05-10"
+        },
+        {
           "name": "Gavin Brindley",
           "id": 8484149,
           "position": "C",
@@ -3008,6 +3020,12 @@
           "id": 8477446,
           "position": "C",
           "birthDate": "1995-03-07"
+        },
+        {
+          "name": "Tyler Pitlick",
+          "id": 8475752,
+          "position": "C",
+          "birthDate": "1991-11-01"
         },
         {
           "name": "Maxim Shabanov",
@@ -3500,12 +3518,6 @@
           "id": 8479977,
           "position": "RW",
           "birthDate": "1998-09-29"
-        },
-        {
-          "name": "Gregor Biber",
-          "id": 8485010,
-          "position": "D",
-          "birthDate": "2006-08-09"
         },
         {
           "name": "Nick DeSimone",
