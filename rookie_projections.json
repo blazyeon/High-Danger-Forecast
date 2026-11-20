@@ -1,17 +1,6 @@
 {
-  "generated_at": "2026-11-20T02:39:09.196951+00:00",
+  "generated_at": "2026-11-20T10:04:07.400136+00:00",
   "players": {
-    "adambeckman": {
-      "points_pg": 0.33,
-      "goals_pg": 0.1941,
-      "assists_pg": 0.1359,
-      "shots_pg": 2.1569,
-      "source_league": "AHL",
-      "source_season": 20252026,
-      "source_games": 68,
-      "name": "Adam Beckman",
-      "team": "COL"
-    },
     "callerosen": {
       "points_pg": 0.2236,
       "goals_pg": 0.0577,

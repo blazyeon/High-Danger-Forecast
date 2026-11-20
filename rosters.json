@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-20T02:39:09.193012+00:00",
+  "generated_at": "2026-11-20T10:04:07.394722+00:00",
   "teams": {
     "BOS": {
       "skaters": [
@@ -4598,12 +4598,6 @@
           "id": 8483570,
           "position": "C",
           "birthDate": "1998-11-15"
-        },
-        {
-          "name": "Jani Nyman",
-          "id": 8483497,
-          "position": "RW",
-          "birthDate": "2004-07-30"
         },
         {
           "name": "Jake O'Brien",
