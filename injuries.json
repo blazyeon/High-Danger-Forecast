@@ -145,12 +145,6 @@
   },
   {
     "team": "DET",
-    "player": "Albert Johansson",
-    "status": "ir",
-    "injured": true
-  },
-  {
-    "team": "DET",
     "player": "William Wallinder",
     "status": "dtd",
     "injured": true
