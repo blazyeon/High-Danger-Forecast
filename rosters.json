@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-20T10:04:07.394722+00:00",
+  "generated_at": "2026-11-21T02:52:11.217505+00:00",
   "teams": {
     "BOS": {
       "skaters": [
@@ -796,6 +796,18 @@
           "birthDate": "1998-04-27"
         },
         {
+          "name": "Sammy Blais",
+          "id": 8478104,
+          "position": "LW",
+          "birthDate": "1996-06-17"
+        },
+        {
+          "name": "Tyler Boucher",
+          "id": 8482674,
+          "position": "RW",
+          "birthDate": "2003-01-16"
+        },
+        {
           "name": "Andre Burakovsky",
           "id": 8477444,
           "position": "LW",
@@ -860,6 +872,12 @@
           "id": 8482116,
           "position": "C",
           "birthDate": "2002-01-15"
+        },
+        {
+          "name": "Philip Tomasino",
+          "id": 8481577,
+          "position": "RW",
+          "birthDate": "2001-07-28"
         },
         {
           "name": "Fabian Zetterlund",
@@ -1688,12 +1706,6 @@
           "id": 8478399,
           "position": "D",
           "birthDate": "1997-05-06"
-        },
-        {
-          "name": "Anton Silaev",
-          "id": 8484987,
-          "position": "D",
-          "birthDate": "2006-04-11"
         }
       ],
       "goalies": [
@@ -1928,6 +1940,12 @@
           "id": 8484210,
           "position": "RW",
           "birthDate": "2005-05-07"
+        },
+        {
+          "name": "Taylor Raddysh",
+          "id": 8479390,
+          "position": "RW",
+          "birthDate": "1998-02-18"
         },
         {
           "name": "Matt Rempe",
@@ -2204,6 +2222,12 @@
           "id": 8480980,
           "position": "C",
           "birthDate": "1999-06-26"
+        },
+        {
+          "name": "Avery Hayes",
+          "id": 8482993,
+          "position": "RW",
+          "birthDate": "2002-10-10"
         },
         {
           "name": "Ben Kindel",
@@ -2644,12 +2668,6 @@
     "COL": {
       "skaters": [
         {
-          "name": "Adam Beckman",
-          "id": 8481550,
-          "position": "LW",
-          "birthDate": "2001-05-10"
-        },
-        {
           "name": "Gavin Brindley",
           "id": 8484149,
           "position": "C",
@@ -2738,12 +2756,6 @@
           "id": 8470613,
           "position": "D",
           "birthDate": "1985-03-09"
-        },
-        {
-          "name": "Alex Gagne",
-          "id": 8482942,
-          "position": "D",
-          "birthDate": "2002-08-12"
         },
         {
           "name": "Noah Juulsen",
@@ -3020,12 +3032,6 @@
           "id": 8477446,
           "position": "C",
           "birthDate": "1995-03-07"
-        },
-        {
-          "name": "Tyler Pitlick",
-          "id": 8475752,
-          "position": "C",
-          "birthDate": "1991-11-01"
         },
         {
           "name": "Maxim Shabanov",
@@ -3890,6 +3896,12 @@
           "id": 8482178,
           "position": "D",
           "birthDate": "2002-01-04"
+        },
+        {
+          "name": "Stian Solberg",
+          "id": 8484859,
+          "position": "D",
+          "birthDate": "2005-12-29"
         },
         {
           "name": "Noah Warren",
@@ -4934,6 +4946,12 @@
           "id": 8479639,
           "position": "D",
           "birthDate": "1998-02-19"
+        },
+        {
+          "name": "Lukas Cormier",
+          "id": 8482141,
+          "position": "D",
+          "birthDate": "2002-03-27"
         },
         {
           "name": "Noah Hanifin",

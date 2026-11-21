@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-20T10:04:07.400136+00:00",
+  "generated_at": "2026-11-21T02:52:11.220184+00:00",
   "players": {
     "callerosen": {
       "points_pg": 0.2236,
@@ -22,6 +22,17 @@
       "source_games": 53,
       "name": "Jake O'Brien",
       "team": "SEA"
+    },
+    "lukascormier": {
+      "points_pg": 0.422,
+      "goals_pg": 0.0718,
+      "assists_pg": 0.3502,
+      "shots_pg": 0.7982,
+      "source_league": "AHL",
+      "source_season": 20252026,
+      "source_games": 49,
+      "name": "Lukas Cormier",
+      "team": "VGK"
     }
   }
 }

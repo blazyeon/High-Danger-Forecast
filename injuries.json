@@ -36,12 +36,6 @@
     "injured": true
   },
   {
-    "team": "BUF",
-    "player": "Mattias Samuelsson",
-    "status": "dtd",
-    "injured": true
-  },
-  {
     "team": "CGY",
     "player": "Kevin Bahl",
     "status": "ir",
@@ -229,12 +223,6 @@
   },
   {
     "team": "MIN",
-    "player": "Filip Gustavsson",
-    "status": "ir",
-    "injured": true
-  },
-  {
-    "team": "MIN",
     "player": "Yakov Trenin",
     "status": "dtd",
     "injured": true
@@ -348,6 +336,12 @@
     "injured": true
   },
   {
+    "team": "NYR",
+    "player": "Oliver Bjorkstrand",
+    "status": "dtd",
+    "injured": true
+  },
+  {
     "team": "OTT",
     "player": "William Eklund",
     "status": "ir",
@@ -402,6 +396,18 @@
     "injured": true
   },
   {
+    "team": "PIT",
+    "player": "Nicholas Robertson",
+    "status": "ir",
+    "injured": true
+  },
+  {
+    "team": "PIT",
+    "player": "Evgeni Malkin",
+    "status": "dtd",
+    "injured": true
+  },
+  {
     "team": "SJS",
     "player": "Igor Chernyshov",
     "status": "ir",
@@ -446,6 +452,12 @@
   {
     "team": "STL",
     "player": "Ross Johnston",
+    "status": "dtd",
+    "injured": true
+  },
+  {
+    "team": "STL",
+    "player": "Connor McMichael",
     "status": "dtd",
     "injured": true
   },
@@ -561,6 +573,12 @@
     "team": "WSH",
     "player": "Vincent Desharnais",
     "status": "ir",
+    "injured": true
+  },
+  {
+    "team": "WSH",
+    "player": "Cole Hutson",
+    "status": "dtd",
     "injured": true
   },
   {

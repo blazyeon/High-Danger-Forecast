@@ -334,12 +334,12 @@
       "goals": 1,
       "assists": 1,
       "points": 2,
-      "shots": 6,
+      "shots": 7,
       "gpg": 0.3333333333333333,
       "apg": 0.3333333333333333,
       "ppg": 0.6666666666666666,
-      "sogpg": 2.0,
-      "sh_pct": 0.16666666666666666,
+      "sogpg": 2.3333333333333335,
+      "sh_pct": 0.14285714285714285,
       "plus_minus": 0,
       "pim": 2,
       "toi_pg": 17.205555,
@@ -351,7 +351,7 @@
       "xgf_pg": 0.21033565116734157,
       "pbp_goals": 1,
       "pbp_assists": 1,
-      "pbp_shots": 6
+      "pbp_shots": 7
     },
     {
       "name": "Jeff Malott",
@@ -658,12 +658,12 @@
       "goals": 2,
       "assists": 1,
       "points": 3,
-      "shots": 22,
+      "shots": 23,
       "gpg": 0.1111111111111111,
       "apg": 0.05555555555555555,
       "ppg": 0.16666666666666666,
-      "sogpg": 1.2222222222222223,
-      "sh_pct": 0.09090909090909091,
+      "sogpg": 1.2777777777777777,
+      "sh_pct": 0.08695652173913043,
       "plus_minus": -7,
       "pim": 15,
       "toi_pg": 11.933333333333334,
@@ -672,10 +672,10 @@
       "power_play_goals": 1,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.1756079909644784,
+      "xgf_pg": 0.1834772514658161,
       "pbp_goals": 2,
       "pbp_assists": 1,
-      "pbp_shots": 22
+      "pbp_shots": 23
     },
     {
       "name": "Tim Washe",
@@ -1266,7 +1266,7 @@
       "power_play_goals": 2,
       "short_handed_goals": 0,
       "game_winning_goals": 2,
-      "xgf_pg": 0.2533294329072957,
+      "xgf_pg": 0.2521216064752466,
       "pbp_goals": 7,
       "pbp_assists": 6,
       "pbp_shots": 45
@@ -1819,12 +1819,12 @@
       "goals": 1,
       "assists": 3,
       "points": 4,
-      "shots": 6,
+      "shots": 7,
       "gpg": 0.07142857142857142,
       "apg": 0.21428571428571427,
       "ppg": 0.2857142857142857,
-      "sogpg": 0.42857142857142855,
-      "sh_pct": 0.16666666666666666,
+      "sogpg": 0.5,
+      "sh_pct": 0.14285714285714285,
       "plus_minus": -1,
       "pim": 4,
       "toi_pg": 10.985715,
@@ -1836,7 +1836,7 @@
       "xgf_pg": 0.08627953310273795,
       "pbp_goals": 1,
       "pbp_assists": 3,
-      "pbp_shots": 6
+      "pbp_shots": 7
     },
     {
       "name": "Jiri Kulich",
@@ -1941,7 +1941,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.06601413121314925,
+      "xgf_pg": 0.07008010748252916,
       "pbp_goals": 0,
       "pbp_assists": 2,
       "pbp_shots": 11
@@ -2427,7 +2427,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.11301607738745123,
+      "xgf_pg": 0.11252022827422058,
       "pbp_goals": 1,
       "pbp_assists": 7,
       "pbp_shots": 32
@@ -4908,7 +4908,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.15084929186231813,
+      "xgf_pg": 0.14955548478436947,
       "pbp_goals": 7,
       "pbp_assists": 14,
       "pbp_shots": 41
@@ -6676,12 +6676,12 @@
       "goals": 4,
       "assists": 2,
       "points": 6,
-      "shots": 25,
+      "shots": 24,
       "gpg": 0.3076923076923077,
       "apg": 0.15384615384615385,
       "ppg": 0.46153846153846156,
-      "sogpg": 1.9230769230769231,
-      "sh_pct": 0.16,
+      "sogpg": 1.8461538461538463,
+      "sh_pct": 0.16666666666666666,
       "plus_minus": -2,
       "pim": 4,
       "toi_pg": 17.88077,
@@ -6690,10 +6690,10 @@
       "power_play_goals": 2,
       "short_handed_goals": 0,
       "game_winning_goals": 1,
-      "xgf_pg": 0.3380555386711231,
+      "xgf_pg": 0.3375212815811264,
       "pbp_goals": 4,
       "pbp_assists": 2,
-      "pbp_shots": 25
+      "pbp_shots": 24
     },
     {
       "name": "Ryan Nugent-Hopkins",
@@ -7095,7 +7095,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.21040389563535675,
+      "xgf_pg": 0.21026179110530926,
       "pbp_goals": 1,
       "pbp_assists": 2,
       "pbp_shots": 13
@@ -8215,12 +8215,12 @@
       "goals": 6,
       "assists": 8,
       "points": 14,
-      "shots": 59,
+      "shots": 58,
       "gpg": 0.3157894736842105,
       "apg": 0.42105263157894735,
       "ppg": 0.7368421052631579,
-      "sogpg": 3.1052631578947367,
-      "sh_pct": 0.1016949152542373,
+      "sogpg": 3.0526315789473686,
+      "sh_pct": 0.10344827586206896,
       "plus_minus": -3,
       "pim": 14,
       "toi_pg": 19.897368333333336,
@@ -8229,10 +8229,10 @@
       "power_play_goals": 2,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.4679017673430192,
+      "xgf_pg": 0.4614821578847732,
       "pbp_goals": 7,
       "pbp_assists": 8,
-      "pbp_shots": 60
+      "pbp_shots": 59
     },
     {
       "name": "Artemi Panarin",
@@ -8728,12 +8728,12 @@
       "goals": 7,
       "assists": 6,
       "points": 13,
-      "shots": 48,
+      "shots": 47,
       "gpg": 0.2916666666666667,
       "apg": 0.25,
       "ppg": 0.5416666666666666,
-      "sogpg": 2.0,
-      "sh_pct": 0.14583333333333334,
+      "sogpg": 1.9583333333333333,
+      "sh_pct": 0.14893617021276595,
       "plus_minus": 5,
       "pim": 22,
       "toi_pg": 15.960416666666667,
@@ -8742,10 +8742,10 @@
       "power_play_goals": 2,
       "short_handed_goals": 0,
       "game_winning_goals": 3,
-      "xgf_pg": 0.2514814382248038,
+      "xgf_pg": 0.25345692614574894,
       "pbp_goals": 7,
       "pbp_assists": 6,
-      "pbp_shots": 48
+      "pbp_shots": 47
     },
     {
       "name": "Jonas Brodin",
@@ -9174,7 +9174,7 @@
       "power_play_goals": 2,
       "short_handed_goals": 0,
       "game_winning_goals": 1,
-      "xgf_pg": 0.2128170609624016,
+      "xgf_pg": 0.21272223671751578,
       "pbp_goals": 9,
       "pbp_assists": 2,
       "pbp_shots": 37
@@ -10402,12 +10402,12 @@
       "goals": 5,
       "assists": 7,
       "points": 12,
-      "shots": 48,
+      "shots": 47,
       "gpg": 0.38461538461538464,
       "apg": 0.5384615384615384,
       "ppg": 0.9230769230769231,
-      "sogpg": 3.6923076923076925,
-      "sh_pct": 0.10416666666666667,
+      "sogpg": 3.6153846153846154,
+      "sh_pct": 0.10638297872340426,
       "plus_minus": -3,
       "pim": 0,
       "toi_pg": 27.90897461538462,
@@ -10416,10 +10416,10 @@
       "power_play_goals": 1,
       "short_handed_goals": 0,
       "game_winning_goals": 2,
-      "xgf_pg": 0.2529372507896442,
+      "xgf_pg": 0.25224511959046386,
       "pbp_goals": 5,
       "pbp_assists": 7,
-      "pbp_shots": 48
+      "pbp_shots": 47
     },
     {
       "name": "Luke Evangelista",
@@ -11290,12 +11290,12 @@
       "goals": 1,
       "assists": 7,
       "points": 8,
-      "shots": 22,
+      "shots": 23,
       "gpg": 0.05555555555555555,
       "apg": 0.3888888888888889,
       "ppg": 0.4444444444444444,
-      "sogpg": 1.2222222222222223,
-      "sh_pct": 0.045454545454545456,
+      "sogpg": 1.2777777777777777,
+      "sh_pct": 0.043478260869565216,
       "plus_minus": -4,
       "pim": 2,
       "toi_pg": 15.675926666666669,
@@ -11307,7 +11307,7 @@
       "xgf_pg": 0.20918299606809315,
       "pbp_goals": 1,
       "pbp_assists": 7,
-      "pbp_shots": 22
+      "pbp_shots": 23
     },
     {
       "name": "Scott Mayfield",
@@ -12972,8 +12972,8 @@
       "sh_pct": 0.07692307692307693,
       "plus_minus": 6,
       "pim": 14,
-      "toi_pg": 18.959091666666666,
-      "ppg_raw": 1137.5455,
+      "toi_pg": 18.960606666666667,
+      "ppg_raw": 1137.6364,
       "faceoff_pct": 0.0,
       "power_play_goals": 0,
       "short_handed_goals": 0,
@@ -12999,8 +12999,8 @@
       "sh_pct": 0.03333333333333333,
       "plus_minus": -4,
       "pim": 6,
-      "toi_pg": 23.274444999999996,
-      "ppg_raw": 1396.4666999999997,
+      "toi_pg": 23.272221666666667,
+      "ppg_raw": 1396.3333,
       "faceoff_pct": 0.0,
       "power_play_goals": 0,
       "short_handed_goals": 0,
@@ -14859,7 +14859,7 @@
       "power_play_goals": 1,
       "short_handed_goals": 0,
       "game_winning_goals": 1,
-      "xgf_pg": 0.15913872616875815,
+      "xgf_pg": 0.1581199520672717,
       "pbp_goals": 3,
       "pbp_assists": 11,
       "pbp_shots": 34
@@ -15034,12 +15034,12 @@
       "goals": 3,
       "assists": 3,
       "points": 6,
-      "shots": 48,
+      "shots": 49,
       "gpg": 0.15789473684210525,
       "apg": 0.15789473684210525,
       "ppg": 0.3157894736842105,
-      "sogpg": 2.526315789473684,
-      "sh_pct": 0.0625,
+      "sogpg": 2.5789473684210527,
+      "sh_pct": 0.061224489795918366,
       "plus_minus": -3,
       "pim": 4,
       "toi_pg": 16.968421666666668,
@@ -15051,7 +15051,7 @@
       "xgf_pg": 0.31284409941397373,
       "pbp_goals": 5,
       "pbp_assists": 3,
-      "pbp_shots": 50
+      "pbp_shots": 51
     },
     {
       "name": "Matty Beniers",
@@ -16827,7 +16827,7 @@
       "power_play_goals": 3,
       "short_handed_goals": 0,
       "game_winning_goals": 3,
-      "xgf_pg": 0.41522341712626426,
+      "xgf_pg": 0.40755307575977734,
       "pbp_goals": 13,
       "pbp_assists": 14,
       "pbp_shots": 61
@@ -17137,11 +17137,11 @@
       "goals": 0,
       "assists": 1,
       "points": 1,
-      "shots": 22,
+      "shots": 23,
       "gpg": 0.0,
       "apg": 0.045454545454545456,
       "ppg": 0.045454545454545456,
-      "sogpg": 1.0,
+      "sogpg": 1.0454545454545454,
       "sh_pct": 0.0,
       "plus_minus": 3,
       "pim": 14,
@@ -17154,7 +17154,7 @@
       "xgf_pg": 0.11134504377110273,
       "pbp_goals": 0,
       "pbp_assists": 1,
-      "pbp_shots": 22
+      "pbp_shots": 23
     },
     {
       "name": "Emil Lilleberg",
@@ -18876,7 +18876,7 @@
       "power_play_goals": 1,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.2136549480226527,
+      "xgf_pg": 0.2102457163396706,
       "pbp_goals": 6,
       "pbp_assists": 6,
       "pbp_shots": 44
@@ -19821,7 +19821,7 @@
       "power_play_goals": 1,
       "short_handed_goals": 0,
       "game_winning_goals": 1,
-      "xgf_pg": 0.3374361968200465,
+      "xgf_pg": 0.33743619682004644,
       "pbp_goals": 10,
       "pbp_assists": 8,
       "pbp_shots": 57
@@ -19969,12 +19969,12 @@
       "goals": 1,
       "assists": 5,
       "points": 6,
-      "shots": 22,
+      "shots": 23,
       "gpg": 0.1111111111111111,
       "apg": 0.5555555555555556,
       "ppg": 0.6666666666666666,
-      "sogpg": 2.4444444444444446,
-      "sh_pct": 0.045454545454545456,
+      "sogpg": 2.5555555555555554,
+      "sh_pct": 0.043478260869565216,
       "plus_minus": 7,
       "pim": 4,
       "toi_pg": 23.62777833333333,
@@ -19986,7 +19986,7 @@
       "xgf_pg": 0.16548785998447035,
       "pbp_goals": 1,
       "pbp_assists": 5,
-      "pbp_shots": 22
+      "pbp_shots": 23
     },
     {
       "name": "Haydn Fleury",
@@ -20844,7 +20844,7 @@
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 1,
-      "xgf_pg": 0.18818548367764504,
+      "xgf_pg": 0.18744476436802654,
       "pbp_goals": 5,
       "pbp_assists": 7,
       "pbp_shots": 25
@@ -21060,7 +21060,7 @@
       "power_play_goals": 4,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
-      "xgf_pg": 0.2986571986874801,
+      "xgf_pg": 0.2992127381696939,
       "pbp_goals": 9,
       "pbp_assists": 7,
       "pbp_shots": 55
@@ -21120,5 +21120,5 @@
       "pbp_shots": 19
     }
   ],
-  "updated_at": "2026-11-20T10:01:08Z"
+  "updated_at": "2026-11-21T02:50:19Z"
 }
