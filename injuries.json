@@ -12,6 +12,12 @@
     "injured": true
   },
   {
+    "team": "ANA",
+    "player": "Beckett Sennecke",
+    "status": "ir",
+    "injured": true
+  },
+  {
     "team": "BOS",
     "player": "James Hagens",
     "status": "ir",
@@ -217,7 +223,7 @@
   },
   {
     "team": "MIN",
-    "player": "Yakov Trenin",
+    "player": "Quinn Hughes",
     "status": "dtd",
     "injured": true
   },
@@ -252,12 +258,6 @@
     "injured": true
   },
   {
-    "team": "MTL",
-    "player": "Zack Bolduc",
-    "status": "dtd",
-    "injured": true
-  },
-  {
     "team": "NSH",
     "player": "William Trudeau",
     "status": "ir",
@@ -289,7 +289,7 @@
   },
   {
     "team": "NYI",
-    "player": "Logan Stanley",
+    "player": "Ryan Pulock",
     "status": "dtd",
     "injured": true
   },
@@ -326,13 +326,13 @@
   {
     "team": "NYR",
     "player": "Pavel Dorofeyev",
-    "status": "dtd",
+    "status": "ir",
     "injured": true
   },
   {
     "team": "NYR",
     "player": "Oliver Bjorkstrand",
-    "status": "dtd",
+    "status": "out",
     "injured": true
   },
   {
@@ -351,12 +351,6 @@
     "team": "OTT",
     "player": "Andre Burakovsky",
     "status": "ir",
-    "injured": true
-  },
-  {
-    "team": "OTT",
-    "player": "Nick Cousins",
-    "status": "out",
     "injured": true
   },
   {
@@ -445,12 +439,6 @@
   },
   {
     "team": "STL",
-    "player": "Ross Johnston",
-    "status": "dtd",
-    "injured": true
-  },
-  {
-    "team": "STL",
     "player": "Connor McMichael",
     "status": "dtd",
     "injured": true
@@ -516,6 +504,12 @@
     "injured": true
   },
   {
+    "team": "TOR",
+    "player": "Oliver Ekman-Larsson",
+    "status": "dtd",
+    "injured": true
+  },
+  {
     "team": "UTA",
     "player": "John Marino",
     "status": "ir",
@@ -546,9 +540,21 @@
     "injured": true
   },
   {
+    "team": "UTA",
+    "player": "Clayton Keller",
+    "status": "dtd",
+    "injured": true
+  },
+  {
     "team": "VAN",
     "player": "Thatcher Demko",
     "status": "ir",
+    "injured": true
+  },
+  {
+    "team": "VAN",
+    "player": "Elias Pettersson",
+    "status": "dtd",
     "injured": true
   },
   {
@@ -570,12 +576,6 @@
     "injured": true
   },
   {
-    "team": "WSH",
-    "player": "Cole Hutson",
-    "status": "dtd",
-    "injured": true
-  },
-  {
     "team": "WPG",
     "player": "Nick Bjugstad",
     "status": "ir",
@@ -591,12 +591,6 @@
     "team": "WPG",
     "player": "Dylan DeMelo",
     "status": "ir",
-    "injured": true
-  },
-  {
-    "team": "WPG",
-    "player": "Elias Salomonsson",
-    "status": "dtd",
     "injured": true
   }
 ]

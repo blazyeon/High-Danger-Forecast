@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-21T09:45:41.165803+00:00",
+  "generated_at": "2026-11-22T01:37:50.375278+00:00",
   "players": {
     "callerosen": {
       "points_pg": 0.2236,
@@ -11,6 +11,17 @@
       "source_games": 61,
       "name": "Calle Rosen",
       "team": "STL"
+    },
+    "gregorbiber": {
+      "points_pg": 0.1257,
+      "goals_pg": 0.0314,
+      "assists_pg": 0.0943,
+      "shots_pg": 0.3492,
+      "source_league": "AHL",
+      "source_season": 20262027,
+      "source_games": 14,
+      "name": "Gregor Biber",
+      "team": "UTA"
     },
     "jakeobrien": {
       "points_pg": 0.4738,

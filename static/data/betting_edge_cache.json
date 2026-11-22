@@ -17219,6 +17219,251 @@
         }
       ],
       "no_odds_games": []
+    },
+    "2026-11-22": {
+      "date": "2026-11-22",
+      "computed_at": "2026-11-22T01:37:06.764803+00:00",
+      "source": "sharpapi",
+      "odds_fetched_at": "2026-11-22T01:36:48.482866+00:00",
+      "warning": null,
+      "no_games": false,
+      "scanned": 5,
+      "matched": 5,
+      "with_edges": 5,
+      "dropped": 0,
+      "games": [
+        {
+          "home": "VAN",
+          "away": "CHI",
+          "home_name": "Canucks",
+          "away_name": "Blackhawks",
+          "start_time": "2026-11-23T01:00:00Z",
+          "best_edge": 0.131,
+          "edges": [
+            {
+              "market": "Total 6.5",
+              "side": "Under",
+              "pick": "Under",
+              "team": null,
+              "odds": -110,
+              "odds_decimal": 1.9090909090909092,
+              "model_prob": 0.631,
+              "implied_prob": 0.5,
+              "edge": 0.131,
+              "book": "fanduel"
+            },
+            {
+              "market": "Puck Line (1.5)",
+              "side": "Vancouver Canucks",
+              "pick": "Vancouver Canucks",
+              "team": "VAN",
+              "odds": -265,
+              "odds_decimal": 1.3773584905660377,
+              "model_prob": 0.736,
+              "implied_prob": 0.6924,
+              "edge": 0.0436,
+              "book": "fanduel"
+            },
+            {
+              "market": "Moneyline",
+              "side": "Chicago Blackhawks",
+              "pick": "Chicago Blackhawks",
+              "team": "CHI",
+              "odds": -115,
+              "odds_decimal": 1.8695652173913042,
+              "model_prob": 0.535,
+              "implied_prob": 0.512,
+              "edge": 0.023,
+              "book": "fanduel"
+            }
+          ]
+        },
+        {
+          "home": "NYR",
+          "away": "CAR",
+          "home_name": "Rangers",
+          "away_name": "Hurricanes",
+          "start_time": "2026-11-22T17:30:00Z",
+          "best_edge": 0.0919,
+          "edges": [
+            {
+              "market": "Moneyline",
+              "side": "Carolina Hurricanes",
+              "pick": "Carolina Hurricanes",
+              "team": "CAR",
+              "odds": -148,
+              "odds_decimal": 1.6756756756756757,
+              "model_prob": 0.664,
+              "implied_prob": 0.5721,
+              "edge": 0.0919,
+              "book": "draftkings"
+            },
+            {
+              "market": "Total 6.5",
+              "side": "Under",
+              "pick": "Under",
+              "team": null,
+              "odds": -134,
+              "odds_decimal": 1.7462686567164178,
+              "model_prob": 0.632,
+              "implied_prob": 0.546,
+              "edge": 0.086,
+              "book": "fanduel"
+            },
+            {
+              "market": "Puck Line (-1.5)",
+              "side": "Carolina Hurricanes",
+              "pick": "Carolina Hurricanes",
+              "team": "CAR",
+              "odds": 158,
+              "odds_decimal": 2.58,
+              "model_prob": 0.417,
+              "implied_prob": 0.3692,
+              "edge": 0.0478,
+              "book": "fanduel"
+            }
+          ]
+        },
+        {
+          "home": "TBL",
+          "away": "BUF",
+          "home_name": "Lightning",
+          "away_name": "Sabres",
+          "start_time": "2026-11-22T22:00:00Z",
+          "best_edge": 0.086,
+          "edges": [
+            {
+              "market": "Total 6.5",
+              "side": "Under",
+              "pick": "Under",
+              "team": null,
+              "odds": -110,
+              "odds_decimal": 1.9090909090909092,
+              "model_prob": 0.586,
+              "implied_prob": 0.5,
+              "edge": 0.086,
+              "book": "fanduel"
+            },
+            {
+              "market": "Puck Line (-1.5)",
+              "side": "Tampa Bay Lightning",
+              "pick": "Tampa Bay Lightning",
+              "team": "TBL",
+              "odds": 120,
+              "odds_decimal": 2.2,
+              "model_prob": 0.444,
+              "implied_prob": 0.4324,
+              "edge": 0.0116,
+              "book": "fanduel"
+            },
+            {
+              "market": "Moneyline",
+              "side": "Tampa Bay Lightning",
+              "pick": "Tampa Bay Lightning",
+              "team": "TBL",
+              "odds": -205,
+              "odds_decimal": 1.4878048780487805,
+              "model_prob": 0.587,
+              "implied_prob": 0.6447,
+              "edge": -0.0577,
+              "book": "draftkings"
+            }
+          ]
+        },
+        {
+          "home": "STL",
+          "away": "EDM",
+          "home_name": "Blues",
+          "away_name": "Oilers",
+          "start_time": "2026-11-23T00:00:00Z",
+          "best_edge": 0.0437,
+          "edges": [
+            {
+              "market": "Moneyline",
+              "side": "Edmonton Oilers",
+              "pick": "Edmonton Oilers",
+              "team": "EDM",
+              "odds": -111,
+              "odds_decimal": 1.900900900900901,
+              "model_prob": 0.547,
+              "implied_prob": 0.5033,
+              "edge": 0.0437,
+              "book": "fanduel"
+            },
+            {
+              "market": "Total 5.5",
+              "side": "Under",
+              "pick": "Under",
+              "team": null,
+              "odds": 112,
+              "odds_decimal": 2.12,
+              "model_prob": 0.481,
+              "implied_prob": 0.4486,
+              "edge": 0.0324,
+              "book": "fanduel"
+            },
+            {
+              "market": "Puck Line (1.5)",
+              "side": "St. Louis Blues",
+              "pick": "St. Louis Blues",
+              "team": "STL",
+              "odds": -265,
+              "odds_decimal": 1.3773584905660377,
+              "model_prob": 0.72,
+              "implied_prob": 0.6924,
+              "edge": 0.0276,
+              "book": "fanduel"
+            }
+          ]
+        },
+        {
+          "home": "DAL",
+          "away": "PIT",
+          "home_name": "Stars",
+          "away_name": "Penguins",
+          "start_time": "2026-11-23T00:00:00Z",
+          "best_edge": 0.0152,
+          "edges": [
+            {
+              "market": "Puck Line (-1.5)",
+              "side": "Dallas Stars",
+              "pick": "Dallas Stars",
+              "team": "DAL",
+              "odds": 114,
+              "odds_decimal": 2.1399999999999997,
+              "model_prob": 0.46,
+              "implied_prob": 0.4448,
+              "edge": 0.0152,
+              "book": "fanduel"
+            },
+            {
+              "market": "Total 6.5",
+              "side": "Under",
+              "pick": "Under",
+              "team": null,
+              "odds": -130,
+              "odds_decimal": 1.7692307692307692,
+              "model_prob": 0.553,
+              "implied_prob": 0.538,
+              "edge": 0.015,
+              "book": "fanduel"
+            },
+            {
+              "market": "Moneyline",
+              "side": "Dallas Stars",
+              "pick": "Dallas Stars",
+              "team": "DAL",
+              "odds": -225,
+              "odds_decimal": 1.4444444444444444,
+              "model_prob": 0.587,
+              "implied_prob": 0.6636,
+              "edge": -0.0766,
+              "book": "draftkings"
+            }
+          ]
+        }
+      ],
+      "no_odds_games": []
     }
   }
 }
