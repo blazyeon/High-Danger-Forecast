@@ -1,6 +1,6 @@
 {
   "source": "daily_faceoff",
-  "updated_at": "2026-11-22T01:35:12.622Z",
+  "updated_at": "2026-11-22T02:52:31.803Z",
   "teams": {
     "ANA": {
       "pp1": [
@@ -13,11 +13,11 @@
       "pp2": [
         "Alex Killorn",
         "Roger McQueen",
-        "Frank Vatrano",
+        "Nico Myatovic",
         "Troy Terry",
         "Tristan Luneau"
       ],
-      "updated_at": "2026-11-21T18:50:36.768Z",
+      "updated_at": "2026-11-22T01:37:52.058Z",
       "source": "Zach Cavanagh"
     },
     "BOS": {
@@ -251,8 +251,8 @@
         "Danila Yurov",
         "David Spacek"
       ],
-      "updated_at": "2026-11-21T19:43:08.843Z",
-      "source": "Projected"
+      "updated_at": "2026-11-22T02:50:00.514Z",
+      "source": "Joe Smith"
     },
     "MTL": {
       "pp1": [
@@ -413,8 +413,8 @@
         "Eric Pohlkamp",
         "Michael Misa"
       ],
-      "updated_at": "2026-11-21T04:01:23.249Z",
-      "source": "Sheng Peng"
+      "updated_at": "2026-11-22T02:47:18.322Z",
+      "source": "Curtis Pashelka"
     },
     "SEA": {
       "pp1": [
@@ -431,8 +431,8 @@
         "Mackie Samoskevich",
         "Brandon Montour"
       ],
-      "updated_at": "2026-11-21T04:00:11.673Z",
-      "source": "@sound_hockey"
+      "updated_at": "2026-11-22T02:52:31.803Z",
+      "source": "Seattle Kraken"
     },
     "STL": {
       "pp1": [
@@ -521,7 +521,7 @@
         "Zeev Buium",
         "Paul Cotter"
       ],
-      "updated_at": "2026-11-21T17:57:19.747Z",
+      "updated_at": "2026-11-22T02:48:51.701Z",
       "source": "Brendan Batchelor"
     },
     "VGK": {
