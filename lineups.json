@@ -1,6 +1,6 @@
 {
   "source": "daily_faceoff",
-  "updated_at": "2026-11-23T00:42:10.854Z",
+  "updated_at": "2026-11-23T02:36:56.308Z",
   "teams": {
     "ANA": {
       "pp1": [
@@ -179,8 +179,8 @@
         "Michael Brandsegg-Nyg\u00e5rd",
         "Justin Faulk"
       ],
-      "updated_at": "2026-11-21T23:47:05.704Z",
-      "source": "Ansar Khan"
+      "updated_at": "2026-11-23T02:36:56.308Z",
+      "source": "Projected"
     },
     "EDM": {
       "pp1": [
@@ -258,19 +258,19 @@
       "pp1": [
         "Juraj Slafkovsky",
         "Nick Suzuki",
-        "Zack Bolduc",
+        "Dylan Larkin",
         "Cole Caufield",
         "Lane Hutson"
       ],
       "pp2": [
-        "Kirby Dach",
+        "Alexandre Texier",
         "Oliver Kapanen",
         "Alex Newhook",
         "Noah Dobson",
-        "Alexandre Texier"
+        "Zack Bolduc"
       ],
-      "updated_at": "2026-11-21T23:54:41.721Z",
-      "source": "Montreal Canadiens"
+      "updated_at": "2026-11-23T02:21:19.723Z",
+      "source": "Projected"
     },
     "NSH": {
       "pp1": [

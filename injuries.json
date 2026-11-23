@@ -163,12 +163,6 @@
   },
   {
     "team": "DET",
-    "player": "Dylan Larkin",
-    "status": "out",
-    "injured": true
-  },
-  {
-    "team": "DET",
     "player": "Simon Edvinsson",
     "status": "out",
     "injured": true
@@ -177,6 +171,12 @@
     "team": "DET",
     "player": "William Wallinder",
     "status": "dtd",
+    "injured": true
+  },
+  {
+    "team": "DET",
+    "player": "Sam Montembeault",
+    "status": "ir",
     "injured": true
   },
   {
@@ -266,12 +266,6 @@
   {
     "team": "MTL",
     "player": "Ivan Demidov",
-    "status": "ir",
-    "injured": true
-  },
-  {
-    "team": "MTL",
-    "player": "Sam Montembeault",
     "status": "ir",
     "injured": true
   },
