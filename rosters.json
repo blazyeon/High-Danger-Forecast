@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-22T09:46:37.583717+00:00",
+  "generated_at": "2026-11-23T02:02:51.304264+00:00",
   "teams": {
     "BOS": {
       "skaters": [
@@ -628,12 +628,6 @@
           "birthDate": "2004-02-03"
         },
         {
-          "name": "Brett Berard",
-          "id": 8482132,
-          "position": "LW",
-          "birthDate": "2002-09-09"
-        },
-        {
           "name": "Zachary Bolduc",
           "id": 8482737,
           "position": "RW",
@@ -746,12 +740,6 @@
           "id": 8476875,
           "position": "D",
           "birthDate": "1994-02-27"
-        },
-        {
-          "name": "David Reinbacher",
-          "id": 8484220,
-          "position": "D",
-          "birthDate": "2004-10-25"
         },
         {
           "name": "Arber Xhekaj",
@@ -1174,6 +1162,12 @@
           "birthDate": "1995-03-20"
         },
         {
+          "name": "Aatu R\u00e4ty",
+          "id": 8482691,
+          "position": "C",
+          "birthDate": "2002-11-14"
+        },
+        {
           "name": "Jack Roslovic",
           "id": 8478458,
           "position": "C",
@@ -1472,12 +1466,6 @@
           "id": 8479066,
           "position": "LW",
           "birthDate": "1994-12-09"
-        },
-        {
-          "name": "Steven Lorentz",
-          "id": 8478904,
-          "position": "C",
-          "birthDate": "1996-04-13"
         },
         {
           "name": "Isac Lundestr\u00f6m",
@@ -1904,12 +1892,6 @@
           "id": 8478446,
           "position": "C",
           "birthDate": "1997-03-25"
-        },
-        {
-          "name": "Luke Glendening",
-          "id": 8476822,
-          "position": "C",
-          "birthDate": "1989-04-28"
         },
         {
           "name": "Tye Kartye",
@@ -2536,12 +2518,6 @@
           "birthDate": "1995-02-24"
         },
         {
-          "name": "Dillon Boucher",
-          "id": 8485554,
-          "position": "LW",
-          "birthDate": "1997-04-16"
-        },
-        {
           "name": "Ryan Donato",
           "id": 8477987,
           "position": "C",
@@ -2552,6 +2528,12 @@
           "id": 8485391,
           "position": "C",
           "birthDate": "2007-05-07"
+        },
+        {
+          "name": "Luke Glendening",
+          "id": 8476822,
+          "position": "C",
+          "birthDate": "1989-04-28"
         },
         {
           "name": "Ryan Greene",
@@ -2606,6 +2588,12 @@
           "id": 8476882,
           "position": "C",
           "birthDate": "1994-09-11"
+        },
+        {
+          "name": "Dominic Toninato",
+          "id": 8476952,
+          "position": "C",
+          "birthDate": "1994-03-09"
         },
         {
           "name": "Bowen Byram",
