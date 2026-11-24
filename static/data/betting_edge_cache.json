@@ -17804,9 +17804,9 @@
     },
     "2026-11-24": {
       "date": "2026-11-24",
-      "computed_at": "2026-11-24T05:33:09.928737+00:00",
+      "computed_at": "2026-11-24T12:27:25.088968+00:00",
       "source": "sharpapi",
-      "odds_fetched_at": "2026-11-24T05:33:05.059172+00:00",
+      "odds_fetched_at": "2026-11-24T12:27:17.027963+00:00",
       "warning": null,
       "no_games": false,
       "scanned": 1,
@@ -17820,18 +17820,18 @@
           "home_name": "Oilers",
           "away_name": "Golden Knights",
           "start_time": "2026-11-25T01:00:00Z",
-          "best_edge": 0.081,
+          "best_edge": 0.0616,
           "edges": [
             {
               "market": "Moneyline",
               "side": "Vegas Golden Knights",
               "pick": "Vegas Golden Knights",
               "team": "VGK",
-              "odds": -115,
-              "odds_decimal": 1.8695652173913042,
-              "model_prob": 0.593,
-              "implied_prob": 0.512,
-              "edge": 0.081,
+              "odds": -118,
+              "odds_decimal": 1.847457627118644,
+              "model_prob": 0.579,
+              "implied_prob": 0.5174,
+              "edge": 0.0616,
               "book": "fanduel"
             },
             {
@@ -17839,11 +17839,11 @@
               "side": "Under",
               "pick": "Under",
               "team": null,
-              "odds": -124,
-              "odds_decimal": 1.8064516129032258,
-              "model_prob": 0.58,
-              "implied_prob": 0.5279,
-              "edge": 0.0521,
+              "odds": -128,
+              "odds_decimal": 1.78125,
+              "model_prob": 0.56,
+              "implied_prob": 0.5339,
+              "edge": 0.0261,
               "book": "fanduel"
             },
             {
@@ -17851,11 +17851,11 @@
               "side": "Vegas Golden Knights",
               "pick": "Vegas Golden Knights",
               "team": "VGK",
-              "odds": 220,
-              "odds_decimal": 3.2,
-              "model_prob": 0.34,
-              "implied_prob": 0.2978,
-              "edge": 0.0422,
+              "odds": 210,
+              "odds_decimal": 3.1,
+              "model_prob": 0.331,
+              "implied_prob": 0.3076,
+              "edge": 0.0234,
               "book": "fanduel"
             }
           ]

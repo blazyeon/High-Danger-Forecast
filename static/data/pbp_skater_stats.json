@@ -88,15 +88,15 @@
     },
     {
       "name": "Nick Foligno",
-      "gp": 5,
+      "gp": 6,
       "goals": 2,
       "assists": 2,
       "points": 4,
       "shots": 6,
-      "gpg": 0.4,
-      "apg": 0.4,
-      "sogpg": 1.2,
-      "xgf_pg": 0.11868071434851217
+      "gpg": 0.3333333333333333,
+      "apg": 0.3333333333333333,
+      "sogpg": 1.0,
+      "xgf_pg": 0.10023828415815143
     },
     {
       "name": "Claude Giroux",
@@ -244,15 +244,15 @@
     },
     {
       "name": "Zach Bogosian",
-      "gp": 19,
+      "gp": 20,
       "goals": 1,
       "assists": 1,
       "points": 2,
-      "shots": 21,
-      "gpg": 0.05263157894736842,
-      "apg": 0.05263157894736842,
-      "sogpg": 1.105263157894737,
-      "xgf_pg": 0.03657901088970042
+      "shots": 23,
+      "gpg": 0.05,
+      "apg": 0.05,
+      "sogpg": 1.15,
+      "xgf_pg": 0.037781185711412285
     },
     {
       "name": "Luke Schenn",
@@ -328,15 +328,15 @@
     },
     {
       "name": "Jared Spurgeon",
-      "gp": 16,
+      "gp": 17,
       "goals": 2,
-      "assists": 7,
-      "points": 9,
+      "assists": 8,
+      "points": 10,
       "shots": 21,
-      "gpg": 0.125,
-      "apg": 0.4375,
-      "sogpg": 1.3125,
-      "xgf_pg": 0.09819373836761737
+      "gpg": 0.11764705882352941,
+      "apg": 0.47058823529411764,
+      "sogpg": 1.2352941176470589,
+      "xgf_pg": 0.09248343930282144
     },
     {
       "name": "Kyle Palmieri",
@@ -460,15 +460,15 @@
     },
     {
       "name": "Dmitry Orlov",
-      "gp": 24,
+      "gp": 25,
       "goals": 3,
       "assists": 14,
       "points": 17,
-      "shots": 24,
-      "gpg": 0.125,
-      "apg": 0.5833333333333334,
-      "sogpg": 1.0,
-      "xgf_pg": 0.06432335290692065
+      "shots": 26,
+      "gpg": 0.12,
+      "apg": 0.56,
+      "sogpg": 1.04,
+      "xgf_pg": 0.06527034215237607
     },
     {
       "name": "Brian Dumoulin",
@@ -496,15 +496,15 @@
     },
     {
       "name": "Marcus Foligno",
-      "gp": 7,
+      "gp": 8,
       "goals": 1,
       "assists": 1,
       "points": 2,
-      "shots": 7,
-      "gpg": 0.14285714285714285,
-      "apg": 0.14285714285714285,
+      "shots": 8,
+      "gpg": 0.125,
+      "apg": 0.125,
       "sogpg": 1.0,
-      "xgf_pg": 0.15379360761763552
+      "xgf_pg": 0.1455688834910677
     },
     {
       "name": "Casey Cizikas",
@@ -676,15 +676,15 @@
     },
     {
       "name": "Tyler Toffoli",
-      "gp": 24,
-      "goals": 6,
+      "gp": 25,
+      "goals": 7,
       "assists": 8,
-      "points": 14,
-      "shots": 51,
-      "gpg": 0.25,
-      "apg": 0.3333333333333333,
-      "sogpg": 2.125,
-      "xgf_pg": 0.20259240648588187
+      "points": 15,
+      "shots": 53,
+      "gpg": 0.28,
+      "apg": 0.32,
+      "sogpg": 2.12,
+      "xgf_pg": 0.20193152180574614
     },
     {
       "name": "Charlie Coyle",
@@ -1000,15 +1000,15 @@
     },
     {
       "name": "Blake Coleman",
-      "gp": 25,
-      "goals": 7,
+      "gp": 26,
+      "goals": 8,
       "assists": 6,
-      "points": 13,
-      "shots": 50,
-      "gpg": 0.28,
-      "apg": 0.24,
+      "points": 14,
+      "shots": 52,
+      "gpg": 0.3076923076923077,
+      "apg": 0.23076923076923078,
       "sogpg": 2.0,
-      "xgf_pg": 0.2596518931017551
+      "xgf_pg": 0.2548508720746474
     },
     {
       "name": "Jean-Gabriel Pageau",
@@ -1192,15 +1192,15 @@
     },
     {
       "name": "Jonas Brodin",
-      "gp": 24,
+      "gp": 25,
       "goals": 0,
       "assists": 8,
       "points": 8,
-      "shots": 27,
+      "shots": 30,
       "gpg": 0.0,
-      "apg": 0.3333333333333333,
-      "sogpg": 1.125,
-      "xgf_pg": 0.05692265005351898
+      "apg": 0.32,
+      "sogpg": 1.2,
+      "xgf_pg": 0.061091872048176385
     },
     {
       "name": "Jamie Oleksiak",
@@ -1948,15 +1948,15 @@
     },
     {
       "name": "Michael McCarron",
-      "gp": 21,
+      "gp": 22,
       "goals": 4,
       "assists": 5,
       "points": 9,
-      "shots": 39,
-      "gpg": 0.19047619047619047,
-      "apg": 0.23809523809523808,
-      "sogpg": 1.8571428571428572,
-      "xgf_pg": 0.18923354271725396
+      "shots": 41,
+      "gpg": 0.18181818181818182,
+      "apg": 0.22727272727272727,
+      "sogpg": 1.8636363636363635,
+      "xgf_pg": 0.18526273030935095
     },
     {
       "name": "Shea Theodore",
@@ -1984,15 +1984,15 @@
     },
     {
       "name": "Ryan Hartman",
-      "gp": 24,
+      "gp": 25,
       "goals": 3,
       "assists": 5,
       "points": 8,
-      "shots": 30,
-      "gpg": 0.125,
-      "apg": 0.20833333333333334,
-      "sogpg": 1.25,
-      "xgf_pg": 0.17035327781198836
+      "shots": 32,
+      "gpg": 0.12,
+      "apg": 0.2,
+      "sogpg": 1.28,
+      "xgf_pg": 0.16823268941463648
     },
     {
       "name": "J.T. Compher",
@@ -2116,15 +2116,15 @@
     },
     {
       "name": "Darnell Nurse",
-      "gp": 21,
+      "gp": 22,
       "goals": 1,
       "assists": 2,
       "points": 3,
-      "shots": 37,
-      "gpg": 0.047619047619047616,
-      "apg": 0.09523809523809523,
-      "sogpg": 1.7619047619047619,
-      "xgf_pg": 0.09064322836290402
+      "shots": 41,
+      "gpg": 0.045454545454545456,
+      "apg": 0.09090909090909091,
+      "sogpg": 1.8636363636363635,
+      "xgf_pg": 0.09204247298874452
     },
     {
       "name": "Rasmus Ristolainen",
@@ -2176,15 +2176,15 @@
     },
     {
       "name": "Alexander Wennberg",
-      "gp": 13,
-      "goals": 0,
+      "gp": 14,
+      "goals": 1,
       "assists": 3,
-      "points": 3,
-      "shots": 20,
-      "gpg": 0.0,
-      "apg": 0.23076923076923078,
-      "sogpg": 1.5384615384615385,
-      "xgf_pg": 0.19990278806191755
+      "points": 4,
+      "shots": 22,
+      "gpg": 0.07142857142857142,
+      "apg": 0.21428571428571427,
+      "sogpg": 1.5714285714285714,
+      "xgf_pg": 0.2076560575105613
     },
     {
       "name": "Ryan Pulock",
@@ -3268,15 +3268,15 @@
     },
     {
       "name": "Joel Eriksson Ek",
-      "gp": 25,
-      "goals": 8,
-      "assists": 15,
-      "points": 23,
-      "shots": 78,
-      "gpg": 0.32,
-      "apg": 0.6,
-      "sogpg": 3.12,
-      "xgf_pg": 0.5087048662492873
+      "gp": 26,
+      "goals": 10,
+      "assists": 16,
+      "points": 26,
+      "shots": 82,
+      "gpg": 0.38461538461538464,
+      "apg": 0.6153846153846154,
+      "sogpg": 3.1538461538461537,
+      "xgf_pg": 0.5071956411048302
     },
     {
       "name": "Jake DeBrusk",
@@ -3460,15 +3460,15 @@
     },
     {
       "name": "Kirill Kaprizov",
-      "gp": 24,
-      "goals": 18,
-      "assists": 27,
-      "points": 45,
-      "shots": 75,
-      "gpg": 0.75,
-      "apg": 1.125,
-      "sogpg": 3.125,
-      "xgf_pg": 0.4515574913742791
+      "gp": 25,
+      "goals": 19,
+      "assists": 30,
+      "points": 49,
+      "shots": 76,
+      "gpg": 0.76,
+      "apg": 1.2,
+      "sogpg": 3.04,
+      "xgf_pg": 0.4503068015602338
     },
     {
       "name": "Troy Terry",
@@ -3484,15 +3484,15 @@
     },
     {
       "name": "Adam Gaudette",
-      "gp": 9,
+      "gp": 10,
       "goals": 2,
       "assists": 0,
       "points": 2,
       "shots": 10,
-      "gpg": 0.2222222222222222,
+      "gpg": 0.2,
       "apg": 0.0,
-      "sogpg": 1.1111111111111112,
-      "xgf_pg": 0.16744956030112504
+      "sogpg": 1.0,
+      "xgf_pg": 0.1643158886501745
     },
     {
       "name": "Vladislav Gavrikov",
@@ -3556,15 +3556,15 @@
     },
     {
       "name": "Mason Marchment",
-      "gp": 25,
+      "gp": 26,
       "goals": 7,
-      "assists": 6,
-      "points": 13,
-      "shots": 48,
-      "gpg": 0.28,
-      "apg": 0.24,
-      "sogpg": 1.92,
-      "xgf_pg": 0.2697936850333614
+      "assists": 7,
+      "points": 14,
+      "shots": 51,
+      "gpg": 0.2692307692307692,
+      "apg": 0.2692307692307692,
+      "sogpg": 1.9615384615384615,
+      "xgf_pg": 0.26473439074335314
     },
     {
       "name": "Ryan Lomberg",
@@ -4984,15 +4984,15 @@
     },
     {
       "name": "Ty Dellandrea",
-      "gp": 14,
+      "gp": 15,
       "goals": 0,
       "assists": 2,
       "points": 2,
-      "shots": 15,
+      "shots": 16,
       "gpg": 0.0,
-      "apg": 0.14285714285714285,
-      "sogpg": 1.0714285714285714,
-      "xgf_pg": 0.10179599997098888
+      "apg": 0.13333333333333333,
+      "sogpg": 1.0666666666666667,
+      "xgf_pg": 0.09752816487451528
     },
     {
       "name": "Barrett Hayton",
@@ -5092,15 +5092,15 @@
     },
     {
       "name": "Michael Kesselring",
-      "gp": 22,
+      "gp": 23,
       "goals": 0,
       "assists": 4,
       "points": 4,
-      "shots": 31,
+      "shots": 32,
       "gpg": 0.0,
-      "apg": 0.18181818181818182,
-      "sogpg": 1.4090909090909092,
-      "xgf_pg": 0.09566600787830243
+      "apg": 0.17391304347826086,
+      "sogpg": 1.391304347826087,
+      "xgf_pg": 0.09288673831174198
     },
     {
       "name": "Kirill Marchenko",
@@ -5368,15 +5368,15 @@
     },
     {
       "name": "Brett Leason",
-      "gp": 1,
+      "gp": 2,
       "goals": 0,
       "assists": 0,
       "points": 0,
       "shots": 2,
       "gpg": 0.0,
       "apg": 0.0,
-      "sogpg": 2.0,
-      "xgf_pg": 0.16573633970477855
+      "sogpg": 1.0,
+      "xgf_pg": 0.08440876075092645
     },
     {
       "name": "Peyton Krebs",
@@ -5560,15 +5560,15 @@
     },
     {
       "name": "Bobby Brink",
-      "gp": 25,
+      "gp": 26,
       "goals": 2,
       "assists": 9,
       "points": 11,
-      "shots": 38,
-      "gpg": 0.08,
-      "apg": 0.36,
-      "sogpg": 1.52,
-      "xgf_pg": 0.18783836886220268
+      "shots": 39,
+      "gpg": 0.07692307692307693,
+      "apg": 0.34615384615384615,
+      "sogpg": 1.5,
+      "xgf_pg": 0.18082988922989493
     },
     {
       "name": "Kaapo Kakko",
@@ -5584,15 +5584,15 @@
     },
     {
       "name": "Matt Boldy",
-      "gp": 25,
+      "gp": 26,
       "goals": 14,
-      "assists": 15,
-      "points": 29,
-      "shots": 100,
-      "gpg": 0.56,
-      "apg": 0.6,
-      "sogpg": 4.0,
-      "xgf_pg": 0.46676355627627275
+      "assists": 18,
+      "points": 32,
+      "shots": 105,
+      "gpg": 0.5384615384615384,
+      "apg": 0.6923076923076923,
+      "sogpg": 4.038461538461538,
+      "xgf_pg": 0.45885406130224066
     },
     {
       "name": "Jack Hughes",
@@ -5612,10 +5612,10 @@
       "goals": 0,
       "assists": 3,
       "points": 3,
-      "shots": 18,
+      "shots": 19,
       "gpg": 0.0,
       "apg": 0.17647058823529413,
-      "sogpg": 1.0588235294117647,
+      "sogpg": 1.1176470588235294,
       "xgf_pg": 0.09221650546744192
     },
     {
@@ -6352,15 +6352,15 @@
     },
     {
       "name": "Brock Faber",
-      "gp": 4,
-      "goals": 1,
+      "gp": 5,
+      "goals": 2,
       "assists": 1,
-      "points": 2,
-      "shots": 7,
-      "gpg": 0.25,
-      "apg": 0.25,
-      "sogpg": 1.75,
-      "xgf_pg": 0.12630160911739408
+      "points": 3,
+      "shots": 9,
+      "gpg": 0.4,
+      "apg": 0.2,
+      "sogpg": 1.8,
+      "xgf_pg": 0.1231712171364763
     },
     {
       "name": "Quinton Byfield",
@@ -6772,15 +6772,15 @@
     },
     {
       "name": "Matt Kiersted",
-      "gp": 10,
+      "gp": 11,
       "goals": 0,
-      "assists": 1,
-      "points": 1,
-      "shots": 16,
+      "assists": 2,
+      "points": 2,
+      "shots": 19,
       "gpg": 0.0,
-      "apg": 0.1,
-      "sogpg": 1.6,
-      "xgf_pg": 0.07388656027910065
+      "apg": 0.18181818181818182,
+      "sogpg": 1.7272727272727273,
+      "xgf_pg": 0.07263606429058568
     },
     {
       "name": "J.J. Moser",
@@ -6928,15 +6928,15 @@
     },
     {
       "name": "Nolan Allan",
-      "gp": 10,
+      "gp": 11,
       "goals": 3,
       "assists": 1,
       "points": 4,
-      "shots": 11,
-      "gpg": 0.3,
-      "apg": 0.1,
-      "sogpg": 1.1,
-      "xgf_pg": 0.06672016042100448
+      "shots": 12,
+      "gpg": 0.2727272727272727,
+      "apg": 0.09090909090909091,
+      "sogpg": 1.0909090909090908,
+      "xgf_pg": 0.06388565977945239
     },
     {
       "name": "Logan Stankoven",
@@ -7264,15 +7264,15 @@
     },
     {
       "name": "Zack Ostapchuk",
-      "gp": 16,
+      "gp": 17,
       "goals": 2,
       "assists": 0,
       "points": 2,
-      "shots": 22,
-      "gpg": 0.125,
+      "shots": 23,
+      "gpg": 0.11764705882352941,
       "apg": 0.0,
-      "sogpg": 1.375,
-      "xgf_pg": 0.1592069168363492
+      "sogpg": 1.3529411764705883,
+      "xgf_pg": 0.1564229170558358
     },
     {
       "name": "Ville Ottavainen",
@@ -7936,15 +7936,15 @@
     },
     {
       "name": "Danila Yurov",
-      "gp": 23,
+      "gp": 24,
       "goals": 9,
       "assists": 2,
       "points": 11,
-      "shots": 39,
-      "gpg": 0.391304347826087,
-      "apg": 0.08695652173913043,
-      "sogpg": 1.6956521739130435,
-      "xgf_pg": 0.20943629550464263
+      "shots": 41,
+      "gpg": 0.375,
+      "apg": 0.08333333333333333,
+      "sogpg": 1.7083333333333333,
+      "xgf_pg": 0.2092214277020812
     },
     {
       "name": "Danil Zhilkin",
@@ -8152,15 +8152,15 @@
     },
     {
       "name": "David Spacek",
-      "gp": 11,
+      "gp": 12,
       "goals": 0,
       "assists": 2,
       "points": 2,
       "shots": 11,
       "gpg": 0.0,
-      "apg": 0.18181818181818182,
-      "sogpg": 1.0,
-      "xgf_pg": 0.036193612707535266
+      "apg": 0.16666666666666666,
+      "sogpg": 0.9166666666666666,
+      "xgf_pg": 0.03323184217554279
     },
     {
       "name": "Victor Mancini",
@@ -8524,15 +8524,15 @@
     },
     {
       "name": "Will Smith",
-      "gp": 25,
+      "gp": 26,
       "goals": 8,
       "assists": 11,
       "points": 19,
-      "shots": 63,
-      "gpg": 0.32,
-      "apg": 0.44,
-      "sogpg": 2.52,
-      "xgf_pg": 0.37145097402935234
+      "shots": 64,
+      "gpg": 0.3076923076923077,
+      "apg": 0.4230769230769231,
+      "sogpg": 2.4615384615384617,
+      "xgf_pg": 0.36242333759036566
     },
     {
       "name": "Otto Stenberg",
@@ -8764,15 +8764,15 @@
     },
     {
       "name": "Eric Pohlkamp",
-      "gp": 9,
+      "gp": 10,
       "goals": 1,
       "assists": 2,
       "points": 3,
-      "shots": 12,
-      "gpg": 0.1111111111111111,
-      "apg": 0.2222222222222222,
-      "sogpg": 1.3333333333333333,
-      "xgf_pg": 0.08088156403773465
+      "shots": 14,
+      "gpg": 0.1,
+      "apg": 0.2,
+      "sogpg": 1.4,
+      "xgf_pg": 0.08136919113793899
     },
     {
       "name": "Charles Alexis Legault",
@@ -8944,15 +8944,15 @@
     },
     {
       "name": "Macklin Celebrini",
-      "gp": 23,
+      "gp": 24,
       "goals": 12,
-      "assists": 19,
-      "points": 31,
-      "shots": 100,
-      "gpg": 0.5217391304347826,
-      "apg": 0.8260869565217391,
-      "sogpg": 4.3478260869565215,
-      "xgf_pg": 0.5289924949587972
+      "assists": 21,
+      "points": 33,
+      "shots": 101,
+      "gpg": 0.5,
+      "apg": 0.875,
+      "sogpg": 4.208333333333333,
+      "xgf_pg": 0.510411376638226
     },
     {
       "name": "Trevor Connelly",
@@ -8968,15 +8968,15 @@
     },
     {
       "name": "Sam Dickinson",
-      "gp": 22,
+      "gp": 23,
       "goals": 1,
       "assists": 3,
       "points": 4,
-      "shots": 19,
-      "gpg": 0.045454545454545456,
-      "apg": 0.13636363636363635,
-      "sogpg": 0.8636363636363636,
-      "xgf_pg": 0.08979657081066793
+      "shots": 20,
+      "gpg": 0.043478260869565216,
+      "apg": 0.13043478260869565,
+      "sogpg": 0.8695652173913043,
+      "xgf_pg": 0.08821825615486213
     },
     {
       "name": "Sam Morton",
@@ -9196,15 +9196,15 @@
     },
     {
       "name": "Michael Misa",
-      "gp": 23,
+      "gp": 24,
       "goals": 5,
-      "assists": 9,
-      "points": 14,
-      "shots": 40,
-      "gpg": 0.21739130434782608,
-      "apg": 0.391304347826087,
-      "sogpg": 1.7391304347826086,
-      "xgf_pg": 0.2501732090729165
+      "assists": 10,
+      "points": 15,
+      "shots": 41,
+      "gpg": 0.20833333333333334,
+      "apg": 0.4166666666666667,
+      "sogpg": 1.7083333333333333,
+      "xgf_pg": 0.24078589875366063
     },
     {
       "name": "Porter Martone",
@@ -9340,15 +9340,15 @@
     },
     {
       "name": "Ivar Stenberg",
-      "gp": 24,
+      "gp": 25,
       "goals": 9,
       "assists": 8,
       "points": 17,
-      "shots": 47,
-      "gpg": 0.375,
-      "apg": 0.3333333333333333,
-      "sogpg": 1.9583333333333333,
-      "xgf_pg": 0.32137842039814607
+      "shots": 48,
+      "gpg": 0.36,
+      "apg": 0.32,
+      "sogpg": 1.92,
+      "xgf_pg": 0.32029820323290215
     },
     {
       "name": "Dylan Hryckowian",
@@ -9399,5 +9399,5 @@
       "xgf_pg": 0.22103245303934002
     }
   ],
-  "updated_at": "2026-11-24T05:32:44Z"
+  "updated_at": "2026-11-24T12:26:56Z"
 }
