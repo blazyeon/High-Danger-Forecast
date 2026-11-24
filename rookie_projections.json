@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-23T10:46:00.279192+00:00",
+  "generated_at": "2026-11-24T05:33:52.277810+00:00",
   "players": {
     "callerosen": {
       "points_pg": 0.2236,
@@ -22,6 +22,17 @@
       "source_games": 14,
       "name": "Gregor Biber",
       "team": "UTA"
+    },
+    "liborhajek": {
+      "points_pg": 0.1507,
+      "goals_pg": 0.0695,
+      "assists_pg": 0.0811,
+      "shots_pg": 0.7727,
+      "source_league": "CZECHIA",
+      "source_season": 20252026,
+      "source_games": 44,
+      "name": "Libor Hajek",
+      "team": "SJS"
     },
     "jakeobrien": {
       "points_pg": 0.4738,

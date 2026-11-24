@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-23T10:46:00.275987+00:00",
+  "generated_at": "2026-11-24T05:33:52.273370+00:00",
   "teams": {
     "BOS": {
       "skaters": [
@@ -346,16 +346,16 @@
           "birthDate": "1994-07-08"
         },
         {
+          "name": "Kirby Dach",
+          "id": 8481523,
+          "position": "C",
+          "birthDate": "2001-01-21"
+        },
+        {
           "name": "Alex DeBrincat",
           "id": 8479337,
           "position": "RW",
           "birthDate": "1997-12-18"
-        },
-        {
-          "name": "Sheldon Dries",
-          "id": 8480326,
-          "position": "C",
-          "birthDate": "1994-04-23"
         },
         {
           "name": "Emmitt Finnie",
@@ -450,6 +450,12 @@
           "birthDate": "1993-07-14"
         },
         {
+          "name": "Samuel Montembeault",
+          "id": 8478470,
+          "position": "G",
+          "birthDate": "1996-10-30"
+        },
+        {
           "name": "Daniil Tarasov",
           "id": 8480193,
           "position": "G",
@@ -512,12 +518,6 @@
           "id": 8473419,
           "position": "LW",
           "birthDate": "1988-05-11"
-        },
-        {
-          "name": "Cole Reinhardt",
-          "id": 8481133,
-          "position": "LW",
-          "birthDate": "2000-02-01"
         },
         {
           "name": "Sam Reinhart",
@@ -640,12 +640,6 @@
           "birthDate": "2001-01-02"
         },
         {
-          "name": "Kirby Dach",
-          "id": 8481523,
-          "position": "C",
-          "birthDate": "2001-01-21"
-        },
-        {
           "name": "Phillip Danault",
           "id": 8476479,
           "position": "C",
@@ -674,6 +668,12 @@
           "id": 8475184,
           "position": "LW",
           "birthDate": "1991-04-30"
+        },
+        {
+          "name": "Dylan Larkin",
+          "id": 8477946,
+          "position": "C",
+          "birthDate": "1996-07-30"
         },
         {
           "name": "Alex Newhook",
@@ -760,12 +760,6 @@
           "id": 8484170,
           "position": "G",
           "birthDate": "2004-11-24"
-        },
-        {
-          "name": "Samuel Montembeault",
-          "id": 8478470,
-          "position": "G",
-          "birthDate": "1996-10-30"
         }
       ]
     },
@@ -976,12 +970,6 @@
           "birthDate": "1998-08-27"
         },
         {
-          "name": "Jansen Harkins",
-          "id": 8478424,
-          "position": "C",
-          "birthDate": "1997-05-23"
-        },
-        {
           "name": "Pontus Holmberg",
           "id": 8480995,
           "position": "RW",
@@ -1112,12 +1100,6 @@
           "id": 8479520,
           "position": "LW",
           "birthDate": "1997-05-22"
-        },
-        {
-          "name": "Bo Groulx",
-          "id": 8480870,
-          "position": "C",
-          "birthDate": "2000-02-06"
         },
         {
           "name": "Dakota Joshua",
@@ -1490,6 +1472,12 @@
           "id": 8479671,
           "position": "RW",
           "birthDate": "1997-02-11"
+        },
+        {
+          "name": "Mikael Pyyhtia",
+          "id": 8482451,
+          "position": "LW",
+          "birthDate": "2001-12-17"
         },
         {
           "name": "Cole Sillinger",
@@ -3988,6 +3976,12 @@
           "birthDate": "2000-09-14"
         },
         {
+          "name": "Sam Morton",
+          "id": 8484821,
+          "position": "C",
+          "birthDate": "1999-07-28"
+        },
+        {
           "name": "Brennan Othmann",
           "id": 8482747,
           "position": "LW",
@@ -4504,6 +4498,12 @@
           "birthDate": "2006-06-07"
         },
         {
+          "name": "Libor Hajek",
+          "id": 8479333,
+          "position": "D",
+          "birthDate": "1998-02-04"
+        },
+        {
           "name": "Michael Kesselring",
           "id": 8480891,
           "position": "D",
@@ -4786,6 +4786,12 @@
           "birthDate": "2002-02-02"
         },
         {
+          "name": "Cole Reinhardt",
+          "id": 8481133,
+          "position": "LW",
+          "birthDate": "2000-02-01"
+        },
+        {
           "name": "Marco Rossi",
           "id": 8482079,
           "position": "C",
@@ -4852,12 +4858,6 @@
           "id": 8482447,
           "position": "G",
           "birthDate": "2002-08-13"
-        },
-        {
-          "name": "Nikita Tolopilo",
-          "id": 8484268,
-          "position": "G",
-          "birthDate": "2000-04-06"
         }
       ]
     },

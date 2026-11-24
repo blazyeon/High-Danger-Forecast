@@ -17801,6 +17801,67 @@
         }
       ],
       "no_odds_games": []
+    },
+    "2026-11-24": {
+      "date": "2026-11-24",
+      "computed_at": "2026-11-24T05:33:09.928737+00:00",
+      "source": "sharpapi",
+      "odds_fetched_at": "2026-11-24T05:33:05.059172+00:00",
+      "warning": null,
+      "no_games": false,
+      "scanned": 1,
+      "matched": 1,
+      "with_edges": 1,
+      "dropped": 0,
+      "games": [
+        {
+          "home": "EDM",
+          "away": "VGK",
+          "home_name": "Oilers",
+          "away_name": "Golden Knights",
+          "start_time": "2026-11-25T01:00:00Z",
+          "best_edge": 0.081,
+          "edges": [
+            {
+              "market": "Moneyline",
+              "side": "Vegas Golden Knights",
+              "pick": "Vegas Golden Knights",
+              "team": "VGK",
+              "odds": -115,
+              "odds_decimal": 1.8695652173913042,
+              "model_prob": 0.593,
+              "implied_prob": 0.512,
+              "edge": 0.081,
+              "book": "fanduel"
+            },
+            {
+              "market": "Total 6.5",
+              "side": "Under",
+              "pick": "Under",
+              "team": null,
+              "odds": -124,
+              "odds_decimal": 1.8064516129032258,
+              "model_prob": 0.58,
+              "implied_prob": 0.5279,
+              "edge": 0.0521,
+              "book": "fanduel"
+            },
+            {
+              "market": "Puck Line (-1.5)",
+              "side": "Vegas Golden Knights",
+              "pick": "Vegas Golden Knights",
+              "team": "VGK",
+              "odds": 220,
+              "odds_decimal": 3.2,
+              "model_prob": 0.34,
+              "implied_prob": 0.2978,
+              "edge": 0.0422,
+              "book": "fanduel"
+            }
+          ]
+        }
+      ],
+      "no_odds_games": []
     }
   }
 }
