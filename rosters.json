@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-24T12:28:12.060293+00:00",
+  "generated_at": "2026-11-25T04:39:22.091214+00:00",
   "teams": {
     "BOS": {
       "skaters": [
@@ -628,6 +628,12 @@
           "birthDate": "2004-02-03"
         },
         {
+          "name": "Brett Berard",
+          "id": 8482132,
+          "position": "LW",
+          "birthDate": "2002-09-09"
+        },
+        {
           "name": "Zachary Bolduc",
           "id": 8482737,
           "position": "RW",
@@ -740,6 +746,12 @@
           "id": 8476875,
           "position": "D",
           "birthDate": "1994-02-27"
+        },
+        {
+          "name": "David Reinbacher",
+          "id": 8484220,
+          "position": "D",
+          "birthDate": "2004-10-25"
         },
         {
           "name": "Arber Xhekaj",
@@ -896,12 +908,6 @@
           "id": 8481606,
           "position": "D",
           "birthDate": "2001-02-24"
-        },
-        {
-          "name": "Carter Yakemchuk",
-          "id": 8484759,
-          "position": "D",
-          "birthDate": "2005-09-29"
         },
         {
           "name": "Artem Zub",
@@ -1166,12 +1172,6 @@
           "id": 8475166,
           "position": "C",
           "birthDate": "1990-09-20"
-        },
-        {
-          "name": "Ryan Tverberg",
-          "id": 8482525,
-          "position": "C",
-          "birthDate": "2002-01-30"
         },
         {
           "name": "Miles Wood",
@@ -3328,6 +3328,12 @@
           "birthDate": "2004-06-01"
         },
         {
+          "name": "Otto Stenberg",
+          "id": 8484230,
+          "position": "C",
+          "birthDate": "2005-05-29"
+        },
+        {
           "name": "Pius Suter",
           "id": 8480459,
           "position": "C",
@@ -3374,6 +3380,12 @@
           "id": 8475764,
           "position": "D",
           "birthDate": "1991-12-05"
+        },
+        {
+          "name": "Adam Jiricek",
+          "id": 8484790,
+          "position": "D",
+          "birthDate": "2006-06-28"
         },
         {
           "name": "Logan Mailloux",
@@ -3676,12 +3688,6 @@
           "birthDate": "2005-01-03"
         },
         {
-          "name": "Danil Zhilkin",
-          "id": 8483526,
-          "position": "C",
-          "birthDate": "2003-12-19"
-        },
-        {
           "name": "Tyrel Bauer",
           "id": 8482459,
           "position": "D",
@@ -3896,12 +3902,6 @@
           "id": 8484859,
           "position": "D",
           "birthDate": "2005-12-29"
-        },
-        {
-          "name": "Noah Warren",
-          "id": 8483521,
-          "position": "D",
-          "birthDate": "2004-07-15"
         }
       ],
       "goalies": [
