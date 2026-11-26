@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-25T11:16:41.100153+00:00",
+  "generated_at": "2026-11-26T03:51:16.973000+00:00",
   "players": {
     "callerosen": {
       "points_pg": 0.2236,
@@ -23,6 +23,17 @@
       "name": "Gregor Biber",
       "team": "UTA"
     },
+    "kirillkirsanov": {
+      "points_pg": 0.264,
+      "goals_pg": 0.044,
+      "assists_pg": 0.22,
+      "shots_pg": 0.4889,
+      "source_league": "AHL",
+      "source_season": 20262027,
+      "source_games": 20,
+      "name": "Kirill Kirsanov",
+      "team": "LAK"
+    },
     "liborhajek": {
       "points_pg": 0.1507,
       "goals_pg": 0.0695,
@@ -44,17 +55,6 @@
       "source_games": 53,
       "name": "Jake O'Brien",
       "team": "SEA"
-    },
-    "lukascormier": {
-      "points_pg": 0.422,
-      "goals_pg": 0.0718,
-      "assists_pg": 0.3502,
-      "shots_pg": 0.7982,
-      "source_league": "AHL",
-      "source_season": 20252026,
-      "source_games": 49,
-      "name": "Lukas Cormier",
-      "team": "VGK"
     }
   }
 }

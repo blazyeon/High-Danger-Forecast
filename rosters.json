@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-25T11:16:41.094801+00:00",
+  "generated_at": "2026-11-26T03:51:16.968723+00:00",
   "teams": {
     "BOS": {
       "skaters": [
@@ -1774,6 +1774,12 @@
           "birthDate": "1991-02-01"
         },
         {
+          "name": "Calum Ritchie",
+          "id": 8484221,
+          "position": "C",
+          "birthDate": "2005-01-21"
+        },
+        {
           "name": "Brayden Schenn",
           "id": 8475170,
           "position": "C",
@@ -2649,6 +2655,12 @@
     },
     "COL": {
       "skaters": [
+        {
+          "name": "Adam Beckman",
+          "id": 8481550,
+          "position": "LW",
+          "birthDate": "2001-05-10"
+        },
         {
           "name": "Gavin Brindley",
           "id": 8484149,
@@ -3976,12 +3988,6 @@
           "birthDate": "2000-09-14"
         },
         {
-          "name": "Sam Morton",
-          "id": 8484821,
-          "position": "C",
-          "birthDate": "1999-07-28"
-        },
-        {
           "name": "Brennan Othmann",
           "id": 8482747,
           "position": "LW",
@@ -4376,6 +4382,12 @@
           "id": 8476979,
           "position": "D",
           "birthDate": "1992-03-14"
+        },
+        {
+          "name": "Kirill Kirsanov",
+          "id": 8482922,
+          "position": "D",
+          "birthDate": "2002-09-19"
         }
       ],
       "goalies": [
@@ -4952,12 +4964,6 @@
           "id": 8479639,
           "position": "D",
           "birthDate": "1998-02-19"
-        },
-        {
-          "name": "Lukas Cormier",
-          "id": 8482141,
-          "position": "D",
-          "birthDate": "2002-03-27"
         },
         {
           "name": "Noah Hanifin",

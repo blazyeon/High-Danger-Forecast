@@ -1,0 +1,2597 @@
+{
+  "date": "2026-11-27",
+  "computed_at": "2026-11-26T03:56:17.113845+00:00",
+  "games": [
+    {
+      "home": "BOS",
+      "away": "TOR",
+      "home_name": "Bruins",
+      "away_name": "Maple Leafs",
+      "start_time": "2026-11-27T18:00:00Z",
+      "best_edge": 0.0,
+      "edges": [],
+      "sim": {
+        "mu_home": 3.430989260963752,
+        "mu_away": 2.2806352608266423,
+        "home_elo_adj": 1533.0009921849658,
+        "away_elo_adj": 1495.3608620121593,
+        "home_win_pct": 57.4,
+        "away_win_pct": 42.6,
+        "home_win_2plus_pct": 44.6,
+        "away_win_2plus_pct": 16.9,
+        "exp_home_goals": 3.5141,
+        "exp_away_goals": 2.3457,
+        "median_home_goals": 3,
+        "median_away_goals": 2,
+        "mode_home_goals": 3,
+        "mode_away_goals": 1,
+        "most_likely_total": 4,
+        "mode_pair": [
+          3,
+          1
+        ],
+        "display_pair": [
+          3,
+          1
+        ],
+        "sims": 10000,
+        "exp_home_shots": 27.95384615384615,
+        "exp_away_shots": 28.03846153846154,
+        "totals_distribution": {
+          "0": 64,
+          "1": 269,
+          "2": 684,
+          "3": 975,
+          "4": 1564,
+          "5": 1357,
+          "6": 1450,
+          "7": 1046,
+          "8": 919,
+          "9": 573,
+          "10": 448,
+          "11": 279,
+          "12": 153,
+          "13": 109,
+          "14": 57,
+          "15": 21,
+          "16": 16,
+          "17": 7,
+          "18": 4,
+          "19": 2,
+          "20": 1,
+          "22": 2
+        },
+        "regulation_games_pct": 85.2,
+        "reg_home_win_pct": 58.1,
+        "reg_away_win_pct": 27.1,
+        "ot_games_pct": 8.9,
+        "so_games_pct": 5.9,
+        "confidence": 0.779,
+        "home_goalie": "J. Swayman",
+        "away_goalie": "A. Stolarz",
+        "breakdown": {
+          "HOME": {
+            "Base xGF": 2.487,
+            "xGA adjustment": 0.81,
+            "Special teams (PP/PK)": 0.0,
+            "Goalie adj (mult-1)": -0.0066,
+            "Recent form adj": 0.0,
+            "Lineup delta": 0.0,
+            "Momentum adj (mult-1)": 0.001,
+            "Rest/Travel adj (mult-1)": 0.0,
+            "Score-effects adj (mult-1)": 0.0,
+            "Final mu": 3.431
+          },
+          "AWAY": {
+            "Base xGF": 2.381,
+            "xGA adjustment": 0.82,
+            "Special teams (PP/PK)": 0.0,
+            "Goalie adj (mult-1)": -0.0522,
+            "Recent form adj": 0.0086,
+            "Lineup delta": 0.0,
+            "Momentum adj (mult-1)": -0.0046,
+            "Rest/Travel adj (mult-1)": 0.0,
+            "Score-effects adj (mult-1)": 0.0,
+            "Final mu": 2.281
+          }
+        },
+        "home_injuries": {
+          "offense_impact": -0.05357142857142857,
+          "defense_impact": 0.0,
+          "n_injuries": 1,
+          "players": [
+            {
+              "name": "James Hagens",
+              "points": 12,
+              "gp": 17,
+              "team_points": 224.0,
+              "contribution_pct": 0.05357142857142857,
+              "impact_pct": -0.05357142857142857,
+              "defensive_score": 0.0,
+              "defensive_percentile": 50.0,
+              "position": "C",
+              "status": "ir"
+            }
+          ],
+          "top_defensive_injuries": []
+        },
+        "away_injuries": {
+          "offense_impact": -0.20089285714285715,
+          "defense_impact": 0.0057708,
+          "n_injuries": 5,
+          "players": [
+            {
+              "name": "Jack Roslovic",
+              "points": 23,
+              "gp": 24,
+              "team_points": 224.0,
+              "contribution_pct": 0.10267857142857142,
+              "impact_pct": -0.10267857142857142,
+              "defensive_score": 0.145,
+              "defensive_percentile": 61.3,
+              "position": "C",
+              "status": "dtd"
+            },
+            {
+              "name": "Kirill Marchenko",
+              "points": 14,
+              "gp": 14,
+              "team_points": 224.0,
+              "contribution_pct": 0.0625,
+              "impact_pct": -0.0625,
+              "defensive_score": 0.0,
+              "defensive_percentile": 50.0,
+              "position": "RW",
+              "status": "ir"
+            },
+            {
+              "name": "Colton Sissons",
+              "points": 6,
+              "gp": 19,
+              "team_points": 224.0,
+              "contribution_pct": 0.026785714285714284,
+              "impact_pct": -0.026785714285714284,
+              "defensive_score": 0.0,
+              "defensive_percentile": 50.0,
+              "position": "C",
+              "status": "ir"
+            },
+            {
+              "name": "Nick Blankenburg",
+              "points": 1,
+              "gp": 6,
+              "team_points": 224.0,
+              "contribution_pct": 0.004464285714285714,
+              "impact_pct": -0.004464285714285714,
+              "defensive_score": 0.0,
+              "defensive_percentile": 50.0,
+              "position": "D",
+              "status": "ir"
+            },
+            {
+              "name": "Marshall Rifai",
+              "points": 1,
+              "gp": 2,
+              "team_points": 224.0,
+              "contribution_pct": 0.004464285714285714,
+              "impact_pct": -0.004464285714285714,
+              "defensive_score": 0.0,
+              "defensive_percentile": 50.0,
+              "position": "D",
+              "status": "ir"
+            }
+          ],
+          "top_defensive_injuries": []
+        }
+      }
+    },
+    {
+      "home": "NJD",
+      "away": "CGY",
+      "home_name": "Devils",
+      "away_name": "Flames",
+      "start_time": "2026-11-27T18:00:00Z",
+      "best_edge": 0.0,
+      "edges": [],
+      "sim": {
+        "mu_home": 4.284158697787195,
+        "mu_away": 2.0551461520036525,
+        "home_elo_adj": 1564.5205537089157,
+        "away_elo_adj": 1481.0496436384005,
+        "home_win_pct": 69.1,
+        "away_win_pct": 30.9,
+        "home_win_2plus_pct": 62.5,
+        "away_win_2plus_pct": 7.9,
+        "exp_home_goals": 4.3826,
+        "exp_away_goals": 2.0897,
+        "median_home_goals": 4,
+        "median_away_goals": 2,
+        "mode_home_goals": 4,
+        "mode_away_goals": 2,
+        "most_likely_total": 6,
+        "mode_pair": [
+          4,
+          2
+        ],
+        "display_pair": [
+          4,
+          2
+        ],
+        "sims": 10000,
+        "exp_home_shots": 31.504,
+        "exp_away_shots": 26.92830769230769,
+        "totals_distribution": {
+          "0": 35,
+          "1": 164,
+          "2": 461,
+          "3": 768,
+          "4": 1232,
+          "5": 1234,
+          "6": 1537,
+          "7": 1257,
+          "8": 1084,
+          "9": 800,
+          "10": 523,
+          "11": 372,
+          "12": 223,
+          "13": 147,
+          "14": 86,
+          "15": 38,
+          "16": 19,
+          "17": 10,
+          "18": 5,
+          "19": 5
+        },
+        "regulation_games_pct": 89.3,
+        "reg_home_win_pct": 74.7,
+        "reg_away_win_pct": 14.6,
+        "ot_games_pct": 6.4,
+        "so_games_pct": 4.3,
+        "confidence": 0.782,
+        "home_goalie": "C. Hellebuyck",
+        "away_goalie": "D. Wolf",
+        "breakdown": {
+          "HOME": {
+            "Base xGF": 2.755,
+            "xGA adjustment": 0.82,
+            "Special teams (PP/PK)": 0.0,
+            "Goalie adj (mult-1)": 0.0339,
+            "Recent form adj": 0.0,
+            "Lineup delta": 0.0,
+            "Momentum adj (mult-1)": 0.0024,
+            "Rest/Travel adj (mult-1)": 0.0,
+            "Score-effects adj (mult-1)": 0.0,
+            "Final mu": 4.284
+          },
+          "AWAY": {
+            "Base xGF": 2.111,
+            "xGA adjustment": 0.72,
+            "Special teams (PP/PK)": 0.0,
+            "Goalie adj (mult-1)": -0.0252,
+            "Recent form adj": 0.0114,
+            "Lineup delta": 0.0,
+            "Momentum adj (mult-1)": -0.0011,
+            "Rest/Travel adj (mult-1)": 0.0,
+            "Score-effects adj (mult-1)": 0.0,
+            "Final mu": 2.055
+          }
+        },
+        "home_injuries": {
+          "offense_impact": -0.0502092050209205,
+          "defense_impact": 0.0,
+          "n_injuries": 2,
+          "players": [
+            {
+              "name": "Anthony Mantha",
+              "points": 10,
+              "gp": 17,
+              "team_points": 239.0,
+              "contribution_pct": 0.04184100418410042,
+              "impact_pct": -0.04184100418410042,
+              "defensive_score": 0.0,
+              "defensive_percentile": 50.0,
+              "position": "RW",
+              "status": "ir"
+            },
+            {
+              "name": "Johnathan Kovacevic",
+              "points": 2,
+              "gp": 13,
+              "team_points": 239.0,
+              "contribution_pct": 0.008368200836820083,
+              "impact_pct": -0.008368200836820083,
+              "defensive_score": 0.0,
+              "defensive_percentile": 50.0,
+              "position": "D",
+              "status": "ir"
+            }
+          ],
+          "top_defensive_injuries": []
+        },
+        "away_injuries": {
+          "offense_impact": -0.14054054054054055,
+          "defense_impact": 0.019037500000000002,
+          "n_injuries": 3,
+          "players": [
+            {
+              "name": "Morgan Frost",
+              "points": 14,
+              "gp": 25,
+              "team_points": 185.0,
+              "contribution_pct": 0.07567567567567568,
+              "impact_pct": -0.07567567567567568,
+              "defensive_score": 0.0,
+              "defensive_percentile": 50.0,
+              "position": "C",
+              "status": "dtd"
+            },
+            {
+              "name": "Martin Pospisil",
+              "points": 10,
+              "gp": 24,
+              "team_points": 185.0,
+              "contribution_pct": 0.05405405405405406,
+              "impact_pct": -0.05405405405405406,
+              "defensive_score": 0.0,
+              "defensive_percentile": 50.0,
+              "position": "C",
+              "status": "out"
+            },
+            {
+              "name": "Kevin Bahl",
+              "points": 2,
+              "gp": 16,
+              "team_points": 185.0,
+              "contribution_pct": 0.010810810810810811,
+              "impact_pct": -0.010810810810810811,
+              "defensive_score": 0.523,
+              "defensive_percentile": 71.6,
+              "position": "D",
+              "status": "ir"
+            }
+          ],
+          "top_defensive_injuries": [
+            {
+              "name": "Kevin Bahl",
+              "position": "D",
+              "defensive_score": 0.523,
+              "defensive_percentile": 71.6,
+              "delta_xg_pct": 0.07,
+              "onice_xga60": 2.553,
+              "blocks60": 2.84,
+              "icetime_hours": 4.9,
+              "status": "ir"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "home": "NSH",
+      "away": "UTA",
+      "home_name": "Predators",
+      "away_name": "Mammoth",
+      "start_time": "2026-11-27T18:00:00Z",
+      "best_edge": 0.0,
+      "edges": [],
+      "sim": {
+        "mu_home": 3.6559123612717666,
+        "mu_away": 2.7435905596226964,
+        "home_elo_adj": 1521.1308806565667,
+        "away_elo_adj": 1483.5841484213386,
+        "home_win_pct": 55.3,
+        "away_win_pct": 44.7,
+        "home_win_2plus_pct": 43.0,
+        "away_win_2plus_pct": 19.1,
+        "exp_home_goals": 3.7276,
+        "exp_away_goals": 2.7864,
+        "median_home_goals": 4,
+        "median_away_goals": 3,
+        "mode_home_goals": 4,
+        "mode_away_goals": 2,
+        "most_likely_total": 6,
+        "mode_pair": [
+          4,
+          2
+        ],
+        "display_pair": [
+          4,
+          2
+        ],
+        "sims": 10000,
+        "exp_home_shots": 26.626,
+        "exp_away_shots": 29.686,
+        "totals_distribution": {
+          "0": 29,
+          "1": 113,
+          "2": 366,
+          "3": 664,
+          "4": 1285,
+          "5": 1299,
+          "6": 1639,
+          "7": 1273,
+          "8": 1167,
+          "9": 780,
+          "10": 596,
+          "11": 316,
+          "12": 250,
+          "13": 99,
+          "14": 65,
+          "15": 30,
+          "16": 19,
+          "17": 5,
+          "18": 3,
+          "20": 1,
+          "21": 1
+        },
+        "regulation_games_pct": 85.5,
+        "reg_home_win_pct": 56.2,
+        "reg_away_win_pct": 29.4,
+        "ot_games_pct": 8.7,
+        "so_games_pct": 5.8,
+        "confidence": 0.785,
+        "home_goalie": "J. Saros",
+        "away_goalie": "K. Vejmelka",
+        "breakdown": {
+          "HOME": {
+            "Base xGF": 2.473,
+            "xGA adjustment": 0.761,
+            "Special teams (PP/PK)": 0.0,
+            "Goalie adj (mult-1)": 0.0378,
+            "Recent form adj": 0.0,
+            "Lineup delta": 0.0,
+            "Momentum adj (mult-1)": 0.0032,
+            "Rest/Travel adj (mult-1)": 0.0,
+            "Score-effects adj (mult-1)": 0.0,
+            "Final mu": 3.656
+          },
+          "AWAY": {
+            "Base xGF": 2.827,
+            "xGA adjustment": 0.889,
+            "Special teams (PP/PK)": 0.0,
+            "Goalie adj (mult-1)": -0.0703,
+            "Recent form adj": 0.0,
+            "Lineup delta": 0.0,
+            "Momentum adj (mult-1)": -0.001,
+            "Rest/Travel adj (mult-1)": 0.0,
+            "Score-effects adj (mult-1)": 0.0,
+            "Final mu": 2.744
+          }
+        },
+        "home_injuries": {
+          "offense_impact": 0.0,
+          "defense_impact": 0.0,
+          "n_injuries": 1,
+          "players": [
+            {
+              "name": "William Trudeau",
+              "points": 0,
+              "gp": 3,
+              "team_points": 190.0,
+              "contribution_pct": 0.0,
+              "impact_pct": -0.0,
+              "defensive_score": 0.0,
+              "defensive_percentile": 50.0,
+              "position": "D",
+              "status": "ir"
+            }
+          ],
+          "top_defensive_injuries": []
+        },
+        "away_injuries": {
+          "offense_impact": -0.1415929203539823,
+          "defense_impact": 0.030488499999999998,
+          "n_injuries": 5,
+          "players": [
+            {
+              "name": "Nick Schmaltz",
+              "points": 20,
+              "gp": 19,
+              "team_points": 226.0,
+              "contribution_pct": 0.08849557522123894,
+              "impact_pct": -0.08849557522123894,
+              "defensive_score": 0.0,
+              "defensive_percentile": 50.0,
+              "position": "C",
+              "status": "dtd"
+            },
+            {
+              "name": "John Marino",
+              "points": 5,
+              "gp": 9,
+              "team_points": 226.0,
+              "contribution_pct": 0.022123893805309734,
+              "impact_pct": -0.022123893805309734,
+              "defensive_score": 0.0,
+              "defensive_percentile": 50.0,
+              "position": "D",
+              "status": "ir"
+            },
+            {
+              "name": "Nate Schmidt",
+              "points": 4,
+              "gp": 17,
+              "team_points": 226.0,
+              "contribution_pct": 0.017699115044247787,
+              "impact_pct": -0.017699115044247787,
+              "defensive_score": 0.967,
+              "defensive_percentile": 84.5,
+              "position": "D",
+              "status": "ir"
+            },
+            {
+              "name": "Michael Carcone",
+              "points": 3,
+              "gp": 15,
+              "team_points": 226.0,
+              "contribution_pct": 0.01327433628318584,
+              "impact_pct": -0.01327433628318584,
+              "defensive_score": 0.0,
+              "defensive_percentile": 50.0,
+              "position": "LW",
+              "status": "out"
+            },
+            {
+              "name": "Artem Duda",
+              "points": 0,
+              "gp": 6,
+              "team_points": 226.0,
+              "contribution_pct": 0.0,
+              "impact_pct": -0.0,
+              "defensive_score": 0.0,
+              "defensive_percentile": 50.0,
+              "position": "D",
+              "status": "ir"
+            }
+          ],
+          "top_defensive_injuries": [
+            {
+              "name": "Nate Schmidt",
+              "position": "D",
+              "defensive_score": 0.967,
+              "defensive_percentile": 84.5,
+              "delta_xg_pct": 0.05,
+              "onice_xga60": 1.894,
+              "blocks60": 2.34,
+              "icetime_hours": 4.7,
+              "status": "ir"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "home": "STL",
+      "away": "DAL",
+      "home_name": "Blues",
+      "away_name": "Stars",
+      "start_time": "2026-11-27T19:00:00Z",
+      "best_edge": 0.0,
+      "edges": [],
+      "sim": {
+        "mu_home": 2.409848917823574,
+        "mu_away": 3.0783456036097228,
+        "home_elo_adj": 1525.8847745230953,
+        "away_elo_adj": 1571.1680286518513,
+        "home_win_pct": 39.7,
+        "away_win_pct": 60.3,
+        "home_win_2plus_pct": 22.4,
+        "away_win_2plus_pct": 38.9,
+        "exp_home_goals": 2.4754,
+        "exp_away_goals": 3.1263,
+        "median_home_goals": 2,
+        "median_away_goals": 3,
+        "mode_home_goals": 1,
+        "mode_away_goals": 3,
+        "most_likely_total": 4,
+        "mode_pair": [
+          1,
+          3
+        ],
+        "display_pair": [
+          1,
+          3
+        ],
+        "sims": 10000,
+        "exp_home_shots": 26.430666666666667,
+        "exp_away_shots": 27.729999999999997,
+        "totals_distribution": {
+          "0": 93,
+          "1": 436,
+          "2": 830,
+          "3": 1025,
+          "4": 1622,
+          "5": 1226,
+          "6": 1425,
+          "7": 974,
+          "8": 837,
+          "9": 572,
+          "10": 374,
+          "11": 226,
+          "12": 156,
+          "13": 84,
+          "14": 58,
+          "15": 24,
+          "16": 15,
+          "17": 14,
+          "18": 6,
+          "21": 1,
+          "22": 1,
+          "25": 1
+        },
+        "regulation_games_pct": 84.8,
+        "reg_home_win_pct": 33.1,
+        "reg_away_win_pct": 51.7,
+        "ot_games_pct": 9.1,
+        "so_games_pct": 6.1,
+        "confidence": 0.77,
+        "home_goalie": "J. Hofer",
+        "away_goalie": "J. Oettinger",
+        "breakdown": {
+          "HOME": {
+            "Base xGF": 2.524,
+            "xGA adjustment": 0.764,
+            "Special teams (PP/PK)": 0.0,
+            "Goalie adj (mult-1)": -0.0612,
+            "Recent form adj": 0.0,
+            "Lineup delta": 0.0,
+            "Momentum adj (mult-1)": 0.0019,
+            "Rest/Travel adj (mult-1)": 0.0,
+            "Score-effects adj (mult-1)": 0.0,
+            "Final mu": 2.41
+          },
+          "AWAY": {
+            "Base xGF": 2.403,
+            "xGA adjustment": 0.843,
+            "Special teams (PP/PK)": 0.0,
+            "Goalie adj (mult-1)": -0.0719,
+            "Recent form adj": 0.0,
+            "Lineup delta": 0.0,
+            "Momentum adj (mult-1)": 0.0018,
+            "Rest/Travel adj (mult-1)": 0.0,
+            "Score-effects adj (mult-1)": 0.0,
+            "Final mu": 3.078
+          }
+        },
+        "home_injuries": {
+          "offense_impact": -0.21363636363636362,
+          "defense_impact": 0.019902,
+          "n_injuries": 5,
+          "players": [
+            {
+              "name": "Jimmy Snuggerud",
+              "points": 20,
+              "gp": 24,
+              "team_points": 220.0,
+              "contribution_pct": 0.09090909090909091,
+              "impact_pct": -0.09090909090909091,
+              "defensive_score": 0.0,
+              "defensive_percentile": 50.0,
+              "position": "RW",
+              "status": "dtd"
+            },
+            {
+              "name": "Connor McMichael",
+              "points": 11,
+              "gp": 22,
+              "team_points": 220.0,
+              "contribution_pct": 0.05,
+              "impact_pct": -0.05,
+              "defensive_score": 0.0,
+              "defensive_percentile": 50.0,
+              "position": "LW",
+              "status": "ir"
+            },
+            {
+              "name": "Pavel Buchnevich",
+              "points": 11,
+              "gp": 23,
+              "team_points": 220.0,
+              "contribution_pct": 0.05,
+              "impact_pct": -0.05,
+              "defensive_score": 0.0,
+              "defensive_percentile": 50.0,
+              "position": "LW",
+              "status": "dtd"
+            },
+            {
+              "name": "Brandon Carlo",
+              "points": 4,
+              "gp": 24,
+              "team_points": 220.0,
+              "contribution_pct": 0.01818181818181818,
+              "impact_pct": -0.01818181818181818,
+              "defensive_score": 0.284,
+              "defensive_percentile": 63.9,
+              "position": "D",
+              "status": "ir"
+            },
+            {
+              "name": "Dillon Dube",
+              "points": 1,
+              "gp": 3,
+              "team_points": 220.0,
+              "contribution_pct": 0.004545454545454545,
+              "impact_pct": -0.004545454545454545,
+              "defensive_score": 0.0,
+              "defensive_percentile": 50.0,
+              "position": "C",
+              "status": "ir"
+            }
+          ],
+          "top_defensive_injuries": []
+        },
+        "away_injuries": {
+          "offense_impact": -0.017341040462427744,
+          "defense_impact": 0.012787499999999999,
+          "n_injuries": 3,
+          "players": [
+            {
+              "name": "Tyler Myers",
+              "points": 2,
+              "gp": 20,
+              "team_points": 173.0,
+              "contribution_pct": 0.011560693641618497,
+              "impact_pct": -0.011560693641618497,
+              "defensive_score": -0.348,
+              "defensive_percentile": 36.1,
+              "position": "D",
+              "status": "dtd"
+            },
+            {
+              "name": "Lian Bichsel",
+              "points": 1,
+              "gp": 18,
+              "team_points": 173.0,
+              "contribution_pct": 0.005780346820809248,
+              "impact_pct": -0.005780346820809248,
+              "defensive_score": -0.827,
+              "defensive_percentile": 20.1,
+              "position": "D",
+              "status": "ir"
+            },
+            {
+              "name": "Kyle Capobianco",
+              "points": 0,
+              "gp": 5,
+              "team_points": 173.0,
+              "contribution_pct": 0.0,
+              "impact_pct": -0.0,
+              "defensive_score": 0.0,
+              "defensive_percentile": 50.0,
+              "position": "D",
+              "status": "ir"
+            }
+          ],
+          "top_defensive_injuries": []
+        }
+      }
+    },
+    {
+      "home": "TBL",
+      "away": "OTT",
+      "home_name": "Lightning",
+      "away_name": "Senators",
+      "start_time": "2026-11-27T20:00:00Z",
+      "best_edge": 0.0,
+      "edges": [],
+      "sim": {
+        "mu_home": 3.1469014985047865,
+        "mu_away": 2.9777169646727932,
+        "home_elo_adj": 1560.323621088747,
+        "away_elo_adj": 1536.419909205128,
+        "home_win_pct": 48.7,
+        "away_win_pct": 51.3,
+        "home_win_2plus_pct": 31.9,
+        "away_win_2plus_pct": 29.7,
+        "exp_home_goals": 3.2166,
+        "exp_away_goals": 3.0501,
+        "median_home_goals": 3,
+        "median_away_goals": 3,
+        "mode_home_goals": 1,
+        "mode_away_goals": 3,
+        "most_likely_total": 4,
+        "mode_pair": [
+          1,
+          3
+        ],
+        "display_pair": [
+          1,
+          3
+        ],
+        "sims": 10000,
+        "exp_home_shots": 28.2,
+        "exp_away_shots": 26.238461538461536,
+        "totals_distribution": {
+          "0": 48,
+          "1": 212,
+          "2": 551,
+          "3": 800,
+          "4": 1403,
+          "5": 1280,
+          "6": 1533,
+          "7": 1104,
+          "8": 1027,
+          "9": 674,
+          "10": 538,
+          "11": 308,
+          "12": 221,
+          "13": 124,
+          "14": 82,
+          "15": 32,
+          "16": 32,
+          "17": 16,
+          "18": 8,
+          "19": 2,
+          "20": 3,
+          "21": 1,
+          "26": 1
+        },
+        "regulation_games_pct": 85.0,
+        "reg_home_win_pct": 43.3,
+        "reg_away_win_pct": 41.8,
+        "ot_games_pct": 9.0,
+        "so_games_pct": 6.0,
+        "confidence": 0.77,
+        "home_goalie": "A. Vasilevskiy",
+        "away_goalie": "L. Ullmark",
+        "breakdown": {
+          "HOME": {
+            "Base xGF": 2.636,
+            "xGA adjustment": 0.744,
+            "Special teams (PP/PK)": 0.0,
+            "Goalie adj (mult-1)": -0.1,
+            "Recent form adj": 0.0,
+            "Lineup delta": 0.0,
+            "Momentum adj (mult-1)": 0.0016,
+            "Rest/Travel adj (mult-1)": 0.0,
+            "Score-effects adj (mult-1)": 0.0,
+            "Final mu": 3.147
+          },
+          "AWAY": {
+            "Base xGF": 2.494,
+            "xGA adjustment": 0.733,
+            "Special teams (PP/PK)": 0.0,
+            "Goalie adj (mult-1)": -0.0214,
+            "Recent form adj": 0.0019,
+            "Lineup delta": 0.0,
+            "Momentum adj (mult-1)": 0.003,
+            "Rest/Travel adj (mult-1)": 0.0,
+            "Score-effects adj (mult-1)": 0.0,
+            "Final mu": 2.978
+          }
+        },
+        "home_injuries": {
+          "offense_impact": -0.08928571428571429,
+          "defense_impact": 0.029999480000000005,
+          "n_injuries": 3,
+          "players": [
+            {
+              "name": "Erik Cernak",
+              "points": 9,
+              "gp": 20,
+              "team_points": 224.0,
+              "contribution_pct": 0.04017857142857143,
+              "impact_pct": -0.04017857142857143,
+              "defensive_score": 1.441,
+              "defensive_percentile": 92.8,
+              "position": "D",
+              "status": "dtd"
+            },
+            {
+              "name": "Victor Hedman",
+              "points": 6,
+              "gp": 22,
+              "team_points": 224.0,
+              "contribution_pct": 0.026785714285714284,
+              "impact_pct": -0.026785714285714284,
+              "defensive_score": -1.347,
+              "defensive_percentile": 8.2,
+              "position": "D",
+              "status": "dtd"
+            },
+            {
+              "name": "Conor Geekie",
+              "points": 5,
+              "gp": 20,
+              "team_points": 224.0,
+              "contribution_pct": 0.022321428571428572,
+              "impact_pct": -0.022321428571428572,
+              "defensive_score": 0.0,
+              "defensive_percentile": 50.0,
+              "position": "C",
+              "status": "ir"
+            }
+          ],
+          "top_defensive_injuries": [
+            {
+              "name": "Erik Cernak",
+              "position": "D",
+              "defensive_score": 1.441,
+              "defensive_percentile": 92.8,
+              "delta_xg_pct": 0.04,
+              "onice_xga60": 1.798,
+              "blocks60": 3.93,
+              "icetime_hours": 5.1,
+              "status": "dtd"
+            }
+          ]
+        },
+        "away_injuries": {
+          "offense_impact": -0.03271028037383177,
+          "defense_impact": 0.0,
+          "n_injuries": 4,
+          "players": [
+            {
+              "name": "Warren Foegele",
+              "points": 4,
+              "gp": 13,
+              "team_points": 214.0,
+              "contribution_pct": 0.018691588785046728,
+              "impact_pct": -0.018691588785046728,
+              "defensive_score": 0.0,
+              "defensive_percentile": 50.0,
+              "position": "LW",
+              "status": "ir"
+            },
+            {
+              "name": "William Eklund",
+              "points": 2,
+              "gp": 4,
+              "team_points": 214.0,
+              "contribution_pct": 0.009345794392523364,
+              "impact_pct": -0.009345794392523364,
+              "defensive_score": 0.0,
+              "defensive_percentile": 50.0,
+              "position": "LW",
+              "status": "ir"
+            },
+            {
+              "name": "Hayden Hodgson",
+              "points": 1,
+              "gp": 10,
+              "team_points": 214.0,
+              "contribution_pct": 0.004672897196261682,
+              "impact_pct": -0.004672897196261682,
+              "defensive_score": 0.0,
+              "defensive_percentile": 50.0,
+              "position": "RW",
+              "status": "out"
+            },
+            {
+              "name": "Andre Burakovsky",
+              "points": 0,
+              "gp": 8,
+              "team_points": 214.0,
+              "contribution_pct": 0.0,
+              "impact_pct": -0.0,
+              "defensive_score": 0.0,
+              "defensive_percentile": 50.0,
+              "position": "LW",
+              "status": "ir"
+            }
+          ],
+          "top_defensive_injuries": []
+        }
+      }
+    },
+    {
+      "home": "PHI",
+      "away": "VAN",
+      "home_name": "Flyers",
+      "away_name": "Canucks",
+      "start_time": "2026-11-27T20:00:00Z",
+      "best_edge": 0.0,
+      "edges": [],
+      "sim": {
+        "mu_home": 3.8392017916303383,
+        "mu_away": 1.9747699558336977,
+        "home_elo_adj": 1489.3249061603804,
+        "away_elo_adj": 1422.2235539315777,
+        "home_win_pct": 67.2,
+        "away_win_pct": 32.8,
+        "home_win_2plus_pct": 57.5,
+        "away_win_2plus_pct": 9.4,
+        "exp_home_goals": 3.9436,
+        "exp_away_goals": 1.9937,
+        "median_home_goals": 4,
+        "median_away_goals": 2,
+        "mode_home_goals": 3,
+        "mode_away_goals": 1,
+        "most_likely_total": 4,
+        "mode_pair": [
+          3,
+          1
+        ],
+        "display_pair": [
+          3,
+          1
+        ],
+        "sims": 10000,
+        "exp_home_shots": 27.192592592592597,
+        "exp_away_shots": 24.903703703703705,
+        "totals_distribution": {
+          "0": 40,
+          "1": 236,
+          "2": 598,
+          "3": 902,
+          "4": 1437,
+          "5": 1446,
+          "6": 1562,
+          "7": 1152,
+          "8": 961,
+          "9": 671,
+          "10": 445,
+          "11": 253,
+          "12": 151,
+          "13": 78,
+          "14": 30,
+          "15": 15,
+          "16": 11,
+          "17": 8,
+          "19": 2,
+          "20": 2
+        },
+        "regulation_games_pct": 87.6,
+        "reg_home_win_pct": 70.9,
+        "reg_away_win_pct": 16.6,
+        "ot_games_pct": 7.5,
+        "so_games_pct": 5.0,
+        "confidence": 0.79,
+        "home_goalie": "J. Woll",
+        "away_goalie": "L. Meril\u00e4inen",
+        "breakdown": {
+          "HOME": {
+            "Base xGF": 2.08,
+            "xGA adjustment": 0.929,
+            "Special teams (PP/PK)": 0.0,
+            "Goalie adj (mult-1)": 0.0071,
+            "Recent form adj": 0.0235,
+            "Lineup delta": 0.0,
+            "Momentum adj (mult-1)": 0.0002,
+            "Rest/Travel adj (mult-1)": 0.0,
+            "Score-effects adj (mult-1)": 0.0,
+            "Final mu": 3.839
+          },
+          "AWAY": {
+            "Base xGF": 2.006,
+            "xGA adjustment": 0.839,
+            "Special teams (PP/PK)": 0.0,
+            "Goalie adj (mult-1)": -0.0084,
+            "Recent form adj": -0.0536,
+            "Lineup delta": 0.0,
+            "Momentum adj (mult-1)": -0.0036,
+            "Rest/Travel adj (mult-1)": 0.0,
+            "Score-effects adj (mult-1)": 0.0,
+            "Final mu": 1.975
+          }
+        },
+        "home_injuries": {
+          "offense_impact": 0.0,
+          "defense_impact": 0,
+          "n_injuries": 0,
+          "players": [],
+          "top_defensive_injuries": []
+        },
+        "away_injuries": {
+          "offense_impact": -0.135,
+          "defense_impact": 0.009298999999999997,
+          "n_injuries": 1,
+          "players": [
+            {
+              "name": "Elias Pettersson",
+              "points": 27,
+              "gp": 27,
+              "team_points": 200.0,
+              "contribution_pct": 0.135,
+              "impact_pct": -0.135,
+              "defensive_score": -0.453,
+              "defensive_percentile": 32.5,
+              "position": "D",
+              "status": "dtd"
+            }
+          ],
+          "top_defensive_injuries": []
+        }
+      }
+    },
+    {
+      "home": "WSH",
+      "away": "FLA",
+      "home_name": "Capitals",
+      "away_name": "Panthers",
+      "start_time": "2026-11-27T20:00:00Z",
+      "best_edge": 0.0,
+      "edges": [],
+      "sim": {
+        "mu_home": 3.189059914439906,
+        "mu_away": 3.1924567969402236,
+        "home_elo_adj": 1514.9367156783894,
+        "away_elo_adj": 1527.1670149441866,
+        "home_win_pct": 45.8,
+        "away_win_pct": 54.2,
+        "home_win_2plus_pct": 29.6,
+        "away_win_2plus_pct": 30.2,
+        "exp_home_goals": 3.2345,
+        "exp_away_goals": 3.253,
+        "median_home_goals": 3,
+        "median_away_goals": 3,
+        "mode_home_goals": 4,
+        "mode_away_goals": 2,
+        "most_likely_total": 6,
+        "mode_pair": [
+          4,
+          2
+        ],
+        "display_pair": [
+          4,
+          2
+        ],
+        "sims": 10000,
+        "exp_home_shots": 27.680363636363637,
+        "exp_away_shots": 28.229818181818178,
+        "totals_distribution": {
+          "0": 26,
+          "1": 130,
+          "2": 407,
+          "3": 653,
+          "4": 1286,
+          "5": 1270,
+          "6": 1691,
+          "7": 1219,
+          "8": 1191,
+          "9": 760,
+          "10": 601,
+          "11": 298,
+          "12": 219,
+          "13": 96,
+          "14": 88,
+          "15": 33,
+          "16": 19,
+          "17": 3,
+          "18": 6,
+          "19": 3,
+          "20": 1
+        },
+        "regulation_games_pct": 84.2,
+        "reg_home_win_pct": 42.0,
+        "reg_away_win_pct": 42.3,
+        "ot_games_pct": 9.5,
+        "so_games_pct": 6.3,
+        "confidence": 0.79,
+        "home_goalie": "L. Thompson",
+        "away_goalie": "J. Markstrom",
+        "breakdown": {
+          "HOME": {
+            "Base xGF": 2.657,
+            "xGA adjustment": 0.738,
+            "Special teams (PP/PK)": 0.0,
+            "Goalie adj (mult-1)": -0.0162,
+            "Recent form adj": 0.0,
+            "Lineup delta": 0.0,
+            "Momentum adj (mult-1)": -0.003,
+            "Rest/Travel adj (mult-1)": 0.0,
+            "Score-effects adj (mult-1)": 0.0,
+            "Final mu": 3.189
+          },
+          "AWAY": {
+            "Base xGF": 2.484,
+            "xGA adjustment": 0.815,
+            "Special teams (PP/PK)": 0.0,
+            "Goalie adj (mult-1)": 0.0133,
+            "Recent form adj": 0.0,
+            "Lineup delta": 0.0,
+            "Momentum adj (mult-1)": 0.0016,
+            "Rest/Travel adj (mult-1)": 0.0,
+            "Score-effects adj (mult-1)": 0.0,
+            "Final mu": 3.192
+          }
+        },
+        "home_injuries": {
+          "offense_impact": -0.08292682926829269,
+          "defense_impact": 0.0,
+          "n_injuries": 2,
+          "players": [
+            {
+              "name": "Jordan Kyrou",
+              "points": 14,
+              "gp": 21,
+              "team_points": 205.0,
+              "contribution_pct": 0.06829268292682927,
+              "impact_pct": -0.06829268292682927,
+              "defensive_score": 0.0,
+              "defensive_percentile": 50.0,
+              "position": "RW",
+              "status": "out"
+            },
+            {
+              "name": "Vincent Desharnais",
+              "points": 3,
+              "gp": 9,
+              "team_points": 205.0,
+              "contribution_pct": 0.014634146341463415,
+              "impact_pct": -0.014634146341463415,
+              "defensive_score": 0.0,
+              "defensive_percentile": 50.0,
+              "position": "D",
+              "status": "dtd"
+            }
+          ],
+          "top_defensive_injuries": []
+        },
+        "away_injuries": {
+          "offense_impact": 0.0,
+          "defense_impact": 0,
+          "n_injuries": 0,
+          "players": [],
+          "top_defensive_injuries": []
+        }
+      }
+    },
+    {
+      "home": "CBJ",
+      "away": "DET",
+      "home_name": "Blue Jackets",
+      "away_name": "Red Wings",
+      "start_time": "2026-11-27T20:00:00Z",
+      "best_edge": 0.0,
+      "edges": [],
+      "sim": {
+        "mu_home": 3.090719795023495,
+        "mu_away": 2.8209607967687935,
+        "home_elo_adj": 1475.404123810096,
+        "away_elo_adj": 1461.5577959916086,
+        "home_win_pct": 50.7,
+        "away_win_pct": 49.3,
+        "home_win_2plus_pct": 34.4,
+        "away_win_2plus_pct": 25.3,
+        "exp_home_goals": 3.1462,
+        "exp_away_goals": 2.8626,
+        "median_home_goals": 3,
+        "median_away_goals": 3,
+        "mode_home_goals": 4,
+        "mode_away_goals": 2,
+        "most_likely_total": 6,
+        "mode_pair": [
+          4,
+          2
+        ],
+        "display_pair": [
+          4,
+          2
+        ],
+        "sims": 10000,
+        "exp_home_shots": 27.32463768115942,
+        "exp_away_shots": 28.36413043478261,
+        "totals_distribution": {
+          "0": 49,
+          "1": 216,
+          "2": 623,
+          "3": 887,
+          "4": 1461,
+          "5": 1344,
+          "6": 1607,
+          "7": 1057,
+          "8": 1018,
+          "9": 618,
+          "10": 468,
+          "11": 273,
+          "12": 181,
+          "13": 88,
+          "14": 56,
+          "15": 20,
+          "16": 18,
+          "17": 10,
+          "18": 3,
+          "19": 1,
+          "20": 2
+        },
+        "regulation_games_pct": 84.2,
+        "reg_home_win_pct": 47.7,
+        "reg_away_win_pct": 36.5,
+        "ot_games_pct": 9.5,
+        "so_games_pct": 6.3,
+        "confidence": 0.785,
+        "home_goalie": "C. Talbot",
+        "away_goalie": "D. Tarasov",
+        "breakdown": {
+          "HOME": {
+            "Base xGF": 2.19,
+            "xGA adjustment": 0.832,
+            "Special teams (PP/PK)": 0.0,
+            "Goalie adj (mult-1)": -0.1,
+            "Recent form adj": 0.0,
+            "Lineup delta": 0.0,
+            "Momentum adj (mult-1)": -0.0024,
+            "Rest/Travel adj (mult-1)": 0.0,
+            "Score-effects adj (mult-1)": 0.0,
+            "Final mu": 3.091
+          },
+          "AWAY": {
+            "Base xGF": 2.398,
+            "xGA adjustment": 0.804,
+            "Special teams (PP/PK)": 0.0,
+            "Goalie adj (mult-1)": -0.0483,
+            "Recent form adj": 0.0,
+            "Lineup delta": 0.0,
+            "Momentum adj (mult-1)": -0.002,
+            "Rest/Travel adj (mult-1)": 0.0,
+            "Score-effects adj (mult-1)": 0.0,
+            "Final mu": 2.821
+          }
+        },
+        "home_injuries": {
+          "offense_impact": -0.04430379746835443,
+          "defense_impact": 0.0,
+          "n_injuries": 2,
+          "players": [
+            {
+              "name": "Mathieu Olivier",
+              "points": 6,
+              "gp": 22,
+              "team_points": 158.0,
+              "contribution_pct": 0.0379746835443038,
+              "impact_pct": -0.0379746835443038,
+              "defensive_score": 0.0,
+              "defensive_percentile": 50.0,
+              "position": "RW",
+              "status": "dtd"
+            },
+            {
+              "name": "Conor Garland",
+              "points": 1,
+              "gp": 15,
+              "team_points": 158.0,
+              "contribution_pct": 0.006329113924050633,
+              "impact_pct": -0.006329113924050633,
+              "defensive_score": 0.0,
+              "defensive_percentile": 50.0,
+              "position": "RW",
+              "status": "ir"
+            }
+          ],
+          "top_defensive_injuries": []
+        },
+        "away_injuries": {
+          "offense_impact": -0.03529411764705882,
+          "defense_impact": 0.023137500000000002,
+          "n_injuries": 1,
+          "players": [
+            {
+              "name": "William Wallinder",
+              "points": 6,
+              "gp": 16,
+              "team_points": 170.0,
+              "contribution_pct": 0.03529411764705882,
+              "impact_pct": -0.03529411764705882,
+              "defensive_score": 0.851,
+              "defensive_percentile": 81.4,
+              "position": "D",
+              "status": "dtd"
+            }
+          ],
+          "top_defensive_injuries": [
+            {
+              "name": "William Wallinder",
+              "position": "D",
+              "defensive_score": 0.851,
+              "defensive_percentile": 81.4,
+              "delta_xg_pct": 0.01,
+              "onice_xga60": 2.127,
+              "blocks60": 5.44,
+              "icetime_hours": 4.0,
+              "status": "dtd"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "home": "MIN",
+      "away": "COL",
+      "home_name": "Wild",
+      "away_name": "Avalanche",
+      "start_time": "2026-11-27T21:00:00Z",
+      "best_edge": 0.0,
+      "edges": [],
+      "sim": {
+        "mu_home": 3.1075282423232613,
+        "mu_away": 2.766321265570947,
+        "home_elo_adj": 1580.2744029239918,
+        "away_elo_adj": 1541.547304746262,
+        "home_win_pct": 50.1,
+        "away_win_pct": 49.9,
+        "home_win_2plus_pct": 34.0,
+        "away_win_2plus_pct": 24.4,
+        "exp_home_goals": 3.1752,
+        "exp_away_goals": 2.8039,
+        "median_home_goals": 3,
+        "median_away_goals": 3,
+        "mode_home_goals": 3,
+        "mode_away_goals": 1,
+        "most_likely_total": 4,
+        "mode_pair": [
+          3,
+          1
+        ],
+        "display_pair": [
+          3,
+          1
+        ],
+        "sims": 10000,
+        "exp_home_shots": 28.437458193979932,
+        "exp_away_shots": 28.60267558528428,
+        "totals_distribution": {
+          "0": 32,
+          "1": 221,
+          "2": 549,
+          "3": 841,
+          "4": 1475,
+          "5": 1433,
+          "6": 1622,
+          "7": 1157,
+          "8": 1038,
+          "9": 625,
+          "10": 486,
+          "11": 240,
+          "12": 150,
+          "13": 63,
+          "14": 40,
+          "15": 17,
+          "16": 6,
+          "17": 1,
+          "18": 1,
+          "19": 1,
+          "20": 2
+        },
+        "regulation_games_pct": 84.0,
+        "reg_home_win_pct": 47.8,
+        "reg_away_win_pct": 36.2,
+        "ot_games_pct": 9.6,
+        "so_games_pct": 6.4,
+        "confidence": 0.795,
+        "home_goalie": "J. Wallstedt",
+        "away_goalie": "M. Blackwood",
+        "breakdown": {
+          "HOME": {
+            "Base xGF": 2.57,
+            "xGA adjustment": 0.769,
+            "Special teams (PP/PK)": 0.0,
+            "Goalie adj (mult-1)": -0.0444,
+            "Recent form adj": 0.0047,
+            "Lineup delta": 0.0,
+            "Momentum adj (mult-1)": 0.0043,
+            "Rest/Travel adj (mult-1)": 0.0,
+            "Score-effects adj (mult-1)": 0.0,
+            "Final mu": 3.108
+          },
+          "AWAY": {
+            "Base xGF": 2.63,
+            "xGA adjustment": 0.773,
+            "Special teams (PP/PK)": 0.0,
+            "Goalie adj (mult-1)": -0.1,
+            "Recent form adj": 0.0,
+            "Lineup delta": 0.0,
+            "Momentum adj (mult-1)": 0.0026,
+            "Rest/Travel adj (mult-1)": 0.0,
+            "Score-effects adj (mult-1)": 0.0,
+            "Final mu": 2.766
+          }
+        },
+        "home_injuries": {
+          "offense_impact": -0.15748031496062992,
+          "defense_impact": 0.06263600000000001,
+          "n_injuries": 2,
+          "players": [
+            {
+              "name": "Quinn Hughes",
+              "points": 34,
+              "gp": 24,
+              "team_points": 254.0,
+              "contribution_pct": 0.13385826771653545,
+              "impact_pct": -0.13385826771653545,
+              "defensive_score": 1.315,
+              "defensive_percentile": 90.7,
+              "position": "D",
+              "status": "ir"
+            },
+            {
+              "name": "Olli Maatta",
+              "points": 6,
+              "gp": 18,
+              "team_points": 254.0,
+              "contribution_pct": 0.023622047244094488,
+              "impact_pct": -0.023622047244094488,
+              "defensive_score": -0.693,
+              "defensive_percentile": 26.8,
+              "position": "D",
+              "status": "ir"
+            }
+          ],
+          "top_defensive_injuries": [
+            {
+              "name": "Quinn Hughes",
+              "position": "D",
+              "defensive_score": 1.315,
+              "defensive_percentile": 90.7,
+              "delta_xg_pct": 0.11,
+              "onice_xga60": 2.324,
+              "blocks60": 1.78,
+              "icetime_hours": 9.0,
+              "status": "ir"
+            }
+          ]
+        },
+        "away_injuries": {
+          "offense_impact": -0.1394422310756972,
+          "defense_impact": 0.0,
+          "n_injuries": 3,
+          "players": [
+            {
+              "name": "Nathan MacKinnon",
+              "points": 30,
+              "gp": 20,
+              "team_points": 251.0,
+              "contribution_pct": 0.11952191235059761,
+              "impact_pct": -0.11952191235059761,
+              "defensive_score": 0.0,
+              "defensive_percentile": 50.0,
+              "position": "C",
+              "status": "out"
+            },
+            {
+              "name": "Josh Manson",
+              "points": 4,
+              "gp": 13,
+              "team_points": 251.0,
+              "contribution_pct": 0.01593625498007968,
+              "impact_pct": -0.01593625498007968,
+              "defensive_score": 0.0,
+              "defensive_percentile": 50.0,
+              "position": "D",
+              "status": "ir"
+            },
+            {
+              "name": "Gavin Brindley",
+              "points": 1,
+              "gp": 7,
+              "team_points": 251.0,
+              "contribution_pct": 0.00398406374501992,
+              "impact_pct": -0.00398406374501992,
+              "defensive_score": 0.0,
+              "defensive_percentile": 50.0,
+              "position": "C",
+              "status": "dtd"
+            }
+          ],
+          "top_defensive_injuries": []
+        }
+      }
+    },
+    {
+      "home": "ANA",
+      "away": "LAK",
+      "home_name": "Ducks",
+      "away_name": "Kings",
+      "start_time": "2026-11-27T21:00:00Z",
+      "best_edge": 0.0,
+      "edges": [],
+      "sim": {
+        "mu_home": 2.297828630294613,
+        "mu_away": 3.044732935057685,
+        "home_elo_adj": 1482.6061369487934,
+        "away_elo_adj": 1468.6927768492528,
+        "home_win_pct": 42.1,
+        "away_win_pct": 57.9,
+        "home_win_2plus_pct": 20.2,
+        "away_win_2plus_pct": 39.4,
+        "exp_home_goals": 2.336,
+        "exp_away_goals": 3.1087,
+        "median_home_goals": 2,
+        "median_away_goals": 3,
+        "mode_home_goals": 1,
+        "mode_away_goals": 3,
+        "most_likely_total": 4,
+        "mode_pair": [
+          1,
+          3
+        ],
+        "display_pair": [
+          1,
+          3
+        ],
+        "sims": 10000,
+        "exp_home_shots": 26.78690909090909,
+        "exp_away_shots": 26.699636363636365,
+        "totals_distribution": {
+          "0": 100,
+          "1": 426,
+          "2": 894,
+          "3": 1149,
+          "4": 1580,
+          "5": 1301,
+          "6": 1412,
+          "7": 933,
+          "8": 805,
+          "9": 563,
+          "10": 372,
+          "11": 177,
+          "12": 136,
+          "13": 70,
+          "14": 37,
+          "15": 21,
+          "16": 12,
+          "17": 5,
+          "18": 4,
+          "19": 1,
+          "20": 1,
+          "21": 1
+        },
+        "regulation_games_pct": 84.7,
+        "reg_home_win_pct": 31.3,
+        "reg_away_win_pct": 53.5,
+        "ot_games_pct": 9.2,
+        "so_games_pct": 6.1,
+        "confidence": 0.779,
+        "home_goalie": "L. Brossoit",
+        "away_goalie": "A. Forsberg",
+        "breakdown": {
+          "HOME": {
+            "Base xGF": 2.421,
+            "xGA adjustment": 0.768,
+            "Special teams (PP/PK)": 0.0,
+            "Goalie adj (mult-1)": -0.0195,
+            "Recent form adj": 0.0,
+            "Lineup delta": 0.0,
+            "Momentum adj (mult-1)": -0.0011,
+            "Rest/Travel adj (mult-1)": 0.0,
+            "Score-effects adj (mult-1)": 0.0,
+            "Final mu": 2.298
+          },
+          "AWAY": {
+            "Base xGF": 2.294,
+            "xGA adjustment": 0.833,
+            "Special teams (PP/PK)": 0.0,
+            "Goalie adj (mult-1)": 0.0063,
+            "Recent form adj": 0.0,
+            "Lineup delta": 0.0,
+            "Momentum adj (mult-1)": -0.0011,
+            "Rest/Travel adj (mult-1)": 0.0,
+            "Score-effects adj (mult-1)": 0.0,
+            "Final mu": 3.045
+          }
+        },
+        "home_injuries": {
+          "offense_impact": -0.25925925925925924,
+          "defense_impact": 0.0,
+          "n_injuries": 4,
+          "players": [
+            {
+              "name": "Leo Carlsson",
+              "points": 29,
+              "gp": 24,
+              "team_points": 243.0,
+              "contribution_pct": 0.11934156378600823,
+              "impact_pct": -0.11934156378600823,
+              "defensive_score": 0.0,
+              "defensive_percentile": 50.0,
+              "position": "C",
+              "status": "dtd"
+            },
+            {
+              "name": "Beckett Sennecke",
+              "points": 26,
+              "gp": 22,
+              "team_points": 243.0,
+              "contribution_pct": 0.10699588477366255,
+              "impact_pct": -0.10699588477366255,
+              "defensive_score": 0.0,
+              "defensive_percentile": 50.0,
+              "position": "RW",
+              "status": "ir"
+            },
+            {
+              "name": "A.J. Greer",
+              "points": 6,
+              "gp": 13,
+              "team_points": 243.0,
+              "contribution_pct": 0.024691358024691357,
+              "impact_pct": -0.024691358024691357,
+              "defensive_score": 0.0,
+              "defensive_percentile": 50.0,
+              "position": "LW",
+              "status": "ir"
+            },
+            {
+              "name": "Ryan Poehling",
+              "points": 2,
+              "gp": 5,
+              "team_points": 243.0,
+              "contribution_pct": 0.00823045267489712,
+              "impact_pct": -0.00823045267489712,
+              "defensive_score": 0.0,
+              "defensive_percentile": 50.0,
+              "position": "C",
+              "status": "ir"
+            }
+          ],
+          "top_defensive_injuries": []
+        },
+        "away_injuries": {
+          "offense_impact": -0.05806451612903226,
+          "defense_impact": 0.0257125,
+          "n_injuries": 1,
+          "players": [
+            {
+              "name": "Erik Gustafsson",
+              "points": 9,
+              "gp": 16,
+              "team_points": 155.0,
+              "contribution_pct": 0.05806451612903226,
+              "impact_pct": -0.05806451612903226,
+              "defensive_score": 1.057,
+              "defensive_percentile": 86.6,
+              "position": "D",
+              "status": "ir"
+            }
+          ],
+          "top_defensive_injuries": [
+            {
+              "name": "Erik Gustafsson",
+              "position": "D",
+              "defensive_score": 1.057,
+              "defensive_percentile": 86.6,
+              "delta_xg_pct": 0.06,
+              "onice_xga60": 2.222,
+              "blocks60": 3.1,
+              "icetime_hours": 4.2,
+              "status": "ir"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "home": "SJS",
+      "away": "VGK",
+      "home_name": "Sharks",
+      "away_name": "Golden Knights",
+      "start_time": "2026-11-27T21:00:00Z",
+      "best_edge": 0.0,
+      "edges": [],
+      "sim": {
+        "mu_home": 2.3555562397256278,
+        "mu_away": 3.367177578767823,
+        "home_elo_adj": 1481.395059462183,
+        "away_elo_adj": 1541.7927282241385,
+        "home_win_pct": 34.7,
+        "away_win_pct": 65.3,
+        "home_win_2plus_pct": 16.9,
+        "away_win_2plus_pct": 42.0,
+        "exp_home_goals": 2.4202,
+        "exp_away_goals": 3.3922,
+        "median_home_goals": 2,
+        "median_away_goals": 3,
+        "mode_home_goals": 2,
+        "mode_away_goals": 4,
+        "most_likely_total": 6,
+        "mode_pair": [
+          2,
+          4
+        ],
+        "display_pair": [
+          2,
+          4
+        ],
+        "sims": 10000,
+        "exp_home_shots": 27.323076923076925,
+        "exp_away_shots": 30.446153846153848,
+        "totals_distribution": {
+          "0": 40,
+          "1": 228,
+          "2": 584,
+          "3": 960,
+          "4": 1577,
+          "5": 1420,
+          "6": 1619,
+          "7": 1157,
+          "8": 951,
+          "9": 567,
+          "10": 433,
+          "11": 215,
+          "12": 140,
+          "13": 46,
+          "14": 28,
+          "15": 17,
+          "16": 12,
+          "17": 4,
+          "18": 2
+        },
+        "regulation_games_pct": 84.0,
+        "reg_home_win_pct": 27.6,
+        "reg_away_win_pct": 56.3,
+        "ot_games_pct": 9.6,
+        "so_games_pct": 6.4,
+        "confidence": 0.798,
+        "home_goalie": "A. Nedeljkovic",
+        "away_goalie": "A. Hill",
+        "breakdown": {
+          "HOME": {
+            "Base xGF": 2.279,
+            "xGA adjustment": 0.782,
+            "Special teams (PP/PK)": 0.0,
+            "Goalie adj (mult-1)": -0.0057,
+            "Recent form adj": -0.0089,
+            "Lineup delta": 0.0,
+            "Momentum adj (mult-1)": -0.0017,
+            "Rest/Travel adj (mult-1)": 0.0,
+            "Score-effects adj (mult-1)": 0.0,
+            "Final mu": 2.356
+          },
+          "AWAY": {
+            "Base xGF": 2.722,
+            "xGA adjustment": 1.023,
+            "Special teams (PP/PK)": 0.0,
+            "Goalie adj (mult-1)": -0.1,
+            "Recent form adj": -0.0102,
+            "Lineup delta": 0.0,
+            "Momentum adj (mult-1)": 0.0023,
+            "Rest/Travel adj (mult-1)": 0.0,
+            "Score-effects adj (mult-1)": 0.0,
+            "Final mu": 3.367
+          }
+        },
+        "home_injuries": {
+          "offense_impact": -0.12432432432432433,
+          "defense_impact": 0.016507499999999998,
+          "n_injuries": 3,
+          "players": [
+            {
+              "name": "Jacob Trouba",
+              "points": 11,
+              "gp": 25,
+              "team_points": 185.0,
+              "contribution_pct": 0.05945945945945946,
+              "impact_pct": -0.05945945945945946,
+              "defensive_score": -0.07,
+              "defensive_percentile": 50.8,
+              "position": "D",
+              "status": "dtd"
+            },
+            {
+              "name": "Kiefer Sherwood",
+              "points": 8,
+              "gp": 23,
+              "team_points": 185.0,
+              "contribution_pct": 0.043243243243243246,
+              "impact_pct": -0.043243243243243246,
+              "defensive_score": 0.0,
+              "defensive_percentile": 50.0,
+              "position": "LW",
+              "status": "ir"
+            },
+            {
+              "name": "Igor Chernyshov",
+              "points": 4,
+              "gp": 11,
+              "team_points": 185.0,
+              "contribution_pct": 0.021621621621621623,
+              "impact_pct": -0.021621621621621623,
+              "defensive_score": 0.0,
+              "defensive_percentile": 50.0,
+              "position": "LW",
+              "status": "ir"
+            }
+          ],
+          "top_defensive_injuries": []
+        },
+        "away_injuries": {
+          "offense_impact": -0.02553191489361702,
+          "defense_impact": 0.0041035,
+          "n_injuries": 1,
+          "players": [
+            {
+              "name": "Noah Hanifin",
+              "points": 6,
+              "gp": 19,
+              "team_points": 235.0,
+              "contribution_pct": 0.02553191489361702,
+              "impact_pct": -0.02553191489361702,
+              "defensive_score": -0.717,
+              "defensive_percentile": 26.3,
+              "position": "D",
+              "status": "out"
+            }
+          ],
+          "top_defensive_injuries": []
+        }
+      }
+    },
+    {
+      "home": "CHI",
+      "away": "NYR",
+      "home_name": "Blackhawks",
+      "away_name": "Rangers",
+      "start_time": "2026-11-27T22:30:00Z",
+      "best_edge": 0.0,
+      "edges": [],
+      "sim": {
+        "mu_home": 2.3142354522110566,
+        "mu_away": 2.956857664367991,
+        "home_elo_adj": 1447.9827544477428,
+        "away_elo_adj": 1539.8351667917443,
+        "home_win_pct": 35.1,
+        "away_win_pct": 64.9,
+        "home_win_2plus_pct": 19.5,
+        "away_win_2plus_pct": 37.4,
+        "exp_home_goals": 2.3433,
+        "exp_away_goals": 3.008,
+        "median_home_goals": 2,
+        "median_away_goals": 3,
+        "mode_home_goals": 1,
+        "mode_away_goals": 3,
+        "most_likely_total": 4,
+        "mode_pair": [
+          1,
+          3
+        ],
+        "display_pair": [
+          1,
+          3
+        ],
+        "sims": 10000,
+        "exp_home_shots": 25.241666666666667,
+        "exp_away_shots": 27.983333333333334,
+        "totals_distribution": {
+          "0": 67,
+          "1": 365,
+          "2": 783,
+          "3": 1042,
+          "4": 1746,
+          "5": 1472,
+          "6": 1605,
+          "7": 1031,
+          "8": 870,
+          "9": 431,
+          "10": 296,
+          "11": 143,
+          "12": 87,
+          "13": 34,
+          "14": 19,
+          "15": 3,
+          "16": 6
+        },
+        "regulation_games_pct": 83.0,
+        "reg_home_win_pct": 30.9,
+        "reg_away_win_pct": 52.0,
+        "ot_games_pct": 10.2,
+        "so_games_pct": 6.8,
+        "confidence": 0.807,
+        "home_goalie": "S. Knight",
+        "away_goalie": "J. Korpisalo",
+        "breakdown": {
+          "HOME": {
+            "Base xGF": 2.079,
+            "xGA adjustment": 0.767,
+            "Special teams (PP/PK)": 0.0,
+            "Goalie adj (mult-1)": -0.0441,
+            "Recent form adj": 0.0,
+            "Lineup delta": 0.0,
+            "Momentum adj (mult-1)": -0.0016,
+            "Rest/Travel adj (mult-1)": 0.0,
+            "Score-effects adj (mult-1)": 0.0,
+            "Final mu": 2.314
+          },
+          "AWAY": {
+            "Base xGF": 2.296,
+            "xGA adjustment": 0.906,
+            "Special teams (PP/PK)": 0.0,
+            "Goalie adj (mult-1)": -0.0008,
+            "Recent form adj": 0.0,
+            "Lineup delta": 0.0,
+            "Momentum adj (mult-1)": 0.0007,
+            "Rest/Travel adj (mult-1)": 0.0,
+            "Score-effects adj (mult-1)": 0.0,
+            "Final mu": 2.957
+          }
+        },
+        "home_injuries": {
+          "offense_impact": -0.23255813953488372,
+          "defense_impact": -0.009121279999999999,
+          "n_injuries": 4,
+          "players": [
+            {
+              "name": "Connor Bedard",
+              "points": 18,
+              "gp": 15,
+              "team_points": 172.0,
+              "contribution_pct": 0.10465116279069768,
+              "impact_pct": -0.10465116279069768,
+              "defensive_score": 0.0,
+              "defensive_percentile": 50.0,
+              "position": "C",
+              "status": "out"
+            },
+            {
+              "name": "Tyler Bertuzzi",
+              "points": 14,
+              "gp": 24,
+              "team_points": 172.0,
+              "contribution_pct": 0.08139534883720931,
+              "impact_pct": -0.08139534883720931,
+              "defensive_score": 0.0,
+              "defensive_percentile": 50.0,
+              "position": "LW",
+              "status": "dtd"
+            },
+            {
+              "name": "Wyatt Kaiser",
+              "points": 7,
+              "gp": 23,
+              "team_points": 172.0,
+              "contribution_pct": 0.040697674418604654,
+              "impact_pct": -0.040697674418604654,
+              "defensive_score": -1.509,
+              "defensive_percentile": 5.7,
+              "position": "D",
+              "status": "out"
+            },
+            {
+              "name": "Bowen Byram",
+              "points": 1,
+              "gp": 6,
+              "team_points": 172.0,
+              "contribution_pct": 0.005813953488372093,
+              "impact_pct": -0.005813953488372093,
+              "defensive_score": 0.0,
+              "defensive_percentile": 50.0,
+              "position": "D",
+              "status": "ir"
+            }
+          ],
+          "top_defensive_injuries": []
+        },
+        "away_injuries": {
+          "offense_impact": -0.12169312169312169,
+          "defense_impact": -0.0020875000000000004,
+          "n_injuries": 3,
+          "players": [
+            {
+              "name": "Pavel Dorofeyev",
+              "points": 12,
+              "gp": 21,
+              "team_points": 189.0,
+              "contribution_pct": 0.06349206349206349,
+              "impact_pct": -0.06349206349206349,
+              "defensive_score": 0.0,
+              "defensive_percentile": 50.0,
+              "position": "RW",
+              "status": "ir"
+            },
+            {
+              "name": "Oliver Bjorkstrand",
+              "points": 11,
+              "gp": 22,
+              "team_points": 189.0,
+              "contribution_pct": 0.0582010582010582,
+              "impact_pct": -0.0582010582010582,
+              "defensive_score": 0.0,
+              "defensive_percentile": 50.0,
+              "position": "RW",
+              "status": "out"
+            },
+            {
+              "name": "Alberts Smits",
+              "points": 0,
+              "gp": 17,
+              "team_points": 189.0,
+              "contribution_pct": 0.0,
+              "impact_pct": -0.0,
+              "defensive_score": -1.167,
+              "defensive_percentile": 11.9,
+              "position": "D",
+              "status": "ir"
+            }
+          ],
+          "top_defensive_injuries": []
+        }
+      }
+    },
+    {
+      "home": "NYI",
+      "away": "WPG",
+      "home_name": "Islanders",
+      "away_name": "Jets",
+      "start_time": "2026-11-28T00:30:00Z",
+      "best_edge": 0.0,
+      "edges": [],
+      "sim": {
+        "mu_home": 3.0049936466838387,
+        "mu_away": 2.8021254686096517,
+        "home_elo_adj": 1495.1351753853512,
+        "away_elo_adj": 1522.461882831398,
+        "home_win_pct": 47.2,
+        "away_win_pct": 52.8,
+        "home_win_2plus_pct": 32.4,
+        "away_win_2plus_pct": 26.2,
+        "exp_home_goals": 3.0654,
+        "exp_away_goals": 2.841,
+        "median_home_goals": 3,
+        "median_away_goals": 3,
+        "mode_home_goals": 4,
+        "mode_away_goals": 2,
+        "most_likely_total": 6,
+        "mode_pair": [
+          4,
+          2
+        ],
+        "display_pair": [
+          4,
+          2
+        ],
+        "sims": 10000,
+        "exp_home_shots": 27.278846153846153,
+        "exp_away_shots": 27.54871794871795,
+        "totals_distribution": {
+          "0": 46,
+          "1": 213,
+          "2": 570,
+          "3": 863,
+          "4": 1517,
+          "5": 1408,
+          "6": 1682,
+          "7": 1137,
+          "8": 1033,
+          "9": 616,
+          "10": 431,
+          "11": 208,
+          "12": 138,
+          "13": 71,
+          "14": 41,
+          "15": 15,
+          "16": 10,
+          "19": 1
+        },
+        "regulation_games_pct": 83.2,
+        "reg_home_win_pct": 45.1,
+        "reg_away_win_pct": 38.1,
+        "ot_games_pct": 10.1,
+        "so_games_pct": 6.7,
+        "confidence": 0.796,
+        "home_goalie": "I. Sorokin",
+        "away_goalie": "N. Daws",
+        "breakdown": {
+          "HOME": {
+            "Base xGF": 2.422,
+            "xGA adjustment": 0.857,
+            "Special teams (PP/PK)": 0.0,
+            "Goalie adj (mult-1)": -0.0136,
+            "Recent form adj": 0.0,
+            "Lineup delta": 0.0,
+            "Momentum adj (mult-1)": 0.0018,
+            "Rest/Travel adj (mult-1)": 0.0,
+            "Score-effects adj (mult-1)": 0.0,
+            "Final mu": 3.005
+          },
+          "AWAY": {
+            "Base xGF": 2.399,
+            "xGA adjustment": 0.874,
+            "Special teams (PP/PK)": 0.0,
+            "Goalie adj (mult-1)": -0.0792,
+            "Recent form adj": 0.0017,
+            "Lineup delta": 0.0,
+            "Momentum adj (mult-1)": 0.0044,
+            "Rest/Travel adj (mult-1)": 0.0,
+            "Score-effects adj (mult-1)": 0.0,
+            "Final mu": 2.802
+          }
+        },
+        "home_injuries": {
+          "offense_impact": -0.06666666666666667,
+          "defense_impact": 0.0037380000000000004,
+          "n_injuries": 3,
+          "players": [
+            {
+              "name": "Kyle Palmieri",
+              "points": 9,
+              "gp": 23,
+              "team_points": 195.0,
+              "contribution_pct": 0.046153846153846156,
+              "impact_pct": -0.046153846153846156,
+              "defensive_score": 0.0,
+              "defensive_percentile": 50.0,
+              "position": "C",
+              "status": "dtd"
+            },
+            {
+              "name": "Ryan Pulock",
+              "points": 4,
+              "gp": 17,
+              "team_points": 195.0,
+              "contribution_pct": 0.020512820512820513,
+              "impact_pct": -0.020512820512820513,
+              "defensive_score": -0.733,
+              "defensive_percentile": 23.7,
+              "position": "D",
+              "status": "out"
+            },
+            {
+              "name": "Alexander Romanov",
+              "points": 0,
+              "gp": 3,
+              "team_points": 195.0,
+              "contribution_pct": 0.0,
+              "impact_pct": -0.0,
+              "defensive_score": 0.0,
+              "defensive_percentile": 50.0,
+              "position": "D",
+              "status": "ir"
+            }
+          ],
+          "top_defensive_injuries": []
+        },
+        "away_injuries": {
+          "offense_impact": -0.04090909090909091,
+          "defense_impact": 0.006621999999999999,
+          "n_injuries": 2,
+          "players": [
+            {
+              "name": "Dylan DeMelo",
+              "points": 8,
+              "gp": 20,
+              "team_points": 220.0,
+              "contribution_pct": 0.03636363636363636,
+              "impact_pct": -0.03636363636363636,
+              "defensive_score": -0.527,
+              "defensive_percentile": 29.9,
+              "position": "D",
+              "status": "ir"
+            },
+            {
+              "name": "Vladislav Namestnikov",
+              "points": 1,
+              "gp": 6,
+              "team_points": 220.0,
+              "contribution_pct": 0.004545454545454545,
+              "impact_pct": -0.004545454545454545,
+              "defensive_score": 0.0,
+              "defensive_percentile": 50.0,
+              "position": "C",
+              "status": "ir"
+            }
+          ],
+          "top_defensive_injuries": []
+        }
+      }
+    },
+    {
+      "home": "BUF",
+      "away": "PIT",
+      "home_name": "Sabres",
+      "away_name": "Penguins",
+      "start_time": "2026-11-28T01:00:00Z",
+      "best_edge": 0.0,
+      "edges": [],
+      "sim": {
+        "mu_home": 3.1314825202136647,
+        "mu_away": 3.1562291644600697,
+        "home_elo_adj": 1485.9538262413662,
+        "away_elo_adj": 1458.5422493344988,
+        "home_win_pct": 47.5,
+        "away_win_pct": 52.5,
+        "home_win_2plus_pct": 30.2,
+        "away_win_2plus_pct": 31.6,
+        "exp_home_goals": 3.2036,
+        "exp_away_goals": 3.2205,
+        "median_home_goals": 3,
+        "median_away_goals": 3,
+        "mode_home_goals": 2,
+        "mode_away_goals": 4,
+        "most_likely_total": 6,
+        "mode_pair": [
+          2,
+          4
+        ],
+        "display_pair": [
+          2,
+          4
+        ],
+        "sims": 10000,
+        "exp_home_shots": 27.6,
+        "exp_away_shots": 28.032,
+        "totals_distribution": {
+          "0": 37,
+          "1": 175,
+          "2": 497,
+          "3": 789,
+          "4": 1271,
+          "5": 1223,
+          "6": 1562,
+          "7": 1185,
+          "8": 1080,
+          "9": 706,
+          "10": 598,
+          "11": 332,
+          "12": 244,
+          "13": 126,
+          "14": 81,
+          "15": 40,
+          "16": 31,
+          "17": 11,
+          "18": 5,
+          "19": 2,
+          "20": 3,
+          "21": 2
+        },
+        "regulation_games_pct": 85.3,
+        "reg_home_win_pct": 41.6,
+        "reg_away_win_pct": 43.8,
+        "ot_games_pct": 8.8,
+        "so_games_pct": 5.9,
+        "confidence": 0.773,
+        "home_goalie": "U. Luukkonen",
+        "away_goalie": "A. Silovs",
+        "breakdown": {
+          "HOME": {
+            "Base xGF": 2.403,
+            "xGA adjustment": 0.822,
+            "Special teams (PP/PK)": 0.0,
+            "Goalie adj (mult-1)": 0.0329,
+            "Recent form adj": 0.0,
+            "Lineup delta": 0.0,
+            "Momentum adj (mult-1)": -0.0002,
+            "Rest/Travel adj (mult-1)": 0.0,
+            "Score-effects adj (mult-1)": 0.0,
+            "Final mu": 3.131
+          },
+          "AWAY": {
+            "Base xGF": 2.524,
+            "xGA adjustment": 0.848,
+            "Special teams (PP/PK)": 0.0,
+            "Goalie adj (mult-1)": 0.0028,
+            "Recent form adj": 0.0,
+            "Lineup delta": 0.0,
+            "Momentum adj (mult-1)": -0.004,
+            "Rest/Travel adj (mult-1)": 0.0,
+            "Score-effects adj (mult-1)": 0.0,
+            "Final mu": 3.156
+          }
+        },
+        "home_injuries": {
+          "offense_impact": -0.07476635514018691,
+          "defense_impact": 0.0235144,
+          "n_injuries": 4,
+          "players": [
+            {
+              "name": "Mattias Samuelsson",
+              "points": 13,
+              "gp": 25,
+              "team_points": 214.0,
+              "contribution_pct": 0.06074766355140187,
+              "impact_pct": -0.06074766355140187,
+              "defensive_score": 0.105,
+              "defensive_percentile": 57.2,
+              "position": "D",
+              "status": "dtd"
+            },
+            {
+              "name": "Konsta Helenius",
+              "points": 3,
+              "gp": 11,
+              "team_points": 214.0,
+              "contribution_pct": 0.014018691588785047,
+              "impact_pct": -0.014018691588785047,
+              "defensive_score": 0.0,
+              "defensive_percentile": 50.0,
+              "position": "C",
+              "status": "ir"
+            },
+            {
+              "name": "Matt Grzelcyk",
+              "points": 0,
+              "gp": 1,
+              "team_points": 214.0,
+              "contribution_pct": 0.0,
+              "impact_pct": -0.0,
+              "defensive_score": 0.0,
+              "defensive_percentile": 50.0,
+              "position": "D",
+              "status": "ir"
+            },
+            {
+              "name": "Justin Danforth",
+              "points": 0,
+              "gp": 6,
+              "team_points": 214.0,
+              "contribution_pct": 0.0,
+              "impact_pct": -0.0,
+              "defensive_score": 0.0,
+              "defensive_percentile": 50.0,
+              "position": "RW",
+              "status": "ir"
+            }
+          ],
+          "top_defensive_injuries": []
+        },
+        "away_injuries": {
+          "offense_impact": -0.031746031746031744,
+          "defense_impact": 0.0,
+          "n_injuries": 2,
+          "players": [
+            {
+              "name": "Bryan Rust",
+              "points": 5,
+              "gp": 7,
+              "team_points": 189.0,
+              "contribution_pct": 0.026455026455026454,
+              "impact_pct": -0.026455026455026454,
+              "defensive_score": 0.0,
+              "defensive_percentile": 50.0,
+              "position": "RW",
+              "status": "ir"
+            },
+            {
+              "name": "Elmer Soderblom",
+              "points": 1,
+              "gp": 6,
+              "team_points": 189.0,
+              "contribution_pct": 0.005291005291005291,
+              "impact_pct": -0.005291005291005291,
+              "defensive_score": 0.0,
+              "defensive_percentile": 50.0,
+              "position": "LW",
+              "status": "ir"
+            }
+          ],
+          "top_defensive_injuries": []
+        }
+      }
+    },
+    {
+      "home": "EDM",
+      "away": "SEA",
+      "home_name": "Oilers",
+      "away_name": "Kraken",
+      "start_time": "2026-11-28T01:00:00Z",
+      "best_edge": 0.0,
+      "edges": [],
+      "sim": {
+        "mu_home": 3.5976798120329603,
+        "mu_away": 2.5685204675055315,
+        "home_elo_adj": 1579.0665710469698,
+        "away_elo_adj": 1498.0571408674916,
+        "home_win_pct": 58.3,
+        "away_win_pct": 41.7,
+        "home_win_2plus_pct": 44.2,
+        "away_win_2plus_pct": 17.8,
+        "exp_home_goals": 3.6611,
+        "exp_away_goals": 2.6439,
+        "median_home_goals": 3,
+        "median_away_goals": 2,
+        "mode_home_goals": 4,
+        "mode_away_goals": 2,
+        "most_likely_total": 6,
+        "mode_pair": [
+          4,
+          2
+        ],
+        "display_pair": [
+          4,
+          2
+        ],
+        "sims": 10000,
+        "exp_home_shots": 27.18095238095238,
+        "exp_away_shots": 26.332275132275136,
+        "totals_distribution": {
+          "0": 35,
+          "1": 156,
+          "2": 475,
+          "3": 751,
+          "4": 1328,
+          "5": 1321,
+          "6": 1601,
+          "7": 1201,
+          "8": 1151,
+          "9": 732,
+          "10": 555,
+          "11": 296,
+          "12": 202,
+          "13": 90,
+          "14": 63,
+          "15": 22,
+          "16": 10,
+          "17": 6,
+          "18": 4,
+          "19": 1
+        },
+        "regulation_games_pct": 85.5,
+        "reg_home_win_pct": 57.7,
+        "reg_away_win_pct": 27.7,
+        "ot_games_pct": 8.7,
+        "so_games_pct": 5.8,
+        "confidence": 0.789,
+        "home_goalie": "T. Jarry",
+        "away_goalie": "J. Daccord",
+        "breakdown": {
+          "HOME": {
+            "Base xGF": 2.408,
+            "xGA adjustment": 0.885,
+            "Special teams (PP/PK)": 0.0,
+            "Goalie adj (mult-1)": 0.0277,
+            "Recent form adj": -0.0443,
+            "Lineup delta": 0.0,
+            "Momentum adj (mult-1)": 0.0016,
+            "Rest/Travel adj (mult-1)": 0.0,
+            "Score-effects adj (mult-1)": 0.0,
+            "Final mu": 3.598
+          },
+          "AWAY": {
+            "Base xGF": 2.271,
+            "xGA adjustment": 0.801,
+            "Special teams (PP/PK)": 0.0,
+            "Goalie adj (mult-1)": 0.0026,
+            "Recent form adj": 0.0,
+            "Lineup delta": 0.0,
+            "Momentum adj (mult-1)": -0.0019,
+            "Rest/Travel adj (mult-1)": 0.0,
+            "Score-effects adj (mult-1)": 0.0,
+            "Final mu": 2.569
+          }
+        },
+        "home_injuries": {
+          "offense_impact": -0.021897810218978103,
+          "defense_impact": 0.0,
+          "n_injuries": 1,
+          "players": [
+            {
+              "name": "Zach Hyman",
+              "points": 6,
+              "gp": 14,
+              "team_points": 274.0,
+              "contribution_pct": 0.021897810218978103,
+              "impact_pct": -0.021897810218978103,
+              "defensive_score": 0.0,
+              "defensive_percentile": 50.0,
+              "position": "LW",
+              "status": "dtd"
+            }
+          ],
+          "top_defensive_injuries": []
+        },
+        "away_injuries": {
+          "offense_impact": -0.044444444444444446,
+          "defense_impact": 0.0,
+          "n_injuries": 2,
+          "players": [
+            {
+              "name": "Jared McCann",
+              "points": 8,
+              "gp": 11,
+              "team_points": 180.0,
+              "contribution_pct": 0.044444444444444446,
+              "impact_pct": -0.044444444444444446,
+              "defensive_score": 0.0,
+              "defensive_percentile": 50.0,
+              "position": "LW",
+              "status": "ir"
+            },
+            {
+              "name": "Curtis Douglas",
+              "points": 0,
+              "gp": 4,
+              "team_points": 180.0,
+              "contribution_pct": 0.0,
+              "impact_pct": -0.0,
+              "defensive_score": 0.0,
+              "defensive_percentile": 50.0,
+              "position": "C",
+              "status": "ir"
+            }
+          ],
+          "top_defensive_injuries": []
+        }
+      }
+    }
+  ],
+  "props": []
+}
