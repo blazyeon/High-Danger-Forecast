@@ -5636,7 +5636,7 @@
       "pim": 15,
       "toi_pg": 16.51875,
       "ppg_raw": 991.125,
-      "faceoff_pct": 56.321799999999996,
+      "faceoff_pct": 55.938700000000004,
       "power_play_goals": 2,
       "short_handed_goals": 0,
       "game_winning_goals": 2,
@@ -10928,7 +10928,7 @@
       "pim": 8,
       "toi_pg": 16.976388333333333,
       "ppg_raw": 1018.5833,
-      "faceoff_pct": 50.4348,
+      "faceoff_pct": 50.72459999999999,
       "power_play_goals": 0,
       "short_handed_goals": 0,
       "game_winning_goals": 0,
@@ -18679,12 +18679,12 @@
       "goals": 13,
       "assists": 15,
       "points": 28,
-      "shots": 37,
+      "shots": 38,
       "gpg": 0.5652173913043478,
       "apg": 0.6521739130434783,
       "ppg": 1.2173913043478262,
-      "sogpg": 1.608695652173913,
-      "sh_pct": 0.35135135135135137,
+      "sogpg": 1.6521739130434783,
+      "sh_pct": 0.34210526315789475,
       "plus_minus": -3,
       "pim": 8,
       "toi_pg": 18.976086666666667,
@@ -18696,7 +18696,7 @@
       "xgf_pg": 0.29014155470387204,
       "pbp_goals": 13,
       "pbp_assists": 15,
-      "pbp_shots": 37
+      "pbp_shots": 38
     },
     {
       "name": "Artem Duda",
@@ -21264,5 +21264,5 @@
       "pbp_shots": 20
     }
   ],
-  "updated_at": "2026-11-26T10:50:07Z"
+  "updated_at": "2026-11-27T03:49:43Z"
 }
