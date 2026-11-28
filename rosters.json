@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-27T10:52:46.099362+00:00",
+  "generated_at": "2026-11-28T03:35:42.810721+00:00",
   "teams": {
     "BOS": {
       "skaters": [
@@ -230,6 +230,12 @@
           "id": 8482097,
           "position": "RW",
           "birthDate": "2001-09-19"
+        },
+        {
+          "name": "Conor Sheary",
+          "id": 8477839,
+          "position": "LW",
+          "birthDate": "1992-06-08"
         },
         {
           "name": "Tage Thompson",
@@ -788,18 +794,6 @@
           "id": 8480208,
           "position": "RW",
           "birthDate": "1998-04-27"
-        },
-        {
-          "name": "Sammy Blais",
-          "id": 8478104,
-          "position": "LW",
-          "birthDate": "1996-06-17"
-        },
-        {
-          "name": "Tyler Boucher",
-          "id": 8482674,
-          "position": "RW",
-          "birthDate": "2003-01-16"
         },
         {
           "name": "Andre Burakovsky",
@@ -1594,12 +1588,6 @@
           "birthDate": "2001-03-15"
         },
         {
-          "name": "Lenni Hameenaho",
-          "id": 8484177,
-          "position": "RW",
-          "birthDate": "2004-11-07"
-        },
-        {
           "name": "Nico Hischier",
           "id": 8480002,
           "position": "C",
@@ -1682,6 +1670,12 @@
           "id": 8478399,
           "position": "D",
           "birthDate": "1997-05-06"
+        },
+        {
+          "name": "Anton Silaev",
+          "id": 8484987,
+          "position": "D",
+          "birthDate": "2006-04-11"
         }
       ],
       "goalies": [
@@ -2194,6 +2188,12 @@
           "birthDate": "1998-02-02"
         },
         {
+          "name": "Atley Calvert",
+          "id": 8483833,
+          "position": "C",
+          "birthDate": "2003-09-17"
+        },
+        {
           "name": "Egor Chinakhov",
           "id": 8482475,
           "position": "RW",
@@ -2452,12 +2452,6 @@
           "birthDate": "1999-10-06"
         },
         {
-          "name": "Justin Holl",
-          "id": 8475718,
-          "position": "D",
-          "birthDate": "1992-01-30"
-        },
-        {
           "name": "Cole Hutson",
           "id": 8484873,
           "position": "D",
@@ -2516,6 +2510,12 @@
           "id": 8477479,
           "position": "LW",
           "birthDate": "1995-02-24"
+        },
+        {
+          "name": "Dillon Boucher",
+          "id": 8485554,
+          "position": "LW",
+          "birthDate": "1997-04-16"
         },
         {
           "name": "Ryan Donato",
@@ -2578,6 +2578,12 @@
           "birthDate": "2004-01-14"
         },
         {
+          "name": "Landon Slaggert",
+          "id": 8482172,
+          "position": "LW",
+          "birthDate": "2002-06-25"
+        },
+        {
           "name": "Cole Smith",
           "id": 8482062,
           "position": "RW",
@@ -2588,12 +2594,6 @@
           "id": 8476882,
           "position": "C",
           "birthDate": "1994-09-11"
-        },
-        {
-          "name": "Dominic Toninato",
-          "id": 8476952,
-          "position": "C",
-          "birthDate": "1994-03-09"
         },
         {
           "name": "Bowen Byram",
