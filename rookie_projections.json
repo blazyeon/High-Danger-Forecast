@@ -1,17 +1,6 @@
 {
-  "generated_at": "2026-11-28T03:35:42.815341+00:00",
+  "generated_at": "2026-11-28T10:21:47.502553+00:00",
   "players": {
-    "atleycalvert": {
-      "points_pg": 0.33,
-      "goals_pg": 0.11,
-      "assists_pg": 0.22,
-      "shots_pg": 1.2222,
-      "source_league": "AHL",
-      "source_season": 20262027,
-      "source_games": 20,
-      "name": "Atley Calvert",
-      "team": "PIT"
-    },
     "callerosen": {
       "points_pg": 0.2236,
       "goals_pg": 0.0577,
